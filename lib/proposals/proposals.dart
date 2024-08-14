@@ -354,7 +354,7 @@ class _ProposalsState extends State<Proposals> {
                       height: rSize * 0.02,
                     ),
                     DropdownButtonFormField(
-                      decoration: AppStyles.dropDownInputDecoration(AppWidgets.textFieldLabel('Types')),
+                      decoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('Types')),
                       isExpanded: true,
                       icon: AppWidgets.dropDownIcon(),
                       style: AppStyles.c3C496CW500S18,
@@ -365,7 +365,7 @@ class _ProposalsState extends State<Proposals> {
                       },
                       items: _notifier.typesList
                           .map(
-                            (String item) => DropdownMenuItem<String>(value: item, child: AppWidgets.dropDownHint(item)),
+                            (String item) => DropdownMenuItem<String>(value: item, child: AppWidgets.dropDownHint(context,item)),
                           )
                           .toList(),
                     ),

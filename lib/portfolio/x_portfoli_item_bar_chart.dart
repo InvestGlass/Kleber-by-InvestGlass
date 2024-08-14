@@ -12,6 +12,8 @@ import 'package:provider/provider.dart';
 
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../utils/flutter_flow_theme.dart';
+
 class XPortfoliItemBarChart extends StatefulWidget {
   const XPortfoliItemBarChart({
     super.key,
@@ -103,19 +105,22 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
           const SizedBox(width: 5),
           Text(
             '${point?.x?.toString() ?? ''} : ',
-            style: TextStyle(
-              fontSize: 14,
-              color:
-                  Color(0xFF000000), //FlutterFlowTheme.of(context).primaryText,
+            style: FlutterFlowTheme.of(context).displaySmall.override(
+              fontFamily: 'Roboto',
+              color: FlutterFlowTheme.of(context).primaryText,
+              fontSize: 12.0,
+              letterSpacing: 0.0,
+              fontWeight: FontWeight.w500,
             ),
           ),
           Text(
             amountString,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color:
-                  Color(0xFF000000), //FlutterFlowTheme.of(context).primaryText,
+            style: FlutterFlowTheme.of(context).displaySmall.override(
+              fontFamily: 'Roboto',
+              color: FlutterFlowTheme.of(context).primaryText,
+              fontSize: 12.0,
+              letterSpacing: 0.0,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],
@@ -132,15 +137,29 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
       children: [
         Expanded(
           child: SfCartesianChart(
-            plotAreaBorderWidth: 0,
+            plotAreaBorderWidth: 0,borderColor: Colors.white,
+            backgroundColor: Colors.transparent,
+            borderWidth: 0.5,
             primaryXAxis: CategoryAxis(
               majorGridLines: const MajorGridLines(width: 0),
-              labelRotation: 45,
-              isInversed: isAr,
+              labelRotation: 45,labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
+              fontFamily: 'Roboto',
+              color: FlutterFlowTheme.of(context).primaryText,
+              fontSize: 14.0,
+              letterSpacing: 0.0,
+              fontWeight: FontWeight.normal,
+            ),
+              isInversed: isAr,isVisible: true,
               initialVisibleMaximum: initialVisibleMaximum,
             ),
             primaryYAxis: NumericAxis(
-              labelFormat: '{value}%',
+              labelFormat: '{value}%',isVisible: true,labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
+              fontFamily: 'Roboto',
+              color: FlutterFlowTheme.of(context).primaryText,
+              fontSize: 14.0,
+              letterSpacing: 0.0,
+              fontWeight: FontWeight.normal,
+            ),
               majorTickLines: const MajorTickLines(size: 0),
               interval: getYAxisInterval(),
               opposedPosition: isAr,
@@ -177,7 +196,13 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
       widget: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('$valueStr%', style: TextStyle(fontSize: 12)),
+          Text('$valueStr%', style: FlutterFlowTheme.of(context).displaySmall.override(
+        fontFamily: 'Roboto',
+        color: FlutterFlowTheme.of(context).primaryText,
+        fontSize: 12.0,
+        letterSpacing: 0.0,
+        fontWeight: FontWeight.w500,
+      ),),
           if (value != 0)
             Icon(
               value > 0 ? Icons.arrow_circle_up : Icons.arrow_circle_down,
@@ -223,36 +248,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
         pointColorMapper: (String label, int index) => Color(0xFFC8C8C8),
         width: 0.8,
         name: 'ColumnSeries',
-        color: Colors.white, // FlutterFlowTheme.of(context).alternate,
-        // dataLabelSettings: DataLabelSettings(
-        //   margin: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
-        //   isVisible: widget.showPercentageWithUpDownArrowOnTopOfBar ?? false,
-        //   labelIntersectAction: LabelIntersectAction.none,
-        //   borderWidth: 0,
-        //   builder: (data, point, series, dataIndex, seriesIndex) {
-        //     final value = double.tryParse('${widget.listY1[dataIndex]}') ?? 0;
-        //     return Padding(
-        //       padding: EdgeInsets.only(bottom: value >= 0 ? 0 : 15),
-        //       child: Row(
-        //         // mainAxisAlignment: MainAxisAlignment.center,
-        //         mainAxisSize: MainAxisSize.min,
-        //         children: [
-        //           Text('$value%', style: TextStyle(fontSize: 12)),
-        //           if (value != 0)
-        //             Icon(
-        //               value > 0
-        //                   ? FontAwesomeIcons.caretUp
-        //                   : FontAwesomeIcons.caretDown,
-        //               color: value > 0
-        //                   ? FlutterFlowTheme.of(context).customColor2
-        //                   : FlutterFlowTheme.of(context).customColor3,
-        //               size: 18,
-        //             ),
-        //         ],
-        //       ),
-        //     );
-        //   },
-        // ),
+        color: Colors.white,
       ),
       if (checkShowSecondColumn())
         ColumnSeries<String, String>(
@@ -318,263 +314,3 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
     return 20;
   }
 }
-
-// import '/flutter_flow/custom_functions.dart' as functions;
-
-// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-// import 'package:syncfusion_flutter_charts/charts.dart';
-
-// class XPortfoliItemBarChart extends StatefulWidget {
-//   const XPortfoliItemBarChart({
-//     super.key,
-//     this.width,
-//     this.height,
-//     this.xLabels = const [],
-//     this.listY1 = const [],
-//     this.listY2 = const [],
-//     this.listY3 = const [],
-//     this.showPercentageWithUpDownArrowOnTopOfBar = false,
-//     this.showAmountWhenClickOnBar = false,
-//   });
-
-//   final double? width;
-//   final double? height;
-//   final List<String> xLabels;
-//   final List<double> listY1;
-//   final List<double> listY2;
-//   final List<double> listY3;
-//   final bool? showPercentageWithUpDownArrowOnTopOfBar;
-//   final bool? showAmountWhenClickOnBar;
-
-//   @override
-//   State<XPortfoliItemBarChart> createState() => _XPortfoliItemBarChartState();
-// }
-
-// class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
-//   final barWidth = 30.0;
-//   final barsSpace = 10.0;
-//   final groupsSpace = 70.0;
-//   final leftTitleReservedSize = 46.0;
-//   // TooltipBehavior? _tooltipBehavior;
-//   TrackballBehavior? _trackballBehavior;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     // _tooltipBehavior =
-//     //     TooltipBehavior(enable: true, header: '', canShowMarker: false);
-//     _trackballBehavior = TrackballBehavior(
-//       enable: true,
-//       activationMode: ActivationMode.singleTap,
-//       tooltipSettings: const InteractiveTooltip(format: 'point.x : point.y'),
-//       builder: widget.showAmountWhenClickOnBar == true ? buildTrackBall : null,
-//     );
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       // width: calculateWidth(),
-//       height: widget.height,
-//       child: widget.xLabels.isEmpty ? null : buildColumnChart(),
-//     );
-//   }
-
-//   Widget buildTrackBall(
-//       BuildContext context, TrackballDetails trackballDetails) {
-//     final point = trackballDetails.point;
-//     final index = trackballDetails.pointIndex;
-//     final seriesIndex = trackballDetails.seriesIndex;
-//     final markerSize = 10.0;
-//     final amountValue = index == null ? null : widget.listY3[index];
-//     final amountString = amountValue == null
-//         ? ''
-//         : functions.formatDoubleWithThousandSeperator(
-//             '$amountValue', amountValue == 0);
-//     return Container(
-//       // height: 50,
-//       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-//       decoration: BoxDecoration(
-//         color: Color(0xFFFFFFFF), //FlutterFlowTheme.of(context).alternate,
-//         borderRadius: BorderRadius.all(Radius.circular(8.0)),
-//       ),
-//       child: Row(
-//         mainAxisSize: MainAxisSize.min,
-//         children: [
-//           Container(
-//             height: markerSize,
-//             width: markerSize,
-//             decoration: BoxDecoration(
-//               color: seriesIndex == 0
-//                   ? Color(0xFFC8C8C8)
-//                   : FlutterFlowTheme.of(context).primary,
-//               borderRadius: BorderRadius.all(Radius.circular(markerSize)),
-//             ),
-//           ),
-//           const SizedBox(width: 5),
-//           Text(
-//             '${point?.x?.toString() ?? ''} : ',
-//             style: TextStyle(
-//               fontSize: 14,
-//               color:
-//                   Color(0xFF000000), //FlutterFlowTheme.of(context).primaryText,
-//             ),
-//           ),
-//           Text(
-//             amountString,
-//             style: TextStyle(
-//               fontSize: 14,
-//               fontWeight: FontWeight.w700,
-//               color:
-//                   Color(0xFF000000), //FlutterFlowTheme.of(context).primaryText,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-
-//   Widget buildColumnChart() {
-//     return Row(
-//       children: [
-//         Expanded(
-//           child: SfCartesianChart(
-//             plotAreaBorderWidth: 0,
-//             // title: ChartTitle(
-//             //   text: 'syncfusion_flutter_charts\ncolumn & candle',
-//             //   textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-//             // ),
-//             primaryXAxis: CategoryAxis(
-//               majorGridLines: const MajorGridLines(width: 0),
-//               labelRotation: 45,
-//               initialVisibleMaximum: 3,
-//               // visibleMaximum: 3,
-//             ),
-//             primaryYAxis: NumericAxis(
-//               labelFormat: '{value}%',
-//               majorTickLines: const MajorTickLines(size: 0),
-//               interval: 20,
-//             ),
-//             zoomPanBehavior: ZoomPanBehavior(
-//               enablePanning: true,
-//             ),
-//             series: _getDefaultColumnSeries(),
-//             // tooltipBehavior: _tooltipBehavior,
-//             trackballBehavior: _trackballBehavior,
-//           ),
-//         ),
-//         if (widget.xLabels.length > 4) ...[
-//           const SizedBox(width: 2),
-//           Icon(
-//             Icons.chevron_right_rounded,
-//             color: FlutterFlowTheme.of(context).customColor5,
-//           ),
-//         ],
-//       ],
-//     );
-//   }
-
-//   /// Get default column series
-//   List<CartesianSeries> _getDefaultColumnSeries() {
-//     return <CartesianSeries>[
-//       ColumnSeries<String, String>(
-//         dataSource: widget.xLabels,
-//         xValueMapper: (String label, _) => label,
-//         yValueMapper: (String label, int index) => widget.listY1[index],
-//         pointColorMapper: (String label, int index) => Color(0xFFC8C8C8),
-//         name: 'ColumnSeries',
-//         color: Color(0xFFFFFFFF), // FlutterFlowTheme.of(context).alternate,
-//         dataLabelSettings: DataLabelSettings(
-//           margin: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
-//           isVisible: widget.showPercentageWithUpDownArrowOnTopOfBar ?? false,
-//           labelIntersectAction: LabelIntersectAction.none,
-//           borderWidth: 0,
-//           builder: (data, point, series, dataIndex, seriesIndex) {
-//             final value = double.tryParse('${widget.listY1[dataIndex]}') ?? 0;
-//             return Padding(
-//               padding: EdgeInsets.only(bottom: value >= 0 ? 0 : 15),
-//               child: Row(
-//                 // mainAxisAlignment: MainAxisAlignment.center,
-//                 mainAxisSize: MainAxisSize.min,
-//                 children: [
-//                   Text('$value%', style: TextStyle(fontSize: 12)),
-//                   if (value != 0)
-//                     Icon(
-//                       value > 0
-//                           ? FontAwesomeIcons.caretUp
-//                           : FontAwesomeIcons.caretDown,
-//                       color: value > 0
-//                           ? FlutterFlowTheme.of(context).customColor2
-//                           : FlutterFlowTheme.of(context).customColor3,
-//                       size: 18,
-//                     ),
-//                 ],
-//               ),
-//             );
-//           },
-//         ),
-//       ),
-//       if (showSecondColumn())
-//         ColumnSeries<String, String>(
-//           dataSource: widget.xLabels,
-//           xValueMapper: (String label, _) => label,
-//           yValueMapper: (String label, int index) => widget.listY2[index],
-//           pointColorMapper: (String label, int index) =>
-//               FlutterFlowTheme.of(context).primary,
-//           name: 'ColumnSeries',
-//           color: Color(0xFFFFFFFF), //FlutterFlowTheme.of(context).alternate,
-//         ),
-//     ];
-//   }
-
-//   bool showSecondColumn() {
-//     int countDifferentFrom0 = 0;
-//     widget.listY2.forEach((e) {
-//       if (e > 0) {
-//         countDifferentFrom0++;
-//       }
-//     });
-//     return countDifferentFrom0 > 0;
-//   }
-
-//   double calculateWidth() {
-//     final barGroupSpace = barWidth * 2 + barsSpace;
-//     final length = widget.xLabels.length;
-//     const bonusSpace = 50.0;
-//     return barGroupSpace * (length) +
-//         groupsSpace * (length - 1) +
-//         leftTitleReservedSize +
-//         bonusSpace;
-//   }
-
-//   double getMaxY() {
-//     final maxY1 = widget.listY1.reduce((a, b) => a > b ? a : b);
-//     final maxY2 = widget.listY2.reduce((a, b) => a > b ? a : b);
-//     final maxY12 = max(maxY1, maxY2);
-//     var maxY = maxY12 < 100 ? 100 : maxY12;
-//     final numberOfLines = maxY ~/ 20;
-//     if (numberOfLines * 20 < maxY) {
-//       maxY = (numberOfLines + 1) * 20;
-//     }
-//     return maxY.toDouble();
-//   }
-
-//   double getminY() {
-//     final minY1 = widget.listY1.reduce((a, b) => a < b ? a : b);
-//     final minY2 = widget.listY2.reduce((a, b) => a < b ? a : b);
-//     var minY = min(minY1, minY2);
-//     final numberOfLines = minY ~/ 20;
-//     if (minY < 0 && minY < numberOfLines * 20) {
-//       minY = numberOfLines * 20;
-//     }
-//     return minY;
-//   }
-
-//   double getYAxisInterval() {
-//     // final minY = getminY();
-//     // final maxY = getMaxY();
-//     // final fullRange = minY < 0 ? (maxY - minY) : (maxY + minY);
-//     return 20;
-//   }
-// }

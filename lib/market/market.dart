@@ -256,7 +256,7 @@ class _MarketState extends State<Market> {
                       itemAsString: (item) => item.name ?? '',
                       filterFn: (item, filter) => CommonFunctions.compare(filter, item.name ?? ''),
                       dropdownDecoratorProps: DropDownDecoratorProps(
-                        dropdownSearchDecoration: AppStyles.dropDownInputDecoration(AppWidgets.textFieldLabel('Asset Class')),
+                        dropdownSearchDecoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('Asset Class')),
                       ),
                       onChanged: (value) {
                       selectedAssetClass=value;
@@ -275,7 +275,7 @@ class _MarketState extends State<Market> {
                       itemAsString: (item) => item.name ?? '',
                       filterFn: (item, filter) => CommonFunctions.compare(filter, item.name ?? ''),
                       dropdownDecoratorProps: DropDownDecoratorProps(
-                        dropdownSearchDecoration: AppStyles.dropDownInputDecoration(AppWidgets.textFieldLabel('Industry')),
+                        dropdownSearchDecoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('Industry')),
                       ),
                       onChanged: (value) {
                         selectedIndustry=value;
@@ -295,7 +295,7 @@ class _MarketState extends State<Market> {
                       itemAsString: (item) => item.name ?? '',
                       filterFn: (item, filter) => CommonFunctions.compare(filter, item.name ?? ''),
                       dropdownDecoratorProps: DropDownDecoratorProps(
-                        dropdownSearchDecoration: AppStyles.dropDownInputDecoration(AppWidgets.textFieldLabel('Currency')),
+                        dropdownSearchDecoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('Currency')),
                       ),
                       onChanged: (value) {
                         selectedCurrency = value;

@@ -19,30 +19,31 @@ class AppStyles {
   static double px20 = rSize * 0.020;
 
   // static TextStyle c333333W400S12 = GoogleFonts.rubik(fontWeight: FontWeight.w400, fontSize: px12, color: AppColors.kDateTimeColor);
-  static TextStyle c656262W500S18 = GoogleFonts.rubik(fontWeight: FontWeight.w500, fontSize: px18, color: AppColors.kTextFieldInput);
-  static TextStyle c656262W400S16 = GoogleFonts.rubik(fontWeight: FontWeight.w400, fontSize: px16, color: AppColors.kTextFieldInput);
-  static TextStyle c656262W200S16 = GoogleFonts.rubik(fontWeight: FontWeight.w200, fontSize: px16, color: AppColors.kTextFieldInput);
-  static TextStyle c656262W200S14 = GoogleFonts.rubik(fontWeight: FontWeight.w200, fontSize: px14, color: AppColors.kTextFieldInput);
-  static TextStyle c656262W400S18 = GoogleFonts.rubik(fontWeight: FontWeight.w400, fontSize: px18, color: AppColors.kTextFieldInput);
-  static TextStyle c656262W400S20 = GoogleFonts.rubik(fontWeight: FontWeight.w400, fontSize: px20, color: AppColors.kTextFieldInput);
-  static TextStyle c656262W500S16 = GoogleFonts.rubik(fontWeight: FontWeight.w500, fontSize: px16, color: AppColors.kTextFieldInput);
-  static TextStyle c656262W500S20 = GoogleFonts.rubik(fontWeight: FontWeight.w500, fontSize: px20, color: AppColors.kTextFieldInput);
-  static TextStyle c3C496CW500S18 = GoogleFonts.rubik(fontWeight: FontWeight.w500, fontSize: px18, color: AppColors.kViolate);
-  static TextStyle c3C496CW500S16 = GoogleFonts.rubik(fontWeight: FontWeight.w500, fontSize: px16, color: AppColors.kViolate);
-  static TextStyle c3C496CW400S14 = GoogleFonts.rubik(fontWeight: FontWeight.w400, fontSize: px14, color: AppColors.kViolate);
-  static TextStyle c656262W500S14 = GoogleFonts.rubik(fontWeight: FontWeight.w500, fontSize: px14, color: AppColors.kTextFieldInput);
-  static TextStyle c929292W500S14 = GoogleFonts.rubik(fontWeight: FontWeight.w500, fontSize: px14, color: AppColors.kHint);
-  static TextStyle cFFFFFFW400S18 = GoogleFonts.rubik(fontWeight: FontWeight.w400, fontSize: px18, color: Colors.white);
-  static TextStyle cFFFFFFW400S16 = GoogleFonts.rubik(fontWeight: FontWeight.w400, fontSize: px16, color: Colors.white);
-  static TextStyle cRedW400S18 = GoogleFonts.rubik(fontWeight: FontWeight.w400, fontSize: px18, color: Colors.redAccent);
-  static TextStyle errorStyle = GoogleFonts.rubik(fontWeight: FontWeight.w400, fontSize: px14, color: AppColors.kErrorBorderColor,height: 1);
-  static TextStyle errorStyle16 = GoogleFonts.rubik(fontWeight: FontWeight.w400, fontSize: px16, color: AppColors.kErrorBorderColor);
+  static TextStyle c656262W500S18 = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: px18, color: AppColors.kTextFieldInput);
+  static TextStyle c656262W400S16 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px16, color: AppColors.kTextFieldInput);
+  static TextStyle c656262W200S16 = GoogleFonts.poppins(fontWeight: FontWeight.w200, fontSize: px16, color: AppColors.kTextFieldInput);
+  static TextStyle c656262W200S14 = GoogleFonts.poppins(fontWeight: FontWeight.w200, fontSize: px14, color: AppColors.kTextFieldInput);
+  static TextStyle c656262W400S18 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px18, color: AppColors.kTextFieldInput);
+  static TextStyle c656262W400S20 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px20, color: AppColors.kTextFieldInput);
+  static TextStyle c656262W500S16 = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: px16, color: AppColors.kTextFieldInput);
+  static TextStyle c656262W500S20 = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: px20, color: AppColors.kTextFieldInput);
+  static TextStyle c3C496CW500S18 = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: px18, color: AppColors.kViolate);
+  static TextStyle c3C496CW500S16 = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: px16, color: AppColors.kViolate);
+  static TextStyle c3C496CW400S14 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px14, color: AppColors.kViolate);
+  static TextStyle c656262W500S14 = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: px14, color: AppColors.kTextFieldInput);
+  static TextStyle c929292W500S14 = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: px14, color: AppColors.kHint);
+  static TextStyle cFFFFFFW400S18 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px18, color: Colors.white);
+  static TextStyle cFFFFFFW400S16 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px16, color: Colors.white);
+  static TextStyle cRedW400S18 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px18, color: Colors.redAccent);
+  static TextStyle errorStyle = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px14, color: AppColors.kErrorBorderColor,height: 1);
+  static TextStyle errorStyle16 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px16, color: AppColors.kErrorBorderColor);
 
 
 
-  static InputDecoration dropDownInputDecoration(Widget? label) {
+  static InputDecoration dropDownInputDecoration(BuildContext context,Widget? label) {
     return InputDecoration(
-      label: label,
+      label: label,fillColor: FlutterFlowTheme.of(context)
+        .secondaryBackground,
       errorStyle: AppStyles.cRedW400S18,
 
       hintStyle: AppStyles.c656262W500S18,
@@ -51,19 +52,19 @@ class AppStyles {
       border: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1,
-            color: AppColors.kBorderColor,
+            color: FlutterFlowTheme.of(context).secondaryText,
           ),
           borderRadius: BorderRadius.circular(10)),
       enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1,
-            color: AppColors.kBorderColor,
+            color: FlutterFlowTheme.of(context).secondaryText,
           ),
           borderRadius: BorderRadius.circular(10)),
       focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1,
-            color: AppColors.kBorderColor,
+            color: FlutterFlowTheme.of(context).secondaryText,
           ),
           borderRadius: BorderRadius.circular(10)),
       focusedErrorBorder: OutlineInputBorder(

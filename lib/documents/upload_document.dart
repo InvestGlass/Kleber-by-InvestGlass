@@ -22,7 +22,7 @@ class _UploadDocumentState extends State<UploadDocument> {
   Widget build(BuildContext context) {
     _notifier = Provider.of<DocumentsController>(context);
     return Scaffold(
-      appBar: AppWidgets.appBar('Upload Document'),
+      appBar: AppWidgets.appBar(context,'Upload Document'),
       body: Card(
         margin: EdgeInsets.all(rSize * 0.015),
         color: Colors.white,

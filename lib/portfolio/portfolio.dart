@@ -29,7 +29,7 @@ class Portfolio extends StatefulWidget {
 class _PortfolioState extends State<Portfolio> {
   late PortfolioController _notifier;
   final PagingController<int, PortfolioModel> pagingController = PagingController(firstPageKey: 1);
-  int pageKey=1;
+  int pageKey = 1;
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _PortfolioState extends State<Portfolio> {
 
   Future<void> _fetchPageActivity() async {
     PortfolioController provider = Provider.of<PortfolioController>(context, listen: false);
-    List<PortfolioModel> list=await provider.getPortfolioList(pageKey);
+    List<PortfolioModel> list = await provider.getPortfolioList(pageKey);
     final isLastPage = list.length < 10;
     if (isLastPage) {
       pagingController.appendLastPage(list);
@@ -81,18 +81,15 @@ class _PortfolioState extends State<Portfolio> {
                           children: [
                             Expanded(
                                 child: Text(
-                                  item.title??'',
-                                  style: FlutterFlowTheme.of(context)
-                                      .displaySmall
-                                      .override(
+                              item.title ?? '',
+                              style: FlutterFlowTheme.of(context).displaySmall.override(
                                     fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                                    color: FlutterFlowTheme.of(context).primaryText,
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                   ),
-                                )),
+                            )),
                             if (_notifier.selectedIndex != index) ...{
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -101,30 +98,23 @@ class _PortfolioState extends State<Portfolio> {
                                     FFLocalizations.of(context).getText(
                                       '83o1ghax' /* Net Value */,
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                      fontFamily: 'Roboto',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                          fontFamily: 'Roboto',
+                                          color: FlutterFlowTheme.of(context).primaryText,
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                   ),
                                   Text(
-                                    item.netValue??'',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                      fontFamily: 'Roboto',
-                                      color:
-                                      FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.normal,
-                                    ),
+                                    item.netValue ?? '',
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                          fontFamily: 'Roboto',
+                                          color: FlutterFlowTheme.of(context).primaryText,
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.normal,
+                                        ),
                                   ),
                                 ],
                               ),
@@ -162,38 +152,48 @@ class _PortfolioState extends State<Portfolio> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    AppWidgets.portfolioListElement(context,FFLocalizations.of(context)
-                                        .getText(
-                                      'hdgv1exn' /* Date */,
-                                    ), '2024-08-02'),
+                                    AppWidgets.portfolioListElement(
+                                        context,
+                                        FFLocalizations.of(context).getText(
+                                          'hdgv1exn' /* Date */,
+                                        ),
+                                        '2024-08-02'),
                                     SizedBox(
                                       height: rSize * 0.005,
                                     ),
-                                    AppWidgets.portfolioListElement(context,FFLocalizations.of(context)
-                                        .getText(
-                                      'cm2ob3q4' /* Net Value */,
-                                    ), item.netValue??''),
+                                    AppWidgets.portfolioListElement(
+                                        context,
+                                        FFLocalizations.of(context).getText(
+                                          'cm2ob3q4' /* Net Value */,
+                                        ),
+                                        item.netValue ?? ''),
                                     SizedBox(
                                       height: rSize * 0.005,
                                     ),
-                                    AppWidgets.portfolioListElement(context,FFLocalizations.of(context)
-                                        .getText(
-                                      'y6z0kvbz' /* Portfolio Value */,
-                                    ), item.portfolioValue??''),
+                                    AppWidgets.portfolioListElement(
+                                        context,
+                                        FFLocalizations.of(context).getText(
+                                          'y6z0kvbz' /* Portfolio Value */,
+                                        ),
+                                        item.portfolioValue ?? ''),
                                     SizedBox(
                                       height: rSize * 0.005,
                                     ),
-                                    AppWidgets.portfolioListElement(context,FFLocalizations.of(context)
-                                        .getText(
-                                      '57fz6g1m' /* Amount Invested */,
-                                    ), item.amountInvested??''),
+                                    AppWidgets.portfolioListElement(
+                                        context,
+                                        FFLocalizations.of(context).getText(
+                                          '57fz6g1m' /* Amount Invested */,
+                                        ),
+                                        item.amountInvested ?? ''),
                                     SizedBox(
                                       height: rSize * 0.005,
                                     ),
-                                    AppWidgets.portfolioListElement(context,FFLocalizations.of(context)
-                                        .getText(
-                                      'rpfp7xvs' /* Cash Available */,
-                                    ), item.cashAvailable??''),
+                                    AppWidgets.portfolioListElement(
+                                        context,
+                                        FFLocalizations.of(context).getText(
+                                          'rpfp7xvs' /* Cash Available */,
+                                        ),
+                                        item.cashAvailable ?? ''),
                                     SizedBox(
                                       height: rSize * 0.015,
                                     ),
@@ -202,113 +202,83 @@ class _PortfolioState extends State<Portfolio> {
                                       height: rSize * 0.015,
                                     ),
                                     Text(
-                                      FFLocalizations.of(context)
-                                          .getText(
+                                      FFLocalizations.of(context).getText(
                                         'zomhasya' /* Performance */,
                                       ),
-                                      style: AppStyles.c656262W400S16,
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        fontFamily: 'Roboto',
+                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,)
                                     ),
                                     SizedBox(
                                       height: rSize * 0.035,
                                     ),
                                     XPortfolioItemLineChart(
-                                      width: MediaQuery.sizeOf(
-                                          context)
-                                          .width *
-                                          1.0,
+                                      width: MediaQuery.sizeOf(context).width * 1.0,
                                       height: 300.0,
                                       xLabels: item.performanceChart!.map((e) => e.date.toString().split(' ')[0]).toList(),
-                                      listY: item.performanceChart!
-                                          .map((e) => e.amount!)
-                                          .toList(),
-                                      customWidth: item.performanceChart!
-                                              .map((e) =>
-                                          e.amount).toList().length*100,
-                                      additionPercents: item
-                                          .performanceChart!
-                                          .map((e) =>
-                                      e.twrPercentage??0.0)
-                                          .toList(),
+                                      listY: item.performanceChart!.map((e) => e.amount!).toList(),
+                                      customWidth: item.performanceChart!.map((e) => e.amount).toList().length * 100,
+                                      additionPercents: item.performanceChart!.map((e) => e.twrPercentage ?? 0.0).toList(),
                                     ),
                                     AppWidgets.divider(),
                                     SizedBox(
                                       height: rSize * 0.015,
                                     ),
                                     Text(
-                                      FFLocalizations.of(context)
-                                          .getText(
+                                      FFLocalizations.of(context).getText(
                                         '7h0zeqv0' /* Asset Class */,
                                       ),
-                                      style: AppStyles.c656262W400S16,
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                            fontFamily: 'Roboto',
+                                            color: FlutterFlowTheme.of(context).secondaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     ),
                                     SizedBox(
                                       height: rSize * 0.02,
                                     ),
                                     XPortfoliItemBarChart(
-                                      width: MediaQuery.sizeOf(
-                                          context)
-                                          .width *
-                                          1.0,
+                                      width: MediaQuery.sizeOf(context).width * 1.0,
                                       height: 300.0,
-                                      xLabels: item
-                                          .assetClassChart!
-                                          .map(
-                                              (e) => e.assetClass??'')
-                                          .toList(),
-                                      listY1: item
-                                          .assetClassChart!
-                                          .map((e) => e.amount1!)
-                                          .toList(),
-                                      listY2: item
-                                          .assetClassChart!
-                                          .map((e) => e.amount2!)
-                                          .toList(),
-                                      showPercentageWithUpDownArrowOnTopOfBar:
-                                      true,
-                                      listY3: item
-                                          .assetClassChart!
-                                          .map((e) => e.amount3!)
-                                          .toList(),
-                                      showAmountWhenClickOnBar:
-                                      true,
+                                      xLabels: item.assetClassChart!.map((e) => e.assetClass ?? '').toList(),
+                                      listY1: item.assetClassChart!.map((e) => e.amount1!).toList(),
+                                      listY2: item.assetClassChart!.map((e) => e.amount2!).toList(),
+                                      showPercentageWithUpDownArrowOnTopOfBar: true,
+                                      listY3: item.assetClassChart!.map((e) => e.amount3!).toList(),
+                                      showAmountWhenClickOnBar: true,
                                     ),
                                     AppWidgets.divider(),
                                     SizedBox(
                                       height: rSize * 0.015,
                                     ),
                                     Text(
-                                      FFLocalizations.of(context)
-                                          .getText(
+                                      FFLocalizations.of(context).getText(
                                         'o00oeypg' /* Currency */,
                                       ),
-                                      style: AppStyles.c656262W400S16,
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        fontFamily: 'Roboto',
+                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,)
                                     ),
                                     SizedBox(
                                       height: rSize * 0.02,
                                     ),
                                     XPortfoliItemBarChart(
-                                      width: MediaQuery.sizeOf(
-                                          context)
-                                          .width *
-                                          1.0,
+                                      width: MediaQuery.sizeOf(context).width * 1.0,
                                       height: 300.0,
-                                      xLabels: item.currenciesChart!
-                                          .map(
-                                              (e) => e.assetClass??'')
-                                          .toList(),
-                                      listY1: item.currenciesChart!
-                                          .map((e) => e.amount1!)
-                                          .toList(),
-                                      listY2: item.currenciesChart!
-                                          .map((e) => e.amount2!)
-                                          .toList(),
-                                      showPercentageWithUpDownArrowOnTopOfBar:
-                                      true,
-                                      listY3: item.currenciesChart!
-                                          .map((e) => e.amount3!)
-                                          .toList(),
-                                      showAmountWhenClickOnBar:
-                                      true,
+                                      xLabels: item.currenciesChart!.map((e) => e.assetClass ?? '').toList(),
+                                      listY1: item.currenciesChart!.map((e) => e.amount1!).toList(),
+                                      listY2: item.currenciesChart!.map((e) => e.amount2!).toList(),
+                                      showPercentageWithUpDownArrowOnTopOfBar: true,
+                                      listY3: item.currenciesChart!.map((e) => e.amount3!).toList(),
+                                      showAmountWhenClickOnBar: true,
                                     ),
                                     AppWidgets.divider(),
                                     SizedBox(
@@ -319,76 +289,118 @@ class _PortfolioState extends State<Portfolio> {
                                       children: [
                                         Expanded(
                                             child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                '6u2u1x9z' /* Health Alerts */,
-                                              ),
-                                              style: AppStyles.c656262W400S16,
-                                            )),
-                                        if(item.appropriateness!.listDetails!.isNotEmpty || item.suitability!.listDetails!.isNotEmpty)...{
+                                          FFLocalizations.of(context).getText(
+                                            '6u2u1x9z' /* Health Alerts */,
+                                          ),
+                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                  fontFamily: 'Roboto',
+                                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                                  fontSize: 16.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                        ))),
+                                        if (item.appropriateness!.listDetails!.isNotEmpty || item.suitability!.listDetails!.isNotEmpty) ...{
                                           GestureDetector(
-                                            onTap: () => CommonFunctions.navigate(context,HealthCheck(item.appropriateness,item.suitability)),
+                                            onTap: () => CommonFunctions.navigate(context, HealthCheck(item.appropriateness, item.suitability)),
                                             child: Text(
-                                              FFLocalizations.of(
-                                                  context)
-                                                  .getText(
+                                              FFLocalizations.of(context).getText(
                                                 '2um0eu09' /* Detail */,
                                               ),
-                                              style: AppStyles.c3C496CW500S16,),
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                    fontFamily: 'Roboto',
+                                                    color: FlutterFlowTheme.of(context).primary,
+                                                    fontSize: 16.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                            ),
                                           ),
-                                          const RotatedBox(
+                                           RotatedBox(
                                               quarterTurns: 2,
                                               child: Icon(
                                                 Icons.arrow_back_ios,
-                                                color: AppColors.kViolate,
+                                                color: FlutterFlowTheme.of(context).primary,
                                                 size: 12,
                                               ))
                                         },
-
                                       ],
                                     ),
                                     SizedBox(
                                       height: rSize * 0.015,
                                     ),
-                                    AppWidgets.healthAlertElement('   ${FFLocalizations.of(
-                                        context)
-                                        .getText(
-                                      'kc4yx2mm' /* MINOR ISSUES */,
-                                    )}', Colors.blue, Icons.info_outline,'',item.suitability!),
+                                    AppWidgets.healthAlertElement(context,
+                                        '   ${FFLocalizations.of(context).getText(
+                                          'kc4yx2mm' /* MINOR ISSUES */,
+                                        )}',
+                                        FlutterFlowTheme.of(context).primaryBackground,
+                                        Icons.info_outline,
+                                        '',
+                                        item.appropriateness!,FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                      fontFamily: 'Roboto',
+                                      color:
+                                      FlutterFlowTheme.of(context)
+                                          .warning,
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                    )),
                                     SizedBox(
                                       height: rSize * 0.015,
                                     ),
-                                    AppWidgets.healthAlertElement('   ${FFLocalizations.of(
-                                        context)
-                                        .getText(
-                                      'ko88t7mf' /* MAJOR ISSUES */,
-                                    )}',  Colors.red, Icons.report_problem_outlined,'',item.appropriateness!),
+                                    AppWidgets.healthAlertElement(context,
+                                        '   ${FFLocalizations.of(context).getText(
+                                          'ko88t7mf' /* MAJOR ISSUES */,
+                                        )}',
+                                        FlutterFlowTheme.of(context).primaryBackground,
+                                        Icons.report_problem_outlined,
+                                        '',
+                                        item.suitability!,FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.of(context)
+                                          .error,
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                    )),
                                   ],
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      },SizedBox(
+                      },
+                      SizedBox(
                         height: rSize * 0.01,
                       ),
                       Row(
                         children: [
-                          Expanded(child: GestureDetector(
-                              onTap: () {
-                                CommonFunctions.navigate(context, Positions(item.id!));
-                              },
-                              child: AppWidgets.btn(context,FFLocalizations.of(context).getText(
-                                'd8zszkbn' /* Positions */,
-                              ),verticalPadding: rSize*0.005))),
+                          Expanded(
+                              child: GestureDetector(
+                                  onTap: () {
+                                    CommonFunctions.navigate(context, Positions(item.id!));
+                                  },
+                                  child: AppWidgets.btn(
+                                      context,
+                                      FFLocalizations.of(context).getText(
+                                        'd8zszkbn' /* Positions */,
+                                      ),
+                                      verticalPadding: rSize * 0.005))),
                           SizedBox(
                             width: rSize * 0.01,
                           ),
-                          Expanded(child: GestureDetector(
-                              onTap: () => CommonFunctions.navigate(context, Transactions(item.title!)),
-                              child: AppWidgets.btn(context,FFLocalizations.of(context).getText(
-                                'u192lk22' /* Transactions */,
-                              ),verticalPadding: rSize*0.005))),
+                          Expanded(
+                              child: GestureDetector(
+                                  onTap: () => CommonFunctions.navigate(context, Transactions(item.title!)),
+                                  child: AppWidgets.btn(
+                                      context,
+                                      FFLocalizations.of(context).getText(
+                                        'u192lk22' /* Transactions */,
+                                      ),
+                                      verticalPadding: rSize * 0.005))),
                         ],
                       )
                     ],
@@ -412,7 +424,7 @@ class _PortfolioState extends State<Portfolio> {
             LineChartBarData(
               isStepLineChart: false,
               spots: list.asMap().entries.map((e) {
-                return FlSpot(e.key.toDouble(), e.value.amount??0.0);
+                return FlSpot(e.key.toDouble(), e.value.amount ?? 0.0);
               }).toList(),
               isCurved: false,
               barWidth: 0.5,
@@ -507,10 +519,16 @@ class _PortfolioState extends State<Portfolio> {
               return Container();
             }
             return SideTitleWidget(
-              space: 5,angle: 45,
+              space: 5,
+              angle: 45,
               axisSide: meta.axisSide,
               child: Text(
-                list.map((e) => e.date.toString().replaceAll(' 00:00:00.000', ''),).toList()[value.toInt()],style: AppStyles.c656262W500S14,
+                list
+                    .map(
+                      (e) => e.date.toString().replaceAll(' 00:00:00.000', ''),
+                    )
+                    .toList()[value.toInt()],
+                style: AppStyles.c656262W500S14,
               ),
             );
           },

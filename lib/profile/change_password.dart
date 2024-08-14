@@ -21,7 +21,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   Widget build(BuildContext context) {
     _notifier = Provider.of<ProfileController>(context);
     return Scaffold(
-      appBar: AppWidgets.appBar('Change Password'),
+      appBar: AppWidgets.appBar(context,'Change Password'),
       body: Card(
         color: Colors.white,
         margin: EdgeInsets.all(rSize * 0.015),

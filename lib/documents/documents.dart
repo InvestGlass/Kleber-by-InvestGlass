@@ -59,7 +59,7 @@ class _DocumentsState extends State<Documents> {
   Widget build(BuildContext context) {
     _notifier = Provider.of<DocumentsController>(context);
     return Scaffold(
-      appBar: AppWidgets.appBar('Documents'),
+      appBar: AppWidgets.appBar(context,'Documents'),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         onPressed: () {
@@ -257,7 +257,7 @@ class _DocumentsState extends State<Documents> {
                           constraints: BoxConstraints(maxHeight: rSize * 0.3)),
                       items: ["All", 'Account 1', 'Account 2'],
                       dropdownDecoratorProps: DropDownDecoratorProps(
-                        dropdownSearchDecoration: AppStyles.dropDownInputDecoration(AppWidgets.textFieldLabel('Type')),
+                        dropdownSearchDecoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('Type')),
                       ),
                       onChanged: print,
                       selectedItem: "All",
@@ -272,7 +272,7 @@ class _DocumentsState extends State<Documents> {
                       height: rSize * 0.015,
                     ),
                     DropdownButtonFormField(
-                        decoration: AppStyles.dropDownInputDecoration(AppWidgets.textFieldLabel('Types')),
+                        decoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('Types')),
                         isExpanded: true,
                         icon: AppWidgets.dropDownIcon(),
                         style: AppStyles.c3C496CW500S18,
@@ -283,10 +283,10 @@ class _DocumentsState extends State<Documents> {
                         },
                         items: _notifier.typesList
                             .map(
-                              (String item) => DropdownMenuItem<String>(value: item, child: AppWidgets.dropDownHint(item)),
+                              (String item) => DropdownMenuItem<String>(value: item, child: AppWidgets.dropDownHint(context,item)),
                             )
                             .toList(),
-                        hint: AppWidgets.dropDownHint('Select Types')),
+                        hint: AppWidgets.dropDownHint(context,'Select Types')),
                     SizedBox(
                       height: rSize * 0.015,
                     ),

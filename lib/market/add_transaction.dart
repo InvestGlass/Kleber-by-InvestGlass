@@ -16,7 +16,7 @@ class _AddTransactionState extends State<AddTransaction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppWidgets.appBar('New Trade'),
+      appBar: AppWidgets.appBar(context,'New Trade'),
       body: Card(
         color: Colors.white,
         margin: EdgeInsets.all(rSize*0.015),
@@ -32,7 +32,7 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               items: ["ALPHA",'BETA'],
               dropdownDecoratorProps: DropDownDecoratorProps(
-                dropdownSearchDecoration: AppStyles.dropDownInputDecoration(AppWidgets.textFieldLabel('Portfolio')),
+                dropdownSearchDecoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('Portfolio')),
               ),
               onChanged: print,
               selectedItem:null,
@@ -51,7 +51,7 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               items: ["SELL TO OPEN",'SELL TO CLOSE'],
               dropdownDecoratorProps: DropDownDecoratorProps(
-                dropdownSearchDecoration: AppStyles.dropDownInputDecoration(AppWidgets.textFieldLabel('Type')),
+                dropdownSearchDecoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('Type')),
               ),
               onChanged: print,
               selectedItem: null,

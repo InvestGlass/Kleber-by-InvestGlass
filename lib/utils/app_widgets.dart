@@ -33,10 +33,10 @@ class AppWidgets {
     );
   }
 
-  static Container healthAlertElement(
-      String title, Color bgColor, IconData iconData, String label, Appropriateness model) {
+  static Container healthAlertElement(BuildContext context,
+      String title, Color bgColor, IconData iconData, String label, Appropriateness model, TextStyle textStyle) {
     return Container(
-      decoration: BoxDecoration(color: bgColor.withOpacity(0.1), borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(10)),
       padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.015),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,17 +45,17 @@ class AppWidgets {
             children: [
               Icon(
                 iconData,
-                color: bgColor,
+                color: textStyle.color,
                 size: 20,
               ),
               Expanded(
                   child: Text(
                 title,
-                style: AppStyles.c656262W400S16.copyWith(color: bgColor),
+                style: textStyle,
               )),
               Text(
                  model.listDetails!.length.toString(),
-                style: AppStyles.c656262W400S16.copyWith(color: bgColor),
+                style: textStyle,
               )
             ],
           ),
@@ -65,11 +65,23 @@ class AppWidgets {
             ),
             Text(
               label,
-              style: AppStyles.c656262W500S14,
+              style: FlutterFlowTheme.of(context).displaySmall.override(
+                fontFamily: 'Roboto',
+                color: FlutterFlowTheme.of(context).primaryText,
+                fontSize: 16.0,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.w500,
+              ),
             ),
             Text(
               getStatus(model.status),
-              style: AppStyles.c656262W200S14,
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                fontFamily: 'Roboto',
+                color: FlutterFlowTheme.of(context).secondaryText,
+                fontSize: 16.0,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.normal,
+              ),
             ),
             SizedBox(
               height: rSize * 0.01,
@@ -82,7 +94,7 @@ class AppWidgets {
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: AppColors.kTextFieldInput,
+                        color: FlutterFlowTheme.of(context).primaryText,
                       ),
                       height: 8,
                       width: 8,
@@ -91,7 +103,13 @@ class AppWidgets {
                     Expanded(
                       child: Text(
                         model.listDetails![index],
-                        style: AppStyles.c656262W200S14,
+                        style: FlutterFlowTheme.of(context).displaySmall.override(
+                          fontFamily: 'Roboto',
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          fontSize: 16.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ],
@@ -306,18 +324,24 @@ class AppWidgets {
     );
   }
 
-  static AppBar appBar(String title, {Widget? leading, List<Widget>? actions}) {
+  static AppBar appBar(BuildContext context,String title, {Widget? leading, List<Widget>? actions}) {
     return AppBar(
       elevation: 0,
       actions: actions,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
       surfaceTintColor: Colors.transparent,
       leading: leading,
       title: Text(
         title,
-        style: AppStyles.c656262W500S20,
+        style: FlutterFlowTheme.of(context).bodyMedium.override(
+          fontFamily: 'Roboto',
+          color: FlutterFlowTheme.of(context).primary,
+          fontSize: 25.0,
+          letterSpacing: 0.0,
+          fontWeight: FontWeight.w600,
+        ),
       ),
-      centerTitle: true,
+      centerTitle: false,
     );
   }
 
@@ -454,13 +478,22 @@ class AppWidgets {
     );
   }
 
-  static Widget dropDownHint(String text) {
+  static Widget dropDownHint(BuildContext context,String text) {
     return Text(
       textAlign: TextAlign.start,
       text,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
-      style: AppStyles.c656262W500S18,
+      style: FlutterFlowTheme.of(context)
+          .displaySmall
+          .override(
+        fontFamily: 'Roboto',
+        color: FlutterFlowTheme.of(context)
+            .primaryText,
+        fontSize: 16.0,
+        letterSpacing: 0.0,
+        fontWeight: FontWeight.w500,
+      ),
     );
   }
 

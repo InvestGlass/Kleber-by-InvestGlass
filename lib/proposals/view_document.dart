@@ -57,7 +57,7 @@ class _ViewDocumentState extends State<ViewDocument> {
         );
     }
     return Scaffold(
-      appBar: AppWidgets.appBar(''),
+      appBar: AppWidgets.appBar(context,''),
       body: child,
     );
   }

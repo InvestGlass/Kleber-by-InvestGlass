@@ -60,6 +60,7 @@ dependencies:
   font_awesome_flutter:
   flutter_card_swiper:
   flutter_svg:
+  intl:
 
 dev_dependencies:
   flutter_test:

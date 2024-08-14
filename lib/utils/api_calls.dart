@@ -12,6 +12,7 @@ import 'package:kleber_bank/portfolio/transaction_model.dart';
 import 'package:kleber_bank/portfolio/transactions.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
 import '../documents/document_model.dart';
+import '../home/home_news_model.dart';
 import '../proposals/proposal_model.dart';
 import 'app_const.dart';
 import 'common_functions.dart';
@@ -472,5 +473,28 @@ class ApiCalls {
       print('user info API error ${e.toString()}::: ${e.stackTrace}');
     }
     return null;
+  }
+
+  static Future<List<HomeNewsModel>> getHomeNews() async {
+    try {
+      var url = Uri.parse(
+        EndPoints.homeNews,
+      );
+
+      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'},);
+      print("url $url");
+      print("response ${response.body}");
+
+        return homeNewsModelFromJson(response.body);
+
+    } on SocketException catch (e) {
+      CommonFunctions.showToast(AppConst.connectionError);
+    } on TimeoutException catch (e) {
+      CommonFunctions.showToast(AppConst.connectionTimeOut);
+    } on Error catch (e) {
+      CommonFunctions.showToast(AppConst.somethingWentWrong);
+      print('user info API error ${e.toString()}::: ${e.stackTrace}');
+    }
+    return [];
   }
 }

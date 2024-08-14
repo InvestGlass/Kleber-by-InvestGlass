@@ -131,7 +131,7 @@ class PortfolioSecurity {
     expirationDate: json["expiration_date"],
     featured: json["featured"],
     referenceCurrency: json["reference_currency"],
-    lastPrice: json["last_price"].toDouble(),
+    lastPrice: json["last_price"]?.toDouble()??0.0,
     costPrice: json["cost_price"].toString(),
     roi: json["roi"],
     quantity: json["quantity"].toString(),

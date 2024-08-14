@@ -10,6 +10,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'dart:math';
 
+import '../utils/flutter_flow_theme.dart';
+
 class XPortfolioItemLineChart extends StatefulWidget {
   const XPortfolioItemLineChart({
     super.key,
@@ -91,7 +93,13 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
           widget: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('$valueToShowStr%', style: TextStyle(fontSize: 12)),
+              Text('$valueToShowStr%', style: FlutterFlowTheme.of(context).displaySmall.override(
+                fontFamily: 'Roboto',
+                color: FlutterFlowTheme.of(context).primaryText,
+                fontSize: 16.0,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.w500,
+              ),),
               if (additionPercent != 0)
                 Icon(
                   additionPercent > 0
@@ -135,13 +143,13 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
           return columnStart + additionPercent;
         },
         pointColorMapper: (String label, int index) =>
-        Colors.green,
+        Colors.green,initialIsVisible: true,
         name: 'RangeColumnSeries',
         color: Colors.white, // FlutterFlowTheme.of(context).alternate,
         enableTooltip: false,
       ),
       LineSeries<String, String>(
-        dataSource: widget.xLabels,
+        dataSource: widget.xLabels,initialIsVisible: true,
         xValueMapper: (String label, _) => label,
         yValueMapper: (String label, index) => widget.listY[index],
         width: 2,
@@ -160,23 +168,35 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
       children: [
         Expanded(
           child: SfCartesianChart(
-            plotAreaBorderWidth: 0,
+            plotAreaBorderWidth: 0,borderColor: Colors.white,
             // title: ChartTitle(
             //   text: 'syncfusion_flutter_charts\nline & spline',
             //   textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             // ),
             primaryXAxis: CategoryAxis(
               edgeLabelPlacement: EdgeLabelPlacement.shift,
-              majorGridLines: const MajorGridLines(width: 0),
-              labelRotation: 45,
+              majorGridLines: const MajorGridLines(width: 0),axisLine: AxisLine(color: Colors.white,width: 0.5),
+              labelRotation: 45,labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
+              fontFamily: 'Roboto',
+              color: FlutterFlowTheme.of(context).primaryText,
+              fontSize: 14.0,
+              letterSpacing: 0.0,
+              fontWeight: FontWeight.normal,
+            ),
               initialVisibleMaximum: initialVisibleMaximum,
               labelIntersectAction: AxisLabelIntersectAction.none,
               isInversed: isAr,
             ),
             primaryYAxis: NumericAxis(
-              labelFormat: '{value}%',
+              labelFormat: '{value}%',axisLine: AxisLine(color: Colors.white,width: 0.5),
               interval: getYAxisInterval(),
-              opposedPosition: isAr,
+              opposedPosition: isAr,labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
+              fontFamily: 'Roboto',
+              color: FlutterFlowTheme.of(context).primaryText,
+              fontSize: 14.0,
+              letterSpacing: 0.0,
+              fontWeight: FontWeight.normal,
+            ),
             ),
             zoomPanBehavior: ZoomPanBehavior(
               enablePanning: true,
