@@ -345,6 +345,24 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'Trang chủ',
     },
   },
+  // changrlanguage
+  {
+    'english': {
+      'en': 'English',
+      'ar': 'إنجليزي',
+      'vi': 'Tiếng Anh',
+    },
+    'arabic': {
+      'en': 'Arabic',
+      'ar': 'عربي',
+      'vi': 'tiếng Ả Rập',
+    },
+    'vietnamese': {
+      'en': 'Vietnamese',
+      'ar': 'الفيتنامية',
+      'vi': 'Tiếng Việt',
+    },
+  },
   // ProposalDetailPage
   {
     '12cgqet1': {
@@ -1286,6 +1304,16 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'رفض',
       'vi': 'Từ chối',
     },
+    'decline_proposal': {
+      'en': 'Decline Proposal ?',
+      'ar': 'رفض الاقتراح؟',
+      'vi': 'Từ chối đề xuất?',
+    },
+    'accept_proposal': {
+      'en': 'Accept Proposal ?',
+      'ar': 'قبول الاقتراح؟',
+      'vi': 'Chấp nhận đề xuất?',
+    },
     '3esw1ind': {
       'en': 'Accept',
       'ar': 'يقبل',
@@ -1733,6 +1761,16 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Filter options',
       'ar': 'خيارات التصفية',
       'vi': 'Tùy chọn bộ lọc',
+    },
+    'filter': {
+      'en': 'Filter',
+      'ar': 'فلتر',
+      'vi': 'Lọc',
+    },
+    'sort': {
+      'en': 'Sort',
+      'ar': 'نوع',
+      'vi': 'LOẠI',
     },
     'xccshnlg': {
       'en': 'Accounts',

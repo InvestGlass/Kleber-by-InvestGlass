@@ -149,9 +149,9 @@ class AppWidgets {
     );
   }*/
 
-  static Container divider() {
+  static Container divider(BuildContext context) {
     return Container(
-      color: AppColors.kViolate,
+      color: FlutterFlowTheme.of(context).primaryText,
       height: 0.2,
     );
   }
@@ -219,7 +219,13 @@ class AppWidgets {
       padding: EdgeInsets.symmetric(vertical: verticalPadding??rSize * 0.012, horizontal: horizontalPadding),
       child: widget??Text(
         label,
-        style: borderOnly ? AppStyles.c3C496CW500S18 : FlutterFlowTheme.of(context)
+        style: borderOnly ? FlutterFlowTheme.of(context)
+            .titleSmall
+            .override(
+          fontFamily: 'Roboto',
+          color: FlutterFlowTheme.of(context).primary,
+          letterSpacing: 0.0,
+        ) : FlutterFlowTheme.of(context)
           .displaySmall
           .override(
         fontFamily: 'Roboto',
@@ -253,16 +259,7 @@ class AppWidgets {
   static BoxDecoration gradiantDecoration(BuildContext context,{bool borderOnly = false, Color? color}) {
     return BoxDecoration(
         color: borderOnly ? Colors.transparent : color ?? AppColors.kViolate,
-        /*gradient: LinearGradient(
-            colors: [
-              Color(0xFF4849BE),
-              AppColors.appBarTitleColoe,
-            ],
-            begin: FractionalOffset(0.0, 0.0),
-            end: FractionalOffset(0.0, 1.0),
-            stops: [0.0, 1.0],
-            tileMode: TileMode.clamp),*/
-        border: Border.all(color: color ?? FlutterFlowTheme.of(context).customColor1, width: 1),
+        border: Border.all(color: color ?? FlutterFlowTheme.of(context).primary, width: 1),
         borderRadius: BorderRadius.circular(10));
   }
 
@@ -333,10 +330,12 @@ class AppWidgets {
       leading: leading,
       title: Text(
         title,
+        textAlign: TextAlign.center,
+        maxLines: 1,
         style: FlutterFlowTheme.of(context).bodyMedium.override(
           fontFamily: 'Roboto',
           color: FlutterFlowTheme.of(context).primary,
-          fontSize: 25.0,
+          fontSize: 30.0,
           letterSpacing: 0.0,
           fontWeight: FontWeight.w600,
         ),
@@ -497,7 +496,7 @@ class AppWidgets {
     );
   }
 
-  static showAlert(BuildContext context, String msg, String label1, String label2, void Function()? onTap1, void Function()? onTap2) {
+  static showAlert(BuildContext context, String msg, String label1, String label2, void Function()? onTap1, void Function()? onTap2,{Color? btn1BgColor,Color? btn2BgColor}) {
     showDialog(
       context: context,
       builder: (context) {
@@ -509,7 +508,7 @@ class AppWidgets {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Material(
-                    color: Colors.white,
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
                     child: Column(
                       children: [
                         SizedBox(
@@ -517,7 +516,15 @@ class AppWidgets {
                         ),
                         Text(
                           msg,
-                          style: AppStyles.c3C496CW500S18,
+                          style: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .override(
+                            fontFamily: 'Roboto',
+                            color: FlutterFlowTheme.of(context).primary,
+                            fontSize: 26.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         SizedBox(
                           height: rSize * 0.02,
@@ -525,11 +532,11 @@ class AppWidgets {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            GestureDetector(onTap: onTap1, child: btn(context,label1, borderOnly: true, horizontalPadding: rSize * 0.02)),
+                            GestureDetector(onTap: onTap1, child: btn(context,label1, horizontalPadding: rSize * 0.02,bgColor: btn1BgColor)),
                             SizedBox(
                               width: rSize * 0.02,
                             ),
-                            GestureDetector(onTap: onTap2, child: btn(context,label2, horizontalPadding: rSize * 0.02)),
+                            GestureDetector(onTap: onTap2, child: btn(context,label2, horizontalPadding: rSize * 0.02,bgColor: btn2BgColor)),
                           ],
                         ),
                         SizedBox(

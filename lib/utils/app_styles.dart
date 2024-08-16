@@ -50,35 +50,45 @@ class AppStyles {
       contentPadding: EdgeInsets.all(15.0),
       // Inside box padding
       border: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 1,
-            color: FlutterFlowTheme.of(context).secondaryText,
-          ),
-          borderRadius: BorderRadius.circular(10)),
+        borderSide: BorderSide(
+          color: FlutterFlowTheme.of(context)
+              .alternate,
+          width: 2.0,
+        ),
+        borderRadius: BorderRadius.circular(12.0),
+      ),
       enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 1,
-            color: FlutterFlowTheme.of(context).secondaryText,
-          ),
-          borderRadius: BorderRadius.circular(10)),
+        borderSide: BorderSide(
+          color: FlutterFlowTheme.of(context)
+              .alternate,
+          width: 2.0,
+        ),
+        borderRadius: BorderRadius.circular(12.0),
+      ),
       focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 1,
-            color: FlutterFlowTheme.of(context).secondaryText,
-          ),
-          borderRadius: BorderRadius.circular(10)),
-      focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 1,
-            color: AppColors.kErrorBorderColor,
-          ),
-          borderRadius: BorderRadius.circular(10)),
+        borderSide: BorderSide(
+          color:
+          FlutterFlowTheme.of(context).primary,
+          width: 2.0,
+        ),
+        borderRadius: BorderRadius.circular(12.0),
+      ),
       errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 1,
-            color: AppColors.kErrorBorderColor,
-          ),
-          borderRadius: BorderRadius.circular(10)),
+        borderSide: BorderSide(
+          color: FlutterFlowTheme.of(context)
+              .alternate,
+          width: 2.0,
+        ),
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: FlutterFlowTheme.of(context)
+              .alternate,
+          width: 2.0,
+        ),
+        borderRadius: BorderRadius.circular(12.0),
+      ),
     );
   }
 
@@ -113,6 +123,12 @@ class AppStyles {
       labelText:
       label,
       labelStyle: labelStyle,
+      hintStyle: FlutterFlowTheme.of(context)
+          .labelMedium
+          .override(
+        fontFamily: 'Roboto',
+        letterSpacing: 0.0,
+      ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: FlutterFlowTheme.of(context)

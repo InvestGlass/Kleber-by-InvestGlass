@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kleber_bank/utils/app_colors.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 // Begin custom widget code
@@ -137,10 +138,11 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
       children: [
         Expanded(
           child: SfCartesianChart(
-            plotAreaBorderWidth: 0,borderColor: Colors.white,
+            plotAreaBorderWidth: 0,
             backgroundColor: Colors.transparent,
             borderWidth: 0.5,
             primaryXAxis: CategoryAxis(
+              axisLine: AxisLine(color: FlutterFlowTheme.of(context).primaryText,width: 0.5),
               majorGridLines: const MajorGridLines(width: 0),
               labelRotation: 45,labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
               fontFamily: 'Roboto',
@@ -153,6 +155,11 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
               initialVisibleMaximum: initialVisibleMaximum,
             ),
             primaryYAxis: NumericAxis(
+              majorGridLines: MajorGridLines(
+                color: Colors.grey.withOpacity(0.5), // Color of horizontal grid lines
+                width: 0.5, // Width of horizontal grid lines
+              ),
+            axisLine: AxisLine(color: FlutterFlowTheme.of(context).primaryText,width: 0.5),
               labelFormat: '{value}%',isVisible: true,labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
               fontFamily: 'Roboto',
               color: FlutterFlowTheme.of(context).primaryText,
@@ -205,10 +212,10 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
       ),),
           if (value != 0)
             Icon(
-              value > 0 ? Icons.arrow_circle_up : Icons.arrow_circle_down,
+              value > 0 ? FontAwesomeIcons.caretUp : FontAwesomeIcons.caretDown,
               color: value > 0
-                  ? Colors.green
-                  : Colors.red,
+                  ? FlutterFlowTheme.of(context).customColor2
+                  : FlutterFlowTheme.of(context).customColor3,
               size: 18,
             ),
         ],

@@ -11,6 +11,8 @@ import '../utils/api_calls.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_styles.dart';
 import '../utils/app_widgets.dart';
+import '../utils/flutter_flow_theme.dart';
+import '../utils/internationalization.dart';
 
 class Proposals extends StatefulWidget {
   const Proposals({super.key});
@@ -19,7 +21,7 @@ class Proposals extends StatefulWidget {
   State<Proposals> createState() => _ProposalsState();
 }
 
-class _ProposalsState extends State<Proposals> {
+class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixin {
   late ProposalController _notifier;
   final PagingController<int, ProposalModel> _pagingController = PagingController(firstPageKey: 1);
   int _pageKey = 1;
@@ -49,84 +51,106 @@ class _ProposalsState extends State<Proposals> {
   @override
   Widget build(BuildContext context) {
     _notifier = Provider.of<ProposalController>(context);
-    return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: rSize * 0.05, vertical: rSize * 0.01),
-            child: Row(
-              children: [
-                cell(
-                  'filter.png',
-                  '  FILTER',
-                  () {
-                    openFilterDialog();
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          decoration: AppStyles.commonBg(context),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: rSize * 0.05, right: rSize * 0.05, bottom: rSize * 0.02, top: rSize * 0.02),
+                child: Row(
+                  children: [
+                    cell(
+                      'filter.png',
+                      '  ${FFLocalizations.of(context).getText(
+                        'filter' /* FILTER */,
+                      )}',
+                      () {
+                        openFilterDialog();
+                      },
+                    ),
+                    SizedBox(
+                      width: rSize * 0.03,
+                    ),
+                    cell(
+                      'sort.png',
+                      '  ${FFLocalizations.of(context).getText(
+                        'sort' /* Last update */,
+                      )}',
+                      () {
+                        openSortBottomSheet();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Flexible(
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    _pageKey = 1;
+                    _pagingController.refresh();
                   },
-                ),
-                SizedBox(
-                  width: rSize * 0.03,
-                ),
-                cell(
-                  'sort.png',
-                  '  SORT',
-                  () {
-                    openSortBottomSheet();
-                  },
-                ),
-              ],
-            ),
-          ),
-          Flexible(
-            child: RefreshIndicator(
-              onRefresh: () async {
-                _pageKey = 1;
-                _pagingController.refresh();
-              },
-              child: PagedListView<int, ProposalModel>(
-                pagingController: _pagingController,
-                // shrinkWrap: true,
-                padding: EdgeInsets.symmetric(horizontal: rSize*0.015),
-                builderDelegate: PagedChildBuilderDelegate<ProposalModel>(noItemsFoundIndicatorBuilder: (context) {
-                  return const SizedBox();
-                }, itemBuilder: (context, item, index) {
-                  String date = DateFormat('yyyy-MM-dd HH:mm').format(item.updatedAt!);
-                  return Card(
-                    margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
-                    color: Colors.white,
-                    child: ListView(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.all(rSize * 0.015),
-                      children: [
-                        GestureDetector(
-                          onTap: () => _notifier.selectTransactionIndex(index),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: Text(
-                                    item.name!,
-                                    style: AppStyles.c656262W500S16,
-                                  )),
-                                  SizedBox(
-                                    width: rSize * 0.015,
-                                  ),
-                                  RotatedBox(
-                                      quarterTurns: _notifier.selectedIndex == index ? 1 : 3,
-                                      child: Icon(
-                                        Icons.arrow_back_ios_new,
-                                        color: AppColors.kTextFieldInput,
-                                        size: 15,
+                  child: PagedListView<int, ProposalModel>(
+                    pagingController: _pagingController,
+                    // shrinkWrap: true,
+                    padding: EdgeInsets.symmetric(horizontal: rSize * 0.015),
+                    builderDelegate: PagedChildBuilderDelegate<ProposalModel>(noItemsFoundIndicatorBuilder: (context) {
+                      return const SizedBox();
+                    }, itemBuilder: (context, item, index) {
+                      String date = DateFormat('yyyy-MM-dd HH:mm').format(item.updatedAt!);
+                      return Card(
+                        margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        child: ListView(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.all(rSize * 0.015),
+                          children: [
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () => _notifier.selectTransactionIndex(index),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                          child: Text(
+                                        item.name!,
+                                        style: FlutterFlowTheme.of(context).displaySmall.override(
+                                              fontFamily: 'Roboto',
+                                              color: FlutterFlowTheme.of(context).primaryText,
+                                              fontSize: 16.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                       )),
-                                ],
-                              ),
-                              if (_notifier.selectedIndex == index) ...{
-                                ConstrainedBox(
-                                  constraints: BoxConstraints(
-                                    maxHeight: rSize * 0.5,
+                                      SizedBox(
+                                        width: rSize * 0.015,
+                                      ),
+                                      if ((item.state ?? 'Pending') != 'Pending') ...{
+                                        Icon(
+                                          item.state == 'Accepted' ? Icons.done_rounded : Icons.close_rounded,
+                                          color: item.state == 'Accepted'
+                                              ? FlutterFlowTheme.of(context).customColor2
+                                              : FlutterFlowTheme.of(context).customColor3,
+                                          size: 20.0,
+                                        ),
+                                        SizedBox(
+                                          width: rSize * 0.015,
+                                        ),
+                                      },
+                                      RotatedBox(
+                                          quarterTurns: _notifier.selectedIndex == index ? 1 : 3,
+                                          child: Icon(
+                                            Icons.arrow_back_ios_new,
+                                            color: FlutterFlowTheme.of(context).primaryText,
+                                            size: 15,
+                                          )),
+                                    ],
                                   ),
-                                  child: ListView(
+                                ),
+                                if (_notifier.selectedIndex == index) ...{
+                                  ListView(
                                     shrinkWrap: true,
                                     children: [
                                       SizedBox(
@@ -141,17 +165,37 @@ class _ProposalsState extends State<Proposals> {
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            AppWidgets.portfolioListElement(context,item.advisor?.name ?? '', ''),
+                                            Text(
+                                              item.advisor?.name ?? '',
+                                              textAlign: TextAlign.end,
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                    fontFamily: 'Roboto',
+                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                    fontSize: 16.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.normal,
+                                                  ),
+                                            ),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
-                                            AppWidgets.portfolioListElement(context,'Last Update', date),
+                                            AppWidgets.portfolioListElement(
+                                                context,
+                                                FFLocalizations.of(context).getText(
+                                                  '99qsbuko' /* Last update */,
+                                                ),
+                                                date),
                                             SizedBox(
                                               height: rSize * 0.01,
                                             ),
                                             GestureDetector(
                                                 onTap: () => CommonFunctions.navigate(context, ViewDocument(item.documentId!)),
-                                                child: AppWidgets.btn(context,'Read Proposal')),
+                                                child: AppWidgets.btn(
+                                                    context,
+                                                    FFLocalizations.of(context).getText(
+                                                      'ke604v9b' /* Read proposal */,
+                                                    ),
+                                                    bgColor: FlutterFlowTheme.of(context).primary)),
                                             SizedBox(
                                               height: rSize * 0.01,
                                             ),
@@ -160,6 +204,14 @@ class _ProposalsState extends State<Proposals> {
                                               children: [
                                                 Checkbox(
                                                   value: item.state != 'Pending' || item.isChecked,
+                                                  activeColor: FlutterFlowTheme.of(context).primary,
+                                                  side: BorderSide(
+                                                    width: 2,
+                                                    color: FlutterFlowTheme.of(context).secondaryText,
+                                                  ),
+                                                  checkColor: !((item.state != 'Rejected') && (item.state != 'Accepted'))
+                                                      ? FlutterFlowTheme.of(context).secondaryBackground
+                                                      : FlutterFlowTheme.of(context).info,
                                                   onChanged: (value) {
                                                     if (item.state == 'Pending') {
                                                       item.isChecked = !item.isChecked;
@@ -169,8 +221,16 @@ class _ProposalsState extends State<Proposals> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    'I read the document and agree to the terms of proposal',
-                                                    style: AppStyles.c656262W500S14,
+                                                    FFLocalizations.of(context).getText(
+                                                      'prtogarh' /* I read the documents and agree... */,
+                                                    ),
+                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                          fontFamily: 'Roboto',
+                                                          color: FlutterFlowTheme.of(context).primaryText,
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight: FontWeight.normal,
+                                                        ),
                                                   ),
                                                 )
                                               ],
@@ -186,14 +246,29 @@ class _ProposalsState extends State<Proposals> {
                                                   ),
                                                   Expanded(
                                                       child: GestureDetector(
-                                                    onTap: () => AppWidgets.showAlert(context, 'Decline Proposal ?', 'Cancel', 'Confirm', () {
+                                                    onTap: () => AppWidgets.showAlert(
+                                                        context,
+                                                        FFLocalizations.of(context).getText(
+                                                          'decline_proposal' /* Decline Proposal*/,
+                                                        ),
+                                                        FFLocalizations.of(context).getText(
+                                                          's1jcpzx6' /*cancel*/,
+                                                        ),
+                                                        FFLocalizations.of(context).getText(
+                                                          'bdc48oru' /*confirm*/,
+                                                        ), () {
                                                       Navigator.pop(context);
                                                     }, () {
                                                       _notifier.updateState('rejected', _pagingController, item.id, index, context);
-                                                    }),
-                                                    child: AppWidgets.btnWithIcon(context,
-                                                        '  Decline',
-                                                        Colors.red,
+                                                    },
+                                                        btn1BgColor: FlutterFlowTheme.of(context).customColor3,
+                                                        btn2BgColor: FlutterFlowTheme.of(context).customColor2),
+                                                    child: AppWidgets.btnWithIcon(
+                                                        context,
+                                                        '  ${FFLocalizations.of(context).getText(
+                                                          'j0hr735r' /* Decline*/,
+                                                        )}',
+                                                        FlutterFlowTheme.of(context).customColor3,
                                                         Icon(
                                                           Icons.close,
                                                           color: Colors.white,
@@ -204,14 +279,29 @@ class _ProposalsState extends State<Proposals> {
                                                   ),
                                                   Expanded(
                                                       child: GestureDetector(
-                                                    onTap: () => AppWidgets.showAlert(context, 'Accept Proposal ?', 'Cancel', 'Confirm', () {
+                                                    onTap: () => AppWidgets.showAlert(
+                                                        context,
+                                                        FFLocalizations.of(context).getText(
+                                                          'accept_proposal' /* accept Proposal*/,
+                                                        ),
+                                                        FFLocalizations.of(context).getText(
+                                                          's1jcpzx6' /*cancel*/,
+                                                        ),
+                                                        FFLocalizations.of(context).getText(
+                                                          'bdc48oru' /*confirm*/,
+                                                        ), () {
                                                       Navigator.pop(context);
                                                     }, () {
                                                       _notifier.updateState('accepted', _pagingController, item.id, index, context);
-                                                    }),
-                                                    child: AppWidgets.btnWithIcon(context,
-                                                        '  Accept',
-                                                        Colors.green,
+                                                    },
+                                                        btn1BgColor: FlutterFlowTheme.of(context).customColor3,
+                                                        btn2BgColor: FlutterFlowTheme.of(context).customColor2),
+                                                    child: AppWidgets.btnWithIcon(
+                                                        context,
+                                                        '  ${FFLocalizations.of(context).getText(
+                                                          '3esw1ind' /* Accept */,
+                                                        )}',
+                                                        FlutterFlowTheme.of(context).customColor2,
                                                         Icon(
                                                           Icons.done,
                                                           color: Colors.white,
@@ -228,7 +318,9 @@ class _ProposalsState extends State<Proposals> {
                                                 children: [
                                                   const Icon(Icons.done, color: Colors.green, size: 20),
                                                   Text(
-                                                    '  Accepted at $date',
+                                                    '  ${FFLocalizations.of(context).getText(
+                                                      'c64nnx2a' /* Accepted at  */,
+                                                    )} $date',
                                                     style: AppStyles.c3C496CW400S14.copyWith(color: Colors.green),
                                                   ),
                                                 ],
@@ -243,7 +335,9 @@ class _ProposalsState extends State<Proposals> {
                                                     size: 20,
                                                   ),
                                                   Text(
-                                                    '  Rejected at $date',
+                                                    '  ${FFLocalizations.of(context).getText(
+                                                      '5tjloy3c' /* Rejected at */,
+                                                    )} $date',
                                                     style: AppStyles.c3C496CW400S14.copyWith(color: Colors.red),
                                                   ),
                                                 ],
@@ -252,45 +346,51 @@ class _ProposalsState extends State<Proposals> {
                                             SizedBox(
                                               height: rSize * 0.025,
                                             ),
-                                            proposalElement('   Call your Advisor', Icons.call),
+                                            proposalElement('   ${FFLocalizations.of(context).getText(
+                                              'fbk0uba7' /* Call your advisor */,
+                                            )}', Icons.call),
                                             SizedBox(
                                               height: rSize * 0.01,
                                             ),
-                                            AppWidgets.divider(),
+                                            AppWidgets.divider(context),
                                             SizedBox(
                                               height: rSize * 0.01,
                                             ),
-                                            proposalElement('   Chat with your Advisor', Icons.chat_outlined),
+                                            proposalElement('   ${FFLocalizations.of(context).getText(
+                                              'pkkj5rta' /* Chat with your Advisor */,
+                                            )}', Icons.chat_outlined),
                                             SizedBox(
                                               height: rSize * 0.01,
                                             ),
-                                            AppWidgets.divider(),
+                                            AppWidgets.divider(context),
                                             SizedBox(
                                               height: rSize * 0.01,
                                             ),
-                                            proposalElement('   Schedule Appointment', Icons.calendar_month),
+                                            proposalElement('   ${FFLocalizations.of(context).getText(
+                                              'lq59qmsn' ,
+                                            )}', Icons.calendar_month),
                                             SizedBox(
                                               height: rSize * 0.01,
                                             ),
-                                            AppWidgets.divider(),
+                                            AppWidgets.divider(context),
                                           ],
                                         ),
                                       ),
                                     ],
                                   ),
-                                ),
-                              }
-                            ],
-                          ),
+                                }
+                              ],
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  );
-                }),
-              ),
-            ),
-          )
-        ],
+                      );
+                    }),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -303,10 +403,11 @@ class _ProposalsState extends State<Proposals> {
       useRootNavigator: true,
       isScrollControlled: true,
       context: context,
+      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setState) {
-            Provider.of<ProposalController>(context,listen: false).getProposalTypes();
+            Provider.of<ProposalController>(context, listen: false).getProposalTypes();
             _notifier = Provider.of<ProposalController>(context);
             return Wrap(
               children: [
@@ -320,8 +421,16 @@ class _ProposalsState extends State<Proposals> {
                       children: [
                         Expanded(
                             child: Text(
-                          'Filter',
-                          style: AppStyles.c3C496CW500S18.copyWith(fontSize: AppStyles.px22),
+                          FFLocalizations.of(context).getText(
+                            'filter' /* Filter */,
+                          ),
+                          style: FlutterFlowTheme.of(context).headlineMedium.override(
+                                fontFamily: 'Roboto',
+                                color: FlutterFlowTheme.of(context).primary,
+                                fontSize: 26.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                              ),
                         )),
                         GestureDetector(
                           onTap: () {
@@ -329,7 +438,7 @@ class _ProposalsState extends State<Proposals> {
                           },
                           child: Icon(
                             Icons.close,
-                            color: AppColors.kTextFieldInput,
+                            color: FlutterFlowTheme.of(context).primary,
                           ),
                         )
                       ],
@@ -337,38 +446,105 @@ class _ProposalsState extends State<Proposals> {
                     SizedBox(
                       height: rSize * 0.02,
                     ),
+                    Text(
+                      FFLocalizations.of(context).getText(
+                        'uvch601w' /* Advisor */,
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Roboto',
+                            fontSize: 18.0,
+                            letterSpacing: 0.0,
+                          ),
+                    ),
+                    SizedBox(
+                      height: rSize * 0.01,
+                    ),
                     TextFormField(
                       controller: advisorController,
-                      onChanged: (value) {},
-                      decoration: AppStyles.inputDecoration(context,label: 'Advisor'),
+                      style: FlutterFlowTheme.of(context).bodyLarge.override(
+                            fontFamily: 'Roboto',
+                            letterSpacing: 0.0,
+                          ),
+                      decoration: AppStyles.inputDecoration(
+                        context,
+                        fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                        contentPadding: EdgeInsets.all(15),
+                        labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
+                              fontFamily: 'Roboto',
+                              letterSpacing: 0.0,
+                            ),
+                      ),
                     ),
                     SizedBox(
                       height: rSize * 0.02,
+                    ),
+                    Text(
+                      FFLocalizations.of(context).getText(
+                        'rvrrcr87' /* Proposal Name */,
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Roboto',
+                            fontSize: 18.0,
+                            letterSpacing: 0.0,
+                          ),
+                    ),
+                    SizedBox(
+                      height: rSize * 0.01,
                     ),
                     TextFormField(
                       controller: proposalNameController,
-                      onChanged: (value) {},
-                      decoration: AppStyles.inputDecoration(context,label: 'Proposal Name'),
+                      style: FlutterFlowTheme.of(context).bodyLarge.override(
+                            fontFamily: 'Roboto',
+                            letterSpacing: 0.0,
+                          ),
+                      decoration: AppStyles.inputDecoration(
+                        context,
+                        fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                        contentPadding: EdgeInsets.all(15),
+                        labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
+                              fontFamily: 'Roboto',
+                              letterSpacing: 0.0,
+                            ),
+                      ),
                     ),
                     SizedBox(
                       height: rSize * 0.02,
                     ),
-                    DropdownButtonFormField(
-                      decoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('Types')),
-                      isExpanded: true,
-                      icon: AppWidgets.dropDownIcon(),
-                      style: AppStyles.c3C496CW500S18,
-                      isDense: true,
-                      value: selectedProposal,
-                      onChanged: (value) {
-                        selectedProposal = value;
-                      },
-                      items: _notifier.typesList
-                          .map(
-                            (String item) => DropdownMenuItem<String>(value: item, child: AppWidgets.dropDownHint(context,item)),
-                          )
-                          .toList(),
+                    Text(
+                      FFLocalizations.of(context).getText(
+                        '4n2ah71g' /* Types */,
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Roboto',
+                        fontSize: 18.0,
+                        letterSpacing: 0.0,
+                      ),
                     ),
+                    SizedBox(
+                      height: rSize * 0.01,
+                    ),
+                    DropdownButtonFormField(
+                        decoration: AppStyles.dropDownInputDecoration(context, AppWidgets.textFieldLabel('')),
+                        isExpanded: true,
+                        icon: AppWidgets.dropDownIcon(),
+                        style: FlutterFlowTheme.of(context).displaySmall.override(
+                          fontFamily: 'Roboto',
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          fontSize: 16.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        isDense: true,
+                        value: selectedProposal,
+                        onChanged: (value) {
+                          selectedProposal = value;
+                        },dropdownColor: FlutterFlowTheme.of(context).secondaryText,
+                        items: _notifier.typesList
+                            .map(
+                              (String item) => DropdownMenuItem<String>(value: item, child: AppWidgets.dropDownHint(context, item)),
+                        )
+                            .toList(),
+                        hint: AppWidgets.dropDownHint(context, '')),
                     SizedBox(
                       height: rSize * 0.02,
                     ),
@@ -384,7 +560,9 @@ class _ProposalsState extends State<Proposals> {
                                 _pagingController.refresh();
                                 Navigator.pop(context);
                               },
-                              child: AppWidgets.btn(context,'CLEAR', borderOnly: true)),
+                              child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
+                                'zw535eku' /* CLEAR */,
+                              ), borderOnly: true)),
                         ),
                         SizedBox(
                           width: rSize * 0.02,
@@ -396,14 +574,19 @@ class _ProposalsState extends State<Proposals> {
                                 _notifier.proposalName = proposalNameController.text;
                                 _notifier.selectedProposalType = selectedProposal;
                                 _pageKey = 1;
-                                _notifier.selectedFilterList.removeWhere((element) => element.type==FilterTypes.ADVISOR.name || element.type==FilterTypes.PROPOSAL_NAME.name || element.type==FilterTypes.PROPOSAL_TYPE.name);
-                                _notifier.selectedFilterList.add(FilterModel(_notifier.advisorName!,FilterTypes.ADVISOR.name ));
-                                _notifier.selectedFilterList.add(FilterModel(_notifier.proposalName!,FilterTypes.PROPOSAL_NAME.name ));
-                                _notifier.selectedFilterList.add(FilterModel(_notifier.selectedProposalType!,FilterTypes.PROPOSAL_TYPE.name ));
+                                _notifier.selectedFilterList.removeWhere((element) =>
+                                    element.type == FilterTypes.ADVISOR.name ||
+                                    element.type == FilterTypes.PROPOSAL_NAME.name ||
+                                    element.type == FilterTypes.PROPOSAL_TYPE.name);
+                                _notifier.selectedFilterList.add(FilterModel(_notifier.advisorName!, FilterTypes.ADVISOR.name));
+                                _notifier.selectedFilterList.add(FilterModel(_notifier.proposalName!, FilterTypes.PROPOSAL_NAME.name));
+                                _notifier.selectedFilterList.add(FilterModel(_notifier.selectedProposalType!, FilterTypes.PROPOSAL_TYPE.name));
                                 _pagingController.refresh();
                                 Navigator.pop(context);
                               },
-                              child: AppWidgets.btn(context,'APPLY')),
+                              child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
+                                'r8wu2qe3' /* Apply */,
+                              ),bgColor: FlutterFlowTheme.of(context).primary)),
                         ),
                       ],
                     ),
@@ -430,12 +613,20 @@ class _ProposalsState extends State<Proposals> {
                   alignment: Alignment.center,
                   padding: EdgeInsets.only(top: rSize * 0.015),
                   decoration: BoxDecoration(
-                      color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                      color: FlutterFlowTheme.of(context).secondaryBackground, borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
                   child: Column(
                     children: [
                       Text(
-                        'SORT',
-                        style: AppStyles.c656262W500S20,
+                        FFLocalizations.of(context).getText(
+                          'sort' /* sort */,
+                        ),
+                        style: FlutterFlowTheme.of(context).headlineMedium.override(
+                          fontFamily: 'Roboto',
+                          color: FlutterFlowTheme.of(context).primary,
+                          fontSize: 26.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       Container(
                         height: 0.5,
@@ -443,10 +634,10 @@ class _ProposalsState extends State<Proposals> {
                         width: double.infinity,
                         color: AppColors.kHint,
                       ),
-                      sortDialogElement(0, _notifier.sortList[0],context),
-                      sortDialogElement(1, _notifier.sortList[1],context),
-                      sortDialogElement(2, _notifier.sortList[2],context),
-                      sortDialogElement(3, _notifier.sortList[3],context),
+                      sortDialogElement(0, _notifier.sortList[0], context),
+                      sortDialogElement(1, _notifier.sortList[1], context),
+                      sortDialogElement(2, _notifier.sortList[2], context),
+                      sortDialogElement(3, _notifier.sortList[3], context),
                     ],
                   ),
                 ),
@@ -461,35 +652,47 @@ class _ProposalsState extends State<Proposals> {
   Row sortDialogElement(int value, String label, BuildContext context) {
     return Row(
       children: [
-        Radio(
-          value: value,
-          groupValue: _notifier.selectedSortIndex,
-          onChanged: (p0) {
-            _notifier.selectedSortIndex=value;
-            if (value == 0) {
-              _notifier.direction = 'desc';
-              _notifier.column = 'created_at';
-            } else if (value == 1) {
-              _notifier.direction = 'asc';
-              _notifier.column = 'created_at';
-            } else if (value == 2) {
-              _notifier.direction = 'asc';
-              _notifier.column = 'name';
-            } else if (value == 3) {
-              _notifier.direction = 'desc';
-              _notifier.column = 'name';
-            }
-            _notifier.selectedFilterList.removeWhere((element) => element.type==FilterTypes.SORT.name,);
-            _notifier.selectedFilterList.add(FilterModel(_notifier.sortList[value],FilterTypes.SORT.name));
-            _pageKey=1;
-            _pagingController.refresh();
-            Navigator.pop(context);
-          },
+        Theme(
+          data: ThemeData(unselectedWidgetColor: FlutterFlowTheme.of(context).primaryText),
+          child: Radio(
+            activeColor: FlutterFlowTheme.of(context).primary,
+            value: value,
+            groupValue: _notifier.selectedSortIndex,
+            onChanged: (p0) {
+              _notifier.selectedSortIndex = value;
+              if (value == 0) {
+                _notifier.direction = 'desc';
+                _notifier.column = 'created_at';
+              } else if (value == 1) {
+                _notifier.direction = 'asc';
+                _notifier.column = 'created_at';
+              } else if (value == 2) {
+                _notifier.direction = 'asc';
+                _notifier.column = 'name';
+              } else if (value == 3) {
+                _notifier.direction = 'desc';
+                _notifier.column = 'name';
+              }
+              _notifier.selectedFilterList.removeWhere(
+                (element) => element.type == FilterTypes.SORT.name,
+              );
+              _notifier.selectedFilterList.add(FilterModel(_notifier.sortList[value], FilterTypes.SORT.name));
+              _pageKey = 1;
+              _pagingController.refresh();
+              Navigator.pop(context);
+            },
+          ),
         ),
         Expanded(
             child: Text(
           label,
-          style: AppStyles.c656262W500S18,
+              style: FlutterFlowTheme.of(context).displaySmall.override(
+                fontFamily: 'Roboto',
+                color: FlutterFlowTheme.of(context).primaryText,
+                fontSize: 16.0,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.w500,
+              ),
         )),
       ],
     );
@@ -500,19 +703,25 @@ class _ProposalsState extends State<Proposals> {
       children: [
         Icon(
           iconData,
-          color: AppColors.kTextFieldInput,
+          color: FlutterFlowTheme.of(context).primaryText,
           size: 20,
         ),
         Expanded(
             child: Text(
           title,
-          style: AppStyles.c656262W400S16,
+          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                fontFamily: 'Roboto',
+                color: FlutterFlowTheme.of(context).primaryText,
+                fontSize: 16.0,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.normal,
+              ),
         )),
-        const RotatedBox(
+        RotatedBox(
             quarterTurns: 2,
             child: Icon(
               Icons.arrow_back_ios_new,
-              color: AppColors.kTextFieldInput,
+              color: FlutterFlowTheme.of(context).primaryText,
               size: 15,
             ))
       ],
@@ -525,21 +734,24 @@ class _ProposalsState extends State<Proposals> {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(rSize * 0.01),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: AppColors.kTextFieldInput, width: 0.2),
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+        decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               'assets/$img',
-              color: AppColors.kTextFieldInput,
+              color: FlutterFlowTheme.of(context).secondaryBackground,
               scale: 25,
             ),
             Text(
               label,
-              style: AppStyles.c656262W500S14,
+              style: FlutterFlowTheme.of(context).displaySmall.override(
+                    fontFamily: 'Roboto',
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    fontSize: 14.0,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.normal,
+                  ),
               textAlign: TextAlign.center,
             ),
           ],
@@ -547,4 +759,8 @@ class _ProposalsState extends State<Proposals> {
       ),
     ));
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

@@ -10,6 +10,9 @@ import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
 import 'package:provider/provider.dart';
 
+import '../utils/flutter_flow_theme.dart';
+import '../utils/internationalization.dart';
+
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
@@ -22,51 +25,99 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     _notifier=Provider.of<ProfileController>(context);
-    return Scaffold(
-      body: Card(
-        color: Colors.white,
-        margin: EdgeInsets.all(rSize*0.015),
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.symmetric(horizontal:rSize*0.015,vertical:rSize*0.02),
-          children: [
-            Text('xofas14574',style: AppStyles.c656262W400S20,),
-            Text('bolote235@wedersde.com',style: AppStyles.c3C496CW400S14,),
-            SizedBox(height: rSize*0.03,),
-            cell('Change Password',() => CommonFunctions.navigate(context,ChangePassword()),),
-            SizedBox(height: rSize*0.02,),
-            cell('Change Language',() => openLanguageSelectionBottomSheet(),),
-            SizedBox(height: rSize*0.02,),
-            Row(
-              children: [
-                SizedBox(width: rSize*0.02,),
-
-                Expanded(
-                  child: Text(
-                    'Switch To Dark Mode',
-                    style: AppStyles.c3C496CW500S16,
-                  ),
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          decoration: AppStyles.commonBg(context),
+          child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.symmetric(horizontal:rSize*0.015,vertical:rSize*0.02),
+            children: [
+              Text('xofas14574',style: FlutterFlowTheme.of(context)
+                  .headlineSmall
+                  .override(
+                fontFamily: 'Roboto',
+                fontSize: 20.0,
+                letterSpacing: 0.0,
+              ),),
+              Text('bolote235@wedersde.com',style: FlutterFlowTheme.of(context)
+                  .bodySmall
+                  .override(
+                fontFamily: 'Outfit',
+                color: FlutterFlowTheme.of(context)
+                    .primary,
+                fontSize: 16.0,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.normal,
+              ),),
+              SizedBox(height: rSize*0.03,),
+              Text(
+                FFLocalizations.of(context).getText(
+                  'wl1ownor' /* Account Settings */,
                 ),
-                Switch(value: true, onChanged: (value) {
+                style:
+                FlutterFlowTheme.of(context).labelMedium.override(
+                  fontFamily: 'Roboto',
+                  letterSpacing: 0.0,
+                ),
+              ),
+              SizedBox(height: rSize*0.02,),
+              cell(FFLocalizations.of(context).getText(
+                'afxtmzhw' /* Change Password */,
+              ),() => CommonFunctions.navigate(context,ChangePassword()),),
+              SizedBox(height: rSize*0.02,),
+              cell(FFLocalizations.of(context).getText(
+                'wvo4yj9k' /* Change Language */,
+              ),() => openLanguageSelectionBottomSheet(),),
+              SizedBox(height: rSize*0.02,),
+              Row(
+                children: [
+                  SizedBox(width: rSize*0.02,),
+      
+                  Expanded(
+                    child: Text(
+                      FFLocalizations.of(context).getText(
+                        'znd2aszb' /* Switch to Dark Mode */,
+                      ),
+                      style: FlutterFlowTheme.of(context)
+                          .bodyMedium
+                          .override(
+                        fontFamily: 'Roboto',
+                        color: FlutterFlowTheme.of(context)
+                            .secondaryText,
+                        letterSpacing: 0.0,
+                      ),
+                    ),
+                  ),
+                  Theme(
+                    data: ThemeData(
 
-                },),
-                SizedBox(width: rSize*0.015,),
+                        unselectedWidgetColor: FlutterFlowTheme.of(context).primary),
+                    child: Switch(value: true, onChanged: (value) {
 
-              ],
-            ),
-            SizedBox(height: rSize*0.015,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
+                    },activeColor: FlutterFlowTheme.of(context).primary,),
+                  ),
+                  SizedBox(width: rSize*0.015,),
+      
+                ],
+              ),
+              SizedBox(height: rSize*0.015,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
                     onTap: () async {
                       await SharedPrefUtils.instance.logout();
                       CommonFunctions.navigate(context, Login(),removeAllScreensFromStack: true);
                     },
-                    child: AppWidgets.btn(context,'Log out',horizontalPadding: rSize*0.03)),
-              ],
-            ),
-          ],
+                    child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
+                      'c0xbwwci' /* Logout */,
+                    ),bgColor: FlutterFlowTheme.of(context).primary,horizontalPadding: rSize*0.03),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -88,12 +139,20 @@ class _ProfileState extends State<Profile> {
                   alignment: Alignment.center,
                   padding: EdgeInsets.only(top: rSize * 0.015),
                   decoration: BoxDecoration(
-                      color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                      color: FlutterFlowTheme.of(context).secondaryBackground, borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
                   child: Column(
                     children: [
                       Text(
-                        'Choose Language',
-                        style: AppStyles.c656262W500S20,
+                        FFLocalizations.of(context).getText(
+                          'cnc2a7kn' /* Change Language */,
+                        ),
+                        style: FlutterFlowTheme.of(context).headlineMedium.override(
+                          fontFamily: 'Roboto',
+                          color: FlutterFlowTheme.of(context).primary,
+                          fontSize: 26.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       Container(
                         height: 0.5,
@@ -101,9 +160,15 @@ class _ProfileState extends State<Profile> {
                         width: double.infinity,
                         color: AppColors.kHint,
                       ),
-                      sortDialogElement(0, 'English'),
-                      sortDialogElement(1, 'Arabic'),
-                      sortDialogElement(2, 'Vietnamese'),
+                      sortDialogElement(0, FFLocalizations.of(context).getText(
+                        'english' /* english */,
+                      )),
+                      sortDialogElement(1, FFLocalizations.of(context).getText(
+                        'arabic' /* arabic */,
+                      )),
+                      sortDialogElement(2, FFLocalizations.of(context).getText(
+                        'vietnamese' /* vietnamese */,
+                      )),
                     ],
                   ),
                 ),
@@ -118,18 +183,28 @@ class _ProfileState extends State<Profile> {
   Row sortDialogElement(int value, String label) {
     return Row(
       children: [
-        Radio(
-          value: value,
-          groupValue: _notifier.selectedLanguage,
-          onChanged: (p0) {
-            _notifier.changeLanguage(p0!);
-            Navigator.pop(context);
-          },
+        Theme(
+          data: ThemeData(unselectedWidgetColor: FlutterFlowTheme.of(context).primaryText),
+          child: Radio(
+            value: value,
+            activeColor: FlutterFlowTheme.of(context).primary,
+            groupValue: _notifier.selectedLanguage,
+            onChanged: (p0) {
+              _notifier.changeLanguage(p0!);
+              Navigator.pop(context);
+            },
+          ),
         ),
         Expanded(
             child: Text(
               label,
-              style: AppStyles.c656262W500S18,
+              style: FlutterFlowTheme.of(context).displaySmall.override(
+                fontFamily: 'Roboto',
+                color: FlutterFlowTheme.of(context).primaryText,
+                fontSize: 16.0,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.w500,
+              ),
             )),
       ],
     );
@@ -140,18 +215,23 @@ class _ProfileState extends State<Profile> {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.kHint.withOpacity(0.1),
+          color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius:BorderRadius.circular(10)
         ),
         padding: EdgeInsets.symmetric(horizontal: rSize*0.02,vertical: rSize*0.015),
         child: Row(
           children: [
-            Expanded(child: Text(title,style: AppStyles.c656262W400S16,)),
+            Expanded(child: Text(title,style: FlutterFlowTheme.of(context)
+                .labelMedium
+                .override(
+              fontFamily: 'Roboto',
+              letterSpacing: 0.0,
+            ),)),
             RotatedBox(
                 quarterTurns: 2,
                 child: Icon(
                   Icons.arrow_back_ios_new,
-                  color: AppColors.kTextFieldInput,
+                  color: FlutterFlowTheme.of(context).secondaryText,
                   size: 15,
                 ))
           ],

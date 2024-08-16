@@ -1,5 +1,6 @@
 // Automatic FlutterFlow imports
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
@@ -103,11 +104,11 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               if (additionPercent != 0)
                 Icon(
                   additionPercent > 0
-                      ? Icons.arrow_circle_up
-                      : Icons.arrow_circle_down,
+                      ? FontAwesomeIcons.caretUp
+                      : FontAwesomeIcons.caretDown,
                   color: additionPercent > 0
-                      ? Colors.green
-                      : Colors.red,
+                      ? FlutterFlowTheme.of(context).customColor2
+                      : FlutterFlowTheme.of(context).customColor3,
                   size: 18,
                 ),
             ],
@@ -143,7 +144,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
           return columnStart + additionPercent;
         },
         pointColorMapper: (String label, int index) =>
-        Colors.green,initialIsVisible: true,
+        FlutterFlowTheme.of(context).primary,initialIsVisible: true,
         name: 'RangeColumnSeries',
         color: Colors.white, // FlutterFlowTheme.of(context).alternate,
         enableTooltip: false,
@@ -154,7 +155,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
         yValueMapper: (String label, index) => widget.listY[index],
         width: 2,
         markerSettings: const MarkerSettings(isVisible: true),
-        color: Colors.yellow,
+        color: FlutterFlowTheme.of(context).customColor1,
         name: 'LineSeries',
       ),
     ];
@@ -168,14 +169,14 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
       children: [
         Expanded(
           child: SfCartesianChart(
-            plotAreaBorderWidth: 0,borderColor: Colors.white,
+            plotAreaBorderWidth: 0,
             // title: ChartTitle(
             //   text: 'syncfusion_flutter_charts\nline & spline',
             //   textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             // ),
             primaryXAxis: CategoryAxis(
-              edgeLabelPlacement: EdgeLabelPlacement.shift,
-              majorGridLines: const MajorGridLines(width: 0),axisLine: AxisLine(color: Colors.white,width: 0.5),
+              edgeLabelPlacement: EdgeLabelPlacement.shift,tickPosition: TickPosition. inside,
+              majorGridLines: const MajorGridLines(width: 0),axisLine: AxisLine(color: FlutterFlowTheme.of(context).primaryText,width: 0.5),
               labelRotation: 45,labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
               fontFamily: 'Roboto',
               color: FlutterFlowTheme.of(context).primaryText,
@@ -188,8 +189,12 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               isInversed: isAr,
             ),
             primaryYAxis: NumericAxis(
-              labelFormat: '{value}%',axisLine: AxisLine(color: Colors.white,width: 0.5),
+              labelFormat: '{value}%',axisLine: AxisLine(color: FlutterFlowTheme.of(context).primaryText,width: 0.5),
               interval: getYAxisInterval(),
+              majorGridLines: MajorGridLines(
+                color: Colors.grey.withOpacity(0.5), // Color of horizontal grid lines
+                width: 0.5, // Width of horizontal grid lines
+              ),
               opposedPosition: isAr,labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
               fontFamily: 'Roboto',
               color: FlutterFlowTheme.of(context).primaryText,
