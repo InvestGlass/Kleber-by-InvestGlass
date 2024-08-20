@@ -158,7 +158,7 @@ class AppWidgets {
     );
   }
 
-  static Widget portfolioListElement(BuildContext context, String label, String value, {String middleValue = ''}) {
+  static Widget portfolioListElement(BuildContext context, String label, String value, {String middleValue = '',Widget? icon}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -194,7 +194,12 @@ class AppWidgets {
                     fontWeight: FontWeight.normal,
                   ),
             ),
-          )
+
+
+          ),if(icon!=null)...{
+            SizedBox(width: 10,),
+    icon
+    }
         } else ...{
           Text(
             value,

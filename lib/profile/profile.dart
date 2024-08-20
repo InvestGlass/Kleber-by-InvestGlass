@@ -25,99 +25,97 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     _notifier=Provider.of<ProfileController>(context);
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          decoration: AppStyles.commonBg(context),
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.symmetric(horizontal:rSize*0.015,vertical:rSize*0.02),
-            children: [
-              Text('xofas14574',style: FlutterFlowTheme.of(context)
-                  .headlineSmall
-                  .override(
-                fontFamily: 'Roboto',
-                fontSize: 20.0,
-                letterSpacing: 0.0,
-              ),),
-              Text('bolote235@wedersde.com',style: FlutterFlowTheme.of(context)
-                  .bodySmall
-                  .override(
-                fontFamily: 'Outfit',
-                color: FlutterFlowTheme.of(context)
-                    .primary,
-                fontSize: 16.0,
-                letterSpacing: 0.0,
-                fontWeight: FontWeight.normal,
-              ),),
-              SizedBox(height: rSize*0.03,),
-              Text(
-                FFLocalizations.of(context).getText(
-                  'wl1ownor' /* Account Settings */,
-                ),
-                style:
-                FlutterFlowTheme.of(context).labelMedium.override(
-                  fontFamily: 'Roboto',
-                  letterSpacing: 0.0,
-                ),
+    return Scaffold(
+      body: Container(
+        decoration: AppStyles.commonBg(context),
+        child: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.symmetric(horizontal:rSize*0.015,vertical:rSize*0.04),
+          children: [
+            Text(SharedPrefUtils.instance.getUserData().user!.username!,style: FlutterFlowTheme.of(context)
+                .headlineSmall
+                .override(
+              fontFamily: 'Roboto',
+              fontSize: 20.0,
+              letterSpacing: 0.0,
+            ),),
+            Text(SharedPrefUtils.instance.getUserData().user!.email!,style: FlutterFlowTheme.of(context)
+                .bodySmall
+                .override(
+              fontFamily: 'Outfit',
+              color: FlutterFlowTheme.of(context)
+                  .primary,
+              fontSize: 16.0,
+              letterSpacing: 0.0,
+              fontWeight: FontWeight.normal,
+            ),),
+            SizedBox(height: rSize*0.03,),
+            Text(
+              FFLocalizations.of(context).getText(
+                'wl1ownor' /* Account Settings */,
               ),
-              SizedBox(height: rSize*0.02,),
-              cell(FFLocalizations.of(context).getText(
-                'afxtmzhw' /* Change Password */,
-              ),() => CommonFunctions.navigate(context,ChangePassword()),),
-              SizedBox(height: rSize*0.02,),
-              cell(FFLocalizations.of(context).getText(
-                'wvo4yj9k' /* Change Language */,
-              ),() => openLanguageSelectionBottomSheet(),),
-              SizedBox(height: rSize*0.02,),
-              Row(
-                children: [
-                  SizedBox(width: rSize*0.02,),
-      
-                  Expanded(
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'znd2aszb' /* Switch to Dark Mode */,
-                      ),
-                      style: FlutterFlowTheme.of(context)
-                          .bodyMedium
-                          .override(
-                        fontFamily: 'Roboto',
-                        color: FlutterFlowTheme.of(context)
-                            .secondaryText,
-                        letterSpacing: 0.0,
-                      ),
+              style:
+              FlutterFlowTheme.of(context).labelMedium.override(
+                fontFamily: 'Roboto',
+                letterSpacing: 0.0,
+              ),
+            ),
+            SizedBox(height: rSize*0.02,),
+            cell(FFLocalizations.of(context).getText(
+              'afxtmzhw' /* Change Password */,
+            ),() => CommonFunctions.navigate(context,ChangePassword()),),
+            SizedBox(height: rSize*0.02,),
+            cell(FFLocalizations.of(context).getText(
+              'wvo4yj9k' /* Change Language */,
+            ),() => openLanguageSelectionBottomSheet(),),
+            SizedBox(height: rSize*0.02,),
+            Row(
+              children: [
+                SizedBox(width: rSize*0.02,),
+
+                Expanded(
+                  child: Text(
+                    FFLocalizations.of(context).getText(
+                      'znd2aszb' /* Switch to Dark Mode */,
+                    ),
+                    style: FlutterFlowTheme.of(context)
+                        .bodyMedium
+                        .override(
+                      fontFamily: 'Roboto',
+                      color: FlutterFlowTheme.of(context)
+                          .secondaryText,
+                      letterSpacing: 0.0,
                     ),
                   ),
-                  Theme(
-                    data: ThemeData(
+                ),
+                Theme(
+                  data: ThemeData(
 
-                        unselectedWidgetColor: FlutterFlowTheme.of(context).primary),
-                    child: Switch(value: true, onChanged: (value) {
+                      unselectedWidgetColor: FlutterFlowTheme.of(context).primary),
+                  child: Switch(value: true, onChanged: (value) {
 
-                    },activeColor: FlutterFlowTheme.of(context).primary,),
-                  ),
-                  SizedBox(width: rSize*0.015,),
-      
-                ],
-              ),
-              SizedBox(height: rSize*0.015,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      await SharedPrefUtils.instance.logout();
-                      CommonFunctions.navigate(context, Login(),removeAllScreensFromStack: true);
-                    },
-                    child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
-                      'c0xbwwci' /* Logout */,
-                    ),bgColor: FlutterFlowTheme.of(context).primary,horizontalPadding: rSize*0.03),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                  },activeColor: FlutterFlowTheme.of(context).primary,),
+                ),
+                SizedBox(width: rSize*0.015,),
+
+              ],
+            ),
+            SizedBox(height: rSize*0.015,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () async {
+                    await SharedPrefUtils.instance.logout();
+                    CommonFunctions.navigate(context, Login(),removeAllScreensFromStack: true);
+                  },
+                  child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
+                    'c0xbwwci' /* Logout */,
+                  ),bgColor: FlutterFlowTheme.of(context).primary,horizontalPadding: rSize*0.03),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

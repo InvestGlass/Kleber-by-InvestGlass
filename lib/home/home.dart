@@ -54,18 +54,120 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
     _notifier=Provider.of<HomeController>(context);
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          decoration: AppStyles.commonBg(context),
-          child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.02),
-            children: [
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 10.0),
+    return Scaffold(
+      body: Container(
+        decoration: AppStyles.commonBg(context),
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.02),
+          children: [
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(15.0, 20.0, 0.0, 10.0),
+              child: Text(
+                FFLocalizations.of(context).getText(
+                  'ran9xdwl' /* Popular */,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Roboto',
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      fontSize: 24.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.normal,
+                    ),
+              ),
+            ),
+            SizedBox(
+              height: rSize * 0.25,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.zero,
+                itemCount: _notifier.popularNewsList.length,
+                itemBuilder: (context, index) {
+                  HomeNewsModel model=_notifier.popularNewsList[index];
+                  return Card(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                          child: Image.network(
+                            model.imageUrl??'',
+                            height: rSize * 0.15,
+                            width: rSize * 0.27,
+                            fit: BoxFit.cover,errorBuilder: (context, error, stackTrace) {
+                              return Image.asset('assets/items_default.jpg',
+                                height: rSize * 0.15,
+                                width: rSize * 0.27,fit: BoxFit.cover);
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                  width: rSize * 0.27,
+                                  margin: EdgeInsets.only(top: rSize * 0.005),
+                                  alignment: Alignment.centerLeft,
+                                  child: AutoSizeText(
+                                    model.title??'',
+                                    maxLines: 2,
+                                    minFontSize: 12.0,
+                                    style: FlutterFlowTheme.of(context).titleMedium.override(
+                                          fontFamily: 'Roboto',
+                                          color: FlutterFlowTheme.of(context).primaryText,
+                                          fontSize: 18.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                          lineHeight: 1.2,
+                                        ),
+                                  )),
+                              SizedBox(
+                                height: rSize * 0.01,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).customColor1,
+                                  borderRadius: BorderRadius.circular(24.0),
+                                ),
+                                child: Align(
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 5.0),
+                                    child: Container(
+                                      height: 12.0,
+                                      decoration: const BoxDecoration(),
+                                      child: AutoSizeText(
+                                        DateFormat('yyyy-MM-dd').format(model.date??DateTime.now()),
+                                        minFontSize: 1.0,
+                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                              fontFamily: 'Roboto',
+                                              color: FlutterFlowTheme.of(context).info,
+                                              fontSize: 12.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                              lineHeight: 1.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
                 child: Text(
                   FFLocalizations.of(context).getText(
-                    'ran9xdwl' /* Popular */,
+                    'gln3vyrv' /* Recomended */,
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
@@ -74,336 +176,232 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin{
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.normal,
                       ),
+                )),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 400.0,
+                  margin: EdgeInsets.only(bottom: rSize*0.01),
+                  decoration: const BoxDecoration(),
+                  child: Builder(
+                    builder: (context) {
+                      // final recomendedNewsList = _notifier
+                      //     .recomendedListToRender
+                      //     .toList();
+
+                      return FlutterFlowSwipeableStack(
+                        onSwipeFn: (index) async {
+
+                        },
+                        onLeftSwipe: (index) async {
+
+                        },
+                        onRightSwipe: (index) async {
+
+                        },
+                        onUpSwipe: (index) async {
+
+                        },
+                        onDownSwipe: (index) async {
+
+                        },
+                        itemBuilder: (context,
+                            recomendedNewsListIndex) {
+                          // final recomendedNewsListItem =
+                          // recomendedNewsList[
+                          // recomendedNewsListIndex];
+                          return NewsFeedSwipeCardWidget(
+                            key: Key(
+                                'Keylei_${recomendedNewsListIndex}_of_}'),
+                            image:
+                            'https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iZzEbn3d5iqk/v1/1200x799.jpg',
+                            type: 'Technology',
+                            title:
+                            'Nvidia Delivers on AI Hype lgnifdg \$140 B Stock',
+                            content: 'dsfds',
+                          );
+                        },
+                        itemCount:5,
+                        controller:
+                        _notifier.swipeableStackController,
+                        loop: false,
+                        cardDisplayCount: 2,
+                        scale: 1.0,
+                        maxAngle: 45.0,
+                        cardPadding: const EdgeInsets.all(0.0),
+                        backCardOffset:
+                        const Offset(0.0, 0.0),
+                      );
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: rSize * 0.25,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.zero,
-                  itemCount: _notifier.popularNewsList.length,
-                  itemBuilder: (context, index) {
-                    HomeNewsModel model=_notifier.popularNewsList[index];
-                    return Card(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      20.0, 0.0, 20.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment:
+                    MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                            child: Image.network(
-                              model.imageUrl??'',
-                              height: rSize * 0.15,
-                              width: rSize * 0.27,
-                              fit: BoxFit.cover,errorBuilder: (context, error, stackTrace) {
-                                return Image.asset('assets/login_bg.jpg',
-                                  height: rSize * 0.15,
-                                  width: rSize * 0.27,fit: BoxFit.cover);
+                          Padding(
+                            padding: const EdgeInsetsDirectional
+                                .fromSTEB(0.0, 0.0, 0.0, 5.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor:
+                              Colors.transparent,
+                              onTap: () async {
+                                _notifier
+                                    .swipeableStackController
+                                    .swipe(CardSwiperDirection.left);
                               },
+                              child: Container(
+                                width: _notifier.buttonSize,
+                                height: _notifier.buttonSize,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(
+                                      context)
+                                      .error,
+                                  borderRadius:
+                                  BorderRadius.circular(
+                                      70.0),
+                                ),
+                                child: Icon(
+                                  Icons.close_rounded,
+                                  color: FlutterFlowTheme.of(
+                                      context)
+                                      .info,
+                                  size: _notifier.buttonSize / 2,
+                                ),
+                              ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                    width: rSize * 0.27,
-                                    margin: EdgeInsets.only(top: rSize * 0.005),
-                                    alignment: Alignment.centerLeft,
-                                    child: AutoSizeText(
-                                      model.title??'',
-                                      maxLines: 2,
-                                      minFontSize: 12.0,
-                                      style: FlutterFlowTheme.of(context).titleMedium.override(
-                                            fontFamily: 'Roboto',
-                                            color: FlutterFlowTheme.of(context).primaryText,
-                                            fontSize: 18.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w500,
-                                            lineHeight: 1.2,
-                                          ),
-                                    )),
-                                SizedBox(
-                                  height: rSize * 0.01,
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Icon(
+                                Icons.swipe_left_rounded,
+                                color: FlutterFlowTheme.of(
+                                    context)
+                                    .customColor4,
+                                size: 24.0,
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional
+                                    .fromSTEB(
+                                    5.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  FFLocalizations.of(context)
+                                      .getText(
+                                    'yj6g8w9q' /* Swipe left */,
+                                  ),
+                                  style: FlutterFlowTheme.of(
+                                      context)
+                                      .bodyMedium
+                                      .override(
+                                    fontFamily: 'Roboto',
+                                    color: FlutterFlowTheme
+                                        .of(context)
+                                        .customColor4,
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                  ),
                                 ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context).customColor1,
-                                    borderRadius: BorderRadius.circular(24.0),
-                                  ),
-                                  child: Align(
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
-                                    child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 5.0),
-                                      child: Container(
-                                        height: 12.0,
-                                        decoration: const BoxDecoration(),
-                                        child: AutoSizeText(
-                                          DateFormat('yyyy-MM-dd').format(model.date??DateTime.now()),
-                                          minFontSize: 1.0,
-                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                fontFamily: 'Roboto',
-                                                color: FlutterFlowTheme.of(context).info,
-                                                fontSize: 12.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w600,
-                                                lineHeight: 1.0,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
+                              ),
+                            ],
+                          ),
                         ],
                       ),
-                    );
-                  },
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsetsDirectional
+                                .fromSTEB(0.0, 0.0, 0.0, 5.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor:
+                              Colors.transparent,
+                              onTap: () async {
+                                _notifier
+                                    .swipeableStackController
+                                    .swipe(CardSwiperDirection.right);
+                              },
+                              child: Container(
+                                width: _notifier.buttonSize,
+                                height: _notifier.buttonSize,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(
+                                      context)
+                                      .success,
+                                  borderRadius:
+                                  BorderRadius.circular(
+                                      70.0),
+                                ),
+                                child: Icon(
+                                  Icons.done_rounded,
+                                  color: FlutterFlowTheme.of(
+                                      context)
+                                      .info,
+                                  size: _notifier.buttonSize / 2,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsetsDirectional
+                                    .fromSTEB(
+                                    0.0, 0.0, 5.0, 0.0),
+                                child: Text(
+                                  FFLocalizations.of(context)
+                                      .getText(
+                                    '35ozpi3w' /* Swipe right */,
+                                  ),
+                                  style: FlutterFlowTheme.of(
+                                      context)
+                                      .bodyMedium
+                                      .override(
+                                    fontFamily: 'Roboto',
+                                    color: FlutterFlowTheme
+                                        .of(context)
+                                        .customColor4,
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                  ),
+                                ),
+                              ),
+                              Icon(
+                                Icons.swipe_right_rounded,
+                                color: FlutterFlowTheme.of(
+                                    context)
+                                    .customColor4,
+                                size: 24.0,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
-                  child: Text(
-                    FFLocalizations.of(context).getText(
-                      'gln3vyrv' /* Recomended */,
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Roboto',
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          fontSize: 24.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.normal,
-                        ),
-                  )),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 400.0,
-                    margin: EdgeInsets.only(bottom: rSize*0.01),
-                    decoration: const BoxDecoration(),
-                    child: Builder(
-                      builder: (context) {
-                        // final recomendedNewsList = _notifier
-                        //     .recomendedListToRender
-                        //     .toList();
-
-                        return FlutterFlowSwipeableStack(
-                          onSwipeFn: (index) async {
-
-                          },
-                          onLeftSwipe: (index) async {
-
-                          },
-                          onRightSwipe: (index) async {
-
-                          },
-                          onUpSwipe: (index) async {
-
-                          },
-                          onDownSwipe: (index) async {
-
-                          },
-                          itemBuilder: (context,
-                              recomendedNewsListIndex) {
-                            // final recomendedNewsListItem =
-                            // recomendedNewsList[
-                            // recomendedNewsListIndex];
-                            return NewsFeedSwipeCardWidget(
-                              key: Key(
-                                  'Keylei_${recomendedNewsListIndex}_of_}'),
-                              image:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9i_S_JGPvEU5cLR1iIileZOaDxF0YUQN2Ag&s',
-                              type: 'Technology',
-                              title:
-                              'Nvidia Delivers on AI Hype lgnifdg \$140 B Stock',
-                              content: 'dsfds',
-                            );
-                          },
-                          itemCount:5,
-                          controller:
-                          _notifier.swipeableStackController,
-                          loop: false,
-                          cardDisplayCount: 2,
-                          scale: 1.0,
-                          maxAngle: 45.0,
-                          cardPadding: const EdgeInsets.all(0.0),
-                          backCardOffset:
-                          const Offset(0.0, 0.0),
-                        );
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(
-                        20.0, 0.0, 20.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsetsDirectional
-                                  .fromSTEB(0.0, 0.0, 0.0, 5.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor:
-                                Colors.transparent,
-                                onTap: () async {
-                                  _notifier
-                                      .swipeableStackController
-                                      .swipe(CardSwiperDirection.left);
-                                },
-                                child: Container(
-                                  width: _notifier.buttonSize,
-                                  height: _notifier.buttonSize,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(
-                                        context)
-                                        .error,
-                                    borderRadius:
-                                    BorderRadius.circular(
-                                        70.0),
-                                  ),
-                                  child: Icon(
-                                    Icons.close_rounded,
-                                    color: FlutterFlowTheme.of(
-                                        context)
-                                        .info,
-                                    size: _notifier.buttonSize / 2,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Icon(
-                                  Icons.swipe_left_rounded,
-                                  color: FlutterFlowTheme.of(
-                                      context)
-                                      .customColor4,
-                                  size: 24.0,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional
-                                      .fromSTEB(
-                                      5.0, 0.0, 0.0, 0.0),
-                                  child: Text(
-                                    FFLocalizations.of(context)
-                                        .getText(
-                                      'yj6g8w9q' /* Swipe left */,
-                                    ),
-                                    style: FlutterFlowTheme.of(
-                                        context)
-                                        .bodyMedium
-                                        .override(
-                                      fontFamily: 'Roboto',
-                                      color: FlutterFlowTheme
-                                          .of(context)
-                                          .customColor4,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsetsDirectional
-                                  .fromSTEB(0.0, 0.0, 0.0, 5.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor:
-                                Colors.transparent,
-                                onTap: () async {
-                                  _notifier
-                                      .swipeableStackController
-                                      .swipe(CardSwiperDirection.right);
-                                },
-                                child: Container(
-                                  width: _notifier.buttonSize,
-                                  height: _notifier.buttonSize,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(
-                                        context)
-                                        .success,
-                                    borderRadius:
-                                    BorderRadius.circular(
-                                        70.0),
-                                  ),
-                                  child: Icon(
-                                    Icons.done_rounded,
-                                    color: FlutterFlowTheme.of(
-                                        context)
-                                        .info,
-                                    size: _notifier.buttonSize / 2,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsetsDirectional
-                                      .fromSTEB(
-                                      0.0, 0.0, 5.0, 0.0),
-                                  child: Text(
-                                    FFLocalizations.of(context)
-                                        .getText(
-                                      '35ozpi3w' /* Swipe right */,
-                                    ),
-                                    style: FlutterFlowTheme.of(
-                                        context)
-                                        .bodyMedium
-                                        .override(
-                                      fontFamily: 'Roboto',
-                                      color: FlutterFlowTheme
-                                          .of(context)
-                                          .customColor4,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.swipe_right_rounded,
-                                  color: FlutterFlowTheme.of(
-                                      context)
-                                      .customColor4,
-                                  size: 24.0,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: rSize * 0.02,
-              )
-            ],
-          ),
+              ],
+            ),
+            SizedBox(
+              height: rSize * 0.02,
+            )
+          ],
         ),
       ),
     );

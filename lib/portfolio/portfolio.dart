@@ -65,6 +65,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
           child: PagedListView<int, PortfolioModel>(
             pagingController: pagingController,
             // shrinkWrap: true,
+            padding: EdgeInsets.only(top: 30),
             builderDelegate: PagedChildBuilderDelegate<PortfolioModel>(noItemsFoundIndicatorBuilder: (context) {
               return const SizedBox();
             }, itemBuilder: (context, item, index) {
@@ -201,29 +202,30 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                     SizedBox(
                                       height: rSize * 0.015,
                                     ),
-                                    Text(
-                                      FFLocalizations.of(context).getText(
-                                        'zomhasya' /* Performance */,
+                                    if(item.performanceChart!.isNotEmpty)...{
+                                      Text(
+                                          FFLocalizations.of(context).getText(
+                                            'zomhasya' /* Performance */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                            fontFamily: 'Roboto',
+                                            color: FlutterFlowTheme.of(context).secondaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w500,)
                                       ),
-                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.of(context).secondaryText,
-                                        fontSize: 16.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,)
-                                    ),
-                                    SizedBox(
-                                      height: rSize * 0.035,
-                                    ),
-                                    XPortfolioItemLineChart(
-                                      width: MediaQuery.sizeOf(context).width * 1.0,
-                                      height: 300.0,
-                                      xLabels: item.performanceChart!.map((e) => e.date.toString().split(' ')[0]).toList(),
-                                      listY: item.performanceChart!.map((e) => e.amount!).toList(),
-                                      customWidth: item.performanceChart!.map((e) => e.amount).toList().length * 100,
-                                      additionPercents: item.performanceChart!.map((e) => e.twrPercentage ?? 0.0).toList(),
-                                    ),
-                                    AppWidgets.divider(context),
+                                      SizedBox(
+                                        height: rSize * 0.035,
+                                      ),
+                                      XPortfolioItemLineChart(
+                                        width: MediaQuery.sizeOf(context).width * 1.0,
+                                        height: 300.0,
+                                        xLabels: item.performanceChart!.map((e) => e.date.toString().split(' ')[0]).toList(),
+                                        listY: item.performanceChart!.map((e) => e.amount!).toList(),
+                                        customWidth: item.performanceChart!.map((e) => e.amount).toList().length * 100,
+                                        additionPercents: item.performanceChart!.map((e) => e.twrPercentage ?? 0.0).toList(),
+                                      ),
+                                    AppWidgets.divider(context)},
                                     SizedBox(
                                       height: rSize * 0.015,
                                     ),

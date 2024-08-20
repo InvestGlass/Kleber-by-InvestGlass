@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:kleber_bank/portfolio/portfolio_controller.dart';
@@ -122,6 +123,7 @@ class _PositionsState extends State<Positions> {
                     }, itemBuilder: (context, item, index) {
                       return Card(
                         margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
+                        elevation: 2,
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                         child: ListView(
                           shrinkWrap: true,
@@ -162,7 +164,7 @@ class _PositionsState extends State<Positions> {
                                       height: rSize * 0.005,
                                     ),
                                     AppWidgets.portfolioListElement(context, 'Allocation', item.allocation ?? 'N/A', middleValue: ''),
-                                    AppWidgets.portfolioListElement(context, 'ROI', item.roi!)
+                                    AppWidgets.portfolioListElement(context, 'ROI', item.roi!,icon: getIcon(double.tryParse(item.roi!)??0))
                                   },
                                   if (_notifier.selectedPositionIndex == index) ...{
                                     ConstrainedBox(
@@ -204,7 +206,7 @@ class _PositionsState extends State<Positions> {
                                                 SizedBox(
                                                   height: rSize * 0.005,
                                                 ),
-                                                AppWidgets.portfolioListElement(context, 'ROI', item.roi ?? 'N/A'),
+                                                AppWidgets.portfolioListElement(context, 'ROI', item.roi ?? 'N/A',icon: getIcon(double.tryParse(item.roi!)??0)),
                                                 SizedBox(
                                                   height: rSize * 0.005,
                                                 ),
@@ -246,5 +248,25 @@ class _PositionsState extends State<Positions> {
         ),
       ),
     );
+  }
+
+  getIcon(double d) {
+    if(d==0){
+      return SizedBox();
+    }else if(d>0){
+      return FaIcon(
+        FontAwesomeIcons.caretUp,
+        color: FlutterFlowTheme.of(context)
+            .customColor2,
+        size: 24.0,
+      );
+    }else{
+      return FaIcon(
+        FontAwesomeIcons.caretDown,
+        color: FlutterFlowTheme.of(context)
+            .customColor3,
+        size: 24.0,
+      );
+    }
   }
 }
