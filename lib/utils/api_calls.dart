@@ -4,6 +4,8 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:kleber_bank/documents/accounts_model.dart';
+import 'package:kleber_bank/documents/documents_controller.dart';
 import 'package:kleber_bank/login/user_info_model.dart';
 import 'package:kleber_bank/market/market_list_model.dart';
 import 'package:kleber_bank/portfolio/portfolio_model.dart';
@@ -372,8 +374,35 @@ class ApiCalls {
     return [];
   }
 
-  static Future<DocumentModel?> getDocumentList(int page) async {
+  static Future<List<AccountsModel>> getAccountsList() async {
     try {
+      var url = Uri.parse(
+        EndPoints.accounts,
+      );
+
+      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
+      print("url $url");
+      print("response ${response.body}");
+      List<dynamic> json = jsonDecode(response.body);
+
+      return accountsModelFromJson(response.body);
+    } catch (e) {
+      CommonFunctions.showToast(AppConst.somethingWentWrong);
+      // print('user info API error ${e.toString()}::: ${e.stackTrace}');
+    }
+    return [];
+  }
+
+  static Future<DocumentModel?> getDocumentList(int page, List<FilterModel> selectedFilterList) async {
+    try {
+      String params='';
+      for (var element in selectedFilterList) {
+        if((element.name??'').isNotEmpty){
+          if(element.type==FilterTypes.ACCOUNT.name){
+            params+='';
+          }
+        }
+      }
       var url = Uri.parse(
         '${EndPoints.documents}?page=$page',
       );

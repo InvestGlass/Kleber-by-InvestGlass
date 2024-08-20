@@ -56,7 +56,13 @@ class AppStyles {
           width: 2.0,
         ),
         borderRadius: BorderRadius.circular(12.0),
-      ),
+      ),labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
+      fontFamily: 'Roboto',
+      color: FlutterFlowTheme.of(context).primaryText,
+      fontSize: 16.0,
+      letterSpacing: 0.0,
+      fontWeight: FontWeight.w500,
+    ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: FlutterFlowTheme.of(context)

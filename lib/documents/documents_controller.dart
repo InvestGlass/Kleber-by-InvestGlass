@@ -8,14 +8,16 @@ import 'package:kleber_bank/utils/common_functions.dart';
 class DocumentsController extends ChangeNotifier {
   String _selectedType = 'All';
   List<String> typesList = ['All', 'Document', 'Form', 'Package'];
-
+  List<String> sortList = ['wdlmnbeh'/*'Newest'*/, 'gxc8dzyc'/*'Oldest'*/, 'gedmceci'/*'A-Z'*/, 'qdw51x3q'/*'Z-A'*/];
   String range = '';
   String searchedFile = '';
   String? selectedType = 'All';
+  String? selectedAccount = 'All';
   int sortRadioGroupValue = -1;
   String selectedAncestryFolder = '', selectedPath = '', startDate = '', endDate = '', orderColumn = 'created_at', orderDirection = 'desc';
   List<FilterModel> appliedFilters = [];
   String filterName = 'filterName', filterType = 'filterType', filterDate = 'filterDate', path = 'path', sortType = 'sortType';
+  List<FilterModel> selectedFilterList = [];
 
   void setSortRadioGroupValue(int value, String label) {
     sortRadioGroupValue = value;
@@ -91,6 +93,13 @@ class DocumentsController extends ChangeNotifier {
       }
     },);
   }
+}
+
+enum FilterTypes{
+  ACCOUNT,
+  FILE_NAME,
+  TYPE,
+  DATE_RANGE,
 }
 
 class FilterModel {

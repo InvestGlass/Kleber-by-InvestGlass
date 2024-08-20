@@ -27,6 +27,7 @@ class EndPoints{
 
   // DOCUMENTS
   static String documents='${baseUrl}documents';
+  static String accounts='${baseUrl}accounts';
 
   // HOME
   static String homeNews='${baseUrl}news/get_rss_news';

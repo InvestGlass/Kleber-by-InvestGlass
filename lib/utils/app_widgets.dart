@@ -33,8 +33,8 @@ class AppWidgets {
     );
   }
 
-  static Container healthAlertElement(BuildContext context,
-      String title, Color bgColor, IconData iconData, String label, Appropriateness model, TextStyle textStyle) {
+  static Container healthAlertElement(
+      BuildContext context, String title, Color bgColor, IconData iconData, String label, Appropriateness model, TextStyle textStyle) {
     return Container(
       decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(10)),
       padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.015),
@@ -54,7 +54,7 @@ class AppWidgets {
                 style: textStyle,
               )),
               Text(
-                 model.listDetails!.length.toString(),
+                model.listDetails!.length.toString(),
                 style: textStyle,
               )
             ],
@@ -66,59 +66,61 @@ class AppWidgets {
             Text(
               label,
               style: FlutterFlowTheme.of(context).displaySmall.override(
-                fontFamily: 'Roboto',
-                color: FlutterFlowTheme.of(context).primaryText,
-                fontSize: 16.0,
-                letterSpacing: 0.0,
-                fontWeight: FontWeight.w500,
-              ),
+                    fontFamily: 'Roboto',
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    fontSize: 16.0,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.w500,
+                  ),
             ),
             Text(
               getStatus(model.status),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                fontFamily: 'Roboto',
-                color: FlutterFlowTheme.of(context).secondaryText,
-                fontSize: 16.0,
-                letterSpacing: 0.0,
-                fontWeight: FontWeight.normal,
-              ),
+                    fontFamily: 'Roboto',
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                    fontSize: 16.0,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.normal,
+                  ),
             ),
             SizedBox(
               height: rSize * 0.01,
             ),
             ListView.separated(
-              shrinkWrap: true,
+                shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: FlutterFlowTheme.of(context).primaryText,
-                      ),
-                      height: 8,
-                      width: 8,
-                    ),
-                    SizedBox(width: rSize*0.015,),
-                    Expanded(
-                      child: Text(
-                        model.listDetails![index],
-                        style: FlutterFlowTheme.of(context).displaySmall.override(
-                          fontFamily: 'Roboto',
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          fontSize: 16.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w500,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                          ),
+                          height: 8,
+                          width: 8,
                         ),
-                      ),
+                        SizedBox(
+                          width: rSize * 0.015,
+                        ),
+                        Expanded(
+                          child: Text(
+                            model.listDetails![index],
+                            style: FlutterFlowTheme.of(context).displaySmall.override(
+                                  fontFamily: 'Roboto',
+                                  color: FlutterFlowTheme.of(context).primaryText,
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
                 separatorBuilder: (context, index) => Container(
-                  height: 0.2,
-                  margin: EdgeInsets.symmetric(vertical: rSize*0.01),
-                  color: AppColors.kHint,
-                ),
+                      height: 0.2,
+                      margin: EdgeInsets.symmetric(vertical: rSize * 0.01),
+                      color: AppColors.kHint,
+                    ),
                 itemCount: model.listDetails!.length)
           }
         ],
@@ -156,19 +158,19 @@ class AppWidgets {
     );
   }
 
-  static Widget portfolioListElement(BuildContext context,String label, String value, {String middleValue = ''}) {
+  static Widget portfolioListElement(BuildContext context, String label, String value, {String middleValue = ''}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           label,
           style: FlutterFlowTheme.of(context).bodyMedium.override(
-            fontFamily: 'Roboto',
-            color: FlutterFlowTheme.of(context).secondaryText,
-            fontSize: 16.0,
-            letterSpacing: 0.0,
-            fontWeight: FontWeight.w500,
-          ),
+                fontFamily: 'Roboto',
+                color: FlutterFlowTheme.of(context).secondaryText,
+                fontSize: 16.0,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.w500,
+              ),
         ),
         if (middleValue.isNotEmpty) ...{
           Text(
@@ -177,71 +179,69 @@ class AppWidgets {
           )
         },
         if (middleValue.isEmpty) ...{
-          SizedBox(width: rSize*0.015,),
+          SizedBox(
+            width: rSize * 0.015,
+          ),
           Expanded(
             child: Text(
               value,
               textAlign: TextAlign.end,
-              style: FlutterFlowTheme.of(context)
-                  .bodyMedium
-                  .override(
-                fontFamily: 'Roboto',
-                color: FlutterFlowTheme.of(context).primaryText,
-                fontSize: 16.0,
-                letterSpacing: 0.0,
-                fontWeight: FontWeight.normal,
-              ),
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Roboto',
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    fontSize: 16.0,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.normal,
+                  ),
             ),
           )
         } else ...{
           Text(
             value,
-            style: FlutterFlowTheme.of(context)
-                .bodyMedium
-                .override(
-              fontFamily: 'Roboto',
-              color: FlutterFlowTheme.of(context).primaryText,
-              fontSize: 16.0,
-              letterSpacing: 0.0,
-              fontWeight: FontWeight.normal,
-            ),
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontSize: 16.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.normal,
+                ),
           )
         },
       ],
     );
   }
 
-  static Widget btn(BuildContext context,String label, {double? width, double horizontalPadding = 0,double? verticalPadding, Widget? widget, bool borderOnly = false, Color? bgColor}) {
+  static Widget btn(BuildContext context, String label,
+      {double? width, double horizontalPadding = 0, double? verticalPadding, Widget? widget, bool borderOnly = false, Color? bgColor}) {
     return Container(
       width: width,
       alignment: Alignment.center,
-      decoration: gradiantDecoration(context,borderOnly: borderOnly, color: bgColor),
-      padding: EdgeInsets.symmetric(vertical: verticalPadding??rSize * 0.012, horizontal: horizontalPadding),
-      child: widget??Text(
-        label,
-        style: borderOnly ? FlutterFlowTheme.of(context)
-            .titleSmall
-            .override(
-          fontFamily: 'Roboto',
-          color: FlutterFlowTheme.of(context).primary,
-          letterSpacing: 0.0,
-        ) : FlutterFlowTheme.of(context)
-          .displaySmall
-          .override(
-        fontFamily: 'Roboto',
-        color: FlutterFlowTheme.of(context).info,
-        fontSize: 16.0,
-        letterSpacing: 0.0,
-        fontWeight: FontWeight.w500,
-      ),
-      ),
+      decoration: gradiantDecoration(context, borderOnly: borderOnly, color: bgColor),
+      padding: EdgeInsets.symmetric(vertical: verticalPadding ?? rSize * 0.012, horizontal: horizontalPadding),
+      child: widget ??
+          Text(
+            label,
+            style: borderOnly
+                ? FlutterFlowTheme.of(context).titleSmall.override(
+                      fontFamily: 'Roboto',
+                      color: FlutterFlowTheme.of(context).primary,
+                      letterSpacing: 0.0,
+                    )
+                : FlutterFlowTheme.of(context).displaySmall.override(
+                      fontFamily: 'Roboto',
+                      color: FlutterFlowTheme.of(context).info,
+                      fontSize: 16.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.w500,
+                    ),
+          ),
     );
   }
 
-  static Widget btnWithIcon(BuildContext context,String label, Color bgColor, Widget icon) {
+  static Widget btnWithIcon(BuildContext context, String label, Color bgColor, Widget icon) {
     return Container(
       alignment: Alignment.center,
-      decoration: gradiantDecoration(context,borderOnly: false, color: bgColor),
+      decoration: gradiantDecoration(context, borderOnly: false, color: bgColor),
       padding: EdgeInsets.symmetric(vertical: rSize * 0.005),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -256,7 +256,7 @@ class AppWidgets {
     );
   }
 
-  static BoxDecoration gradiantDecoration(BuildContext context,{bool borderOnly = false, Color? color}) {
+  static BoxDecoration gradiantDecoration(BuildContext context, {bool borderOnly = false, Color? color}) {
     return BoxDecoration(
         color: borderOnly ? Colors.transparent : color ?? AppColors.kViolate,
         border: Border.all(color: color ?? FlutterFlowTheme.of(context).primary, width: 1),
@@ -321,7 +321,7 @@ class AppWidgets {
     );
   }
 
-  static AppBar appBar(BuildContext context,String title, {Widget? leading, List<Widget>? actions}) {
+  static AppBar appBar(BuildContext context, String title, {Widget? leading, List<Widget>? actions, bool centerTitle = false}) {
     return AppBar(
       elevation: 0,
       actions: actions,
@@ -333,14 +333,14 @@ class AppWidgets {
         textAlign: TextAlign.center,
         maxLines: 1,
         style: FlutterFlowTheme.of(context).bodyMedium.override(
-          fontFamily: 'Roboto',
-          color: FlutterFlowTheme.of(context).primary,
-          fontSize: 30.0,
-          letterSpacing: 0.0,
-          fontWeight: FontWeight.w600,
-        ),
+              fontFamily: 'Roboto',
+              color: FlutterFlowTheme.of(context).primary,
+              fontSize: 30.0,
+              letterSpacing: 0.0,
+              fontWeight: FontWeight.w600,
+            ),
       ),
-      centerTitle: false,
+      centerTitle: centerTitle,
     );
   }
 
@@ -477,26 +477,24 @@ class AppWidgets {
     );
   }
 
-  static Widget dropDownHint(BuildContext context,String text) {
+  static Widget dropDownHint(BuildContext context, String text) {
     return Text(
       textAlign: TextAlign.start,
       text,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
-      style: FlutterFlowTheme.of(context)
-          .displaySmall
-          .override(
-        fontFamily: 'Roboto',
-        color: FlutterFlowTheme.of(context)
-            .primaryText,
-        fontSize: 16.0,
-        letterSpacing: 0.0,
-        fontWeight: FontWeight.w500,
-      ),
+      style: FlutterFlowTheme.of(context).displaySmall.override(
+            fontFamily: 'Roboto',
+            color: FlutterFlowTheme.of(context).primaryText,
+            fontSize: 16.0,
+            letterSpacing: 0.0,
+            fontWeight: FontWeight.w500,
+          ),
     );
   }
 
-  static showAlert(BuildContext context, String msg, String label1, String label2, void Function()? onTap1, void Function()? onTap2,{Color? btn1BgColor,Color? btn2BgColor}) {
+  static showAlert(BuildContext context, String msg, String label1, String label2, void Function()? onTap1, void Function()? onTap2,
+      {Color? btn1BgColor, Color? btn2BgColor}) {
     showDialog(
       context: context,
       builder: (context) {
@@ -516,15 +514,13 @@ class AppWidgets {
                         ),
                         Text(
                           msg,
-                          style: FlutterFlowTheme.of(context)
-                              .headlineMedium
-                              .override(
-                            fontFamily: 'Roboto',
-                            color: FlutterFlowTheme.of(context).primary,
-                            fontSize: 26.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w600,
-                          ),
+                          style: FlutterFlowTheme.of(context).headlineMedium.override(
+                                fontFamily: 'Roboto',
+                                color: FlutterFlowTheme.of(context).primary,
+                                fontSize: 26.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                              ),
                         ),
                         SizedBox(
                           height: rSize * 0.02,
@@ -532,11 +528,11 @@ class AppWidgets {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            GestureDetector(onTap: onTap1, child: btn(context,label1, horizontalPadding: rSize * 0.02,bgColor: btn1BgColor)),
+                            GestureDetector(onTap: onTap1, child: btn(context, label1, horizontalPadding: rSize * 0.02, bgColor: btn1BgColor)),
                             SizedBox(
                               width: rSize * 0.02,
                             ),
-                            GestureDetector(onTap: onTap2, child: btn(context,label2, horizontalPadding: rSize * 0.02,bgColor: btn2BgColor)),
+                            GestureDetector(onTap: onTap2, child: btn(context, label2, horizontalPadding: rSize * 0.02, bgColor: btn2BgColor)),
                           ],
                         ),
                         SizedBox(
@@ -563,8 +559,53 @@ class AppWidgets {
           children: [
             SfDateRangePicker(
               view: DateRangePickerView.month,
+              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
               onSubmit: onSubmit,
-              selectionMode: mode,
+              rangeTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Roboto',
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    fontSize: 16.0,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.normal,
+                  ),
+              selectionTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Roboto',
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    fontSize: 16.0,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.normal,
+                  ),
+              cellBuilder: (context, cellDetails) {
+                return Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  height: 10,
+                  width: 10,
+                  alignment: Alignment.center,
+                  child: Text(
+                    cellDetails.date.day.toString(),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Roboto',
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          fontSize: 16.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.normal,
+                        ),
+                  ),
+                );
+              },
+              selectionShape: DateRangePickerSelectionShape.circle,
+              startRangeSelectionColor: FlutterFlowTheme.of(context).primary,
+              endRangeSelectionColor: FlutterFlowTheme.of(context).primary,
+              rangeSelectionColor: FlutterFlowTheme.of(context).primary,
+              selectionMode: mode,headerStyle: DateRangePickerHeaderStyle(backgroundColor:FlutterFlowTheme.of(context).secondaryBackground,textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+              fontFamily: 'Roboto',
+              color: FlutterFlowTheme.of(context).primaryText,
+              fontSize: 16.0,
+              letterSpacing: 0.0,
+              fontWeight: FontWeight.normal,
+            ), ),
               monthViewSettings: DateRangePickerMonthViewSettings(
                 firstDayOfWeek: 1,
               ),
@@ -578,11 +619,11 @@ class AppWidgets {
   }
 
   static String getStatus(String? status) {
-    if(status=='-'){
+    if (status == '-') {
       return 'Not checked';
-    }else if(status=='true'){
+    } else if (status == 'true') {
       return 'No issues have been detected';
-    }else if(status=='false'){
+    } else if (status == 'false') {
       return 'The following investment are not in line with your financial knowledge';
     }
     return '';

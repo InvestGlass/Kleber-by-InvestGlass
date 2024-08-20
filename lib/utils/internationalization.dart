@@ -1827,6 +1827,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'أنواع',
       'vi': 'Các loại',
     },
+    'date_in_range': {
+      'en': 'Date in range',
+      'ar': 'التاريخ في النطاق',
+      'vi': 'Ngày trong phạm vi',
+    },
     '62i1ajo9': {
       'en': 'All',
       'ar': 'الجميع',

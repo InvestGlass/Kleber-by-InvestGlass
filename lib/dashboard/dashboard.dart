@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kleber_bank/documents/documents.dart';
 import 'package:kleber_bank/main.dart';
 import 'package:kleber_bank/portfolio/portfolio.dart';
 import 'package:kleber_bank/utils/app_const.dart';
 import 'package:kleber_bank/utils/app_const.dart';
 import 'package:kleber_bank/utils/app_styles.dart';
+import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -114,9 +117,12 @@ class _DashboardState extends State<Dashboard> {
               bottom: 30,
               child: Align(
                   alignment: Alignment.center,
-                  child: Image.asset(
-                    'assets/app_launcher_icon.png',
-                    scale: 1.7,
+                  child: GestureDetector(
+                    onTap: () => showOptions(),
+                    child: Image.asset(
+                      'assets/app_launcher_icon.png',
+                      scale: 1.7,
+                    ),
                   )),
             ),
           ],
@@ -208,7 +214,7 @@ class _DashboardState extends State<Dashboard> {
             height: rSize * 0.01,
           ),
           Container(
-            margin: EdgeInsets.only(top: 10,bottom: 5),
+            margin: EdgeInsets.only(top: 10, bottom: 5),
             width: _controller.iconSize,
             height: _controller.iconSize,
             decoration: const BoxDecoration(),
@@ -230,6 +236,98 @@ class _DashboardState extends State<Dashboard> {
                   lineHeight: 1.0,
                 ),
           ),
+        ],
+      ),
+    );
+  }
+
+  void showOptions() {
+    showDialog(
+      context: context,
+      builder: (context) => Align(
+        alignment: Alignment.bottomCenter,
+        child: Wrap(
+          children: [
+            Card(
+              color: FlutterFlowTheme.of(context).secondaryBackground,
+              margin: EdgeInsets.only(bottom: 110,left: 30,right: 30),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    actionMenuItem(
+                        context,
+                        SvgPicture.asset(
+                          Theme.of(context).brightness == Brightness.dark ? 'assets/folder_icon-dark-theme.svg' : 'assets/folder_icon.svg',
+                          fit: BoxFit.contain,
+                          height: 25,
+                          width: 25,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          '13mzcnly' /* Document */,
+                        ),onTap: () {
+                          CommonFunctions.navigate(context, Documents());
+                        },),
+                    SizedBox(width: rSize*0.02,),
+                    actionMenuItem(
+                        context,
+                        SvgPicture.asset(
+                          Theme.of(context).brightness == Brightness.dark
+                              ? 'assets/money-bill-trend-up-solid-dark-theme.svg'
+                              : 'assets/money-bill-trend-up-solid.svg',
+                          fit: BoxFit.contain,
+                          height: 25,
+                          width: 25,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          'o5wm04m6' /* Market */,
+                        ),onTap: () {
+
+                        },),
+                    SizedBox(width: rSize*0.02,),
+                    actionMenuItem(
+                        context,
+                        FaIcon(
+                          FontAwesomeIcons.upload,
+                          color: FlutterFlowTheme.of(context)
+                              .primary,
+                          size: 30
+                        ),
+                        FFLocalizations.of(context).getText(
+                          't2nv4kvj' /* Upload */,
+                        ),onTap: () {
+
+                        },),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget actionMenuItem(BuildContext context, Widget image, String label,{required void Function() onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          image,
+          SizedBox(height: 8),
+          Text(
+            label,
+            maxLines: 1,
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).primary,
+                  fontSize: 14.0,
+                  letterSpacing: 0.0,
+                  lineHeight: 1.0,
+                ),
+          )
         ],
       ),
     );
