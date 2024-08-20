@@ -83,7 +83,8 @@ class _PositionsState extends State<Positions> {
               ),
               SizedBox(height: rSize*0.02,),
               DropdownButtonFormField(
-                  decoration: AppStyles.dropDownInputDecoration(context, AppWidgets.textFieldLabel('')),
+                  decoration: AppStyles.dropDownInputDecoration(context, AppWidgets.textFieldLabel(''),focusedBorderColor: FlutterFlowTheme.of(context)
+                      .alternate),
                   isExpanded: true,
                   icon: AppWidgets.dropDownIcon(),
                   style: FlutterFlowTheme.of(context).displaySmall.override(

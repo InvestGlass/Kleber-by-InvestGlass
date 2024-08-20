@@ -1,4 +1,4 @@
-package com.investglass.kleber_bank
+package com.investglass.kleberbank
 
 import io.flutter.embedding.android.FlutterActivity
 

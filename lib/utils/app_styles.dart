@@ -40,7 +40,7 @@ class AppStyles {
 
 
 
-  static InputDecoration dropDownInputDecoration(BuildContext context,Widget? label) {
+  static InputDecoration dropDownInputDecoration(BuildContext context,Widget? label,{Color? focusedBorderColor}) {
     return InputDecoration(
       label: label,fillColor: FlutterFlowTheme.of(context)
         .secondaryBackground,
@@ -74,7 +74,7 @@ class AppStyles {
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color:
-          FlutterFlowTheme.of(context).primary,
+          focusedBorderColor??FlutterFlowTheme.of(context).primary,
           width: 2.0,
         ),
         borderRadius: BorderRadius.circular(12.0),
