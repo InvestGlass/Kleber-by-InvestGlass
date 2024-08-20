@@ -109,7 +109,7 @@ class _LoginState extends State<Login> {
                             Container(
                               color: FlutterFlowTheme.of(context).primary,
                               height: 5,
-                              width: 100,
+                              width: 110,
                             )
                           ],
                         )
