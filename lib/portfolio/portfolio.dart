@@ -65,7 +65,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
           child: PagedListView<int, PortfolioModel>(
             pagingController: pagingController,
             // shrinkWrap: true,
-            padding: EdgeInsets.only(top: 40),
+            padding: EdgeInsets.only(top: 70),
             builderDelegate: PagedChildBuilderDelegate<PortfolioModel>(noItemsFoundIndicatorBuilder: (context) {
               return const SizedBox();
             }, itemBuilder: (context, item, index) {
