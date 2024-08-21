@@ -21,7 +21,9 @@ import '../utils/common_functions.dart';
 import '../utils/end_points.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
+import '../utils/searchable_dropdown.dart';
 import '../utils/shared_pref_utils.dart';
+import 'accounts_model.dart';
 
 class Documents extends StatefulWidget {
   const Documents({super.key});
@@ -45,7 +47,9 @@ class _DocumentsState extends State<Documents> {
   }
 
   Future<void> _fetchPageActivity() async {
-    await ApiCalls.getDocumentList(_pageKey,_notifier.selectedFilterList).then(
+    await ApiCalls.getDocumentList(_pageKey, _notifier.selectedAccount, _notifier.searchedFile, _notifier.selectedType, _notifier.range,
+            _notifier.ancestryFolderList, _notifier.folderPathList,_notifier.orderDirection,_notifier.orderColumn)
+        .then(
       (value) {
         List<Document> list = value?.folders ?? [];
         final isLastPage = list.length < 10;
@@ -60,20 +64,51 @@ class _DocumentsState extends State<Documents> {
   }
 
   @override
+  void dispose() {
+    _notifier.folderPathList.clear();
+    _notifier.ancestryFolderList.clear();
+    _notifier.selectedAccount=null;
+    _notifier.searchedFile='';
+    _notifier.selectedType='';
+    _notifier.range='';
+    _notifier.orderColumn='created_at';
+    _notifier.orderDirection = 'desc';
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     _notifier = Provider.of<DocumentsController>(context);
     return Scaffold(
-      appBar: AppWidgets.appBar(context,FFLocalizations.of(context).getText(
-        'dlgf18jl' /* Document */,
-      ),leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Icon(Icons.arrow_back,color: FlutterFlowTheme.of(context).primary,)),centerTitle: true),
+      appBar: AppWidgets.appBar(
+          context,
+          _notifier.folderPathList.isNotEmpty?_notifier.folderPathList.last.replaceAll('/', ''):FFLocalizations.of(context).getText(
+            'dlgf18jl' /* Document */,
+          ),
+          leading: GestureDetector(
+              onTap: () {
+                if(_notifier.ancestryFolderList.isNotEmpty){
+                  _notifier.goToPreviousFolder();
+                  _pageKey=1;
+                  _pagingController.refresh();
+                }else{
+                  Navigator.pop(context);
+                }
+              },
+              child: Icon(
+                Icons.arrow_back,
+                color: FlutterFlowTheme.of(context).primary,
+              )),
+          centerTitle: true),
       floatingActionButton: FloatingActionButton(
         backgroundColor: FlutterFlowTheme.of(context).primary,
         onPressed: () {
           CommonFunctions.navigate(context, UploadDocument());
         },
-        child: Icon(Icons.add,color: FlutterFlowTheme.of(context).secondaryBackground,),
+        child: Icon(
+          Icons.add,
+          color: FlutterFlowTheme.of(context).secondaryBackground,
+        ),
       ),
       body: Container(
         decoration: AppStyles.commonBg(context),
@@ -109,7 +144,6 @@ class _DocumentsState extends State<Documents> {
             ),
             Flexible(
               child: Card(
-
                 child: RefreshIndicator(
                   onRefresh: () async {
                     _pageKey = 1;
@@ -121,87 +155,91 @@ class _DocumentsState extends State<Documents> {
                     builderDelegate: PagedChildBuilderDelegate<Document>(noItemsFoundIndicatorBuilder: (context) {
                       return const SizedBox();
                     }, itemBuilder: (context, item, index) {
-                      return Card(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: rSize * 0.01,horizontal: rSize * 0.015),
-                          child: Row(children: [
-                            getTypeName(item.documentType),
-                            SizedBox(
-                              width: rSize * 0.01,
-                            ),
-                            Expanded(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  item.folderName ?? '',
-                                  maxLines: 2,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                    fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    fontSize: 16.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                Text(
-                                  DateFormat('yyyy-MM-dd HH:mm').format(item.updatedAt!),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                    fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                if (item.documentStatus == 'Accepted') ...{
+                      return GestureDetector(
+                        onTap: () {
+                          if (item.documentType == null) {
+                            // _notifier.selectedFilterList.add(FilterModel(item.id.toString(), FilterTypes.ANCESTRY_FOLDER.name));
+                            _notifier.openFolder(item);
+                            _pageKey = 1;
+                            _pagingController.refresh();
+                          }
+                        },
+                        child: Card(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: rSize * 0.01, horizontal: rSize * 0.015),
+                            child: Row(children: [
+                              getTypeName(item.documentType),
+                              SizedBox(
+                                width: rSize * 0.01,
+                              ),
+                              Expanded(
+                                  child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                                   Text(
-                                    'Accepted at ${DateFormat('yyyy-MM-dd HH:mm',FFLocalizations.of(context).languageCode,).format(item.disapprovedAt!)}',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                      fontFamily: 'Roboto',
-                                      color:
-                                      FlutterFlowTheme.of(context).customColor2,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                                  )
-                                },
-                                if (item.documentStatus == 'Rejected') ...{
+                                    item.folderName ?? '',
+                                    maxLines: 2,
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                          fontFamily: 'Roboto',
+                                          color: FlutterFlowTheme.of(context).primaryText,
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
                                   Text(
-                                    'Rejected at ${DateFormat('yyyy-MM-dd HH:mm',FFLocalizations.of(context).languageCode,).format(item.disapprovedAt!)}',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                      fontFamily: 'Roboto',
-                                      color:
-                                      FlutterFlowTheme.of(context).customColor3,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                                  )
-                                },
-                              ],
-                            )),
-                            if (item.documentType != null) ...{
-                              popupMenu(item),
-                            }
-                            /*const RotatedBox(
-                              quarterTurns: 2,
-                              child: Icon(
-                                Icons.arrow_back_ios,
-                                color: AppColors.kTextFieldInput,
-                                size: 15,
-                              ))*/
-                          ]),
+                                    DateFormat('yyyy-MM-dd HH:mm').format(item.updatedAt!),
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                          fontFamily: 'Roboto',
+                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                          fontSize: 14.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                  if (item.documentStatus == 'Accepted') ...{
+                                    Text(
+                                      'Accepted at ${DateFormat(
+                                        'yyyy-MM-dd HH:mm',
+                                        FFLocalizations.of(context).languageCode,
+                                      ).format(item.disapprovedAt!)}',
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                            fontFamily: 'Roboto',
+                                            color: FlutterFlowTheme.of(context).customColor2,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    )
+                                  },
+                                  if (item.documentStatus == 'Rejected') ...{
+                                    Text(
+                                      'Rejected at ${DateFormat(
+                                        'yyyy-MM-dd HH:mm',
+                                        FFLocalizations.of(context).languageCode,
+                                      ).format(item.disapprovedAt!)}',
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                            fontFamily: 'Roboto',
+                                            color: FlutterFlowTheme.of(context).customColor3,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                    )
+                                  },
+                                ],
+                              )),
+                              if (item.documentType != null) ...{
+                                popupMenu(item),
+                              }
+                              /*const RotatedBox(
+                                quarterTurns: 2,
+                                child: Icon(
+                                  Icons.arrow_back_ios,
+                                  color: AppColors.kTextFieldInput,
+                                  size: 15,
+                                ))*/
+                            ]),
+                          ),
                         ),
                       );
                     }),
@@ -218,33 +256,33 @@ class _DocumentsState extends State<Documents> {
   Expanded cell(String img, String label, void Function()? onTap) {
     return Expanded(
         child: GestureDetector(
-          onTap: onTap,
-          child: Container(
-            padding: EdgeInsets.all(rSize * 0.01),
-            decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.all(Radius.circular(10))),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/$img',
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                  scale: 25,
-                ),
-                Text(
-                  label,
-                  style: FlutterFlowTheme.of(context).displaySmall.override(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(rSize * 0.01),
+        decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/$img',
+              color: FlutterFlowTheme.of(context).secondaryBackground,
+              scale: 25,
+            ),
+            Text(
+              label,
+              style: FlutterFlowTheme.of(context).displaySmall.override(
                     fontFamily: 'Roboto',
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     fontSize: 14.0,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.normal,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+              textAlign: TextAlign.center,
             ),
-          ),
-        ));
+          ],
+        ),
+      ),
+    ));
   }
 
   void openFilterDialog() {
@@ -254,12 +292,17 @@ class _DocumentsState extends State<Documents> {
     String _selecteStartDate = _notifier.startDate;
     String _selecteEndDate = _notifier.endDate;
     String _range = _notifier.range;
+
     showModalBottomSheet(
       useRootNavigator: true,
       isScrollControlled: true,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       context: context,
       builder: (context) {
+        _notifier=Provider.of<DocumentsController>(context);
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          Provider.of<DocumentsController>(context, listen: false).getAccountList(context);
+        });
         return StatefulBuilder(
           builder: (context, setState) {
             return Wrap(
@@ -276,12 +319,12 @@ class _DocumentsState extends State<Documents> {
                             child: Text(
                           'Filter',
                           style: FlutterFlowTheme.of(context).headlineMedium.override(
-              fontFamily: 'Roboto',
-              color: FlutterFlowTheme.of(context).primary,
-              fontSize: 26.0,
-              letterSpacing: 0.0,
-              fontWeight: FontWeight.w600,
-            ),
+                                fontFamily: 'Roboto',
+                                color: FlutterFlowTheme.of(context).primary,
+                                fontSize: 26.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                              ),
                         )),
                         GestureDetector(
                           onTap: () {
@@ -302,26 +345,23 @@ class _DocumentsState extends State<Documents> {
                         'xccshnlg' /* Accounts */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Roboto',
-                        fontSize: 18.0,
-                        letterSpacing: 0.0,
-                      ),
+                            fontFamily: 'Roboto',
+                            fontSize: 18.0,
+                            letterSpacing: 0.0,
+                          ),
                     ),
                     SizedBox(
                       height: rSize * 0.005,
                     ),
-                    DropdownSearch<String>(
-                      popupProps: PopupProps.menu(
-                        // showSelectedItems: true,
-                        showSearchBox: true,
-                        searchDelay: Duration.zero,
+                    SearchableDropdown(
+                      searchHint: FFLocalizations.of(context).getText(
+                        'ip67vees' /* Search for an account */,
                       ),
-                      items: ["ALPHA",'BETA'],
-                      dropdownDecoratorProps: DropDownDecoratorProps(
-                        dropdownSearchDecoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('')),
-                      ),
-                      onChanged: print,
-                      selectedItem:null,
+                      selectedValue: _selectedAccount,
+                      list: _notifier.accountList,
+                      onChanged: (p0) {
+                        _selectedAccount = p0;
+                      },
                     ),
                     SizedBox(
                       height: rSize * 0.02,
@@ -331,10 +371,10 @@ class _DocumentsState extends State<Documents> {
                         'bzc91fwt' /* File Name */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Roboto',
-                        fontSize: 18.0,
-                        letterSpacing: 0.0,
-                      ),
+                            fontFamily: 'Roboto',
+                            fontSize: 18.0,
+                            letterSpacing: 0.0,
+                          ),
                     ),
                     SizedBox(
                       height: rSize * 0.005,
@@ -342,17 +382,20 @@ class _DocumentsState extends State<Documents> {
                     TextFormField(
                       controller: TextEditingController(text: _searchedFileName),
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
-                        fontFamily: 'Roboto',
-                        letterSpacing: 0.0,
-                      ),
+                            fontFamily: 'Roboto',
+                            letterSpacing: 0.0,
+                          ),
+                      onChanged: (value) {
+                        _searchedFileName = value;
+                      },
                       decoration: AppStyles.inputDecoration(
                         context,
                         fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                         contentPadding: EdgeInsets.all(15),
                         labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                          fontFamily: 'Roboto',
-                          letterSpacing: 0.0,
-                        ),
+                              fontFamily: 'Roboto',
+                              letterSpacing: 0.0,
+                            ),
                       ),
                     ),
                     SizedBox(
@@ -363,37 +406,23 @@ class _DocumentsState extends State<Documents> {
                         '4n2ah71g' /* Types */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Roboto',
-                        fontSize: 18.0,
-                        letterSpacing: 0.0,
-                      ),
+                            fontFamily: 'Roboto',
+                            fontSize: 18.0,
+                            letterSpacing: 0.0,
+                          ),
                     ),
                     SizedBox(
                       height: rSize * 0.01,
                     ),
-                    DropdownButtonFormField(
-                        decoration: AppStyles.dropDownInputDecoration(context, AppWidgets.textFieldLabel('')),
-                        isExpanded: true,
-                        icon: AppWidgets.dropDownIcon(),
-                        style: FlutterFlowTheme.of(context).displaySmall.override(
-                          fontFamily: 'Roboto',
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          fontSize: 16.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        isDense: true,
-                        value: _selectedType,
-                        onChanged: (value) {
-                          _selectedType = value;
-                        },
-                        dropdownColor: FlutterFlowTheme.of(context).secondaryText,
-                        items: _notifier.typesList
-                            .map(
-                              (String item) => DropdownMenuItem<String>(value: item, child: AppWidgets.dropDownHint(context, item)),
-                        )
-                            .toList(),
-                        hint: AppWidgets.dropDownHint(context, '')),
+                    SearchableDropdown(
+                      searchHint: '',
+                      selectedValue: _selectedType,
+                      list: _notifier.typesList,
+                      onChanged: (p0) {
+                        _selectedType = p0;
+                      },
+                      isSearchable: false,
+                    ),
                     SizedBox(
                       height: rSize * 0.02,
                     ),
@@ -402,27 +431,28 @@ class _DocumentsState extends State<Documents> {
                         'date_in_range' /* date_in_range */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Roboto',
-                        fontSize: 18.0,
-                        letterSpacing: 0.0,
-                      ),
-                    ),SizedBox(
+                            fontFamily: 'Roboto',
+                            fontSize: 18.0,
+                            letterSpacing: 0.0,
+                          ),
+                    ),
+                    SizedBox(
                       height: rSize * 0.005,
                     ),
                     TextFormField(
                       readOnly: true,
                       controller: TextEditingController(text: _range),
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
-                        fontFamily: 'Roboto',
-                        letterSpacing: 0.0,
-                      ),
+                            fontFamily: 'Roboto',
+                            letterSpacing: 0.0,
+                          ),
                       onTap: () {
                         AppWidgets.openDatePicker(
                           context,
-                              (value) {
+                          (value) {
                             if (value is PickerDateRange) {
-                              final String startDate = CommonFunctions.getYYYYMMDD(value.startDate!);
-                              final String endDate = CommonFunctions.getYYYYMMDD(value.endDate!);
+                                final String startDate = CommonFunctions.getYYYYMMDD(value.startDate!);
+                                final String endDate = CommonFunctions.getYYYYMMDD(value.endDate!);
                               _range = '$startDate  TO  $endDate';
                               if (_range.isNotEmpty) {
                                 _selecteStartDate = _range.split('  TO  ')[0];
@@ -436,7 +466,7 @@ class _DocumentsState extends State<Documents> {
                               setState(() {});
                             }
                           },
-                              () {
+                          () {
                             _notifier.setDate('');
                             Navigator.pop(context);
                             setState(() {});
@@ -448,9 +478,9 @@ class _DocumentsState extends State<Documents> {
                         fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                         contentPadding: EdgeInsets.all(15),
                         labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                          fontFamily: 'Roboto',
-                          letterSpacing: 0.0,
-                        ),
+                              fontFamily: 'Roboto',
+                              letterSpacing: 0.0,
+                            ),
                       ),
                     ),
                     SizedBox(
@@ -464,16 +494,20 @@ class _DocumentsState extends State<Documents> {
                         Expanded(
                           child: InkWell(
                               onTap: () async {
-                                _notifier.selectedAccount = '';
+                                _notifier.selectedAccount = null;
                                 _notifier.searchedFile = '';
                                 _notifier.selectedType = null;
+                                _notifier.range = '';
                                 _pageKey = 1;
                                 _pagingController.refresh();
                                 Navigator.pop(context);
                               },
-                              child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
-                                'zw535eku' /* CLEAR */,
-                              ), borderOnly: true)),
+                              child: AppWidgets.btn(
+                                  context,
+                                  FFLocalizations.of(context).getText(
+                                    'zw535eku' /* CLEAR */,
+                                  ),
+                                  borderOnly: true)),
                         ),
                         SizedBox(
                           width: rSize * 0.02,
@@ -484,22 +518,26 @@ class _DocumentsState extends State<Documents> {
                                 _notifier.selectedAccount = _selectedAccount;
                                 _notifier.searchedFile = _searchedFileName;
                                 _notifier.selectedType = _selectedType;
+                                _notifier.range = _range;
                                 _pageKey = 1;
-                                _notifier.selectedFilterList.removeWhere((element) =>
-                                element.type == FilterTypes.ACCOUNT.name ||
+                                /*_notifier.selectedFilterList.removeWhere((element) =>
+                                    element.type == FilterTypes.ACCOUNT.name ||
                                     element.type == FilterTypes.FILE_NAME.name ||
                                     element.type == FilterTypes.DATE_RANGE.name ||
                                     element.type == FilterTypes.TYPE.name);
-                                _notifier.selectedFilterList.add(FilterModel(_notifier.selectedAccount!, FilterTypes.ACCOUNT.name));
+                                _notifier.selectedFilterList.add(FilterModel(_notifier.selectedAccount, FilterTypes.ACCOUNT.name));
                                 _notifier.selectedFilterList.add(FilterModel(_notifier.searchedFile, FilterTypes.FILE_NAME.name));
-                                _notifier.selectedFilterList.add(FilterModel(_notifier.selectedType!, FilterTypes.TYPE.name));
-                                _notifier.selectedFilterList.add(FilterModel(_notifier.range, FilterTypes.DATE_RANGE.name));
+                                _notifier.selectedFilterList.add(FilterModel(_notifier.selectedType, FilterTypes.TYPE.name));
+                                _notifier.selectedFilterList.add(FilterModel(_notifier.range, FilterTypes.DATE_RANGE.name));*/
                                 _pagingController.refresh();
                                 Navigator.pop(context);
                               },
-                              child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
-                                'r8wu2qe3' /* Apply */,
-                              ),bgColor: FlutterFlowTheme.of(context).primary)),
+                              child: AppWidgets.btn(
+                                  context,
+                                  FFLocalizations.of(context).getText(
+                                    'r8wu2qe3' /* Apply */,
+                                  ),
+                                  bgColor: FlutterFlowTheme.of(context).primary)),
                         ),
                       ],
                     ),
@@ -536,12 +574,12 @@ class _DocumentsState extends State<Documents> {
                           'sort' /* sort */,
                         ),
                         style: FlutterFlowTheme.of(context).headlineMedium.override(
-                          fontFamily: 'Roboto',
-                          color: FlutterFlowTheme.of(context).primary,
-                          fontSize: 26.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w600,
-                        ),
+                              fontFamily: 'Roboto',
+                              color: FlutterFlowTheme.of(context).primary,
+                              fontSize: 26.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w600,
+                            ),
                       ),
                       Container(
                         height: 0.5,
@@ -574,25 +612,25 @@ class _DocumentsState extends State<Documents> {
             value: value,
             groupValue: _notifier.sortRadioGroupValue,
             onChanged: (p0) {
-              // pageKey = 1;
+              _pageKey = 1;
               _notifier.setSortRadioGroupValue(value, label);
-              // _pagingController.refresh();
+              _pagingController.refresh();
               Navigator.pop(context);
             },
           ),
         ),
         Expanded(
             child: Text(
-              FFLocalizations.of(context).getText(
-                label,
-              ),
-          style: FlutterFlowTheme.of(context).displaySmall.override(
-            fontFamily: 'Roboto',
-            color: FlutterFlowTheme.of(context).primaryText,
-            fontSize: 16.0,
-            letterSpacing: 0.0,
-            fontWeight: FontWeight.w500,
+          FFLocalizations.of(context).getText(
+            label,
           ),
+          style: FlutterFlowTheme.of(context).displaySmall.override(
+                fontFamily: 'Roboto',
+                color: FlutterFlowTheme.of(context).primaryText,
+                fontSize: 16.0,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.w500,
+              ),
         )),
       ],
     );
@@ -602,62 +640,76 @@ class _DocumentsState extends State<Documents> {
     return PopupMenuButton<int>(
       padding: EdgeInsets.zero,
       // surfaceTintColor: Colors.white,
-      position: PopupMenuPosition.under,color: FlutterFlowTheme.of(context).secondaryText,
+      position: PopupMenuPosition.under,
+      color: FlutterFlowTheme.of(context).secondaryText,
       itemBuilder: (context) => [
-        popupMenuItem(1, FFLocalizations.of(context).getText(
-          'preview',
-        ), Icon(Icons.remove_red_eye,color: FlutterFlowTheme.of(context).primary,), () {
-          CommonFunctions.navigate(context, ViewDocument(item.id.toString(),false));
-        }),
-        if(item.documentType=='document')
-        popupMenuItem(2, FFLocalizations.of(context).getText(
-          'download',
-        ), Icon(Icons.cloud_download_outlined,color: FlutterFlowTheme.of(context).primary,), () {
-          downloadDoc(item);
-        }),
-        if(item.documentType=='document' && item.documentStatus==null)
-        popupMenuItem(3, FFLocalizations.of(context).getText(
-          'signature',
-        ), SvgPicture.asset(
-          'assets/signature-icon.svg',
-          width: 25,
-          height: 25,
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            FlutterFlowTheme.of(context).primary,
-            BlendMode.srcIn,
-          ),
-        ), () {
-          AppWidgets.showAlert(
-            context,
+        popupMenuItem(
+            1,
             FFLocalizations.of(context).getText(
-              'apuqhrbh'/* please confirm */,
+              'preview',
             ),
-            FFLocalizations.of(context).getText(
-              'c4m8fcp2'/* reject */,
-            ),
-            FFLocalizations.of(context).getText(
-              'e1wyk8ql' /* accept */,
-            ),
-            () {
-              updateStatus(item, context,'rejected');
-            },
-            () {
-              updateStatus(item, context,'accepted');
-            },
-              btn1BgColor: FlutterFlowTheme.of(context).customColor3,
-              btn2BgColor: FlutterFlowTheme.of(context).customColor2
-          );
+            Icon(
+              Icons.remove_red_eye,
+              color: FlutterFlowTheme.of(context).primary,
+            ), () {
+          CommonFunctions.navigate(context, ViewDocument(item.id.toString(), false));
         }),
+        if (item.documentType == 'document')
+          popupMenuItem(
+              2,
+              FFLocalizations.of(context).getText(
+                'download',
+              ),
+              Icon(
+                Icons.cloud_download_outlined,
+                color: FlutterFlowTheme.of(context).primary,
+              ), () {
+            downloadDoc(item);
+          }),
+        if (item.documentType == 'document' && item.documentStatus == null)
+          popupMenuItem(
+              3,
+              FFLocalizations.of(context).getText(
+                'signature',
+              ),
+              SvgPicture.asset(
+                'assets/signature-icon.svg',
+                width: 25,
+                height: 25,
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  FlutterFlowTheme.of(context).primary,
+                  BlendMode.srcIn,
+                ),
+              ), () {
+            AppWidgets.showAlert(
+                context,
+                FFLocalizations.of(context).getText(
+                  'apuqhrbh' /* please confirm */,
+                ),
+                FFLocalizations.of(context).getText(
+                  'c4m8fcp2' /* reject */,
+                ),
+                FFLocalizations.of(context).getText(
+                  'e1wyk8ql' /* accept */,
+                ), () {
+              updateStatus(item, context, 'rejected');
+            }, () {
+              updateStatus(item, context, 'accepted');
+            }, btn1BgColor: FlutterFlowTheme.of(context).customColor3, btn2BgColor: FlutterFlowTheme.of(context).customColor2);
+          }),
       ],
       offset: const Offset(0, 0),
       elevation: 2,
-      child: Icon(Icons.more_vert,color: FlutterFlowTheme.of(context).primary,),
+      child: Icon(
+        Icons.more_vert,
+        color: FlutterFlowTheme.of(context).primary,
+      ),
     );
   }
 
-  void updateStatus(Document item, BuildContext context,String status) {
-    _notifier.updateDocumentStatus(item, status, _pagingController, _pagingController.itemList!.indexOf(item),context);
+  void updateStatus(Document item, BuildContext context, String status) {
+    _notifier.updateDocumentStatus(item, status, _pagingController, _pagingController.itemList!.indexOf(item), context);
   }
 
   PopupMenuItem<int> popupMenuItem(int value, String label, Widget icon, void Function()? onTap) {
@@ -671,13 +723,16 @@ class _DocumentsState extends State<Documents> {
             // sized box with width 10
             width: 10,
           ),
-          Text(label,style: FlutterFlowTheme.of(context).bodyMedium.override(
-            fontFamily: 'Roboto',
-            color: FlutterFlowTheme.of(context).primaryText,
-            fontSize: 16,
-            letterSpacing: 0,
-            fontWeight: FontWeight.w500,
-          ),)
+          Text(
+            label,
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontSize: 16,
+                  letterSpacing: 0,
+                  fontWeight: FontWeight.w500,
+                ),
+          )
         ],
       ),
     );
@@ -703,11 +758,10 @@ class _DocumentsState extends State<Documents> {
   }
 
   getTypeName(String? documentType) {
-    if(documentType=='form'){
-      return SvgPicture.asset(Theme.of(context).brightness == Brightness.dark
-          ? 'assets/form-svgrepo-com-dark-theme.svg'
-          : 'assets/form-svgrepo-com.svg');
-    }else if(documentType=='document'){
+    if (documentType == 'form') {
+      return SvgPicture.asset(
+          Theme.of(context).brightness == Brightness.dark ? 'assets/form-svgrepo-com-dark-theme.svg' : 'assets/form-svgrepo-com.svg');
+    } else if (documentType == 'document') {
       return FaIcon(
         FontAwesomeIcons.file,
         color: FlutterFlowTheme.of(context).primary,
@@ -715,8 +769,6 @@ class _DocumentsState extends State<Documents> {
       );
     }
 
-    return Icon(Icons.folder_outlined,color: FlutterFlowTheme.of(context).primary,
-      size: 30.0);
-
+    return Icon(Icons.folder_outlined, color: FlutterFlowTheme.of(context).primary, size: 30.0);
   }
 }
