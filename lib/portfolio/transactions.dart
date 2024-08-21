@@ -53,7 +53,7 @@ class _TransactionsState extends State<Transactions> {
         body: Column(
       children: [
         SizedBox(
-          height: rSize * 0.03,
+          height: rSize * 0.05,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

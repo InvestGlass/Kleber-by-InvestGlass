@@ -55,7 +55,7 @@ class _PositionsState extends State<Positions> {
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       body: Padding(
-        padding: EdgeInsets.only(left:rSize * 0.015,right: rSize * 0.015,top: rSize * 0.03),
+        padding: EdgeInsets.only(left:rSize * 0.015,right: rSize * 0.015,top: rSize * 0.05),
         child: Column(
           children: [
             Row(
