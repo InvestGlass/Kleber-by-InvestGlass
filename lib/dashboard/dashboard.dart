@@ -113,7 +113,7 @@ class _DashboardState extends State<Dashboard> {
               ],
             ),
             Positioned(
-              width: MediaQuery.of(context).size.width,
+              // width: MediaQuery.of(context).size.width,
               bottom: 30,
               child: Align(
                   alignment: Alignment.center,

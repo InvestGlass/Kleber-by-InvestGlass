@@ -7,6 +7,8 @@ import '../main.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_styles.dart';
 import '../utils/app_widgets.dart';
+import '../utils/flutter_flow_theme.dart';
+import '../utils/internationalization.dart';
 
 class UploadDocument extends StatefulWidget {
   const UploadDocument({super.key});
@@ -22,17 +24,24 @@ class _UploadDocumentState extends State<UploadDocument> {
   Widget build(BuildContext context) {
     _notifier = Provider.of<DocumentsController>(context);
     return Scaffold(
-      appBar: AppWidgets.appBar(context,'Upload Document'),
-      body: Card(
-        margin: EdgeInsets.all(rSize * 0.015),
-        color: Colors.white,
+      appBar: AppWidgets.appBar(context,FFLocalizations.of(context).getText(
+        '4kyuvn3o' /* Upload Document */,
+      ),leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Icon(Icons.arrow_back,color: FlutterFlowTheme.of(context).primaryText,))),
+      body: Container(
+        decoration: AppStyles.commonBg(context),
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.02),
-          shrinkWrap: true,
           children: [
             selectionCell(
-                title: 'File',
-                content: _notifier.image != null ? _notifier.image!.name : 'Click to upload your document',
+                title: FFLocalizations.of(context).getText(
+                  'him7gi6o' /* File */,
+                ),
+                content: _notifier.image != null ? _notifier.image!.name : FFLocalizations.of(context)
+                    .getText(
+                  'jzvxxaxu' /* Click to upload your document */,
+                ),
                 onSelectTap: () {
                   AppWidgets.openMediaSelectionBottomSheet(
                     context,
@@ -69,14 +78,31 @@ class _UploadDocumentState extends State<UploadDocument> {
             SizedBox(
               height: rSize * 0.02,
             ),
+            Text(
+              FFLocalizations.of(context).getText(
+                'mw4a4y0a' /* Description */,
+              ),
+              style: FlutterFlowTheme.of(context)
+                  .bodyMedium
+                  .override(
+                fontFamily: 'Roboto',
+                fontSize: 20.0,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(
+              height: rSize * 0.01,
+            ),
             TextFormField(
               minLines: 3,
               maxLines: 3,
               controller: _notifier.descController,
               textAlign: TextAlign.start,
               decoration: AppStyles.inputDecoration(context,
-                label: 'Description',
-                hint: 'Write something...',
+                hint: FFLocalizations.of(context).getText(
+                  'alsw67uc' /* Document's description */,
+                )
               ),
             ),
             SizedBox(
@@ -118,11 +144,29 @@ class _UploadDocumentState extends State<UploadDocument> {
             children: [
               Text(
                 title,
-                style: AppStyles.c3C496CW500S16,
+                style: FlutterFlowTheme.of(context)
+                    .bodyMedium
+                    .override(
+                  fontFamily: 'Roboto',
+                  fontSize: 20.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               Text(
                 content,
-                style: AppStyles.c929292W500S14.copyWith(fontSize: AppStyles.px12),
+                style: FlutterFlowTheme.of(
+                    context)
+                    .bodyMedium
+                    .override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(
+                      context)
+                      .grayLight,
+                  fontSize: 16.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.w600,
+                ),
               )
             ],
           ),
@@ -150,9 +194,15 @@ class _UploadDocumentState extends State<UploadDocument> {
     );
   }
 
-  GestureDetector selectButton(void Function()? onTap) {
+  Widget selectButton(void Function()? onTap) {
     return GestureDetector(
         onTap: onTap,
+        child: AppWidgets.btn(context, FFLocalizations.of(context)
+            .getText(
+          'lh2w6q42' /* Select  */,
+        ),bgColor: FlutterFlowTheme.of(context).primary,horizontalPadding: 20,verticalPadding: 5));
+    return GestureDetector(
+
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(border: Border.all(color: AppColors.kViolate, width: 1), borderRadius: BorderRadius.circular(10)),

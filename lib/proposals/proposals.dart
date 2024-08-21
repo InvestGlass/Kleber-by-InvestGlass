@@ -6,6 +6,7 @@ import 'package:kleber_bank/proposals/view_document.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 import '../utils/api_calls.dart';
 import '../utils/app_colors.dart';
@@ -189,7 +190,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                               height: rSize * 0.01,
                                             ),
                                             GestureDetector(
-                                                onTap: () => CommonFunctions.navigate(context, ViewDocument(item.documentId!)),
+                                                onTap: () => CommonFunctions.navigate(context, ViewDocument(item.documentId!,true)),
                                                 child: AppWidgets.btn(
                                                     context,
                                                     FFLocalizations.of(context).getText(
@@ -259,7 +260,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                         ), () {
                                                       Navigator.pop(context);
                                                     }, () {
-                                                      _notifier.updateState('rejected', _pagingController, item.id, index, context);
+                                                      _notifier.updateState('rejected', _pagingController, item.id, index, context,);
                                                     },
                                                         btn1BgColor: FlutterFlowTheme.of(context).customColor3,
                                                         btn2BgColor: FlutterFlowTheme.of(context).customColor2),
@@ -348,7 +349,12 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                             ),
                                             proposalElement('   ${FFLocalizations.of(context).getText(
                                               'fbk0uba7' /* Call your advisor */,
-                                            )}', Icons.call),
+                                            )}', Icons.call,() async {
+                                              await launchUrl(Uri(
+                                                scheme: 'tel',
+                                                path: item.advisor?.phoneOffice,
+                                              ));
+                                            },),
                                             SizedBox(
                                               height: rSize * 0.01,
                                             ),
@@ -358,7 +364,9 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                             ),
                                             proposalElement('   ${FFLocalizations.of(context).getText(
                                               'pkkj5rta' /* Chat with your Advisor */,
-                                            )}', Icons.chat_outlined),
+                                            )}', Icons.chat_outlined,() {
+
+                                            },),
                                             SizedBox(
                                               height: rSize * 0.01,
                                             ),
@@ -368,7 +376,9 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                             ),
                                             proposalElement('   ${FFLocalizations.of(context).getText(
                                               'lq59qmsn' ,
-                                            )}', Icons.calendar_month),
+                                            )}', Icons.calendar_month,() {
+
+                                            },),
                                             SizedBox(
                                               height: rSize * 0.01,
                                             ),
@@ -698,33 +708,36 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
     );
   }
 
-  Widget proposalElement(String title, IconData iconData) {
-    return Row(
-      children: [
-        Icon(
-          iconData,
-          color: FlutterFlowTheme.of(context).primaryText,
-          size: 20,
-        ),
-        Expanded(
-            child: Text(
-          title,
-          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                fontFamily: 'Roboto',
+  Widget proposalElement(String title, IconData iconData,void Function() onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        children: [
+          Icon(
+            iconData,
+            color: FlutterFlowTheme.of(context).primaryText,
+            size: 20,
+          ),
+          Expanded(
+              child: Text(
+            title,
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontSize: 16.0,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.normal,
+                ),
+          )),
+          RotatedBox(
+              quarterTurns: 2,
+              child: Icon(
+                Icons.arrow_back_ios_new,
                 color: FlutterFlowTheme.of(context).primaryText,
-                fontSize: 16.0,
-                letterSpacing: 0.0,
-                fontWeight: FontWeight.normal,
-              ),
-        )),
-        RotatedBox(
-            quarterTurns: 2,
-            child: Icon(
-              Icons.arrow_back_ios_new,
-              color: FlutterFlowTheme.of(context).primaryText,
-              size: 15,
-            ))
-      ],
+                size: 15,
+              ))
+        ],
+      ),
     );
   }
 

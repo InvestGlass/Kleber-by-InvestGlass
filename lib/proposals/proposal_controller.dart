@@ -4,6 +4,7 @@ import 'package:kleber_bank/proposals/proposal_model.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 
 import '../utils/api_calls.dart';
+import '../utils/internationalization.dart';
 
 class ProposalController extends ChangeNotifier {
   int selectedIndex = -1;
@@ -31,6 +32,12 @@ class ProposalController extends ChangeNotifier {
     int index,
     BuildContext context,
   ) {
+    if(!pagingController.itemList![index].isChecked){
+      CommonFunctions.showToast(FFLocalizations.of(context).getText(
+        'agree_checkbox',
+      ));
+      return;
+    }
     CommonFunctions.showLoader(context);
     ApiCalls.updateProposalState(id!, state).then(
       (value) {

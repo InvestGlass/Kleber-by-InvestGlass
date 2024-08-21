@@ -61,7 +61,7 @@ class PositionModel {
     referenceCurrency: json["reference_currency"],
     lastPrice: json["last_price"].toString(),
     costPrice: json["cost_price"].toString(),
-    roi: json["roi"]?.toString()??'N/A',
+    roi: json["roi"]?.toString()??'-',
     quantity: json["quantity"].toString(),
     amount: json["amount"].toString(),
     allocation: json["allocation"],

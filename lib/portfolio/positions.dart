@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../main.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_styles.dart';
+import '../utils/common_functions.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
 
@@ -62,18 +63,32 @@ class _PositionsState extends State<Positions> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    child: Text(
-                      textAlign: TextAlign.center,
-                      '${FFLocalizations.of(context).getText(
-                        'qhszshsn' /* Position as of */,
-                      )}\n${DateFormat('yyyy-MM-dd', FFLocalizations.of(context).languageCode).format(DateTime.now())}',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
-                            color: FlutterFlowTheme.of(context).primary,
-                            fontSize: 25.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w600,
+                    child: Column(
+                      children: [
+                        Text(
+                          textAlign: TextAlign.center,
+                          FFLocalizations.of(context).getText(
+                            'qhszshsn' /* Position as of */,
                           ),
+                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                fontFamily: 'Roboto',
+                                color: FlutterFlowTheme.of(context).primary,
+                                fontSize: 25.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                        Text(
+                          textAlign: TextAlign.center,
+                          DateFormat('yyyy-MM-dd', FFLocalizations.of(context).languageCode).format(DateTime.now()),
+                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Roboto',
+                            fontSize: 20.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   GestureDetector(
@@ -84,7 +99,11 @@ class _PositionsState extends State<Positions> {
               SizedBox(height: rSize*0.02,),
               DropdownButtonFormField(
                   decoration: AppStyles.dropDownInputDecoration(context, AppWidgets.textFieldLabel(''),focusedBorderColor: FlutterFlowTheme.of(context)
-                      .alternate),
+                      .alternate,prefix: Icon(
+                    Icons.sort_rounded,
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                    size: 24.0,
+                  )),
                   isExpanded: true,
                   icon: AppWidgets.dropDownIcon(),
                   style: FlutterFlowTheme.of(context).displaySmall.override(
@@ -139,7 +158,7 @@ class _PositionsState extends State<Positions> {
                                     children: [
                                       Expanded(
                                           child: Text(
-                                        item.referenceCurrency ?? 'N/A',
+                                        item.securityName ?? '-',
                                         style: FlutterFlowTheme.of(context).displaySmall.override(
                                               fontFamily: 'Roboto',
                                               color: FlutterFlowTheme.of(context).primaryText,
@@ -164,8 +183,12 @@ class _PositionsState extends State<Positions> {
                                     SizedBox(
                                       height: rSize * 0.005,
                                     ),
-                                    AppWidgets.portfolioListElement(context, 'Allocation', item.allocation ?? 'N/A', middleValue: ''),
-                                    AppWidgets.portfolioListElement(context, 'ROI', item.roi!,icon: getIcon(double.tryParse(item.roi!)??0))
+                                    AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                      'tea2m5lq' /* Allocation */,
+                                    ), item.allocation?.toString().replaceAll(' ', '') ?? '-', middleValue: CommonFunctions.formatDoubleWithThousandSeperator('${item.amount}', (double.tryParse(item.amount!)??0) == 0, 2)),
+                                    AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                      'e0dy1vxx' /* ROI */,
+                                    ), item.roi!+(item.roi!='-'?'%':''),icon: getIcon(double.tryParse(item.roi!)??0))
                                   },
                                   if (_notifier.selectedPositionIndex == index) ...{
                                     ConstrainedBox(
@@ -187,43 +210,61 @@ class _PositionsState extends State<Positions> {
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                AppWidgets.portfolioListElement(context, 'Name', item.securityName ?? 'N/A'),
+                                                AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                                  '4kttzprb' /* Name */,
+                                                ), item.securityName ?? '-'),
                                                 SizedBox(
                                                   height: rSize * 0.005,
                                                 ),
-                                                AppWidgets.portfolioListElement(context, 'ISIN', item.securityIsin ?? 'N/A'),
+                                                AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                                  '6thwwafn' /* ISIN */,
+                                                ), item.securityIsin ?? '-'),
                                                 SizedBox(
                                                   height: rSize * 0.005,
                                                 ),
-                                                AppWidgets.portfolioListElement(context, 'Currency', item.referenceCurrency ?? 'N/A'),
+                                                AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                                  'ivu9tdzj' /* Currency */,
+                                                ), item.referenceCurrency ?? '-'),
                                                 SizedBox(
                                                   height: rSize * 0.005,
                                                 ),
-                                                AppWidgets.portfolioListElement(context, 'Last Price', item.lastPrice ?? 'N/A'),
+                                                AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                                  'fbgy82bc' /* Last Price */,
+                                                ), item.lastPrice ?? '-'),
                                                 SizedBox(
                                                   height: rSize * 0.005,
                                                 ),
-                                                AppWidgets.portfolioListElement(context, 'Cost Price', item.costPrice ?? 'N/A'),
+                                                AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                                  'swv2ctiz' /* Cost Price */,
+                                                ), item.costPrice ?? '-'),
                                                 SizedBox(
                                                   height: rSize * 0.005,
                                                 ),
-                                                AppWidgets.portfolioListElement(context, 'ROI', item.roi ?? 'N/A',icon: getIcon(double.tryParse(item.roi!)??0)),
+                                                AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                                  'cdklrlbv' /* ROI */,
+                                                ), item.roi!+(item.roi!='-'?'%':''),icon: getIcon(double.tryParse(item.roi!)??0)),
                                                 SizedBox(
                                                   height: rSize * 0.005,
                                                 ),
-                                                AppWidgets.portfolioListElement(context, 'Quality', item.quantity ?? 'N/A'),
+                                                AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                                  'ox3fj6xq' /* Quantity */,
+                                                ), item.quantity ?? '-'),
                                                 SizedBox(
                                                   height: rSize * 0.005,
                                                 ),
-                                                AppWidgets.portfolioListElement(context, 'FX Rate', item.fxRate ?? 'N/A'),
+                                                AppWidgets.portfolioListElement(context, 'FX Rate', item.fxRate ?? '-'),
                                                 SizedBox(
                                                   height: rSize * 0.005,
                                                 ),
-                                                AppWidgets.portfolioListElement(context, 'Amount', item.amount ?? 'N/A'),
+                                                AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                                  'juhk5a4f' /* Amount */,
+                                                ), CommonFunctions.formatDoubleWithThousandSeperator('${item.amount}', (double.tryParse(item.amount!)??0) == 0, 2)),
                                                 SizedBox(
                                                   height: rSize * 0.005,
                                                 ),
-                                                AppWidgets.portfolioListElement(context, 'Allocation', item.allocation ?? 'N/A'),
+                                                AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                                  'xai3n31z' /* Allocation */,
+                                                ), item.allocation?.toString().replaceAll(' ', '') ?? '-'),
                                                 SizedBox(
                                                   height: rSize * 0.015,
                                                 ),

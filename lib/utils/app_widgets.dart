@@ -164,18 +164,24 @@ class AppWidgets {
       children: [
         Text(
           label,
-          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                fontFamily: 'Roboto',
-                color: FlutterFlowTheme.of(context).secondaryText,
-                fontSize: 16.0,
-                letterSpacing: 0.0,
-                fontWeight: FontWeight.w500,
-              ),
+          style: FlutterFlowTheme.of(context)
+              .bodyMedium
+              .override(
+            fontFamily: 'Roboto',
+            fontSize: 16.0,
+            letterSpacing: 0.0,
+          ),
         ),
         if (middleValue.isNotEmpty) ...{
           Text(
             middleValue,
-            style: AppStyles.c656262W200S14,
+            style: FlutterFlowTheme.of(context)
+                .bodyMedium
+                .override(
+              fontFamily: 'Roboto',
+              fontSize: 16.0,
+              letterSpacing: 0.0,
+            ),
           )
         },
         if (middleValue.isEmpty) ...{
@@ -254,7 +260,11 @@ class AppWidgets {
           icon,
           Text(
             label,
-            style: AppStyles.cFFFFFFW400S18.copyWith(fontWeight: FontWeight.w500),
+            style: FlutterFlowTheme.of(context).titleSmall.override(
+              fontFamily: 'Roboto',
+              color: FlutterFlowTheme.of(context).primaryText,
+              letterSpacing: 0.0,
+            ),
           ),
         ],
       ),

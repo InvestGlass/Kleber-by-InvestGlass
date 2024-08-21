@@ -65,7 +65,9 @@ class _DocumentsState extends State<Documents> {
     return Scaffold(
       appBar: AppWidgets.appBar(context,FFLocalizations.of(context).getText(
         'dlgf18jl' /* Document */,
-      ),leading: Icon(Icons.arrow_back,color: FlutterFlowTheme.of(context).primary,),centerTitle: true),
+      ),leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Icon(Icons.arrow_back,color: FlutterFlowTheme.of(context).primary,)),centerTitle: true),
       floatingActionButton: FloatingActionButton(
         backgroundColor: FlutterFlowTheme.of(context).primary,
         onPressed: () {
@@ -316,7 +318,7 @@ class _DocumentsState extends State<Documents> {
                       ),
                       items: ["ALPHA",'BETA'],
                       dropdownDecoratorProps: DropDownDecoratorProps(
-                        dropdownSearchDecoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('Portfolio')),
+                        dropdownSearchDecoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('')),
                       ),
                       onChanged: print,
                       selectedItem:null,
@@ -602,15 +604,21 @@ class _DocumentsState extends State<Documents> {
       // surfaceTintColor: Colors.white,
       position: PopupMenuPosition.under,color: FlutterFlowTheme.of(context).secondaryText,
       itemBuilder: (context) => [
-        popupMenuItem(1, 'View', Icon(Icons.remove_red_eye,color: FlutterFlowTheme.of(context).primary,), () {
-          CommonFunctions.navigate(context, ViewDocument(item.id.toString()));
+        popupMenuItem(1, FFLocalizations.of(context).getText(
+          'preview',
+        ), Icon(Icons.remove_red_eye,color: FlutterFlowTheme.of(context).primary,), () {
+          CommonFunctions.navigate(context, ViewDocument(item.id.toString(),false));
         }),
         if(item.documentType=='document')
-        popupMenuItem(2, 'Download', Icon(Icons.cloud_download_outlined,color: FlutterFlowTheme.of(context).primary,), () {
+        popupMenuItem(2, FFLocalizations.of(context).getText(
+          'download',
+        ), Icon(Icons.cloud_download_outlined,color: FlutterFlowTheme.of(context).primary,), () {
           downloadDoc(item);
         }),
         if(item.documentType=='document' && item.documentStatus==null)
-        popupMenuItem(3, 'Signature', SvgPicture.asset(
+        popupMenuItem(3, FFLocalizations.of(context).getText(
+          'signature',
+        ), SvgPicture.asset(
           'assets/signature-icon.svg',
           width: 25,
           height: 25,
@@ -622,15 +630,23 @@ class _DocumentsState extends State<Documents> {
         ), () {
           AppWidgets.showAlert(
             context,
-            'Please confirm your action',
-            'Reject',
-            'Accept',
+            FFLocalizations.of(context).getText(
+              'apuqhrbh'/* please confirm */,
+            ),
+            FFLocalizations.of(context).getText(
+              'c4m8fcp2'/* reject */,
+            ),
+            FFLocalizations.of(context).getText(
+              'e1wyk8ql' /* accept */,
+            ),
             () {
               updateStatus(item, context,'rejected');
             },
             () {
               updateStatus(item, context,'accepted');
             },
+              btn1BgColor: FlutterFlowTheme.of(context).customColor3,
+              btn2BgColor: FlutterFlowTheme.of(context).customColor2
           );
         }),
       ],

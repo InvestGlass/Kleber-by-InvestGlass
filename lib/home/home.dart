@@ -93,11 +93,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin{
                           child: Image.network(
                             model.imageUrl??'',
                             height: rSize * 0.15,
-                            width: rSize * 0.27,
+                            width: rSize * 0.28,
                             fit: BoxFit.cover,errorBuilder: (context, error, stackTrace) {
                               return Image.asset('assets/items_default.jpg',
                                 height: rSize * 0.15,
-                                width: rSize * 0.27,fit: BoxFit.cover);
+                                width: rSize * 0.28,fit: BoxFit.cover);
                             },
                           ),
                         ),

@@ -35,62 +35,56 @@ class AppStyles {
   static TextStyle cFFFFFFW400S18 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px18, color: Colors.white);
   static TextStyle cFFFFFFW400S16 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px16, color: Colors.white);
   static TextStyle cRedW400S18 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px18, color: Colors.redAccent);
-  static TextStyle errorStyle = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px14, color: AppColors.kErrorBorderColor,height: 1);
+  static TextStyle errorStyle = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px14, color: AppColors.kErrorBorderColor, height: 1);
   static TextStyle errorStyle16 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px16, color: AppColors.kErrorBorderColor);
 
-
-
-  static InputDecoration dropDownInputDecoration(BuildContext context,Widget? label,{Color? focusedBorderColor}) {
+  static InputDecoration dropDownInputDecoration(BuildContext context, Widget? label, {Color? focusedBorderColor,Widget? prefix}) {
     return InputDecoration(
-      label: label,fillColor: FlutterFlowTheme.of(context)
-        .secondaryBackground,
+      label: label,
+      fillColor: FlutterFlowTheme.of(context).secondaryBackground,
       errorStyle: AppStyles.cRedW400S18,
-
+      prefixIcon: prefix,
       hintStyle: AppStyles.c656262W500S18,
       contentPadding: EdgeInsets.all(15.0),
       // Inside box padding
       border: OutlineInputBorder(
         borderSide: BorderSide(
-          color: FlutterFlowTheme.of(context)
-              .alternate,
+          color: FlutterFlowTheme.of(context).alternate,
           width: 2.0,
         ),
         borderRadius: BorderRadius.circular(12.0),
-      ),labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
-      fontFamily: 'Roboto',
-      color: FlutterFlowTheme.of(context).primaryText,
-      fontSize: 16.0,
-      letterSpacing: 0.0,
-      fontWeight: FontWeight.w500,
-    ),
+      ),
+      labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
+            fontFamily: 'Roboto',
+            color: FlutterFlowTheme.of(context).primaryText,
+            fontSize: 16.0,
+            letterSpacing: 0.0,
+            fontWeight: FontWeight.w500,
+          ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: FlutterFlowTheme.of(context)
-              .alternate,
+          color: FlutterFlowTheme.of(context).alternate,
           width: 2.0,
         ),
         borderRadius: BorderRadius.circular(12.0),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color:
-          focusedBorderColor??FlutterFlowTheme.of(context).primary,
+          color: focusedBorderColor ?? FlutterFlowTheme.of(context).primary,
           width: 2.0,
         ),
         borderRadius: BorderRadius.circular(12.0),
       ),
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: FlutterFlowTheme.of(context)
-              .alternate,
+          color: FlutterFlowTheme.of(context).alternate,
           width: 2.0,
         ),
         borderRadius: BorderRadius.circular(12.0),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: FlutterFlowTheme.of(context)
-              .alternate,
+          color: FlutterFlowTheme.of(context).alternate,
           width: 2.0,
         ),
         borderRadius: BorderRadius.circular(12.0),
@@ -98,7 +92,7 @@ class AppStyles {
     );
   }
 
-  static Decoration commonBg(BuildContext context){
+  static Decoration commonBg(BuildContext context) {
     return BoxDecoration(
       gradient: LinearGradient(
         colors: [
@@ -112,8 +106,7 @@ class AppStyles {
     );
   }
 
-  static InputDecoration inputDecoration(
-      BuildContext context,
+  static InputDecoration inputDecoration(BuildContext context,
       {String? hint,
       String? label,
       String? counterText,
@@ -121,57 +114,48 @@ class AppStyles {
       Widget? suffix,
       String? preffixText,
       // TextStyle? hintStyle,
-        TextStyle? labelStyle,
-        Color? fillColor,
+      TextStyle? labelStyle,
+      Color? fillColor,
       EdgeInsetsGeometry? contentPadding,
       Color? borderColor}) {
     return InputDecoration(
-      labelText:
-      label,
+      labelText: label,
       labelStyle: labelStyle,
-      hintStyle: FlutterFlowTheme.of(context)
-          .labelMedium
-          .override(
-        fontFamily: 'Roboto',
-        letterSpacing: 0.0,
-      ),
+      hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+            fontFamily: 'Roboto',
+            letterSpacing: 0.0,
+          ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: FlutterFlowTheme.of(context)
-              .alternate,
+          color: FlutterFlowTheme.of(context).alternate,
           width: 2.0,
         ),
         borderRadius: BorderRadius.circular(12.0),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color:
-          FlutterFlowTheme.of(context).primary,
+          color: FlutterFlowTheme.of(context).primary,
           width: 2.0,
         ),
         borderRadius: BorderRadius.circular(12.0),
       ),
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: FlutterFlowTheme.of(context)
-              .alternate,
+          color: FlutterFlowTheme.of(context).alternate,
           width: 2.0,
         ),
         borderRadius: BorderRadius.circular(12.0),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: FlutterFlowTheme.of(context)
-              .alternate,
+          color: FlutterFlowTheme.of(context).alternate,
           width: 2.0,
         ),
         borderRadius: BorderRadius.circular(12.0),
       ),
       filled: true,
       fillColor: fillColor,
-      contentPadding:
-      contentPadding??const EdgeInsetsDirectional.fromSTEB(
-          24.0, 24.0, 0.0, 24.0),
+      contentPadding: contentPadding ?? const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 24.0),
       suffixIcon: suffix,
     );
   }

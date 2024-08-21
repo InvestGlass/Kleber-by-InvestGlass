@@ -454,6 +454,21 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'بيت',
       'vi': 'Trang chủ',
     },
+    'preview': {
+      'en': 'Preview',
+      'ar': 'معاينة',
+      'vi': 'Xem trước',
+    },
+    'download': {
+      'en': 'Download',
+      'ar': 'تحميل',
+      'vi': 'Tải xuống',
+    },
+    'signature': {
+      'en': 'Signature',
+      'ar': 'إمضاء',
+      'vi': 'Chữ ký',
+    },
   },
   // WebviewPage
   {
@@ -1335,17 +1350,17 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'HOẶC',
     },
     'fbk0uba7': {
-      'en': 'Call Your Advisor',
+      'en': 'Call your advisor',
       'ar': 'اتصل بمستشارك',
       'vi': 'Gọi cố vấn của bạn',
     },
     'pkkj5rta': {
-      'en': 'Chat With Your Advisor',
+      'en': 'Chat with your advisor',
       'ar': 'الدردشة مع المستشار الخاص بك',
       'vi': 'Trò chuyện với cố vấn của bạn',
     },
     'dperp1f4': {
-      'en': 'Schedule Appointment',
+      'en': 'Schedule appointment',
       'ar': 'تحديد موعد',
       'vi': 'Lịch hẹn',
     },
@@ -1738,6 +1753,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Newest',
       'ar': 'الأحدث',
       'vi': 'Mới nhất',
+    },
+    'agree_checkbox': {
+      'en': 'Please check the checkbox first',
+      'ar': 'يرجى تحديد خانة الاختيار أولا',
+      'vi': 'Vui lòng tích vào hộp kiểm trước',
     },
     '5dpmi95h': {
       'en': 'Oldest',
