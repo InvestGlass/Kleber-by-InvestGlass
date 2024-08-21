@@ -30,6 +30,7 @@ class DocumentModel {
 class Document {
   int? id;
   String? folderName;
+  String? description;
   int? companyId;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -52,6 +53,7 @@ class Document {
   Document({
     this.id,
     this.folderName,
+    this.description,
     this.companyId,
     this.createdAt,
     this.updatedAt,
@@ -78,8 +80,9 @@ class Document {
 
   factory Document.fromJson(Map<String, dynamic> json) => Document(
     id: json["id"],
-    folderName: json["folder_name"]??json["original_filename"],
+    folderName: json["folder_name"]??((json["description"]??'').toString().isNotEmpty?json["description"]:json["original_filename"]),
     companyId: json["company_id"],
+    description: json["description"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     ancestry: json["ancestry"],

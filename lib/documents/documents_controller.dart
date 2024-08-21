@@ -5,6 +5,9 @@ import 'package:kleber_bank/documents/document_model.dart';
 import 'package:kleber_bank/utils/api_calls.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 
+import '../utils/internationalization.dart';
+import 'accounts_model.dart';
+
 class DocumentsController extends ChangeNotifier {
   String _selectedType = 'All';
   List<String> typesList = ['All', 'Document', 'Form', 'Package'];
@@ -13,11 +16,14 @@ class DocumentsController extends ChangeNotifier {
   String searchedFile = '';
   String? selectedType = 'All';
   String? selectedAccount = 'All';
+  List<String> ancestryFolderList=[],folderPathList=[];
   int sortRadioGroupValue = -1;
   String selectedAncestryFolder = '', selectedPath = '', startDate = '', endDate = '', orderColumn = 'created_at', orderDirection = 'desc';
-  List<FilterModel> appliedFilters = [];
+  // List<FilterModel> appliedFilters = [];
   String filterName = 'filterName', filterType = 'filterType', filterDate = 'filterDate', path = 'path', sortType = 'sortType';
-  List<FilterModel> selectedFilterList = [];
+  // List<FilterModel> selectedFilterList = [];
+  List<String> accountList=[];
+  List<AccountsModel> accountModelList=[];
 
   void setSortRadioGroupValue(int value, String label) {
     sortRadioGroupValue = value;
@@ -32,10 +38,10 @@ class DocumentsController extends ChangeNotifier {
     } else {
       orderDirection = 'asc';
     }
-    appliedFilters.removeWhere(
+    /*appliedFilters.removeWhere(
       (element) => element.type == sortType,
     );
-    appliedFilters.insert(0, FilterModel(label, sortType));
+    appliedFilters.insert(0, FilterModel(label, sortType));*/
     notifyListeners();
   }
 
@@ -44,6 +50,22 @@ class DocumentsController extends ChangeNotifier {
     startDate = '';
     endDate = '';
     notifyListeners();
+  }
+
+  Future<void> getAccountList(BuildContext context) async {
+    if(accountList.isNotEmpty){
+      return;
+    }
+    CommonFunctions.showLoader(context);
+    await ApiCalls.getAccountsList().then((value) {
+      CommonFunctions.dismissLoader(context);
+      accountList=value.map((e) => e.name!,).toList();
+      accountList.insert(0,FFLocalizations.of(context).getText(
+        'n93guv4x' /* All */,
+      ));
+      accountModelList=value;
+      notifyListeners();
+    },);
   }
 
   /*________________________________________________UPLOAD DOCUMENT____________________________________*/
@@ -93,13 +115,28 @@ class DocumentsController extends ChangeNotifier {
       }
     },);
   }
+
+  void goToPreviousFolder() {
+    ancestryFolderList.removeLast();
+    folderPathList.removeLast();
+    notifyListeners();
+  }
+
+  void openFolder(Document item) {
+    folderPathList.add("${item.folderName!}/");
+    ancestryFolderList.add(item.id.toString());
+    notifyListeners();
+  }
 }
 
-enum FilterTypes{
+/*enum FilterTypes{
   ACCOUNT,
   FILE_NAME,
   TYPE,
   DATE_RANGE,
+  ANCESTRY_FOLDER,
+  COLUMN,
+  DIRECTION,
 }
 
 class FilterModel {
@@ -107,4 +144,4 @@ class FilterModel {
   String type;
 
   FilterModel(this.name, this.type);
-}
+}*/

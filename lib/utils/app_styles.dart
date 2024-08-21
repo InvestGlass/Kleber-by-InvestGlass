@@ -43,7 +43,7 @@ class AppStyles {
       label: label,
       fillColor: FlutterFlowTheme.of(context).secondaryBackground,
       errorStyle: AppStyles.cRedW400S18,
-      prefixIcon: prefix,
+      prefixIcon: prefix,filled: true,
       hintStyle: AppStyles.c656262W500S18,
       contentPadding: EdgeInsets.all(15.0),
       // Inside box padding
@@ -114,42 +114,43 @@ class AppStyles {
       Widget? suffix,
       String? preffixText,
       // TextStyle? hintStyle,
+        double borderWidth=2,
       TextStyle? labelStyle,
       Color? fillColor,
       EdgeInsetsGeometry? contentPadding,
-      Color? borderColor}) {
+      Color? focusColor}) {
     return InputDecoration(
       labelText: label,
-      labelStyle: labelStyle,
+      labelStyle: labelStyle,hintText: hint,
       hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
             fontFamily: 'Roboto',
             letterSpacing: 0.0,
           ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: FlutterFlowTheme.of(context).alternate,
-          width: 2.0,
+          color: focusColor??FlutterFlowTheme.of(context).alternate,
+          width: borderWidth,
         ),
         borderRadius: BorderRadius.circular(12.0),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: FlutterFlowTheme.of(context).primary,
-          width: 2.0,
+          color: focusColor??focusColor??FlutterFlowTheme.of(context).primary,
+          width: borderWidth,
         ),
         borderRadius: BorderRadius.circular(12.0),
       ),
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: FlutterFlowTheme.of(context).alternate,
-          width: 2.0,
+          width: borderWidth,
         ),
         borderRadius: BorderRadius.circular(12.0),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: FlutterFlowTheme.of(context).alternate,
-          width: 2.0,
+          color: focusColor??FlutterFlowTheme.of(context).alternate,
+          width: borderWidth,
         ),
         borderRadius: BorderRadius.circular(12.0),
       ),

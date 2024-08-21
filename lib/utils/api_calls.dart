@@ -393,18 +393,49 @@ class ApiCalls {
     return [];
   }
 
-  static Future<DocumentModel?> getDocumentList(int page, List<FilterModel> selectedFilterList) async {
+  static Future<DocumentModel?> getDocumentList(
+    int page,
+    String? selectedAccount,
+    String searchedFile,
+    String? selectedType,
+    String range,
+    List<String> ancestryFolderList,
+    List<String> folderPathList,
+    String orderDirection,
+    String orderColumn,
+  ) async {
     try {
-      String params='';
-      for (var element in selectedFilterList) {
-        if((element.name??'').isNotEmpty){
-          if(element.type==FilterTypes.ACCOUNT.name){
-            params+='';
-          }
+      String params = '';
+      if ((selectedAccount ?? '').isNotEmpty && selectedAccount != 'All') {
+        params += '&filter[account]=$selectedAccount';
+      }
+      if (range.isNotEmpty) {
+        params += '&filter[start_date]=${range.split(' ')[0]}&filter[end_date]=${range.split(' ')[2]}';
+      }
+      if ((selectedType ?? '').isNotEmpty && selectedType != 'All') {
+        params += '&filter[document_type]=${selectedType!.toLowerCase()}';
+      }
+      if (searchedFile.isNotEmpty) {
+        params += '&filter[title]=$searchedFile';
+      }
+      if (ancestryFolderList.isNotEmpty) {
+        params += '&ancestry_folder=${ancestryFolderList.last}';
+      }
+      if (orderDirection.isNotEmpty) {
+        params += '&order[direction]=$orderDirection';
+      }
+      if (orderColumn.isNotEmpty) {
+        params += '&order[column]=$orderColumn';
+      }
+      for (var element in folderPathList) {
+        if (!params.contains('&document[directory_path]=')) {
+          params += '&document[directory_path]=$element';
+        } else {
+          params += element;
         }
       }
       var url = Uri.parse(
-        '${EndPoints.documents}?page=$page',
+        '${EndPoints.documents}?page=$page$params',
       );
 
       var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
@@ -429,18 +460,15 @@ class ApiCalls {
         EndPoints.changePassword,
       );
 
-      var response = await http.post(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'},body:
-        {
-          "current_password": currentPwd,
-          "new_password": newPwd
-        }
-      );
+      var response = await http.post(url,
+          headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'},
+          body: {"current_password": currentPwd, "new_password": newPwd});
       print("url $url");
       print("response ${response.body}");
       if (jsonDecode(response.body).containsKey('errors')) {
         CommonFunctions.showToast(jsonDecode(response.body)['errors']);
         return false;
-      }else{
+      } else {
         return jsonDecode(response.body)['success'];
       }
     } on SocketException catch (e) {
@@ -454,11 +482,11 @@ class ApiCalls {
     return false;
   }
 
-  static Future<Map<String,dynamic>?> uploadDoc(XFile file,String desc) async {
+  static Future<Map<String, dynamic>?> uploadDoc(XFile file, String desc) async {
     var url = Uri.parse(EndPoints.documents);
     var request = http.MultipartRequest('POST', url);
     request.headers.addAll({'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-    var multipartFile = await http.MultipartFile('document[file]', http.ByteStream(file.openRead()),await file.length(),filename: file.name);
+    var multipartFile = await http.MultipartFile('document[file]', http.ByteStream(file.openRead()), await file.length(), filename: file.name);
     request.files.add(multipartFile);
     request.fields['document[description]'] = desc;
 
@@ -469,7 +497,6 @@ class ApiCalls {
       Map<String, dynamic> valueMap = json.decode(jsonData);
       print("valueMap ${valueMap.toString()}");
       return valueMap;
-
     } on SocketException catch (e) {
       CommonFunctions.showToast(AppConst.connectionError);
     } on TimeoutException catch (e) {
@@ -481,18 +508,20 @@ class ApiCalls {
     return null;
   }
 
-  static Future<Document?> updateDocumentStatus(int id,String status) async {
+  static Future<Document?> updateDocumentStatus(int id, String status) async {
     try {
       var url = Uri.parse(
         '${EndPoints.documents}/$id/update_status?$status',
       );
 
-      var response = await http.put(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'},);
+      var response = await http.put(
+        url,
+        headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'},
+      );
       print("url $url");
       print("response ${response.body}");
 
-        return Document.fromJson(jsonDecode(response.body));
-
+      return Document.fromJson(jsonDecode(response.body));
     } on SocketException catch (e) {
       CommonFunctions.showToast(AppConst.connectionError);
     } on TimeoutException catch (e) {
@@ -510,12 +539,14 @@ class ApiCalls {
         EndPoints.homeNews,
       );
 
-      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'},);
+      var response = await http.get(
+        url,
+        headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'},
+      );
       print("url $url");
       print("response ${response.body}");
 
-        return homeNewsModelFromJson(response.body);
-
+      return homeNewsModelFromJson(response.body);
     } on SocketException catch (e) {
       CommonFunctions.showToast(AppConst.connectionError);
     } on TimeoutException catch (e) {
