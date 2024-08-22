@@ -15,7 +15,7 @@ class HealthCheck extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: Padding(
           padding: EdgeInsets.all(rSize * 0.015),
           child: Column(
@@ -52,13 +52,13 @@ class HealthCheck extends StatelessWidget {
               ),
               ListView(
                 shrinkWrap: true,
-                padding: EdgeInsets.all(rSize * 0.015),
+                padding: EdgeInsets.symmetric(vertical:rSize * 0.03),
                 children: [
                   AppWidgets.healthAlertElement(context,
                       '   ${FFLocalizations.of(context).getText(
                         'ko88t7mf' /* MAJOR ISSUES */,
                       )}',
-                      FlutterFlowTheme.of(context).primaryBackground,
+                      FlutterFlowTheme.of(context).secondaryBackground,
                       Icons.report_problem_outlined,
                       FFLocalizations.of(context).getText(
                         'dxc8grzt' /* Suitability */,
@@ -78,7 +78,7 @@ class HealthCheck extends StatelessWidget {
                       '   ${FFLocalizations.of(context).getText(
                         'kc4yx2mm' /* MINOR ISSUES */,
                       )}',
-                      FlutterFlowTheme.of(context).primaryBackground,
+                      FlutterFlowTheme.of(context).secondaryBackground,
                       Icons.info_outline,
                       FFLocalizations.of(context).getText(
                         '3vkimctv' /* Appropriateness */,

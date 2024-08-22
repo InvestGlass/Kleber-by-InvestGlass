@@ -278,7 +278,7 @@ class AppWidgets {
         borderRadius: BorderRadius.circular(10));
   }
 
-  static Expanded sheetElement(String img, String label, void Function()? onTap) {
+  static Expanded sheetElement(String img, String label, void Function()? onTap, BuildContext context) {
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
@@ -288,17 +288,24 @@ class AppWidgets {
             Container(
                 padding: EdgeInsets.all(rSize * 0.01),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)), border: Border.all(color: AppColors.kTextFieldInput, width: 1)),
+                    borderRadius: BorderRadius.all(Radius.circular(20)), border: Border.all(color: FlutterFlowTheme.of(context).primaryText, width: 1)),
                 child: Image.asset(
                   'assets/$img',
                   scale: 25,
+                  color: FlutterFlowTheme.of(context).primaryText,
                 )),
             SizedBox(
               height: rSize * 0.01,
             ),
             Text(
               label,
-              style: AppStyles.c656262W500S16,
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                fontFamily: 'Roboto',
+                color: FlutterFlowTheme.of(context).primaryText,
+                fontSize: 16.0,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.w500,
+              ),
             )
           ],
         ),
@@ -314,7 +321,7 @@ class AppWidgets {
         return Container(
           alignment: Alignment.center,
           decoration:
-              BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+              BoxDecoration(color: FlutterFlowTheme.of(context).secondaryBackground, borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
           height: rSize * 0.15,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -323,11 +330,13 @@ class AppWidgets {
                 'media.png',
                 'Select File',
                 onFileClick,
+                context
               ),
               AppWidgets.sheetElement(
                 'camera.png',
                 'Capture Image',
                 onCameraClick,
+                context
               ),
             ],
           ),
@@ -340,7 +349,7 @@ class AppWidgets {
     return AppBar(
       elevation: 0,
       actions: actions,
-      backgroundColor: Colors.transparent,
+      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       surfaceTintColor: Colors.transparent,
       leading: leading,
       title: Text(

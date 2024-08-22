@@ -178,13 +178,13 @@ class _DashboardState extends State<Dashboard> {
                 },
               ).toList(),
             ),
-          )),*/
+          )),
       drawer: AppWidgets.drawer((i) {
         _scaffoldkey.currentState!.closeDrawer();
         _controller.changeIndex(i);
         controller.animateToPage(i, duration: Duration(milliseconds: 100), curve: Curves.easeInOut);
         // controller=PageController(initialPage: value);
-      }),
+      }),*/
       body: PageView(
         controller: controller,
         physics: NeverScrollableScrollPhysics(),

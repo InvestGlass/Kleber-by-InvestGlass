@@ -511,7 +511,7 @@ class ApiCalls {
   static Future<Document?> updateDocumentStatus(int id, String status) async {
     try {
       var url = Uri.parse(
-        '${EndPoints.documents}/$id/update_status?$status',
+        '${EndPoints.documents}/$id/update_status?status=$status',
       );
 
       var response = await http.put(

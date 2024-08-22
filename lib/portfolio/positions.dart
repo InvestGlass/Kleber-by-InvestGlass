@@ -140,6 +140,7 @@ class _PositionsState extends State<Positions> {
                   builderDelegate: PagedChildBuilderDelegate<PositionModel>(noItemsFoundIndicatorBuilder: (context) {
                     return const SizedBox();
                   }, itemBuilder: (context, item, index) {
+                    String currency=item.referenceCurrency ?? '-';
                     return Card(
                       margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
                       elevation: 2,
@@ -184,7 +185,7 @@ class _PositionsState extends State<Positions> {
                                   ),
                                   AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
                                     'tea2m5lq' /* Allocation */,
-                                  ), item.allocation?.toString().replaceAll(' ', '') ?? '-', middleValue: CommonFunctions.formatDoubleWithThousandSeperator('${item.amount}', (double.tryParse(item.amount!)??0) == 0, 2)),
+                                  ), item.allocation?.toString().replaceAll(' ', '') ?? '-', middleValue: '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('${item.amount}', (double.tryParse(item.amount!)??0) == 0, 2)}'),
                                   AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
                                     'e0dy1vxx' /* ROI */,
                                   ), item.roi!+(item.roi!='-'?'%':''),icon: getIcon(double.tryParse(item.roi!)??0))
@@ -223,19 +224,19 @@ class _PositionsState extends State<Positions> {
                                               ),
                                               AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
                                                 'ivu9tdzj' /* Currency */,
-                                              ), item.referenceCurrency ?? '-'),
+                                              ),currency ),
                                               SizedBox(
                                                 height: rSize * 0.005,
                                               ),
                                               AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
                                                 'fbgy82bc' /* Last Price */,
-                                              ), item.lastPrice ?? '-'),
+                                              ), '$currency ${item.lastPrice ?? ' - '}'),
                                               SizedBox(
                                                 height: rSize * 0.005,
                                               ),
                                               AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
                                                 'swv2ctiz' /* Cost Price */,
-                                              ), item.costPrice ?? '-'),
+                                              ), '$currency ${item.costPrice ?? ' - '}'),
                                               SizedBox(
                                                 height: rSize * 0.005,
                                               ),
@@ -257,7 +258,7 @@ class _PositionsState extends State<Positions> {
                                               ),
                                               AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
                                                 'juhk5a4f' /* Amount */,
-                                              ), CommonFunctions.formatDoubleWithThousandSeperator('${item.amount}', (double.tryParse(item.amount!)??0) == 0, 2)),
+                                              ), '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('$currency ${item.amount}', (double.tryParse(item.amount!)??0) == 0, 2)}'),
                                               SizedBox(
                                                 height: rSize * 0.005,
                                               ),

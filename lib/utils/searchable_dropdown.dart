@@ -8,12 +8,13 @@ import 'flutter_flow_theme.dart';
 
 class SearchableDropdown extends StatefulWidget {
   final String searchHint;
-  final String? selectedValue;
-  final List<dynamic> list;
+  final dynamic selectedValue;
+  // final List<dynamic> list;
   final bool isSearchable;
   final void Function(dynamic) onChanged;
+  final List<DropdownMenuItem<dynamic>>? items;
 
-  const SearchableDropdown({required this.selectedValue,required this.searchHint,required this.list,required this.onChanged,this.isSearchable=true, super.key});
+  const SearchableDropdown({required this.selectedValue,required this.searchHint/*,required this.list*/,required this.onChanged,required this.items,this.isSearchable=true, super.key});
 
   @override
   State<SearchableDropdown> createState() => _SearchableDropdownState();
@@ -22,7 +23,7 @@ class SearchableDropdown extends StatefulWidget {
 class _SearchableDropdownState extends State<SearchableDropdown> {
 
 
-  String? selectedValue;
+  dynamic selectedValue;
   final TextEditingController textEditingController = TextEditingController();
 
   @override
@@ -64,17 +65,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                   fontFamily: 'Roboto',
                   letterSpacing: 0.0,
                 ),
-            items: widget.list
-                .map((item) => DropdownMenuItem(
-                      value: item,
-                      child: Text(
-                        item,
-                        style: const TextStyle(
-                          fontSize: 14,
-                        ),
-                      ),
-                    ))
-                .toList(),
+            items: widget.items,
             value: selectedValue,
             onChanged: (value) {
               widget.onChanged(value);

@@ -14,7 +14,8 @@ import '../utils/shared_pref_utils.dart';
 class ViewDocument extends StatefulWidget {
   final String documentId;
   final bool isProposal;
-  const ViewDocument(this.documentId,this.isProposal,{super.key});
+  final void Function()? onTap;
+  const ViewDocument(this.documentId,this.isProposal,{this.onTap,super.key});
 
   @override
   State<ViewDocument> createState() => _ViewDocumentState();
@@ -66,6 +67,20 @@ class _ViewDocumentState extends State<ViewDocument> {
           onTap: () => Navigator.pop(context),
           child: Icon(Icons.arrow_back,color: FlutterFlowTheme.of(context).primary,)),centerTitle: true),
       body: child,
+      /*bottomNavigationBar:widget.onTap!=null? Wrap(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 40,vertical: 20),
+            color: FlutterFlowTheme.of(context).primaryBackground,
+            child: GestureDetector(
+              onTap: widget.onTap!,
+              child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
+                'mg8sso38' *//* Sign *//*,
+              ),bgColor: FlutterFlowTheme.of(context).primary),
+            ),
+          ),
+        ],
+      ):null,*/
     );
   }
 

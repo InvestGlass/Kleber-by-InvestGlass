@@ -15,14 +15,14 @@ class DocumentsController extends ChangeNotifier {
   String range = '';
   String searchedFile = '';
   String? selectedType = 'All';
-  String? selectedAccount = 'All';
+  AccountsModel? selectedAccount;
   List<String> ancestryFolderList=[],folderPathList=[];
   int sortRadioGroupValue = -1;
   String selectedAncestryFolder = '', selectedPath = '', startDate = '', endDate = '', orderColumn = 'created_at', orderDirection = 'desc';
   // List<FilterModel> appliedFilters = [];
   String filterName = 'filterName', filterType = 'filterType', filterDate = 'filterDate', path = 'path', sortType = 'sortType';
   // List<FilterModel> selectedFilterList = [];
-  List<String> accountList=[];
+  List<AccountsModel> accountList=[];
   List<AccountsModel> accountModelList=[];
 
   void setSortRadioGroupValue(int value, String label) {
@@ -59,10 +59,10 @@ class DocumentsController extends ChangeNotifier {
     CommonFunctions.showLoader(context);
     await ApiCalls.getAccountsList().then((value) {
       CommonFunctions.dismissLoader(context);
-      accountList=value.map((e) => e.name!,).toList();
-      accountList.insert(0,FFLocalizations.of(context).getText(
+      accountList=value;
+      accountList.insert(0,AccountsModel(name:FFLocalizations.of(context).getText(
         'n93guv4x' /* All */,
-      ));
+      )));
       accountModelList=value;
       notifyListeners();
     },);
@@ -109,6 +109,7 @@ class DocumentsController extends ChangeNotifier {
     CommonFunctions.showLoader(context);
     ApiCalls.updateDocumentStatus(item.id!, status).then((value) {
       CommonFunctions.dismissLoader(context);
+      Navigator.pop(context);
       if (value!=null) {
         pagingController.itemList![index]=value;
         notifyListeners();

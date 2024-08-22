@@ -46,7 +46,7 @@ class Document {
   bool? isRead;
   String? documentType;
   dynamic approverId;
-  dynamic approvedAt;
+  DateTime? approvedAt;
   int? disapproverId;
   DateTime? disapprovedAt;
 
@@ -97,7 +97,7 @@ class Document {
     isRead: json["is_read"],
     documentType: json["document_type"],
     approverId: json["approver_id"],
-    approvedAt: json["approved_at"],
+    approvedAt: json["approved_at"] == null ? null : DateTime.parse(json["approved_at"]),
     disapproverId: json["disapprover_id"],
     disapprovedAt: json["disapproved_at"] == null ? null : DateTime.parse(json["disapproved_at"]),
   );
@@ -120,7 +120,7 @@ class Document {
     "is_read": isRead,
     "document_type": documentType,
     "approver_id": approverId,
-    "approved_at": approvedAt,
+    "approved_at": approvedAt?.toIso8601String(),
     "disapprover_id": disapproverId,
     "disapproved_at": disapprovedAt?.toIso8601String(),
   };

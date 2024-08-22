@@ -47,7 +47,7 @@ class _DocumentsState extends State<Documents> {
   }
 
   Future<void> _fetchPageActivity() async {
-    await ApiCalls.getDocumentList(_pageKey, _notifier.selectedAccount, _notifier.searchedFile, _notifier.selectedType, _notifier.range,
+    await ApiCalls.getDocumentList(_pageKey, _notifier.selectedAccount?.id?.toString()??'', _notifier.searchedFile, _notifier.selectedType, _notifier.range,
             _notifier.ancestryFolderList, _notifier.folderPathList,_notifier.orderDirection,_notifier.orderColumn)
         .then(
       (value) {
@@ -198,12 +198,14 @@ class _DocumentsState extends State<Documents> {
                                           fontWeight: FontWeight.w500,
                                         ),
                                   ),
-                                  if (item.documentStatus == 'Accepted') ...{
+                                  if (item.documentStatus == 'Approved') ...{
                                     Text(
-                                      'Accepted at ${DateFormat(
+                                      '${FFLocalizations.of(context).getText(
+                                        'ktrsz8sp' /* Accepted at */,
+                                      )} ${DateFormat(
                                         'yyyy-MM-dd HH:mm',
                                         FFLocalizations.of(context).languageCode,
-                                      ).format(item.disapprovedAt!)}',
+                                      ).format(item.approvedAt!)}',
                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             fontFamily: 'Roboto',
                                             color: FlutterFlowTheme.of(context).customColor2,
@@ -214,7 +216,9 @@ class _DocumentsState extends State<Documents> {
                                   },
                                   if (item.documentStatus == 'Rejected') ...{
                                     Text(
-                                      'Rejected at ${DateFormat(
+                                      '${FFLocalizations.of(context).getText(
+                                        '5tjloy3c' /* Rejected at */,
+                                      )} ${DateFormat(
                                         'yyyy-MM-dd HH:mm',
                                         FFLocalizations.of(context).languageCode,
                                       ).format(item.disapprovedAt!)}',
@@ -229,7 +233,7 @@ class _DocumentsState extends State<Documents> {
                                 ],
                               )),
                               if (item.documentType != null) ...{
-                                popupMenu(item),
+                                popupMenu(item,index),
                               }
                               /*const RotatedBox(
                                 quarterTurns: 2,
@@ -288,7 +292,7 @@ class _DocumentsState extends State<Documents> {
   void openFilterDialog() {
     String _searchedFileName = _notifier.searchedFile;
     String? _selectedType = _notifier.selectedType;
-    String? _selectedAccount = _notifier.selectedAccount;
+    AccountsModel? _selectedAccount = _notifier.selectedAccount;
     String _selecteStartDate = _notifier.startDate;
     String _selecteEndDate = _notifier.endDate;
     String _range = _notifier.range;
@@ -358,7 +362,21 @@ class _DocumentsState extends State<Documents> {
                         'ip67vees' /* Search for an account */,
                       ),
                       selectedValue: _selectedAccount,
-                      list: _notifier.accountList,
+                      items: _notifier.accountList
+                          .map((item) => DropdownMenuItem(
+                        value: item,
+                        child: Text(
+                          item.name!,
+                          style: FlutterFlowTheme.of(context).bodySmall.override(
+                            fontFamily: 'Roboto',
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            fontSize: 14.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ))
+                          .toList(),
                       onChanged: (p0) {
                         _selectedAccount = p0;
                       },
@@ -417,11 +435,20 @@ class _DocumentsState extends State<Documents> {
                     SearchableDropdown(
                       searchHint: '',
                       selectedValue: _selectedType,
-                      list: _notifier.typesList,
                       onChanged: (p0) {
                         _selectedType = p0;
                       },
-                      isSearchable: false,
+                      isSearchable: false,items: _notifier.typesList
+                        .map((item) => DropdownMenuItem(
+                      value: item,
+                      child: Text(
+                        item,
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ))
+                        .toList(),
                     ),
                     SizedBox(
                       height: rSize * 0.02,
@@ -636,7 +663,7 @@ class _DocumentsState extends State<Documents> {
     );
   }
 
-  popupMenu(Document item) {
+  popupMenu(Document item, int index) {
     return PopupMenuButton<int>(
       padding: EdgeInsets.zero,
       // surfaceTintColor: Colors.white,
@@ -652,7 +679,9 @@ class _DocumentsState extends State<Documents> {
               Icons.remove_red_eye,
               color: FlutterFlowTheme.of(context).primary,
             ), () {
-          CommonFunctions.navigate(context, ViewDocument(item.id.toString(), false));
+          CommonFunctions.navigate(context, ViewDocument(item.id.toString(), false,onTap: (item.documentType == 'document' && item.documentStatus == null)?(){
+            showSignDialog(context, item, index);
+          }:null,));
         }),
         if (item.documentType == 'document')
           popupMenuItem(
@@ -682,21 +711,7 @@ class _DocumentsState extends State<Documents> {
                   BlendMode.srcIn,
                 ),
               ), () {
-            AppWidgets.showAlert(
-                context,
-                FFLocalizations.of(context).getText(
-                  'apuqhrbh' /* please confirm */,
-                ),
-                FFLocalizations.of(context).getText(
-                  'c4m8fcp2' /* reject */,
-                ),
-                FFLocalizations.of(context).getText(
-                  'e1wyk8ql' /* accept */,
-                ), () {
-              updateStatus(item, context, 'rejected');
-            }, () {
-              updateStatus(item, context, 'accepted');
-            }, btn1BgColor: FlutterFlowTheme.of(context).customColor3, btn2BgColor: FlutterFlowTheme.of(context).customColor2);
+            showSignDialog(context, item, index);
           }),
       ],
       offset: const Offset(0, 0),
@@ -708,8 +723,26 @@ class _DocumentsState extends State<Documents> {
     );
   }
 
-  void updateStatus(Document item, BuildContext context, String status) {
-    _notifier.updateDocumentStatus(item, status, _pagingController, _pagingController.itemList!.indexOf(item), context);
+  void showSignDialog(BuildContext context, Document item, int index) {
+    AppWidgets.showAlert(
+        context,
+        FFLocalizations.of(context).getText(
+          'apuqhrbh' /* please confirm */,
+        ),
+        FFLocalizations.of(context).getText(
+          'c4m8fcp2' /* reject */,
+        ),
+        FFLocalizations.of(context).getText(
+          'e1wyk8ql' /* accept */,
+        ), () {
+      updateStatus(item, context, 'reject',index);
+    }, () {
+      updateStatus(item, context, 'approve',index);
+    }, btn1BgColor: FlutterFlowTheme.of(context).customColor3, btn2BgColor: FlutterFlowTheme.of(context).customColor2);
+  }
+
+  void updateStatus(Document item, BuildContext context, String status, int index) {
+    _notifier.updateDocumentStatus(item, status, _pagingController, index, context);
   }
 
   PopupMenuItem<int> popupMenuItem(int value, String label, Widget icon, void Function()? onTap) {
@@ -739,29 +772,24 @@ class _DocumentsState extends State<Documents> {
   }
 
   Future<void> downloadDoc(Document item) async {
-    try {
       CommonFunctions.showLoader(context);
       Uint8List bytes = await http.readBytes(Uri.parse('${EndPoints.documents}/${item.id}'),
           headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
       await CommonFunctions.downloadAndSavePdf(bytes, item.folderName!).then(
         (value) {
+          CommonFunctions.dismissLoader(context);
           if (value.isNotEmpty) {
             CommonFunctions.showToast('$value\nDownloaded successfully', success: true);
           }
         },
       );
-    } catch (e) {
-      print(e);
-    } finally {
-      CommonFunctions.dismissLoader(context);
-    }
   }
 
   getTypeName(String? documentType) {
     if (documentType == 'form') {
       return SvgPicture.asset(
           Theme.of(context).brightness == Brightness.dark ? 'assets/form-svgrepo-com-dark-theme.svg' : 'assets/form-svgrepo-com.svg');
-    } else if (documentType == 'document') {
+    } else if (documentType == 'document' || documentType == 'package') {
       return FaIcon(
         FontAwesomeIcons.file,
         color: FlutterFlowTheme.of(context).primary,

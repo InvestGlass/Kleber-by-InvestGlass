@@ -50,6 +50,7 @@ class _TransactionsState extends State<Transactions> {
   Widget build(BuildContext context) {
     _notifier = Provider.of<PortfolioController>(context);
     return Scaffold(
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         body: Column(
       children: [
         SizedBox(
@@ -108,6 +109,7 @@ class _TransactionsState extends State<Transactions> {
               builderDelegate: PagedChildBuilderDelegate<TransactionModel>(noItemsFoundIndicatorBuilder: (context) {
                 return const SizedBox();
               }, itemBuilder: (context, item, index) {
+                String currency=item.portfolioSecurity!.referenceCurrency!;
                 return Card(
                   margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
                   color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -151,10 +153,14 @@ class _TransactionsState extends State<Transactions> {
                               ),
                               AppWidgets.portfolioListElement(
                                 context,
-                                'Security Name',
+                                FFLocalizations.of(context).getText(
+                                  'nkc71403' /* Security Name */,
+                                ),
                                 item.portfolioSecurity?.securityName ?? '',
                               ),
-                              AppWidgets.portfolioListElement(context, 'Status', item.statusView ?? '')
+                              AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                'xc0jtpk9' /* Status */,
+                              ), item.statusView ?? '')
                             },
                             if (_notifier.selectedTransactionIndex == index) ...{
                               ConstrainedBox(
@@ -176,40 +182,54 @@ class _TransactionsState extends State<Transactions> {
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          AppWidgets.portfolioListElement(context, 'Type', item.transactionType ?? ''),
+                                          AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                            'j72npzob' /* Type */,
+                                          ), item.transactionType ?? ''),
                                           SizedBox(
                                             height: rSize * 0.005,
                                           ),
-                                          AppWidgets.portfolioListElement(context, 'Portfolio Name', item.portfolioName ?? ''),
+                                          AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                            'fyy6awn3' /* Portfolio Name */,
+                                          ), item.portfolioName ?? ''),
                                           SizedBox(
                                             height: rSize * 0.005,
                                           ),
-                                          AppWidgets.portfolioListElement(context, 'Security Name', item.portfolioSecurity?.securityName ?? ''),
+                                          AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                            'nkc71403' /* Security Name */,
+                                          ), item.portfolioSecurity?.securityName ?? ''),
                                           SizedBox(
                                             height: rSize * 0.005,
                                           ),
-                                          AppWidgets.portfolioListElement(context, 'Quantity', item.quantity ?? ''),
+                                          AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                            '691qwpww' /* Quantity */,
+                                          ), item.quantity ?? ''),
                                           SizedBox(
                                             height: rSize * 0.005,
                                           ),
                                           AppWidgets.portfolioListElement(
                                               context,
-                                              'Price',
-                                              item.portfolioSecurity!.referenceCurrency! +
-                                                  ' ' +
-                                                  CommonFunctions.formatDoubleWithThousandSeperator('${item.openPrice!}', item.openPrice == 0, 2)),
+                                              FFLocalizations.of(context).getText(
+                                                'xopvpm3o' /* Price */,
+                                              ),
+                                              '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('${item.openPrice!}', item.openPrice == 0, 2)}'),
                                           SizedBox(
                                             height: rSize * 0.005,
                                           ),
-                                          AppWidgets.portfolioListElement(context, 'Amount', item.amount ?? ''),
+                                          AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                            'pgdm3cxj' /* Amount */,
+                                          ), '$currency ${item.amount ?? ''}'),
                                           SizedBox(
                                             height: rSize * 0.005,
                                           ),
-                                          AppWidgets.portfolioListElement(context, 'Trade Date', item.transactionDatetime ?? ''),
+                                          AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                            'yx8usjux' /* Trade Date */,
+                                          ), DateFormat('yyyy-MM-dd HH :mm').format(DateTime.parse(item.transactionDatetime!))),
                                           SizedBox(
                                             height: rSize * 0.005,
                                           ),
-                                          AppWidgets.portfolioListElement(context, 'Status', item.statusView ?? ''),
+                                          AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
+                                            '7r8yq7mw' /* Status */,
+                                          ), item.statusView ?? ''),
                                         ],
                                       ),
                                     ),
