@@ -39,6 +39,13 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    _controller.otpController1.clear();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     _controller = Provider.of<LoginController>(context, listen: true);
     return Scaffold(
@@ -80,7 +87,7 @@ class _OTPScreenState extends State<OTPScreen> {
                         SizedBox(
                           height: rSize * 0.02,
                         ),
-                        if(widget.map!=null && widget.map!.containsKey('location'))...{
+                        if(model.verification != 'authentification' && widget.map!=null && widget.map!.containsKey('location'))...{
                         Text(
                           'An OTP code is sent to the ${widget.map!['location']}',
                           textAlign: TextAlign.start,
