@@ -5,12 +5,14 @@ import 'package:kleber_bank/utils/app_const.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 // import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
+import '../documents/document_model.dart';
 import '../main.dart';
 import '../portfolio/portfolio_model.dart';
 import 'app_colors.dart';
 import 'app_styles.dart';
 import 'common_functions.dart';
 import 'flutter_flow_theme.dart';
+import 'internationalization.dart';
 
 class AppWidgets {
   static Widget textFieldLabel(String label, {bool isRequired = true}) {
@@ -31,6 +33,23 @@ class AppWidgets {
       textAlign: TextAlign.start,
       style: AppStyles.c656262W500S18,
     );
+  }
+  static void showSignDialog(BuildContext context, {required Function onReject, required Function onAccept}) {
+    AppWidgets.showAlert(
+        context,
+        FFLocalizations.of(context).getText(
+          'apuqhrbh' /* please confirm */,
+        ),
+        FFLocalizations.of(context).getText(
+          'c4m8fcp2' /* reject */,
+        ),
+        FFLocalizations.of(context).getText(
+          'e1wyk8ql' /* accept */,
+        ), () {
+      onReject();
+    }, () {
+      onAccept();
+    }, btn1BgColor: FlutterFlowTheme.of(context).customColor3, btn2BgColor: FlutterFlowTheme.of(context).customColor2);
   }
 
   static Container healthAlertElement(

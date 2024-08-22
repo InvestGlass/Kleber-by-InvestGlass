@@ -118,7 +118,9 @@ class _UploadDocumentState extends State<UploadDocument> {
                     }
                   },
                   child:
-                      AppWidgets.btn(context,'Upload', horizontalPadding: rSize * 0.03, bgColor: isButtonDisabled() ? AppColors.kHint : AppColors.kViolate),
+                      AppWidgets.btn(context,FFLocalizations.of(context).getText(
+                        't2nv4kvj' /* Upload */,
+                      ), horizontalPadding: rSize * 0.03, bgColor: isButtonDisabled() ? AppColors.kHint : AppColors.kViolate),
                 ),
               ],
             )

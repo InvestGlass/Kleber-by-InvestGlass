@@ -51,9 +51,7 @@ class _OTPScreenState extends State<OTPScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        decoration: BoxDecoration(
-
-        ),
+        decoration: BoxDecoration(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -77,45 +75,42 @@ class _OTPScreenState extends State<OTPScreen> {
                             '2gjb3gie' /* Login Verification */,
                           ),
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
-                            color: FlutterFlowTheme.of(context).primary,
-                            fontSize: 26.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w600,
-                          ),
+                                fontFamily: 'Roboto',
+                                color: FlutterFlowTheme.of(context).primary,
+                                fontSize: 26.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                              ),
                         ),
                         SizedBox(
                           height: rSize * 0.02,
                         ),
-                        if(model.verification != 'authentification' && widget.map!=null && widget.map!.containsKey('location'))...{
-                        Text(
-                          'An OTP code is sent to the ${widget.map!['location']}',
-                          textAlign: TextAlign.start,
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                            fontFamily: 'Roboto',
-                            fontSize: 16.0,
-                            letterSpacing: 0.0,
-                          ),
-                        )},
+                        if (model.verification != 'authentification' && widget.map != null && widget.map!.containsKey('location')) ...{
+                          Text(
+                            'An OTP code is sent to the ${widget.map!['location']}',
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                ),
+                          )
+                        },
                         SizedBox(
                           height: rSize * 0.01,
                         ),
                         if (model.verification != 'authentification')
-                        Text(
-                          FFLocalizations.of(context).getText(
-                            '4odbxp9t' /* Please input the code to conti... */,
+                          Text(
+                            FFLocalizations.of(context).getText(
+                              '4odbxp9t' /* Please input the code to conti... */,
+                            ),
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                ),
                           ),
-                          textAlign: TextAlign.start,
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                            fontFamily: 'Roboto',
-                            fontSize: 16.0,
-                            letterSpacing: 0.0,
-                          ),
-                        ),
                         if (model.verification == 'authentification')
                           Text(
                             FFLocalizations.of(context).getText(
@@ -123,26 +118,24 @@ class _OTPScreenState extends State<OTPScreen> {
                             ),
                             textAlign: TextAlign.start,
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                            ),
+                                  fontFamily: 'Roboto',
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                ),
                           ),
                         SizedBox(
                           height: rSize * 0.02,
                         ),
                         Padding(
-                          padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
                           child: PinCodeTextField(
                             autoDisposeControllers: false,
                             appContext: context,
                             length: 6,
-                            textStyle:
-                            FlutterFlowTheme.of(context).bodyLarge.override(
-                              fontFamily: 'Roboto',
-                              letterSpacing: 0.0,
-                            ),
+                            textStyle: FlutterFlowTheme.of(context).bodyLarge.override(
+                                  fontFamily: 'Roboto',
+                                  letterSpacing: 0.0,
+                                ),
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             enableActiveFill: false,
                             autoFocus: true,
@@ -167,12 +160,9 @@ class _OTPScreenState extends State<OTPScreen> {
                               activeColor: FlutterFlowTheme.of(context).primaryText,
                               inactiveColor: FlutterFlowTheme.of(context).alternate,
                               selectedColor: FlutterFlowTheme.of(context).primary,
-                              activeFillColor:
-                              FlutterFlowTheme.of(context).primaryText,
-                              inactiveFillColor:
-                              FlutterFlowTheme.of(context).alternate,
-                              selectedFillColor:
-                              FlutterFlowTheme.of(context).primary,
+                              activeFillColor: FlutterFlowTheme.of(context).primaryText,
+                              inactiveFillColor: FlutterFlowTheme.of(context).alternate,
+                              selectedFillColor: FlutterFlowTheme.of(context).primary,
                             ),
                             controller: _controller.otpController1,
                             onChanged: (_) {},
@@ -180,6 +170,7 @@ class _OTPScreenState extends State<OTPScreen> {
                               _controller.verify(context, (key) {
                                 showQR(key, () {
                                   Navigator.pop(context);
+                                  _controller.otpController1.clear();
                                   model.verification = 'authentification';
                                   _controller.refresh();
                                 });
@@ -193,40 +184,39 @@ class _OTPScreenState extends State<OTPScreen> {
                         SizedBox(
                           height: rSize * 0.01,
                         ),
-                        if(model.verification != 'authentification')...{
-                        Row(
-                          children: [Text(
-                            FFLocalizations.of(context).getText(
-                              'v5jx3zzx' /* Didn't receive any code? */,
-                            ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                              fontFamily: 'Roboto',
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              fontSize: 16.0,
-                              letterSpacing: 0.0,
-                            ),
-                          ),
-                            GestureDetector(
-                                onTap: () {
-                                  _controller.reSend(context);
-                                },
-                                child:Text(' ${FFLocalizations.of(context).getText(
-                                    'dumdc5yp' /* Resend */,
-                                  )}',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                    fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    fontSize: 16.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ) ),
-                          ],
-                        )},
+                        if (model.verification != 'authentification') ...{
+                          Row(
+                            children: [
+                              Text(
+                                FFLocalizations.of(context).getText(
+                                  'v5jx3zzx' /* Didn't receive any code? */,
+                                ),
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.of(context).primaryText,
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                              GestureDetector(
+                                  onTap: () {
+                                    _controller.reSend(context);
+                                  },
+                                  child: Text(
+                                    ' ${FFLocalizations.of(context).getText(
+                                      'dumdc5yp' /* Resend */,
+                                    )}',
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                          fontFamily: 'Roboto',
+                                          color: FlutterFlowTheme.of(context).primary,
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  )),
+                            ],
+                          )
+                        },
                         SizedBox(
                           height: rSize * 0.03,
                         ),
@@ -252,19 +242,17 @@ class _OTPScreenState extends State<OTPScreen> {
         textInputAction: TextInputAction.next,
         onChanged: onChanged,
         cursorColor: FlutterFlowTheme.of(context).primary,
-        style: FlutterFlowTheme.of(context)
-            .bodyLarge
-            .override(
-          fontFamily: 'Roboto',
-          letterSpacing: 0,
-        ),
+        style: FlutterFlowTheme.of(context).bodyLarge.override(
+              fontFamily: 'Roboto',
+              letterSpacing: 0,
+            ),
         validator: (value) {
           if ((value ?? '').isEmpty) {
             return '';
           }
         },
         keyboardType: TextInputType.number,
-        decoration: AppStyles.inputDecoration(context, counterText: '',contentPadding: EdgeInsets.zero),
+        decoration: AppStyles.inputDecoration(context, counterText: '', contentPadding: EdgeInsets.zero),
       ),
     );
   }
@@ -284,7 +272,7 @@ class _OTPScreenState extends State<OTPScreen> {
             child: Wrap(
               children: [
                 Card(
-            color: FlutterFlowTheme.of(context).primaryBackground,
+                  color: FlutterFlowTheme.of(context).primaryBackground,
                   child: Padding(
                     padding: EdgeInsets.all(rSize * 0.015),
                     child: Column(
@@ -301,15 +289,13 @@ class _OTPScreenState extends State<OTPScreen> {
                                   '0em7xr1j' /* Scan  QR Code */,
                                 ),
                                 textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context)
-                                    .headlineMedium
-                                    .override(
-                                  fontFamily: 'Roboto',
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 26.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                style: FlutterFlowTheme.of(context).headlineMedium.override(
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.of(context).primary,
+                                      fontSize: 26.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                               ),
                             ),
                           ],
@@ -319,7 +305,8 @@ class _OTPScreenState extends State<OTPScreen> {
                         ),
                         QrImageView(
                           data: 'otpauth://totp/InvestGlass?secret=$key&issuer=InvestGlass',
-                          version: QrVersions.auto,backgroundColor: Colors.transparent,
+                          version: QrVersions.auto,
+                          backgroundColor: Colors.transparent,
                           size: 200.0,
                           dataModuleStyle: QrDataModuleStyle(
                             dataModuleShape: QrDataModuleShape.square,
@@ -338,11 +325,11 @@ class _OTPScreenState extends State<OTPScreen> {
                             '7gd5sfox' /* If you cannot scan, please ent... */,
                           ),
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
-                            color: FlutterFlowTheme.of(context).grayLight,
-                            fontSize: 16.0,
-                            letterSpacing: 0.0,
-                          ),
+                                fontFamily: 'Roboto',
+                                color: FlutterFlowTheme.of(context).grayLight,
+                                fontSize: 16.0,
+                                letterSpacing: 0.0,
+                              ),
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
@@ -355,34 +342,28 @@ class _OTPScreenState extends State<OTPScreen> {
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      10.0, 10.0, 0.0, 10.0),
+                                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 0.0, 10.0),
                                   child: Text(
                                     key,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                      fontFamily: 'Roboto',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                    ),
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                          fontFamily: 'Roboto',
+                                          color: FlutterFlowTheme.of(context).secondaryText,
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                        ),
                                   ),
                                 ),
                               ),
                             ),
                             Padding(
-                              padding:
-                              const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  await Clipboard.setData(
-                                      ClipboardData(text: key));
+                                  await Clipboard.setData(ClipboardData(text: key));
                                 },
                                 child: Icon(
                                   Icons.file_copy_outlined,
@@ -393,7 +374,9 @@ class _OTPScreenState extends State<OTPScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: rSize*0.02,),
+                        SizedBox(
+                          height: rSize * 0.02,
+                        ),
                         FFButtonWidget(
                           onPressed: () async {
                             onNextClick();
@@ -404,16 +387,14 @@ class _OTPScreenState extends State<OTPScreen> {
                           options: FFButtonOptions(
                             width: MediaQuery.sizeOf(context).width * 0.5,
                             height: 40.0,
-                            padding:
-                            const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                            iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).primary,
                             textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                              fontFamily: 'Roboto',
-                              color: Colors.white,
-                              letterSpacing: 0.0,
-                            ),
+                                  fontFamily: 'Roboto',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                ),
                             elevation: 3.0,
                             borderSide: const BorderSide(
                               color: Colors.transparent,

@@ -29,7 +29,6 @@ class _ProfileState extends State<Profile> {
       body: Container(
         decoration: AppStyles.commonBg(context),
         child: ListView(
-          shrinkWrap: true,
           padding: EdgeInsets.symmetric(horizontal:rSize*0.015,vertical:rSize*0.04),
           children: [
             Text(SharedPrefUtils.instance.getUserData().user!.username!,style: FlutterFlowTheme.of(context)
@@ -65,11 +64,11 @@ class _ProfileState extends State<Profile> {
               'afxtmzhw' /* Change Password */,
             ),() => CommonFunctions.navigate(context,ChangePassword()),),
             SizedBox(height: rSize*0.02,),
-            cell(FFLocalizations.of(context).getText(
+    /*cell(FFLocalizations.of(context).getText(
               'wvo4yj9k' /* Change Language */,
             ),() => openLanguageSelectionBottomSheet(),),
             SizedBox(height: rSize*0.02,),
-            /*Row(
+            Row(
               children: [
                 SizedBox(width: rSize*0.02,),
 

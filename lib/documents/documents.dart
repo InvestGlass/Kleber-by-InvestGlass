@@ -47,8 +47,8 @@ class _DocumentsState extends State<Documents> {
   }
 
   Future<void> _fetchPageActivity() async {
-    await ApiCalls.getDocumentList(_pageKey, _notifier.selectedAccount?.id?.toString()??'', _notifier.searchedFile, _notifier.selectedType, _notifier.range,
-            _notifier.ancestryFolderList, _notifier.folderPathList,_notifier.orderDirection,_notifier.orderColumn)
+    await ApiCalls.getDocumentList(_pageKey, _notifier.selectedAccount?.id?.toString() ?? '', _notifier.searchedFile, _notifier.selectedType,
+            _notifier.range, _notifier.ancestryFolderList, _notifier.folderPathList, _notifier.orderDirection, _notifier.orderColumn)
         .then(
       (value) {
         List<Document> list = value?.folders ?? [];
@@ -75,16 +75,18 @@ class _DocumentsState extends State<Documents> {
     return Scaffold(
       appBar: AppWidgets.appBar(
           context,
-          _notifier.folderPathList.isNotEmpty?_notifier.folderPathList.last.replaceAll('/', ''):FFLocalizations.of(context).getText(
-            'dlgf18jl' /* Document */,
-          ),
+          _notifier.folderPathList.isNotEmpty
+              ? _notifier.folderPathList.last.replaceAll('/', '')
+              : FFLocalizations.of(context).getText(
+                  'dlgf18jl' /* Document */,
+                ),
           leading: GestureDetector(
               onTap: () {
-                if(_notifier.ancestryFolderList.isNotEmpty){
+                if (_notifier.ancestryFolderList.isNotEmpty) {
                   _notifier.goToPreviousFolder();
-                  _pageKey=1;
+                  _pageKey = 1;
                   _pagingController.refresh();
-                }else{
+                } else {
                   Navigator.pop(context);
                 }
               },
@@ -226,7 +228,7 @@ class _DocumentsState extends State<Documents> {
                                 ],
                               )),
                               if (item.documentType != null) ...{
-                                popupMenu(item,index),
+                                popupMenu(item, index),
                               }
                               /*const RotatedBox(
                                 quarterTurns: 2,
@@ -296,7 +298,7 @@ class _DocumentsState extends State<Documents> {
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       context: context,
       builder: (context) {
-        _notifier=Provider.of<DocumentsController>(context);
+        _notifier = Provider.of<DocumentsController>(context);
         WidgetsBinding.instance!.addPostFrameCallback((_) {
           Provider.of<DocumentsController>(context, listen: false).getAccountList(context);
         });
@@ -357,18 +359,18 @@ class _DocumentsState extends State<Documents> {
                       selectedValue: _selectedAccount,
                       items: _notifier.accountList
                           .map((item) => DropdownMenuItem(
-                        value: item,
-                        child: Text(
-                          item.name!,
-                          style: FlutterFlowTheme.of(context).bodySmall.override(
-                            fontFamily: 'Roboto',
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            fontSize: 14.0,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ))
+                                value: item,
+                                child: Text(
+                                  item.name!,
+                                  style: FlutterFlowTheme.of(context).bodySmall.override(
+                                        fontFamily: 'Roboto',
+                                        color: FlutterFlowTheme.of(context).primaryText,
+                                        fontSize: 14.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                ),
+                              ))
                           .toList(),
                       onChanged: (p0) {
                         _selectedAccount = p0;
@@ -431,17 +433,18 @@ class _DocumentsState extends State<Documents> {
                       onChanged: (p0) {
                         _selectedType = p0;
                       },
-                      isSearchable: false,items: _notifier.typesList
-                        .map((item) => DropdownMenuItem(
-                      value: item,
-                      child: Text(
-                        item,
-                        style: const TextStyle(
-                          fontSize: 14,
-                        ),
-                      ),
-                    ))
-                        .toList(),
+                      isSearchable: false,
+                      items: _notifier.typesList
+                          .map((item) => DropdownMenuItem(
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ))
+                          .toList(),
                     ),
                     SizedBox(
                       height: rSize * 0.02,
@@ -471,8 +474,8 @@ class _DocumentsState extends State<Documents> {
                           context,
                           (value) {
                             if (value is PickerDateRange) {
-                                final String startDate = CommonFunctions.getYYYYMMDD(value.startDate!);
-                                final String endDate = CommonFunctions.getYYYYMMDD(value.endDate!);
+                              final String startDate = CommonFunctions.getYYYYMMDD(value.startDate!);
+                              final String endDate = CommonFunctions.getYYYYMMDD(value.endDate!);
                               _range = '$startDate  TO  $endDate';
                               if (_range.isNotEmpty) {
                                 _selecteStartDate = _range.split('  TO  ')[0];
@@ -673,9 +676,14 @@ class _DocumentsState extends State<Documents> {
               Icons.remove_red_eye,
               color: FlutterFlowTheme.of(context).primary,
             ), () {
-          CommonFunctions.navigate(context, ViewDocument(item.id.toString(), false,onTap: (item.documentType == 'document' && item.documentStatus == null)?(){
-            showSignDialog(context, item, index);
-          }:null,));
+          CommonFunctions.navigate(
+              context,
+              ViewDocument(
+                item.id.toString(),
+                false,
+                showSignButton: item.documentType == 'document' && item.documentStatus == null,
+                ext: item.folderName!.split('.').last,url: item.url??'',
+              ));
         }),
         if (item.documentType == 'document')
           popupMenuItem(
@@ -705,7 +713,11 @@ class _DocumentsState extends State<Documents> {
                   BlendMode.srcIn,
                 ),
               ), () {
-            showSignDialog(context, item, index);
+            AppWidgets.showSignDialog(context, onAccept: () {
+              updateStatus(item, context, 'approve', index);
+            }, onReject: () {
+              updateStatus(item, context, 'reject', index);
+            });
           }),
       ],
       offset: const Offset(0, 0),
@@ -715,24 +727,6 @@ class _DocumentsState extends State<Documents> {
         color: FlutterFlowTheme.of(context).primary,
       ),
     );
-  }
-
-  void showSignDialog(BuildContext context, Document item, int index) {
-    AppWidgets.showAlert(
-        context,
-        FFLocalizations.of(context).getText(
-          'apuqhrbh' /* please confirm */,
-        ),
-        FFLocalizations.of(context).getText(
-          'c4m8fcp2' /* reject */,
-        ),
-        FFLocalizations.of(context).getText(
-          'e1wyk8ql' /* accept */,
-        ), () {
-      updateStatus(item, context, 'reject',index);
-    }, () {
-      updateStatus(item, context, 'approve',index);
-    }, btn1BgColor: FlutterFlowTheme.of(context).customColor3, btn2BgColor: FlutterFlowTheme.of(context).customColor2);
   }
 
   void updateStatus(Document item, BuildContext context, String status, int index) {
@@ -766,17 +760,17 @@ class _DocumentsState extends State<Documents> {
   }
 
   Future<void> downloadDoc(Document item) async {
-      CommonFunctions.showLoader(context);
-      Uint8List bytes = await http.readBytes(Uri.parse('${EndPoints.documents}/${item.id}'),
-          headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      await CommonFunctions.downloadAndSavePdf(bytes, item.folderName!).then(
-        (value) {
-          CommonFunctions.dismissLoader(context);
-          if (value.isNotEmpty) {
-            CommonFunctions.showToast('$value\nDownloaded successfully', success: true);
-          }
-        },
-      );
+    CommonFunctions.showLoader(context);
+    Uint8List bytes = await http
+        .readBytes(Uri.parse('${EndPoints.documents}/${item.id}'), headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
+    await CommonFunctions.downloadAndSavePdf(bytes, item.folderName!).then(
+      (value) {
+        CommonFunctions.dismissLoader(context);
+        if (value.isNotEmpty) {
+          CommonFunctions.showToast('$value\nDownloaded successfully', success: true);
+        }
+      },
+    );
   }
 
   getTypeName(String? documentType) {
