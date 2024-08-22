@@ -155,7 +155,7 @@ class AppStyles {
         borderRadius: BorderRadius.circular(12.0),
       ),
       filled: true,
-      fillColor: fillColor,
+      fillColor: fillColor,counterText: counterText,
       contentPadding: contentPadding ?? const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 24.0),
       suffixIcon: suffix,
     );

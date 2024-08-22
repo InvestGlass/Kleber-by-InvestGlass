@@ -223,7 +223,7 @@ class _TransactionsState extends State<Transactions> {
                                           ),
                                           AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
                                             'yx8usjux' /* Trade Date */,
-                                          ), DateFormat('yyyy-MM-dd HH :mm').format(DateTime.parse(item.transactionDatetime!))),
+                                          ), DateFormat('yyyy-MM-dd HH:mm').format(DateTime.parse(item.transactionDatetime!))),
                                           SizedBox(
                                             height: rSize * 0.005,
                                           ),

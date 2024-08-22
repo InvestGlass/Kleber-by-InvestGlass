@@ -24,7 +24,7 @@ class LoginController extends ChangeNotifier {
       focusNode6 = FocusNode();
   bool hidePwd = true;
 
-  var tabLabelList = ['Terms-Conditions', 'Privacy-Policies'];
+  var tabLabelList = ['ovw4ksp4' /* Term of Service */, 'sb815feb' /* Privacy Policy */];
 
   Future<void> doLogin(BuildContext context) async {
     CommonFunctions.showLoader(context);
@@ -123,7 +123,9 @@ class LoginController extends ChangeNotifier {
 
   Future<void> changeAcceptance(BuildContext context) async {
     accepted=!accepted;
-    if(accepted){
+    notifyListeners();
+  }
+  Future<void> accept(BuildContext context) async {
       CommonFunctions.showLoader(context);
       await ApiCalls.acceptanceTermsOfService().then(
             (value) async {
@@ -136,7 +138,6 @@ class LoginController extends ChangeNotifier {
           }
         },
       );
-    }
     notifyListeners();
   }
 

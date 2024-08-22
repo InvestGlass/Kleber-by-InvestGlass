@@ -141,9 +141,9 @@ class _MyAppState extends State<MyApp> {
               brightness: Brightness.dark,
               error: Color(0xFFFF5963),
               onError: Color(0xFFFF5963),
-              surface: Colors.transparent,
-              onSurface: Colors.transparent),),
-      home: SharedPrefUtils.instance.getString(TOKEN).isEmpty ? Login() : Dashboard(),
+              surface: Colors.black,
+              onSurface: Colors.white),),
+      home: SharedPrefUtils.instance.getString(USER_DATA).isEmpty ? Login() : Dashboard(),
     );
   }
 }

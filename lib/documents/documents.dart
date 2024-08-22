@@ -65,14 +65,7 @@ class _DocumentsState extends State<Documents> {
 
   @override
   void dispose() {
-    _notifier.folderPathList.clear();
-    _notifier.ancestryFolderList.clear();
-    _notifier.selectedAccount=null;
-    _notifier.searchedFile='';
-    _notifier.selectedType='';
-    _notifier.range='';
-    _notifier.orderColumn='created_at';
-    _notifier.orderDirection = 'desc';
+    _notifier.clearAll();
     super.dispose();
   }
 
@@ -547,6 +540,7 @@ class _DocumentsState extends State<Documents> {
                                 _notifier.selectedType = _selectedType;
                                 _notifier.range = _range;
                                 _pageKey = 1;
+                                _notifier.notify();
                                 /*_notifier.selectedFilterList.removeWhere((element) =>
                                     element.type == FilterTypes.ACCOUNT.name ||
                                     element.type == FilterTypes.FILE_NAME.name ||

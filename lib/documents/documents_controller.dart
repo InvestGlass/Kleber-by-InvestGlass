@@ -128,6 +128,22 @@ class DocumentsController extends ChangeNotifier {
     ancestryFolderList.add(item.id.toString());
     notifyListeners();
   }
+
+  void clearAll() {
+    folderPathList.clear();
+    ancestryFolderList.clear();
+    selectedAccount=null;
+    searchedFile='';
+    selectedType='';
+    range='';
+    orderColumn='created_at';
+    orderDirection = 'desc';
+    notifyListeners();
+  }
+
+  void notify() {
+    notifyListeners();
+  }
 }
 
 /*enum FilterTypes{

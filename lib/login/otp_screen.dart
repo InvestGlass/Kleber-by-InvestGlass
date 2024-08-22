@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kleber_bank/login/user_info_model.dart';
 import 'package:kleber_bank/utils/app_const.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -29,6 +30,7 @@ class _OTPScreenState extends State<OTPScreen> {
   late LoginController _controller;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late UserInfotModel model;
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -122,81 +124,64 @@ class _OTPScreenState extends State<OTPScreen> {
                         SizedBox(
                           height: rSize * 0.02,
                         ),
-                        Wrap(
-                          spacing: rSize * 0.01,
-                          children: [
-                            otpWidget(
-                              _controller.otpController1,
-                              _controller.focusNode1,
-                              (p0) {
-                                if (p0.length == 1) {
-                                  FocusScope.of(context).requestFocus(_controller.focusNode2);
-                                }
-                              },
+                        Padding(
+                          padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                          child: PinCodeTextField(
+                            autoDisposeControllers: false,
+                            appContext: context,
+                            length: 6,
+                            textStyle:
+                            FlutterFlowTheme.of(context).bodyLarge.override(
+                              fontFamily: 'Roboto',
+                              letterSpacing: 0.0,
                             ),
-                            otpWidget(
-                              _controller.otpController2,
-                              _controller.focusNode2,
-                              (p0) {
-                                if (p0.length == 1) {
-                                  FocusScope.of(context).requestFocus(_controller.focusNode3);
-                                }else{
-                                  FocusScope.of(context).requestFocus(_controller.focusNode1);
-                                }
-                              },
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            enableActiveFill: false,
+                            autoFocus: true,
+                            enablePinAutofill: false,
+                            errorTextSpace: 1.0,
+                            showCursor: true,
+                            cursorColor: FlutterFlowTheme.of(context).primary,
+                            obscureText: false,
+                            hintCharacter: '●',
+                            keyboardType: TextInputType.number,
+                            pinTheme: PinTheme(
+                              fieldHeight: 44.0,
+                              fieldWidth: 44.0,
+                              borderWidth: 2.0,
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(12.0),
+                                bottomRight: Radius.circular(12.0),
+                                topLeft: Radius.circular(12.0),
+                                topRight: Radius.circular(12.0),
+                              ),
+                              shape: PinCodeFieldShape.box,
+                              activeColor: FlutterFlowTheme.of(context).primaryText,
+                              inactiveColor: FlutterFlowTheme.of(context).alternate,
+                              selectedColor: FlutterFlowTheme.of(context).primary,
+                              activeFillColor:
+                              FlutterFlowTheme.of(context).primaryText,
+                              inactiveFillColor:
+                              FlutterFlowTheme.of(context).alternate,
+                              selectedFillColor:
+                              FlutterFlowTheme.of(context).primary,
                             ),
-                            otpWidget(
-                              _controller.otpController3,
-                              _controller.focusNode3,
-                              (p0) {
-                                if (p0.length == 1) {
-                                  FocusScope.of(context).requestFocus(_controller.focusNode4);
-                                }else{
-                                  FocusScope.of(context).requestFocus(_controller.focusNode2);
-                                }
-                              },
-                            ),
-                            otpWidget(
-                              _controller.otpController4,
-                              _controller.focusNode4,
-                              (p0) {
-                                if (p0.length == 1) {
-                                  FocusScope.of(context).requestFocus(_controller.focusNode5);
-                                }else{
-                                  FocusScope.of(context).requestFocus(_controller.focusNode3);
-                                }
-                              },
-                            ),
-                            otpWidget(
-                              _controller.otpController5,
-                              _controller.focusNode5,
-                              (p0) {
-                                if (p0.length == 1) {
-                                  FocusScope.of(context).requestFocus(_controller.focusNode6);
-                                }else{
-                                  FocusScope.of(context).requestFocus(_controller.focusNode5);
-                                }
-                              },
-                            ),
-                            otpWidget(
-                              _controller.otpController6,
-                              _controller.focusNode6,
-                              (p0) {
-                                if (p0.length == 1) {
-                                  FocusManager.instance.primaryFocus?.unfocus();
-                                  if (_formKey.currentState!.validate()) {
-                                    _controller.verify(context, (key) {
-                                      showQR(key, () {
-                                        Navigator.pop(context);
-                                        model.verification = 'authentification';
-                                        _controller.refresh();
-                                      });
-                                    });
-                                  }
-                                }
-                              },
-                            ),
-                          ],
+                            controller: _controller.otpController1,
+                            onChanged: (_) {},
+                            onCompleted: (_) {
+                              _controller.verify(context, (key) {
+                                showQR(key, () {
+                                  Navigator.pop(context);
+                                  model.verification = 'authentification';
+                                  _controller.refresh();
+                                });
+                              });
+                            },
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            // validator: _model.pinCodeControllerValidator
+                            //     .asValidator(context),
+                          ),
                         ),
                         SizedBox(
                           height: rSize * 0.01,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kleber_bank/documents/documents.dart';
+import 'package:kleber_bank/documents/upload_document.dart';
 import 'package:kleber_bank/main.dart';
 import 'package:kleber_bank/portfolio/portfolio.dart';
 import 'package:kleber_bank/utils/app_const.dart';
@@ -268,9 +269,10 @@ class _DashboardState extends State<Dashboard> {
                         FFLocalizations.of(context).getText(
                           '13mzcnly' /* Document */,
                         ),onTap: () {
+                      Navigator.pop(context);
                           CommonFunctions.navigate(context, Documents());
                         },),
-                    SizedBox(width: rSize*0.02,),
+                    /*SizedBox(width: rSize*0.02,),
                     actionMenuItem(
                         context,
                         SvgPicture.asset(
@@ -282,10 +284,10 @@ class _DashboardState extends State<Dashboard> {
                           width: 25,
                         ),
                         FFLocalizations.of(context).getText(
-                          'o5wm04m6' /* Market */,
+                          'o5wm04m6' *//* Market *//*,
                         ),onTap: () {
 
-                        },),
+                        },),*/
                     SizedBox(width: rSize*0.02,),
                     actionMenuItem(
                         context,
@@ -298,7 +300,8 @@ class _DashboardState extends State<Dashboard> {
                         FFLocalizations.of(context).getText(
                           't2nv4kvj' /* Upload */,
                         ),onTap: () {
-
+                      Navigator.pop(context);
+                      CommonFunctions.navigate(context, UploadDocument());
                         },),
                   ],
                 ),

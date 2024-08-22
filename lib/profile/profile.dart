@@ -69,14 +69,14 @@ class _ProfileState extends State<Profile> {
               'wvo4yj9k' /* Change Language */,
             ),() => openLanguageSelectionBottomSheet(),),
             SizedBox(height: rSize*0.02,),
-            Row(
+            /*Row(
               children: [
                 SizedBox(width: rSize*0.02,),
 
                 Expanded(
                   child: Text(
                     FFLocalizations.of(context).getText(
-                      'znd2aszb' /* Switch to Dark Mode */,
+                      'znd2aszb' *//* Switch to Dark Mode *//*,
                     ),
                     style: FlutterFlowTheme.of(context)
                         .bodyMedium
@@ -100,7 +100,7 @@ class _ProfileState extends State<Profile> {
 
               ],
             ),
-            SizedBox(height: rSize*0.015,),
+            SizedBox(height: rSize*0.015,),*/
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
