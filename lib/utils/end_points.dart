@@ -32,4 +32,7 @@ class EndPoints{
   // HOME
   static String homeNews='${baseUrl}news/get_rss_news';
 
+  // ADD TRANSACTION
+  static String transactionTypes='${baseUrl}transactions/transaction_type';
+
 }

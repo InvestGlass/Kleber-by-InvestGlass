@@ -154,8 +154,8 @@ class AppStyles {
         ),
         borderRadius: BorderRadius.circular(12.0),
       ),
-      filled: true,
-      fillColor: fillColor,counterText: counterText,
+      filled: true,prefixIcon: prefix,
+      fillColor: fillColor?? FlutterFlowTheme.of(context).secondaryBackground,counterText: counterText,
       contentPadding: contentPadding ?? const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 24.0),
       suffixIcon: suffix,
     );

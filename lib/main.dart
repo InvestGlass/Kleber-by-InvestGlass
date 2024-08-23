@@ -9,6 +9,7 @@ import 'package:kleber_bank/portfolio/positions.dart';
 import 'package:kleber_bank/portfolio/transactions.dart';
 import 'package:kleber_bank/profile/profile_controller.dart';
 import 'package:kleber_bank/proposals/proposal_controller.dart';
+import 'package:kleber_bank/securitySelection/security_selection_controller.dart';
 import 'package:kleber_bank/utils/app_colors.dart';
 import 'package:kleber_bank/utils/flutter_flow_theme.dart';
 import 'package:kleber_bank/utils/internationalization.dart';
@@ -55,6 +56,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (context) => HomeController(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => SecuritySelectionController(),
       ),
     ],
     child: const MyApp(),

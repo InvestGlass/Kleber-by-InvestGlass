@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:kleber_bank/market/transaction_type_model.dart';
 import 'package:kleber_bank/utils/api_calls.dart';
-import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/end_points.dart';
 
-import 'market_list_model.dart';
+import '../market/market_list_model.dart';
 
-class MarketController extends ChangeNotifier {
+
+class SecuritySelectionController extends ChangeNotifier {
   TextEditingController searchController = TextEditingController();
   List<MarketListModel> marketList = [], assetClassList = [], industryList = [], currencyList = [];
   final PagingController<int, MarketListModel> pagingController = PagingController(firstPageKey: 1);
   int playingIndex = -1;
   MarketListModel? selectedAssetClass, selectedIndustry, selectedCurrency;
+  MarketListModel? selectedSecurity;
 
   Future<void> getList(int pageKey) async {
     marketList.clear();
@@ -71,27 +71,8 @@ class MarketController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /*____________________________ADD TRANSACTION___________________________________*/
-  MarketListModel? selectedSecurity;
-  TransactionTypeModel? selectedSecurityType;
-  List<TransactionTypeModel> transactionTypeList=[];
-
-  void selectSecurity(MarketListModel? result) {
-    selectedSecurity=result;
-    notifyListeners();
-  }
-
-  void getTransactionTypes(BuildContext context) async {
-    CommonFunctions.showLoader(context);
-    ApiCalls.getTransactionTypeList().then((value) {
-      CommonFunctions.dismissLoader(context);
-      transactionTypeList=value;
-      notifyListeners();
-    },);
-  }
-
-  void selectSecurityType(TransactionTypeModel p0) {
-    selectedSecurityType=p0;
+  void selectSecurity(MarketListModel data) {
+    selectedSecurity=data;
     notifyListeners();
   }
 }

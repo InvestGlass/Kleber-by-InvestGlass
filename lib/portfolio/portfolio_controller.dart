@@ -64,7 +64,22 @@ class PortfolioController extends ChangeNotifier{
 
   }
 
-  Future<List<PortfolioModel>> getPortfolioList(int pageKey) async {
-    return await ApiCalls.getPortfolioList(pageKey);
+  Future<List<PortfolioModel>> getPortfolioList(int pageKey,{bool notify=false}) async {
+    await ApiCalls.getPortfolioList(pageKey).then((value) {
+      portfolioList=value;
+      if (notify) {
+        notifyListeners();
+      }
+    },);
+    return portfolioList;
   }
+
+  /*_______________________NEW TRADE_______________________________*/
+  PortfolioModel? selectedPortfolio;
+  List<PortfolioModel> portfolioList=[];
+
+  void notify() {
+    notifyListeners();
+  }
+
 }

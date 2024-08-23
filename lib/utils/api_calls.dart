@@ -8,6 +8,7 @@ import 'package:kleber_bank/documents/accounts_model.dart';
 import 'package:kleber_bank/documents/documents_controller.dart';
 import 'package:kleber_bank/login/user_info_model.dart';
 import 'package:kleber_bank/market/market_list_model.dart';
+import 'package:kleber_bank/market/transaction_type_model.dart';
 import 'package:kleber_bank/portfolio/portfolio_model.dart';
 import 'package:kleber_bank/portfolio/position_model.dart';
 import 'package:kleber_bank/portfolio/transaction_model.dart';
@@ -220,9 +221,13 @@ class ApiCalls {
   }
 
   static Future<List<PortfolioModel>> getPortfolioList(int pageKey) async {
+    String param='';
+    if(pageKey!=0){
+      param='?page=$pageKey';
+    }
     try {
       var url = Uri.parse(
-        EndPoints.portfolios,
+        EndPoints.portfolios+param,
       );
 
       var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
@@ -231,6 +236,29 @@ class ApiCalls {
       List<dynamic> json = jsonDecode(response.body);
 
       return json.map((jsonItem) => PortfolioModel.fromJson(jsonItem)).toList();
+    } on SocketException catch (e) {
+      CommonFunctions.showToast(AppConst.connectionError);
+    } on TimeoutException catch (e) {
+      CommonFunctions.showToast(AppConst.connectionTimeOut);
+    } catch (e) {
+      CommonFunctions.showToast(AppConst.somethingWentWrong);
+      // print('user info API error ${e.toString()}::: ${e.stackTrace}');
+    }
+    return [];
+  }
+  static Future<List<TransactionTypeModel>> getTransactionTypeList() async {
+
+    try {
+      var url = Uri.parse(
+        EndPoints.transactionTypes,
+      );
+
+      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
+      print("url $url");
+      print("response ${response.body}");
+      List<dynamic> json = jsonDecode(response.body);
+
+      return json.map((jsonItem) => TransactionTypeModel.fromJson(jsonItem)).toList();
     } on SocketException catch (e) {
       CommonFunctions.showToast(AppConst.connectionError);
     } on TimeoutException catch (e) {

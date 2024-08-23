@@ -125,7 +125,7 @@ class _ViewDocumentState extends State<ViewDocument> {
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
                   child: getWidget(context),
                 ),
               ],
@@ -145,7 +145,11 @@ class _ViewDocumentState extends State<ViewDocument> {
               });
             });
           }, onReject: () {
-            _notifier.updateDocumentStatus(widget.item!, 'reject', widget.index!, context);
+            _notifier.updateDocumentStatus(widget.item!, 'reject', widget.index!, context, onUpdateStatus: (item) {
+              setState(() {
+                widget.item = item;
+              });
+            });
           });
         },
         child: AppWidgets.btn(
