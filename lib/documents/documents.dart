@@ -33,14 +33,15 @@ class Documents extends StatefulWidget {
 }
 
 class _DocumentsState extends State<Documents> {
-  late DocumentsController _notifier;
+  late DocumentsController _notifier,_notifier2;
 
-  final PagingController<int, Document> _pagingController = PagingController(firstPageKey: 1);
+  
   int _pageKey = 1;
 
   @override
   void initState() {
-    _pagingController.addPageRequestListener((pageKey) {
+    _notifier2 = Provider.of<DocumentsController>(context,listen: false);
+    _notifier2.pagingController.addPageRequestListener((pageKey) {
       _fetchPageActivity();
     });
     super.initState();
@@ -54,10 +55,10 @@ class _DocumentsState extends State<Documents> {
         List<Document> list = value?.folders ?? [];
         final isLastPage = list.length < 10;
         if (isLastPage) {
-          _pagingController.appendLastPage(list);
+          _notifier2.pagingController.appendLastPage(list);
         } else {
           _pageKey++;
-          _pagingController.appendPage(list, _pageKey);
+          _notifier2.pagingController.appendPage(list, _pageKey);
         }
       },
     );
@@ -85,7 +86,7 @@ class _DocumentsState extends State<Documents> {
                 if (_notifier.ancestryFolderList.isNotEmpty) {
                   _notifier.goToPreviousFolder();
                   _pageKey = 1;
-                  _pagingController.refresh();
+                  _notifier.pagingController.refresh();
                 } else {
                   Navigator.pop(context);
                 }
@@ -138,111 +139,109 @@ class _DocumentsState extends State<Documents> {
               ),
             ),
             Flexible(
-              child: Card(
-                child: RefreshIndicator(
-                  onRefresh: () async {
-                    _pageKey = 1;
-                    _pagingController.refresh();
-                  },
-                  child: PagedListView<int, Document>(
-                    pagingController: _pagingController,
-                    // shrinkWrap: true,
-                    builderDelegate: PagedChildBuilderDelegate<Document>(noItemsFoundIndicatorBuilder: (context) {
-                      return const SizedBox();
-                    }, itemBuilder: (context, item, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          if (item.documentType == null) {
-                            // _notifier.selectedFilterList.add(FilterModel(item.id.toString(), FilterTypes.ANCESTRY_FOLDER.name));
-                            _notifier.openFolder(item);
-                            _pageKey = 1;
-                            _pagingController.refresh();
-                          }
-                        },
-                        child: Card(
-                          color: FlutterFlowTheme.of(context).secondaryBackground,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: rSize * 0.01, horizontal: rSize * 0.015),
-                            child: Row(children: [
-                              getTypeName(item.documentType),
-                              SizedBox(
-                                width: rSize * 0.01,
-                              ),
-                              Expanded(
-                                  child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  _pageKey = 1;
+                  _notifier.pagingController.refresh();
+                },
+                child: PagedListView<int, Document>(
+                  pagingController: _notifier.pagingController,
+                  // shrinkWrap: true,
+                  builderDelegate: PagedChildBuilderDelegate<Document>(noItemsFoundIndicatorBuilder: (context) {
+                    return const SizedBox();
+                  }, itemBuilder: (context, item, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        if (item.documentType == null) {
+                          // _notifier.selectedFilterList.add(FilterModel(item.id.toString(), FilterTypes.ANCESTRY_FOLDER.name));
+                          _notifier.openFolder(item);
+                          _pageKey = 1;
+                          _notifier.pagingController.refresh();
+                        }
+                      },
+                      child: Card(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: rSize * 0.01, horizontal: rSize * 0.015),
+                          child: Row(children: [
+                            getTypeName(item.documentType),
+                            SizedBox(
+                              width: rSize * 0.01,
+                            ),
+                            Expanded(
+                                child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item.folderName ?? '',
+                                  maxLines: 2,
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        fontFamily: 'Roboto',
+                                        color: FlutterFlowTheme.of(context).primaryText,
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                                Text(
+                                  DateFormat('yyyy-MM-dd HH:mm').format(item.updatedAt!),
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        fontFamily: 'Roboto',
+                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                        fontSize: 14.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                                if (item.documentStatus == 'Approved') ...{
                                   Text(
-                                    item.folderName ?? '',
-                                    maxLines: 2,
+                                    '${FFLocalizations.of(context).getText(
+                                      'ktrsz8sp' /* Accepted at */,
+                                    )} ${DateFormat(
+                                      'yyyy-MM-dd HH:mm',
+                                      FFLocalizations.of(context).languageCode,
+                                    ).format(item.approvedAt!)}',
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Roboto',
-                                          color: FlutterFlowTheme.of(context).primaryText,
+                                          color: FlutterFlowTheme.of(context).customColor2,
                                           fontSize: 16.0,
                                           letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,
                                         ),
-                                  ),
+                                  )
+                                },
+                                if (item.documentStatus == 'Rejected') ...{
                                   Text(
-                                    DateFormat('yyyy-MM-dd HH:mm').format(item.updatedAt!),
+                                    '${FFLocalizations.of(context).getText(
+                                      '5tjloy3c' /* Rejected at */,
+                                    )} ${DateFormat(
+                                      'yyyy-MM-dd HH:mm',
+                                      FFLocalizations.of(context).languageCode,
+                                    ).format(item.disapprovedAt!)}',
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Roboto',
-                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                          fontSize: 14.0,
+                                          color: FlutterFlowTheme.of(context).customColor3,
+                                          fontSize: 16.0,
                                           letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,
                                         ),
-                                  ),
-                                  if (item.documentStatus == 'Approved') ...{
-                                    Text(
-                                      '${FFLocalizations.of(context).getText(
-                                        'ktrsz8sp' /* Accepted at */,
-                                      )} ${DateFormat(
-                                        'yyyy-MM-dd HH:mm',
-                                        FFLocalizations.of(context).languageCode,
-                                      ).format(item.approvedAt!)}',
-                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                            fontFamily: 'Roboto',
-                                            color: FlutterFlowTheme.of(context).customColor2,
-                                            fontSize: 16.0,
-                                            letterSpacing: 0.0,
-                                          ),
-                                    )
-                                  },
-                                  if (item.documentStatus == 'Rejected') ...{
-                                    Text(
-                                      '${FFLocalizations.of(context).getText(
-                                        '5tjloy3c' /* Rejected at */,
-                                      )} ${DateFormat(
-                                        'yyyy-MM-dd HH:mm',
-                                        FFLocalizations.of(context).languageCode,
-                                      ).format(item.disapprovedAt!)}',
-                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                            fontFamily: 'Roboto',
-                                            color: FlutterFlowTheme.of(context).customColor3,
-                                            fontSize: 16.0,
-                                            letterSpacing: 0.0,
-                                          ),
-                                    )
-                                  },
-                                ],
-                              )),
-                              if (item.documentType != null) ...{
-                                popupMenu(item, index),
-                              }
-                              /*const RotatedBox(
-                                quarterTurns: 2,
-                                child: Icon(
-                                  Icons.arrow_back_ios,
-                                  color: AppColors.kTextFieldInput,
-                                  size: 15,
-                                ))*/
-                            ]),
-                          ),
+                                  )
+                                },
+                              ],
+                            )),
+                            if (item.documentType != null) ...{
+                              popupMenu(item, index),
+                            }
+                            /*const RotatedBox(
+                              quarterTurns: 2,
+                              child: Icon(
+                                Icons.arrow_back_ios,
+                                color: AppColors.kTextFieldInput,
+                                size: 15,
+                              ))*/
+                          ]),
                         ),
-                      );
-                    }),
-                  ),
+                      ),
+                    );
+                  }),
                 ),
               ),
             )
@@ -522,7 +521,7 @@ class _DocumentsState extends State<Documents> {
                                 _notifier.selectedType = null;
                                 _notifier.range = '';
                                 _pageKey = 1;
-                                _pagingController.refresh();
+                                _notifier.pagingController.refresh();
                                 Navigator.pop(context);
                               },
                               child: AppWidgets.btn(
@@ -553,7 +552,7 @@ class _DocumentsState extends State<Documents> {
                                 _notifier.selectedFilterList.add(FilterModel(_notifier.searchedFile, FilterTypes.FILE_NAME.name));
                                 _notifier.selectedFilterList.add(FilterModel(_notifier.selectedType, FilterTypes.TYPE.name));
                                 _notifier.selectedFilterList.add(FilterModel(_notifier.range, FilterTypes.DATE_RANGE.name));*/
-                                _pagingController.refresh();
+                                _notifier.pagingController.refresh();
                                 Navigator.pop(context);
                               },
                               child: AppWidgets.btn(
@@ -638,7 +637,7 @@ class _DocumentsState extends State<Documents> {
             onChanged: (p0) {
               _pageKey = 1;
               _notifier.setSortRadioGroupValue(value, label);
-              _pagingController.refresh();
+              _notifier.pagingController.refresh();
               Navigator.pop(context);
             },
           ),
@@ -681,8 +680,10 @@ class _DocumentsState extends State<Documents> {
               ViewDocument(
                 item.id.toString(),
                 false,
-                showSignButton: item.documentType == 'document' && item.documentStatus == null,
+                showSignButton: item.documentType == 'document',
                 ext: item.folderName!.split('.').last,url: item.url??'',
+                item: item,
+                index: index,
               ));
         }),
         if (item.documentType == 'document')
@@ -730,7 +731,7 @@ class _DocumentsState extends State<Documents> {
   }
 
   void updateStatus(Document item, BuildContext context, String status, int index) {
-    _notifier.updateDocumentStatus(item, status, _pagingController, index, context);
+    _notifier.updateDocumentStatus(item, status, index, context);
   }
 
   PopupMenuItem<int> popupMenuItem(int value, String label, Widget icon, void Function()? onTap) {

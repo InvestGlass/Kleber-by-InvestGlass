@@ -7,6 +7,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
 import 'dart:math' as math;
 
+import 'package:permission_handler/permission_handler.dart';
+import 'package:share_plus/share_plus.dart';
+
 enum EFontWeight {
   w100,
   w200,
@@ -84,30 +87,46 @@ class CommonFunctions{
   }
 
   static Future<String> downloadAndSavePdf(Uint8List bytes,String fileName) async {
+
     try {
-      /*final status = await Permission.storage.request();
+      var status = await Permission.storage.status;
       if (!status.isGranted) {
-        // Handle permission denied
-        CommonFunctions.showToast('Permission denied');
-        return '';
-      }*/
+        await Permission.storage.request();
+      }
       String dir='';
       if(Platform.isAndroid) {
-        dir = (await getExternalStorageDirectory())!.path;
-      } else if(Platform.isIOS) {
-        dir = (await getApplicationDocumentsDirectory()).path;
-      }
-      final file = File('$dir/$fileName');
-      if (await file.exists()) {
+        dir = '/storage/emulated/0/Download';
+        final file = File('$dir/$fileName');
+        print('path : $file');
+
         await file.writeAsBytes(bytes);
         return file.path;
+      } else if(Platform.isIOS) {
+        dir = (await getApplicationDocumentsDirectory()).path;
+        final directory = await getTemporaryDirectory();
+        final newFile = File("${directory.path}/${fileName.replaceAll(':', '')}");
+
+        // if (await newFile.exists()) {
+        //   await newFile.delete();
+        // }
+        await newFile.writeAsBytes(bytes);
+        return newFile.path;
+        /*debugPrint('downloaded file path share+: ${newFile.path}');
+        Navigator.pop(context);
+        final box = context.findRenderObject() as RenderBox?;
+        await Share.shareXFiles(
+          [XFile(newFile.path)],
+          subject: fileName,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+        );
+        // await Share.share('123');
+        // return newFile.path;
+        await newFile.delete();*/
       }
-      // final response = await http.get(Uri.parse(url));
-      return file.path;
     } catch (e) {
       print(e);
-      return '';
     }
+    return '';
   }
 
   static showLoader(BuildContext context) {

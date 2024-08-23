@@ -24,6 +24,7 @@ class DocumentsController extends ChangeNotifier {
   // List<FilterModel> selectedFilterList = [];
   List<AccountsModel> accountList=[];
   List<AccountsModel> accountModelList=[];
+  final PagingController<int, Document> pagingController = PagingController(firstPageKey: 1);
 
   void setSortRadioGroupValue(int value, String label) {
     sortRadioGroupValue = value;
@@ -105,12 +106,15 @@ class DocumentsController extends ChangeNotifier {
     );
   }
 
-  void updateDocumentStatus(Document item, String status, PagingController<int, Document> pagingController, int index, BuildContext context){
+  void updateDocumentStatus(Document item, String status, int index, BuildContext context,{Function? onUpdateStatus}){
     CommonFunctions.showLoader(context);
     ApiCalls.updateDocumentStatus(item.id!, status).then((value) {
       CommonFunctions.dismissLoader(context);
       Navigator.pop(context);
       if (value!=null) {
+        if(onUpdateStatus!=null){
+          onUpdateStatus(value);
+        }
         pagingController.itemList![index]=value;
         notifyListeners();
       }
