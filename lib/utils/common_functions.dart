@@ -86,7 +86,7 @@ class CommonFunctions{
     );
   }
 
-  static Future<String> downloadAndSavePdf(Uint8List bytes,String fileName) async {
+  static Future<String> downloadAndSavePdf(Uint8List bytes,String fileName, BuildContext context) async {
 
     try {
       var status = await Permission.storage.status;
@@ -110,8 +110,7 @@ class CommonFunctions{
         //   await newFile.delete();
         // }
         await newFile.writeAsBytes(bytes);
-        return newFile.path;
-        /*debugPrint('downloaded file path share+: ${newFile.path}');
+        debugPrint('downloaded file path share+: ${newFile.path}');
         Navigator.pop(context);
         final box = context.findRenderObject() as RenderBox?;
         await Share.shareXFiles(
@@ -121,7 +120,9 @@ class CommonFunctions{
         );
         // await Share.share('123');
         // return newFile.path;
-        await newFile.delete();*/
+        await newFile.delete();
+        return '';
+
       }
     } catch (e) {
       print(e);

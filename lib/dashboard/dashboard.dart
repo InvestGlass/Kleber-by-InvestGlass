@@ -272,7 +272,7 @@ class _DashboardState extends State<Dashboard> {
                       Navigator.pop(context);
                           CommonFunctions.navigate(context, Documents());
                         },),
-                    /*SizedBox(width: rSize*0.02,),
+                    SizedBox(width: rSize*0.02,),
                     actionMenuItem(
                         context,
                         SvgPicture.asset(
@@ -284,10 +284,10 @@ class _DashboardState extends State<Dashboard> {
                           width: 25,
                         ),
                         FFLocalizations.of(context).getText(
-                          'o5wm04m6' *//* Market *//*,
+                          'o5wm04m6' /* Market */,
                         ),onTap: () {
-
-                        },),*/
+                      CommonFunctions.navigate(context, Market());
+                        },),
                     SizedBox(width: rSize*0.02,),
                     actionMenuItem(
                         context,

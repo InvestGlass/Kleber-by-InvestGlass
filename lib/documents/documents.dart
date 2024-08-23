@@ -2,7 +2,6 @@ import 'dart:typed_data';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kleber_bank/documents/document_model.dart';
@@ -284,12 +283,10 @@ class _DocumentsState extends State<Documents> {
   }
 
   void openFilterDialog() {
-    String _searchedFileName = _notifier.searchedFile;
-    String? _selectedType = _notifier.selectedType;
-    AccountsModel? _selectedAccount = _notifier.selectedAccount;
-    String _selecteStartDate = _notifier.startDate;
-    String _selecteEndDate = _notifier.endDate;
-    String _range = _notifier.range;
+    String searchedFileName = _notifier.searchedFile;
+    String? selectedType = _notifier.selectedType;
+    AccountsModel? selectedAccount = _notifier.selectedAccount;
+    String range = _notifier.range;
 
     showModalBottomSheet(
       useRootNavigator: true,
@@ -298,7 +295,7 @@ class _DocumentsState extends State<Documents> {
       context: context,
       builder: (context) {
         _notifier = Provider.of<DocumentsController>(context);
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           Provider.of<DocumentsController>(context, listen: false).getAccountList(context);
         });
         return StatefulBuilder(
@@ -355,7 +352,7 @@ class _DocumentsState extends State<Documents> {
                       searchHint: FFLocalizations.of(context).getText(
                         'ip67vees' /* Search for an account */,
                       ),
-                      selectedValue: _selectedAccount,
+                      selectedValue: selectedAccount,
                       items: _notifier.accountList
                           .map((item) => DropdownMenuItem(
                                 value: item,
@@ -372,8 +369,10 @@ class _DocumentsState extends State<Documents> {
                               ))
                           .toList(),
                       onChanged: (p0) {
-                        _selectedAccount = p0;
-                      },
+                        selectedAccount = p0;
+                      }, searchMatchFn: (item, searchValue) {
+                        return CommonFunctions.compare(searchValue, item.value.name.toString());
+                    },
                     ),
                     SizedBox(
                       height: rSize * 0.02,
@@ -392,13 +391,13 @@ class _DocumentsState extends State<Documents> {
                       height: rSize * 0.005,
                     ),
                     TextFormField(
-                      controller: TextEditingController(text: _searchedFileName),
+                      controller: TextEditingController(text: searchedFileName),
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
                             fontFamily: 'Roboto',
                             letterSpacing: 0.0,
                           ),
                       onChanged: (value) {
-                        _searchedFileName = value;
+                        searchedFileName = value;
                       },
                       decoration: AppStyles.inputDecoration(
                         context,
@@ -428,9 +427,9 @@ class _DocumentsState extends State<Documents> {
                     ),
                     SearchableDropdown(
                       searchHint: '',
-                      selectedValue: _selectedType,
+                      selectedValue: selectedType,
                       onChanged: (p0) {
-                        _selectedType = p0;
+                        selectedType = p0;
                       },
                       isSearchable: false,
                       items: _notifier.typesList
@@ -438,12 +437,18 @@ class _DocumentsState extends State<Documents> {
                                 value: item,
                                 child: Text(
                                   item,
-                                  style: const TextStyle(
-                                    fontSize: 14,
+                                  style: FlutterFlowTheme.of(context).bodySmall.override(
+                                    fontFamily: 'Roboto',
+                                    color: FlutterFlowTheme.of(context).primaryText,
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.normal,
                                   ),
                                 ),
                               ))
-                          .toList(),
+                          .toList(), searchMatchFn: (item, searchValue) {
+                        return CommonFunctions.compare(searchValue, item.value.toString());
+                    },
                     ),
                     SizedBox(
                       height: rSize * 0.02,
@@ -463,7 +468,7 @@ class _DocumentsState extends State<Documents> {
                     ),
                     TextFormField(
                       readOnly: true,
-                      controller: TextEditingController(text: _range),
+                      controller: TextEditingController(text: range),
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
                             fontFamily: 'Roboto',
                             letterSpacing: 0.0,
@@ -475,15 +480,7 @@ class _DocumentsState extends State<Documents> {
                             if (value is PickerDateRange) {
                               final String startDate = CommonFunctions.getYYYYMMDD(value.startDate!);
                               final String endDate = CommonFunctions.getYYYYMMDD(value.endDate!);
-                              _range = '$startDate  TO  $endDate';
-                              if (_range.isNotEmpty) {
-                                _selecteStartDate = _range.split('  TO  ')[0];
-                                _selecteEndDate = _range.split('  TO  ')[1];
-                              } else {
-                                _range = '';
-                                _selecteStartDate = '';
-                                _selecteEndDate = '';
-                              }
+                              range = '$startDate  TO  $endDate';
                               Navigator.pop(context);
                               setState(() {});
                             }
@@ -537,10 +534,10 @@ class _DocumentsState extends State<Documents> {
                         Expanded(
                           child: InkWell(
                               onTap: () async {
-                                _notifier.selectedAccount = _selectedAccount;
-                                _notifier.searchedFile = _searchedFileName;
-                                _notifier.selectedType = _selectedType;
-                                _notifier.range = _range;
+                                _notifier.selectedAccount = selectedAccount;
+                                _notifier.searchedFile = searchedFileName;
+                                _notifier.selectedType = selectedType;
+                                _notifier.range = range;
                                 _pageKey = 1;
                                 _notifier.notify();
                                 /*_notifier.selectedFilterList.removeWhere((element) =>
@@ -764,7 +761,7 @@ class _DocumentsState extends State<Documents> {
     CommonFunctions.showLoader(context);
     Uint8List bytes = await http
         .readBytes(Uri.parse('${EndPoints.documents}/${item.id}'), headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-    await CommonFunctions.downloadAndSavePdf(bytes, item.folderName!).then(
+    await CommonFunctions.downloadAndSavePdf(bytes, item.folderName!,context).then(
       (value) {
         CommonFunctions.dismissLoader(context);
         if (value.isNotEmpty) {

@@ -8,12 +8,16 @@ import 'package:kleber_bank/market/my_video_widget.dart';
 import 'package:kleber_bank/market/video_player_widget.dart';
 import 'package:kleber_bank/utils/app_colors.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
+import 'package:kleber_bank/utils/searchable_dropdown.dart';
 import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../utils/app_styles.dart';
 import '../utils/app_widgets.dart';
+import '../utils/flutter_flow_theme.dart';
+import '../utils/internationalization.dart';
 import 'add_transaction.dart';
+import 'market_list_item_widget.dart';
 import 'market_list_model.dart';
 
 class Market extends StatefulWidget {
@@ -58,123 +62,155 @@ class _MarketState extends State<Market> {
   @override
   Widget build(BuildContext context) {
     _notifier = Provider.of<MarketController>(context);
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: rSize * 0.015),
-        child: Column(
-          // padding: EdgeInsets.symmetric(horizontal: rSize*0.015,vertical: rSize*0.01),
-          // physics: const NeverScrollableScrollPhysics(),
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Card(
-                      elevation: 2,
-                      color: Colors.white,
-                      child: TextField(
-                        controller: _notifier.searchController,
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintStyle: AppStyles.c929292W500S14,
-                            hintText: 'Search...',
-                            prefixIcon: Icon(Icons.search),
-                            alignLabelWithHint: true,
-                            contentPadding: EdgeInsets.symmetric(vertical: 10)),
-                        onChanged: (value) {
-                          if (_debounce?.isActive ?? false) _debounce?.cancel();
-                          _debounce = Timer(const Duration(milliseconds: 500), () async {
-                            pageKey=1;
-                            _notifier.refresh();
-                          });
-                        },
-                      )),
-                ),
-                Icon(
-                  Icons.filter_alt_outlined,
-                  color: AppColors.kViolate,
-                ),
-                GestureDetector(
+    return Container(
+      decoration: AppStyles.commonBg(context),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppWidgets.appBar(
+            context,
+            centerTitle: true,
+            FFLocalizations.of(context).getText(
+              'o5wm04m6' /* Market */,
+            )),
+        body: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: rSize * 0.015,
+            vertical: rSize * 0.015,
+          ),
+          child: Column(
+            // padding: EdgeInsets.symmetric(horizontal: rSize*0.015,vertical: rSize*0.01),
+            // physics: const NeverScrollableScrollPhysics(),
+            children: [
+              Row(
+                children: [
+                  GestureDetector(
                     onTap: () => openFilterDialog(),
-                    child: Text(
-                      'Filter',
-                      style: AppStyles.c3C496CW500S18,
-                    ))
-              ],
-            ),
-            SizedBox(
-              height: rSize * 0.01,
-            ),
-            Flexible(
-              child: RefreshIndicator(
-                onRefresh: () async {
-                  pageKey = 1;
-                  _notifier.pagingController.refresh();
-                },
-                child: PagedListView<int, MarketListModel>(
-                  pagingController: _notifier.pagingController,
-                  // shrinkWrap: true,
-                  padding: EdgeInsets.symmetric(horizontal: rSize * 0.015),
-                  builderDelegate: PagedChildBuilderDelegate<MarketListModel>(noItemsFoundIndicatorBuilder: (context) {
-                    return const SizedBox();
-                  }, itemBuilder: (context, item, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        CommonFunctions.navigate(
-                            context,
-                            VideoPlayerItem(
-                              item.videoUrl ?? '',
-                              // onPlayStatusChanged: (bool) {},
-                            ));
-                      },
-                      child: Card(
-                        color: Colors.white,
-                        margin: EdgeInsets.all(5),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20), // Change this value for different corner radii
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              // width: double.infinity,
-                              height: rSize * 0.25,
-                              decoration: BoxDecoration(color: AppColors.kHint, borderRadius: BorderRadius.circular(15)),
-                              alignment: Alignment.center,
-                              child: displayFile(item, index),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(rSize * 0.015),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    item.assetClassName ?? '',
-                                    style: AppStyles.c3C496CW500S16,
-                                  ),
-                                  Text(
-                                    item.name ?? '',
-                                    style: AppStyles.c656262W200S14.copyWith(fontSize: AppStyles.px12),
-                                    // overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                  ),
-                                  SizedBox(
-                                    height: rSize * 0.015,
-                                  ),
-                                  GestureDetector(
-                                      onTap: ()=>CommonFunctions.navigate(context,AddTransaction()),
-                                      child: AppWidgets.btn(context,'Add Transaction'))
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                    child: Container(
+                      height: 45,
+                      width: 45,
+                      decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.circular(8)),
+                      child: Icon(
+                        Icons.filter_alt_outlined,
+                        size: 25,
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
-                    );
-                  }),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: TextField(
+                      controller: _notifier.searchController,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Roboto',
+                            letterSpacing: 0.0,
+                          ),
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.transparent, width: 1)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.transparent, width: 1)),
+                          fillColor: FlutterFlowTheme.of(context).primaryBackground,
+                          filled: true,
+                          hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                                fontFamily: 'Roboto',
+                                letterSpacing: 0.0,
+                              ),
+                          hintText: FFLocalizations.of(context).getText(
+                            'wzls4zjf' /* Type security name */,
+                          ),
+                          prefixIcon: Icon(Icons.search),
+                          contentPadding: EdgeInsets.symmetric(vertical: 10)),
+                      onChanged: (value) {
+                        if (_debounce?.isActive ?? false) _debounce?.cancel();
+                        _debounce = Timer(const Duration(milliseconds: 500), () async {
+                          pageKey = 1;
+                          _notifier.refresh();
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: rSize * 0.01,
+              ),
+              Flexible(
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    pageKey = 1;
+                    _notifier.pagingController.refresh();
+                  },
+                  child: PagedListView<int, MarketListModel>(
+                    pagingController: _notifier.pagingController,
+                    // shrinkWrap: true,
+                    builderDelegate: PagedChildBuilderDelegate<MarketListModel>(noItemsFoundIndicatorBuilder: (context) {
+                      return const SizedBox();
+                    }, itemBuilder: (context, item, index) {
+                      return MarketListItemWidget(
+                        // key: Key('Keyery_${index}_of_${realLength}'),
+                        data: item,
+                      );
+                      return GestureDetector(
+                        onTap: () {
+                          CommonFunctions.navigate(
+                              context,
+                              VideoPlayerItem(
+                                item.videoUrl ?? '',
+                                // onPlayStatusChanged: (bool) {},
+                              ));
+                        },
+                        child: Card(
+                          color: Colors.white,
+                          margin: EdgeInsets.all(5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20), // Change this value for different corner radii
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                // width: double.infinity,
+                                height: rSize * 0.25,
+                                decoration: BoxDecoration(color: AppColors.kHint, borderRadius: BorderRadius.circular(15)),
+                                alignment: Alignment.center,
+                                child: displayFile(item, index),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(rSize * 0.015),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      item.assetClassName ?? '',
+                                      style: AppStyles.c3C496CW500S16,
+                                    ),
+                                    Text(
+                                      item.name ?? '',
+                                      style: AppStyles.c656262W200S14.copyWith(fontSize: AppStyles.px12),
+                                      // overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                    ),
+                                    SizedBox(
+                                      height: rSize * 0.015,
+                                    ),
+                                    GestureDetector(
+                                        onTap: () => CommonFunctions.navigate(context, AddTransaction()),
+                                        child: AppWidgets.btn(context, 'Add Transaction'))
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -195,7 +231,7 @@ class _MarketState extends State<Market> {
       return SizedBox(
         height: 150,
         child: VideoPlayerItem(
-          item.videoUrl??'',
+          item.videoUrl ?? '',
           /*onPlayStatusChanged: (isPlaying) {
             _notifier.onPlayStatusChanged(index, isPlaying);
           },*/
@@ -213,6 +249,7 @@ class _MarketState extends State<Market> {
     showModalBottomSheet(
       useRootNavigator: true,
       isScrollControlled: true,
+      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       context: context,
       builder: (context) {
         return StatefulBuilder(
@@ -247,60 +284,131 @@ class _MarketState extends State<Market> {
                     SizedBox(
                       height: rSize * 0.02,
                     ),
-                    DropdownSearch<MarketListModel>(
-                      popupProps: PopupProps.menu(
-                        showSearchBox: true,
-                        searchDelay: Duration.zero,
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                      child: Text(
+                        FFLocalizations.of(context).getText(
+                          '1p01lh7n' /* Asset Class */,
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Roboto',
+                              fontSize: 18.0,
+                              letterSpacing: 0.0,
+                            ),
                       ),
-                      items: _notifier.assetClassList,
-                      itemAsString: (item) => item.name ?? '',
-                      filterFn: (item, filter) => CommonFunctions.compare(filter, item.name ?? ''),
-                      dropdownDecoratorProps: DropDownDecoratorProps(
-                        dropdownSearchDecoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('Asset Class')),
+                    ),
+                    SearchableDropdown(
+                      selectedValue: selectedAssetClass,
+                      searchHint: FFLocalizations.of(context).getText(
+                        'sotc1ho8' /* Search for an asset class */,
                       ),
-                      onChanged: (value) {
-                      selectedAssetClass=value;
+                      onChanged: (p0) {
+                        selectedAssetClass = p0;
                       },
-                      selectedItem: selectedAssetClass,
+                      items: _notifier.assetClassList
+                          .map((item) => DropdownMenuItem(
+                                value: item,
+                                child: Text(
+                                  item.name!,
+                                  style: FlutterFlowTheme.of(context).bodySmall.override(
+                                        fontFamily: 'Roboto',
+                                        color: FlutterFlowTheme.of(context).primaryText,
+                                        fontSize: 14.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                ),
+                              ))
+                          .toList(),
+                      searchMatchFn: (item, searchValue) {
+                        return CommonFunctions.compare(searchValue, item.value.name.toString());
+                      },
                     ),
                     SizedBox(
                       height: rSize * 0.015,
                     ),
-                    DropdownSearch<MarketListModel>(
-                      popupProps: PopupProps.menu(
-                        showSearchBox: true,
-                        searchDelay: Duration.zero,
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                      child: Text(
+                        FFLocalizations.of(context).getText(
+                          'zfneqwjq' /* Industry */,
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Roboto',
+                              fontSize: 18.0,
+                              letterSpacing: 0.0,
+                            ),
                       ),
-                      items: _notifier.industryList,
-                      itemAsString: (item) => item.name ?? '',
-                      filterFn: (item, filter) => CommonFunctions.compare(filter, item.name ?? ''),
-                      dropdownDecoratorProps: DropDownDecoratorProps(
-                        dropdownSearchDecoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('Industry')),
+                    ),
+                    SearchableDropdown(
+                      selectedValue: selectedIndustry,
+                      searchHint: FFLocalizations.of(context).getText(
+                        '8ltvrr9u' /* Search for an industry */,
                       ),
-                      onChanged: (value) {
-                        selectedIndustry=value;
+                      onChanged: (p0) {
+                        selectedIndustry = p0;
                       },
-                      selectedItem: selectedIndustry,
+                      items: _notifier.industryList
+                          .map((item) => DropdownMenuItem(
+                                value: item,
+                                child: Text(
+                                  item.name!,
+                                  style: FlutterFlowTheme.of(context).bodySmall.override(
+                                        fontFamily: 'Roboto',
+                                        color: FlutterFlowTheme.of(context).primaryText,
+                                        fontSize: 14.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                ),
+                              ))
+                          .toList(),
+                      searchMatchFn: (item, searchValue) {
+                        return CommonFunctions.compare(searchValue, item.value.name.toString());
+                      },
                     ),
                     SizedBox(
                       height: rSize * 0.015,
                     ),
-                    DropdownSearch<MarketListModel>(
-                      popupProps: PopupProps.menu(
-                        // showSelectedItems: true,
-                        showSearchBox: true,
-                        searchDelay: Duration.zero,
+                    Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                      child: Text(
+                        FFLocalizations.of(context).getText(
+                          'nkjefkra' /* Currency */,
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Roboto',
+                              fontSize: 18.0,
+                              letterSpacing: 0.0,
+                            ),
                       ),
-                      items: _notifier.currencyList,
-                      itemAsString: (item) => item.name ?? '',
-                      filterFn: (item, filter) => CommonFunctions.compare(filter, item.name ?? ''),
-                      dropdownDecoratorProps: DropDownDecoratorProps(
-                        dropdownSearchDecoration: AppStyles.dropDownInputDecoration(context,AppWidgets.textFieldLabel('Currency')),
+                    ),
+                    SearchableDropdown(
+                      selectedValue: selectedCurrency,
+                      searchHint: FFLocalizations.of(context).getText(
+                        'ng4uvnyc' /* Search for a currency */,
                       ),
-                      onChanged: (value) {
-                        selectedCurrency = value;
+                      onChanged: (p0) {
+                        selectedCurrency = p0;
                       },
-                      selectedItem: selectedCurrency,
+                      items: _notifier.currencyList
+                          .map((item) => DropdownMenuItem(
+                                value: item,
+                                child: Text(
+                                  item.name!,
+                                  style: FlutterFlowTheme.of(context).bodySmall.override(
+                                        fontFamily: 'Roboto',
+                                        color: FlutterFlowTheme.of(context).primaryText,
+                                        fontSize: 14.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                ),
+                              ))
+                          .toList(),
+                      searchMatchFn: (item, searchValue) {
+                        return CommonFunctions.compare(searchValue, item.value.name.toString());
+                      },
                     ),
                     SizedBox(
                       height: rSize * 0.015,
@@ -311,27 +419,41 @@ class _MarketState extends State<Market> {
                     Row(
                       children: [
                         Expanded(
-                          child: InkWell(onTap: () async {
-                            _notifier.selectedAssetClass=null;
-                            _notifier.selectedCurrency=null;
-                            _notifier.selectedIndustry=null;
-                            pageKey=1;
-                            _notifier.refresh();
-                            Navigator.pop(context);
-                          }, child: AppWidgets.btn(context,'CLEAR', borderOnly: true)),
+                          child: InkWell(
+                              onTap: () async {
+                                _notifier.selectedAssetClass = null;
+                                _notifier.selectedCurrency = null;
+                                _notifier.selectedIndustry = null;
+                                pageKey = 1;
+                                _notifier.refresh();
+                                Navigator.pop(context);
+                              },
+                              child: AppWidgets.btn(
+                                  context,
+                                  FFLocalizations.of(context).getText(
+                                    'zw535eku' /* CLEAR */,
+                                  ),
+                                  borderOnly: true)),
                         ),
                         SizedBox(
                           width: rSize * 0.02,
                         ),
                         Expanded(
-                          child: InkWell(onTap: () async {
-                            _notifier.selectedAssetClass=selectedAssetClass;
-                            _notifier.selectedCurrency=selectedCurrency;
-                            _notifier.selectedIndustry=selectedIndustry;
-                            pageKey=1;
-                            _notifier.refresh();
-                            Navigator.pop(context);
-                          }, child: AppWidgets.btn(context,'APPLY')),
+                          child: InkWell(
+                              onTap: () async {
+                                _notifier.selectedAssetClass = selectedAssetClass;
+                                _notifier.selectedCurrency = selectedCurrency;
+                                _notifier.selectedIndustry = selectedIndustry;
+                                pageKey = 1;
+                                _notifier.refresh();
+                                Navigator.pop(context);
+                              },
+                              child: AppWidgets.btn(
+                                  context,
+                                  FFLocalizations.of(context).getText(
+                                    'r8wu2qe3' /* Apply */,
+                                  ),
+                                  bgColor: FlutterFlowTheme.of(context).primary)),
                         ),
                       ],
                     ),
