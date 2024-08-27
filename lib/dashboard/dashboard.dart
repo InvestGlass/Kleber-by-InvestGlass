@@ -322,7 +322,7 @@ class _DashboardState extends State<Dashboard> {
               height: rSize * 0.01,
             ),
             Container(
-              margin: EdgeInsets.only(top: 10, bottom: isPortfolio(index)?10:5),
+              margin: EdgeInsets.only(top: isPortfolio(index)?20:10, bottom: isPortfolio(index)?10:5),
               width: _controller.iconSize,
               height: isPortfolio(index)?30:_controller.iconSize,
               decoration: const BoxDecoration(),
