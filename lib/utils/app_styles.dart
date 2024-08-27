@@ -96,8 +96,10 @@ class AppStyles {
     return BoxDecoration(
       gradient: LinearGradient(
         colors: [
-          Theme.of(context).colorScheme.primary,
-          Theme.of(context).colorScheme.secondary,
+          Theme.of(context).brightness == Brightness.dark
+              ? FlutterFlowTheme.of(context).bgTopGradient
+              : FlutterFlowTheme.of(context).primaryBackground,
+          FlutterFlowTheme.of(context).primaryBackground
         ],
         stops: const [0.0, 0.4],
         begin: const AlignmentDirectional(0.0, -1.0),

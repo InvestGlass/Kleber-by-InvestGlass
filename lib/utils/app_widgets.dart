@@ -292,7 +292,7 @@ class AppWidgets {
 
   static BoxDecoration gradiantDecoration(BuildContext context, {bool borderOnly = false, Color? color}) {
     return BoxDecoration(
-        color: borderOnly ? Colors.transparent : color ?? AppColors.kViolate,
+        color: borderOnly ? Colors.transparent : color ?? FlutterFlowTheme.of(context).primary,
         border: Border.all(color: color ?? FlutterFlowTheme.of(context).primary, width: 1),
         borderRadius: BorderRadius.circular(10));
   }

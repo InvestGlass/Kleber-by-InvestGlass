@@ -35,17 +35,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Theme.of(context).colorScheme.primary,
-              Theme.of(context).colorScheme.secondary,
-            ],
-            stops: const [0.0, 0.4],
-            begin: const AlignmentDirectional(0.0, -1.0),
-            end: const AlignmentDirectional(0, 1.0),
-          ),
-        ),
+        decoration: AppStyles.commonBg(context),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: rSize * 0.02),
           child: Column(

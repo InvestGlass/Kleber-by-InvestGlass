@@ -19,6 +19,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'documents/documents_controller.dart';
 import 'home/home_controller.dart';
 import 'login/login_controller.dart';
+import 'login/on_boarding_page_widget.dart';
 import 'market/market_controller.dart';
 
 double rSize = 0;
@@ -108,46 +109,26 @@ class _MyAppState extends State<MyApp> {
         Locale('vi'),
       ],
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        popupMenuTheme: PopupMenuThemeData(
-          color: Colors.white, // Background color of the menu
-          surfaceTintColor: Colors.white,
-
-          textStyle: TextStyle(color: Colors.white), // Text color in menu items
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          // Optionally add other styles like elevation, padding, etc.
+        brightness: Brightness.light,
+        scrollbarTheme: ScrollbarThemeData(
+          thumbVisibility: WidgetStateProperty.all(false),
+          trackVisibility: WidgetStateProperty.all(false),
+          interactive: false,
+          thickness: WidgetStateProperty.all(0.0),
         ),
-        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.bg),
-        useMaterial3: true,
+        useMaterial3: false,
       ),
       darkTheme: ThemeData(
-          colorScheme: const ColorScheme(
-              primary: Color(0xFF325D80),
-              secondary: Color(0xFF000A13),
-              onPrimary: Colors.transparent,
-              onSecondary: Colors.transparent,
-              brightness: Brightness.dark,
-              error: Color(0xFFFF5963),
-              onError: Color(0xFFFF5963),
-              surface: Colors.black,
-              onSurface: Colors.white),),
-      home: SharedPrefUtils.instance.getString(USER_DATA).isEmpty ? Login() : Dashboard(),
+        brightness: Brightness.dark,
+        scrollbarTheme: ScrollbarThemeData(
+          thumbVisibility: WidgetStateProperty.all(false),
+          trackVisibility: WidgetStateProperty.all(false),
+          interactive: false,
+          thickness: WidgetStateProperty.all(0.0),
+        ),
+        useMaterial3: false,
+      ),
+      home: SharedPrefUtils.instance.getString(USER_DATA).isEmpty ? OnBoardingPageWidget() : Dashboard(),
     );
   }
 }

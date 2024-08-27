@@ -49,85 +49,92 @@ class _DashboardState extends State<Dashboard> {
     _controller = Provider.of<DashboardController>(context);
     return Scaffold(
       key: _scaffoldkey,
-      bottomNavigationBar: Container(
-        color: Colors.transparent,
-        height: rSize * 0.12,
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Image.asset(
-              'assets/bgBottomNavDark.png',
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                bottombarCell(
-                    context,
-                    0,
-                    Icons.home_rounded,
-                    FFLocalizations.of(context).getText(
-                      'fiha8uf5' /* Home */,
-                    )),
-                bottombarCell(
-                    context,
-                    1,
-                    Icons.bar_chart,
-                    FFLocalizations.of(context).getText(
-                      'xn2nrgyp' /* Portfolio */,
-                    ),
-                    widget: _controller.selectedIndex == 1
-                        ? SvgPicture.asset(
-                            Theme.of(context).brightness == Brightness.dark ? 'assets/bar-chart-dark-theme.svg' : 'assets/bar_chart.svg',
-                            fit: BoxFit.contain,
-                          )
-                        : null),
-                SizedBox(
-                  width: rSize * 0.05,
-                ),
-                bottombarCell(
-                    context,
-                    2,
-                    Icons.home_rounded,
-                    FFLocalizations.of(context).getText(
-                      'nkifu7jq' /* Proposal */,
-                    ),
-                    widget: _controller.selectedIndex == 2
-                        ? SvgPicture.asset(
-                            Theme.of(context).brightness == Brightness.dark
-                                ? 'assets/proposal-icon-new-dark-theme.svg'
-                                : 'assets/proposal-icon-new.svg',
-                            fit: BoxFit.contain,
-                          )
-                        : SvgPicture.asset(
-                            Theme.of(context).brightness == Brightness.dark
-                                ? 'assets/proposal-icon-new-unselected-dark-theme.svg'
-                                : 'assets/proposal-icon-new-unselected.svg',
-                            fit: BoxFit.contain,
+      bottomNavigationBar: Stack(
+        children: [
+          Wrap(
+            children: [
+              Stack(
+                alignment: const AlignmentDirectional(0.0, 1.0),
+                children: [
+                  Image.asset(
+                    Theme.of(context).brightness == Brightness.dark
+                        ? 'assets/bgBottomNavDark.png'
+                        : 'assets/bgBottomNavLight.png',
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      bottombarCell(
+                          context,
+                          0,
+                          Icons.home_rounded,
+                          FFLocalizations.of(context).getText(
+                            'fiha8uf5' /* Home */,
                           )),
-                bottombarCell(
-                    context,
-                    3,
-                    Icons.account_circle_rounded,
-                    FFLocalizations.of(context).getText(
-                      'w5wtcpj4' /* Profile */,
-                    )),
-              ],
-            ),
-            Positioned(
-              // width: MediaQuery.of(context).size.width,
-              bottom: 30,
-              child: Align(
-                  alignment: Alignment.center,
-                  child: GestureDetector(
-                    onTap: () => showOptions(),
-                    child: Image.asset(
-                      'assets/app_launcher_icon.png',
-                      scale: 1.7,
-                    ),
-                  )),
-            ),
-          ],
-        ),
+                      bottombarCell(
+                          context,
+                          1,
+                          Icons.bar_chart,
+                          FFLocalizations.of(context).getText(
+                            'xn2nrgyp' /* Portfolio */,
+                          ),
+                          widget: _controller.selectedIndex == 1
+                              ? SvgPicture.asset(
+                                  Theme.of(context).brightness == Brightness.dark ? 'assets/bar-chart-dark-theme.svg' : 'assets/bar_chart.svg',
+                                  fit: BoxFit.contain,
+                                )
+                              : null),
+                      SizedBox(
+                        width: rSize * 0.05,
+                      ),
+                      bottombarCell(
+                          context,
+                          2,
+                          Icons.home_rounded,
+                          FFLocalizations.of(context).getText(
+                            'nkifu7jq' /* Proposal */,
+                          ),
+                          widget: _controller.selectedIndex == 2
+                              ? SvgPicture.asset(
+                                  Theme.of(context).brightness == Brightness.dark
+                                      ? 'assets/proposal-icon-new-dark-theme.svg'
+                                      : 'assets/proposal-icon-new.svg',
+                                  fit: BoxFit.contain,
+                                )
+                              : SvgPicture.asset(
+                                  Theme.of(context).brightness == Brightness.dark
+                                      ? 'assets/proposal-icon-new-unselected-dark-theme.svg'
+                                      : 'assets/proposal-icon-new-unselected.svg',
+                                  fit: BoxFit.contain,
+                                )),
+                      bottombarCell(
+                          context,
+                          3,
+                          Icons.account_circle_rounded,
+                          FFLocalizations.of(context).getText(
+                            'w5wtcpj4' /* Profile */,
+                          )),
+                    ],
+                  ),
+
+                ],
+              ),
+            ],
+          ),
+          Positioned(
+            // width: MediaQuery.of(context).size.width,
+            bottom: 30,
+            child: Align(
+                alignment: Alignment.center,
+                child: GestureDetector(
+                  onTap: () => showOptions(),
+                  child: Image.asset(
+                    'assets/app_launcher_icon.png',
+                    scale: 1.7,
+                  ),
+                )),
+          ),
+        ],
       ),
       /*bottomNavigationBar: Container(
           decoration: BoxDecoration(
@@ -186,17 +193,20 @@ class _DashboardState extends State<Dashboard> {
         controller.animateToPage(i, duration: Duration(milliseconds: 100), curve: Curves.easeInOut);
         // controller=PageController(initialPage: value);
       }),*/
-      body: PageView(
-        controller: controller,
-        physics: NeverScrollableScrollPhysics(),
-        children: const [
-          Home(),
-          Portfolio(),
-          // Market(),
-          Proposals(),
-          Profile(),
-        ],
-        onPageChanged: (page) {},
+      body: Container(
+        decoration: AppStyles.commonBg(context),
+        child: PageView(
+          controller: controller,
+          physics: NeverScrollableScrollPhysics(),
+          children: const [
+            Home(),
+            Portfolio(),
+            // Market(),
+            Proposals(),
+            Profile(),
+          ],
+          onPageChanged: (page) {},
+        ),
       ),
     );
   }
