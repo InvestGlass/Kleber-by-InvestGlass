@@ -6,6 +6,7 @@ import 'package:kleber_bank/portfolio/portfolio_controller.dart';
 import 'package:kleber_bank/portfolio/position_model.dart';
 import 'package:kleber_bank/utils/api_calls.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
+import 'package:kleber_bank/utils/searchable_dropdown.dart';
 import 'package:provider/provider.dart';
 
 import '../main.dart';
@@ -55,7 +56,7 @@ class _PositionsState extends State<Positions> {
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       body: Padding(
-        padding: EdgeInsets.only(left:rSize * 0.015,right: rSize * 0.015,top: rSize * 0.05),
+        padding: EdgeInsets.only(left: rSize * 0.015, right: rSize * 0.015, top: rSize * 0.05),
         child: Column(
           children: [
             Row(
@@ -81,50 +82,76 @@ class _PositionsState extends State<Positions> {
                         textAlign: TextAlign.center,
                         DateFormat('yyyy-MM-dd', FFLocalizations.of(context).languageCode).format(DateTime.now()),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Roboto',
-                          fontSize: 20.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w500,
-                        ),
+                              fontFamily: 'Roboto',
+                              fontSize: 20.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w500,
+                            ),
                       ),
                     ],
                   ),
                 ),
                 GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: Icon(Icons.close,size: 30,color: FlutterFlowTheme.of(context).primary,))
+                    child: Icon(
+                      Icons.close,
+                      size: 30,
+                      color: FlutterFlowTheme.of(context).primary,
+                    ))
               ],
             ),
-            SizedBox(height: rSize*0.02,),
-            DropdownButtonFormField(
-                decoration: AppStyles.dropDownInputDecoration(context, AppWidgets.textFieldLabel(''),focusedBorderColor: FlutterFlowTheme.of(context)
-                    .alternate,prefix: Icon(
-                  Icons.sort_rounded,
-                  color: FlutterFlowTheme.of(context).secondaryText,
-                  size: 24.0,
-                )),
-                isExpanded: true,
-                icon: AppWidgets.dropDownIcon(),
-                style: FlutterFlowTheme.of(context).displaySmall.override(
-                      fontFamily: 'Roboto',
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: 16.0,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
-                    ),
-                isDense: true,
-                value: _notifier.selectedPositionFilter,
-                onChanged: (value) {
-                  _notifier.selectPositionFilter(value!);
-                  _pageKey = 1;
-                  _pagingController.refresh();
-                },dropdownColor: FlutterFlowTheme.of(context).secondaryText,
-                items: _notifier.positionsFilterTypeList
-                    .map(
-                      (String item) => DropdownMenuItem<String>(value: item, child: AppWidgets.dropDownHint(context, item)),
-                    )
-                    .toList(),
-                hint: AppWidgets.dropDownHint(context, 'Select Types')),
+            SizedBox(
+              height: rSize * 0.02,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: SearchableDropdown(
+                    selectedValue: _notifier.selectedPositionFilter,
+                    isSearchable: false,
+                    searchHint: 'Select Types',
+                    onChanged: (p0) {
+                      _notifier.selectPositionFilter(p0);
+                      _pageKey = 1;
+                      _pagingController.refresh();
+                    },
+                    items: _notifier.positionsFilterTypeList
+                        .map(
+                          (item) => DropdownMenuItem(
+                            value: item,
+                            child: Text(
+                              item,
+                              style: FlutterFlowTheme.of(context).bodySmall.override(
+                                    fontFamily: 'Roboto',
+                                    color: FlutterFlowTheme.of(context).primaryText,
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    searchMatchFn: null,
+                    selectedItemBuilder: (BuildContext context) {
+                      return _notifier.positionsFilterTypeList.map((item) {
+                        return Row(
+                          children: [
+                            Icon(
+                              Icons.sort_rounded,
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              size: 24.0,
+                            ), // Custom icon for selected item
+                            SizedBox(width: 8),
+                            Text(item, style: TextStyle(fontWeight: FontWeight.bold)), // Custom text style
+                          ],
+                        );
+                      }).toList();
+                    },
+                  ),
+                ),
+              ],
+            ),
             SizedBox(
               height: rSize * 0.015,
             ),
@@ -140,7 +167,7 @@ class _PositionsState extends State<Positions> {
                   builderDelegate: PagedChildBuilderDelegate<PositionModel>(noItemsFoundIndicatorBuilder: (context) {
                     return const SizedBox();
                   }, itemBuilder: (context, item, index) {
-                    String currency=item.referenceCurrency ?? '-';
+                    String currency = item.referenceCurrency ?? '-';
                     return Card(
                       margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
                       elevation: 2,
@@ -183,12 +210,21 @@ class _PositionsState extends State<Positions> {
                                   SizedBox(
                                     height: rSize * 0.005,
                                   ),
-                                  AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
-                                    'tea2m5lq' /* Allocation */,
-                                  ), item.allocation?.toString().replaceAll(' ', '') ?? '-', middleValue: '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('${item.amount}', (double.tryParse(item.amount!)??0) == 0, 2)}'),
-                                  AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
-                                    'e0dy1vxx' /* ROI */,
-                                  ), item.roi!+(item.roi!='-'?'%':''),icon: getIcon(double.tryParse(item.roi!)??0))
+                                  AppWidgets.portfolioListElement(
+                                      context,
+                                      FFLocalizations.of(context).getText(
+                                        'tea2m5lq' /* Allocation */,
+                                      ),
+                                      item.allocation?.toString().replaceAll(' ', '') ?? '-',
+                                      middleValue:
+                                          '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('${item.amount}', (double.tryParse(item.amount!) ?? 0) == 0, 2)}'),
+                                  AppWidgets.portfolioListElement(
+                                      context,
+                                      FFLocalizations.of(context).getText(
+                                        'e0dy1vxx' /* ROI */,
+                                      ),
+                                      item.roi! + (item.roi != '-' ? '%' : ''),
+                                      icon: getIcon(double.tryParse(item.roi!) ?? 0))
                                 },
                                 if (_notifier.selectedPositionIndex == index) ...{
                                   ConstrainedBox(
@@ -210,45 +246,67 @@ class _PositionsState extends State<Positions> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
-                                                '4kttzprb' /* Name */,
-                                              ), item.securityName ?? '-'),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    '4kttzprb' /* Name */,
+                                                  ),
+                                                  item.securityName ?? '-'),
                                               SizedBox(
                                                 height: rSize * 0.005,
                                               ),
-                                              AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
-                                                '6thwwafn' /* ISIN */,
-                                              ), item.securityIsin ?? '-'),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    '6thwwafn' /* ISIN */,
+                                                  ),
+                                                  item.securityIsin ?? '-'),
                                               SizedBox(
                                                 height: rSize * 0.005,
                                               ),
-                                              AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
-                                                'ivu9tdzj' /* Currency */,
-                                              ),currency ),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'ivu9tdzj' /* Currency */,
+                                                  ),
+                                                  currency),
                                               SizedBox(
                                                 height: rSize * 0.005,
                                               ),
-                                              AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
-                                                'fbgy82bc' /* Last Price */,
-                                              ), '$currency ${item.lastPrice ?? ' - '}'),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'fbgy82bc' /* Last Price */,
+                                                  ),
+                                                  '$currency ${item.lastPrice ?? ' - '}'),
                                               SizedBox(
                                                 height: rSize * 0.005,
                                               ),
-                                              AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
-                                                'swv2ctiz' /* Cost Price */,
-                                              ), '$currency ${item.costPrice ?? ' - '}'),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'swv2ctiz' /* Cost Price */,
+                                                  ),
+                                                  '$currency ${item.costPrice ?? ' - '}'),
                                               SizedBox(
                                                 height: rSize * 0.005,
                                               ),
-                                              AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
-                                                'cdklrlbv' /* ROI */,
-                                              ), item.roi!+(item.roi!='-'?'%':''),icon: getIcon(double.tryParse(item.roi!)??0)),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'cdklrlbv' /* ROI */,
+                                                  ),
+                                                  item.roi! + (item.roi != '-' ? '%' : ''),
+                                                  icon: getIcon(double.tryParse(item.roi!) ?? 0)),
                                               SizedBox(
                                                 height: rSize * 0.005,
                                               ),
-                                              AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
-                                                'ox3fj6xq' /* Quantity */,
-                                              ), item.quantity ?? '-'),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'ox3fj6xq' /* Quantity */,
+                                                  ),
+                                                  item.quantity ?? '-'),
                                               SizedBox(
                                                 height: rSize * 0.005,
                                               ),
@@ -256,15 +314,21 @@ class _PositionsState extends State<Positions> {
                                               SizedBox(
                                                 height: rSize * 0.005,
                                               ),
-                                              AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
-                                                'juhk5a4f' /* Amount */,
-                                              ), '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('$currency ${item.amount}', (double.tryParse(item.amount!)??0) == 0, 2)}'),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'juhk5a4f' /* Amount */,
+                                                  ),
+                                                  '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('$currency ${item.amount}', (double.tryParse(item.amount!) ?? 0) == 0, 2)}'),
                                               SizedBox(
                                                 height: rSize * 0.005,
                                               ),
-                                              AppWidgets.portfolioListElement(context, FFLocalizations.of(context).getText(
-                                                'xai3n31z' /* Allocation */,
-                                              ), item.allocation?.toString().replaceAll(' ', '') ?? '-'),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'xai3n31z' /* Allocation */,
+                                                  ),
+                                                  item.allocation?.toString().replaceAll(' ', '') ?? '-'),
                                               SizedBox(
                                                 height: rSize * 0.015,
                                               ),
@@ -292,20 +356,18 @@ class _PositionsState extends State<Positions> {
   }
 
   getIcon(double d) {
-    if(d==0){
+    if (d == 0) {
       return SizedBox();
-    }else if(d>0){
+    } else if (d > 0) {
       return FaIcon(
         FontAwesomeIcons.caretUp,
-        color: FlutterFlowTheme.of(context)
-            .customColor2,
+        color: FlutterFlowTheme.of(context).customColor2,
         size: 24.0,
       );
-    }else{
+    } else {
       return FaIcon(
         FontAwesomeIcons.caretDown,
-        color: FlutterFlowTheme.of(context)
-            .customColor3,
+        color: FlutterFlowTheme.of(context).customColor3,
         size: 24.0,
       );
     }

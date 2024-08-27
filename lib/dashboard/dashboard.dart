@@ -49,93 +49,88 @@ class _DashboardState extends State<Dashboard> {
     _controller = Provider.of<DashboardController>(context);
     return Scaffold(
       key: _scaffoldkey,
-      bottomNavigationBar: Stack(
-        children: [
-          Wrap(
-            children: [
-              Stack(
-                alignment: const AlignmentDirectional(0.0, 1.0),
-                children: [
-                  Image.asset(
-                    Theme.of(context).brightness == Brightness.dark
-                        ? 'assets/bgBottomNavDark.png'
-                        : 'assets/bgBottomNavLight.png',
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      bottombarCell(
-                          context,
-                          0,
-                          Icons.home_rounded,
-                          FFLocalizations.of(context).getText(
-                            'fiha8uf5' /* Home */,
+      /*bottomNavigationBar: Container(
+        color: Colors.transparent,
+        height: rSize * 0.12,
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Image.asset(
+              Theme.of(context).brightness == Brightness.dark
+                  ? 'assets/bgBottomNavDark.png'
+                  : 'assets/bgBottomNavLight.png',
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                bottombarCell(
+                    context,
+                    0,
+                    Icons.home_rounded,
+                    FFLocalizations.of(context).getText(
+                      'fiha8uf5' *//* Home *//*,
+                    )),
+                bottombarCell(
+                    context,
+                    1,
+                    Icons.bar_chart,
+                    FFLocalizations.of(context).getText(
+                      'xn2nrgyp' *//* Portfolio *//*,
+                    ),
+                    widget: _controller.selectedIndex == 1
+                        ? SvgPicture.asset(
+                            Theme.of(context).brightness == Brightness.dark ? 'assets/bar-chart-dark-theme.svg' : 'assets/bar_chart.svg',
+                            fit: BoxFit.contain,
+                          )
+                        : null),
+                SizedBox(
+                  width: rSize * 0.05,
+                ),
+                bottombarCell(
+                    context,
+                    2,
+                    Icons.home_rounded,
+                    FFLocalizations.of(context).getText(
+                      'nkifu7jq' *//* Proposal *//*,
+                    ),
+                    widget: _controller.selectedIndex == 2
+                        ? SvgPicture.asset(
+                            Theme.of(context).brightness == Brightness.dark
+                                ? 'assets/proposal-icon-new-dark-theme.svg'
+                                : 'assets/proposal-icon-new.svg',
+                            fit: BoxFit.contain,
+                          )
+                        : SvgPicture.asset(
+                            Theme.of(context).brightness == Brightness.dark
+                                ? 'assets/proposal-icon-new-unselected-dark-theme.svg'
+                                : 'assets/proposal-icon-new-unselected.svg',
+                            fit: BoxFit.contain,
                           )),
-                      bottombarCell(
-                          context,
-                          1,
-                          Icons.bar_chart,
-                          FFLocalizations.of(context).getText(
-                            'xn2nrgyp' /* Portfolio */,
-                          ),
-                          widget: _controller.selectedIndex == 1
-                              ? SvgPicture.asset(
-                                  Theme.of(context).brightness == Brightness.dark ? 'assets/bar-chart-dark-theme.svg' : 'assets/bar_chart.svg',
-                                  fit: BoxFit.contain,
-                                )
-                              : null),
-                      SizedBox(
-                        width: rSize * 0.05,
-                      ),
-                      bottombarCell(
-                          context,
-                          2,
-                          Icons.home_rounded,
-                          FFLocalizations.of(context).getText(
-                            'nkifu7jq' /* Proposal */,
-                          ),
-                          widget: _controller.selectedIndex == 2
-                              ? SvgPicture.asset(
-                                  Theme.of(context).brightness == Brightness.dark
-                                      ? 'assets/proposal-icon-new-dark-theme.svg'
-                                      : 'assets/proposal-icon-new.svg',
-                                  fit: BoxFit.contain,
-                                )
-                              : SvgPicture.asset(
-                                  Theme.of(context).brightness == Brightness.dark
-                                      ? 'assets/proposal-icon-new-unselected-dark-theme.svg'
-                                      : 'assets/proposal-icon-new-unselected.svg',
-                                  fit: BoxFit.contain,
-                                )),
-                      bottombarCell(
-                          context,
-                          3,
-                          Icons.account_circle_rounded,
-                          FFLocalizations.of(context).getText(
-                            'w5wtcpj4' /* Profile */,
-                          )),
-                    ],
-                  ),
-
-                ],
-              ),
-            ],
-          ),
-          Positioned(
-            // width: MediaQuery.of(context).size.width,
-            bottom: 30,
-            child: Align(
-                alignment: Alignment.center,
-                child: GestureDetector(
-                  onTap: () => showOptions(),
-                  child: Image.asset(
-                    'assets/app_launcher_icon.png',
-                    scale: 1.7,
-                  ),
-                )),
-          ),
-        ],
-      ),
+                bottombarCell(
+                    context,
+                    3,
+                    Icons.account_circle_rounded,
+                    FFLocalizations.of(context).getText(
+                      'w5wtcpj4' *//* Profile *//*,
+                    )),
+              ],
+            ),
+            Positioned(
+              // width: MediaQuery.of(context).size.width,
+              bottom: 30,
+              child: Align(
+                  alignment: Alignment.center,
+                  child: GestureDetector(
+                    onTap: () => showOptions(),
+                    child: Image.asset(
+                      'assets/app_launcher_icon.png',
+                      scale: 1.7,
+                    ),
+                  )),
+            ),
+          ],
+        ),
+      ),*/
       /*bottomNavigationBar: Container(
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -195,17 +190,118 @@ class _DashboardState extends State<Dashboard> {
       }),*/
       body: Container(
         decoration: AppStyles.commonBg(context),
-        child: PageView(
-          controller: controller,
-          physics: NeverScrollableScrollPhysics(),
-          children: const [
-            Home(),
-            Portfolio(),
-            // Market(),
-            Proposals(),
-            Profile(),
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 60.0),
+              child: PageView(
+                controller: controller,
+                physics: NeverScrollableScrollPhysics(),
+                children: const [
+                  Home(),
+                  Portfolio(),
+                  // Market(),
+                  Proposals(),
+                  Profile(),
+                ],
+                onPageChanged: (page) {},
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                color: Colors.transparent,
+                height: rSize * 0.12,
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      child: Image.asset(
+                        Theme.of(context).brightness == Brightness.dark
+                            ? 'assets/bgBottomNavDark.png'
+                            : 'assets/bgBottomNavLight.png',
+                        fit: BoxFit.cover,
+                        // width: 200,
+                      ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        bottombarCell(
+                            context,
+                            0,
+                            Icons.home_rounded,
+                            FFLocalizations.of(context).getText(
+                              'fiha8uf5' /* Home */,
+                            )),
+                        bottombarCell(
+                            context,
+                            1,
+                            Icons.bar_chart,
+                            FFLocalizations.of(context).getText(
+                              'xn2nrgyp' /* Portfolio */,
+                            ),
+                            widget: _controller.selectedIndex == 1
+                                ? SvgPicture.asset(
+                              Theme.of(context).brightness == Brightness.dark ? 'assets/bar-chart-dark-theme.svg' : 'assets/bar_chart.svg',
+                              fit: BoxFit.contain,
+                            )
+                                : null),
+                        SizedBox(
+                          width: rSize * 0.05,
+                        ),
+                        bottombarCell(
+                            context,
+                            2,
+                            Icons.home_rounded,
+                            FFLocalizations.of(context).getText(
+                              'nkifu7jq' /* Proposal */,
+                            ),
+                            widget: _controller.selectedIndex == 2
+                                ? SvgPicture.asset(
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? 'assets/proposal-icon-new-dark-theme.svg'
+                                  : 'assets/proposal-icon-new.svg',
+                              fit: BoxFit.contain,
+                            )
+                                : SvgPicture.asset(
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? 'assets/proposal-icon-new-unselected-dark-theme.svg'
+                                  : 'assets/proposal-icon-new-unselected.svg',
+                              fit: BoxFit.contain,
+                            )),
+                        bottombarCell(
+                            context,
+                            3,
+                            Icons.account_circle_rounded,
+                            FFLocalizations.of(context).getText(
+                              'w5wtcpj4' /* Profile */,
+                            )),
+                      ],
+                    ),
+                    Positioned(
+                      // width: MediaQuery.of(context).size.width,
+                      bottom: 30,
+                      child: Align(
+                          alignment: Alignment.center,
+                          child: GestureDetector(
+                            onTap: () => showOptions(),
+                            child: Image.asset(
+                              'assets/app_launcher_icon.png',
+                              scale: 1.7,
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+            )
           ],
-          onPageChanged: (page) {},
         ),
       ),
     );
@@ -217,40 +313,44 @@ class _DashboardState extends State<Dashboard> {
         _controller.changeIndex(index);
         controller.animateToPage(index, duration: Duration(milliseconds: 100), curve: Curves.easeInOut);
       },
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: rSize * 0.01,
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 10, bottom: 5),
-            width: _controller.iconSize,
-            height: _controller.iconSize,
-            decoration: const BoxDecoration(),
-            child: widget ??
-                Icon(
-                  iconData,
-                  color: _controller.selectedIndex != index ? FlutterFlowTheme.of(context).customColor5 : FlutterFlowTheme.of(context).primary,
-                  size: _controller.iconSize,
-                ),
-          ),
-          Text(
-            label,
-            maxLines: 1,
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
-                  color: FlutterFlowTheme.of(context).customColor5,
-                  fontSize: 14.0,
-                  letterSpacing: 0.0,
-                  lineHeight: 1.0,
-                ),
-          ),
-        ],
+      child: Expanded(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: rSize * 0.01,
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 10, bottom: isPortfolio(index)?10:5),
+              width: _controller.iconSize,
+              height: isPortfolio(index)?30:_controller.iconSize,
+              decoration: const BoxDecoration(),
+              child: widget ??
+                  Icon(
+                    iconData,
+                    color: _controller.selectedIndex != index ? FlutterFlowTheme.of(context).customColor5 : FlutterFlowTheme.of(context).primary,
+                    size: _controller.iconSize,
+                  ),
+            ),
+            Text(
+              label,
+              maxLines: 1,
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Roboto',
+                    color: FlutterFlowTheme.of(context).customColor5,
+                    fontSize: 14.0,
+                    letterSpacing: 0.0,
+                    lineHeight: 1.0,
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }
+
+  bool isPortfolio(int index) => _controller.selectedIndex==1 && index==1;
 
   void showOptions() {
     showDialog(

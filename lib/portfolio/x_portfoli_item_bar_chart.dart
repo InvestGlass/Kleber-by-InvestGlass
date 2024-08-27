@@ -54,12 +54,24 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
     super.initState();
     // _tooltipBehavior =
     //     TooltipBehavior(enable: true, header: '', canShowMarker: false);
-    _trackballBehavior = TrackballBehavior(
-      enable: true,
-      activationMode: ActivationMode.singleTap,
-      tooltipSettings: const InteractiveTooltip(format: 'point.x : point.y'),
-      builder: widget.showAmountWhenClickOnBar == true ? buildTrackBall : null,
-    );
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _trackballBehavior = TrackballBehavior(
+        enable: true,
+        activationMode: ActivationMode.singleTap,
+        tooltipSettings:  InteractiveTooltip(format: 'point.x : point.y',textStyle: FlutterFlowTheme.of(context).displaySmall.override(
+          fontFamily: 'Roboto',
+          color: Colors.black,
+          fontSize: 12.0,
+          letterSpacing: 0.0,
+          fontWeight: FontWeight.w500,
+        )),
+        builder: buildTrackBall ,
+      );
+      setState(() {
+
+      });
+    },);
+
   }
 
   @override
@@ -87,7 +99,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
       // height: 50,
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-        color: Color(0xFFFFFFFF), //FlutterFlowTheme.of(context).alternate,
+        color: FlutterFlowTheme.of(context).alternate,
         borderRadius: BorderRadius.all(Radius.circular(8.0)),
       ),
       child: Row(

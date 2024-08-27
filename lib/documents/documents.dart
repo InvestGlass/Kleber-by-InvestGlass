@@ -95,22 +95,12 @@ class _DocumentsState extends State<Documents> {
                 color: FlutterFlowTheme.of(context).primary,
               )),
           centerTitle: true),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
-        onPressed: () {
-          CommonFunctions.navigate(context, UploadDocument());
-        },
-        child: Icon(
-          Icons.add,
-          color: FlutterFlowTheme.of(context).secondaryBackground,
-        ),
-      ),
       body: Container(
         decoration: AppStyles.commonBg(context),
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: rSize * 0.05, vertical: rSize * 0.01),
+              padding: EdgeInsets.symmetric(horizontal: rSize * 0.03, vertical: rSize * 0.01),
               child: Row(
                 children: [
                   cell(
@@ -120,10 +110,10 @@ class _DocumentsState extends State<Documents> {
                     )}',
                     () {
                       openFilterDialog();
-                    },
+                    },25
                   ),
                   SizedBox(
-                    width: rSize * 0.03,
+                    width: rSize * 0.015,
                   ),
                   cell(
                     'sort.png',
@@ -132,7 +122,19 @@ class _DocumentsState extends State<Documents> {
                     )}',
                     () {
                       openSortBottomSheet();
-                    },
+                    },25
+                  ),
+                  SizedBox(
+                    width: rSize * 0.015,
+                  ),
+                  cell(
+                    'plus.png',
+                    '  ${FFLocalizations.of(context).getText(
+                      't2nv4kvj' /* upload */,
+                    )}',
+                    () {
+                      CommonFunctions.navigate(context, UploadDocument());
+                    },35
                   ),
                 ],
               ),
@@ -193,36 +195,58 @@ class _DocumentsState extends State<Documents> {
                                       ),
                                 ),
                                 if (item.documentStatus == 'Approved') ...{
-                                  Text(
-                                    '${FFLocalizations.of(context).getText(
-                                      'ktrsz8sp' /* Accepted at */,
-                                    )} ${DateFormat(
-                                      'yyyy-MM-dd HH:mm',
-                                      FFLocalizations.of(context).languageCode,
-                                    ).format(item.approvedAt!)}',
-                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.done_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .customColor2,
+                                        size: 24.0,
+                                      ),
+                                      Text(
+                                        '${FFLocalizations.of(context).getText(
+                                          'ktrsz8sp' /* Accepted at */,
+                                        )} ${DateFormat(
+                                          'yyyy-MM-dd HH:mm',
+                                          FFLocalizations.of(context).languageCode,
+                                        ).format(item.approvedAt!)}',
+                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Roboto',
                                           color: FlutterFlowTheme.of(context).customColor2,
                                           fontSize: 16.0,
                                           letterSpacing: 0.0,
                                         ),
+                                      )
+                                    ],
                                   )
+
                                 },
                                 if (item.documentStatus == 'Rejected') ...{
-                                  Text(
-                                    '${FFLocalizations.of(context).getText(
-                                      '5tjloy3c' /* Rejected at */,
-                                    )} ${DateFormat(
-                                      'yyyy-MM-dd HH:mm',
-                                      FFLocalizations.of(context).languageCode,
-                                    ).format(item.disapprovedAt!)}',
-                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.close_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .customColor3,
+                                        size: 24.0,
+                                      ),
+                                      Text(
+                                        '${FFLocalizations.of(context).getText(
+                                          '5tjloy3c' /* Rejected at */,
+                                        )} ${DateFormat(
+                                          'yyyy-MM-dd HH:mm',
+                                          FFLocalizations.of(context).languageCode,
+                                        ).format(item.disapprovedAt!)}',
+                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Roboto',
                                           color: FlutterFlowTheme.of(context).customColor3,
                                           fontSize: 16.0,
                                           letterSpacing: 0.0,
                                         ),
+                                      )
+                                    ],
                                   )
+
                                 },
                               ],
                             )),
@@ -250,7 +274,7 @@ class _DocumentsState extends State<Documents> {
     );
   }
 
-  Expanded cell(String img, String label, void Function()? onTap) {
+  Expanded cell(String img, String label, void Function()? onTap,double scale) {
     return Expanded(
         child: GestureDetector(
       onTap: onTap,
@@ -263,7 +287,7 @@ class _DocumentsState extends State<Documents> {
             Image.asset(
               'assets/$img',
               color: FlutterFlowTheme.of(context).secondaryBackground,
-              scale: 25,
+              scale: scale,
             ),
             Text(
               label,
@@ -661,7 +685,7 @@ class _DocumentsState extends State<Documents> {
       padding: EdgeInsets.zero,
       // surfaceTintColor: Colors.white,
       position: PopupMenuPosition.under,
-      color: FlutterFlowTheme.of(context).secondaryText,
+      color: FlutterFlowTheme.of(context).alternate,
       itemBuilder: (context) => [
         popupMenuItem(
             1,

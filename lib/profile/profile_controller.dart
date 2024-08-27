@@ -3,7 +3,7 @@ import 'package:kleber_bank/utils/api_calls.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 
 class ProfileController extends ChangeNotifier{
-  bool hideCurrentPwd=true,hideNewPwd=true,hideConfirmNewPwd=true;
+  bool showCurrentPwd=false,showNewPwd=false,showConfirmNewPwd=false;
   TextEditingController
   currentPwdController=TextEditingController(),
   newPwdController=TextEditingController(),
@@ -12,17 +12,17 @@ class ProfileController extends ChangeNotifier{
   var selectedLanguage=0;
 
   void changeCurrentPwdVisibilityStatus(){
-    hideCurrentPwd=!hideCurrentPwd;
+    showCurrentPwd=!showCurrentPwd;
     notifyListeners();
   }
 
   void changeNewPwdVisibilityStatus(){
-    hideNewPwd=!hideNewPwd;
+    showNewPwd=!showNewPwd;
     notifyListeners();
   }
 
   void changeConfirmNewPwdVisibilityStatus(){
-    hideConfirmNewPwd=!hideConfirmNewPwd;
+    showConfirmNewPwd=!showConfirmNewPwd;
     notifyListeners();
   }
 

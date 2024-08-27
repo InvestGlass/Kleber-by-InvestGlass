@@ -3,7 +3,9 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kleber_bank/proposals/proposal_controller.dart';
 import 'package:kleber_bank/proposals/proposal_model.dart';
 import 'package:kleber_bank/proposals/view_document.dart';
+import 'package:kleber_bank/proposals/view_proposal.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
+import 'package:kleber_bank/utils/searchable_dropdown.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -24,28 +26,30 @@ class Proposals extends StatefulWidget {
 
 class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixin {
   late ProposalController _notifier;
-  final PagingController<int, ProposalModel> _pagingController = PagingController(firstPageKey: 1);
   int _pageKey = 1;
 
   @override
   void initState() {
-    _pagingController.addPageRequestListener((pageKey) {
-      _fetchPageActivity();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
+    },);
+    ProposalController notifier = Provider.of<ProposalController>(context, listen: false);
+    notifier.pagingController.addPageRequestListener((pageKey) {
+      _fetchPageActivity(notifier);
     });
     super.initState();
   }
 
-  Future<void> _fetchPageActivity() async {
-    ProposalController notifier = Provider.of(context, listen: false);
-    notifier.getProposalTypes();
+  Future<void> _fetchPageActivity(ProposalController notifier) async {
+    notifier.getProposalTypes(context);
     List<ProposalModel> list = await ApiCalls.getProposalList(
-        _pageKey, notifier.proposalName!, notifier.advisorName!, notifier.selectedProposalType, notifier.column, notifier.direction);
+        _pageKey, notifier.proposalName!, notifier.advisorName!, notifier.selectedProposalType, notifier.column, notifier.direction,context);
     final isLastPage = list.length < 10;
     if (isLastPage) {
-      _pagingController.appendLastPage(list);
+      notifier.pagingController.appendLastPage(list);
     } else {
       _pageKey++;
-      _pagingController.appendPage(list, _pageKey);
+      notifier.pagingController.appendPage(list, _pageKey);
     }
   }
 
@@ -57,7 +61,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: rSize * 0.05, right: rSize * 0.05, bottom: rSize * 0.02, top: rSize * 0.055),
+            padding: EdgeInsets.only(left: rSize * 0.05, right: rSize * 0.05, bottom: rSize * 0.02, top: rSize*0.04),
             child: Row(
               children: [
                 cell(
@@ -88,10 +92,10 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
             child: RefreshIndicator(
               onRefresh: () async {
                 _pageKey = 1;
-                _pagingController.refresh();
+                _notifier.pagingController.refresh();
               },
               child: PagedListView<int, ProposalModel>(
-                pagingController: _pagingController,
+                pagingController: _notifier.pagingController,
                 // shrinkWrap: true,
                 padding: EdgeInsets.symmetric(horizontal: rSize * 0.015),
                 builderDelegate: PagedChildBuilderDelegate<ProposalModel>(noItemsFoundIndicatorBuilder: (context) {
@@ -100,6 +104,9 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                   String date = DateFormat('yyyy-MM-dd HH:mm').format(item.updatedAt!);
                   return Card(
                     margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     child: ListView(
                       shrinkWrap: true,
@@ -152,237 +159,233 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                               ListView(
                                 shrinkWrap: true,
                                 children: [
-                                  SizedBox(
-                                    height: rSize * 0.01,
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: AppColors.kViolate.withOpacity(0.2),
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    padding: EdgeInsets.all(rSize * 0.015),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          item.advisor?.name ?? '',
-                                          textAlign: TextAlign.end,
-                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                fontFamily: 'Roboto',
-                                                color: FlutterFlowTheme.of(context).primaryText,
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                        ),
-                                        SizedBox(
-                                          height: rSize * 0.005,
-                                        ),
-                                        AppWidgets.portfolioListElement(
-                                            context,
-                                            FFLocalizations.of(context).getText(
-                                              '99qsbuko' /* Last update */,
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item.advisor?.name ?? '',
+                                        textAlign: TextAlign.end,
+                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                              fontFamily: 'Roboto',
+                                              color: FlutterFlowTheme.of(context).primaryText,
+                                              fontSize: 16.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.normal,
                                             ),
-                                            date),
-                                        SizedBox(
-                                          height: rSize * 0.01,
-                                        ),
-                                        GestureDetector(
-                                            onTap: () => CommonFunctions.navigate(context, ViewDocument(item.documentId!,true)),
-                                            child: AppWidgets.btn(
-                                                context,
-                                                FFLocalizations.of(context).getText(
-                                                  'ke604v9b' /* Read proposal */,
-                                                ),
-                                                bgColor: FlutterFlowTheme.of(context).primary)),
-                                        SizedBox(
-                                          height: rSize * 0.01,
-                                        ),
-                                        Row(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            Checkbox(
-                                              value: item.state != 'Pending' || item.isChecked,
-                                              activeColor: FlutterFlowTheme.of(context).primary,
-                                              side: BorderSide(
-                                                width: 2,
-                                                color: FlutterFlowTheme.of(context).secondaryText,
+                                      ),
+                                      SizedBox(
+                                        height: rSize * 0.005,
+                                      ),
+                                      AppWidgets.portfolioListElement(
+                                          context,
+                                          FFLocalizations.of(context).getText(
+                                            '99qsbuko' /* Last update */,
+                                          ),
+                                          date),
+                                      SizedBox(
+                                        height: rSize * 0.01,
+                                      ),
+                                      GestureDetector(
+                                          onTap: () => CommonFunctions.navigate(context, ViewProposal(item.documentId!,showAcceptReject: item.state == 'Pending',index: index,item: item,)),
+                                          child: AppWidgets.btn(
+                                              context,
+                                              FFLocalizations.of(context).getText(
+                                                'ke604v9b' /* Read proposal */,
                                               ),
-                                              checkColor: !((item.state != 'Rejected') && (item.state != 'Accepted'))
-                                                  ? FlutterFlowTheme.of(context).secondaryBackground
-                                                  : FlutterFlowTheme.of(context).info,
-                                              onChanged: (value) {
-                                                if (item.state == 'Pending') {
-                                                  item.isChecked = !item.isChecked;
-                                                  setState(() {});
-                                                }
-                                              },
+                                              bgColor: FlutterFlowTheme.of(context).primary)),
+                                      SizedBox(
+                                        height: rSize * 0.01,
+                                      ),
+                                      Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Checkbox(
+                                            value: item.state != 'Pending' || item.isChecked,
+                                            activeColor: FlutterFlowTheme.of(context).primary,
+                                            side: BorderSide(
+                                              width: 2,
+                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                            ),
+                                            checkColor: !((item.state != 'Rejected') && (item.state != 'Accepted'))
+                                                ? FlutterFlowTheme.of(context).secondaryBackground
+                                                : FlutterFlowTheme.of(context).info,
+                                            onChanged: (value) {
+                                              if (item.state == 'Pending') {
+                                                item.isChecked = !item.isChecked;
+                                                setState(() {});
+                                              }
+                                            },
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              FFLocalizations.of(context).getText(
+                                                'prtogarh' /* I read the documents and agree... */,
+                                              ),
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                    fontFamily: 'Roboto',
+                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                    fontSize: 16.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.normal,
+                                                  ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: rSize * 0.01,
+                                      ),
+                                      if (item.state == 'Pending') ...{
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: rSize * 0.02,
                                             ),
                                             Expanded(
-                                              child: Text(
-                                                FFLocalizations.of(context).getText(
-                                                  'prtogarh' /* I read the documents and agree... */,
-                                                ),
-                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                      fontFamily: 'Roboto',
-                                                      color: FlutterFlowTheme.of(context).primaryText,
-                                                      fontSize: 16.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight: FontWeight.normal,
-                                                    ),
-                                              ),
-                                            )
+                                                child: GestureDetector(
+                                              onTap: () => AppWidgets.showAlert(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'decline_proposal' /* Decline Proposal*/,
+                                                  ),
+                                                  FFLocalizations.of(context).getText(
+                                                    's1jcpzx6' /*cancel*/,
+                                                  ),
+                                                  FFLocalizations.of(context).getText(
+                                                    'bdc48oru' /*confirm*/,
+                                                  ), () {
+                                                Navigator.pop(context);
+                                              }, () {
+                                                _notifier.updateState('rejected',  item.id, index, context,);
+                                              },
+                                                  btn1BgColor: FlutterFlowTheme.of(context).customColor3,
+                                                  btn2BgColor: FlutterFlowTheme.of(context).customColor2),
+                                              child: AppWidgets.btnWithIcon(
+                                                  context,
+                                                  '  ${FFLocalizations.of(context).getText(
+                                                    'j0hr735r' /* Decline*/,
+                                                  )}',
+                                                  FlutterFlowTheme.of(context).customColor3,
+                                                  Icon(
+                                                    Icons.close,
+                                                    color: Colors.white,
+                                                  )),
+                                            )),
+                                            SizedBox(
+                                              width: rSize * 0.02,
+                                            ),
+                                            Expanded(
+                                                child: GestureDetector(
+                                              onTap: () => AppWidgets.showAlert(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'accept_proposal' /* accept Proposal*/,
+                                                  ),
+                                                  FFLocalizations.of(context).getText(
+                                                    's1jcpzx6' /*cancel*/,
+                                                  ),
+                                                  FFLocalizations.of(context).getText(
+                                                    'bdc48oru' /*confirm*/,
+                                                  ), () {
+                                                Navigator.pop(context);
+                                              }, () {
+                                                _notifier.updateState('accepted', item.id, index, context);
+                                              },
+                                                  btn1BgColor: FlutterFlowTheme.of(context).customColor3,
+                                                  btn2BgColor: FlutterFlowTheme.of(context).customColor2),
+                                              child: AppWidgets.btnWithIcon(
+                                                  context,
+                                                  '  ${FFLocalizations.of(context).getText(
+                                                    '3esw1ind' /* Accept */,
+                                                  )}',
+                                                  FlutterFlowTheme.of(context).customColor2,
+                                                  Icon(
+                                                    Icons.done,
+                                                    color: Colors.white,
+                                                  )),
+                                            )),
+                                            SizedBox(
+                                              width: rSize * 0.02,
+                                            ),
                                           ],
-                                        ),
-                                        SizedBox(
-                                          height: rSize * 0.01,
-                                        ),
-                                        if (item.state == 'Pending') ...{
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: rSize * 0.02,
-                                              ),
-                                              Expanded(
-                                                  child: GestureDetector(
-                                                onTap: () => AppWidgets.showAlert(
-                                                    context,
-                                                    FFLocalizations.of(context).getText(
-                                                      'decline_proposal' /* Decline Proposal*/,
-                                                    ),
-                                                    FFLocalizations.of(context).getText(
-                                                      's1jcpzx6' /*cancel*/,
-                                                    ),
-                                                    FFLocalizations.of(context).getText(
-                                                      'bdc48oru' /*confirm*/,
-                                                    ), () {
-                                                  Navigator.pop(context);
-                                                }, () {
-                                                  _notifier.updateState('rejected', _pagingController, item.id, index, context,);
-                                                },
-                                                    btn1BgColor: FlutterFlowTheme.of(context).customColor3,
-                                                    btn2BgColor: FlutterFlowTheme.of(context).customColor2),
-                                                child: AppWidgets.btnWithIcon(
-                                                    context,
-                                                    '  ${FFLocalizations.of(context).getText(
-                                                      'j0hr735r' /* Decline*/,
-                                                    )}',
-                                                    FlutterFlowTheme.of(context).customColor3,
-                                                    Icon(
-                                                      Icons.close,
-                                                      color: Colors.white,
-                                                    )),
-                                              )),
-                                              SizedBox(
-                                                width: rSize * 0.02,
-                                              ),
-                                              Expanded(
-                                                  child: GestureDetector(
-                                                onTap: () => AppWidgets.showAlert(
-                                                    context,
-                                                    FFLocalizations.of(context).getText(
-                                                      'accept_proposal' /* accept Proposal*/,
-                                                    ),
-                                                    FFLocalizations.of(context).getText(
-                                                      's1jcpzx6' /*cancel*/,
-                                                    ),
-                                                    FFLocalizations.of(context).getText(
-                                                      'bdc48oru' /*confirm*/,
-                                                    ), () {
-                                                  Navigator.pop(context);
-                                                }, () {
-                                                  _notifier.updateState('accepted', _pagingController, item.id, index, context);
-                                                },
-                                                    btn1BgColor: FlutterFlowTheme.of(context).customColor3,
-                                                    btn2BgColor: FlutterFlowTheme.of(context).customColor2),
-                                                child: AppWidgets.btnWithIcon(
-                                                    context,
-                                                    '  ${FFLocalizations.of(context).getText(
-                                                      '3esw1ind' /* Accept */,
-                                                    )}',
-                                                    FlutterFlowTheme.of(context).customColor2,
-                                                    Icon(
-                                                      Icons.done,
-                                                      color: Colors.white,
-                                                    )),
-                                              )),
-                                              SizedBox(
-                                                width: rSize * 0.02,
-                                              ),
-                                            ],
-                                          )
-                                        } else if (item.state == 'Accepted') ...{
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              const Icon(Icons.done, color: Colors.green, size: 20),
-                                              Text(
-                                                '  ${FFLocalizations.of(context).getText(
-                                                  'c64nnx2a' /* Accepted at  */,
-                                                )} $date',
-                                                style: AppStyles.c3C496CW400S14.copyWith(color: Colors.green),
-                                              ),
-                                            ],
-                                          )
-                                        } else ...{
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              const Icon(
-                                                Icons.close,
-                                                color: Colors.red,
-                                                size: 20,
-                                              ),
-                                              Text(
-                                                '  ${FFLocalizations.of(context).getText(
-                                                  '5tjloy3c' /* Rejected at */,
-                                                )} $date',
-                                                style: AppStyles.c3C496CW400S14.copyWith(color: Colors.red),
-                                              ),
-                                            ],
-                                          )
-                                        },
-                                        SizedBox(
-                                          height: rSize * 0.025,
-                                        ),
-                                        proposalElement('   ${FFLocalizations.of(context).getText(
-                                          'fbk0uba7' /* Call your advisor */,
-                                        )}', Icons.call,() async {
-                                          await launchUrl(Uri(
-                                            scheme: 'tel',
-                                            path: item.advisor?.phoneOffice,
-                                          ));
-                                        },),
-                                        SizedBox(
-                                          height: rSize * 0.01,
-                                        ),
-                                        AppWidgets.divider(context),
-                                        SizedBox(
-                                          height: rSize * 0.01,
-                                        ),
-                                        proposalElement('   ${FFLocalizations.of(context).getText(
-                                          'pkkj5rta' /* Chat with your Advisor */,
-                                        )}', Icons.chat_outlined,() {
+                                        )
+                                      } else if (item.state == 'Accepted') ...{
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.done_rounded,
+                                              color: FlutterFlowTheme.of(context)
+                                                  .customColor2,
+                                              size: 24.0,
+                                            ),
+                                            Text(
+                                              '  ${FFLocalizations.of(context).getText(
+                                                'c64nnx2a' /* Accepted at  */,
+                                              )} $date',
+                                              style: AppStyles.c3C496CW400S14.copyWith(color: Colors.green),
+                                            ),
+                                          ],
+                                        )
+                                      } else ...{
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.close_rounded,
+                                              color: FlutterFlowTheme.of(context)
+                                                  .customColor3,
+                                              size: 24.0,
+                                            ),
+                                            Text(
+                                              '  ${FFLocalizations.of(context).getText(
+                                                '5tjloy3c' /* Rejected at */,
+                                              )} $date',
+                                              style: AppStyles.c3C496CW400S14.copyWith(color: Colors.red),
+                                            ),
+                                          ],
+                                        )
+                                      },
+                                      SizedBox(
+                                        height: rSize * 0.025,
+                                      ),
+                                      proposalElement('   ${FFLocalizations.of(context).getText(
+                                        'fbk0uba7' /* Call your advisor */,
+                                      )}', Icons.call,() async {
+                                        await launchUrl(Uri(
+                                          scheme: 'tel',
+                                          path: item.advisor?.phoneOffice,
+                                        ));
+                                      },),
+                                      /*SizedBox(
+                                        height: rSize * 0.01,
+                                      ),
+                                      AppWidgets.divider(context),
+                                      SizedBox(
+                                        height: rSize * 0.01,
+                                      ),
+                                      proposalElement('   ${FFLocalizations.of(context).getText(
+                                        'pkkj5rta' *//* Chat with your Advisor *//*,
+                                      )}', Icons.chat_outlined,() {
 
-                                        },),
-                                        SizedBox(
-                                          height: rSize * 0.01,
-                                        ),
-                                        AppWidgets.divider(context),
-                                        SizedBox(
-                                          height: rSize * 0.01,
-                                        ),
-                                        proposalElement('   ${FFLocalizations.of(context).getText(
-                                          'lq59qmsn' ,
-                                        )}', Icons.calendar_month,() {
+                                      },),
+                                      SizedBox(
+                                        height: rSize * 0.01,
+                                      ),
+                                      AppWidgets.divider(context),
+                                      SizedBox(
+                                        height: rSize * 0.01,
+                                      ),
+                                      proposalElement('   ${FFLocalizations.of(context).getText(
+                                        'lq59qmsn' ,
+                                      )}', Icons.calendar_month,() {
 
-                                        },),
-                                        SizedBox(
-                                          height: rSize * 0.01,
-                                        ),
-                                        AppWidgets.divider(context),
-                                      ],
-                                    ),
+                                      },),
+                                      SizedBox(
+                                        height: rSize * 0.01,
+                                      ),
+                                      AppWidgets.divider(context),*/
+                                    ],
                                   ),
                                 ],
                               ),
@@ -413,7 +416,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setState) {
-            Provider.of<ProposalController>(context, listen: false).getProposalTypes();
+            Provider.of<ProposalController>(context, listen: false).getProposalTypes(context);
             _notifier = Provider.of<ProposalController>(context);
             return Wrap(
               children: [
@@ -529,28 +532,24 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                     SizedBox(
                       height: rSize * 0.01,
                     ),
-                    DropdownButtonFormField(
-                        decoration: AppStyles.dropDownInputDecoration(context, AppWidgets.textFieldLabel('')),
-                        isExpanded: true,
-                        icon: AppWidgets.dropDownIcon(),
-                        style: FlutterFlowTheme.of(context).displaySmall.override(
+                    SearchableDropdown(selectedValue: selectedProposal, searchHint: '', onChanged: (p0) {
+                      selectedProposal = p0;
+                    }, items: _notifier.typesList
+                        .map((item) => DropdownMenuItem(
+                      value: item,
+                      child: Text(
+                        item,
+                        style: FlutterFlowTheme.of(context).bodySmall.override(
                           fontFamily: 'Roboto',
                           color: FlutterFlowTheme.of(context).primaryText,
-                          fontSize: 16.0,
+                          fontSize: 14.0,
                           letterSpacing: 0.0,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.normal,
                         ),
-                        isDense: true,
-                        value: selectedProposal,
-                        onChanged: (value) {
-                          selectedProposal = value;
-                        },dropdownColor: FlutterFlowTheme.of(context).secondaryText,
-                        items: _notifier.typesList
-                            .map(
-                              (String item) => DropdownMenuItem<String>(value: item, child: AppWidgets.dropDownHint(context, item)),
-                        )
-                            .toList(),
-                        hint: AppWidgets.dropDownHint(context, '')),
+                      ),
+                    ))
+                        .toList(), searchMatchFn: (item, searchValue) => CommonFunctions.compare(searchValue, item.value.toString()))
+                    ,
                     SizedBox(
                       height: rSize * 0.02,
                     ),
@@ -563,7 +562,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                 _notifier.proposalName = '';
                                 _notifier.selectedProposalType = null;
                                 _pageKey = 1;
-                                _pagingController.refresh();
+                                _notifier.pagingController.refresh();
                                 Navigator.pop(context);
                               },
                               child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
@@ -587,7 +586,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                 _notifier.selectedFilterList.add(FilterModel(_notifier.advisorName!, FilterTypes.ADVISOR.name));
                                 _notifier.selectedFilterList.add(FilterModel(_notifier.proposalName!, FilterTypes.PROPOSAL_NAME.name));
                                 _notifier.selectedFilterList.add(FilterModel(_notifier.selectedProposalType!, FilterTypes.PROPOSAL_TYPE.name));
-                                _pagingController.refresh();
+                                _notifier.pagingController.refresh();
                                 Navigator.pop(context);
                               },
                               child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
@@ -609,6 +608,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
   void openSortBottomSheet() {
     showModalBottomSheet(
       isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       context: context,
       builder: (context) {
         return StatefulBuilder(
@@ -684,7 +684,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
               );
               _notifier.selectedFilterList.add(FilterModel(_notifier.sortList[value], FilterTypes.SORT.name));
               _pageKey = 1;
-              _pagingController.refresh();
+              _notifier.pagingController.refresh();
               Navigator.pop(context);
             },
           ),

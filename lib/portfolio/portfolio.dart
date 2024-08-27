@@ -64,7 +64,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
         child: PagedListView<int, PortfolioModel>(
           pagingController: pagingController,
           // shrinkWrap: true,
-          padding: EdgeInsets.only(top: 70),
+          padding: EdgeInsets.only(top: rSize*0.04),
           builderDelegate: PagedChildBuilderDelegate<PortfolioModel>(noItemsFoundIndicatorBuilder: (context) {
             return const SizedBox();
           }, itemBuilder: (context, item, index) {
@@ -90,12 +90,11 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                   fontWeight: FontWeight.w500,
                                 ),
                           )),
-                          if (_notifier.selectedIndex != index) ...{
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  FFLocalizations.of(context).getText(
+                                  _notifier.selectedIndex == index?'':FFLocalizations.of(context).getText(
                                     '83o1ghax' /* Net Value */,
                                   ),
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -107,7 +106,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                       ),
                                 ),
                                 Text(
-                                  item.netValue ?? '',
+                                  _notifier.selectedIndex == index?'':item.netValue ?? '',
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
                                         color: FlutterFlowTheme.of(context).primaryText,
@@ -118,7 +117,6 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                 ),
                               ],
                             ),
-                          },
                           SizedBox(
                             width: rSize * 0.015,
                           ),

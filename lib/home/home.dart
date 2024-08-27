@@ -12,6 +12,7 @@ import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:provider/provider.dart';
 import 'package:swipe_cards/draggable_card.dart';
 import 'package:swipe_cards/swipe_cards.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/flutter_flow_swipeable_stack.dart';
 import '../utils/flutter_flow_theme.dart';
@@ -62,10 +63,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
       body: Container(
         decoration: AppStyles.commonBg(context),
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.02),
+          padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.04),
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(15.0, 20.0, 0.0, 10.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 10.0),
               child: Text(
                 FFLocalizations.of(context).getText(
                   'ran9xdwl' /* Popular */,
@@ -87,80 +88,88 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                 itemCount: _notifier.popularNewsList.length,
                 itemBuilder: (context, index) {
                   HomeNewsModel model = _notifier.popularNewsList[index];
-                  return Card(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                          child: Image.network(
-                            model.imageUrl ?? '',
-                            height: rSize * 0.15,
-                            width: rSize * 0.28,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Image.asset('assets/items_default.jpg', height: rSize * 0.15, width: rSize * 0.28, fit: BoxFit.cover);
-                            },
+                  return GestureDetector(
+                    onTap: () async {
+                      final Uri url = Uri.parse(_notifier.popularNewsList[index].link!);
+                      if (!await launchUrl(url)) {
+                      throw Exception('Could not launch $url');
+                      }
+                    },
+                    child: Card(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                            child: Image.network(
+                              model.imageUrl ?? '',
+                              height: rSize * 0.15,
+                              width: rSize * 0.28,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Image.asset('assets/items_default.jpg', height: rSize * 0.15, width: rSize * 0.28, fit: BoxFit.cover);
+                              },
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  width: rSize * 0.27,
-                                  margin: EdgeInsets.only(top: rSize * 0.005),
-                                  alignment: Alignment.centerLeft,
-                                  child: AutoSizeText(
-                                    model.title ?? '',
-                                    maxLines: 2,
-                                    minFontSize: 12.0,
-                                    style: FlutterFlowTheme.of(context).titleMedium.override(
-                                          fontFamily: 'Roboto',
-                                          color: FlutterFlowTheme.of(context).primaryText,
-                                          fontSize: 18.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,
-                                          lineHeight: 1.2,
-                                        ),
-                                  )),
-                              SizedBox(
-                                height: rSize * 0.01,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).customColor1,
-                                  borderRadius: BorderRadius.circular(24.0),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    width: rSize * 0.27,
+                                    margin: EdgeInsets.only(top: rSize * 0.005),
+                                    alignment: Alignment.centerLeft,
+                                    child: AutoSizeText(
+                                      model.title ?? '',
+                                      maxLines: 2,
+                                      minFontSize: 12.0,
+                                      style: FlutterFlowTheme.of(context).titleMedium.override(
+                                            fontFamily: 'Roboto',
+                                            color: FlutterFlowTheme.of(context).primaryText,
+                                            fontSize: 18.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w500,
+                                            lineHeight: 1.2,
+                                          ),
+                                    )),
+                                SizedBox(
+                                  height: rSize * 0.01,
                                 ),
-                                child: Align(
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 5.0),
-                                    child: Container(
-                                      height: 12.0,
-                                      decoration: const BoxDecoration(),
-                                      child: AutoSizeText(
-                                        DateFormat('yyyy-MM-dd').format(model.date ?? DateTime.now()),
-                                        minFontSize: 1.0,
-                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                              fontFamily: 'Roboto',
-                                              color: FlutterFlowTheme.of(context).info,
-                                              fontSize: 12.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w600,
-                                              lineHeight: 1.0,
-                                            ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context).customColor1,
+                                    borderRadius: BorderRadius.circular(24.0),
+                                  ),
+                                  child: Align(
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 5.0),
+                                      child: Container(
+                                        height: 12.0,
+                                        decoration: const BoxDecoration(),
+                                        child: AutoSizeText(
+                                          DateFormat('yyyy-MM-dd').format(model.date ?? DateTime.now()),
+                                          minFontSize: 1.0,
+                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                fontFamily: 'Roboto',
+                                                color: FlutterFlowTheme.of(context).info,
+                                                fontSize: 12.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                                lineHeight: 1.0,
+                                              ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 },

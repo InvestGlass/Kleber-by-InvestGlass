@@ -9,11 +9,12 @@ import '../utils/internationalization.dart';
 class ProposalController extends ChangeNotifier {
   int selectedIndex = -1;
 
-  int selectedSortIndex = -1;
+  int selectedSortIndex = 0;
   String? selectedProposalType, advisorName = '', proposalName = '';
-  String direction = '', column = '';
+  String direction = 'desc', column = 'created_at';
   List<String> sortList = ['Newest', 'Oldest', 'A-Z', 'Z-A'];
   List<FilterModel> selectedFilterList = [];
+  final PagingController<int, ProposalModel> pagingController = PagingController(firstPageKey: 1);
 
 
   selectTransactionIndex(int index) {
@@ -27,11 +28,10 @@ class ProposalController extends ChangeNotifier {
 
   void updateState(
     String state,
-    PagingController<int, ProposalModel> pagingController,
     int? id,
     int index,
     BuildContext context,
-  ) {
+      {Function? onUpdateStatus}) {
     if(!pagingController.itemList![index].isChecked){
       CommonFunctions.showToast(FFLocalizations.of(context).getText(
         'agree_checkbox',
@@ -42,9 +42,12 @@ class ProposalController extends ChangeNotifier {
     ApiCalls.updateProposalState(id!, state).then(
       (value) {
         CommonFunctions.dismissLoader(context);
+        Navigator.pop(context);
         if (value != null) {
+          if (onUpdateStatus!=null) {
+            onUpdateStatus(value);
+          }
           pagingController.itemList![index] = value;
-          Navigator.pop(context);
           notifyListeners();
         }
       },
@@ -53,11 +56,14 @@ class ProposalController extends ChangeNotifier {
 
   List<String> typesList = [];
 
-  void getProposalTypes() {
+  void getProposalTypes(BuildContext context) {
     if (typesList.isEmpty) {
       ApiCalls.getProposalTypeList().then(
         (value) {
           typesList = value;
+          typesList.insert(0,FFLocalizations.of(context).getText(
+            'n93guv4x' /* All */,
+          ));
           notifyListeners();
         },
       );

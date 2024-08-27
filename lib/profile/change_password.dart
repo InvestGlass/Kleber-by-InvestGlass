@@ -45,7 +45,6 @@ class _ChangePasswordState extends State<ChangePassword> {
         child: Form(
           key: _formKey,
           child: ListView(
-            shrinkWrap: true,
             padding: EdgeInsets.symmetric(vertical: rSize * 0.02, horizontal: rSize * 0.015),
             children: [
               Padding(
@@ -67,7 +66,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 style: FlutterFlowTheme.of(context).bodyLarge.override(
                       fontFamily: 'Roboto',
                       letterSpacing: 0.0,
-                    ),
+                    ),obscureText:_notifier.showCurrentPwd,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Required';
@@ -83,7 +82,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         _notifier.changeCurrentPwdVisibilityStatus();
                       },
                       child:
-                          Icon(_notifier.hideCurrentPwd ? Icons.visibility : Icons.visibility_off, color: FlutterFlowTheme.of(context).primaryText)),
+                          Icon(!_notifier.showCurrentPwd ? Icons.visibility : Icons.visibility_off, color: FlutterFlowTheme.of(context).primaryText)),
                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                   contentPadding: EdgeInsets.all(15),
                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
@@ -121,15 +120,17 @@ class _ChangePasswordState extends State<ChangePassword> {
                       fontFamily: 'Roboto',
                       letterSpacing: 0.0,
                     ),
-                obscureText: _notifier.hideNewPwd,
+                obscureText: _notifier.showNewPwd,
                 decoration: AppStyles.inputDecoration(
-                  context,
+                  context,hint: FFLocalizations.of(context).getText(
+                  '2l6qayo4' /* New password */,
+                ),
                   contentPadding: EdgeInsets.all(15),
                   suffix: GestureDetector(
                       onTap: () {
                         _notifier.changeNewPwdVisibilityStatus();
                       },
-                      child: Icon(_notifier.hideNewPwd ? Icons.visibility : Icons.visibility_off, color: FlutterFlowTheme.of(context).primaryText)),
+                      child: Icon(!_notifier.showNewPwd ? Icons.visibility : Icons.visibility_off, color: FlutterFlowTheme.of(context).primaryText)),
                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                         fontFamily: 'Roboto',
@@ -166,14 +167,17 @@ class _ChangePasswordState extends State<ChangePassword> {
                     );
                   }
                 },
-                obscureText: _notifier.hideConfirmNewPwd,
+                obscureText: _notifier.showConfirmNewPwd,
                 decoration: AppStyles.inputDecoration(context,
                     contentPadding: EdgeInsets.all(15),
+                    hint: FFLocalizations.of(context).getText(
+                      'lz5cj3qp' /* Confirm new password */,
+                    ),
                     suffix: GestureDetector(
                         onTap: () {
                           _notifier.changeConfirmNewPwdVisibilityStatus();
                         },
-                        child: Icon(_notifier.hideConfirmNewPwd ? Icons.visibility : Icons.visibility_off,
+                        child: Icon(!_notifier.showConfirmNewPwd ? Icons.visibility : Icons.visibility_off,
                             color: FlutterFlowTheme.of(context).primaryText))),
               ),
               SizedBox(

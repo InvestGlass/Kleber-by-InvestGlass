@@ -142,7 +142,7 @@ class _TransactionsState extends State<Transactions> {
                                     quarterTurns: _notifier.selectedTransactionIndex == index ? 1 : 3,
                                     child: Icon(
                                       Icons.arrow_back_ios_new,
-                                      color: AppColors.kTextFieldInput,
+                                      color: FlutterFlowTheme.of(context).primaryText,
                                       size: 15,
                                     )),
                               ],

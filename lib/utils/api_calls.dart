@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:kleber_bank/documents/accounts_model.dart';
@@ -20,6 +21,7 @@ import '../proposals/proposal_model.dart';
 import 'app_const.dart';
 import 'common_functions.dart';
 import 'end_points.dart';
+import 'internationalization.dart';
 
 class ApiCalls {
   static Future<bool> login(String email, String pwd) async {
@@ -322,7 +324,7 @@ class ApiCalls {
   }
 
   static Future<List<ProposalModel>> getProposalList(
-      int pageKey, String proposalName, String advisorName, String? selectedProposalType, String column, String direction) async {
+      int pageKey, String proposalName, String advisorName, String? selectedProposalType, String column, String direction, BuildContext context) async {
     try {
       Map<String, dynamic> params = {
         'order[column]': column,
@@ -332,6 +334,12 @@ class ApiCalls {
         'filter[proposal_type]': selectedProposalType,
         'page': pageKey.toString(),
       };
+
+      if(params['filter[proposal_type]']==FFLocalizations.of(context).getText(
+        'n93guv4x' /* All */,
+      )){
+        params.remove('filter[proposal_type]');
+      }
 
       print('params $params');
 
