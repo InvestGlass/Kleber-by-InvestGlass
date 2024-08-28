@@ -6,10 +6,6 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-        <string>${PRODUCT_NAME} would like to access the Photo Library. It is used to add profile picture, post a picture on timeline, add classifieds, reviews etc.</string>
-        <key>NSPhotoLibraryUsageDescription</key>
-        <string>${PRODUCT_NAME} would like to access the Photo Library. It is used to add profile picture, post a picture on timeline, add classifieds, reviews etc.</string>
 	<key>CFBundleDisplayName</key>
 	<string>Kleber Bank</string>
 	<key>CFBundleExecutable</key>
@@ -30,6 +26,10 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>${PRODUCT_NAME} would like to access the Photo Library. It is used to add profile picture, post a picture on timeline, add classifieds, reviews etc.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>${PRODUCT_NAME} would like to access the Photo Library. It is used to add profile picture, post a picture on timeline, add classifieds, reviews etc.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

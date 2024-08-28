@@ -41,7 +41,7 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    height: 10 + MediaQuery.of(context).padding.top,
+                    height: MediaQuery.of(context).padding.top-20,
                     decoration: const BoxDecoration(),
                   ),
                   Expanded(

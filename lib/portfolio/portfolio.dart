@@ -65,12 +65,15 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
         child: PagedListView<int, PortfolioModel>(
           pagingController: pagingController,
           // shrinkWrap: true,
-          padding: EdgeInsets.only(top: rSize * 0.04),
+          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top+10),
           builderDelegate: PagedChildBuilderDelegate<PortfolioModel>(noItemsFoundIndicatorBuilder: (context) {
             return const SizedBox();
           }, itemBuilder: (context, item, index) {
             return Card(
               color: FlutterFlowTheme.of(context).secondaryBackground,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
               margin: EdgeInsets.symmetric(horizontal: rSize * 0.01, vertical: rSize * 0.005),
               child: Padding(
                 padding: EdgeInsets.all(rSize * 0.015),

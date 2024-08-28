@@ -28,7 +28,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal:rSize*0.015,vertical:rSize*0.04),
+        padding: EdgeInsets.symmetric(horizontal:rSize*0.015,vertical:MediaQuery.of(context).padding.top+10),
         children: [
           Text(SharedPrefUtils.instance.getUserData().user!.username!,style: FlutterFlowTheme.of(context)
               .headlineSmall

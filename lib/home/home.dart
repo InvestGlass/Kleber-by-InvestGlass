@@ -63,7 +63,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
       body: Container(
         decoration: AppStyles.commonBg(context),
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.04),
+          padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: MediaQuery.of(context).padding.top+10),
           children: [
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 10.0),

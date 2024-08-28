@@ -61,7 +61,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: rSize * 0.05, right: rSize * 0.05, bottom: rSize * 0.02, top: rSize*0.04),
+            padding: EdgeInsets.only(left: rSize * 0.05, right: rSize * 0.05, bottom: rSize * 0.02, top: MediaQuery.of(context).padding.top+10),
             child: Row(
               children: [
                 cell(
