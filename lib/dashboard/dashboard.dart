@@ -313,39 +313,37 @@ class _DashboardState extends State<Dashboard> {
         _controller.changeIndex(index);
         controller.animateToPage(index, duration: Duration(milliseconds: 100), curve: Curves.easeInOut);
       },
-      child: Expanded(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: rSize * 0.01,
-            ),
-            Container(
-              margin: EdgeInsets.only(top: isPortfolio(index)?20:10, bottom: isPortfolio(index)?10:5),
-              width: _controller.iconSize,
-              height: isPortfolio(index)?30:_controller.iconSize,
-              decoration: const BoxDecoration(),
-              child: widget ??
-                  Icon(
-                    iconData,
-                    color: _controller.selectedIndex != index ? FlutterFlowTheme.of(context).customColor5 : FlutterFlowTheme.of(context).primary,
-                    size: _controller.iconSize,
-                  ),
-            ),
-            Text(
-              label,
-              maxLines: 1,
-              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Roboto',
-                    color: FlutterFlowTheme.of(context).customColor5,
-                    fontSize: 14.0,
-                    letterSpacing: 0.0,
-                    lineHeight: 1.0,
-                  ),
-            ),
-          ],
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: rSize * 0.01,
+          ),
+          Container(
+            margin: EdgeInsets.only(top: isPortfolio(index)?20:10, bottom: isPortfolio(index)?10:5),
+            width: _controller.iconSize,
+            height: isPortfolio(index)?30:_controller.iconSize,
+            decoration: const BoxDecoration(),
+            child: widget ??
+                Icon(
+                  iconData,
+                  color: _controller.selectedIndex != index ? FlutterFlowTheme.of(context).customColor5 : FlutterFlowTheme.of(context).primary,
+                  size: _controller.iconSize,
+                ),
+          ),
+          Text(
+            label,
+            maxLines: 1,
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).customColor5,
+                  fontSize: 14.0,
+                  letterSpacing: 0.0,
+                  lineHeight: 1.0,
+                ),
+          ),
+        ],
       ),
     );
   }
