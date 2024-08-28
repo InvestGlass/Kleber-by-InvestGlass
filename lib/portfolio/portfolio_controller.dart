@@ -3,7 +3,7 @@ import 'package:kleber_bank/portfolio/portfolio_model.dart';
 import 'package:kleber_bank/utils/api_calls.dart';
 
 class PortfolioController extends ChangeNotifier{
-  int selectedIndex=-1;
+  int selectedIndex=0;
   int selectedPositionIndex=-1;
   int selectedTransactionIndex=-1;
   String selectedPositionFilter='Best Performance';

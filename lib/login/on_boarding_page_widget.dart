@@ -40,10 +40,10 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  /*Container(
-                    height: 10 + FFAppState().screenSize.paddingTop,
+                  Container(
+                    height: 10 + MediaQuery.of(context).padding.top,
                     decoration: const BoxDecoration(),
-                  ),*/
+                  ),
                   Expanded(
                     child: Align(
                       alignment: const AlignmentDirectional(0.0, 0.0),

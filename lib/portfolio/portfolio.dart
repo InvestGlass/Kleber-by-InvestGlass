@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:intl/intl.dart';
 import 'package:kleber_bank/main.dart';
 import 'package:kleber_bank/portfolio/health_check.dart';
 import 'package:kleber_bank/portfolio/portfolio_controller.dart';
@@ -26,7 +27,7 @@ class Portfolio extends StatefulWidget {
   State<Portfolio> createState() => _PortfolioState();
 }
 
-class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixin{
+class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixin {
   late PortfolioController _notifier;
   final PagingController<int, PortfolioModel> pagingController = PagingController(firstPageKey: 1);
   int pageKey = 1;
@@ -64,7 +65,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
         child: PagedListView<int, PortfolioModel>(
           pagingController: pagingController,
           // shrinkWrap: true,
-          padding: EdgeInsets.only(top: rSize*0.04),
+          padding: EdgeInsets.only(top: rSize * 0.04),
           builderDelegate: PagedChildBuilderDelegate<PortfolioModel>(noItemsFoundIndicatorBuilder: (context) {
             return const SizedBox();
           }, itemBuilder: (context, item, index) {
@@ -90,33 +91,35 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                   fontWeight: FontWeight.w500,
                                 ),
                           )),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  _notifier.selectedIndex == index?'':FFLocalizations.of(context).getText(
-                                    '83o1ghax' /* Net Value */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.of(context).primaryText,
-                                        fontSize: 16.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                _notifier.selectedIndex == index
+                                    ? ''
+                                    : FFLocalizations.of(context).getText(
+                                        '83o1ghax' /* Net Value */,
                                       ),
-                                ),
-                                Text(
-                                  _notifier.selectedIndex == index?'':item.netValue ?? '',
-                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.of(context).primaryText,
-                                        fontSize: 16.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                ),
-                              ],
-                            ),
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.of(context).primaryText,
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                              Text(
+                                _notifier.selectedIndex == index ? '' : item.netValue ?? '',
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.of(context).primaryText,
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                              ),
+                            ],
+                          ),
                           SizedBox(
                             width: rSize * 0.015,
                           ),
@@ -137,16 +140,14 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                         ),
                         child: ListView(
                           shrinkWrap: true,
+                          padding: EdgeInsets.zero,
                           children: [
-                            SizedBox(
-                              height: rSize * 0.01,
-                            ),
                             Container(
                               decoration: BoxDecoration(
                                 // color: AppColors.kViolate.withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                              padding: EdgeInsets.symmetric(vertical:rSize * 0.015),
+                              padding: EdgeInsets.symmetric(vertical: rSize * 0.015),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -155,7 +156,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                       FFLocalizations.of(context).getText(
                                         'hdgv1exn' /* Date */,
                                       ),
-                                      '2024-08-02'),
+                                      DateFormat('yyyy-MM-dd').format(DateTime.now())),
                                   SizedBox(
                                     height: rSize * 0.005,
                                   ),
@@ -199,18 +200,18 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                   SizedBox(
                                     height: rSize * 0.015,
                                   ),
-                                  if(item.performanceChart!.isNotEmpty)...{
+                                  if (item.performanceChart!.isNotEmpty) ...{
                                     Text(
                                         FFLocalizations.of(context).getText(
                                           'zomhasya' /* Performance */,
                                         ),
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                          fontFamily: 'Roboto',
-                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,)
-                                    ),
+                                              fontFamily: 'Roboto',
+                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                              fontSize: 16.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                            )),
                                     SizedBox(
                                       height: rSize * 0.035,
                                     ),
@@ -222,7 +223,8 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                       customWidth: item.performanceChart!.map((e) => e.amount).toList().length * 100,
                                       additionPercents: item.performanceChart!.map((e) => e.twrPercentage ?? 0.0).toList(),
                                     ),
-                                  AppWidgets.divider(context)},
+                                    AppWidgets.divider(context)
+                                  },
                                   SizedBox(
                                     height: rSize * 0.015,
                                   ),
@@ -256,16 +258,16 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                     height: rSize * 0.015,
                                   ),
                                   Text(
-                                    FFLocalizations.of(context).getText(
-                                      'o00oeypg' /* Currency */,
-                                    ),
-                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      fontFamily: 'Roboto',
-                                      color: FlutterFlowTheme.of(context).secondaryText,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,)
-                                  ),
+                                      FFLocalizations.of(context).getText(
+                                        'o00oeypg' /* Currency */,
+                                      ),
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                            fontFamily: 'Roboto',
+                                            color: FlutterFlowTheme.of(context).secondaryText,
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w500,
+                                          )),
                                   SizedBox(
                                     height: rSize * 0.02,
                                   ),
@@ -288,17 +290,16 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                     children: [
                                       Expanded(
                                           child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          '6u2u1x9z' /* Health Alerts */,
-                                        ),
+                                              FFLocalizations.of(context).getText(
+                                                '6u2u1x9z' /* Health Alerts */,
+                                              ),
                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                fontFamily: 'Roboto',
-                                                color: FlutterFlowTheme.of(context).secondaryText,
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w500,
-                                      ))),
-                                      if (item.appropriateness!.listDetails!.isNotEmpty || item.suitability!.listDetails!.isNotEmpty) ...{
+                                                    fontFamily: 'Roboto',
+                                                    color: FlutterFlowTheme.of(context).secondaryText,
+                                                    fontSize: 16.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight: FontWeight.w500,
+                                                  ))),
                                         GestureDetector(
                                           onTap: () => CommonFunctions.navigate(context, HealthCheck(item.appropriateness, item.suitability)),
                                           child: Text(
@@ -314,57 +315,194 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                                 ),
                                           ),
                                         ),
-                                         RotatedBox(
+                                        RotatedBox(
                                             quarterTurns: 2,
                                             child: Icon(
                                               Icons.arrow_back_ios,
                                               color: FlutterFlowTheme.of(context).primary,
                                               size: 12,
                                             ))
-                                      },
                                     ],
                                   ),
                                   SizedBox(
                                     height: rSize * 0.015,
                                   ),
-                                  AppWidgets.healthAlertElement(context,
-                                      '   ${FFLocalizations.of(context).getText(
-                                        'kc4yx2mm' /* MINOR ISSUES */,
-                                      )}',
-                                      FlutterFlowTheme.of(context).primaryBackground,
-                                      Icons.info_outline,
-                                      '',
-                                      item.appropriateness!,FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                    fontFamily: 'Roboto',
-                                    color:
-                                    FlutterFlowTheme.of(context)
-                                        .warning,
-                                    fontSize: 16.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                  )),
-                                  SizedBox(
-                                    height: rSize * 0.015,
+                                  Container(
+                                    decoration: const BoxDecoration(),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: FlutterFlowTheme.of(context).primaryBackground,
+                                                borderRadius: const BorderRadius.only(
+                                                  bottomLeft: Radius.circular(12.0),
+                                                  bottomRight: Radius.circular(0.0),
+                                                  topLeft: Radius.circular(12.0),
+                                                  topRight: Radius.circular(0.0),
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+                                                child: Column(
+                                                  mainAxisSize: MainAxisSize.max,
+                                                  children: [
+                                                    Padding(
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                                                      child: SizedBox(
+                                                        width: 140.0,
+                                                        height: 115.0,
+                                                        child: Stack(
+                                                          alignment: const AlignmentDirectional(0.0, 1.0),
+                                                          children: [
+                                                            Container(
+                                                              width: 100.0,
+                                                              height: 100.0,
+                                                              decoration: const BoxDecoration(
+                                                                color: Color(0x3FF9CF58),
+                                                              ),
+                                                              child: Icon(
+                                                                Icons.warning_amber_rounded,
+                                                                color: FlutterFlowTheme.of(context).warning,
+                                                                size: 50.0,
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment: const AlignmentDirectional(1.0, -1.0),
+                                                              child: Container(
+                                                                width: 40.0,
+                                                                height: 30.0,
+                                                                decoration: BoxDecoration(
+                                                                  color: FlutterFlowTheme.of(context).warning,
+                                                                ),
+                                                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                                                child: Text(
+                                                                  (int length) {
+                                                                    return '$length${length <= 10 ? '' : '+'}';
+                                                                  }(item.appropriateness!.listDetails?.length ?? 0),
+                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                        fontFamily: 'Roboto',
+                                                                        color: FlutterFlowTheme.of(context).info,
+                                                                        fontSize: 16.0,
+                                                                        letterSpacing: 0.0,
+                                                                        fontWeight: FontWeight.w500,
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      FFLocalizations.of(context).getText(
+                                                        'kc4yx2mm' /* MINOR ISSUES */,
+                                                      ),
+                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                            fontFamily: 'Roboto',
+                                                            fontSize: 16.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight: FontWeight.w500,
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 2.0,
+                                            decoration: const BoxDecoration(),
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: FlutterFlowTheme.of(context).primaryBackground,
+                                                borderRadius: const BorderRadius.only(
+                                                  bottomLeft: Radius.circular(0.0),
+                                                  bottomRight: Radius.circular(12.0),
+                                                  topLeft: Radius.circular(0.0),
+                                                  topRight: Radius.circular(12.0),
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+                                                child: Column(
+                                                  mainAxisSize: MainAxisSize.max,
+                                                  children: [
+                                                    Align(
+                                                      alignment: const AlignmentDirectional(0.0, 1.0),
+                                                      child: Padding(
+                                                        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                                                        child: SizedBox(
+                                                          width: 140.0,
+                                                          height: 115.0,
+                                                          child: Stack(
+                                                            alignment: const AlignmentDirectional(0.0, 1.0),
+                                                            children: [
+                                                              Container(
+                                                                width: 100.0,
+                                                                height: 100.0,
+                                                                decoration: const BoxDecoration(
+                                                                  color: Color(0x41FF5963),
+                                                                ),
+                                                                child: Icon(
+                                                                  Icons.error_outline_rounded,
+                                                                  color: FlutterFlowTheme.of(context).error,
+                                                                  size: 50.0,
+                                                                ),
+                                                              ),
+                                                              Align(
+                                                                alignment: const AlignmentDirectional(1.0, -1.0),
+                                                                child: Container(
+                                                                  width: 40.0,
+                                                                  height: 30.0,
+                                                                  decoration: BoxDecoration(
+                                                                    color: FlutterFlowTheme.of(context).error,
+                                                                  ),
+                                                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                                                  child: Text(
+                                                                    (int length) {
+                                                                      return '$length${length <= 10 ? '' : '+'}';
+                                                                    }(item.suitability!.listDetails?.length ?? 0),
+                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                          fontFamily: 'Roboto',
+                                                                          color: FlutterFlowTheme.of(context).info,
+                                                                          fontSize: 16.0,
+                                                                          letterSpacing: 0.0,
+                                                                          fontWeight: FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      FFLocalizations.of(context).getText(
+                                                        'ko88t7mf' /* MAJOR ISSUES */,
+                                                      ),
+                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                            fontFamily: 'Roboto',
+                                                            fontSize: 16.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight: FontWeight.w500,
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                  AppWidgets.healthAlertElement(context,
-                                      '   ${FFLocalizations.of(context).getText(
-                                        'ko88t7mf' /* MAJOR ISSUES */,
-                                      )}',
-                                      FlutterFlowTheme.of(context).primaryBackground,
-                                      Icons.report_problem_outlined,
-                                      '',
-                                      item.suitability!,FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                    fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.of(context)
-                                        .error,
-                                    fontSize: 16.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                  )),
                                 ],
                               ),
                             ),
@@ -383,7 +521,8 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                   CommonFunctions.navigate(context, Positions(item.id!));
                                 },
                                 child: AppWidgets.btn(
-                                    context,bgColor: FlutterFlowTheme.of(context).customColor1,
+                                    context,
+                                    bgColor: FlutterFlowTheme.of(context).customColor1,
                                     FFLocalizations.of(context).getText(
                                       'd8zszkbn' /* Positions */,
                                     ),
@@ -398,7 +537,8 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                     context,
                                     FFLocalizations.of(context).getText(
                                       'u192lk22' /* Transactions */,
-                                    ),bgColor: FlutterFlowTheme.of(context).customColor1,
+                                    ),
+                                    bgColor: FlutterFlowTheme.of(context).customColor1,
                                     verticalPadding: rSize * 0.005))),
                       ],
                     )

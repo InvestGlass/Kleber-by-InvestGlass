@@ -41,7 +41,7 @@ class _LoginState extends State<Login> {
           child: Column(
             children: [
               SizedBox(
-                height: rSize * 0.05,
+                height: 10 + MediaQuery.of(context).padding.top,
               ),
               Image.asset(
                 Theme.of(context).brightness == Brightness.dark ? 'assets/white-investglass.png' : 'assets/logo.png',

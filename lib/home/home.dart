@@ -96,7 +96,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                       }
                     },
                     child: Card(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: Colors.transparent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

@@ -110,7 +110,7 @@ class _DocumentsState extends State<Documents> {
                     )}',
                     () {
                       openFilterDialog();
-                    },25
+                    },20
                   ),
                   SizedBox(
                     width: rSize * 0.015,
@@ -122,7 +122,7 @@ class _DocumentsState extends State<Documents> {
                     )}',
                     () {
                       openSortBottomSheet();
-                    },25
+                    },20
                   ),
                   SizedBox(
                     width: rSize * 0.015,
@@ -134,7 +134,7 @@ class _DocumentsState extends State<Documents> {
                     )}',
                     () {
                       CommonFunctions.navigate(context, UploadDocument());
-                    },35
+                    },13
                   ),
                 ],
               ),
@@ -274,26 +274,27 @@ class _DocumentsState extends State<Documents> {
     );
   }
 
-  Expanded cell(String img, String label, void Function()? onTap,double scale) {
+  Expanded cell(String img, String label, void Function()? onTap,double size) {
     return Expanded(
         child: GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(rSize * 0.01),
+        height: 35,
         decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               'assets/$img',
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-              scale: scale,
+              color: FlutterFlowTheme.of(context).primaryText,
+              height: size,
+              width: size,
             ),
             Text(
               label,
               style: FlutterFlowTheme.of(context).displaySmall.override(
                     fontFamily: 'Roboto',
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    color: FlutterFlowTheme.of(context).primaryText,
                     fontSize: 14.0,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.normal,

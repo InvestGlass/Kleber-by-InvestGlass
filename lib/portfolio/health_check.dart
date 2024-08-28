@@ -59,7 +59,7 @@ class HealthCheck extends StatelessWidget {
                         'kc4yx2mm' /* MINOR ISSUES */,
                       )}',
                       FlutterFlowTheme.of(context).primaryBackground,
-                      Icons.info_outline,
+                      Icons.report_problem_outlined,
                       FFLocalizations.of(context).getText(
                         '3vkimctv' /* Appropriateness */,
                       ),
@@ -79,7 +79,7 @@ class HealthCheck extends StatelessWidget {
                         'ko88t7mf' /* MAJOR ISSUES */,
                       )}',
                       FlutterFlowTheme.of(context).primaryBackground,
-                      Icons.report_problem_outlined,
+                      Icons.info_outline,
                       FFLocalizations.of(context).getText(
                         'dxc8grzt' /* Suitability */,
                       ),
