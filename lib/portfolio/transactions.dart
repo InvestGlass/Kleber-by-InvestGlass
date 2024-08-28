@@ -90,7 +90,8 @@ class _TransactionsState extends State<Transactions> {
             ),
             GestureDetector(
                 onTap: () => Navigator.pop(context),
-                child: Icon(Icons.close,size: 30,color: FlutterFlowTheme.of(context).primary,))
+                child: Icon(Icons.close,size: 30,color: FlutterFlowTheme.of(context).primary,)),
+            SizedBox(width: rSize*0.015,)
           ],
         ),
         SizedBox(

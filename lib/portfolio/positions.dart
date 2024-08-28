@@ -164,6 +164,7 @@ class _PositionsState extends State<Positions> {
                 child: PagedListView<int, PositionModel>(
                   pagingController: _pagingController,
                   // shrinkWrap: true,
+                  padding: EdgeInsets.zero,
                   builderDelegate: PagedChildBuilderDelegate<PositionModel>(noItemsFoundIndicatorBuilder: (context) {
                     return const SizedBox();
                   }, itemBuilder: (context, item, index) {

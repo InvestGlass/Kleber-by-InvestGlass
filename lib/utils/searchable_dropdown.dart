@@ -89,7 +89,8 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
               height: 40,
               width: 200,
             ),
-            dropdownStyleData: DropdownStyleData(maxHeight: 200, decoration: BoxDecoration(color: FlutterFlowTheme.of(context).secondaryBackground)),
+            dropdownStyleData: DropdownStyleData(maxHeight: 200, decoration: BoxDecoration(color: FlutterFlowTheme.of(context).secondaryBackground,borderRadius: BorderRadius.circular(12), // Set the dropdown corner radius here
+            ),),
             menuItemStyleData: const MenuItemStyleData(
               height: 40,
             ),
