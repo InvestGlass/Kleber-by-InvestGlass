@@ -158,6 +158,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                             if (_notifier.selectedIndex == index) ...{
                               ListView(
                                 shrinkWrap: true,
+                                padding: EdgeInsets.only(top: 15),
                                 children: [
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
