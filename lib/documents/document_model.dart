@@ -37,6 +37,7 @@ class Document {
   dynamic ancestry;
   int? clientId;
   bool? shareOnClientPortal;
+  bool? requestProposalApproval;
   int? creatorId;
   int? lastModifierId;
   bool? notifyByEmail;
@@ -71,6 +72,7 @@ class Document {
     this.approverId,
     this.approvedAt,
     this.disapproverId,
+    this.requestProposalApproval,
     this.disapprovedAt,
   });
 
@@ -88,6 +90,7 @@ class Document {
     ancestry: json["ancestry"],
     clientId: json["client_id"],
     shareOnClientPortal: json["share_on_client_portal"],
+    requestProposalApproval: json["request_proposal_approval"],
     creatorId: json["creator_id"],
     lastModifierId: json["last_modifier_id"],
     notifyByEmail: json["notify_by_email"],
@@ -117,6 +120,7 @@ class Document {
     "client_type": clientType,
     "document_status": documentStatus,
     "url": url,
+    "request_proposal_approval": requestProposalApproval,
     "is_read": isRead,
     "document_type": documentType,
     "approver_id": approverId,
