@@ -702,7 +702,7 @@ class _DocumentsState extends State<Documents> {
               ViewDocument(
                 item.id.toString(),
                 false,
-                showSignButton: item.documentType == 'document',
+                showSignButton: item.requestProposalApproval != null && item.requestProposalApproval!,
                 ext: item.folderName!.split('.').last,url: item.url??'',
                 item: item,
                 index: index,
@@ -720,7 +720,7 @@ class _DocumentsState extends State<Documents> {
               ), () {
             downloadDoc(item);
           }),
-        if (item.documentType == 'document' && item.documentStatus == null)
+        if (item.requestProposalApproval! && item.documentStatus==null)
           popupMenuItem(
               3,
               FFLocalizations.of(context).getText(

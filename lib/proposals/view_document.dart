@@ -120,7 +120,7 @@ class _ViewDocumentState extends State<ViewDocument> {
               )),
           centerTitle: true),
       body: child,
-      bottomNavigationBar: widget.showSignButton!
+      bottomNavigationBar: widget.showSignButton! && (widget.item?.requestProposalApproval??false)
           ? Wrap(
               children: [
                 Container(
