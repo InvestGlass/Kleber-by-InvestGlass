@@ -77,9 +77,10 @@ class MarketController extends ChangeNotifier {
   /*____________________________ADD TRANSACTION___________________________________*/
   MarketListModel? selectedSecurity;
   TransactionTypeModel? selectedSecurityType;
-  TextEditingController limitPriceController=TextEditingController();
-  TextEditingController qtyController=TextEditingController();
-  double amount=0;
+  TextEditingController limitPriceController = TextEditingController();
+  TextEditingController qtyController = TextEditingController();
+  TextEditingController descController = TextEditingController();
+  double amount = 0;
   List<TransactionTypeModel> transactionTypeList = [];
 
   void selectSecurity(MarketListModel? result) {
@@ -88,7 +89,7 @@ class MarketController extends ChangeNotifier {
   }
 
   void getTransactionTypes(BuildContext context) async {
-    if (transactionTypeList.isNotEmpty) {
+    if (transactionTypeList.isEmpty) {
       CommonFunctions.showLoader(context);
       ApiCalls.getTransactionTypeList().then(
         (value) {
@@ -107,40 +108,47 @@ class MarketController extends ChangeNotifier {
 
   void selectTime(BuildContext context) {
     // DateTime formatedTime=DateFormat('HH:mm a').parse(selectedTime!.hour.toString()+':'+selectedTime!.minute.toString());
-    selectedDateTime = DateFormat('yyyy-MM-dd').format(selectedDate!) + ' ' + selectedTime!.hour.toString()+':'+selectedTime!.minute.toString();
+    selectedDateTime = DateFormat('yyyy-MM-dd').format(selectedDate!) + ' ' + selectedTime!.hour.toString() + ':' + selectedTime!.minute.toString();
     notifyListeners();
   }
 
   void updateAmount(String price) {
-    double limitPrice=double.tryParse(limitPriceController.text)??0;
-    double qty=double.tryParse(qtyController.text)??0;
-    double currentPrice=double.tryParse(price)??0;
-    if (limitPrice!=0) {
-      amount=limitPrice*qty;
-    }else{
-      amount=currentPrice*qty;
+    double limitPrice = double.tryParse(limitPriceController.text) ?? 0;
+    double qty = double.tryParse(qtyController.text) ?? 0;
+    double currentPrice = double.tryParse(price) ?? 0;
+    if (limitPrice != 0) {
+      amount = limitPrice * qty;
+    } else {
+      amount = currentPrice * qty;
     }
     notifyListeners();
   }
 
-  Future<void> transmit(MarketListModel model, PortfolioModel? selectedPortfolio) async {
-    /*Map<String, dynamic> map={};
-    map['security']=model.toJson();
-    map['create_transaction_type']
-    map['portfolio_id']=selectedPortfolio!.title!;
-    map['state']='0';
-    map['transaction_type']=selectedSecurityType;
-    map['destination_portfolio_id']='';
-    map['transaction_datetime']=selectedDate;
-    map['accounting_datetime']=;
-    map['value_datetime']=;
-    map['description']=;
-    map['quantity']=;
-    map['open_price']=;
-    map['open_rate']=;
-    map['amount']=;
+  Future<void> transmit(MarketListModel model, PortfolioModel? selectedPortfolio, BuildContext context) async {
+    Map<String, dynamic> map = {};
+    Map<String, dynamic> map2 = {};
+    map['security'] = model.toJson();
+    map['create_transaction_type'] = map['portfolio_id'] = selectedPortfolio!.title!;
+    map['state'] = '0';
+    map['transaction_type'] = selectedSecurityType?.name??'';
+    map['destination_portfolio_id'] = '';
+    map['transaction_datetime'] = selectedDateTime;
+    map['accounting_datetime'] = DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now());
+    map['value_datetime'] = DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now());
+    map['description'] = descController.text;
+    map['quantity'] = qtyController.text;
+    map['open_price'] = limitPriceController.text;
+    map['open_rate'] = '1.0';
+    map['amount'] = amount;
 
+    map2['transaction']=map;
 
-    await ApiCalls.transmit(body);*/
+    CommonFunctions.showLoader(context);
+    await ApiCalls.transmit(map2).then(
+      (value) {
+        CommonFunctions.dismissLoader(context);
+        print('add transaction response $value');
+      },
+    );
   }
 }

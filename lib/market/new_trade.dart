@@ -160,6 +160,7 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               label(context, '2mpa9jiq' /* Notes */),
               TextFormField(
+                controller: _marketNotifier.descController,
                 decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(15)),
               ),
               SizedBox(
@@ -286,7 +287,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 children: [
                   GestureDetector(
                     onTap: (){
-                      _marketNotifier.transmit(widget.model,_portfolioNotifier.selectedPortfolio);
+                      _marketNotifier.transmit(widget.model,_portfolioNotifier.selectedPortfolio,context);
                     },
                     child: AppWidgets.btn(
                         context,

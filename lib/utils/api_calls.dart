@@ -96,13 +96,13 @@ class ApiCalls {
     }
     return null;
   }
-  static Future<Map<String, dynamic>?> transmit(String body) async {
+  static Future<Map<String, dynamic>?> transmit(Map<String, dynamic> body) async {
     try {
       var url = Uri.parse(
         EndPoints.transactions,
       );
 
-      var response = await http.post(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'},body: body);
+      var response = await http.post(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'},body: body.toString());
       print("url $url");
       print("response ${response.body}");
       Map<String, dynamic> json = jsonDecode(response.body);
