@@ -514,7 +514,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                       ),
                     },
                     SizedBox(
-                      height: rSize * 0.01,
+                      height: rSize * 0.005,
                     ),
                     Row(
                       children: [
@@ -529,7 +529,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                     FFLocalizations.of(context).getText(
                                       'd8zszkbn' /* Positions */,
                                     ),
-                                    verticalPadding: rSize * 0.005))),
+                                    verticalPadding: 8))),
                         SizedBox(
                           width: rSize * 0.01,
                         ),
@@ -542,7 +542,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                       'u192lk22' /* Transactions */,
                                     ),
                                     bgColor: FlutterFlowTheme.of(context).customColor1,
-                                    verticalPadding: rSize * 0.005))),
+                                    verticalPadding: 8))),
                       ],
                     )
                   ],
