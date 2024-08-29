@@ -134,7 +134,9 @@ class _ViewProposalState extends State<ViewProposal> {
   }
 
   Widget getWidget(BuildContext context) {
-    print("proposal state:::"+widget.item!.state.toString());
+    if (!widget.item!.requestProposalApproval!) {
+      return const SizedBox();
+    }
     if (widget.item!.state=='Pending') {
       return Row(
         children: [

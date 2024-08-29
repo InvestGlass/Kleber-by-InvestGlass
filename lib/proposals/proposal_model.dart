@@ -20,6 +20,7 @@ class ProposalModel {
   bool? applied;
   dynamic answeredAt;
   bool? answeredByRm;
+  bool? requestProposalApproval;
   dynamic answerRmId;
   ProposalContent? proposalContent;
   int? creatorId;
@@ -36,6 +37,7 @@ class ProposalModel {
     this.clientId,
     this.accountId,
     this.advisor,
+    this.requestProposalApproval,
     this.state,
     this.tradeBlotterGenerated,
     this.name,
@@ -67,6 +69,7 @@ class ProposalModel {
     id: json["id"],
     documentId: json["document_id"],
     portfolioId: json["portfolio_id"],
+    requestProposalApproval: json["request_proposal_approval"]??false,
     clientId: json["client_id"],
     accountId: json["account_id"],
     advisor: json["advisor"] == null ? null : Advisor.fromJson(json["advisor"]),
@@ -103,6 +106,7 @@ class ProposalModel {
     "trade_blotter_generated": tradeBlotterGenerated,
     "name": name,
     "proposal_type": proposalType,
+    "request_proposal_approval": requestProposalApproval,
     "token": token,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),

@@ -133,7 +133,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                   SizedBox(
                                     width: rSize * 0.015,
                                   ),
-                                  if ((item.state ?? 'Pending') != 'Pending') ...{
+                                  if ((item.state ?? 'Pending') != 'Pending' && item.requestProposalApproval!) ...{
                                     Icon(
                                       item.state == 'Accepted' ? Icons.done_rounded : Icons.close_rounded,
                                       color: item.state == 'Accepted'
@@ -197,6 +197,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                       SizedBox(
                                         height: rSize * 0.01,
                                       ),
+                                      if(item.requestProposalApproval!)...{
                                       Row(
                                         crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
@@ -235,7 +236,8 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                       ),
                                       SizedBox(
                                         height: rSize * 0.01,
-                                      ),
+                                      )},
+                                      if (item.requestProposalApproval!) ...{
                                       if (item.state == 'Pending') ...{
                                         Row(
                                           children: [
@@ -346,6 +348,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                             ),
                                           ],
                                         )
+                                      },
                                       },
                                       SizedBox(
                                         height: rSize * 0.025,

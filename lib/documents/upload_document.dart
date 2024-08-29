@@ -21,6 +21,12 @@ class _UploadDocumentState extends State<UploadDocument> {
   late DocumentsController _notifier;
 
   @override
+  void dispose() {
+    _notifier.image = null;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     _notifier = Provider.of<DocumentsController>(context);
     return Scaffold(

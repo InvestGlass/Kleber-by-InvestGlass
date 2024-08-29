@@ -16,7 +16,7 @@ import '../utils/app_styles.dart';
 import '../utils/app_widgets.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
-import 'add_transaction.dart';
+import 'new_trade.dart';
 import 'market_list_item_widget.dart';
 import 'market_list_model.dart';
 
@@ -152,7 +152,7 @@ class _MarketState extends State<Market> {
                         // key: Key('Keyery_${index}_of_${realLength}'),
                         data: item,
                       );
-                      return GestureDetector(
+                      /*return GestureDetector(
                         onTap: () {
                           CommonFunctions.navigate(
                               context,
@@ -204,7 +204,7 @@ class _MarketState extends State<Market> {
                             ],
                           ),
                         ),
-                      );
+                      );*/
                     }),
                   ),
                 ),

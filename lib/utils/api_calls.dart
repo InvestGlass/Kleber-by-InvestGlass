@@ -96,6 +96,27 @@ class ApiCalls {
     }
     return null;
   }
+  static Future<Map<String, dynamic>?> transmit(String body) async {
+    try {
+      var url = Uri.parse(
+        EndPoints.transactions,
+      );
+
+      var response = await http.post(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'},body: body);
+      print("url $url");
+      print("response ${response.body}");
+      Map<String, dynamic> json = jsonDecode(response.body);
+      return json;
+    } on SocketException catch (e) {
+      CommonFunctions.showToast(AppConst.connectionError);
+    } on TimeoutException catch (e) {
+      CommonFunctions.showToast(AppConst.connectionTimeOut);
+    } on Error catch (e) {
+      CommonFunctions.showToast(AppConst.somethingWentWrong);
+      print('user info API error ${e.toString()}::: ${e.stackTrace}');
+    }
+    return null;
+  }
 
   static Future<Map<String, dynamic>?> sendOtp() async {
     try {

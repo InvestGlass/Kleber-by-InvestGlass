@@ -62,42 +62,41 @@ class _PositionsState extends State<Positions> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      Text(
-                        textAlign: TextAlign.center,
-                        FFLocalizations.of(context).getText(
-                          'qhszshsn' /* Position as of */,
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
-                              color: FlutterFlowTheme.of(context).primary,
-                              fontSize: 25.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
-                      Text(
-                        textAlign: TextAlign.center,
-                        DateFormat('yyyy-MM-dd', FFLocalizations.of(context).languageCode).format(DateTime.now()),
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
-                              fontSize: 20.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
                 GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Icon(
                       Icons.close,
                       size: 30,
                       color: FlutterFlowTheme.of(context).primary,
-                    ))
+                    )),
+                Column(
+                  children: [
+                    Text(
+                      textAlign: TextAlign.center,
+                      FFLocalizations.of(context).getText(
+                        'qhszshsn' /* Position as of */,
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Roboto',
+                            color: FlutterFlowTheme.of(context).primary,
+                            fontSize: 25.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                    Text(
+                      textAlign: TextAlign.center,
+                      DateFormat('yyyy-MM-dd', FFLocalizations.of(context).languageCode).format(DateTime.now()),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Roboto',
+                            fontSize: 20.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                  ],
+                ),
+                SizedBox()
               ],
             ),
             SizedBox(

@@ -34,5 +34,7 @@ class EndPoints{
 
   // ADD TRANSACTION
   static String transactionTypes='${baseUrl}transactions/transaction_type';
+  static String createTransaction='${baseUrl}transactions';
+
 
 }

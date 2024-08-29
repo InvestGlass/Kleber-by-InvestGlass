@@ -1,4 +1,4 @@
-import 'package:kleber_bank/market/add_transaction.dart';
+import 'package:kleber_bank/market/new_trade.dart';
 import 'package:kleber_bank/market/market_list_model.dart';
 
 import 'package:flutter/material.dart';
