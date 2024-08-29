@@ -335,6 +335,7 @@ class AppWidgets {
   static void openMediaSelectionBottomSheet(BuildContext context, {required void Function()? onFileClick, required void Function()? onCameraClick}) {
     showModalBottomSheet(
       useRootNavigator: true,
+      backgroundColor: Colors.transparent,
       context: context,
       builder: (context) {
         return Container(
