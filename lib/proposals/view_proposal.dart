@@ -22,12 +22,11 @@ import '../utils/shared_pref_utils.dart';
 
 class ViewProposal extends StatefulWidget {
   final String documentId;
-  final bool? showAcceptReject;
   final String ext, url;
   ProposalModel? item;
   final int? index;
 
-  ViewProposal(this.documentId, {this.showAcceptReject = false, this.ext = 'pdf', this.url = '', this.item, this.index, super.key});
+  ViewProposal(this.documentId, {this.ext = 'pdf', this.url = '', this.item, this.index, super.key});
 
   @override
   State<ViewProposal> createState() => _ViewProposalState();
@@ -121,10 +120,12 @@ class _ViewProposalState extends State<ViewProposal> {
               )),
           centerTitle: true),
       body: child,
-      bottomNavigationBar: Wrap(
+      bottomNavigationBar: !widget.item!.requestProposalApproval!
+          ? null
+          : Wrap(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                   child: getWidget(context),
                 ),
@@ -134,10 +135,7 @@ class _ViewProposalState extends State<ViewProposal> {
   }
 
   Widget getWidget(BuildContext context) {
-    if (!widget.item!.requestProposalApproval!) {
-      return const SizedBox();
-    }
-    if (widget.item!.state=='Pending') {
+    if (widget.item!.state == 'Pending') {
       return Row(
         children: [
           SizedBox(
@@ -145,75 +143,71 @@ class _ViewProposalState extends State<ViewProposal> {
           ),
           Expanded(
               child: GestureDetector(
-                onTap: () => AppWidgets.showAlert(
-                    context,
-                    FFLocalizations.of(context).getText(
-                      'decline_proposal' /* Decline Proposal*/,
-                    ),
-                    FFLocalizations.of(context).getText(
-                      's1jcpzx6' /*cancel*/,
-                    ),
-                    FFLocalizations.of(context).getText(
-                      'bdc48oru' /*confirm*/,
-                    ), () {
-                  Navigator.pop(context);
-                }, () {
-                  _notifier.updateState('rejected',  widget.item!.id!, widget.index!, context,onUpdateStatus: (item){
-                    setState(() {
-                      widget.item=item;
-                    });
-                  });
-                },
-                    btn1BgColor: FlutterFlowTheme.of(context).customColor3,
-                    btn2BgColor: FlutterFlowTheme.of(context).customColor2),
-                child: AppWidgets.btnWithIcon(
-                    context,
-                    '  ${FFLocalizations.of(context).getText(
-                      'j0hr735r' /* Decline*/,
-                    )}',
-                    FlutterFlowTheme.of(context).customColor3,
-                    Icon(
-                      Icons.close,
-                      color: Colors.white,
-                    )),
-              )),
+            onTap: () => AppWidgets.showAlert(
+                context,
+                FFLocalizations.of(context).getText(
+                  'decline_proposal' /* Decline Proposal*/,
+                ),
+                FFLocalizations.of(context).getText(
+                  's1jcpzx6' /*cancel*/,
+                ),
+                FFLocalizations.of(context).getText(
+                  'bdc48oru' /*confirm*/,
+                ), () {
+              Navigator.pop(context);
+            }, () {
+              _notifier.updateState('rejected', widget.item!.id!, widget.index!, context, onUpdateStatus: (item) {
+                setState(() {
+                  widget.item = item;
+                });
+              });
+            }, btn1BgColor: FlutterFlowTheme.of(context).customColor3, btn2BgColor: FlutterFlowTheme.of(context).customColor2),
+            child: AppWidgets.btnWithIcon(
+                context,
+                '  ${FFLocalizations.of(context).getText(
+                  'j0hr735r' /* Decline*/,
+                )}',
+                FlutterFlowTheme.of(context).customColor3,
+                Icon(
+                  Icons.close,
+                  color: Colors.white,
+                )),
+          )),
           SizedBox(
             width: rSize * 0.02,
           ),
           Expanded(
               child: GestureDetector(
-                onTap: () => AppWidgets.showAlert(
-                    context,
-                    FFLocalizations.of(context).getText(
-                      'accept_proposal' /* accept Proposal*/,
-                    ),
-                    FFLocalizations.of(context).getText(
-                      's1jcpzx6' /*cancel*/,
-                    ),
-                    FFLocalizations.of(context).getText(
-                      'bdc48oru' /*confirm*/,
-                    ), () {
-                  Navigator.pop(context);
-                }, () {
-                  _notifier.updateState('accepted', widget.item!.id, widget.index!, context,onUpdateStatus: (item){
-                    setState(() {
-                      widget.item=item;
-                    });
-                  });
-                },
-                    btn1BgColor: FlutterFlowTheme.of(context).customColor3,
-                    btn2BgColor: FlutterFlowTheme.of(context).customColor2),
-                child: AppWidgets.btnWithIcon(
-                    context,
-                    '  ${FFLocalizations.of(context).getText(
-                      '3esw1ind' /* Accept */,
-                    )}',
-                    FlutterFlowTheme.of(context).customColor2,
-                    Icon(
-                      Icons.done,
-                      color: Colors.white,
-                    )),
-              )),
+            onTap: () => AppWidgets.showAlert(
+                context,
+                FFLocalizations.of(context).getText(
+                  'accept_proposal' /* accept Proposal*/,
+                ),
+                FFLocalizations.of(context).getText(
+                  's1jcpzx6' /*cancel*/,
+                ),
+                FFLocalizations.of(context).getText(
+                  'bdc48oru' /*confirm*/,
+                ), () {
+              Navigator.pop(context);
+            }, () {
+              _notifier.updateState('accepted', widget.item!.id, widget.index!, context, onUpdateStatus: (item) {
+                setState(() {
+                  widget.item = item;
+                });
+              });
+            }, btn1BgColor: FlutterFlowTheme.of(context).customColor3, btn2BgColor: FlutterFlowTheme.of(context).customColor2),
+            child: AppWidgets.btnWithIcon(
+                context,
+                '  ${FFLocalizations.of(context).getText(
+                  '3esw1ind' /* Accept */,
+                )}',
+                FlutterFlowTheme.of(context).customColor2,
+                Icon(
+                  Icons.done,
+                  color: Colors.white,
+                )),
+          )),
           SizedBox(
             width: rSize * 0.02,
           ),

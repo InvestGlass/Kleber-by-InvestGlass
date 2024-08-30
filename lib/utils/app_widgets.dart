@@ -1,39 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kleber_bank/documents/documents.dart';
-import 'package:kleber_bank/utils/app_const.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-// import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
-import '../documents/document_model.dart';
 import '../main.dart';
 import '../portfolio/portfolio_model.dart';
 import 'app_colors.dart';
-import 'app_styles.dart';
-import 'common_functions.dart';
 import 'flutter_flow_theme.dart';
 import 'internationalization.dart';
 
 class AppWidgets {
-  static Widget textFieldLabel(String label, {bool isRequired = true}) {
-    if (isRequired) {
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            label,
-            style: AppStyles.c656262W500S18,
-          ),
-        ],
-      );
-    }
-    return Text(
-      label,
-      textAlign: TextAlign.start,
-      style: AppStyles.c656262W500S18,
-    );
-  }
   static void showSignDialog(BuildContext context, {required Function onReject, required Function onAccept}) {
     AppWidgets.showAlert(
         context,
@@ -385,132 +359,6 @@ class AppWidgets {
             ),
       ),
       centerTitle: centerTitle,
-    );
-  }
-
-  static Widget drawer(Function onItemClick) {
-    List<String> titleList = ['Home', 'Portfolio', 'Market', 'Proposal', 'Documents', 'Profile'];
-    return Container(
-      color: AppColors.bg,
-      width: rSize * 0.35,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Column(
-            children: [
-              Container(
-                height: rSize * 0.15,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.02),
-                decoration: BoxDecoration(boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    spreadRadius: 0, // how wide the shadow is spread
-                    blurRadius: 3, // how blurry the shadow is
-                    offset: Offset(0, 0),
-                  ),
-                ], color: AppColors.kViolate, borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10))),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: rSize * 0.015,
-                    ),
-                    Text(
-                      'John Wick',
-                      style: AppStyles.cFFFFFFW400S18,
-                    ),
-                    Text(
-                      'johnwick@gmail.com',
-                      style: AppStyles.cFFFFFFW400S18,
-                    ),
-                  ],
-                ),
-              ),
-              Card(
-                elevation: 2,
-                margin: EdgeInsets.only(
-                  top: rSize * 0.01,
-                  left: rSize * 0.015,
-                  right: rSize * 0.015,
-                ),
-                color: Colors.white,
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: titleList.length,
-                  padding: EdgeInsets.only(
-                    left: rSize * 0.015,
-                    right: rSize * 0.015,
-                    bottom: rSize * 0.015,
-                    top: rSize * 0.04,
-                  ),
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        if (titleList[index] == 'Documents') {
-                          CommonFunctions.navigate(context, Documents());
-                        }
-                        if (titleList[index] == 'Profile') {
-                          onItemClick(4);
-                        } else {
-                          onItemClick(index);
-                        }
-                      },
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            'assets/${titleList[index].toLowerCase()}.png',
-                            scale: 25,
-                            color: AppColors.kTextFieldInput,
-                          ),
-                          SizedBox(
-                            width: rSize * 0.015,
-                          ),
-                          Expanded(
-                            child: Text(
-                              titleList[index],
-                              style: AppStyles.c656262W500S18,
-                            ),
-                          ),
-                          RotatedBox(
-                              quarterTurns: 2,
-                              child: Icon(
-                                Icons.arrow_back_ios_new,
-                                color: AppColors.kTextFieldInput,
-                                size: 15,
-                              ))
-                        ],
-                      ),
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return Container(
-                      color: AppColors.kTextFieldInput,
-                      margin: EdgeInsets.symmetric(vertical: rSize * 0.01),
-                      height: 0.5,
-                    );
-                  },
-                ),
-              ),
-              Expanded(child: SizedBox()),
-              Text(
-                'Version 1.0.0',
-                style: AppStyles.c656262W500S18,
-              ),
-              SizedBox(
-                height: rSize * 0.015,
-              )
-            ],
-          ),
-          Positioned(
-            top: rSize * 0.1,
-            child: const CircleAvatar(
-              child: Icon(Icons.face),
-              radius: 40,
-            ),
-          ),
-        ],
-      ),
     );
   }
 

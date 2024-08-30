@@ -78,7 +78,12 @@ class _UploadDocumentState extends State<UploadDocument> {
               ),
               Text(
                 _notifier.errorMsg,
-                style: AppStyles.errorStyle,
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).customColor3,
+                  fontSize: 16.0,
+                  letterSpacing: 0.0,
+                ),
               ),
             },
             SizedBox(
@@ -209,7 +214,7 @@ class _UploadDocumentState extends State<UploadDocument> {
             .getText(
           'lh2w6q42' /* Select  */,
         ),bgColor: FlutterFlowTheme.of(context).primary,horizontalPadding: 20,verticalPadding: 5));
-    return GestureDetector(
+    /*return GestureDetector(
 
         child: Container(
           alignment: Alignment.center,
@@ -219,6 +224,6 @@ class _UploadDocumentState extends State<UploadDocument> {
             'Select',
             style: AppStyles.c3C496CW500S16,
           ),
-        ));
+        ));*/
   }
 }

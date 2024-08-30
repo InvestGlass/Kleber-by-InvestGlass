@@ -192,7 +192,6 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                               context,
                                               ViewProposal(
                                                 item.documentId!,
-                                                showAcceptReject: item.state == 'Pending',
                                                 index: index,
                                                 item: item,
                                               )),
@@ -339,7 +338,12 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                 '  ${FFLocalizations.of(context).getText(
                                                   'c64nnx2a' /* Accepted at  */,
                                                 )} $date',
-                                                style: AppStyles.c3C496CW400S14.copyWith(color: Colors.green),
+                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                  fontFamily: 'Roboto',
+                                                  color: FlutterFlowTheme.of(context).customColor2,
+                                                  fontSize: 16.0,
+                                                  letterSpacing: 0.0,
+                                                ),
                                               ),
                                             ],
                                           )
@@ -356,7 +360,12 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                 '  ${FFLocalizations.of(context).getText(
                                                   '5tjloy3c' /* Rejected at */,
                                                 )} $date',
-                                                style: AppStyles.c3C496CW400S14.copyWith(color: Colors.red),
+                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                  fontFamily: 'Roboto',
+                                                  color: FlutterFlowTheme.of(context).customColor3,
+                                                  fontSize: 16.0,
+                                                  letterSpacing: 0.0,
+                                                ),
                                               ),
                                             ],
                                           )

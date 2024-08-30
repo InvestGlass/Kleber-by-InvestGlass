@@ -19,7 +19,7 @@ class AppStyles {
   static double px20 = rSize * 0.020;
 
   // static TextStyle c333333W400S12 = GoogleFonts.rubik(fontWeight: FontWeight.w400, fontSize: px12, color: AppColors.kDateTimeColor);
-  static TextStyle c656262W500S18 = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: px18, color: AppColors.kTextFieldInput);
+  /*static TextStyle c656262W500S18 = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: px18, color: AppColors.kTextFieldInput);
   static TextStyle c656262W400S16 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px16, color: AppColors.kTextFieldInput);
   static TextStyle c656262W200S16 = GoogleFonts.poppins(fontWeight: FontWeight.w200, fontSize: px16, color: AppColors.kTextFieldInput);
   static TextStyle c656262W200S14 = GoogleFonts.poppins(fontWeight: FontWeight.w200, fontSize: px14, color: AppColors.kTextFieldInput);
@@ -36,9 +36,9 @@ class AppStyles {
   static TextStyle cFFFFFFW400S16 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px16, color: Colors.white);
   static TextStyle cRedW400S18 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px18, color: Colors.redAccent);
   static TextStyle errorStyle = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px14, color: AppColors.kErrorBorderColor, height: 1);
-  static TextStyle errorStyle16 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px16, color: AppColors.kErrorBorderColor);
+  static TextStyle errorStyle16 = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: px16, color: AppColors.kErrorBorderColor);*/
 
-  static InputDecoration dropDownInputDecoration(BuildContext context, Widget? label, {Color? focusedBorderColor,Widget? prefix}) {
+  /*static InputDecoration dropDownInputDecoration(BuildContext context, Widget? label, {Color? focusedBorderColor,Widget? prefix}) {
     return InputDecoration(
       label: label,
       fillColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -90,7 +90,7 @@ class AppStyles {
         borderRadius: BorderRadius.circular(12.0),
       ),
     );
-  }
+  }*/
 
   static Decoration commonBg(BuildContext context) {
     return BoxDecoration(
