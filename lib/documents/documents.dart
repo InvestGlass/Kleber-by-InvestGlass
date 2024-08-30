@@ -148,6 +148,7 @@ class _DocumentsState extends State<Documents> {
                 child: PagedListView<int, Document>(
                   pagingController: _notifier.pagingController,
                   // shrinkWrap: true,
+                  padding: EdgeInsets.symmetric(horizontal: rSize*0.015),
                   builderDelegate: PagedChildBuilderDelegate<Document>(noItemsFoundIndicatorBuilder: (context) {
                     return const SizedBox();
                   }, itemBuilder: (context, item, index) {
@@ -162,6 +163,9 @@ class _DocumentsState extends State<Documents> {
                       },
                       child: Card(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: rSize * 0.01, horizontal: rSize * 0.015),
                           child: Row(children: [
@@ -313,284 +317,300 @@ class _DocumentsState extends State<Documents> {
     AccountsModel? selectedAccount = _notifier.selectedAccount;
     String range = _notifier.range;
 
-    showModalBottomSheet(
+    showDialog(
       useRootNavigator: true,
-      isScrollControlled: true,
-      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       context: context,
       builder: (context) {
         _notifier = Provider.of<DocumentsController>(context);
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Provider.of<DocumentsController>(context, listen: false).getAccountList(context);
         });
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return Wrap(
-              children: [
-                ListView(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.only(
-                      left: rSize * 0.02, right: rSize * 0.02, top: rSize * 0.03, bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text(
-                          'Filter',
-                          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                                fontFamily: 'Roboto',
-                                color: FlutterFlowTheme.of(context).primary,
-                                fontSize: 26.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
+        return Center(
+          child: Wrap(
+            children: [
+              Material(
+                color: Colors.transparent,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  child: StatefulBuilder(
+                    builder: (context, setState) {
+                      return Wrap(
+                        children: [
+                          ListView(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            padding: EdgeInsets.only(
+                                left: rSize * 0.02, right: rSize * 0.02, top: rSize * 0.03, bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Text(
+                                    FFLocalizations.of(context).getText(
+                                      'filter' /* Filter */,
+                                    ),
+                                    style: FlutterFlowTheme.of(context).headlineMedium.override(
+                                          fontFamily: 'Roboto',
+                                          color: FlutterFlowTheme.of(context).primary,
+                                          fontSize: 26.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  )),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Icon(
+                                      Icons.close,
+                                      color: FlutterFlowTheme.of(context).primary,
+                                    ),
+                                  )
+                                ],
                               ),
-                        )),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(
-                            Icons.close,
-                            color: FlutterFlowTheme.of(context).primary,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: rSize * 0.02,
-                    ),
-                    Text(
-                      FFLocalizations.of(context).getText(
-                        'xccshnlg' /* Accounts */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
-                            fontSize: 18.0,
-                            letterSpacing: 0.0,
-                          ),
-                    ),
-                    SizedBox(
-                      height: rSize * 0.005,
-                    ),
-                    SearchableDropdown(
-                      searchHint: FFLocalizations.of(context).getText(
-                        'ip67vees' /* Search for an account */,
-                      ),
-                      selectedValue: selectedAccount,
-                      items: _notifier.accountList
-                          .map((item) => DropdownMenuItem(
-                                value: item,
-                                child: Text(
-                                  item.name!,
-                                  style: FlutterFlowTheme.of(context).bodySmall.override(
+                              SizedBox(
+                                height: rSize * 0.02,
+                              ),
+                              Text(
+                                FFLocalizations.of(context).getText(
+                                  'xccshnlg' /* Accounts */,
+                                ),
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 18.0,
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                              SizedBox(
+                                height: rSize * 0.005,
+                              ),
+                              SearchableDropdown(
+                                searchHint: FFLocalizations.of(context).getText(
+                                  'ip67vees' /* Search for an account */,
+                                ),
+                                selectedValue: selectedAccount,
+                                items: _notifier.accountList
+                                    .map((item) => DropdownMenuItem(
+                                          value: item,
+                                          child: Text(
+                                            item.name!,
+                                            style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                  fontFamily: 'Roboto',
+                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                          ),
+                                        ))
+                                    .toList(),
+                                onChanged: (p0) {
+                                  selectedAccount = p0;
+                                }, searchMatchFn: (item, searchValue) {
+                                  return CommonFunctions.compare(searchValue, item.value.name.toString());
+                              },
+                              ),
+                              SizedBox(
+                                height: rSize * 0.02,
+                              ),
+                              Text(
+                                FFLocalizations.of(context).getText(
+                                  'bzc91fwt' /* File Name */,
+                                ),
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 18.0,
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                              SizedBox(
+                                height: rSize * 0.005,
+                              ),
+                              TextFormField(
+                                controller: TextEditingController(text: searchedFileName),
+                                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                      fontFamily: 'Roboto',
+                                      letterSpacing: 0.0,
+                                    ),
+                                onChanged: (value) {
+                                  searchedFileName = value;
+                                },
+                                decoration: AppStyles.inputDecoration(
+                                  context,
+                                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                                  contentPadding: EdgeInsets.all(15),
+                                  labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                                         fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.of(context).primaryText,
-                                        fontSize: 14.0,
                                         letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
                                       ),
                                 ),
-                              ))
-                          .toList(),
-                      onChanged: (p0) {
-                        selectedAccount = p0;
-                      }, searchMatchFn: (item, searchValue) {
-                        return CommonFunctions.compare(searchValue, item.value.name.toString());
-                    },
-                    ),
-                    SizedBox(
-                      height: rSize * 0.02,
-                    ),
-                    Text(
-                      FFLocalizations.of(context).getText(
-                        'bzc91fwt' /* File Name */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
-                            fontSize: 18.0,
-                            letterSpacing: 0.0,
-                          ),
-                    ),
-                    SizedBox(
-                      height: rSize * 0.005,
-                    ),
-                    TextFormField(
-                      controller: TextEditingController(text: searchedFileName),
-                      style: FlutterFlowTheme.of(context).bodyLarge.override(
-                            fontFamily: 'Roboto',
-                            letterSpacing: 0.0,
-                          ),
-                      onChanged: (value) {
-                        searchedFileName = value;
-                      },
-                      decoration: AppStyles.inputDecoration(
-                        context,
-                        fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                        contentPadding: EdgeInsets.all(15),
-                        labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                              fontFamily: 'Roboto',
-                              letterSpacing: 0.0,
-                            ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: rSize * 0.015,
-                    ),
-                    Text(
-                      FFLocalizations.of(context).getText(
-                        '4n2ah71g' /* Types */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
-                            fontSize: 18.0,
-                            letterSpacing: 0.0,
-                          ),
-                    ),
-                    SizedBox(
-                      height: rSize * 0.01,
-                    ),
-                    SearchableDropdown(
-                      searchHint: '',
-                      selectedValue: selectedType,
-                      onChanged: (p0) {
-                        selectedType = p0;
-                      },
-                      isSearchable: false,
-                      items: _notifier.typesList
-                          .map((item) => DropdownMenuItem(
-                                value: item,
-                                child: Text(
-                                  item,
-                                  style: FlutterFlowTheme.of(context).bodySmall.override(
-                                    fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.of(context).primaryText,
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                              ),
+                              SizedBox(
+                                height: rSize * 0.015,
+                              ),
+                              Text(
+                                FFLocalizations.of(context).getText(
+                                  '4n2ah71g' /* Types */,
                                 ),
-                              ))
-                          .toList(), searchMatchFn: (item, searchValue) {
-                        return CommonFunctions.compare(searchValue, item.value.toString());
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 18.0,
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                              SizedBox(
+                                height: rSize * 0.01,
+                              ),
+                              SearchableDropdown(
+                                searchHint: '',
+                                selectedValue: selectedType,
+                                onChanged: (p0) {
+                                  selectedType = p0;
+                                },
+                                isSearchable: false,
+                                items: _notifier.typesList
+                                    .map((item) => DropdownMenuItem(
+                                          value: item,
+                                          child: Text(
+                                            item,
+                                            style: FlutterFlowTheme.of(context).bodySmall.override(
+                                              fontFamily: 'Roboto',
+                                              color: FlutterFlowTheme.of(context).primaryText,
+                                              fontSize: 14.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ))
+                                    .toList(), searchMatchFn: (item, searchValue) {
+                                  return CommonFunctions.compare(searchValue, item.value.toString());
+                              },
+                              ),
+                              SizedBox(
+                                height: rSize * 0.02,
+                              ),
+                              Text(
+                                FFLocalizations.of(context).getText(
+                                  'date_in_range' /* date_in_range */,
+                                ),
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 18.0,
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                              SizedBox(
+                                height: rSize * 0.005,
+                              ),
+                              TextFormField(
+                                readOnly: true,
+                                controller: TextEditingController(text: range),
+                                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                      fontFamily: 'Roboto',
+                                      letterSpacing: 0.0,
+                                    ),
+                                onTap: () {
+                                  AppWidgets.openDatePicker(
+                                    context,
+                                    (value) {
+                                      if (value is PickerDateRange) {
+                                        final String startDate = CommonFunctions.getYYYYMMDD(value.startDate!);
+                                        final String endDate = CommonFunctions.getYYYYMMDD(value.endDate!);
+                                        range = '$startDate  TO  $endDate';
+                                        Navigator.pop(context);
+                                        setState(() {});
+                                      }
+                                    },
+                                    () {
+                                      _notifier.setDate('');
+                                      Navigator.pop(context);
+                                      setState(() {});
+                                    },
+                                  );
+                                },
+                                decoration: AppStyles.inputDecoration(
+                                  context,
+                                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                                  contentPadding: EdgeInsets.all(15),
+                                  labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
+                                        fontFamily: 'Roboto',
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: rSize * 0.02,
+                              ),
+                              SizedBox(
+                                height: rSize * 0.03,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: InkWell(
+                                        onTap: () async {
+                                          _notifier.selectedAccount = null;
+                                          _notifier.searchedFile = '';
+                                          _notifier.selectedType = null;
+                                          _notifier.range = '';
+                                          _pageKey = 1;
+                                          _notifier.pagingController.refresh();
+                                          Navigator.pop(context);
+                                        },
+                                        child: AppWidgets.btn(
+                                            context,
+                                            FFLocalizations.of(context).getText(
+                                              'zw535eku' /* CLEAR */,
+                                            ),
+                                            borderOnly: true)),
+                                  ),
+                                  SizedBox(
+                                    width: rSize * 0.02,
+                                  ),
+                                  Expanded(
+                                    child: InkWell(
+                                        onTap: () async {
+                                          _notifier.selectedAccount = selectedAccount;
+                                          _notifier.searchedFile = searchedFileName;
+                                          _notifier.selectedType = selectedType;
+                                          _notifier.range = range;
+                                          _pageKey = 1;
+                                          _notifier.notify();
+                                          /*_notifier.selectedFilterList.removeWhere((element) =>
+                                              element.type == FilterTypes.ACCOUNT.name ||
+                                              element.type == FilterTypes.FILE_NAME.name ||
+                                              element.type == FilterTypes.DATE_RANGE.name ||
+                                              element.type == FilterTypes.TYPE.name);
+                                          _notifier.selectedFilterList.add(FilterModel(_notifier.selectedAccount, FilterTypes.ACCOUNT.name));
+                                          _notifier.selectedFilterList.add(FilterModel(_notifier.searchedFile, FilterTypes.FILE_NAME.name));
+                                          _notifier.selectedFilterList.add(FilterModel(_notifier.selectedType, FilterTypes.TYPE.name));
+                                          _notifier.selectedFilterList.add(FilterModel(_notifier.range, FilterTypes.DATE_RANGE.name));*/
+                                          _notifier.pagingController.refresh();
+                                          Navigator.pop(context);
+                                        },
+                                        child: AppWidgets.btn(
+                                            context,
+                                            FFLocalizations.of(context).getText(
+                                              'r8wu2qe3' /* Apply */,
+                                            ),
+                                            bgColor: FlutterFlowTheme.of(context).primary)),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      );
                     },
-                    ),
-                    SizedBox(
-                      height: rSize * 0.02,
-                    ),
-                    Text(
-                      FFLocalizations.of(context).getText(
-                        'date_in_range' /* date_in_range */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
-                            fontSize: 18.0,
-                            letterSpacing: 0.0,
-                          ),
-                    ),
-                    SizedBox(
-                      height: rSize * 0.005,
-                    ),
-                    TextFormField(
-                      readOnly: true,
-                      controller: TextEditingController(text: range),
-                      style: FlutterFlowTheme.of(context).bodyLarge.override(
-                            fontFamily: 'Roboto',
-                            letterSpacing: 0.0,
-                          ),
-                      onTap: () {
-                        AppWidgets.openDatePicker(
-                          context,
-                          (value) {
-                            if (value is PickerDateRange) {
-                              final String startDate = CommonFunctions.getYYYYMMDD(value.startDate!);
-                              final String endDate = CommonFunctions.getYYYYMMDD(value.endDate!);
-                              range = '$startDate  TO  $endDate';
-                              Navigator.pop(context);
-                              setState(() {});
-                            }
-                          },
-                          () {
-                            _notifier.setDate('');
-                            Navigator.pop(context);
-                            setState(() {});
-                          },
-                        );
-                      },
-                      decoration: AppStyles.inputDecoration(
-                        context,
-                        fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                        contentPadding: EdgeInsets.all(15),
-                        labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                              fontFamily: 'Roboto',
-                              letterSpacing: 0.0,
-                            ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: rSize * 0.02,
-                    ),
-                    SizedBox(
-                      height: rSize * 0.03,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                              onTap: () async {
-                                _notifier.selectedAccount = null;
-                                _notifier.searchedFile = '';
-                                _notifier.selectedType = null;
-                                _notifier.range = '';
-                                _pageKey = 1;
-                                _notifier.pagingController.refresh();
-                                Navigator.pop(context);
-                              },
-                              child: AppWidgets.btn(
-                                  context,
-                                  FFLocalizations.of(context).getText(
-                                    'zw535eku' /* CLEAR */,
-                                  ),
-                                  borderOnly: true)),
-                        ),
-                        SizedBox(
-                          width: rSize * 0.02,
-                        ),
-                        Expanded(
-                          child: InkWell(
-                              onTap: () async {
-                                _notifier.selectedAccount = selectedAccount;
-                                _notifier.searchedFile = searchedFileName;
-                                _notifier.selectedType = selectedType;
-                                _notifier.range = range;
-                                _pageKey = 1;
-                                _notifier.notify();
-                                /*_notifier.selectedFilterList.removeWhere((element) =>
-                                    element.type == FilterTypes.ACCOUNT.name ||
-                                    element.type == FilterTypes.FILE_NAME.name ||
-                                    element.type == FilterTypes.DATE_RANGE.name ||
-                                    element.type == FilterTypes.TYPE.name);
-                                _notifier.selectedFilterList.add(FilterModel(_notifier.selectedAccount, FilterTypes.ACCOUNT.name));
-                                _notifier.selectedFilterList.add(FilterModel(_notifier.searchedFile, FilterTypes.FILE_NAME.name));
-                                _notifier.selectedFilterList.add(FilterModel(_notifier.selectedType, FilterTypes.TYPE.name));
-                                _notifier.selectedFilterList.add(FilterModel(_notifier.range, FilterTypes.DATE_RANGE.name));*/
-                                _notifier.pagingController.refresh();
-                                Navigator.pop(context);
-                              },
-                              child: AppWidgets.btn(
-                                  context,
-                                  FFLocalizations.of(context).getText(
-                                    'r8wu2qe3' /* Apply */,
-                                  ),
-                                  bgColor: FlutterFlowTheme.of(context).primary)),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            );
-          },
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
       },
     );

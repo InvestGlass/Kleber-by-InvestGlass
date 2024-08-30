@@ -193,7 +193,7 @@ class _DashboardState extends State<Dashboard> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 60.0),
+              padding: const EdgeInsets.only(bottom: 30.0),
               child: PageView(
                 controller: controller,
                 physics: NeverScrollableScrollPhysics(),
@@ -321,9 +321,9 @@ class _DashboardState extends State<Dashboard> {
             height: rSize * 0.01,
           ),
           Container(
-            margin: EdgeInsets.only(top: isPortfolio(index)?20:10, bottom: isPortfolio(index)?10:5),
+            margin: EdgeInsets.only(top: 10, bottom: 5),
             width: _controller.iconSize,
-            height: isPortfolio(index)?30:_controller.iconSize,
+            height: _controller.iconSize,
             decoration: const BoxDecoration(),
             child: widget ??
                 Icon(
@@ -348,7 +348,7 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  bool isPortfolio(int index) => _controller.selectedIndex==1 && index==1;
+  // bool isPortfolio(int index) => _controller.selectedIndex==1 && index==1;
 
   void showOptions() {
     showDialog(

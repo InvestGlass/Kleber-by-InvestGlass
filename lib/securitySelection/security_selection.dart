@@ -215,222 +215,244 @@ class _SecuritySelectionState extends State<SecuritySelection> {
     selectedAssetClass = _notifier.selectedAssetClass;
     selectedIndustry = _notifier.selectedIndustry;
     selectedCurrency = _notifier.selectedCurrency;
-    showModalBottomSheet(
+    showDialog(
       useRootNavigator: true,
-      isScrollControlled: true,
-      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       context: context,
       builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            _notifier = Provider.of<SecuritySelectionController>(context);
-            return Wrap(
-              children: [
-                ListView(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.only(
-                      left: rSize * 0.02, right: rSize * 0.02, top: rSize * 0.03, bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text(
-                          'Filter',
-                          style: AppStyles.c3C496CW500S18.copyWith(fontSize: AppStyles.px22),
-                        )),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(
-                            Icons.close,
-                            color: AppColors.kTextFieldInput,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: rSize * 0.02,
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-                      child: Text(
-                        FFLocalizations.of(context).getText(
-                          '1p01lh7n' /* Asset Class */,
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
-                              fontSize: 18.0,
-                              letterSpacing: 0.0,
-                            ),
-                      ),
-                    ),
-                    SearchableDropdown(
-                      selectedValue: selectedAssetClass,
-                      searchHint: FFLocalizations.of(context).getText(
-                        'sotc1ho8' /* Search for an asset class */,
-                      ),
-                      onChanged: (p0) {
-                        selectedAssetClass = p0;
-                      },
-                      items: _notifier.assetClassList
-                          .map((item) => DropdownMenuItem(
-                                value: item,
+        return Center(
+          child: Wrap(
+            children: [
+              Material(
+                color: Colors.transparent,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  child: StatefulBuilder(
+                    builder: (context, setState) {
+                      _notifier = Provider.of<SecuritySelectionController>(context);
+                      return Wrap(
+                        children: [
+                          ListView(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            padding: EdgeInsets.only(
+                                left: rSize * 0.02, right: rSize * 0.02, top: rSize * 0.03, bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: Text(
+                                        FFLocalizations.of(context).getText(
+                                          'filter' /* Filter */,
+                                        ),
+                                    style: FlutterFlowTheme.of(context).headlineMedium.override(
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.of(context).primary,
+                                      fontSize: 26.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  )),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Icon(
+                                      Icons.close,
+                                      color: AppColors.kTextFieldInput,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: rSize * 0.02,
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
                                 child: Text(
-                                  item.name!,
-                                  style: FlutterFlowTheme.of(context).bodySmall.override(
-                                        fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.of(context).primaryText,
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                ),
-                              ))
-                          .toList(),
-                      searchMatchFn: (item, searchValue) {
-                        return CommonFunctions.compare(searchValue, item.value.name.toString());
-                      },
-                    ),
-                    SizedBox(
-                      height: rSize * 0.015,
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-                      child: Text(
-                        FFLocalizations.of(context).getText(
-                          'zfneqwjq' /* Industry */,
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
-                              fontSize: 18.0,
-                              letterSpacing: 0.0,
-                            ),
-                      ),
-                    ),
-                    SearchableDropdown(
-                      selectedValue: selectedIndustry,
-                      searchHint: FFLocalizations.of(context).getText(
-                        '8ltvrr9u' /* Search for an industry */,
-                      ),
-                      onChanged: (p0) {
-                        selectedIndustry = p0;
-                      },
-                      items: _notifier.industryList
-                          .map((item) => DropdownMenuItem(
-                                value: item,
-                                child: Text(
-                                  item.name!,
-                                  style: FlutterFlowTheme.of(context).bodySmall.override(
-                                        fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.of(context).primaryText,
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                ),
-                              ))
-                          .toList(),
-                      searchMatchFn: (item, searchValue) {
-                        return CommonFunctions.compare(searchValue, item.value.name.toString());
-                      },
-                    ),
-                    SizedBox(
-                      height: rSize * 0.015,
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-                      child: Text(
-                        FFLocalizations.of(context).getText(
-                          'nkjefkra' /* Currency */,
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
-                              fontSize: 18.0,
-                              letterSpacing: 0.0,
-                            ),
-                      ),
-                    ),
-                    SearchableDropdown(
-                      selectedValue: selectedCurrency,
-                      searchHint: FFLocalizations.of(context).getText(
-                        'ng4uvnyc' /* Search for a currency */,
-                      ),
-                      onChanged: (p0) {
-                        selectedCurrency = p0;
-                      },
-                      items: _notifier.currencyList
-                          .map((item) => DropdownMenuItem(
-                                value: item,
-                                child: Text(
-                                  item.name!,
-                                  style: FlutterFlowTheme.of(context).bodySmall.override(
-                                        fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.of(context).primaryText,
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                ),
-                              ))
-                          .toList(),
-                      searchMatchFn: (item, searchValue) {
-                        return CommonFunctions.compare(searchValue, item.value.name.toString());
-                      },
-                    ),
-                    SizedBox(
-                      height: rSize * 0.015,
-                    ),
-                    SizedBox(
-                      height: rSize * 0.02,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                              onTap: () async {
-                                _notifier.selectedAssetClass = null;
-                                _notifier.selectedCurrency = null;
-                                _notifier.selectedIndustry = null;
-                                pageKey = 1;
-                                _notifier.refresh();
-                                Navigator.pop(context);
-                              },
-                              child: AppWidgets.btn(
-                                  context,
                                   FFLocalizations.of(context).getText(
-                                    'zw535eku' /* CLEAR */,
+                                    '1p01lh7n' /* Asset Class */,
                                   ),
-                                  borderOnly: true)),
-                        ),
-                        SizedBox(
-                          width: rSize * 0.02,
-                        ),
-                        Expanded(
-                          child: InkWell(
-                              onTap: () async {
-                                _notifier.selectedAssetClass = selectedAssetClass;
-                                _notifier.selectedCurrency = selectedCurrency;
-                                _notifier.selectedIndustry = selectedIndustry;
-                                pageKey = 1;
-                                _notifier.refresh();
-                                Navigator.pop(context);
-                              },
-                              child: AppWidgets.btn(
-                                  context,
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        fontFamily: 'Roboto',
+                                        fontSize: 18.0,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                              SearchableDropdown(
+                                selectedValue: selectedAssetClass,
+                                searchHint: FFLocalizations.of(context).getText(
+                                  'sotc1ho8' /* Search for an asset class */,
+                                ),
+                                onChanged: (p0) {
+                                  selectedAssetClass = p0;
+                                },
+                                items: _notifier.assetClassList
+                                    .map((item) => DropdownMenuItem(
+                                          value: item,
+                                          child: Text(
+                                            item.name!,
+                                            style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                  fontFamily: 'Roboto',
+                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                          ),
+                                        ))
+                                    .toList(),
+                                searchMatchFn: (item, searchValue) {
+                                  return CommonFunctions.compare(searchValue, item.value.name.toString());
+                                },
+                              ),
+                              SizedBox(
+                                height: rSize * 0.015,
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                                child: Text(
                                   FFLocalizations.of(context).getText(
-                                    'r8wu2qe3' /* Apply */,
+                                    'zfneqwjq' /* Industry */,
                                   ),
-                                  bgColor: FlutterFlowTheme.of(context).primary)),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            );
-          },
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        fontFamily: 'Roboto',
+                                        fontSize: 18.0,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                              SearchableDropdown(
+                                selectedValue: selectedIndustry,
+                                searchHint: FFLocalizations.of(context).getText(
+                                  '8ltvrr9u' /* Search for an industry */,
+                                ),
+                                onChanged: (p0) {
+                                  selectedIndustry = p0;
+                                },
+                                items: _notifier.industryList
+                                    .map((item) => DropdownMenuItem(
+                                          value: item,
+                                          child: Text(
+                                            item.name!,
+                                            style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                  fontFamily: 'Roboto',
+                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                          ),
+                                        ))
+                                    .toList(),
+                                searchMatchFn: (item, searchValue) {
+                                  return CommonFunctions.compare(searchValue, item.value.name.toString());
+                                },
+                              ),
+                              SizedBox(
+                                height: rSize * 0.015,
+                              ),
+                              Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                                child: Text(
+                                  FFLocalizations.of(context).getText(
+                                    'nkjefkra' /* Currency */,
+                                  ),
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        fontFamily: 'Roboto',
+                                        fontSize: 18.0,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                              SearchableDropdown(
+                                selectedValue: selectedCurrency,
+                                searchHint: FFLocalizations.of(context).getText(
+                                  'ng4uvnyc' /* Search for a currency */,
+                                ),
+                                onChanged: (p0) {
+                                  selectedCurrency = p0;
+                                },
+                                items: _notifier.currencyList
+                                    .map((item) => DropdownMenuItem(
+                                          value: item,
+                                          child: Text(
+                                            item.name!,
+                                            style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                  fontFamily: 'Roboto',
+                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                          ),
+                                        ))
+                                    .toList(),
+                                searchMatchFn: (item, searchValue) {
+                                  return CommonFunctions.compare(searchValue, item.value.name.toString());
+                                },
+                              ),
+                              SizedBox(
+                                height: rSize * 0.015,
+                              ),
+                              SizedBox(
+                                height: rSize * 0.02,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: InkWell(
+                                        onTap: () async {
+                                          _notifier.selectedAssetClass = null;
+                                          _notifier.selectedCurrency = null;
+                                          _notifier.selectedIndustry = null;
+                                          pageKey = 1;
+                                          _notifier.refresh();
+                                          Navigator.pop(context);
+                                        },
+                                        child: AppWidgets.btn(
+                                            context,
+                                            FFLocalizations.of(context).getText(
+                                              'zw535eku' /* CLEAR */,
+                                            ),
+                                            borderOnly: true)),
+                                  ),
+                                  SizedBox(
+                                    width: rSize * 0.02,
+                                  ),
+                                  Expanded(
+                                    child: InkWell(
+                                        onTap: () async {
+                                          _notifier.selectedAssetClass = selectedAssetClass;
+                                          _notifier.selectedCurrency = selectedCurrency;
+                                          _notifier.selectedIndustry = selectedIndustry;
+                                          pageKey = 1;
+                                          _notifier.refresh();
+                                          Navigator.pop(context);
+                                        },
+                                        child: AppWidgets.btn(
+                                            context,
+                                            FFLocalizations.of(context).getText(
+                                              'r8wu2qe3' /* Apply */,
+                                            ),
+                                            bgColor: FlutterFlowTheme.of(context).primary)),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
       },
     );

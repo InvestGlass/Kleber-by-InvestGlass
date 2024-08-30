@@ -65,7 +65,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
         child: PagedListView<int, PortfolioModel>(
           pagingController: pagingController,
           // shrinkWrap: true,
-          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top+10),
+          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 10),
           builderDelegate: PagedChildBuilderDelegate<PortfolioModel>(noItemsFoundIndicatorBuilder: (context) {
             return const SizedBox();
           }, itemBuilder: (context, item, index) {
@@ -76,64 +76,68 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
               ),
               margin: EdgeInsets.symmetric(horizontal: rSize * 0.01, vertical: rSize * 0.005),
               child: Padding(
-                padding: EdgeInsets.all(rSize * 0.015),
+                padding: EdgeInsets.only(left:rSize * 0.015,right:rSize * 0.015,bottom:rSize * 0.015),
                 child: Column(
                   children: [
-                    GestureDetector(
+                    InkWell(
+                      splashColor: Colors.transparent,
                       onTap: () => _notifier.selectIndex(index),
-                      child: Row(
-                        children: [
-                          Expanded(
-                              child: Text(
-                            item.title ?? '',
-                            style: FlutterFlowTheme.of(context).displaySmall.override(
-                                  fontFamily: 'Roboto',
-                                  color: FlutterFlowTheme.of(context).primaryText,
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          )),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                _notifier.selectedIndex == index
-                                    ? ''
-                                    : FFLocalizations.of(context).getText(
-                                        '83o1ghax' /* Net Value */,
+                      child: Padding(
+                        padding:  EdgeInsets.only(top:rSize * 0.015 ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Text(
+                              item.title ?? '',
+                              style: FlutterFlowTheme.of(context).displaySmall.override(
+                                    fontFamily: 'Roboto',
+                                    color: FlutterFlowTheme.of(context).primaryText,
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            )),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  _notifier.selectedIndex == index
+                                      ? ''
+                                      : FFLocalizations.of(context).getText(
+                                          '83o1ghax' /* Net Value */,
+                                        ),
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        fontFamily: 'Roboto',
+                                        color: FlutterFlowTheme.of(context).primaryText,
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
                                       ),
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      fontFamily: 'Roboto',
-                                      color: FlutterFlowTheme.of(context).primaryText,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                              Text(
-                                _notifier.selectedIndex == index ? '' : item.netValue ?? '',
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      fontFamily: 'Roboto',
-                                      color: FlutterFlowTheme.of(context).primaryText,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: rSize * 0.015,
-                          ),
-                          RotatedBox(
-                              quarterTurns: _notifier.selectedIndex == index ? 1 : 3,
-                              child: Icon(
-                                Icons.arrow_back_ios_new,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 15,
-                              ))
-                        ],
+                                ),
+                                Text(
+                                  _notifier.selectedIndex == index ? '' : item.netValue ?? '',
+                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                        fontFamily: 'Roboto',
+                                        color: FlutterFlowTheme.of(context).primaryText,
+                                        fontSize: 16.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: rSize * 0.015,
+                            ),
+                            RotatedBox(
+                                quarterTurns: _notifier.selectedIndex == index ? 1 : 3,
+                                child: Icon(
+                                  Icons.arrow_back_ios_new,
+                                  color: FlutterFlowTheme.of(context).primaryText,
+                                  size: 15,
+                                ))
+                          ],
+                        ),
                       ),
                     ),
                     if (_notifier.selectedIndex == index) ...{
@@ -303,28 +307,28 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                   ))),
-                                        GestureDetector(
-                                          onTap: () => CommonFunctions.navigate(context, HealthCheck(item.appropriateness, item.suitability)),
-                                          child: Text(
-                                            FFLocalizations.of(context).getText(
-                                              '2um0eu09' /* Detail */,
-                                            ),
-                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                  fontFamily: 'Roboto',
-                                                  color: FlutterFlowTheme.of(context).primary,
-                                                  fontSize: 16.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
+                                      GestureDetector(
+                                        onTap: () => CommonFunctions.navigate(context, HealthCheck(item.appropriateness, item.suitability)),
+                                        child: Text(
+                                          FFLocalizations.of(context).getText(
+                                            '2um0eu09' /* Detail */,
                                           ),
+                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                fontFamily: 'Roboto',
+                                                color: FlutterFlowTheme.of(context).primary,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                         ),
-                                        RotatedBox(
-                                            quarterTurns: 2,
-                                            child: Icon(
-                                              Icons.arrow_back_ios,
-                                              color: FlutterFlowTheme.of(context).primary,
-                                              size: 12,
-                                            ))
+                                      ),
+                                      RotatedBox(
+                                          quarterTurns: 2,
+                                          child: Icon(
+                                            Icons.arrow_back_ios,
+                                            color: FlutterFlowTheme.of(context).primary,
+                                            size: 12,
+                                          ))
                                     ],
                                   ),
                                   SizedBox(

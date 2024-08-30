@@ -15,6 +15,7 @@ class SearchableDropdown extends StatefulWidget {
   final List<Widget> Function(BuildContext)? selectedItemBuilder;
   final bool isSearchable;
   final void Function(dynamic) onChanged;
+  final FocusNode? focusNode;
   final List<DropdownMenuItem<dynamic>>? items;
   final bool Function(DropdownMenuItem<dynamic>, String)? searchMatchFn;
 
@@ -27,6 +28,7 @@ class SearchableDropdown extends StatefulWidget {
       required this.searchMatchFn,
       this.hint = '',
         this.selectedItemBuilder,
+        this.focusNode,
       super.key});
 
   @override
@@ -64,7 +66,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton2<dynamic>(
-            isExpanded: true,selectedItemBuilder: widget.selectedItemBuilder,
+            isExpanded: true,selectedItemBuilder: widget.selectedItemBuilder,focusNode:widget.focusNode ,
             hint: Text(
               widget.hint,
               style: TextStyle(

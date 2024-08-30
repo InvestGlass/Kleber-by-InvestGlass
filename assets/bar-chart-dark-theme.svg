@@ -1,5 +1,6 @@
-<svg width="56" height="60" viewBox="0 0 56 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect y="27" width="14" height="33" fill="#A2CFF0"/>
-<rect x="21" y="45" width="14" height="15" fill="#A2CFF0"/>
-<rect x="42" width="14" height="60" fill="#A2CFF0"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="632" height="512.001" viewBox="0 0 632 512.001">
+  <g id="bar-chart-dark-theme" transform="translate(3)">
+    <rect id="Rectangle_2670" data-name="Rectangle 2670" width="632" height="512" transform="translate(-3)" fill="none"/>
+    <path id="Union_1" data-name="Union 1" d="M11704,11054v-512h120v512Zm-178,0v-128h119v128Zm-180,0v-281h119v281Z" transform="translate(-11272 -10542)" fill="#a2cff0"/>
+  </g>
 </svg>
