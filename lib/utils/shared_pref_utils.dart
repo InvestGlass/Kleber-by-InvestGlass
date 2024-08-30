@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const TOKEN = "token";
 const USER_DATA = "user_data";
+const IS_DARK_MODE = "is_dark_mode";
 
 class SharedPrefUtils {
   final SharedPreferences prefs;

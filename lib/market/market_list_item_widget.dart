@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:provider/provider.dart';
 
+import '../utils/app_colors.dart';
 import '../utils/button_widget.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
@@ -215,7 +216,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                           flex: 2,
                           child: FFButtonWidget(
                             onPressed: () async {
-                              CommonFunctions.navigate(context, AddTransaction(widget.data!));
+                              // CommonFunctions.navigate(context, AddTransaction(widget.data!));
                             },
                             text: FFLocalizations.of(context).getText(
                               '7v8svtoq' /* New Transaction */,
@@ -226,7 +227,8 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                                   24.0, 0.0, 24.0, 0.0),
                               iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: FlutterFlowTheme.of(context).primary,
+                              // color: FlutterFlowTheme.of(context).primary,
+                              color: AppColors.kHint,
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(

@@ -359,6 +359,9 @@ class _DashboardState extends State<Dashboard> {
           children: [
             Card(
               color: FlutterFlowTheme.of(context).secondaryBackground,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
               margin: EdgeInsets.only(bottom: 110,left: 30,right: 30),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
@@ -394,7 +397,8 @@ class _DashboardState extends State<Dashboard> {
                         FFLocalizations.of(context).getText(
                           'o5wm04m6' /* Market */,
                         ),onTap: () {
-                      CommonFunctions.navigate(context, Market());
+                      Navigator.pop(context);
+                      CommonFunctions.navigate(context, const Market());
                         },),
                     SizedBox(width: rSize*0.02,),
                     actionMenuItem(
@@ -409,7 +413,7 @@ class _DashboardState extends State<Dashboard> {
                           't2nv4kvj' /* Upload */,
                         ),onTap: () {
                       Navigator.pop(context);
-                      CommonFunctions.navigate(context, UploadDocument());
+                      CommonFunctions.navigate(context, const UploadDocument());
                         },),
                   ],
                 ),
