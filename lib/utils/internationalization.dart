@@ -146,6 +146,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'لم يتم العثور على الأمان',
       'vi': 'Không tìm thấy bảo mật',
     },
+    'no_doc_found':{
+      'en': 'No document found',
+      'ar': 'لم يتم العثور على وثيقة',
+      'vi': 'Không tìm thấy tài liệu nào',
+    },
     'no_proposals_found':{
       'en': 'No proposal found',
       'ae': 'لم يتم العثور على أي اقتراح',

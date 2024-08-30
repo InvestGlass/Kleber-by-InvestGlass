@@ -150,7 +150,9 @@ class _DocumentsState extends State<Documents> {
                   // shrinkWrap: true,
                   padding: EdgeInsets.symmetric(horizontal: rSize*0.015),
                   builderDelegate: PagedChildBuilderDelegate<Document>(noItemsFoundIndicatorBuilder: (context) {
-                    return const SizedBox();
+                    return AppWidgets.emptyView(FFLocalizations.of(context).getText(
+                      'no_doc_found' ,
+                    ), context);
                   }, itemBuilder: (context, item, index) {
                     return GestureDetector(
                       onTap: () {
