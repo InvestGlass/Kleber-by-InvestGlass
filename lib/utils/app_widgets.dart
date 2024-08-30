@@ -215,6 +215,28 @@ class AppWidgets {
     );
   }
 
+  static emptyView(String msg,BuildContext context){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.list_alt,
+          color: FlutterFlowTheme.of(context).secondaryText,
+          size: 120.0,
+        ),
+        Text(
+          msg,
+          style: FlutterFlowTheme.of(context).bodyLarge.override(
+            fontFamily: 'Roboto',
+            color: FlutterFlowTheme.of(context).secondaryText,
+            fontSize: 20.0,
+            letterSpacing: 0.0,
+          ),
+        ),
+      ],
+    );
+  }
+
   static Widget btn(BuildContext context, String label,
       {double? width, double horizontalPadding = 0, double? verticalPadding, Widget? widget, bool borderOnly = false, Color? bgColor}) {
     return Container(

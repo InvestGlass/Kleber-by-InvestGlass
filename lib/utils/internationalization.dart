@@ -141,6 +141,16 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'تسجيل الدخول',
       'vi': 'Đăng nhập vào',
     },
+    'no_security_found':{
+      'en': 'No security found',
+      'ar': 'لم يتم العثور على الأمان',
+      'vi': 'Không tìm thấy bảo mật',
+    },
+    'no_proposals_found':{
+      'en': 'No proposal found',
+      'ae': 'لم يتم العثور على أي اقتراح',
+      'vi': 'Không tìm thấy đề xuất nào',
+    },
     'zlksaikw': {
       'en': 'your',
       'ar': 'لك',

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:intl/intl.dart';
 import 'package:kleber_bank/proposals/proposal_controller.dart';
 import 'package:kleber_bank/proposals/proposal_model.dart';
-import 'package:kleber_bank/proposals/view_document.dart';
 import 'package:kleber_bank/proposals/view_proposal.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/searchable_dropdown.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../main.dart';
 import '../utils/api_calls.dart';
 import '../utils/app_colors.dart';
@@ -99,7 +99,11 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                 // shrinkWrap: true,
                 padding: EdgeInsets.symmetric(horizontal: rSize * 0.015),
                 builderDelegate: PagedChildBuilderDelegate<ProposalModel>(noItemsFoundIndicatorBuilder: (context) {
-                  return const SizedBox();
+                  return AppWidgets.emptyView(
+                      FFLocalizations.of(context).getText(
+                        'no_proposals_found',
+                      ),
+                      context);
                 }, itemBuilder: (context, item, index) {
                   String date = DateFormat('yyyy-MM-dd HH:mm').format(item.updatedAt!);
                   return Card(
@@ -110,7 +114,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     child: ListView(
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.all(rSize * 0.015),
                       children: [
                         Column(
@@ -159,7 +163,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                             if (_notifier.selectedIndex == index) ...{
                               ListView(
                                 shrinkWrap: true,
-                                padding: EdgeInsets.only(top: 15),
+                                padding: const EdgeInsets.only(top: 15),
                                 children: [
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -282,7 +286,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                       'j0hr735r' /* Decline*/,
                                                     )}',
                                                     FlutterFlowTheme.of(context).customColor3,
-                                                    Icon(
+                                                    const Icon(
                                                       Icons.close,
                                                       color: Colors.white,
                                                     )),
@@ -315,7 +319,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                       '3esw1ind' /* Accept */,
                                                     )}',
                                                     FlutterFlowTheme.of(context).customColor2,
-                                                    Icon(
+                                                    const Icon(
                                                       Icons.done,
                                                       color: Colors.white,
                                                     )),
@@ -339,11 +343,11 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                   'c64nnx2a' /* Accepted at  */,
                                                 )} $date',
                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                  fontFamily: 'Roboto',
-                                                  color: FlutterFlowTheme.of(context).customColor2,
-                                                  fontSize: 16.0,
-                                                  letterSpacing: 0.0,
-                                                ),
+                                                      fontFamily: 'Roboto',
+                                                      color: FlutterFlowTheme.of(context).customColor2,
+                                                      fontSize: 16.0,
+                                                      letterSpacing: 0.0,
+                                                    ),
                                               ),
                                             ],
                                           )
@@ -361,11 +365,11 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                   '5tjloy3c' /* Rejected at */,
                                                 )} $date',
                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                  fontFamily: 'Roboto',
-                                                  color: FlutterFlowTheme.of(context).customColor3,
-                                                  fontSize: 16.0,
-                                                  letterSpacing: 0.0,
-                                                ),
+                                                      fontFamily: 'Roboto',
+                                                      color: FlutterFlowTheme.of(context).customColor3,
+                                                      fontSize: 16.0,
+                                                      letterSpacing: 0.0,
+                                                    ),
                                               ),
                                             ],
                                           )
@@ -450,9 +454,8 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
               Material(
                 color: Colors.transparent,
                 child: Container(
-                  decoration: BoxDecoration(color: FlutterFlowTheme.of(context).secondaryBackground,
-                  borderRadius: BorderRadius.circular(10)),
-                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  decoration: BoxDecoration(color: FlutterFlowTheme.of(context).secondaryBackground, borderRadius: BorderRadius.circular(10)),
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
                   child: StatefulBuilder(
                     builder: (context, setState) {
                       Provider.of<ProposalController>(context, listen: false).getProposalTypes(context);
@@ -461,9 +464,12 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                         children: [
                           ListView(
                             shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             padding: EdgeInsets.only(
-                                left: rSize * 0.02, right: rSize * 0.02, top: rSize * 0.03, bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
+                                left: rSize * 0.02,
+                                right: rSize * 0.02,
+                                top: rSize * 0.03,
+                                bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
                             children: [
                               Row(
                                 children: [
@@ -516,7 +522,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                 decoration: AppStyles.inputDecoration(
                                   context,
                                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                  contentPadding: EdgeInsets.all(15),
+                                  contentPadding: const EdgeInsets.all(15),
                                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                                         fontFamily: 'Roboto',
                                         letterSpacing: 0.0,
@@ -548,7 +554,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                 decoration: AppStyles.inputDecoration(
                                   context,
                                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                  contentPadding: EdgeInsets.all(15),
+                                  contentPadding: const EdgeInsets.all(15),
                                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                                         fontFamily: 'Roboto',
                                         letterSpacing: 0.0,
@@ -627,13 +633,13 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                           _notifier.proposalName = proposalNameController.text;
                                           _notifier.selectedProposalType = selectedProposal;
                                           _pageKey = 1;
-                                          _notifier.selectedFilterList.removeWhere((element) =>
+                                          /*_notifier.selectedFilterList.removeWhere((element) =>
                                               element.type == FilterTypes.ADVISOR.name ||
                                               element.type == FilterTypes.PROPOSAL_NAME.name ||
                                               element.type == FilterTypes.PROPOSAL_TYPE.name);
                                           _notifier.selectedFilterList.add(FilterModel(_notifier.advisorName!, FilterTypes.ADVISOR.name));
                                           _notifier.selectedFilterList.add(FilterModel(_notifier.proposalName!, FilterTypes.PROPOSAL_NAME.name));
-                                          _notifier.selectedFilterList.add(FilterModel(_notifier.selectedProposalType!, FilterTypes.PROPOSAL_TYPE.name));
+                                          _notifier.selectedFilterList.add(FilterModel(_notifier.selectedProposalType!, FilterTypes.PROPOSAL_TYPE.name));*/
                                           _notifier.pagingController.refresh();
                                           Navigator.pop(context);
                                         },
@@ -676,7 +682,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                   padding: EdgeInsets.only(top: rSize * 0.015),
                   decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
                   child: Column(
                     children: [
                       Text(
@@ -800,7 +806,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(rSize * 0.01),
-        decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.all(Radius.circular(10))),
+        decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: const BorderRadius.all(Radius.circular(10))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

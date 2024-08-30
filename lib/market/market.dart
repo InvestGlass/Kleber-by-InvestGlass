@@ -146,7 +146,9 @@ class _MarketState extends State<Market> {
                     pagingController: _notifier.pagingController,
                     // shrinkWrap: true,
                     builderDelegate: PagedChildBuilderDelegate<MarketListModel>(noItemsFoundIndicatorBuilder: (context) {
-                      return const SizedBox();
+                      return AppWidgets.emptyView(FFLocalizations.of(context).getText(
+                        'no_security_found' /* No security found */,
+                      ), context);
                     }, itemBuilder: (context, item, index) {
                       return MarketListItemWidget(
                         // key: Key('Keyery_${index}_of_${realLength}'),

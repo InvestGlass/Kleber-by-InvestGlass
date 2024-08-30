@@ -156,7 +156,7 @@ class Advisor {
     name: json["name"],
     phoneMobile: json["phone_mobile"],
     phoneHome: json["phone_home"],
-    phoneOffice: json["phone_office"],
+    phoneOffice: json["phone_office"]??json["phone_mobile"]??json["phone_home"]??'',
     email: json["email"],
     avatar: json["avatar"],
     publicAgenda: json["public_agenda"],
