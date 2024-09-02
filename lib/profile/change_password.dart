@@ -31,7 +31,9 @@ class _ChangePasswordState extends State<ChangePassword> {
   Widget build(BuildContext context) {
     _notifier = Provider.of<ProfileController>(context);
     return Scaffold(
-      appBar: AppWidgets.appBar(context, 'Change Password',
+      appBar: AppWidgets.appBar(context, FFLocalizations.of(context).getText(
+        'afxtmzhw' /* Change Password */,
+      ),
           leading: GestureDetector(
             onTap: () => Navigator.pop(context),
             child: Icon(
@@ -84,7 +86,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       child:
                           Icon(_notifier.showCurrentPwd ? Icons.visibility : Icons.visibility_off, color: FlutterFlowTheme.of(context).primaryText)),
                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                  contentPadding: EdgeInsets.all(15),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 18),
                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                         fontFamily: 'Roboto',
                         letterSpacing: 0.0,
@@ -125,7 +127,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   context,hint: FFLocalizations.of(context).getText(
                   '2l6qayo4' /* New password */,
                 ),
-                  contentPadding: EdgeInsets.all(15),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 18),
                   suffix: GestureDetector(
                       onTap: () {
                         _notifier.changeNewPwdVisibilityStatus();
@@ -169,7 +171,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 },
                 obscureText: !_notifier.showConfirmNewPwd,
                 decoration: AppStyles.inputDecoration(context,
-                    contentPadding: EdgeInsets.all(15),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 18),
                     hint: FFLocalizations.of(context).getText(
                       'lz5cj3qp' /* Confirm new password */,
                     ),
@@ -196,7 +198,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           context,
                           FFLocalizations.of(context).getText(
                             'iy4dy5qk' /* Change password */,
-                          ),
+                          ),textColor: Colors.white,
                           horizontalPadding: rSize * 0.025,
                           bgColor: FlutterFlowTheme.of(context).primary)),
                 ],

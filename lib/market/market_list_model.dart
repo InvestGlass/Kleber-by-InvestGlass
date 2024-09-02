@@ -1,5 +1,9 @@
 import 'dart:convert';
 
+List<MarketListModel> marketListModelFromJson(String str) => List<MarketListModel>.from(json.decode(str).map((x) => MarketListModel.fromJson(x)));
+
+String marketListModelToJson(List<MarketListModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class MarketListModel {
   int? id;
   int? companyId;

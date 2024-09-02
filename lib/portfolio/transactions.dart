@@ -30,13 +30,13 @@ class _TransactionsState extends State<Transactions> {
   @override
   void initState() {
     pagingController.addPageRequestListener((pageKey) {
-      _fetchPageActivity();
+      _fetchPageActivity(context);
     });
     super.initState();
   }
 
-  Future<void> _fetchPageActivity() async {
-    List<TransactionModel> list = await ApiCalls.getTransactionList(pageKey, widget.portfolioName);
+  Future<void> _fetchPageActivity(BuildContext context,) async {
+    List<TransactionModel> list = await ApiCalls.getTransactionList(context,pageKey, widget.portfolioName);
     final isLastPage = list.length < 10;
     if (isLastPage) {
       pagingController.appendLastPage(list);

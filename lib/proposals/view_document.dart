@@ -156,7 +156,7 @@ class _ViewDocumentState extends State<ViewDocument> {
             context,
             FFLocalizations.of(context).getText(
               'mg8sso38' /* Sign */,
-            ),
+            ),textColor: Colors.white,
             bgColor: FlutterFlowTheme.of(context).primary),
       );
     } else {

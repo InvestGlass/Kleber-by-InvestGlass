@@ -14,9 +14,10 @@ class SecuritySelectionController extends ChangeNotifier {
   MarketListModel? selectedAssetClass, selectedIndustry, selectedCurrency;
   MarketListModel? selectedSecurity;
 
-  Future<void> getList(int pageKey) async {
+  Future<void> getList(BuildContext context,int pageKey) async {
     marketList.clear();
     await ApiCalls.getMarketList(
+      context,
             pageKey,
         searchController.text,
         selectedAssetClass?.name ?? '',
@@ -30,9 +31,9 @@ class SecuritySelectionController extends ChangeNotifier {
     );
   }
 
-  Future<void> getFilterDropDown() async {
+  Future<void> getFilterDropDown(BuildContext context,) async {
     if (industryList.isEmpty) {
-      ApiCalls.getMarketFilterDropDownData(EndPoints.industries).then(
+      ApiCalls.getMarketFilterDropDownData(context,EndPoints.industries).then(
         (value) {
           industryList = value;
           notifyListeners();
@@ -40,7 +41,7 @@ class SecuritySelectionController extends ChangeNotifier {
       );
     }
     if (currencyList.isEmpty) {
-      ApiCalls.getMarketFilterDropDownData(EndPoints.currencies).then(
+      ApiCalls.getMarketFilterDropDownData(context,EndPoints.currencies).then(
         (value) {
           currencyList = value;
           notifyListeners();
@@ -48,7 +49,7 @@ class SecuritySelectionController extends ChangeNotifier {
       );
     }
     if (assetClassList.isEmpty) {
-      ApiCalls.getMarketFilterDropDownData(EndPoints.assetClasses).then(
+      ApiCalls.getMarketFilterDropDownData(context,EndPoints.assetClasses).then(
         (value) {
           assetClassList = value;
           notifyListeners();

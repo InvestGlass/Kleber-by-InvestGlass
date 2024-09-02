@@ -37,7 +37,7 @@ class HomeController extends ChangeNotifier{
 
   void getPopularNews(BuildContext context){
     CommonFunctions.showLoader(context);
-    ApiCalls.getHomeNews().then((value) {
+    ApiCalls.getHomeNews(context).then((value) {
       CommonFunctions.dismissLoader(context);
       popularNewsList=value;
       notifyListeners();

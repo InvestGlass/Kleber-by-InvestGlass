@@ -58,7 +58,7 @@ class DocumentsController extends ChangeNotifier {
       return;
     }
     CommonFunctions.showLoader(context);
-    await ApiCalls.getAccountsList().then((value) {
+    await ApiCalls.getAccountsList(context).then((value) {
       CommonFunctions.dismissLoader(context);
       accountList=value;
       accountList.insert(0,AccountsModel(name:FFLocalizations.of(context).getText(
@@ -108,7 +108,7 @@ class DocumentsController extends ChangeNotifier {
 
   void updateDocumentStatus(Document item, String status, int index, BuildContext context,{Function? onUpdateStatus}){
     CommonFunctions.showLoader(context);
-    ApiCalls.updateDocumentStatus(item.id!, status).then((value) {
+    ApiCalls.updateDocumentStatus(context,item.id!, status).then((value) {
       CommonFunctions.dismissLoader(context);
       Navigator.pop(context);
       if (value!=null) {

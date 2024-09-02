@@ -46,7 +46,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
 
   Future<void> _fetchPageActivity() async {
     SecuritySelectionController provider = Provider.of<SecuritySelectionController>(context, listen: false);
-    await provider.getList(pageKey);
+    await provider.getList(context,pageKey);
     final isLastPage = provider.marketList.length < 10;
     if (isLastPage) {
       provider.pagingController.appendLastPage(provider.marketList);
@@ -102,7 +102,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () => openFilterDialog(),
+                    onTap: () => openFilterDialog(context),
                     child: Container(
                       height: 45,
                       width: 45,
@@ -209,8 +209,8 @@ class _SecuritySelectionState extends State<SecuritySelection> {
     }
   }
 
-  void openFilterDialog() {
-    _notifier.getFilterDropDown();
+  void openFilterDialog(BuildContext context,) {
+    _notifier.getFilterDropDown(context);
     MarketListModel? selectedAssetClass, selectedIndustry, selectedCurrency;
     selectedAssetClass = _notifier.selectedAssetClass;
     selectedIndustry = _notifier.selectedIndustry;

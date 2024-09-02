@@ -22,7 +22,7 @@ class SharedPrefUtils {
     prefs.setBool(key, value);
   }
 
-  bool? getBool(String key, {bool? defaultValue = false}) {
+  bool getBool(String key, {bool defaultValue = false}) {
     if (prefs.containsKey(key)) {
       return prefs.getBool(key) ?? defaultValue;
     }

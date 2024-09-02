@@ -34,7 +34,7 @@ class _AddTransactionState extends State<AddTransaction> {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         Provider.of<MarketController>(context, listen: false).getTransactionTypes(context);
-        Provider.of<PortfolioController>(context, listen: false).getPortfolioList(0, notify: true);
+        Provider.of<PortfolioController>(context, listen: false).getPortfolioList(context,0, notify: true);
       },
     );
     super.initState();

@@ -21,10 +21,10 @@ class MarketController extends ChangeNotifier {
   TimeOfDay? selectedTime;
   String? selectedDateTime;
 
-  Future<void> getList(int pageKey) async {
+  Future<void> getList(BuildContext context,int pageKey) async {
     marketList.clear();
     await ApiCalls.getMarketList(
-            pageKey, searchController.text, selectedAssetClass?.name ?? '', selectedIndustry?.name ?? '', selectedCurrency?.name ?? '')
+            context,pageKey, searchController.text, selectedAssetClass?.name ?? '', selectedIndustry?.name ?? '', selectedCurrency?.name ?? '')
         .then(
       (value) {
         marketList = value;
@@ -33,9 +33,9 @@ class MarketController extends ChangeNotifier {
     );
   }
 
-  Future<void> getFilterDropDown() async {
+  Future<void> getFilterDropDown(BuildContext context) async {
     if (industryList.isEmpty) {
-      ApiCalls.getMarketFilterDropDownData(EndPoints.industries).then(
+      ApiCalls.getMarketFilterDropDownData(context,EndPoints.industries).then(
         (value) {
           industryList = value;
           notifyListeners();
@@ -43,7 +43,7 @@ class MarketController extends ChangeNotifier {
       );
     }
     if (currencyList.isEmpty) {
-      ApiCalls.getMarketFilterDropDownData(EndPoints.currencies).then(
+      ApiCalls.getMarketFilterDropDownData(context,EndPoints.currencies).then(
         (value) {
           currencyList = value;
           notifyListeners();
@@ -51,7 +51,7 @@ class MarketController extends ChangeNotifier {
       );
     }
     if (assetClassList.isEmpty) {
-      ApiCalls.getMarketFilterDropDownData(EndPoints.assetClasses).then(
+      ApiCalls.getMarketFilterDropDownData(context,EndPoints.assetClasses).then(
         (value) {
           assetClassList = value;
           notifyListeners();
@@ -91,7 +91,7 @@ class MarketController extends ChangeNotifier {
   void getTransactionTypes(BuildContext context) async {
     if (transactionTypeList.isEmpty) {
       CommonFunctions.showLoader(context);
-      ApiCalls.getTransactionTypeList().then(
+      ApiCalls.getTransactionTypeList(context).then(
         (value) {
           CommonFunctions.dismissLoader(context);
           transactionTypeList = value;
@@ -144,7 +144,7 @@ class MarketController extends ChangeNotifier {
     map2['transaction']=map;
 
     CommonFunctions.showLoader(context);
-    await ApiCalls.transmit(map2).then(
+    await ApiCalls.transmit(context,map2).then(
       (value) {
         CommonFunctions.dismissLoader(context);
         print('add transaction response $value');

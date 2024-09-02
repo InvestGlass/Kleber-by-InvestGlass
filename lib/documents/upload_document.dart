@@ -131,7 +131,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                   child:
                       AppWidgets.btn(context,FFLocalizations.of(context).getText(
                         't2nv4kvj' /* Upload */,
-                      ), horizontalPadding: rSize * 0.03, bgColor: isButtonDisabled() ? AppColors.kHint : FlutterFlowTheme.of(context).primary),
+                      ),textColor: Colors.white, horizontalPadding: rSize * 0.03, bgColor: isButtonDisabled() ? AppColors.kHint : FlutterFlowTheme.of(context).primary),
                 ),
               ],
             )
@@ -213,7 +213,7 @@ class _UploadDocumentState extends State<UploadDocument> {
         child: AppWidgets.btn(context, FFLocalizations.of(context)
             .getText(
           'lh2w6q42' /* Select  */,
-        ),bgColor: FlutterFlowTheme.of(context).primary,horizontalPadding: 20,verticalPadding: 5));
+        ),textColor:Colors.white,bgColor: FlutterFlowTheme.of(context).primary,horizontalPadding: 20,verticalPadding: 5));
     /*return GestureDetector(
 
         child: Container(

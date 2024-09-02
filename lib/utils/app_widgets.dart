@@ -151,30 +151,26 @@ class AppWidgets {
     );
   }
 
-  static Widget portfolioListElement(BuildContext context, String label, String value, {String middleValue = '',Widget? icon}) {
+  static Widget portfolioListElement(BuildContext context, String label, String value, {String middleValue = '', Widget? icon}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           label,
-          style: FlutterFlowTheme.of(context)
-              .bodyMedium
-              .override(
-            fontFamily: 'Roboto',
-            fontSize: 16.0,
-            letterSpacing: 0.0,
-          ),
+          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                fontFamily: 'Roboto',
+                fontSize: 16.0,
+                letterSpacing: 0.0,
+              ),
         ),
         if (middleValue.isNotEmpty) ...{
           Text(
             middleValue,
-            style: FlutterFlowTheme.of(context)
-                .bodyMedium
-                .override(
-              fontFamily: 'Roboto',
-              fontSize: 16.0,
-              letterSpacing: 0.0,
-            ),
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  fontSize: 16.0,
+                  letterSpacing: 0.0,
+                ),
           )
         },
         if (middleValue.isEmpty) ...{
@@ -193,12 +189,13 @@ class AppWidgets {
                     fontWeight: FontWeight.normal,
                   ),
             ),
-
-
-          ),if(icon!=null)...{
-            SizedBox(width: 10,),
-    icon
-    }
+          ),
+          if (icon != null) ...{
+            SizedBox(
+              width: 10,
+            ),
+            icon
+          }
         } else ...{
           Text(
             value,
@@ -215,7 +212,7 @@ class AppWidgets {
     );
   }
 
-  static emptyView(String msg,BuildContext context){
+  static emptyView(String msg, BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -227,18 +224,24 @@ class AppWidgets {
         Text(
           msg,
           style: FlutterFlowTheme.of(context).bodyLarge.override(
-            fontFamily: 'Roboto',
-            color: FlutterFlowTheme.of(context).secondaryText,
-            fontSize: 20.0,
-            letterSpacing: 0.0,
-          ),
+                fontFamily: 'Roboto',
+                color: FlutterFlowTheme.of(context).secondaryText,
+                fontSize: 20.0,
+                letterSpacing: 0.0,
+              ),
         ),
       ],
     );
   }
 
   static Widget btn(BuildContext context, String label,
-      {double? width, double horizontalPadding = 0, double? verticalPadding, Widget? widget, bool borderOnly = false, Color? bgColor}) {
+      {double? width,
+      double horizontalPadding = 0,
+      double? verticalPadding,
+      Widget? widget,
+      bool borderOnly = false,
+      Color? bgColor,
+      Color? textColor}) {
     return Container(
       width: width,
       alignment: Alignment.center,
@@ -253,12 +256,12 @@ class AppWidgets {
                       color: FlutterFlowTheme.of(context).primary,
                       letterSpacing: 0.0,
                     )
-                : FlutterFlowTheme.of(context).displaySmall.override(
-                      fontFamily: 'Roboto',
-                      color: FlutterFlowTheme.of(context).info,
-                      fontSize: 16.0,
+                : FlutterFlowTheme.of(context).bodySmall.override(
+                      fontFamily: 'Lexend Deca',
+                      color: textColor ?? Colors.white,
+                      fontSize: 14.0,
                       letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.normal,
                     ),
           ),
     );
@@ -276,10 +279,10 @@ class AppWidgets {
           Text(
             label,
             style: FlutterFlowTheme.of(context).titleSmall.override(
-              fontFamily: 'Roboto',
-              color: FlutterFlowTheme.of(context).primaryText,
-              letterSpacing: 0.0,
-            ),
+                  fontFamily: 'Roboto',
+                  color: Colors.white,
+                  letterSpacing: 0.0,
+                ),
           ),
         ],
       ),
@@ -303,7 +306,8 @@ class AppWidgets {
             Container(
                 padding: EdgeInsets.all(rSize * 0.01),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)), border: Border.all(color: FlutterFlowTheme.of(context).primaryText, width: 1)),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    border: Border.all(color: FlutterFlowTheme.of(context).primaryText, width: 1)),
                 child: Image.asset(
                   'assets/$img',
                   scale: 25,
@@ -315,12 +319,12 @@ class AppWidgets {
             Text(
               label,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                fontFamily: 'Roboto',
-                color: FlutterFlowTheme.of(context).primaryText,
-                fontSize: 16.0,
-                letterSpacing: 0.0,
-                fontWeight: FontWeight.w500,
-              ),
+                    fontFamily: 'Roboto',
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    fontSize: 16.0,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.w500,
+                  ),
             )
           ],
         ),
@@ -336,24 +340,15 @@ class AppWidgets {
       builder: (context) {
         return Container(
           alignment: Alignment.center,
-          decoration:
-              BoxDecoration(color: FlutterFlowTheme.of(context).secondaryBackground, borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+          decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).secondaryBackground,
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
           height: rSize * 0.15,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              AppWidgets.sheetElement(
-                'media.png',
-                'Select File',
-                onFileClick,
-                context
-              ),
-              AppWidgets.sheetElement(
-                'camera.png',
-                'Capture Image',
-                onCameraClick,
-                context
-              ),
+              AppWidgets.sheetElement('media.png', 'Select File', onFileClick, context),
+              AppWidgets.sheetElement('camera.png', 'Capture Image', onCameraClick, context),
             ],
           ),
         );
@@ -363,7 +358,7 @@ class AppWidgets {
 
   static AppBar appBar(BuildContext context, String title, {Widget? leading, List<Widget>? actions, bool centerTitle = false}) {
     return AppBar(
-      elevation: 0,
+      elevation: 4,
       actions: actions,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       surfaceTintColor: Colors.transparent,
@@ -513,13 +508,17 @@ class AppWidgets {
               startRangeSelectionColor: FlutterFlowTheme.of(context).primary,
               endRangeSelectionColor: FlutterFlowTheme.of(context).primary,
               rangeSelectionColor: FlutterFlowTheme.of(context).primary,
-              selectionMode: mode,headerStyle: DateRangePickerHeaderStyle(backgroundColor:FlutterFlowTheme.of(context).secondaryBackground,textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-              fontFamily: 'Roboto',
-              color: FlutterFlowTheme.of(context).primaryText,
-              fontSize: 16.0,
-              letterSpacing: 0.0,
-              fontWeight: FontWeight.normal,
-            ), ),
+              selectionMode: mode,
+              headerStyle: DateRangePickerHeaderStyle(
+                backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+                textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Roboto',
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      fontSize: 16.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.normal,
+                    ),
+              ),
               monthViewSettings: DateRangePickerMonthViewSettings(
                 firstDayOfWeek: 1,
               ),

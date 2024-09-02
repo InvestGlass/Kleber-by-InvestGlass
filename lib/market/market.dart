@@ -42,14 +42,14 @@ class _MarketState extends State<Market> {
   @override
   void initState() {
     Provider.of<MarketController>(context, listen: false).pagingController.addPageRequestListener((pageKey) {
-      _fetchPageActivity();
+      _fetchPageActivity(context);
     });
     super.initState();
   }
 
-  Future<void> _fetchPageActivity() async {
+  Future<void> _fetchPageActivity(BuildContext context,) async {
     MarketController provider = Provider.of<MarketController>(context, listen: false);
-    await provider.getList(pageKey);
+    await provider.getList(context,pageKey);
     final isLastPage = provider.marketList.length < 10;
     if (isLastPage) {
       provider.pagingController.appendLastPage(provider.marketList);
@@ -69,6 +69,13 @@ class _MarketState extends State<Market> {
         appBar: AppWidgets.appBar(
             context,
             centerTitle: true,
+            leading: GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Icon(
+                Icons.arrow_back,
+                color: FlutterFlowTheme.of(context).primary,
+              ),
+            ),
             FFLocalizations.of(context).getText(
               'o5wm04m6' /* Market */,
             )),
@@ -84,7 +91,7 @@ class _MarketState extends State<Market> {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () => openFilterDialog(),
+                    onTap: () => openFilterDialog(context),
                     child: Container(
                       height: 45,
                       width: 45,
@@ -108,9 +115,12 @@ class _MarketState extends State<Market> {
                           ),
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.transparent, width: 1)),
+                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: FlutterFlowTheme.of(context).alternate, width: 1)),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.transparent, width: 1)),
+                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: FlutterFlowTheme.of(context).alternate, width: 1)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: FlutterFlowTheme.of(context).alternate, width: 1)),
+
                           fillColor: FlutterFlowTheme.of(context).primaryBackground,
                           filled: true,
                           hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
@@ -242,8 +252,8 @@ class _MarketState extends State<Market> {
     }
   }
 
-  void openFilterDialog() {
-    _notifier.getFilterDropDown();
+  void openFilterDialog(BuildContext context) {
+    _notifier.getFilterDropDown(context);
     MarketListModel? selectedAssetClass, selectedIndustry, selectedCurrency;
     selectedAssetClass = _notifier.selectedAssetClass;
     selectedIndustry = _notifier.selectedIndustry;

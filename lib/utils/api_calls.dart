@@ -6,15 +6,16 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:kleber_bank/documents/accounts_model.dart';
-import 'package:kleber_bank/documents/documents_controller.dart';
 import 'package:kleber_bank/login/user_info_model.dart';
+import 'package:kleber_bank/main_controller.dart';
 import 'package:kleber_bank/market/market_list_model.dart';
 import 'package:kleber_bank/market/transaction_type_model.dart';
 import 'package:kleber_bank/portfolio/portfolio_model.dart';
 import 'package:kleber_bank/portfolio/position_model.dart';
 import 'package:kleber_bank/portfolio/transaction_model.dart';
-import 'package:kleber_bank/portfolio/transactions.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
+import 'package:provider/provider.dart';
+
 import '../documents/document_model.dart';
 import '../home/home_news_model.dart';
 import '../proposals/proposal_model.dart';
@@ -23,111 +24,131 @@ import 'common_functions.dart';
 import 'end_points.dart';
 import 'internationalization.dart';
 
-class ApiCalls {
-  static Future<bool> login(String email, String pwd) async {
-    try {
-      var url = Uri.parse(
-        EndPoints.login,
-      );
+Future<dynamic> jsonResponse(BuildContext context, Uri uri, String method, {Object? body, bool isList = false}) async {
+  MainController notifier = Provider.of<MainController>(context, listen: false);
+  try {
+    http.Response response;
+    var header = {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'};
+    if (method == 'post') {
+      response = await http.post(uri, body: body, headers: header);
+    } else if (method == 'get') {
+      response = await http.get(uri, headers: header);
+    } else {
+      response = await http.put(uri, headers: header);
+    }
+    print("url $uri");
+    print("response ${response.body}");
 
-      var response = await http.post(url, body: {'email': email, 'password': pwd});
-      print("url $url");
-      print("response ${response.body}");
-      Map<String, dynamic> json = jsonDecode(response.body);
+    if (response.statusCode == 401) {
+      notifier.clearToken();
+      return jsonDecode(response.body);
+    }
+    if (!isList) {
+      return jsonDecode(response.body);
+    } else {
+      return jsonDecode(response.body) as List;
+    }
+  } on SocketException catch (e) {
+    CommonFunctions.showToast(AppConst.connectionError);
+  } on TimeoutException catch (e) {
+    CommonFunctions.showToast(AppConst.connectionTimeOut);
+  } on Error catch (e) {
+    CommonFunctions.showToast(AppConst.somethingWentWrong);
+    print('add cust error ${e.toString()}::: ${e.stackTrace}');
+  }
+  return {};
+}
+
+class ApiCalls {
+  static Future<bool> login(BuildContext context, String email, String pwd) async {
+    try {
+      var json = await jsonResponse(context, Uri.parse(EndPoints.login), 'post', body: {"email": email, "password": pwd});
       if (json.containsKey("token")) {
         SharedPrefUtils.instance.putString(TOKEN, json['token']!);
         return true;
       } else {
         CommonFunctions.showToast(json['errors']!);
+        return false;
       }
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
     } catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      // print('add cust error ${e.toString()}::: ${e.stackTrace}');
+      print(e);
     }
     return false;
   }
 
-  static Future<UserInfotModel?> getUserInfo() async {
+  static Future<UserInfotModel?> getUserInfo(
+    BuildContext context,
+  ) async {
+    Map<String, dynamic> json = await jsonResponse(
+      context,
+      Uri.parse(EndPoints.userInfo),
+      'get',
+    );
+    UserInfotModel model = UserInfotModel.fromJson(json);
+    AppConst.userModel = model;
     try {
-      var url = Uri.parse(
-        EndPoints.userInfo,
-      );
-
-      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url");
-      print("response ${response.body}");
-      Map<String, dynamic> json = jsonDecode(response.body);
-      UserInfotModel model = UserInfotModel.fromJson(json);
-      AppConst.userModel = model;
       return model;
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } on Error catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      print('user info API error ${e.toString()}::: ${e.stackTrace}');
+    } catch (e) {
+      print(e);
     }
     return null;
   }
 
-  static Future<ProposalModel?> updateProposalState(int id, String state) async {
+  static Future<ProposalModel?> updateProposalState(BuildContext context, int id, String state) async {
     try {
-      var url = Uri.parse(
-        '${EndPoints.proposals}/$id/update_state?state=$state',
-      );
-
-      var response = await http.put(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url");
-      print("response ${response.body}");
-      Map<String, dynamic> json = jsonDecode(response.body);
+      Map<String, dynamic> json = await jsonResponse(context, Uri.parse('${EndPoints.proposals}/$id/update_state?state=$state'), 'put');
       return ProposalModel.fromJson(json);
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } on Error catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      print('user info API error ${e.toString()}::: ${e.stackTrace}');
+    } catch (e) {
+      print(e);
     }
     return null;
   }
-  static Future<Map<String, dynamic>?> transmit(Map<String, dynamic> body) async {
-    try {
-      var url = Uri.parse(
-        EndPoints.transactions,
-      );
 
-      var response = await http.post(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'},body: body.toString());
-      print("url $url");
-      print("response ${response.body}");
-      Map<String, dynamic> json = jsonDecode(response.body);
+  static Future<Map<String, dynamic>?> transmit(BuildContext context, Map<String, dynamic> body) async {
+    try {
+      Map<String, dynamic> json = await jsonResponse(context, Uri.parse(EndPoints.transactions), 'post', body: body.toString());
       return json;
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } on Error catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      print('user info API error ${e.toString()}::: ${e.stackTrace}');
+    } catch (e) {
+      print(e);
     }
     return null;
   }
 
-  static Future<Map<String, dynamic>?> sendOtp() async {
+  static Future<Map<String, dynamic>?> sendOtp(
+    BuildContext context,
+  ) async {
     try {
-      var url = Uri.parse(
-        EndPoints.sendOtp,
-      );
+      Map<String, dynamic> json = await jsonResponse(
+        context,
+        Uri.parse(EndPoints.sendOtp),
+        'post',
+      ); //no params
+      return json;
+    } catch (e) {
+      print(e);
+    }
+    return null;
+  }
 
-      var response = await http.post(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url");
-      print("response ${response.body}");
-      Map<String, dynamic> json = jsonDecode(response.body);
+  static Future<Map<String, dynamic>?> verifyOtp(BuildContext context, String code, String verificationCode) async {
+    try {
+      Map<String, dynamic> json =
+          await jsonResponse(context, Uri.parse('${EndPoints.verifyOtp}?code=$code&verification_code=$verificationCode'), 'post'); //no params
+      return json;
+    } catch (e) {}
+    return null;
+  }
+
+  static Future<Map<String, dynamic>?> getTermOfService(
+    BuildContext context,
+  ) async {
+    try {
+      Map<String, dynamic> json = await jsonResponse(
+          context,
+          Uri.parse(
+            EndPoints.termOfService,
+          ),
+          'get');
       return json;
     } on SocketException catch (e) {
       CommonFunctions.showToast(AppConst.connectionError);
@@ -140,73 +161,18 @@ class ApiCalls {
     return null;
   }
 
-  static Future<Map<String, dynamic>?> verifyOtp(String code, String verificationCode) async {
+  static Future<Map<String, dynamic>?> acceptanceTermsOfService(
+    BuildContext context,
+  ) async {
     try {
-      var url = Uri.parse(
-        '${EndPoints.verifyOtp}?code=$code&verification_code=$verificationCode',
-      );
-
-      var response = await http.post(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url");
-      print("response ${response.body}");
-      Map<String, dynamic> json = jsonDecode(response.body);
+      Map<String, dynamic> json = await jsonResponse(context, Uri.parse(EndPoints.acceptanceTermsOfService), 'post'); //no params
       return json;
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      // print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
-    return null;
-  }
-
-  static Future<Map<String, dynamic>?> getTermOfService() async {
-    try {
-      var url = Uri.parse(
-        EndPoints.termOfService,
-      );
-
-      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url");
-      print("response ${response.body}");
-      Map<String, dynamic> json = jsonDecode(response.body);
-      return json;
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      // print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
-    return null;
-  }
-
-  static Future<Map<String, dynamic>?> acceptanceTermsOfService() async {
-    try {
-      var url = Uri.parse(
-        EndPoints.acceptanceTermsOfService,
-      );
-
-      var response = await http.post(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url");
-      print("response ${response.body}");
-      Map<String, dynamic> json = jsonDecode(response.body);
-      return json;
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      // print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
+    } catch (e) {}
     return null;
   }
 
   static Future<List<MarketListModel>> getMarketList(
+    BuildContext context,
     int pageKey,
     String searchedWord,
     String selectedClass,
@@ -224,128 +190,83 @@ class ApiCalls {
       params.removeWhere(
         (key, value) => value == null || value.toString().isEmpty,
       );
-      var url = Uri.https(EndPoints.baseUrl.replaceAll('/client_portal_api/', '').replaceAll('https://', ''), '/client_portal_api/markets', params);
+      List<dynamic> json = await jsonResponse(context,
+          Uri.https(EndPoints.baseUrl.replaceAll('/client_portal_api/', '').replaceAll('https://', ''), '/client_portal_api/markets', params), 'get',
+          isList: true);
 
-      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url $params");
-      print("response ${response.body}");
-      List<dynamic> json = jsonDecode(response.body);
-
-      return json.map((jsonItem) => MarketListModel.fromJson(jsonItem)).toList();
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } on Error catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
+      return marketListModelFromJson(jsonEncode(json));
+    } catch (e) {}
     return [];
   }
 
-  static Future<List<PortfolioModel>> getPortfolioList(int pageKey) async {
-    String param='';
-    if(pageKey!=0){
-      param='?page=$pageKey';
+  static Future<List<PortfolioModel>> getPortfolioList(BuildContext context, int pageKey) async {
+    String param = '';
+    if (pageKey != 0) {
+      param = '?page=$pageKey';
     }
     try {
-      var url = Uri.parse(
-        EndPoints.portfolios+param,
-      );
-
-      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url");
-      print("response ${response.body}");
-      List<dynamic> json = jsonDecode(response.body);
+      List<dynamic> json = (await jsonResponse(
+          context,
+          Uri.parse(
+            EndPoints.portfolios + param,
+          ),
+          'get')) as List;
 
       return json.map((jsonItem) => PortfolioModel.fromJson(jsonItem)).toList();
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      // print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
+    } catch (e) {}
     return [];
   }
-  static Future<List<TransactionTypeModel>> getTransactionTypeList() async {
 
+  static Future<List<TransactionTypeModel>> getTransactionTypeList(
+    BuildContext context,
+  ) async {
     try {
-      var url = Uri.parse(
-        EndPoints.transactionTypes,
-      );
-
-      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url");
-      print("response ${response.body}");
-      List<dynamic> json = jsonDecode(response.body);
+      List<dynamic> json = (await jsonResponse(
+          context,
+          Uri.parse(
+            EndPoints.transactionTypes,
+          ),
+          'get')) as List;
 
       return json.map((jsonItem) => TransactionTypeModel.fromJson(jsonItem)).toList();
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      // print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
+    } catch (e) {}
     return [];
   }
 
-  static Future<List<PositionModel>> getPositionList(int pageKey, int portfolioId, String column, String direction) async {
+  static Future<List<PositionModel>> getPositionList(BuildContext context, int pageKey, int portfolioId, String column, String direction) async {
     try {
       Map<String, dynamic> params = {
         'page': pageKey.toString(),
         'order[column]': column,
         'order[direction]': direction,
       };
-      print("params $params");
-      var url = Uri.https(EndPoints.baseUrl.replaceAll('/client_portal_api/', '').replaceAll('https://', ''),
-          '/client_portal_api/portfolios/$portfolioId/portfolio_securities', params);
-
-      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url $url");
-      print("response ${response.body}");
-      List<dynamic> json = jsonDecode(response.body);
+      List<dynamic> json = (await jsonResponse(
+          context,
+          Uri.https(EndPoints.baseUrl.replaceAll('/client_portal_api/', '').replaceAll('https://', ''),
+              '/client_portal_api/portfolios/$portfolioId/portfolio_securities', params),
+          'get')) as List;
 
       return json.map((jsonItem) => PositionModel.fromJson(jsonItem)).toList();
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } on Error catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
+    } catch (e) {}
     return [];
   }
 
-  static Future<List<TransactionModel>> getTransactionList(int pageKey, String name) async {
+  static Future<List<TransactionModel>> getTransactionList(BuildContext context, int pageKey, String name) async {
     try {
-      var url = Uri.parse(
-        '${EndPoints.transactions}?page=$pageKey&filter[portfolio_name]=$name',
-      );
-
-      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url $url");
-      print("response ${response.body}");
-      List<dynamic> json = jsonDecode(response.body);
+      List<dynamic> json = (await jsonResponse(
+          context,
+          Uri.parse(
+            '${EndPoints.transactions}?page=$pageKey&filter[portfolio_name]=$name',
+          ),
+          'get')) as List;
 
       return json.map((jsonItem) => TransactionModel.fromJson(jsonItem)).toList();
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } on Error catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
+    } catch (e) {}
     return [];
   }
 
-  static Future<List<ProposalModel>> getProposalList(
-      int pageKey, String proposalName, String advisorName, String? selectedProposalType, String column, String direction, BuildContext context) async {
+  static Future<List<ProposalModel>> getProposalList(int pageKey, String proposalName, String advisorName, String? selectedProposalType,
+      String column, String direction, BuildContext context) async {
     try {
       Map<String, dynamic> params = {
         'order[column]': column,
@@ -356,9 +277,10 @@ class ApiCalls {
         'page': pageKey.toString(),
       };
 
-      if(params['filter[proposal_type]']==FFLocalizations.of(context).getText(
-        'n93guv4x' /* All */,
-      )){
+      if (params['filter[proposal_type]'] ==
+          FFLocalizations.of(context).getText(
+            'n93guv4x' /* All */,
+          )) {
         params.remove('filter[proposal_type]');
       }
 
@@ -372,56 +294,37 @@ class ApiCalls {
       );
       var url = Uri.https(EndPoints.baseUrl.replaceAll('/client_portal_api/', '').replaceAll('https://', ''), '/client_portal_api/proposals', params);
 
-      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url");
-      print("response ${response.body}");
-      List<dynamic> json = jsonDecode(response.body);
+      List<dynamic> json = (await jsonResponse(context, url, 'get')) as List;
 
       return json.map((jsonItem) => ProposalModel.fromJson(jsonItem)).toList();
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } on Error catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
+    } catch (e) {}
     return [];
   }
 
-  static Future<List<String>> getProposalTypeList() async {
+  static Future<List<String>> getProposalTypeList(
+    BuildContext context,
+  ) async {
     try {
-      var url = Uri.parse(
-        EndPoints.proposalTypes,
-      );
-
-      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url $url");
-      print("response ${response.body}");
-      List<dynamic> json = jsonDecode(response.body);
+      List<dynamic> json = (await jsonResponse(
+          context,
+          Uri.parse(
+            EndPoints.proposalTypes,
+          ),
+          'get')) as List;
 
       return json.map((jsonItem) => jsonItem.toString()).toList();
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } on Error catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
+    } catch (e) {}
     return [];
   }
 
-  static Future<List<MarketListModel>> getMarketFilterDropDownData(String endPoint) async {
+  static Future<List<MarketListModel>> getMarketFilterDropDownData(BuildContext context, String endPoint) async {
     try {
-      var url = Uri.parse(
-        endPoint,
-      );
-
-      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url");
-      print("response ${response.body}");
-      List<dynamic> json = jsonDecode(response.body);
+      List<dynamic> json = (await jsonResponse(
+          context,
+          Uri.parse(
+            endPoint,
+          ),
+          'get')) as List;
 
       return json.map((jsonItem) => MarketListModel.fromJson(jsonItem)).toList();
     } catch (e) {
@@ -431,26 +334,24 @@ class ApiCalls {
     return [];
   }
 
-  static Future<List<AccountsModel>> getAccountsList() async {
+  static Future<List<AccountsModel>> getAccountsList(
+    BuildContext context,
+  ) async {
     try {
-      var url = Uri.parse(
-        EndPoints.accounts,
-      );
+      List<dynamic> json = (await jsonResponse(
+          context,
+          Uri.parse(
+            EndPoints.accounts,
+          ),
+          'get')) as List;
 
-      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url");
-      print("response ${response.body}");
-      List<dynamic> json = jsonDecode(response.body);
-
-      return accountsModelFromJson(response.body);
-    } catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      // print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
+      return accountsModelFromJson(jsonEncode(json));
+    } catch (e) {}
     return [];
   }
 
   static Future<DocumentModel?> getDocumentList(
+    BuildContext context,
     int page,
     String? selectedAccount,
     String searchedFile,
@@ -491,51 +392,29 @@ class ApiCalls {
           params += element;
         }
       }
-      var url = Uri.parse(
-        '${EndPoints.documents}?page=$page$params',
-      );
-
-      var response = await http.get(url, headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-      print("url $url");
-      print("response ${response.body}");
-
-      return DocumentModel.fromJson(jsonDecode(response.body));
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } on Error catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
+      return DocumentModel.fromJson(await jsonResponse(
+          context,
+          Uri.parse(
+            '${EndPoints.documents}?page=$page$params',
+          ),
+          'get'));
+    } catch (e) {}
     return null;
   }
 
-  static Future<bool> changePassword(String currentPwd, String newPwd) async {
+  static Future<bool> changePassword(BuildContext context, String currentPwd, String newPwd) async {
     try {
       var url = Uri.parse(
         EndPoints.changePassword,
       );
-
-      var response = await http.post(url,
-          headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'},
-          body: {"current_password": currentPwd, "new_password": newPwd});
-      print("url $url");
-      print("response ${response.body}");
-      if (jsonDecode(response.body).containsKey('errors')) {
-        CommonFunctions.showToast(jsonDecode(response.body)['errors']);
+      Map<String, dynamic> map = await jsonResponse(context, url, 'post', body: {"current_password": currentPwd, "new_password": newPwd});
+      if (map.containsKey('errors')) {
+        CommonFunctions.showToast(map['errors']);
         return false;
       } else {
-        return jsonDecode(response.body)['success'];
+        return map['success'];
       }
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } on Error catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
+    } catch (e) {}
     return false;
   }
 
@@ -558,60 +437,38 @@ class ApiCalls {
       CommonFunctions.showToast(AppConst.connectionError);
     } on TimeoutException catch (e) {
       CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } on Error catch (e) {
+    } catch (e) {
       CommonFunctions.showToast(AppConst.somethingWentWrong);
-      print('user info API error ${e.toString()}::: ${e.stackTrace}');
+      // print('user info API error ${e.toString()}::: ${e.stackTrace}');
     }
     return null;
   }
 
-  static Future<Document?> updateDocumentStatus(int id, String status) async {
+  static Future<Document?> updateDocumentStatus(BuildContext context, int id, String status) async {
     try {
-      var url = Uri.parse(
-        '${EndPoints.documents}/$id/update_status?status=$status',
-      );
-
-      var response = await http.put(
-        url,
-        headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'},
-      );
-      print("url $url");
-      print("response ${response.body}");
-
-      return Document.fromJson(jsonDecode(response.body));
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } on Error catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
+      return Document.fromJson(await jsonResponse(
+          context,
+          Uri.parse(
+            '${EndPoints.documents}/$id/update_status?status=$status',
+          ),
+          'put'));
+    } catch (e) {}
     return null;
   }
 
-  static Future<List<HomeNewsModel>> getHomeNews() async {
+  static Future<List<HomeNewsModel>> getHomeNews(
+    BuildContext context,
+  ) async {
     try {
-      var url = Uri.parse(
-        EndPoints.homeNews,
-      );
-
-      var response = await http.get(
-        url,
-        headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'},
-      );
-      print("url $url");
-      print("response ${response.body}");
-
-      return homeNewsModelFromJson(response.body);
-    } on SocketException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionError);
-    } on TimeoutException catch (e) {
-      CommonFunctions.showToast(AppConst.connectionTimeOut);
-    } on Error catch (e) {
-      CommonFunctions.showToast(AppConst.somethingWentWrong);
-      print('user info API error ${e.toString()}::: ${e.stackTrace}');
-    }
+      List<dynamic> map = await jsonResponse(
+          context,
+          Uri.parse(
+            EndPoints.homeNews,
+          ),
+          'get',
+          isList: true);
+      return homeNewsModelFromJson(jsonEncode(map));
+    } catch (e) {}
     return [];
   }
 }

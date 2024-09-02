@@ -33,7 +33,7 @@ class ProfileController extends ChangeNotifier{
 
   void changePassword(BuildContext context) {
     CommonFunctions.showLoader(context);
-    ApiCalls.changePassword(currentPwdController.text, newPwdController.text).then((value) {
+    ApiCalls.changePassword(context,currentPwdController.text, newPwdController.text).then((value) {
       CommonFunctions.dismissLoader(context);
       Navigator.pop(context);
     },);

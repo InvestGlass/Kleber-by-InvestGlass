@@ -45,6 +45,12 @@ class _DashboardState extends State<Dashboard> {
   }
 
   @override
+  void dispose() {
+    _controller.selectedIndex=0;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     _controller = Provider.of<DashboardController>(context);
     return Scaffold(

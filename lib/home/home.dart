@@ -96,7 +96,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                       }
                     },
                     child: Card(
-                      color: Colors.transparent,
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
@@ -219,7 +219,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                         GestureDetector(
                           onTap: () => _notifier.doRefresh(),
                           child: AppWidgets.btn(
-                              context,
+                              context,textColor: Colors.white,
                               FFLocalizations.of(context).getText(
                                 'yiyjkffh' /* Refresh */,
                               ),

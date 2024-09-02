@@ -33,14 +33,14 @@ class _PositionsState extends State<Positions> {
   @override
   void initState() {
     _pagingController.addPageRequestListener((pageKey) {
-      _fetchPageActivity();
+      _fetchPageActivity(context);
     });
     super.initState();
   }
 
-  Future<void> _fetchPageActivity() async {
+  Future<void> _fetchPageActivity(BuildContext context,) async {
     var notifier = Provider.of<PortfolioController>(context, listen: false);
-    List<PositionModel> list = await ApiCalls.getPositionList(_pageKey, widget.id, notifier.column, notifier.direction);
+    List<PositionModel> list = await ApiCalls.getPositionList(context,_pageKey, widget.id, notifier.column, notifier.direction);
     final isLastPage = list.length < 10;
     if (isLastPage) {
       _pagingController.appendLastPage(list);

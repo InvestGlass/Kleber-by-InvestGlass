@@ -28,10 +28,10 @@ class LoginController extends ChangeNotifier {
 
   Future<void> doLogin(BuildContext context) async {
     CommonFunctions.showLoader(context);
-    await ApiCalls.login(userNameController.text, pwdController.text).then(
+    await ApiCalls.login(context,userNameController.text, pwdController.text).then(
       (value) async {
         if (value) {
-          await ApiCalls.getUserInfo().then(
+          await ApiCalls.getUserInfo(context).then(
             (value) async {
               CommonFunctions.dismissLoader(context);
               if (value != null) {
@@ -41,7 +41,7 @@ class LoginController extends ChangeNotifier {
                   CommonFunctions.navigate(context, Dashboard());
                 } else if (value.verification == 'sms' || value.verification == 'email') {
                   CommonFunctions.showLoader(context);
-                  await ApiCalls.sendOtp().then(
+                  await ApiCalls.sendOtp(context).then(
                     (value) {
                       CommonFunctions.dismissLoader(context);
                       if (value != null && value.containsKey('success')) {
@@ -65,7 +65,7 @@ class LoginController extends ChangeNotifier {
 
   Future<void> reSend(BuildContext context,{bool removeStack=false}) async {
     CommonFunctions.showLoader(context);
-    await ApiCalls.sendOtp().then(
+    await ApiCalls.sendOtp(context).then(
       (value) {
         CommonFunctions.dismissLoader(context);
         if (value != null && value.containsKey('success')) {
@@ -78,7 +78,7 @@ class LoginController extends ChangeNotifier {
 
   Future<void> verify(BuildContext context,Function onSecretKeyFound) async {
     CommonFunctions.showLoader(context);
-    await ApiCalls.verifyOtp(getOTP(), AppConst.userModel?.verification ?? '').then(
+    await ApiCalls.verifyOtp(context,getOTP(), AppConst.userModel?.verification ?? '').then(
       (value) {
         CommonFunctions.dismissLoader(context);
         if (value != null && value['success']) {
@@ -110,7 +110,7 @@ class LoginController extends ChangeNotifier {
 
   Future<void> termOfService(BuildContext context) async {
     CommonFunctions.showLoader(context);
-    await ApiCalls.getTermOfService().then(
+    await ApiCalls.getTermOfService(context).then(
       (value) {
         CommonFunctions.dismissLoader(context);
         if (value != null) {
@@ -127,7 +127,7 @@ class LoginController extends ChangeNotifier {
   }
   Future<void> accept(BuildContext context) async {
       CommonFunctions.showLoader(context);
-      await ApiCalls.acceptanceTermsOfService().then(
+      await ApiCalls.acceptanceTermsOfService(context).then(
             (value) async {
           CommonFunctions.dismissLoader(context);
           if (value != null) {

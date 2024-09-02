@@ -41,13 +41,13 @@ class _DocumentsState extends State<Documents> {
   void initState() {
     _notifier2 = Provider.of<DocumentsController>(context,listen: false);
     _notifier2.pagingController.addPageRequestListener((pageKey) {
-      _fetchPageActivity();
+      _fetchPageActivity(context);
     });
     super.initState();
   }
 
-  Future<void> _fetchPageActivity() async {
-    await ApiCalls.getDocumentList(_pageKey, _notifier.selectedAccount?.id?.toString() ?? '', _notifier.searchedFile, _notifier.selectedType,
+  Future<void> _fetchPageActivity(BuildContext context,) async {
+    await ApiCalls.getDocumentList(context,_pageKey, _notifier.selectedAccount?.id?.toString() ?? '', _notifier.searchedFile, _notifier.selectedType,
             _notifier.range, _notifier.ancestryFolderList, _notifier.folderPathList, _notifier.orderDirection, _notifier.orderColumn)
         .then(
       (value) {
@@ -292,7 +292,7 @@ class _DocumentsState extends State<Documents> {
           children: [
             Image.asset(
               'assets/$img',
-              color: FlutterFlowTheme.of(context).primaryText,
+              color: Colors.white,
               height: size,
               width: size,
             ),
@@ -300,7 +300,7 @@ class _DocumentsState extends State<Documents> {
               label,
               style: FlutterFlowTheme.of(context).displaySmall.override(
                     fontFamily: 'Roboto',
-                    color: FlutterFlowTheme.of(context).primaryText,
+                    color: Colors.white,
                     fontSize: 14.0,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.normal,
@@ -595,7 +595,7 @@ class _DocumentsState extends State<Documents> {
                                           Navigator.pop(context);
                                         },
                                         child: AppWidgets.btn(
-                                            context,
+                                            context,textColor: Colors.white,
                                             FFLocalizations.of(context).getText(
                                               'r8wu2qe3' /* Apply */,
                                             ),

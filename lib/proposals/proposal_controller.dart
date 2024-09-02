@@ -39,7 +39,7 @@ class ProposalController extends ChangeNotifier {
       return;
     }
     CommonFunctions.showLoader(context);
-    ApiCalls.updateProposalState(id!, state).then(
+    ApiCalls.updateProposalState(context,id!, state).then(
       (value) {
         CommonFunctions.dismissLoader(context);
         Navigator.pop(context);
@@ -58,7 +58,7 @@ class ProposalController extends ChangeNotifier {
 
   void getProposalTypes(BuildContext context) {
     if (typesList.isEmpty) {
-      ApiCalls.getProposalTypeList().then(
+      ApiCalls.getProposalTypeList(context).then(
         (value) {
           typesList = value;
           typesList.insert(0,FFLocalizations.of(context).getText(

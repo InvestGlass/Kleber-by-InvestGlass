@@ -42,7 +42,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
 
   Future<void> _fetchPageActivity() async {
     PortfolioController provider = Provider.of<PortfolioController>(context, listen: false);
-    List<PortfolioModel> list = await provider.getPortfolioList(pageKey);
+    List<PortfolioModel> list = await provider.getPortfolioList(context,pageKey);
     final isLastPage = list.length < 10;
     if (isLastPage) {
       pagingController.appendLastPage(list);

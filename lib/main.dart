@@ -20,9 +20,11 @@ import 'documents/documents_controller.dart';
 import 'home/home_controller.dart';
 import 'login/login_controller.dart';
 import 'login/on_boarding_page_widget.dart';
+import 'main_controller.dart';
 import 'market/market_controller.dart';
 
 double rSize = 0;
+late BuildContext globalContext;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +36,9 @@ void main() async {
 
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider(
+        create: (context) => MainController(),
+      ),
       ChangeNotifierProvider(
         create: (context) => LoginController(),
       ),
@@ -75,6 +80,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Locale? _locale = FFLocalizations.getStoredLocale();
+  late MainController _notifier;
 
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
   // This widget is the root of your application.
@@ -91,11 +97,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    _notifier=Provider.of<MainController>(context);
+    globalContext=context;
     Size ksize = MediaQuery.of(context).size;
     rSize = pow((ksize.height * ksize.height) + (ksize.width * ksize.width), 1 / 2) as double;
     return MaterialApp(
       title: 'Flutter Demo',
-      themeMode: ThemeMode.dark,
+      themeMode: _notifier.isDarkModel()?ThemeMode.dark:ThemeMode.light,
       localizationsDelegates: const [
         FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
@@ -128,7 +136,7 @@ class _MyAppState extends State<MyApp> {
         ),
         useMaterial3: false,
       ),
-      home: SharedPrefUtils.instance.getString(USER_DATA).isEmpty ? OnBoardingPageWidget() : Dashboard(),
+      home: _notifier.isTokenEmpty() ? const OnBoardingPageWidget() : const Dashboard(),
     );
   }
 }
