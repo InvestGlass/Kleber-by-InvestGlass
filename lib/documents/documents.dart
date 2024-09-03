@@ -32,27 +32,35 @@ class Documents extends StatefulWidget {
 }
 
 class _DocumentsState extends State<Documents> {
-  late DocumentsController _notifier,_notifier2;
+  late DocumentsController _notifier, _notifier2;
 
-  
   int _pageKey = 1;
 
   @override
   void initState() {
-    _notifier2 = Provider.of<DocumentsController>(context,listen: false);
+    _notifier2 = Provider.of<DocumentsController>(context, listen: false);
     _notifier2.pagingController.addPageRequestListener((pageKey) {
-      if(mounted) {
+      if (mounted) {
         _fetchPageActivity(context);
       }
     });
     super.initState();
   }
 
-
-
-  Future<void> _fetchPageActivity(BuildContext context,) async {
-    await ApiCalls.getDocumentList(context,_pageKey, _notifier.selectedAccount?.id?.toString() ?? '', _notifier.searchedFile, _notifier.selectedType,
-            _notifier.range, _notifier.ancestryFolderList, _notifier.folderPathList, _notifier.orderDirection, _notifier.orderColumn)
+  Future<void> _fetchPageActivity(
+    BuildContext context,
+  ) async {
+    await ApiCalls.getDocumentList(
+            context,
+            _pageKey,
+            _notifier.selectedAccount?.id?.toString() ?? '',
+            _notifier.searchedFile,
+            _notifier.selectedType,
+            _notifier.range,
+            _notifier.ancestryFolderList,
+            _notifier.folderPathList,
+            _notifier.orderDirection,
+            _notifier.orderColumn)
         .then(
       (value) {
         List<Document> list = value?.folders ?? [];
@@ -104,42 +112,37 @@ class _DocumentsState extends State<Documents> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: rSize * 0.03, vertical: rSize * 0.01),
+              padding: EdgeInsets.symmetric(
+                  horizontal: rSize * 0.03, vertical: rSize * 0.01),
               child: Row(
                 children: [
                   cell(
-                    'filter.png',
-                    '  ${FFLocalizations.of(context).getText(
-                      'filter' /* Filter */,
-                    )}',
-                    () {
-                      openFilterDialog();
-                    },20
-                  ),
+                      'filter.png',
+                      '  ${FFLocalizations.of(context).getText(
+                        'filter' /* Filter */,
+                      )}', () {
+                    openFilterDialog();
+                  }, 20),
                   SizedBox(
                     width: rSize * 0.015,
                   ),
                   cell(
-                    'sort.png',
-                    '  ${FFLocalizations.of(context).getText(
-                      'sort' /* sort */,
-                    )}',
-                    () {
-                      openSortBottomSheet();
-                    },20
-                  ),
+                      'sort.png',
+                      '  ${FFLocalizations.of(context).getText(
+                        'sort' /* sort */,
+                      )}', () {
+                    openSortBottomSheet();
+                  }, 20),
                   SizedBox(
                     width: rSize * 0.015,
                   ),
                   cell(
-                    'plus.png',
-                    '  ${FFLocalizations.of(context).getText(
-                      't2nv4kvj' /* upload */,
-                    )}',
-                    () {
-                      CommonFunctions.navigate(context, UploadDocument());
-                    },13
-                  ),
+                      'plus.png',
+                      '  ${FFLocalizations.of(context).getText(
+                        't2nv4kvj' /* upload */,
+                      )}', () {
+                    CommonFunctions.navigate(context, UploadDocument());
+                  }, 13),
                 ],
               ),
             ),
@@ -152,11 +155,14 @@ class _DocumentsState extends State<Documents> {
                 child: PagedListView<int, Document>(
                   pagingController: _notifier.pagingController,
                   // shrinkWrap: true,
-                  padding: EdgeInsets.symmetric(horizontal: rSize*0.015),
-                  builderDelegate: PagedChildBuilderDelegate<Document>(noItemsFoundIndicatorBuilder: (context) {
-                    return AppWidgets.emptyView(FFLocalizations.of(context).getText(
-                      'no_doc_found' ,
-                    ), context);
+                  padding: EdgeInsets.symmetric(horizontal: rSize * 0.015),
+                  builderDelegate: PagedChildBuilderDelegate<Document>(
+                      noItemsFoundIndicatorBuilder: (context) {
+                    return AppWidgets.emptyView(
+                        FFLocalizations.of(context).getText(
+                          'no_doc_found',
+                        ),
+                        context);
                   }, itemBuilder: (context, item, index) {
                     return GestureDetector(
                       onTap: () {
@@ -173,7 +179,9 @@ class _DocumentsState extends State<Documents> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: rSize * 0.01, horizontal: rSize * 0.015),
+                          padding: EdgeInsets.symmetric(
+                              vertical: rSize * 0.01,
+                              horizontal: rSize * 0.015),
                           child: Row(children: [
                             getTypeName(item.documentType),
                             SizedBox(
@@ -186,19 +194,26 @@ class _DocumentsState extends State<Documents> {
                                 Text(
                                   item.folderName ?? '',
                                   maxLines: 2,
-                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
                                         fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.of(context).primaryText,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                         fontSize: 16.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                       ),
                                 ),
                                 Text(
-                                  DateFormat('yyyy-MM-dd HH:mm').format(item.updatedAt!),
-                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  DateFormat('yyyy-MM-dd HH:mm')
+                                      .format(item.updatedAt!),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
                                         fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.of(context).secondaryText,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
                                         fontSize: 14.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
@@ -218,18 +233,22 @@ class _DocumentsState extends State<Documents> {
                                           'ktrsz8sp' /* Accepted at */,
                                         )} ${DateFormat(
                                           'yyyy-MM-dd HH:mm',
-                                          FFLocalizations.of(context).languageCode,
+                                          FFLocalizations.of(context)
+                                              .languageCode,
                                         ).format(item.approvedAt!)}',
-                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                          fontFamily: 'Roboto',
-                                          color: FlutterFlowTheme.of(context).customColor2,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Roboto',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .customColor2,
+                                              fontSize: 16.0,
+                                              letterSpacing: 0.0,
+                                            ),
                                       )
                                     ],
                                   )
-
                                 },
                                 if (item.documentStatus == 'Rejected') ...{
                                   Row(
@@ -245,18 +264,22 @@ class _DocumentsState extends State<Documents> {
                                           '5tjloy3c' /* Rejected at */,
                                         )} ${DateFormat(
                                           'yyyy-MM-dd HH:mm',
-                                          FFLocalizations.of(context).languageCode,
+                                          FFLocalizations.of(context)
+                                              .languageCode,
                                         ).format(item.disapprovedAt!)}',
-                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                          fontFamily: 'Roboto',
-                                          color: FlutterFlowTheme.of(context).customColor3,
-                                          fontSize: 16.0,
-                                          letterSpacing: 0.0,
-                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Roboto',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .customColor3,
+                                              fontSize: 16.0,
+                                              letterSpacing: 0.0,
+                                            ),
                                       )
                                     ],
                                   )
-
                                 },
                               ],
                             )),
@@ -284,13 +307,15 @@ class _DocumentsState extends State<Documents> {
     );
   }
 
-  Expanded cell(String img, String label, void Function()? onTap,double size) {
+  Expanded cell(String img, String label, void Function()? onTap, double size) {
     return Expanded(
         child: GestureDetector(
       onTap: onTap,
       child: Container(
         height: 35,
-        decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.all(Radius.circular(10))),
+        decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).primary,
+            borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -329,7 +354,8 @@ class _DocumentsState extends State<Documents> {
       builder: (context) {
         _notifier = Provider.of<DocumentsController>(context);
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          Provider.of<DocumentsController>(context, listen: false).getAccountList(context);
+          Provider.of<DocumentsController>(context, listen: false)
+              .getAccountList(context);
         });
         return Center(
           child: Wrap(
@@ -338,9 +364,8 @@ class _DocumentsState extends State<Documents> {
                 color: Colors.transparent,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                    borderRadius: BorderRadius.circular(10)
-                  ),
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      borderRadius: BorderRadius.circular(10)),
                   margin: EdgeInsets.symmetric(horizontal: 15),
                   child: StatefulBuilder(
                     builder: (context, setState) {
@@ -350,7 +375,12 @@ class _DocumentsState extends State<Documents> {
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             padding: EdgeInsets.only(
-                                left: rSize * 0.02, right: rSize * 0.02, top: rSize * 0.03, bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
+                                left: rSize * 0.02,
+                                right: rSize * 0.02,
+                                top: rSize * 0.03,
+                                bottom:
+                                    MediaQuery.of(context).viewInsets.bottom +
+                                        rSize * 0.03),
                             children: [
                               Row(
                                 children: [
@@ -359,9 +389,12 @@ class _DocumentsState extends State<Documents> {
                                     FFLocalizations.of(context).getText(
                                       'filter' /* Filter */,
                                     ),
-                                    style: FlutterFlowTheme.of(context).headlineMedium.override(
+                                    style: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .override(
                                           fontFamily: 'Roboto',
-                                          color: FlutterFlowTheme.of(context).primary,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
                                           fontSize: 26.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
@@ -373,7 +406,8 @@ class _DocumentsState extends State<Documents> {
                                     },
                                     child: Icon(
                                       Icons.close,
-                                      color: FlutterFlowTheme.of(context).primary,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                     ),
                                   )
                                 ],
@@ -385,7 +419,9 @@ class _DocumentsState extends State<Documents> {
                                 FFLocalizations.of(context).getText(
                                   'xccshnlg' /* Accounts */,
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
                                       fontFamily: 'Roboto',
                                       fontSize: 18.0,
                                       letterSpacing: 0.0,
@@ -404,9 +440,13 @@ class _DocumentsState extends State<Documents> {
                                           value: item,
                                           child: Text(
                                             item.name!,
-                                            style: FlutterFlowTheme.of(context).bodySmall.override(
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodySmall
+                                                .override(
                                                   fontFamily: 'Roboto',
-                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
                                                   fontSize: 14.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.normal,
@@ -416,9 +456,11 @@ class _DocumentsState extends State<Documents> {
                                     .toList(),
                                 onChanged: (p0) {
                                   selectedAccount = p0;
-                                }, searchMatchFn: (item, searchValue) {
-                                  return CommonFunctions.compare(searchValue, item.value.name.toString());
-                              },
+                                },
+                                searchMatchFn: (item, searchValue) {
+                                  return CommonFunctions.compare(
+                                      searchValue, item.value.name.toString());
+                                },
                               ),
                               SizedBox(
                                 height: rSize * 0.02,
@@ -427,7 +469,9 @@ class _DocumentsState extends State<Documents> {
                                 FFLocalizations.of(context).getText(
                                   'bzc91fwt' /* File Name */,
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
                                       fontFamily: 'Roboto',
                                       fontSize: 18.0,
                                       letterSpacing: 0.0,
@@ -437,8 +481,11 @@ class _DocumentsState extends State<Documents> {
                                 height: rSize * 0.005,
                               ),
                               TextFormField(
-                                controller: TextEditingController(text: searchedFileName),
-                                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                controller: TextEditingController(
+                                    text: searchedFileName),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .override(
                                       fontFamily: 'Roboto',
                                       letterSpacing: 0.0,
                                     ),
@@ -447,9 +494,12 @@ class _DocumentsState extends State<Documents> {
                                 },
                                 decoration: AppStyles.inputDecoration(
                                   context,
-                                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                   contentPadding: EdgeInsets.all(15),
-                                  labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .override(
                                         fontFamily: 'Roboto',
                                         letterSpacing: 0.0,
                                       ),
@@ -462,7 +512,9 @@ class _DocumentsState extends State<Documents> {
                                 FFLocalizations.of(context).getText(
                                   '4n2ah71g' /* Types */,
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
                                       fontFamily: 'Roboto',
                                       fontSize: 18.0,
                                       letterSpacing: 0.0,
@@ -478,23 +530,30 @@ class _DocumentsState extends State<Documents> {
                                   selectedType = p0;
                                 },
                                 isSearchable: false,
-                                items: _notifier.typesList
+                                items: _notifier
+                                    .typesList(context)
                                     .map((item) => DropdownMenuItem(
                                           value: item,
                                           child: Text(
                                             item,
-                                            style: FlutterFlowTheme.of(context).bodySmall.override(
-                                              fontFamily: 'Roboto',
-                                              color: FlutterFlowTheme.of(context).primaryText,
-                                              fontSize: 14.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.normal,
-                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodySmall
+                                                .override(
+                                                  fontFamily: 'Roboto',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
                                           ),
                                         ))
-                                    .toList(), searchMatchFn: (item, searchValue) {
-                                  return CommonFunctions.compare(searchValue, item.value.toString());
-                              },
+                                    .toList(),
+                                searchMatchFn: (item, searchValue) {
+                                  return CommonFunctions.compare(
+                                      searchValue, item.value.toString());
+                                },
                               ),
                               SizedBox(
                                 height: rSize * 0.02,
@@ -503,7 +562,9 @@ class _DocumentsState extends State<Documents> {
                                 FFLocalizations.of(context).getText(
                                   'date_in_range' /* date_in_range */,
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
                                       fontFamily: 'Roboto',
                                       fontSize: 18.0,
                                       letterSpacing: 0.0,
@@ -515,7 +576,9 @@ class _DocumentsState extends State<Documents> {
                               TextFormField(
                                 readOnly: true,
                                 controller: TextEditingController(text: range),
-                                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .override(
                                       fontFamily: 'Roboto',
                                       letterSpacing: 0.0,
                                     ),
@@ -524,8 +587,12 @@ class _DocumentsState extends State<Documents> {
                                     context,
                                     (value) {
                                       if (value is PickerDateRange) {
-                                        final String startDate = CommonFunctions.getYYYYMMDD(value.startDate!);
-                                        final String endDate = CommonFunctions.getYYYYMMDD(value.endDate!);
+                                        final String startDate =
+                                            CommonFunctions.getYYYYMMDD(
+                                                value.startDate!);
+                                        final String endDate =
+                                            CommonFunctions.getYYYYMMDD(
+                                                value.endDate!);
                                         range = '$startDate  TO  $endDate';
                                         Navigator.pop(context);
                                         setState(() {});
@@ -540,9 +607,12 @@ class _DocumentsState extends State<Documents> {
                                 },
                                 decoration: AppStyles.inputDecoration(
                                   context,
-                                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                   contentPadding: EdgeInsets.all(15),
-                                  labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .override(
                                         fontFamily: 'Roboto',
                                         letterSpacing: 0.0,
                                       ),
@@ -580,8 +650,10 @@ class _DocumentsState extends State<Documents> {
                                   Expanded(
                                     child: InkWell(
                                         onTap: () async {
-                                          _notifier.selectedAccount = selectedAccount;
-                                          _notifier.searchedFile = searchedFileName;
+                                          _notifier.selectedAccount =
+                                              selectedAccount;
+                                          _notifier.searchedFile =
+                                              searchedFileName;
                                           _notifier.selectedType = selectedType;
                                           _notifier.range = range;
                                           _pageKey = 1;
@@ -599,11 +671,14 @@ class _DocumentsState extends State<Documents> {
                                           Navigator.pop(context);
                                         },
                                         child: AppWidgets.btn(
-                                            context,textColor: Colors.white,
+                                            context,
+                                            textColor: Colors.white,
                                             FFLocalizations.of(context).getText(
                                               'r8wu2qe3' /* Apply */,
                                             ),
-                                            bgColor: FlutterFlowTheme.of(context).primary)),
+                                            bgColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary)),
                                   ),
                                 ],
                               ),
@@ -637,14 +712,18 @@ class _DocumentsState extends State<Documents> {
                   padding: EdgeInsets.only(top: rSize * 0.015),
                   decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20))),
                   child: Column(
                     children: [
                       Text(
                         FFLocalizations.of(context).getText(
                           'sort' /* sort */,
                         ),
-                        style: FlutterFlowTheme.of(context).headlineMedium.override(
+                        style: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .override(
                               fontFamily: 'Roboto',
                               color: FlutterFlowTheme.of(context).primary,
                               fontSize: 26.0,
@@ -677,7 +756,8 @@ class _DocumentsState extends State<Documents> {
     return Row(
       children: [
         Theme(
-          data: ThemeData(unselectedWidgetColor: FlutterFlowTheme.of(context).primaryText),
+          data: ThemeData(
+              unselectedWidgetColor: FlutterFlowTheme.of(context).primaryText),
           child: Radio(
             activeColor: FlutterFlowTheme.of(context).primary,
             value: value,
@@ -728,8 +808,10 @@ class _DocumentsState extends State<Documents> {
               ViewDocument(
                 item.id.toString(),
                 false,
-                showSignButton: item.requestProposalApproval != null && item.requestProposalApproval!,
-                ext: item.originalFilename!.split('.').last,url: item.url??'',
+                showSignButton: item.requestProposalApproval != null &&
+                    item.requestProposalApproval!,
+                ext: item.originalFilename!.split('.').last,
+                url: item.url ?? '',
                 item: item,
                 index: index,
               ));
@@ -746,7 +828,7 @@ class _DocumentsState extends State<Documents> {
               ), () {
             downloadDoc(item);
           }),
-        if (item.requestProposalApproval! && item.documentStatus==null)
+        if (item.requestProposalApproval! && item.documentStatus == null)
           popupMenuItem(
               3,
               FFLocalizations.of(context).getText(
@@ -778,11 +860,13 @@ class _DocumentsState extends State<Documents> {
     );
   }
 
-  void updateStatus(Document item, BuildContext context, String status, int index) {
+  void updateStatus(
+      Document item, BuildContext context, String status, int index) {
     _notifier.updateDocumentStatus(item, status, index, context);
   }
 
-  PopupMenuItem<int> popupMenuItem(int value, String label, Widget icon, void Function()? onTap) {
+  PopupMenuItem<int> popupMenuItem(
+      int value, String label, Widget icon, void Function()? onTap) {
     return PopupMenuItem(
       value: value, onTap: onTap,
       // row has two child icon and text.
@@ -811,12 +895,16 @@ class _DocumentsState extends State<Documents> {
   Future<void> downloadDoc(Document item) async {
     CommonFunctions.showLoader(context);
     Uint8List bytes = await http
-        .readBytes(Uri.parse('${EndPoints.documents}/${item.id}'), headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-    await CommonFunctions.downloadAndSavePdf(bytes, item.folderName!,context).then(
+        .readBytes(Uri.parse('${EndPoints.documents}/${item.id}'), headers: {
+      'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'
+    });
+    await CommonFunctions.downloadAndSavePdf(bytes, item.folderName!, context)
+        .then(
       (value) {
         CommonFunctions.dismissLoader(context);
         if (value.isNotEmpty) {
-          CommonFunctions.showToast('$value\nDownloaded successfully', success: true);
+          CommonFunctions.showToast('$value\nDownloaded successfully',
+              success: true);
         }
       },
     );
@@ -824,8 +912,9 @@ class _DocumentsState extends State<Documents> {
 
   getTypeName(String? documentType) {
     if (documentType == 'form') {
-      return SvgPicture.asset(
-          Theme.of(context).brightness == Brightness.dark ? 'assets/form-svgrepo-com-dark-theme.svg' : 'assets/form-svgrepo-com.svg');
+      return SvgPicture.asset(Theme.of(context).brightness == Brightness.dark
+          ? 'assets/form-svgrepo-com-dark-theme.svg'
+          : 'assets/form-svgrepo-com.svg');
     } else if (documentType == 'document' || documentType == 'package') {
       return FaIcon(
         FontAwesomeIcons.file,
@@ -834,6 +923,7 @@ class _DocumentsState extends State<Documents> {
       );
     }
 
-    return Icon(Icons.folder_outlined, color: FlutterFlowTheme.of(context).primary, size: 30.0);
+    return Icon(Icons.folder_outlined,
+        color: FlutterFlowTheme.of(context).primary, size: 30.0);
   }
 }

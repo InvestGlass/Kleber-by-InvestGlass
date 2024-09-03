@@ -67,7 +67,9 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
           // shrinkWrap: true,
           padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 10,bottom: 50),
           builderDelegate: PagedChildBuilderDelegate<PortfolioModel>(noItemsFoundIndicatorBuilder: (context) {
-            return const SizedBox();
+            return AppWidgets.emptyView(FFLocalizations.of(context).getText(
+              'l0x6h75l' /*No portfolio found*/ ,
+            ), context);
           }, itemBuilder: (context, item, index) {
             return Card(
               color: FlutterFlowTheme.of(context).secondaryBackground,

@@ -1,12 +1,9 @@
 import 'dart:async';
 
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kleber_bank/market/market_controller.dart';
-import 'package:kleber_bank/market/my_video_widget.dart';
 import 'package:kleber_bank/market/video_player_widget.dart';
-import 'package:kleber_bank/utils/app_colors.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/searchable_dropdown.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +13,6 @@ import '../utils/app_styles.dart';
 import '../utils/app_widgets.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
-import 'new_trade.dart';
 import 'market_list_item_widget.dart';
 import 'market_list_model.dart';
 
@@ -42,7 +38,9 @@ class _MarketState extends State<Market> {
   @override
   void initState() {
     Provider.of<MarketController>(context, listen: false).pagingController.addPageRequestListener((pageKey) {
-      _fetchPageActivity(context);
+      if (mounted) {
+        _fetchPageActivity(context);
+      }
     });
     super.initState();
   }
@@ -103,7 +101,7 @@ class _MarketState extends State<Market> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Expanded(
@@ -130,8 +128,8 @@ class _MarketState extends State<Market> {
                           hintText: FFLocalizations.of(context).getText(
                             'wzls4zjf' /* Type security name */,
                           ),
-                          prefixIcon: Icon(Icons.search),
-                          contentPadding: EdgeInsets.symmetric(vertical: 10)),
+                          prefixIcon: const Icon(Icons.search),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 10)),
                       onChanged: (value) {
                         if (_debounce?.isActive ?? false) _debounce?.cancel();
                         _debounce = Timer(const Duration(milliseconds: 500), () async {
@@ -272,7 +270,7 @@ class _MarketState extends State<Market> {
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
                   child: StatefulBuilder(
                     builder: (context, setState) {
                       _notifier = Provider.of<MarketController>(context);
@@ -280,7 +278,7 @@ class _MarketState extends State<Market> {
                         children: [
                           ListView(
                             shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             padding: EdgeInsets.only(
                                 left: rSize * 0.02, right: rSize * 0.02, top: rSize * 0.03, bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
                             children: [

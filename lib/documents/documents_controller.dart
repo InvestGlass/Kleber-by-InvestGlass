@@ -10,7 +10,15 @@ import 'accounts_model.dart';
 
 class DocumentsController extends ChangeNotifier {
   String _selectedType = 'All';
-  List<String> typesList = ['All', 'Document', 'Form', 'Package'];
+  List<String> typesList(BuildContext context) => [FFLocalizations.of(context).getText(
+    'n93guv4x' /* All */,
+  ), FFLocalizations.of(context).getText(
+    'dlgf18jl' /* Document */,
+  ), FFLocalizations.of(context).getText(
+    '6ihgprib' /* Form */,
+  ), FFLocalizations.of(context).getText(
+    'lhntzq4q' /* Package */,
+  )];
   List<String> sortList = ['wdlmnbeh'/*'Newest'*/, 'gxc8dzyc'/*'Oldest'*/, 'gedmceci'/*'A-Z'*/, 'qdw51x3q'/*'Z-A'*/];
   String range = '';
   String searchedFile = '';

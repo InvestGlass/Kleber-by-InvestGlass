@@ -93,7 +93,7 @@ class Document {
     ancestry: json["ancestry"],
     clientId: json["client_id"],
     shareOnClientPortal: json["share_on_client_portal"],
-    requestProposalApproval: json["request_proposal_approval"],
+    requestProposalApproval: json["request_proposal_approval"]??true,
     creatorId: json["creator_id"],
     lastModifierId: json["last_modifier_id"],
     notifyByEmail: json["notify_by_email"],

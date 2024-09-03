@@ -106,14 +106,14 @@ class _TransactionsState extends State<Transactions> {
                   },
                   child: PagedListView<int, TransactionModel>(
                     pagingController: pagingController,
-                    padding: EdgeInsets.symmetric(vertical: rSize * 0.015),
+                    padding: EdgeInsets.symmetric(vertical: rSize * 0.01),
                     // shrinkWrap: true,
                     builderDelegate: PagedChildBuilderDelegate<TransactionModel>(noItemsFoundIndicatorBuilder: (context) {
                       return const SizedBox();
                     }, itemBuilder: (context, item, index) {
                       String currency = item.portfolioSecurity!.referenceCurrency!;
                       return Card(
-                        margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
+                        margin: EdgeInsets.symmetric(vertical: rSize * 0.005,horizontal: rSize * 0.005),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
