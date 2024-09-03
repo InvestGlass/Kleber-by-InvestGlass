@@ -30,6 +30,7 @@ class DocumentModel {
 class Document {
   int? id;
   String? folderName;
+  String? originalFilename;
   String? description;
   int? companyId;
   DateTime? createdAt;
@@ -54,6 +55,7 @@ class Document {
   Document({
     this.id,
     this.folderName,
+    this.originalFilename,
     this.description,
     this.companyId,
     this.createdAt,
@@ -84,6 +86,7 @@ class Document {
     id: json["id"],
     folderName: json["folder_name"]??((json["description"]??'').toString().isNotEmpty?json["description"]:json["original_filename"]),
     companyId: json["company_id"],
+    originalFilename: json["original_filename"],
     description: json["description"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
@@ -109,6 +112,7 @@ class Document {
     "id": id,
     "folder_name": folderName,
     "company_id": companyId,
+    "original_filename": originalFilename,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
     "ancestry": ancestry,

@@ -41,10 +41,14 @@ class _DocumentsState extends State<Documents> {
   void initState() {
     _notifier2 = Provider.of<DocumentsController>(context,listen: false);
     _notifier2.pagingController.addPageRequestListener((pageKey) {
-      _fetchPageActivity(context);
+      if(mounted) {
+        _fetchPageActivity(context);
+      }
     });
     super.initState();
   }
+
+
 
   Future<void> _fetchPageActivity(BuildContext context,) async {
     await ApiCalls.getDocumentList(context,_pageKey, _notifier.selectedAccount?.id?.toString() ?? '', _notifier.searchedFile, _notifier.selectedType,
@@ -725,7 +729,7 @@ class _DocumentsState extends State<Documents> {
                 item.id.toString(),
                 false,
                 showSignButton: item.requestProposalApproval != null && item.requestProposalApproval!,
-                ext: item.folderName!.split('.').last,url: item.url??'',
+                ext: item.originalFilename!.split('.').last,url: item.url??'',
                 item: item,
                 index: index,
               ));

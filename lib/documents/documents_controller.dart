@@ -142,7 +142,7 @@ class DocumentsController extends ChangeNotifier {
     range='';
     orderColumn='created_at';
     orderDirection = 'desc';
-    notifyListeners();
+    // notifyListeners();
   }
 
   void notify() {

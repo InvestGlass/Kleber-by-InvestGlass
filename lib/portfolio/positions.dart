@@ -169,6 +169,9 @@ class _PositionsState extends State<Positions> {
                   }, itemBuilder: (context, item, index) {
                     String currency = item.referenceCurrency ?? '-';
                     return Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
                       margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
                       elevation: 2,
                       color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -227,116 +230,111 @@ class _PositionsState extends State<Positions> {
                                       icon: getIcon(double.tryParse(item.roi!) ?? 0))
                                 },
                                 if (_notifier.selectedPositionIndex == index) ...{
-                                  ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                      maxHeight: rSize * 0.5,
-                                    ),
-                                    child: ListView(
-                                      shrinkWrap: true,
-                                      children: [
-                                        SizedBox(
-                                          height: rSize * 0.01,
+                                  ListView(
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    padding: EdgeInsets.zero,
+                                    children: [
+                                      SizedBox(
+                                        height: rSize * 0.01,
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          // color: AppColors.kViolate.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(15),
                                         ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            // color: AppColors.kViolate.withOpacity(0.2),
-                                            borderRadius: BorderRadius.circular(15),
-                                          ),
-                                          // padding: EdgeInsets.all(rSize * 0.015),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              AppWidgets.portfolioListElement(
-                                                  context,
-                                                  FFLocalizations.of(context).getText(
-                                                    '4kttzprb' /* Name */,
-                                                  ),
-                                                  item.securityName ?? '-'),
-                                              SizedBox(
-                                                height: rSize * 0.005,
-                                              ),
-                                              AppWidgets.portfolioListElement(
-                                                  context,
-                                                  FFLocalizations.of(context).getText(
-                                                    '6thwwafn' /* ISIN */,
-                                                  ),
-                                                  item.securityIsin ?? '-'),
-                                              SizedBox(
-                                                height: rSize * 0.005,
-                                              ),
-                                              AppWidgets.portfolioListElement(
-                                                  context,
-                                                  FFLocalizations.of(context).getText(
-                                                    'ivu9tdzj' /* Currency */,
-                                                  ),
-                                                  currency),
-                                              SizedBox(
-                                                height: rSize * 0.005,
-                                              ),
-                                              AppWidgets.portfolioListElement(
-                                                  context,
-                                                  FFLocalizations.of(context).getText(
-                                                    'fbgy82bc' /* Last Price */,
-                                                  ),
-                                                  '$currency ${item.lastPrice ?? ' - '}'),
-                                              SizedBox(
-                                                height: rSize * 0.005,
-                                              ),
-                                              AppWidgets.portfolioListElement(
-                                                  context,
-                                                  FFLocalizations.of(context).getText(
-                                                    'swv2ctiz' /* Cost Price */,
-                                                  ),
-                                                  '$currency ${item.costPrice ?? ' - '}'),
-                                              SizedBox(
-                                                height: rSize * 0.005,
-                                              ),
-                                              AppWidgets.portfolioListElement(
-                                                  context,
-                                                  FFLocalizations.of(context).getText(
-                                                    'cdklrlbv' /* ROI */,
-                                                  ),
-                                                  item.roi! + (item.roi != '-' ? '%' : ''),
-                                                  icon: getIcon(double.tryParse(item.roi!) ?? 0)),
-                                              SizedBox(
-                                                height: rSize * 0.005,
-                                              ),
-                                              AppWidgets.portfolioListElement(
-                                                  context,
-                                                  FFLocalizations.of(context).getText(
-                                                    'ox3fj6xq' /* Quantity */,
-                                                  ),
-                                                  item.quantity ?? '-'),
-                                              SizedBox(
-                                                height: rSize * 0.005,
-                                              ),
-                                              AppWidgets.portfolioListElement(context, 'FX Rate', item.fxRate ?? '-'),
-                                              SizedBox(
-                                                height: rSize * 0.005,
-                                              ),
-                                              AppWidgets.portfolioListElement(
-                                                  context,
-                                                  FFLocalizations.of(context).getText(
-                                                    'juhk5a4f' /* Amount */,
-                                                  ),
-                                                  '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('$currency ${item.amount}', (double.tryParse(item.amount!) ?? 0) == 0, 2)}'),
-                                              SizedBox(
-                                                height: rSize * 0.005,
-                                              ),
-                                              AppWidgets.portfolioListElement(
-                                                  context,
-                                                  FFLocalizations.of(context).getText(
-                                                    'xai3n31z' /* Allocation */,
-                                                  ),
-                                                  item.allocation?.toString().replaceAll(' ', '') ?? '-'),
-                                              SizedBox(
-                                                height: rSize * 0.015,
-                                              ),
-                                            ],
-                                          ),
+                                        // padding: EdgeInsets.all(rSize * 0.015),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            AppWidgets.portfolioListElement(
+                                                context,
+                                                FFLocalizations.of(context).getText(
+                                                  '4kttzprb' /* Name */,
+                                                ),
+                                                item.securityName ?? '-'),
+                                            SizedBox(
+                                              height: rSize * 0.005,
+                                            ),
+                                            AppWidgets.portfolioListElement(
+                                                context,
+                                                FFLocalizations.of(context).getText(
+                                                  '6thwwafn' /* ISIN */,
+                                                ),
+                                                item.securityIsin ?? '-'),
+                                            SizedBox(
+                                              height: rSize * 0.005,
+                                            ),
+                                            AppWidgets.portfolioListElement(
+                                                context,
+                                                FFLocalizations.of(context).getText(
+                                                  'ivu9tdzj' /* Currency */,
+                                                ),
+                                                currency),
+                                            SizedBox(
+                                              height: rSize * 0.005,
+                                            ),
+                                            AppWidgets.portfolioListElement(
+                                                context,
+                                                FFLocalizations.of(context).getText(
+                                                  'fbgy82bc' /* Last Price */,
+                                                ),
+                                                '$currency ${item.lastPrice ?? ' - '}'),
+                                            SizedBox(
+                                              height: rSize * 0.005,
+                                            ),
+                                            AppWidgets.portfolioListElement(
+                                                context,
+                                                FFLocalizations.of(context).getText(
+                                                  'swv2ctiz' /* Cost Price */,
+                                                ),
+                                                '$currency ${item.costPrice ?? ' - '}'),
+                                            SizedBox(
+                                              height: rSize * 0.005,
+                                            ),
+                                            AppWidgets.portfolioListElement(
+                                                context,
+                                                FFLocalizations.of(context).getText(
+                                                  'cdklrlbv' /* ROI */,
+                                                ),
+                                                item.roi! + (item.roi != '-' ? '%' : ''),
+                                                icon: getIcon(double.tryParse(item.roi!) ?? 0)),
+                                            SizedBox(
+                                              height: rSize * 0.005,
+                                            ),
+                                            AppWidgets.portfolioListElement(
+                                                context,
+                                                FFLocalizations.of(context).getText(
+                                                  'ox3fj6xq' /* Quantity */,
+                                                ),
+                                                item.quantity ?? '-'),
+                                            SizedBox(
+                                              height: rSize * 0.005,
+                                            ),
+                                            AppWidgets.portfolioListElement(context, 'FX Rate', item.fxRate ?? '-'),
+                                            SizedBox(
+                                              height: rSize * 0.005,
+                                            ),
+                                            AppWidgets.portfolioListElement(
+                                                context,
+                                                FFLocalizations.of(context).getText(
+                                                  'juhk5a4f' /* Amount */,
+                                                ),
+                                                '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('$currency ${item.amount}', (double.tryParse(item.amount!) ?? 0) == 0, 2)}'),
+                                            SizedBox(
+                                              height: rSize * 0.005,
+                                            ),
+                                            AppWidgets.portfolioListElement(
+                                                context,
+                                                FFLocalizations.of(context).getText(
+                                                  'xai3n31z' /* Allocation */,
+                                                ),
+                                                item.allocation?.toString().replaceAll(' ', '') ?? '-'),
+
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 }
                               ],

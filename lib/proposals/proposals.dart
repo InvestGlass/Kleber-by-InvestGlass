@@ -67,7 +67,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                 cell(
                   'filter.png',
                   '  ${FFLocalizations.of(context).getText(
-                    'filter' /* FILTER */,
+                    'filter',
                   )}',
                   () {
                     openFilterDialog();
@@ -79,7 +79,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                 cell(
                   'sort.png',
                   '  ${FFLocalizations.of(context).getText(
-                    'sort' /* Last update */,
+                    'sort',
                   )}',
                   () {
                     openSortBottomSheet();
@@ -97,7 +97,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
               child: PagedListView<int, ProposalModel>(
                 pagingController: _notifier.pagingController,
                 // shrinkWrap: true,
-                padding: EdgeInsets.symmetric(horizontal: rSize * 0.015),
+                padding: EdgeInsets.only(left: rSize * 0.015,right: rSize * 0.015,bottom: 80),
                 builderDelegate: PagedChildBuilderDelegate<ProposalModel>(noItemsFoundIndicatorBuilder: (context) {
                   return AppWidgets.emptyView(
                       FFLocalizations.of(context).getText(
@@ -163,6 +163,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                             if (_notifier.selectedIndex == index) ...{
                               ListView(
                                 shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
                                 padding: const EdgeInsets.only(top: 15),
                                 children: [
                                   Column(

@@ -114,6 +114,9 @@ class _TransactionsState extends State<Transactions> {
                       String currency = item.portfolioSecurity!.referenceCurrency!;
                       return Card(
                         margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                         child: ListView(
                           shrinkWrap: true,
@@ -168,99 +171,96 @@ class _TransactionsState extends State<Transactions> {
                                         item.statusView ?? '')
                                   },
                                   if (_notifier.selectedTransactionIndex == index) ...{
-                                    ConstrainedBox(
-                                      constraints: BoxConstraints(
-                                        maxHeight: rSize * 0.5,
-                                      ),
-                                      child: ListView(
-                                        shrinkWrap: true,
-                                        children: [
-                                          SizedBox(
-                                            height: rSize * 0.01,
+                                    ListView(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      padding: EdgeInsets.zero,
+                                      children: [
+                                        SizedBox(
+                                          height: rSize * 0.01,
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            // color: AppColors.kViolate.withOpacity(0.2),
+                                            borderRadius: BorderRadius.circular(15),
                                           ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              // color: AppColors.kViolate.withOpacity(0.2),
-                                              borderRadius: BorderRadius.circular(15),
-                                            ),
-                                            // padding: EdgeInsets.all(rSize * 0.015),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                AppWidgets.portfolioListElement(
-                                                    context,
-                                                    FFLocalizations.of(context).getText(
-                                                      'j72npzob' /* Type */,
-                                                    ),
-                                                    item.transactionType ?? ''),
-                                                SizedBox(
-                                                  height: rSize * 0.005,
-                                                ),
-                                                AppWidgets.portfolioListElement(
-                                                    context,
-                                                    FFLocalizations.of(context).getText(
-                                                      'fyy6awn3' /* Portfolio Name */,
-                                                    ),
-                                                    item.portfolioName ?? ''),
-                                                SizedBox(
-                                                  height: rSize * 0.005,
-                                                ),
-                                                AppWidgets.portfolioListElement(
-                                                    context,
-                                                    FFLocalizations.of(context).getText(
-                                                      'nkc71403' /* Security Name */,
-                                                    ),
-                                                    item.portfolioSecurity?.securityName ?? ''),
-                                                SizedBox(
-                                                  height: rSize * 0.005,
-                                                ),
-                                                AppWidgets.portfolioListElement(
-                                                    context,
-                                                    FFLocalizations.of(context).getText(
-                                                      '691qwpww' /* Quantity */,
-                                                    ),
-                                                    item.quantity ?? ''),
-                                                SizedBox(
-                                                  height: rSize * 0.005,
-                                                ),
-                                                AppWidgets.portfolioListElement(
-                                                    context,
-                                                    FFLocalizations.of(context).getText(
-                                                      'xopvpm3o' /* Price */,
-                                                    ),
-                                                    '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('${item.openPrice!}', item.openPrice == 0, 2)}'),
-                                                SizedBox(
-                                                  height: rSize * 0.005,
-                                                ),
-                                                AppWidgets.portfolioListElement(
-                                                    context,
-                                                    FFLocalizations.of(context).getText(
-                                                      'pgdm3cxj' /* Amount */,
-                                                    ),
-                                                    '$currency ${item.amount ?? ''}'),
-                                                SizedBox(
-                                                  height: rSize * 0.005,
-                                                ),
-                                                AppWidgets.portfolioListElement(
-                                                    context,
-                                                    FFLocalizations.of(context).getText(
-                                                      'yx8usjux' /* Trade Date */,
-                                                    ),
-                                                    DateFormat('yyyy-MM-dd HH:mm').format(DateTime.parse(item.transactionDatetime!))),
-                                                SizedBox(
-                                                  height: rSize * 0.005,
-                                                ),
-                                                AppWidgets.portfolioListElement(
-                                                    context,
-                                                    FFLocalizations.of(context).getText(
-                                                      '7r8yq7mw' /* Status */,
-                                                    ),
-                                                    item.statusView ?? ''),
-                                              ],
-                                            ),
+                                          // padding: EdgeInsets.all(rSize * 0.015),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'j72npzob' /* Type */,
+                                                  ),
+                                                  item.transactionType ?? ''),
+                                              SizedBox(
+                                                height: rSize * 0.005,
+                                              ),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'fyy6awn3' /* Portfolio Name */,
+                                                  ),
+                                                  item.portfolioName ?? ''),
+                                              SizedBox(
+                                                height: rSize * 0.005,
+                                              ),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'nkc71403' /* Security Name */,
+                                                  ),
+                                                  item.portfolioSecurity?.securityName ?? ''),
+                                              SizedBox(
+                                                height: rSize * 0.005,
+                                              ),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    '691qwpww' /* Quantity */,
+                                                  ),
+                                                  item.quantity ?? ''),
+                                              SizedBox(
+                                                height: rSize * 0.005,
+                                              ),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'xopvpm3o' /* Price */,
+                                                  ),
+                                                  '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('${item.openPrice!}', item.openPrice == 0, 2)}'),
+                                              SizedBox(
+                                                height: rSize * 0.005,
+                                              ),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'pgdm3cxj' /* Amount */,
+                                                  ),
+                                                  '$currency ${item.amount ?? ''}'),
+                                              SizedBox(
+                                                height: rSize * 0.005,
+                                              ),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'yx8usjux' /* Trade Date */,
+                                                  ),
+                                                  DateFormat('yyyy-MM-dd HH:mm').format(DateTime.parse(item.transactionDatetime!))),
+                                              SizedBox(
+                                                height: rSize * 0.005,
+                                              ),
+                                              AppWidgets.portfolioListElement(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    '7r8yq7mw' /* Status */,
+                                                  ),
+                                                  item.statusView ?? ''),
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   }
                                 ],
