@@ -67,9 +67,9 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: rSize * 0.02,
           ),
-          cell(
+          /*cell(
             FFLocalizations.of(context).getText(
-              'afxtmzhw' /* Change Password */,
+              'afxtmzhw' *//* Change Password *//*,
             ),
             () => CommonFunctions.navigate(context, ChangePassword()),
           ),
@@ -78,13 +78,13 @@ class _ProfileState extends State<Profile> {
           ),
           cell(
             FFLocalizations.of(context).getText(
-              'wvo4yj9k' /* Change Language*/,
+              'wvo4yj9k' *//* Change Language*//*,
             ),
             () => openLanguageSelectionBottomSheet(),
           ),
           SizedBox(
             height: rSize * 0.02,
-          ),
+          ),*/
           Row(
             children: [
               SizedBox(
