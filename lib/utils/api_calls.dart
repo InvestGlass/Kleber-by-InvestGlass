@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 
 import '../documents/document_model.dart';
 import '../home/home_news_model.dart';
+import '../login/on_boarding_page_widget.dart';
 import '../proposals/proposal_model.dart';
 import 'app_const.dart';
 import 'common_functions.dart';
@@ -40,7 +41,9 @@ Future<dynamic> jsonResponse(BuildContext context, Uri uri, String method, {Obje
     print("response ${response.body}");
 
     if (response.statusCode == 401) {
+      CommonFunctions.dismissLoader(context);
       notifier.clearToken();
+      CommonFunctions.navigate(context, const OnBoardingPageWidget());
       return jsonDecode(response.body);
     }
     if (!isList) {

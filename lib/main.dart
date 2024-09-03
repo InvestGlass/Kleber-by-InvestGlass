@@ -16,6 +16,7 @@ import 'package:kleber_bank/utils/internationalization.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'documents/documents_controller.dart';
 import 'home/home_controller.dart';
 import 'login/login_controller.dart';
@@ -33,7 +34,7 @@ void main() async {
   await FlutterFlowTheme.initialize();
 
   await FFLocalizations.initialize();
-
+  WakelockPlus.enable();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -136,7 +137,9 @@ class _MyAppState extends State<MyApp> {
         ),
         useMaterial3: false,
       ),
-      home: _notifier.isTokenEmpty() ? const OnBoardingPageWidget() : const Dashboard(),
+      home: SharedPrefUtils.instance
+          .getString(USER_DATA)
+          .isEmpty ? const OnBoardingPageWidget() : const Dashboard(),
     );
   }
 }

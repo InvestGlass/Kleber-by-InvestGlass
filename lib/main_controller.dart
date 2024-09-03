@@ -14,7 +14,7 @@ class MainController extends ChangeNotifier {
   void clearToken() {
     SharedPrefUtils.instance
         .putString(USER_DATA,'');
-    notifyListeners();
+    // notifyListeners();
   }
 
   void changeTheme(isDarkMode){
