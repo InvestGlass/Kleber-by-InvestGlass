@@ -67,16 +67,16 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: rSize * 0.02,
           ),
-          /*cell(
+          cell(
             FFLocalizations.of(context).getText(
-              'afxtmzhw' *//* Change Password *//*,
+              'afxtmzhw' /* Change Password */,
             ),
             () => CommonFunctions.navigate(context, ChangePassword()),
           ),
           SizedBox(
             height: rSize * 0.01,
           ),
-          cell(
+          /*cell(
             FFLocalizations.of(context).getText(
               'wvo4yj9k' *//* Change Language*//*,
             ),
@@ -84,7 +84,7 @@ class _ProfileState extends State<Profile> {
           ),
           SizedBox(
             height: rSize * 0.02,
-          ),*/
+          ),
           Row(
             children: [
               SizedBox(
@@ -93,7 +93,7 @@ class _ProfileState extends State<Profile> {
               Expanded(
                 child: Text(
                   FFLocalizations.of(context).getText(
-                    'znd2aszb' /* Switch to Dark Mode */,
+                    'znd2aszb' *//* Switch to Dark Mode *//*,
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
@@ -119,7 +119,7 @@ class _ProfileState extends State<Profile> {
           ),
           SizedBox(
             height: rSize * 0.015,
-          ),
+          ),*/
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
