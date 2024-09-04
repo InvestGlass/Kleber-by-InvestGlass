@@ -237,13 +237,13 @@ class ApiCalls {
       BuildContext context, int pageKey) async {
     String param = '';
     if (pageKey != 0) {
-      param = '&page=$pageKey';
+      param = '?page=$pageKey&limit=10$param';
     }
     try {
       List<dynamic> json = (await jsonResponse(
           context,
           Uri.parse(
-            '${EndPoints.portfolios}?limit=10$param',
+            '${EndPoints.portfolios}$param',
           ),
           'get')) as List;
 
@@ -277,6 +277,7 @@ class ApiCalls {
         'page': pageKey.toString(),
         'order[column]': column,
         'order[direction]': direction,
+        'limit':'10'
       };
       List<dynamic> json = (await jsonResponse(
           context,
@@ -299,7 +300,7 @@ class ApiCalls {
       List<dynamic> json = (await jsonResponse(
           context,
           Uri.parse(
-            '${EndPoints.transactions}?page=$pageKey&filter[portfolio_name]=$name',
+            '${EndPoints.transactions}?page=$pageKey&filter[portfolio_name]=$name&limit=10',
           ),
           'get')) as List;
 

@@ -10,8 +10,6 @@ import 'package:kleber_bank/utils/searchable_dropdown.dart';
 import 'package:provider/provider.dart';
 
 import '../main.dart';
-import '../utils/app_colors.dart';
-import '../utils/app_styles.dart';
 import '../utils/common_functions.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
@@ -165,7 +163,7 @@ class _PositionsState extends State<Positions> {
                   // shrinkWrap: true,
                   padding: EdgeInsets.zero,
                   builderDelegate: PagedChildBuilderDelegate<PositionModel>(noItemsFoundIndicatorBuilder: (context) {
-                    return const SizedBox();
+                    return AppWidgets.emptyView('No Positions Found', context);
                   }, itemBuilder: (context, item, index) {
                     String currency = item.referenceCurrency ?? '-';
                     return Card(
@@ -177,7 +175,7 @@ class _PositionsState extends State<Positions> {
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       child: ListView(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.all(rSize * 0.015),
                         children: [
                           GestureDetector(

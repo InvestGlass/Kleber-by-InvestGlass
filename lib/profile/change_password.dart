@@ -23,7 +23,10 @@ class _ChangePasswordState extends State<ChangePassword> {
   void dispose() {
     _notifier.currentPwdController.text = '';
     _notifier.newPwdController.text = '';
-    _notifier.currentPwdController.text = '';
+    _notifier.confirmNewPwdController.text = '';
+    _notifier.showCurrentPwd = false;
+    _notifier.showNewPwd = false;
+    _notifier.showConfirmNewPwd = false;
     super.dispose();
   }
 
@@ -31,9 +34,11 @@ class _ChangePasswordState extends State<ChangePassword> {
   Widget build(BuildContext context) {
     _notifier = Provider.of<ProfileController>(context);
     return Scaffold(
-      appBar: AppWidgets.appBar(context, FFLocalizations.of(context).getText(
-        'afxtmzhw' /* Change Password */,
-      ),
+      appBar: AppWidgets.appBar(
+          context,
+          FFLocalizations.of(context).getText(
+            'afxtmzhw' /* Change Password */,
+          ),
           leading: GestureDetector(
             onTap: () => Navigator.pop(context),
             child: Icon(
@@ -68,7 +73,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                 style: FlutterFlowTheme.of(context).bodyLarge.override(
                       fontFamily: 'Roboto',
                       letterSpacing: 0.0,
-                    ),obscureText:!_notifier.showCurrentPwd,
+                    ),
+                obscureText: !_notifier.showCurrentPwd,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Required';
@@ -86,7 +92,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       child:
                           Icon(_notifier.showCurrentPwd ? Icons.visibility : Icons.visibility_off, color: FlutterFlowTheme.of(context).primaryText)),
                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 18),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                         fontFamily: 'Roboto',
                         letterSpacing: 0.0,
@@ -124,10 +130,11 @@ class _ChangePasswordState extends State<ChangePassword> {
                     ),
                 obscureText: !_notifier.showNewPwd,
                 decoration: AppStyles.inputDecoration(
-                  context,hint: FFLocalizations.of(context).getText(
-                  '2l6qayo4' /* New password */,
-                ),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 18),
+                  context,
+                  hint: FFLocalizations.of(context).getText(
+                    '2l6qayo4' /* New password */,
+                  ),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 18),
                   suffix: GestureDetector(
                       onTap: () {
                         _notifier.changeNewPwdVisibilityStatus();
@@ -171,7 +178,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 },
                 obscureText: !_notifier.showConfirmNewPwd,
                 decoration: AppStyles.inputDecoration(context,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 15,vertical: 18),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 18),
                     hint: FFLocalizations.of(context).getText(
                       'lz5cj3qp' /* Confirm new password */,
                     ),
@@ -198,7 +205,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                           context,
                           FFLocalizations.of(context).getText(
                             'iy4dy5qk' /* Change password */,
-                          ),textColor: Colors.white,
+                          ),
+                          textColor: Colors.white,
                           horizontalPadding: rSize * 0.025,
                           bgColor: FlutterFlowTheme.of(context).primary)),
                 ],

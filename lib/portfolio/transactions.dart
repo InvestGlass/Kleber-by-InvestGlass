@@ -109,7 +109,9 @@ class _TransactionsState extends State<Transactions> {
                     padding: EdgeInsets.symmetric(vertical: rSize * 0.01),
                     // shrinkWrap: true,
                     builderDelegate: PagedChildBuilderDelegate<TransactionModel>(noItemsFoundIndicatorBuilder: (context) {
-                      return const SizedBox();
+                      return AppWidgets.emptyView(FFLocalizations.of(context).getText(
+                        'u52470kh' /* No Transactions Found */,
+                      ), context);
                     }, itemBuilder: (context, item, index) {
                       String currency = item.portfolioSecurity!.referenceCurrency!;
                       return Card(
