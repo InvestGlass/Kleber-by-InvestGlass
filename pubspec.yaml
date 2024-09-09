@@ -68,6 +68,7 @@ dependencies:
   webview_flutter: 4.8.0
   permission_handler:
   share_plus:
+  timeago:
   wakelock_plus: 1.2.8
 
 dev_dependencies:

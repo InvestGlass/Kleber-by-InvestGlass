@@ -27,8 +27,8 @@ class SearchableDropdown extends StatefulWidget {
       this.isSearchable = true,
       required this.searchMatchFn,
       this.hint = '',
-        this.selectedItemBuilder,
-        this.focusNode,
+      this.selectedItemBuilder,
+      this.focusNode,
       super.key});
 
   @override
@@ -66,7 +66,9 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton2<dynamic>(
-            isExpanded: true,selectedItemBuilder: widget.selectedItemBuilder,focusNode:widget.focusNode ,
+            isExpanded: true,
+            selectedItemBuilder: widget.selectedItemBuilder,
+            focusNode: widget.focusNode,
             hint: Text(
               widget.hint,
               style: TextStyle(
@@ -91,11 +93,17 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
               height: 40,
               width: 200,
             ),
-            dropdownStyleData: DropdownStyleData(maxHeight: 200, decoration: BoxDecoration(color: FlutterFlowTheme.of(context).secondaryBackground,borderRadius: BorderRadius.circular(10),border: Border.all(
-              color: FlutterFlowTheme.of(context).alternate,
-              width: 2,
-            ), // Set the dropdown corner radius here
-            ),),
+            dropdownStyleData: DropdownStyleData(
+              maxHeight: 200,
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: FlutterFlowTheme.of(context).alternate,
+                  width: 2,
+                ), // Set the dropdown corner radius here
+              ),
+            ),
             menuItemStyleData: const MenuItemStyleData(
               height: 40,
             ),
@@ -105,7 +113,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                     searchController: textEditingController,
                     searchInnerWidgetHeight: 50,
                     searchInnerWidget: Container(
-                      margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+                      margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
                       child: TextFormField(
                         maxLines: 1,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -119,8 +127,8 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                             hint: widget.searchHint,
                             fillColor: Colors.transparent,
                             borderWidth: 0.2,
-                            focusColor: Colors.white,
-                            contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10)),
+                            focusColor: FlutterFlowTheme.of(context).primaryText,
+                            contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10)),
                       ),
                     ),
                     searchMatchFn: widget.searchMatchFn,

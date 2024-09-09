@@ -4,6 +4,7 @@ import 'package:kleber_bank/main.dart';
 import 'package:kleber_bank/profile/change_password.dart';
 import 'package:kleber_bank/profile/profile_controller.dart';
 import 'package:kleber_bank/utils/app_colors.dart';
+import 'package:kleber_bank/utils/app_const.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
@@ -76,9 +77,9 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: rSize * 0.01,
           ),
-          /*cell(
+          cell(
             FFLocalizations.of(context).getText(
-              'wvo4yj9k' *//* Change Language*//*,
+              'wvo4yj9k' /* Change Language*/,
             ),
             () => openLanguageSelectionBottomSheet(),
           ),
@@ -93,7 +94,7 @@ class _ProfileState extends State<Profile> {
               Expanded(
                 child: Text(
                   FFLocalizations.of(context).getText(
-                    'znd2aszb' *//* Switch to Dark Mode *//*,
+                    'znd2aszb' /* Switch to Dark Mode */,
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
@@ -119,7 +120,7 @@ class _ProfileState extends State<Profile> {
           ),
           SizedBox(
             height: rSize * 0.015,
-          ),*/
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -132,14 +133,17 @@ class _ProfileState extends State<Profile> {
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                  ),elevation: 2,
+                  ),
+                  elevation: 2,
                   child: AppWidgets.btn(
                       context,
                       FFLocalizations.of(context).getText(
                         'c0xbwwci' /* Logout */,
                       ),
+                      textColor: FlutterFlowTheme.of(context).primaryText,
                       bgColor: FlutterFlowTheme.of(context).secondaryBackground,
-                      horizontalPadding: 40,verticalPadding: 17),
+                      horizontalPadding: 40,
+                      verticalPadding: 17),
                 ),
               ),
             ],
@@ -153,10 +157,12 @@ class _ProfileState extends State<Profile> {
     showModalBottomSheet(
       useRootNavigator: true,
       isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       context: context,
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setState) {
+            _notifier.selectedLanguage=AppConst.languageCodes.indexOf(SharedPrefUtils.instance.getString(SELECTED_LANGUAGE).isEmpty?'en':SharedPrefUtils.instance.getString(SELECTED_LANGUAGE));
             return Wrap(
               children: [
                 Container(
@@ -222,6 +228,7 @@ class _ProfileState extends State<Profile> {
             groupValue: _notifier.selectedLanguage,
             onChanged: (p0) {
               _notifier.changeLanguage(p0!);
+              _mainNotifier.changeLanguage(_notifier.selectedLanguage);
               Navigator.pop(context);
             },
           ),

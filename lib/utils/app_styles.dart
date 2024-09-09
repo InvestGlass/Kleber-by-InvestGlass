@@ -117,6 +117,7 @@ class AppStyles {
       String? preffixText,
       // TextStyle? hintStyle,
         double borderWidth=2,
+        double borderRadius=12,
       TextStyle? labelStyle,
       Color? fillColor,
       EdgeInsetsGeometry? contentPadding,
@@ -133,28 +134,28 @@ class AppStyles {
           color: focusColor??FlutterFlowTheme.of(context).alternate,
           width: borderWidth,
         ),
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: focusColor??focusColor??FlutterFlowTheme.of(context).primary,
           width: borderWidth,
         ),
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: FlutterFlowTheme.of(context).alternate,
           width: borderWidth,
         ),
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: focusColor??FlutterFlowTheme.of(context).alternate,
           width: borderWidth,
         ),
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       filled: true,prefixIcon: prefix,
       fillColor: fillColor?? FlutterFlowTheme.of(context).secondaryBackground,counterText: counterText,

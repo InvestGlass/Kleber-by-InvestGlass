@@ -177,7 +177,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                               color: FlutterFlowTheme.of(context).primaryText,
                                               fontSize: 16.0,
                                               letterSpacing: 0.0,
-                                              fontWeight: FontWeight.normal,
+                                              fontWeight: FontWeight.w500,
                                             ),
                                       ),
                                       SizedBox(
@@ -391,7 +391,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                           ));
                                         },
                                       ),
-                                      /*SizedBox(
+                                      SizedBox(
                                         height: rSize * 0.01,
                                       ),
                                       AppWidgets.divider(context),
@@ -399,7 +399,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                         height: rSize * 0.01,
                                       ),
                                       proposalElement('   ${FFLocalizations.of(context).getText(
-                                        'pkkj5rta' */ /* Chat with your Advisor */ /*,
+                                        'pkkj5rta'  /* Chat with your Advisor */ ,
                                       )}', Icons.chat_outlined,() {
 
                                       },),
@@ -418,7 +418,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                       SizedBox(
                                         height: rSize * 0.01,
                                       ),
-                                      AppWidgets.divider(context),*/
+                                      AppWidgets.divider(context),
                                     ],
                                   ),
                                 ],

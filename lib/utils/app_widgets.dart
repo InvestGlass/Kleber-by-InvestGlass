@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -354,6 +355,21 @@ class AppWidgets {
         );
       },
     );
+  }
+
+  static backArrow(BuildContext context,{void Function()? onTap}){
+    return InkWell(
+        onTap: () {
+          if(onTap!=null){
+            onTap();
+          }else{
+            Navigator.pop(context);
+          }
+        },
+        child: Icon(
+          Icons.arrow_back,
+          color: FlutterFlowTheme.of(context).primary,
+        ));
   }
 
   static AppBar appBar(BuildContext context, String title, {Widget? leading, List<Widget>? actions, bool centerTitle = false}) {

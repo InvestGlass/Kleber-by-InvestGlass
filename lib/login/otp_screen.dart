@@ -51,12 +51,16 @@ class _OTPScreenState extends State<OTPScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        decoration: BoxDecoration(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        decoration: BoxDecoration(),alignment: Alignment.center,
+        margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+        child: ListView(
+          shrinkWrap: true,
           children: [
             Card(
               color: FlutterFlowTheme.of(context).primaryBackground,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
               margin: EdgeInsets.symmetric(vertical: rSize * 0.03, horizontal: rSize * 0.01),
               elevation: 2,
               child: Padding(
@@ -65,7 +69,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 child: Form(
                     key: _formKey,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         // Image.asset('assets/logo.png',scale: 2,),
@@ -100,16 +104,20 @@ class _OTPScreenState extends State<OTPScreen> {
                           height: rSize * 0.01,
                         ),
                         if (model.verification != 'authentification')
-                          Text(
-                            FFLocalizations.of(context).getText(
-                              '4odbxp9t' /* Please input the code to conti... */,
-                            ),
-                            textAlign: TextAlign.start,
-                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 16.0,
-                                  letterSpacing: 0.0,
+                          Row(
+                            children: [
+                              Text(
+                                FFLocalizations.of(context).getText(
+                                  '4odbxp9t' /* Please input the code to conti... */,
                                 ),
+                                textAlign: TextAlign.start,
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 16.0,
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                            ],
                           ),
                         if (model.verification == 'authentification')
                           Text(
@@ -185,7 +193,7 @@ class _OTPScreenState extends State<OTPScreen> {
                           height: rSize * 0.01,
                         ),
                         if (model.verification != 'authentification') ...{
-                          Row(
+                          Row(mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 FFLocalizations.of(context).getText(

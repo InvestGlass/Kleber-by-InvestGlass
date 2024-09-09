@@ -1,6 +1,6 @@
 class EndPoints{
-  // static String baseUrl='https://staging.investglass.com/client_portal_api/';
-  static String baseUrl='https://app.investglass.com/client_portal_api/';
+  static String baseUrl='https://staging.investglass.com/client_portal_api/';
+  // static String baseUrl='https://app.investglass.com/client_portal_api/';
 
   // AUTH
   static String login='${baseUrl}portal_auth/login';
@@ -21,9 +21,10 @@ class EndPoints{
   static String portfolios='${baseUrl}portfolios';
   static String transactions='${baseUrl}transactions';
 
-  // PROPOSALS
+  // PROPOSALS & CHAT
   static String proposals='${baseUrl}proposals';
   static String proposalTypes='${baseUrl}proposals/proposal_types';
+  static String chatHistory='${baseUrl}comments';
 
   // DOCUMENTS
   static String documents='${baseUrl}documents';

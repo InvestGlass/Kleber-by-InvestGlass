@@ -67,13 +67,7 @@ class _MarketState extends State<Market> {
         appBar: AppWidgets.appBar(
             context,
             centerTitle: true,
-            leading: GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Icon(
-                Icons.arrow_back,
-                color: FlutterFlowTheme.of(context).primary,
-              ),
-            ),
+            leading: AppWidgets.backArrow(context),
             FFLocalizations.of(context).getText(
               'o5wm04m6' /* Market */,
             )),

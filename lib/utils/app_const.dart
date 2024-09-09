@@ -9,4 +9,6 @@ class AppConst{
   static UserInfotModel? userModel;
 
   static NumberFormat formatter = NumberFormat('#,##,###.##');
+
+  static List<String> languageCodes=['en','ar','vi'];
 }

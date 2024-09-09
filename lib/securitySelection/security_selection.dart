@@ -39,7 +39,9 @@ class _SecuritySelectionState extends State<SecuritySelection> {
   @override
   void initState() {
     Provider.of<SecuritySelectionController>(context, listen: false).pagingController.addPageRequestListener((pageKey) {
-      _fetchPageActivity();
+      if (mounted) {
+        _fetchPageActivity();
+      }
     });
     super.initState();
   }
@@ -87,6 +89,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
         appBar: AppWidgets.appBar(
             context,
             centerTitle: true,
+            leading: AppWidgets.backArrow(context),
             FFLocalizations.of(context).getText(
               'k3na7l6v' /* Select Security */,
             )),

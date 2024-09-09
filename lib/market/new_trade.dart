@@ -1,4 +1,5 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kleber_bank/main.dart';
@@ -48,7 +49,7 @@ class _AddTransactionState extends State<AddTransaction> {
       decoration: AppStyles.commonBg(context),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppWidgets.appBar(context, 'New Trade', centerTitle: true),
+        appBar: AppWidgets.appBar(context, 'New Trade', centerTitle: true,leading:AppWidgets.backArrow(context) ),
         body: Form(
           child: ListView(
             shrinkWrap: true,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/src/core/paging_controller.dart';
+import 'package:kleber_bank/proposals/chat/chat_history_model.dart';
 import 'package:kleber_bank/proposals/proposal_model.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 
@@ -69,6 +70,11 @@ class ProposalController extends ChangeNotifier {
       );
     }
   }
+
+  /*----------------------------------------CHAT-----------------------------------------------------*/
+
+  final PagingController<int, ChatHistoryModel> chatHistoryPagingController = PagingController(firstPageKey: 1);
+
 }
 
 class FilterModel {
@@ -83,3 +89,5 @@ SORT,
   PROPOSAL_NAME,
   PROPOSAL_TYPE,
 }
+
+

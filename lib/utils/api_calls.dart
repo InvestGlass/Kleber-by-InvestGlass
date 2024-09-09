@@ -19,6 +19,7 @@ import 'package:provider/provider.dart';
 import '../documents/document_model.dart';
 import '../home/home_news_model.dart';
 import '../login/on_boarding_page_widget.dart';
+import '../proposals/chat/chat_history_model.dart';
 import '../proposals/proposal_model.dart';
 import 'app_const.dart';
 import 'common_functions.dart';
@@ -26,13 +27,16 @@ import 'end_points.dart';
 import 'internationalization.dart';
 
 Future<dynamic> jsonResponse(BuildContext context, Uri uri, String method,
-    {Object? body, bool isList = false}) async {
+    {Object? body, bool isList = false,bool isJson=false}) async {
   MainController notifier = Provider.of<MainController>(context, listen: false);
   try {
     http.Response response;
     var header = {
       'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'
     };
+    if(isJson){
+      header['Content-Type']='application/json';
+    }
     if (method == 'post') {
       response = await http.post(uri, body: body, headers: header);
     } else if (method == 'get') {
@@ -128,7 +132,7 @@ class ApiCalls {
     try {
       Map<String, dynamic> json = await jsonResponse(
           context, Uri.parse(EndPoints.transactions), 'post',
-          body: body.toString());
+          body: jsonEncode(body),isJson: true);
       return json;
     } catch (e) {
       print(e);
@@ -541,6 +545,21 @@ class ApiCalls {
           'get',
           isList: true);
       return homeNewsModelFromJson(jsonEncode(map));
+    } catch (e) {}
+    return [];
+  }
+  static Future<List<ChatHistoryModel>> getChatHistory(
+    BuildContext context,int page
+  ) async {
+    try {
+      List<dynamic> map = await jsonResponse(
+          context,
+          Uri.parse(
+            '${EndPoints.chatHistory}?page=$page&limit=10',
+          ),
+          'get',
+          isList: true);
+      return chatHistoryModelFromJson(jsonEncode(map));
     } catch (e) {}
     return [];
   }

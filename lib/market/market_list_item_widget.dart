@@ -216,7 +216,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                           flex: 2,
                           child: FFButtonWidget(
                             onPressed: () async {
-                              // CommonFunctions.navigate(context, AddTransaction(widget.data!));
+                              CommonFunctions.navigate(context, AddTransaction(widget.data!));
                             },
                             text: FFLocalizations.of(context).getText(
                               '7v8svtoq' /* New Transaction */,

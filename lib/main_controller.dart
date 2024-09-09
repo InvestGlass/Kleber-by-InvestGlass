@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:kleber_bank/utils/app_const.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
 
 class MainController extends ChangeNotifier {
@@ -13,13 +14,19 @@ class MainController extends ChangeNotifier {
 
   void clearToken() {
     SharedPrefUtils.instance
-        .putString(USER_DATA,'');
+        .logout();
     // notifyListeners();
   }
 
   void changeTheme(isDarkMode){
     SharedPrefUtils.instance
         .putBool(IS_DARK_MODE,isDarkMode);
+    notifyListeners();
+  }
+
+  void changeLanguage(int codeIndex){
+    SharedPrefUtils.instance
+        .putString(SELECTED_LANGUAGE,AppConst.languageCodes[codeIndex]);
     notifyListeners();
   }
 }

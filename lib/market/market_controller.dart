@@ -9,6 +9,7 @@ import 'package:kleber_bank/utils/api_calls.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/end_points.dart';
 
+import '../utils/internationalization.dart';
 import 'market_list_model.dart';
 
 class MarketController extends ChangeNotifier {
@@ -128,9 +129,10 @@ class MarketController extends ChangeNotifier {
     Map<String, dynamic> map = {};
     Map<String, dynamic> map2 = {};
     map['security'] = model.toJson();
-    map['create_transaction_type'] = map['portfolio_id'] = selectedPortfolio!.title!;
+    map['create_transaction_type'] = 'Security';
+    map['portfolio_id'] = selectedPortfolio!.id!.toString();
     map['state'] = '0';
-    map['transaction_type'] = selectedSecurityType?.name??'';
+    map['transaction_type'] = selectedSecurityType?.id??'';
     map['destination_portfolio_id'] = '';
     map['transaction_datetime'] = selectedDateTime;
     map['accounting_datetime'] = DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now());
@@ -147,6 +149,14 @@ class MarketController extends ChangeNotifier {
     await ApiCalls.transmit(context,map2).then(
       (value) {
         CommonFunctions.dismissLoader(context);
+        if((value??{}).containsKey('id')){
+          CommonFunctions.showToast(FFLocalizations.of(context).getVariableText(
+            enText: 'Transaction created successfully.',
+            arText: 'تم إنشاء المعاملة بنجاح.',
+            viText: 'Giao dịch được tạo thành công.',
+          ));
+          Navigator.pop(context);
+        }
         print('add transaction response $value');
       },
     );

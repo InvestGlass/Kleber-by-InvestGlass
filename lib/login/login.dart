@@ -130,7 +130,11 @@ class _LoginState extends State<Login> {
                           }
                         },
                         decoration: AppStyles.inputDecoration(context,
-                            label: 'Email or Username',
+                            label: FFLocalizations.of(context).getText(
+                              'cais5tw0' /* Email or password */,
+                            ),hint: FFLocalizations.of(context).getText(
+                              'cais5tw0' /* Email or password */,
+                            ),
                             fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                             labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                                   fontFamily: 'Roboto',
@@ -158,7 +162,12 @@ class _LoginState extends State<Login> {
                         },
                         obscureText: _controller.hidePwd,
                         decoration: AppStyles.inputDecoration(context,
-                            label: 'Password',
+                            label: FFLocalizations.of(context).getText(
+                              'g143uz7d' /* Password */,
+                            ),
+                            hint: FFLocalizations.of(context).getText(
+                              'g143uz7d' /* Password */,
+                            ),
                             fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                             labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                                   fontFamily: 'Roboto',
@@ -186,7 +195,9 @@ class _LoginState extends State<Login> {
                                 _controller.doLogin(context);
                               }
                             },
-                            text: 'Login',
+                            text: FFLocalizations.of(context).getText(
+                              'rf7r2nk0' /* login */,
+                            ),
                             options: FFButtonOptions(
                               width: MediaQuery.sizeOf(context).width * 0.5,
                               height: 50.0,

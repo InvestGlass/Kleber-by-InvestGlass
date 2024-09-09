@@ -9,6 +9,7 @@ import 'dart:math' as math;
 
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 enum EFontWeight {
   w100,
@@ -215,5 +216,36 @@ class CommonFunctions{
     }
     NumberFormat formatter = NumberFormat('#,##0.${decimalStr}', 'en_US');
     return formatter.format(value);
+  }
+
+  static String dateTimeFormat(String format, DateTime? dateTime, {String? locale}) {
+    if (dateTime == null) {
+      return '';
+    }
+    if (format == 'relative') {
+      _setTimeagoLocales();
+      return timeago.format(dateTime, locale: locale, allowFromNow: true);
+    }
+    return DateFormat(format, locale).format(dateTime);
+  }
+
+  static void _setTimeagoLocales() {
+    timeago.setLocaleMessages('en', timeago.EnMessages());
+    timeago.setLocaleMessages('en_short', timeago.EnShortMessages());
+    timeago.setLocaleMessages('ar', timeago.ArMessages());
+    timeago.setLocaleMessages('ar_short', timeago.ArShortMessages());
+    timeago.setLocaleMessages('vi', timeago.ViMessages());
+    timeago.setLocaleMessages('vi_short', timeago.ViShortMessages());
+  }
+
+  static DateTime convertUTCStringToDateTime(
+      String utcString,
+      bool isUTC,
+      ) {
+    final dateTime = DateTime.fromMillisecondsSinceEpoch(
+        DateTime.parse(utcString).millisecondsSinceEpoch,
+        isUtc: isUTC);
+
+    return dateTime;
   }
 }
