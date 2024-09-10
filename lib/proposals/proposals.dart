@@ -411,7 +411,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                       SizedBox(
                                         height: rSize * 0.01,
                                       ),
-                                      AppWidgets.divider(context),
+    /*AppWidgets.divider(context),
                                       SizedBox(
                                         height: rSize * 0.01,
                                       ),
@@ -425,7 +425,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                       SizedBox(
                                         height: rSize * 0.01,
                                       ),
-                                      AppWidgets.divider(context),
+                                      AppWidgets.divider(context),*/
                                     ],
                                   ),
                                 ],

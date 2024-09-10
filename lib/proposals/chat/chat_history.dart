@@ -82,12 +82,12 @@ class _ChatHistoryState extends State<ChatHistory> {
               size: 30.0,
             ),
           ),
-        ),
+        ),/*
         Icon(
           Icons.calendar_today_outlined,
           color: FlutterFlowTheme.of(context).primary,
           size: 30.0,
-        ),
+        ),*/
         const SizedBox(
           width: 15,
         )
