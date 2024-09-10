@@ -13,7 +13,7 @@ class ChatHistoryModel {
   String? title;
   String? comment;
   String? commentHtml;
-  BullBear? bullBear;
+  String? bullBear;
   dynamic category;
   Sender? sender;
   DateTime? createdAt;
@@ -36,7 +36,7 @@ class ChatHistoryModel {
     title: json["title"],
     comment: json["comment"],
     commentHtml: json["comment_html"],
-    bullBear: bullBearValues.map[json["bull_bear"]]!,
+    bullBear: json["bull_bear"],
     category: json["category"],
     sender: json["sender"] == null ? null : Sender.fromJson(json["sender"]),
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
@@ -48,7 +48,7 @@ class ChatHistoryModel {
     "title": title,
     "comment": comment,
     "comment_html": commentHtml,
-    "bull_bear": bullBearValues.reverse[bullBear],
+    "bull_bear": bullBear,
     "category": category,
     "sender": sender?.toJson(),
     "created_at": createdAt?.toIso8601String(),
@@ -56,17 +56,9 @@ class ChatHistoryModel {
   };
 }
 
-enum BullBear {
-  NONE
-}
-
-final bullBearValues = EnumValues({
-  "none": BullBear.NONE
-});
-
 class Sender {
   int? id;
-  Name? name;
+  String? name;
 
   Sender({
     this.id,
@@ -75,35 +67,11 @@ class Sender {
 
   factory Sender.fromJson(Map<String, dynamic> json) => Sender(
     id: json["id"],
-    name: nameValues.map[json["name"]]!,
+    name: json["name"]!,
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "name": nameValues.reverse[name],
+    "name": name,
   };
-}
-
-enum Name {
-  LILY_VU,
-  MAVERICK_LE_GOLDENOWL,
-  RAHUL
-}
-
-final nameValues = EnumValues({
-  "Lily Vu": Name.LILY_VU,
-  "maverick.le.goldenowl": Name.MAVERICK_LE_GOLDENOWL,
-  "rahul": Name.RAHUL
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

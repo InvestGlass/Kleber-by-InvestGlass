@@ -17,7 +17,6 @@ class ProposalController extends ChangeNotifier {
   List<FilterModel> selectedFilterList = [];
   final PagingController<int, ProposalModel> pagingController = PagingController(firstPageKey: 1);
 
-
   selectTransactionIndex(int index) {
     if (selectedIndex != index) {
       selectedIndex = index;
@@ -74,6 +73,22 @@ class ProposalController extends ChangeNotifier {
   /*----------------------------------------CHAT-----------------------------------------------------*/
 
   final PagingController<int, ChatHistoryModel> chatHistoryPagingController = PagingController(firstPageKey: 1);
+  TextEditingController msgController=TextEditingController();
+
+  void sendMsg(BuildContext context) {
+    Map<String,dynamic> map={},map2={};
+    map['comment']=msgController.text;
+    map2['message']=map;
+    CommonFunctions.showLoader(context);
+    ApiCalls.sendMsg(context, map2).then((value) {
+      CommonFunctions.dismissLoader(context);
+      if (value!=null) {
+        chatHistoryPagingController.itemList!.insert(0,value);
+        msgController=TextEditingController(text: '');
+        notifyListeners();
+      }
+    },);
+  }
 
 }
 

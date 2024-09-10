@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
+import 'package:kleber_bank/proposals/chat/chat_history.dart';
 import 'package:kleber_bank/proposals/proposal_controller.dart';
 import 'package:kleber_bank/proposals/proposal_model.dart';
 import 'package:kleber_bank/proposals/view_proposal.dart';
@@ -97,7 +98,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
               child: PagedListView<int, ProposalModel>(
                 pagingController: _notifier.pagingController,
                 // shrinkWrap: true,
-                padding: EdgeInsets.only(left: rSize * 0.015,right: rSize * 0.015,bottom: 80),
+                padding: EdgeInsets.only(left: rSize * 0.015, right: rSize * 0.015, bottom: 80),
                 builderDelegate: PagedChildBuilderDelegate<ProposalModel>(noItemsFoundIndicatorBuilder: (context) {
                   return AppWidgets.emptyView(
                       FFLocalizations.of(context).getText(
@@ -398,11 +399,15 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                       SizedBox(
                                         height: rSize * 0.01,
                                       ),
-                                      proposalElement('   ${FFLocalizations.of(context).getText(
-                                        'pkkj5rta'  /* Chat with your Advisor */ ,
-                                      )}', Icons.chat_outlined,() {
-
-                                      },),
+                                      proposalElement(
+                                        '   ${FFLocalizations.of(context).getText(
+                                          'pkkj5rta' /* Chat with your Advisor */,
+                                        )}',
+                                        Icons.chat_outlined,
+                                        () {
+                                          CommonFunctions.navigate(context, ChatHistory(item));
+                                        },
+                                      ),
                                       SizedBox(
                                         height: rSize * 0.01,
                                       ),
@@ -410,11 +415,13 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                       SizedBox(
                                         height: rSize * 0.01,
                                       ),
-                                      proposalElement('   ${FFLocalizations.of(context).getText(
-                                        'lq59qmsn' ,
-                                      )}', Icons.calendar_month,() {
-
-                                      },),
+                                      proposalElement(
+                                        '   ${FFLocalizations.of(context).getText(
+                                          'lq59qmsn',
+                                        )}',
+                                        Icons.calendar_month,
+                                        () {},
+                                      ),
                                       SizedBox(
                                         height: rSize * 0.01,
                                       ),

@@ -26,16 +26,13 @@ import 'common_functions.dart';
 import 'end_points.dart';
 import 'internationalization.dart';
 
-Future<dynamic> jsonResponse(BuildContext context, Uri uri, String method,
-    {Object? body, bool isList = false,bool isJson=false}) async {
+Future<dynamic> jsonResponse(BuildContext context, Uri uri, String method, {Object? body, bool isList = false, bool isJson = false}) async {
   MainController notifier = Provider.of<MainController>(context, listen: false);
   try {
     http.Response response;
-    var header = {
-      'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'
-    };
-    if(isJson){
-      header['Content-Type']='application/json';
+    var header = {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'};
+    if (isJson) {
+      header['Content-Type'] = 'application/json';
     }
     if (method == 'post') {
       response = await http.post(uri, body: body, headers: header);
@@ -77,11 +74,9 @@ Future<dynamic> jsonResponse(BuildContext context, Uri uri, String method,
 }
 
 class ApiCalls {
-  static Future<bool> login(
-      BuildContext context, String email, String pwd) async {
+  static Future<bool> login(BuildContext context, String email, String pwd) async {
     try {
-      var json = await jsonResponse(context, Uri.parse(EndPoints.login), 'post',
-          body: {"email": email, "password": pwd});
+      var json = await jsonResponse(context, Uri.parse(EndPoints.login), 'post', body: {"email": email, "password": pwd});
       if (json.containsKey("token")) {
         SharedPrefUtils.instance.putString(TOKEN, json['token']!);
         return true;
@@ -113,13 +108,9 @@ class ApiCalls {
     return null;
   }
 
-  static Future<ProposalModel?> updateProposalState(
-      BuildContext context, int id, String state) async {
+  static Future<ProposalModel?> updateProposalState(BuildContext context, int id, String state) async {
     try {
-      Map<String, dynamic> json = await jsonResponse(
-          context,
-          Uri.parse('${EndPoints.proposals}/$id/update_state?state=$state'),
-          'put');
+      Map<String, dynamic> json = await jsonResponse(context, Uri.parse('${EndPoints.proposals}/$id/update_state?state=$state'), 'put');
       return ProposalModel.fromJson(json);
     } catch (e) {
       print(e);
@@ -127,12 +118,9 @@ class ApiCalls {
     return null;
   }
 
-  static Future<Map<String, dynamic>?> transmit(
-      BuildContext context, Map<String, dynamic> body) async {
+  static Future<Map<String, dynamic>?> transmit(BuildContext context, Map<String, dynamic> body) async {
     try {
-      Map<String, dynamic> json = await jsonResponse(
-          context, Uri.parse(EndPoints.transactions), 'post',
-          body: jsonEncode(body),isJson: true);
+      Map<String, dynamic> json = await jsonResponse(context, Uri.parse(EndPoints.transactions), 'post', body: jsonEncode(body), isJson: true);
       return json;
     } catch (e) {
       print(e);
@@ -156,14 +144,10 @@ class ApiCalls {
     return null;
   }
 
-  static Future<Map<String, dynamic>?> verifyOtp(
-      BuildContext context, String code, String verificationCode) async {
+  static Future<Map<String, dynamic>?> verifyOtp(BuildContext context, String code, String verificationCode) async {
     try {
-      Map<String, dynamic> json = await jsonResponse(
-          context,
-          Uri.parse(
-              '${EndPoints.verifyOtp}?code=$code&verification_code=$verificationCode'),
-          'post'); //no params
+      Map<String, dynamic> json =
+          await jsonResponse(context, Uri.parse('${EndPoints.verifyOtp}?code=$code&verification_code=$verificationCode'), 'post'); //no params
       return json;
     } catch (e) {}
     return null;
@@ -195,8 +179,7 @@ class ApiCalls {
     BuildContext context,
   ) async {
     try {
-      Map<String, dynamic> json = await jsonResponse(context,
-          Uri.parse(EndPoints.acceptanceTermsOfService), 'post'); //no params
+      Map<String, dynamic> json = await jsonResponse(context, Uri.parse(EndPoints.acceptanceTermsOfService), 'post'); //no params
       return json;
     } catch (e) {}
     return null;
@@ -221,15 +204,8 @@ class ApiCalls {
       params.removeWhere(
         (key, value) => value == null || value.toString().isEmpty,
       );
-      List<dynamic> json = await jsonResponse(
-          context,
-          Uri.https(
-              EndPoints.baseUrl
-                  .replaceAll('/client_portal_api/', '')
-                  .replaceAll('https://', ''),
-              '/client_portal_api/markets',
-              params),
-          'get',
+      List<dynamic> json = await jsonResponse(context,
+          Uri.https(EndPoints.baseUrl.replaceAll('/client_portal_api/', '').replaceAll('https://', ''), '/client_portal_api/markets', params), 'get',
           isList: true);
 
       return marketListModelFromJson(jsonEncode(json));
@@ -237,8 +213,7 @@ class ApiCalls {
     return [];
   }
 
-  static Future<List<PortfolioModel>> getPortfolioList(
-      BuildContext context, int pageKey) async {
+  static Future<List<PortfolioModel>> getPortfolioList(BuildContext context, int pageKey) async {
     String param = '';
     if (pageKey != 0) {
       param = '?page=$pageKey&limit=10$param';
@@ -267,30 +242,18 @@ class ApiCalls {
           ),
           'get')) as List;
 
-      return json
-          .map((jsonItem) => TransactionTypeModel.fromJson(jsonItem))
-          .toList();
+      return json.map((jsonItem) => TransactionTypeModel.fromJson(jsonItem)).toList();
     } catch (e) {}
     return [];
   }
 
-  static Future<List<PositionModel>> getPositionList(BuildContext context,
-      int pageKey, int portfolioId, String column, String direction) async {
+  static Future<List<PositionModel>> getPositionList(BuildContext context, int pageKey, int portfolioId, String column, String direction) async {
     try {
-      Map<String, dynamic> params = {
-        'page': pageKey.toString(),
-        'order[column]': column,
-        'order[direction]': direction,
-        'limit':'10'
-      };
+      Map<String, dynamic> params = {'page': pageKey.toString(), 'order[column]': column, 'order[direction]': direction, 'limit': '10'};
       List<dynamic> json = (await jsonResponse(
           context,
-          Uri.https(
-              EndPoints.baseUrl
-                  .replaceAll('/client_portal_api/', '')
-                  .replaceAll('https://', ''),
-              '/client_portal_api/portfolios/$portfolioId/portfolio_securities',
-              params),
+          Uri.https(EndPoints.baseUrl.replaceAll('/client_portal_api/', '').replaceAll('https://', ''),
+              '/client_portal_api/portfolios/$portfolioId/portfolio_securities', params),
           'get')) as List;
 
       return json.map((jsonItem) => PositionModel.fromJson(jsonItem)).toList();
@@ -298,8 +261,7 @@ class ApiCalls {
     return [];
   }
 
-  static Future<List<TransactionModel>> getTransactionList(
-      BuildContext context, int pageKey, String name) async {
+  static Future<List<TransactionModel>> getTransactionList(BuildContext context, int pageKey, String name) async {
     try {
       List<dynamic> json = (await jsonResponse(
           context,
@@ -308,21 +270,13 @@ class ApiCalls {
           ),
           'get')) as List;
 
-      return json
-          .map((jsonItem) => TransactionModel.fromJson(jsonItem))
-          .toList();
+      return json.map((jsonItem) => TransactionModel.fromJson(jsonItem)).toList();
     } catch (e) {}
     return [];
   }
 
-  static Future<List<ProposalModel>> getProposalList(
-      int pageKey,
-      String proposalName,
-      String advisorName,
-      String? selectedProposalType,
-      String column,
-      String direction,
-      BuildContext context) async {
+  static Future<List<ProposalModel>> getProposalList(int pageKey, String proposalName, String advisorName, String? selectedProposalType,
+      String column, String direction, BuildContext context) async {
     try {
       Map<String, dynamic> params = {
         'order[column]': column,
@@ -348,12 +302,7 @@ class ApiCalls {
       params.removeWhere(
         (key, value) => value == null || value.toString().isEmpty,
       );
-      var url = Uri.https(
-          EndPoints.baseUrl
-              .replaceAll('/client_portal_api/', '')
-              .replaceAll('https://', ''),
-          '/client_portal_api/proposals',
-          params);
+      var url = Uri.https(EndPoints.baseUrl.replaceAll('/client_portal_api/', '').replaceAll('https://', ''), '/client_portal_api/proposals', params);
 
       List<dynamic> json = (await jsonResponse(context, url, 'get')) as List;
 
@@ -378,8 +327,7 @@ class ApiCalls {
     return [];
   }
 
-  static Future<List<MarketListModel>> getMarketFilterDropDownData(
-      BuildContext context, String endPoint) async {
+  static Future<List<MarketListModel>> getMarketFilterDropDownData(BuildContext context, String endPoint) async {
     try {
       List<dynamic> json = (await jsonResponse(
           context,
@@ -388,9 +336,7 @@ class ApiCalls {
           ),
           'get')) as List;
 
-      return json
-          .map((jsonItem) => MarketListModel.fromJson(jsonItem))
-          .toList();
+      return json.map((jsonItem) => MarketListModel.fromJson(jsonItem)).toList();
     } catch (e) {
       CommonFunctions.showToast(AppConst.somethingWentWrong);
       // print('user info API error ${e.toString()}::: ${e.stackTrace}');
@@ -428,18 +374,21 @@ class ApiCalls {
   ) async {
     try {
       String params = '';
-      if ((selectedAccount ?? '').isNotEmpty && selectedAccount != FFLocalizations.of(context).getText(
-        'n93guv4x' /* All */,
-      )) {
+      if ((selectedAccount ?? '').isNotEmpty &&
+          selectedAccount !=
+              FFLocalizations.of(context).getText(
+                'n93guv4x' /* All */,
+              )) {
         params += '&filter[account]=$selectedAccount';
       }
       if (range.isNotEmpty) {
-        params +=
-            '&filter[start_date]=${range.split(' ')[0]}&filter[end_date]=${range.split(' ')[2]}';
+        params += '&filter[start_date]=${range.split(' ')[0]}&filter[end_date]=${range.split(' ')[2]}';
       }
-      if ((selectedType ?? '').isNotEmpty && selectedType != FFLocalizations.of(context).getText(
-        'n93guv4x' /* All */,
-      )) {
+      if ((selectedType ?? '').isNotEmpty &&
+          selectedType !=
+              FFLocalizations.of(context).getText(
+                'n93guv4x' /* All */,
+              )) {
         params += '&filter[document_type]=${selectedType!.toLowerCase()}';
       }
       if (searchedFile.isNotEmpty) {
@@ -471,14 +420,12 @@ class ApiCalls {
     return null;
   }
 
-  static Future<bool> changePassword(
-      BuildContext context, String currentPwd, String newPwd) async {
+  static Future<bool> changePassword(BuildContext context, String currentPwd, String newPwd) async {
     try {
       var url = Uri.parse(
         EndPoints.changePassword,
       );
-      Map<String, dynamic> map = await jsonResponse(context, url, 'post',
-          body: {"current_password": currentPwd, "new_password": newPwd});
+      Map<String, dynamic> map = await jsonResponse(context, url, 'post', body: {"current_password": currentPwd, "new_password": newPwd});
       if (map.containsKey('errors')) {
         CommonFunctions.showToast(map['errors']);
         return false;
@@ -489,16 +436,11 @@ class ApiCalls {
     return false;
   }
 
-  static Future<Map<String, dynamic>?> uploadDoc(
-      XFile file, String desc) async {
+  static Future<Map<String, dynamic>?> uploadDoc(XFile file, String desc) async {
     var url = Uri.parse(EndPoints.documents);
     var request = http.MultipartRequest('POST', url);
-    request.headers.addAll({
-      'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'
-    });
-    var multipartFile = await http.MultipartFile(
-        'document[file]', http.ByteStream(file.openRead()), await file.length(),
-        filename: file.name);
+    request.headers.addAll({'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
+    var multipartFile = await http.MultipartFile('document[file]', http.ByteStream(file.openRead()), await file.length(), filename: file.name);
     request.files.add(multipartFile);
     request.fields['document[description]'] = desc;
 
@@ -520,8 +462,7 @@ class ApiCalls {
     return null;
   }
 
-  static Future<Document?> updateDocumentStatus(
-      BuildContext context, int id, String status) async {
+  static Future<Document?> updateDocumentStatus(BuildContext context, int id, String status) async {
     try {
       return Document.fromJson(await jsonResponse(
           context,
@@ -548,19 +489,35 @@ class ApiCalls {
     } catch (e) {}
     return [];
   }
-  static Future<List<ChatHistoryModel>> getChatHistory(
-    BuildContext context,int page
-  ) async {
+
+  static Future<List<ChatHistoryModel>> getChatHistory(BuildContext context, int page) async {
     try {
       List<dynamic> map = await jsonResponse(
           context,
           Uri.parse(
-            '${EndPoints.chatHistory}?page=$page&limit=10',
+            '${EndPoints.chat}?page=$page&limit=10',
           ),
           'get',
           isList: true);
       return chatHistoryModelFromJson(jsonEncode(map));
     } catch (e) {}
     return [];
+  }
+
+  static Future<ChatHistoryModel?> sendMsg(BuildContext context, Map<String, dynamic> body) async {
+    try {
+      Map<String, dynamic> map = await jsonResponse(
+          context,
+          Uri.parse(
+            EndPoints.chat,
+          ),
+          'post',
+          body: jsonEncode(body),
+          isJson: true);
+      return ChatHistoryModel.fromJson(map);
+    } catch (e) {
+      print('chat error');
+    }
+    return null;
   }
 }

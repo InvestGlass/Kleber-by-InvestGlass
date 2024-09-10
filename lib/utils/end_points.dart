@@ -24,7 +24,7 @@ class EndPoints{
   // PROPOSALS & CHAT
   static String proposals='${baseUrl}proposals';
   static String proposalTypes='${baseUrl}proposals/proposal_types';
-  static String chatHistory='${baseUrl}comments';
+  static String chat='${baseUrl}comments';
 
   // DOCUMENTS
   static String documents='${baseUrl}documents';
