@@ -227,8 +227,8 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                                   24.0, 0.0, 24.0, 0.0),
                               iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              // color: FlutterFlowTheme.of(context).primary,
-                              color: AppColors.kHint,
+                              color: FlutterFlowTheme.of(context).primary,
+                              // color: AppColors.kHint,
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
