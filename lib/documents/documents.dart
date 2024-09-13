@@ -174,7 +174,7 @@ class _DocumentsState extends State<Documents> {
                         }
                       },
                       child: Card(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: FlutterFlowTheme.of(context).secondaryBackground.withOpacity(item.freezed!?0.1:1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -198,7 +198,10 @@ class _DocumentsState extends State<Documents> {
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.of(context)
+                                        color: item.freezed!?
+                                        FlutterFlowTheme.of(context)
+                                            .secondaryText
+                                            :FlutterFlowTheme.of(context)
                                             .primaryText,
                                         fontSize: 16.0,
                                         letterSpacing: 0.0,
@@ -283,9 +286,11 @@ class _DocumentsState extends State<Documents> {
                                 },
                               ],
                             )),
-                            if (item.documentType != null) ...{
+                            if (item.documentType != null && !item.freezed!) ...{
                               popupMenu(item, index),
-                            }
+                            }else if(item.freezed!)...{
+                              Icon(Icons.lock,color: FlutterFlowTheme.of(context).primaryText,)
+                            },
                             /*const RotatedBox(
                               quarterTurns: 2,
                               child: Icon(
@@ -898,7 +903,7 @@ class _DocumentsState extends State<Documents> {
         .readBytes(Uri.parse('${EndPoints.documents}/${item.id}'), headers: {
       'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'
     });
-    await CommonFunctions.downloadAndSavePdf(bytes, item.folderName!, context)
+    await CommonFunctions.downloadAndSavePdf(bytes, item.originalFilename!, context)
         .then(
       (value) {
         CommonFunctions.dismissLoader(context);

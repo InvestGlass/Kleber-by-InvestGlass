@@ -124,7 +124,7 @@ class _ViewDocumentState extends State<ViewDocument> {
           ? Wrap(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                   child: getWidget(context),
                 ),

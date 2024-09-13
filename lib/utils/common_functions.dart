@@ -97,7 +97,7 @@ class CommonFunctions{
       String dir='';
       if(Platform.isAndroid) {
         dir = '/storage/emulated/0/Download';
-        final file = File('$dir/$fileName');
+        final file = File('$dir/${fileName.replaceAll(':', '')}');
         print('path : $file');
 
         await file.writeAsBytes(bytes);

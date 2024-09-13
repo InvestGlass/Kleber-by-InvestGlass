@@ -46,6 +46,7 @@ class Document {
   String? documentStatus;
   String? url;
   bool? isRead;
+  bool? freezed;
   String? documentType;
   dynamic approverId;
   DateTime? approvedAt;
@@ -70,6 +71,7 @@ class Document {
     this.documentStatus,
     this.url,
     this.isRead,
+    this.freezed,
     this.documentType,
     this.approverId,
     this.approvedAt,
@@ -92,6 +94,7 @@ class Document {
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     ancestry: json["ancestry"],
     clientId: json["client_id"],
+    freezed: json["freezed"],
     shareOnClientPortal: json["share_on_client_portal"],
     requestProposalApproval: json["request_proposal_approval"]??true,
     creatorId: json["creator_id"],
@@ -117,6 +120,7 @@ class Document {
     "updated_at": updatedAt?.toIso8601String(),
     "ancestry": ancestry,
     "client_id": clientId,
+    "freezed": freezed,
     "share_on_client_portal": shareOnClientPortal,
     "creator_id": creatorId,
     "last_modifier_id": lastModifierId,
