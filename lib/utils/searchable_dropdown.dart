@@ -81,7 +81,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                   letterSpacing: 0.0,
                 ),
             items: widget.items,
-            value: selectedValue,
+            value: List<dynamic>.generate((widget.items??[]).length,(index) =>widget.items![index].value,).contains(selectedValue)?selectedValue:null,
             onChanged: (value) {
               widget.onChanged(value);
               setState(() {

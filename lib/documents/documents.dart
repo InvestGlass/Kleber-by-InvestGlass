@@ -501,6 +501,7 @@ class _DocumentsState extends State<Documents> {
                                   context,
                                   fillColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
+                                  focusColor: FlutterFlowTheme.of(context).alternate,
                                   contentPadding: EdgeInsets.all(15),
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelLarge
@@ -613,7 +614,7 @@ class _DocumentsState extends State<Documents> {
                                 decoration: AppStyles.inputDecoration(
                                   context,
                                   fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                      .secondaryBackground,focusColor: FlutterFlowTheme.of(context).alternate,
                                   contentPadding: EdgeInsets.all(15),
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .labelLarge

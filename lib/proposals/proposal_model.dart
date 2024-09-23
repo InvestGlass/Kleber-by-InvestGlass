@@ -28,7 +28,7 @@ class ProposalModel {
   dynamic pipelineId;
   String? stage;
   DateTime? lastUpdated;
-  dynamic acceptedDate;
+  DateTime? acceptedDate;
 
   ProposalModel({
     this.id,
@@ -92,7 +92,7 @@ class ProposalModel {
     pipelineId: json["pipeline_id"],
     stage: json["stage"],
     lastUpdated: json["last_updated"] == null ? null : DateTime.parse(json["last_updated"]),
-    acceptedDate: json["accepted_date"],
+    acceptedDate: json["accepted_date"] == null ? null : DateTime.parse(json["accepted_date"]),
   );
 
   Map<String, dynamic> toJson() => {

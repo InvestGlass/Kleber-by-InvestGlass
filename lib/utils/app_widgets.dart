@@ -482,64 +482,70 @@ class AppWidgets {
       builder: (context) => Center(
         child: Wrap(
           children: [
-            SfDateRangePicker(
-              view: DateRangePickerView.month,
-              backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-              onSubmit: onSubmit,
-              rangeTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Roboto',
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    fontSize: 16.0,
-                    letterSpacing: 0.0,
-                    fontWeight: FontWeight.normal,
-                  ),
-              selectionTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Roboto',
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    fontSize: 16.0,
-                    letterSpacing: 0.0,
-                    fontWeight: FontWeight.normal,
-                  ),
-              cellBuilder: (context, cellDetails) {
-                return Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  height: 10,
-                  width: 10,
-                  alignment: Alignment.center,
-                  child: Text(
-                    cellDetails.date.day.toString(),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Roboto',
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          fontSize: 16.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.normal,
-                        ),
-                  ),
-                );
-              },
-              selectionShape: DateRangePickerSelectionShape.circle,
-              startRangeSelectionColor: FlutterFlowTheme.of(context).primary,
-              endRangeSelectionColor: FlutterFlowTheme.of(context).primary,
-              rangeSelectionColor: FlutterFlowTheme.of(context).primary,
-              selectionMode: mode,
-              headerStyle: DateRangePickerHeaderStyle(
-                backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-                textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+            Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),
+              color: FlutterFlowTheme.of(context).secondaryBackground),
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.all(15),
+              child: SfDateRangePicker(
+                view: DateRangePickerView.month,
+                backgroundColor: Colors.transparent,
+                onSubmit: onSubmit,
+                rangeTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Roboto',
-                      color: FlutterFlowTheme.of(context).primaryText,
+                      color: FlutterFlowTheme.of(context).info,
                       fontSize: 16.0,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.normal,
                     ),
+                selectionTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Roboto',
+                      color: FlutterFlowTheme.of(context).info,
+                      fontSize: 16.0,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.normal,
+                    ),
+                /*cellBuilder: (context, cellDetails) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    height: 10,
+                    width: 10,
+                    alignment: Alignment.center,
+                    child: Text(
+                      cellDetails.date.day.toString(),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Roboto',
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            fontSize: 16.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.normal,
+                          ),
+                    ),
+                  );
+                },*/
+                selectionShape: DateRangePickerSelectionShape.circle,
+                startRangeSelectionColor: FlutterFlowTheme.of(context).primary,
+                endRangeSelectionColor: FlutterFlowTheme.of(context).primary,
+                rangeSelectionColor: FlutterFlowTheme.of(context).primary,
+                selectionMode: mode,
+                headerStyle: DateRangePickerHeaderStyle(
+                  backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+                  textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Roboto',
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        fontSize: 16.0,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.normal,
+                      ),
+                ),
+                monthViewSettings: DateRangePickerMonthViewSettings(
+                  firstDayOfWeek: 1,
+                ),
+                showActionButtons: true,
+                onCancel: onCancel,
               ),
-              monthViewSettings: DateRangePickerMonthViewSettings(
-                firstDayOfWeek: 1,
-              ),
-              showActionButtons: true,
-              onCancel: onCancel,
             ),
           ],
         ),

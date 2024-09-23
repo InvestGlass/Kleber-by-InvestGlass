@@ -1001,6 +1001,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'مرفوض عند',
       'vi': 'Bị từ chối tại',
     },
+    'rejected': {
+      'en': 'Rejected',
+      'ar': 'مرفوض',
+      'vi': 'Vật bị loại bỏ',
+    },
     'ktrsz8sp': {
       'en': 'Accepted at',
       'ar': 'مقبول في',
