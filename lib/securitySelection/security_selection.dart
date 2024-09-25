@@ -68,7 +68,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
         bottomNavigationBar: Wrap(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 40, vertical: rSize*0.02),
               color: FlutterFlowTheme.of(context).secondaryBackground,
               child: GestureDetector(
                 onTap: () {
@@ -129,9 +129,9 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                           ),
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.transparent, width: 1)),
+                              borderRadius: BorderRadius.circular(rSize*0.01), borderSide: BorderSide(color: Colors.transparent, width: 1)),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.transparent, width: 1)),
+                              borderRadius: BorderRadius.circular(rSize*0.01), borderSide: BorderSide(color: Colors.transparent, width: 1)),
                           fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                           filled: true,
                           hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
@@ -142,7 +142,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                             'wzls4zjf' /* Type security name */,
                           ),
                           prefixIcon: Icon(Icons.search),
-                          contentPadding: EdgeInsets.symmetric(vertical: 10)),
+                          contentPadding: EdgeInsets.symmetric(vertical: rSize*0.01)),
                       onChanged: (value) {
                         if (_debounce?.isActive ?? false) _debounce?.cancel();
                         _debounce = Timer(const Duration(milliseconds: 500), () async {
@@ -230,9 +230,9 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(rSize*0.01),
                   ),
-                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  margin: EdgeInsets.symmetric(horizontal: rSize*0.015),
                   child: StatefulBuilder(
                     builder: (context, setState) {
                       _notifier = Provider.of<SecuritySelectionController>(context);
@@ -254,7 +254,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                     style: FlutterFlowTheme.of(context).headlineMedium.override(
                                       fontFamily: 'Roboto',
                                       color: FlutterFlowTheme.of(context).primary,
-                                      fontSize: 26.0,
+                                      fontSize: rSize*0.026,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -274,14 +274,14 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                 height: rSize * 0.02,
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize*0.010),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
                                     '1p01lh7n' /* Asset Class */,
                                   ),
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
-                                        fontSize: 18.0,
+                                        fontSize: rSize*0.018,
                                         letterSpacing: 0.0,
                                       ),
                                 ),
@@ -302,7 +302,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                                   fontFamily: 'Roboto',
                                                   color: FlutterFlowTheme.of(context).primaryText,
-                                                  fontSize: 14.0,
+                                                  fontSize: rSize*0.014,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.normal,
                                                 ),
@@ -317,14 +317,14 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                 height: rSize * 0.015,
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize*0.010),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
                                     'zfneqwjq' /* Industry */,
                                   ),
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
-                                        fontSize: 18.0,
+                                        fontSize: rSize*0.018,
                                         letterSpacing: 0.0,
                                       ),
                                 ),
@@ -345,7 +345,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                                   fontFamily: 'Roboto',
                                                   color: FlutterFlowTheme.of(context).primaryText,
-                                                  fontSize: 14.0,
+                                                  fontSize: rSize*0.014,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.normal,
                                                 ),
@@ -360,14 +360,14 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                 height: rSize * 0.015,
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize*0.010),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
                                     'nkjefkra' /* Currency */,
                                   ),
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
-                                        fontSize: 18.0,
+                                        fontSize: rSize*0.018,
                                         letterSpacing: 0.0,
                                       ),
                                 ),
@@ -388,7 +388,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                                   fontFamily: 'Roboto',
                                                   color: FlutterFlowTheme.of(context).primaryText,
-                                                  fontSize: 14.0,
+                                                  fontSize: rSize*0.014,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.normal,
                                                 ),

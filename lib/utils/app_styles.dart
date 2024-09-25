@@ -57,7 +57,7 @@ class AppStyles {
       labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
             fontFamily: 'Roboto',
             color: FlutterFlowTheme.of(context).primaryText,
-            fontSize: 16.0,
+            fontSize: rSize*0.016,
             letterSpacing: 0.0,
             fontWeight: FontWeight.w500,
           ),
@@ -117,7 +117,7 @@ class AppStyles {
       String? preffixText,
       // TextStyle? hintStyle,
         double borderWidth=2,
-        double borderRadius=12,
+        double? borderRadius,
       TextStyle? labelStyle,
       Color? fillColor,
       EdgeInsetsGeometry? contentPadding,
@@ -134,32 +134,32 @@ class AppStyles {
           color: focusColor??FlutterFlowTheme.of(context).alternate,
           width: borderWidth,
         ),
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: BorderRadius.circular(borderRadius??rSize*0.012),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: focusColor??focusColor??FlutterFlowTheme.of(context).primary,
           width: borderWidth,
         ),
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: BorderRadius.circular(borderRadius??rSize*0.012),
       ),
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: FlutterFlowTheme.of(context).alternate,
           width: borderWidth,
         ),
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: BorderRadius.circular(borderRadius??rSize*0.012),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: focusColor??FlutterFlowTheme.of(context).alternate,
           width: borderWidth,
         ),
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: BorderRadius.circular(borderRadius??rSize*0.012),
       ),
       filled: true,prefixIcon: prefix,
       fillColor: fillColor?? FlutterFlowTheme.of(context).secondaryBackground,counterText: counterText,
-      contentPadding: contentPadding ?? const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 0.0, 24.0),
+      contentPadding: contentPadding ?? EdgeInsetsDirectional.fromSTEB(rSize*0.024, rSize*0.024, 0.0, rSize*0.024),
       suffixIcon: suffix,
     );
   }

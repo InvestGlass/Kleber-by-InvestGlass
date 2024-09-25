@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../main.dart';
 import '../utils/flutter_flow_theme.dart';
 
 class XPortfoliItemBarChart extends StatefulWidget {
@@ -42,10 +43,10 @@ class XPortfoliItemBarChart extends StatefulWidget {
 }
 
 class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
-  final barWidth = 30.0;
-  final barsSpace = 10.0;
-  final groupsSpace = 70.0;
-  final leftTitleReservedSize = 46.0;
+  final barWidth = rSize*0.030;
+  final barsSpace = rSize*0.010;
+  final groupsSpace = rSize*0.070;
+  final leftTitleReservedSize = rSize*0.046;
   // TooltipBehavior? _tooltipBehavior;
   TrackballBehavior? _trackballBehavior;
 
@@ -61,7 +62,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
         tooltipSettings:  InteractiveTooltip(format: 'point.x : point.y',textStyle: FlutterFlowTheme.of(context).displaySmall.override(
           fontFamily: 'Roboto',
           color: Colors.black,
-          fontSize: 12.0,
+          fontSize: rSize*0.012,
           letterSpacing: 0.0,
           fontWeight: FontWeight.w500,
         )),
@@ -89,7 +90,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
     final point = trackballDetails.point;
     final index = trackballDetails.pointIndex;
     final seriesIndex = trackballDetails.seriesIndex;
-    final markerSize = 10.0;
+    final markerSize = rSize*0.010;
     final amountValue = index == null ? null : widget.listY3[index];
     final amountString = amountValue == null
         ? ''
@@ -97,10 +98,10 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
             '$amountValue', amountValue == 0, 2);
     return Container(
       // height: 50,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: rSize*0.010, vertical: rSize*0.005),
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).alternate,
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        borderRadius: BorderRadius.all(Radius.circular(rSize*0.008)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -121,7 +122,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
             style: FlutterFlowTheme.of(context).displaySmall.override(
               fontFamily: 'Roboto',
               color: FlutterFlowTheme.of(context).primaryText,
-              fontSize: 12.0,
+              fontSize: rSize*0.012,
               letterSpacing: 0.0,
               fontWeight: FontWeight.w500,
             ),
@@ -131,7 +132,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
             style: FlutterFlowTheme.of(context).displaySmall.override(
               fontFamily: 'Roboto',
               color: FlutterFlowTheme.of(context).primaryText,
-              fontSize: 12.0,
+              fontSize: rSize*0.012,
               letterSpacing: 0.0,
               fontWeight: FontWeight.w500,
             ),
@@ -159,7 +160,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
               labelRotation: 45,labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
               fontFamily: 'Roboto',
               color: FlutterFlowTheme.of(context).primaryText,
-              fontSize: 14.0,
+              fontSize: rSize*0.014,
               letterSpacing: 0.0,
               fontWeight: FontWeight.normal,
             ),
@@ -175,7 +176,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
               labelFormat: '{value}%',isVisible: true,labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
               fontFamily: 'Roboto',
               color: FlutterFlowTheme.of(context).primaryText,
-              fontSize: 14.0,
+              fontSize: rSize*0.014,
               letterSpacing: 0.0,
               fontWeight: FontWeight.normal,
             ),
@@ -218,7 +219,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
           Text('$valueStr%', style: FlutterFlowTheme.of(context).displaySmall.override(
         fontFamily: 'Roboto',
         color: FlutterFlowTheme.of(context).primaryText,
-        fontSize: 12.0,
+        fontSize: rSize*0.012,
         letterSpacing: 0.0,
         fontWeight: FontWeight.w500,
       ),),

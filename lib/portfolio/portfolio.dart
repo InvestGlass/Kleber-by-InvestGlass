@@ -74,7 +74,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
             return Card(
               color: FlutterFlowTheme.of(context).secondaryBackground,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(rSize*0.010),
               ),
               margin: EdgeInsets.symmetric(horizontal: rSize * 0.01, vertical: rSize * 0.005),
               child: Padding(
@@ -94,7 +94,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                               style: FlutterFlowTheme.of(context).displaySmall.override(
                                     fontFamily: 'Roboto',
                                     color: FlutterFlowTheme.of(context).primaryText,
-                                    fontSize: 16.0,
+                                    fontSize: rSize*0.016,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -111,7 +111,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
                                         color: FlutterFlowTheme.of(context).primaryText,
-                                        fontSize: 16.0,
+                                        fontSize: rSize*0.016,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -121,7 +121,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
                                         color: FlutterFlowTheme.of(context).primaryText,
-                                        fontSize: 16.0,
+                                        fontSize: rSize*0.016,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -136,7 +136,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                 child: Icon(
                                   Icons.arrow_back_ios_new,
                                   color: FlutterFlowTheme.of(context).primaryText,
-                                  size: 15,
+                                  size: rSize*0.015,
                                 ))
                           ],
                         ),
@@ -154,7 +154,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                             Container(
                               decoration: BoxDecoration(
                                 // color: AppColors.kViolate.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(15),
+                                borderRadius: BorderRadius.circular(rSize*0.015),
                               ),
                               padding: EdgeInsets.symmetric(vertical: rSize * 0.015),
                               child: Column(
@@ -217,7 +217,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                               fontFamily: 'Roboto',
                                               color: FlutterFlowTheme.of(context).secondaryText,
-                                              fontSize: 16.0,
+                                              fontSize: rSize*0.016,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                             )),
@@ -244,7 +244,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Roboto',
                                           color: FlutterFlowTheme.of(context).secondaryText,
-                                          fontSize: 16.0,
+                                          fontSize: rSize*0.016,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -273,7 +273,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             fontFamily: 'Roboto',
                                             color: FlutterFlowTheme.of(context).secondaryText,
-                                            fontSize: 16.0,
+                                            fontSize: rSize*0.016,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                           )),
@@ -305,7 +305,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                     fontFamily: 'Roboto',
                                                     color: FlutterFlowTheme.of(context).secondaryText,
-                                                    fontSize: 16.0,
+                                                    fontSize: rSize*0.016,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w500,
                                                   ))),
@@ -318,7 +318,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                 fontFamily: 'Roboto',
                                                 color: FlutterFlowTheme.of(context).primary,
-                                                fontSize: 16.0,
+                                                fontSize: rSize*0.016,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w500,
                                               ),
@@ -339,7 +339,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                   Container(
                                     decoration: const BoxDecoration(),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize*0.010, 0.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -355,12 +355,12 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
                                                 child: Column(
                                                   mainAxisSize: MainAxisSize.max,
                                                   children: [
                                                     Padding(
-                                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                                                       child: SizedBox(
                                                         width: 140.0,
                                                         height: 115.0,
@@ -395,7 +395,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                         fontFamily: 'Roboto',
                                                                         color: FlutterFlowTheme.of(context).info,
-                                                                        fontSize: 16.0,
+                                                                        fontSize: rSize*0.016,
                                                                         letterSpacing: 0.0,
                                                                         fontWeight: FontWeight.w500,
                                                                       ),
@@ -412,7 +412,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                                       ),
                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                             fontFamily: 'Roboto',
-                                                            fontSize: 16.0,
+                                                            fontSize: rSize*0.016,
                                                             letterSpacing: 0.0,
                                                             fontWeight: FontWeight.w500,
                                                           ),
@@ -438,14 +438,14 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
                                                 child: Column(
                                                   mainAxisSize: MainAxisSize.max,
                                                   children: [
                                                     Align(
                                                       alignment: const AlignmentDirectional(0.0, 1.0),
                                                       child: Padding(
-                                                        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                                                         child: SizedBox(
                                                           width: 140.0,
                                                           height: 115.0,
@@ -480,7 +480,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                           fontFamily: 'Roboto',
                                                                           color: FlutterFlowTheme.of(context).info,
-                                                                          fontSize: 16.0,
+                                                                          fontSize: rSize*0.016,
                                                                           letterSpacing: 0.0,
                                                                           fontWeight: FontWeight.w500,
                                                                         ),
@@ -498,7 +498,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                                       ),
                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                             fontFamily: 'Roboto',
-                                                            fontSize: 16.0,
+                                                            fontSize: rSize*0.016,
                                                             letterSpacing: 0.0,
                                                             fontWeight: FontWeight.w500,
                                                           ),

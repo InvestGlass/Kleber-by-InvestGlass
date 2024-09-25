@@ -45,9 +45,11 @@ class _MarketState extends State<Market> {
     super.initState();
   }
 
-  Future<void> _fetchPageActivity(BuildContext context,) async {
+  Future<void> _fetchPageActivity(
+    BuildContext context,
+  ) async {
     MarketController provider = Provider.of<MarketController>(context, listen: false);
-    await provider.getList(context,pageKey);
+    await provider.getList(context, pageKey);
     final isLastPage = provider.marketList.length < 10;
     if (isLastPage) {
       provider.pagingController.appendLastPage(provider.marketList);
@@ -85,18 +87,18 @@ class _MarketState extends State<Market> {
                   GestureDetector(
                     onTap: () => openFilterDialog(context),
                     child: Container(
-                      height: 45,
-                      width: 45,
-                      decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.circular(8)),
+                      height: rSize * 0.045,
+                      width: rSize * 0.045,
+                      decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.circular(rSize * 0.008)),
                       child: Icon(
                         Icons.filter_alt_outlined,
-                        size: 25,
+                        size: rSize * 0.025,
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    width: 10,
+                  SizedBox(
+                    width: rSize * 0.010,
                   ),
                   Expanded(
                     child: TextField(
@@ -105,25 +107,12 @@ class _MarketState extends State<Market> {
                             fontFamily: 'Roboto',
                             letterSpacing: 0.0,
                           ),
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: FlutterFlowTheme.of(context).alternate, width: 1)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: FlutterFlowTheme.of(context).alternate, width: 1)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: FlutterFlowTheme.of(context).alternate, width: 1)),
-
-                          fillColor: FlutterFlowTheme.of(context).primaryBackground,
-                          filled: true,
-                          hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Roboto',
-                                letterSpacing: 0.0,
-                              ),
-                          hintText: FFLocalizations.of(context).getText(
-                            'wzls4zjf' /* Type security name */,
-                          ),
-                          prefixIcon: const Icon(Icons.search),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 10)),
+                      decoration: AppStyles.inputDecoration(context,hint: FFLocalizations.of(context).getText(
+                        'wzls4zjf' /* Type security name */,
+                      ),prefix: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Icon(Icons.search,size: rSize*0.025,),
+                      ),contentPadding: EdgeInsets.symmetric(vertical: rSize*0.017,horizontal: 20),focusColor: FlutterFlowTheme.of(context).primaryBackground),
                       onChanged: (value) {
                         if (_debounce?.isActive ?? false) _debounce?.cancel();
                         _debounce = Timer(const Duration(milliseconds: 500), () async {
@@ -148,9 +137,11 @@ class _MarketState extends State<Market> {
                     pagingController: _notifier.pagingController,
                     // shrinkWrap: true,
                     builderDelegate: PagedChildBuilderDelegate<MarketListModel>(noItemsFoundIndicatorBuilder: (context) {
-                      return AppWidgets.emptyView(FFLocalizations.of(context).getText(
-                        'no_security_found' /* No security found */,
-                      ), context);
+                      return AppWidgets.emptyView(
+                          FFLocalizations.of(context).getText(
+                            'no_security_found' /* No security found */,
+                          ),
+                          context);
                     }, itemBuilder: (context, item, index) {
                       return MarketListItemWidget(
                         // key: Key('Keyery_${index}_of_${realLength}'),
@@ -262,9 +253,9 @@ class _MarketState extends State<Market> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(rSize * 0.01),
                   ),
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  margin: EdgeInsets.symmetric(horizontal: rSize * 0.015),
                   child: StatefulBuilder(
                     builder: (context, setState) {
                       _notifier = Provider.of<MarketController>(context);
@@ -274,22 +265,25 @@ class _MarketState extends State<Market> {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             padding: EdgeInsets.only(
-                                left: rSize * 0.02, right: rSize * 0.02, top: rSize * 0.03, bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
+                                left: rSize * 0.02,
+                                right: rSize * 0.02,
+                                top: rSize * 0.03,
+                                bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
                             children: [
                               Row(
                                 children: [
                                   Expanded(
                                       child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          'filter' /* Filter */,
-                                        ),
-                                    style: FlutterFlowTheme.of(context).headlineMedium.override(
-                                      fontFamily: 'Roboto',
-                                      color: FlutterFlowTheme.of(context).primary,
-                                      fontSize: 26.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
+                                    FFLocalizations.of(context).getText(
+                                      'filter' /* Filter */,
                                     ),
+                                    style: FlutterFlowTheme.of(context).headlineMedium.override(
+                                          fontFamily: 'Roboto',
+                                          color: FlutterFlowTheme.of(context).primary,
+                                          fontSize: rSize * 0.026,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                   )),
                                   GestureDetector(
                                     onTap: () {
@@ -306,14 +300,14 @@ class _MarketState extends State<Market> {
                                 height: rSize * 0.02,
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize * 0.010),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
                                     '1p01lh7n' /* Asset Class */,
                                   ),
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
-                                        fontSize: 18.0,
+                                        fontSize: rSize * 0.018,
                                         letterSpacing: 0.0,
                                       ),
                                 ),
@@ -334,7 +328,7 @@ class _MarketState extends State<Market> {
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                                   fontFamily: 'Roboto',
                                                   color: FlutterFlowTheme.of(context).primaryText,
-                                                  fontSize: 14.0,
+                                                  fontSize: rSize * 0.014,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.normal,
                                                 ),
@@ -349,14 +343,14 @@ class _MarketState extends State<Market> {
                                 height: rSize * 0.015,
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize * 0.010),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
                                     'zfneqwjq' /* Industry */,
                                   ),
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
-                                        fontSize: 18.0,
+                                        fontSize: rSize * 0.018,
                                         letterSpacing: 0.0,
                                       ),
                                 ),
@@ -377,7 +371,7 @@ class _MarketState extends State<Market> {
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                                   fontFamily: 'Roboto',
                                                   color: FlutterFlowTheme.of(context).primaryText,
-                                                  fontSize: 14.0,
+                                                  fontSize: rSize * 0.014,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.normal,
                                                 ),
@@ -392,14 +386,14 @@ class _MarketState extends State<Market> {
                                 height: rSize * 0.015,
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize * 0.010),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
                                     'nkjefkra' /* Currency */,
                                   ),
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
-                                        fontSize: 18.0,
+                                        fontSize: rSize * 0.018,
                                         letterSpacing: 0.0,
                                       ),
                                 ),
@@ -420,7 +414,7 @@ class _MarketState extends State<Market> {
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                                   fontFamily: 'Roboto',
                                                   color: FlutterFlowTheme.of(context).primaryText,
-                                                  fontSize: 14.0,
+                                                  fontSize: rSize * 0.014,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.normal,
                                                 ),

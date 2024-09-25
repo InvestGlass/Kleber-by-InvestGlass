@@ -10,6 +10,7 @@ import 'package:kleber_bank/utils/shared_pref_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../main.dart';
 import '../../utils/api_calls.dart';
 import '../../utils/flutter_flow_theme.dart';
 import '../../utils/internationalization.dart';
@@ -88,8 +89,8 @@ class _ChatHistoryState extends State<ChatHistory> {
           color: FlutterFlowTheme.of(context).primary,
           size: 30.0,
         ),*/
-        const SizedBox(
-          width: 15,
+        SizedBox(
+          width: rSize*0.015,
         )
       ]),
       body: Container(
@@ -120,7 +121,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsetsDirectional.all(10),
+                        padding: EdgeInsetsDirectional.all(10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
@@ -133,7 +134,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                 fontFamily: 'Roboto',
-                                fontSize: 16.0,
+                                fontSize: rSize*0.016,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -150,15 +151,15 @@ class _ChatHistoryState extends State<ChatHistory> {
                     ],
                   )
                 },
-                const SizedBox(
-                  height: 15,
+                SizedBox(
+                  height: rSize*0.015,
                 ),
                 Text(
                   item.sender?.name ?? '',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
                         color: FlutterFlowTheme.of(context).secondaryText,
-                        fontSize: 14.0,
+                        fontSize: rSize*0.014,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
                       ),
@@ -184,7 +185,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Roboto',
                             color: Colors.black,
-                            fontSize: 16.0,
+                            fontSize: rSize*0.016,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
                           ),
@@ -192,7 +193,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
                   child: Text(
                     CommonFunctions.dateTimeFormat(
                       'yyyy-MM-dd HH:mm',
@@ -203,7 +204,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Roboto',
                           color: FlutterFlowTheme.of(context).secondaryText,
-                          fontSize: 14.0,
+                          fontSize: rSize*0.014,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
                         ),
@@ -221,7 +222,7 @@ class _ChatHistoryState extends State<ChatHistory> {
       ),
       bottomNavigationBar: Container(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: rSize*0.015, vertical: rSize*0.01),
         margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Row(
           children: [
@@ -231,7 +232,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                 decoration: AppStyles.inputDecoration(context,
                     focusColor: FlutterFlowTheme.of(context).alternate,
                     fillColor: FlutterFlowTheme.of(context).primaryBackground,
-                    borderRadius: 20,
+                    borderRadius: rSize*0.020,
                     contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                     hint: FFLocalizations.of(context).getText(
                       '0lw6g9ud' /* Type new message */,
@@ -248,7 +249,7 @@ class _ChatHistoryState extends State<ChatHistory> {
               child: Icon(
                 Icons.send_rounded,
                 color: FlutterFlowTheme.of(context).primary,
-                size: 24.0,
+                size: rSize*0.024,
               ),
             )
           ],

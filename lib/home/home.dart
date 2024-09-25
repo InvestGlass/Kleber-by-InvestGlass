@@ -63,10 +63,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
       body: Container(
         decoration: AppStyles.commonBg(context),
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: MediaQuery.of(context).padding.top+10),
+          padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: MediaQuery.of(context).padding.top + 10),
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 10.0),
+              padding: EdgeInsetsDirectional.fromSTEB(rSize*0.015, 0.0, 0.0, rSize*0.010),
               child: Text(
                 FFLocalizations.of(context).getText(
                   'ran9xdwl' /* Popular */,
@@ -74,14 +74,14 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Roboto',
                       color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: 24.0,
+                      fontSize: rSize * 0.024,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.normal,
                     ),
               ),
             ),
             SizedBox(
-              height: rSize * 0.25,
+              height: rSize * 0.24,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.zero,
@@ -92,19 +92,19 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                     onTap: () async {
                       final Uri url = Uri.parse(_notifier.popularNewsList[index].link!);
                       if (!await launchUrl(url)) {
-                      throw Exception('Could not launch $url');
+                        throw Exception('Could not launch $url');
                       }
                     },
                     child: Card(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(rSize * 0.010),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ClipRRect(
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.010), topRight: Radius.circular(rSize * 0.010)),
                             child: Image.network(
                               model.imageUrl ?? '',
                               height: rSize * 0.15,
@@ -116,7 +116,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(5.0),
+                            padding: EdgeInsets.all(rSize * 0.005),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -131,7 +131,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                       style: FlutterFlowTheme.of(context).titleMedium.override(
                                             fontFamily: 'Roboto',
                                             color: FlutterFlowTheme.of(context).primaryText,
-                                            fontSize: 18.0,
+                                            fontSize: rSize * 0.018,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                             lineHeight: 1.2,
@@ -143,27 +143,23 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                 Container(
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context).customColor1,
-                                    borderRadius: BorderRadius.circular(24.0),
+                                    borderRadius: BorderRadius.circular(rSize * 0.024),
                                   ),
                                   child: Align(
                                     alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 5.0),
-                                      child: Container(
-                                        height: 12.0,
-                                        decoration: const BoxDecoration(),
-                                        child: AutoSizeText(
-                                          DateFormat('yyyy-MM-dd').format(model.date ?? DateTime.now()),
-                                          minFontSize: 1.0,
-                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                fontFamily: 'Roboto',
-                                                color: FlutterFlowTheme.of(context).info,
-                                                fontSize: 12.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w600,
-                                                lineHeight: 1.0,
-                                              ),
-                                        ),
+                                      padding: EdgeInsetsDirectional.fromSTEB(rSize * 0.010, rSize * 0.005, rSize * 0.010, rSize * 0.005),
+                                      child: AutoSizeText(
+                                        DateFormat('yyyy-MM-dd').format(model.date ?? DateTime.now()),
+                                        minFontSize: 1.0,
+                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                              fontFamily: 'Roboto',
+                                              color: FlutterFlowTheme.of(context).info,
+                                              fontSize: rSize * 0.012,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w600,
+                                              lineHeight: 1.0,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -179,7 +175,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
               ),
             ),
             Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize*0.010, 0.0, rSize*0.010),
                 child: Text(
                   FFLocalizations.of(context).getText(
                     'gln3vyrv' /* Recomended */,
@@ -187,7 +183,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
                         color: FlutterFlowTheme.of(context).primaryText,
-                        fontSize: 24.0,
+                        fontSize: rSize * 0.024,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.normal,
                       ),
@@ -206,7 +202,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
                             fontFamily: 'Roboto',
                             color: FlutterFlowTheme.of(context).secondaryText,
-                            fontSize: 20.0,
+                            fontSize: rSize * 0.02,
                             letterSpacing: 0.0,
                           ),
                     ),
@@ -219,11 +215,12 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                         GestureDetector(
                           onTap: () => _notifier.doRefresh(),
                           child: AppWidgets.btn(
-                              context,textColor: Colors.white,
+                              context,
+                              textColor: Colors.white,
                               FFLocalizations.of(context).getText(
                                 'yiyjkffh' /* Refresh */,
                               ),
-                              horizontalPadding: 15),
+                              horizontalPadding: rSize*0.015),
                         ),
                       ],
                     ),
@@ -236,7 +233,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                 children: [
                   Container(
                     width: double.infinity,
-                    height: 400.0,
+                    height: rSize*0.45,
                     margin: EdgeInsets.only(bottom: rSize * 0.01),
                     decoration: const BoxDecoration(),
                     child: Builder(
@@ -257,11 +254,13 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                             ));
                           },
                           onRightSwipe: (index) async {
-                            CommonFunctions.showToast(FFLocalizations.of(context).getVariableText(
-                              enText: 'Investment idea liked',
-                              arText: 'أعجبتني هذه الفكرة الاستثمارية',
-                              viText: 'Đã thích ý tưởng đầu tư này',
-                            ),success: true);
+                            CommonFunctions.showToast(
+                                FFLocalizations.of(context).getVariableText(
+                                  enText: 'Investment idea liked',
+                                  arText: 'أعجبتني هذه الفكرة الاستثمارية',
+                                  viText: 'Đã thích ý tưởng đầu tư này',
+                                ),
+                                success: true);
                           },
                           onUpSwipe: (index) async {},
                           onDownSwipe: (index) async {},
@@ -274,7 +273,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                               image: _notifier.swipeData[index]['image'],
                               type: _notifier.swipeData[index]['type'],
                               title: _notifier.swipeData[index]['title'],
-                              content:_notifier.swipeData[index]['content'],
+                              content: _notifier.swipeData[index]['content'],
                             );
                           },
                           itemCount: _notifier.swipeData.length,
@@ -290,7 +289,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                    padding: EdgeInsetsDirectional.fromSTEB(rSize*0.020, 0.0, rSize*0.020, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -299,7 +298,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize*0.005),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -313,7 +312,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                   height: _notifier.buttonSize,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context).error,
-                                    borderRadius: BorderRadius.circular(70.0),
+                                    borderRadius: BorderRadius.circular(rSize*0.070),
                                   ),
                                   child: Icon(
                                     Icons.close_rounded,
@@ -325,14 +324,15 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.swipe_left_rounded,
                                   color: FlutterFlowTheme.of(context).customColor4,
-                                  size: 24.0,
+                                  size: rSize*0.024,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(rSize*0.005, 0.0, 0.0, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
                                       'yj6g8w9q' /* Swipe left */,
@@ -340,7 +340,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Roboto',
                                           color: FlutterFlowTheme.of(context).customColor4,
-                                          fontSize: 16.0,
+                                          fontSize: rSize * 0.016,
                                           letterSpacing: 0.0,
                                         ),
                                   ),
@@ -351,9 +351,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                         ),
                         Column(
                           mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize*0.005),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -367,7 +368,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                   height: _notifier.buttonSize,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context).success,
-                                    borderRadius: BorderRadius.circular(70.0),
+                                    borderRadius: BorderRadius.circular(rSize*0.070),
                                   ),
                                   child: Icon(
                                     Icons.done_rounded,
@@ -379,9 +380,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, rSize*0.005, 0.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
                                       '35ozpi3w' /* Swipe right */,
@@ -389,7 +391,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Roboto',
                                           color: FlutterFlowTheme.of(context).customColor4,
-                                          fontSize: 16.0,
+                                          fontSize: rSize * 0.016,
                                           letterSpacing: 0.0,
                                         ),
                                   ),
@@ -397,7 +399,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                 Icon(
                                   Icons.swipe_right_rounded,
                                   color: FlutterFlowTheme.of(context).customColor4,
-                                  size: 24.0,
+                                  size: rSize*0.024,
                                 ),
                               ],
                             ),
@@ -406,6 +408,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                       ],
                     ),
                   ),
+                  SizedBox(height: rSize*0.05,)
                 ],
               ),
             },

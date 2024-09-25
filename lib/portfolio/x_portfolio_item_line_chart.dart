@@ -11,6 +11,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'dart:math';
 
+import '../main.dart';
 import '../utils/flutter_flow_theme.dart';
 
 class XPortfolioItemLineChart extends StatefulWidget {
@@ -37,11 +38,11 @@ class XPortfolioItemLineChart extends StatefulWidget {
 }
 
 class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
-  final barWidth = 30.0;
-  final barsSpace = 10.0;
-  final groupsSpace = 100.0;
-  final leftTitleReservedSize = 46.0;
-  final columnStart = 99.0;
+  final barWidth = rSize*0.030;
+  final barsSpace = rSize*0.010;
+  final groupsSpace = rSize*0.100;
+  final leftTitleReservedSize = rSize*0.046;
+  final columnStart = rSize*0.099;
 
   late double touchedValue;
   final color = Color(0xFF3D51A2);
@@ -97,7 +98,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               Text('$valueToShowStr%', style: FlutterFlowTheme.of(context).displaySmall.override(
                 fontFamily: 'Roboto',
                 color: FlutterFlowTheme.of(context).primaryText,
-                fontSize: 16.0,
+                fontSize: rSize*0.016,
                 letterSpacing: 0.0,
                 fontWeight: FontWeight.w500,
               ),),
@@ -180,7 +181,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               labelRotation: 45,labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
               fontFamily: 'Roboto',
               color: FlutterFlowTheme.of(context).primaryText,
-              fontSize: 14.0,
+              fontSize: rSize*0.014,
               letterSpacing: 0.0,
               fontWeight: FontWeight.normal,
             ),
@@ -198,7 +199,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               opposedPosition: isAr,labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
               fontFamily: 'Roboto',
               color: FlutterFlowTheme.of(context).primaryText,
-              fontSize: 14.0,
+              fontSize: rSize*0.014,
               letterSpacing: 0.0,
               fontWeight: FontWeight.normal,
             ),

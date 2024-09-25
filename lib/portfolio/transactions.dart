@@ -75,7 +75,7 @@ class _TransactionsState extends State<Transactions> {
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Roboto',
                               color: FlutterFlowTheme.of(context).primary,
-                              fontSize: 25.0,
+                              fontSize: rSize*0.025,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
                             ),
@@ -85,7 +85,7 @@ class _TransactionsState extends State<Transactions> {
                         DateFormat('yyyy-MM-dd', FFLocalizations.of(context).languageCode).format(DateTime.now()),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Roboto',
-                              fontSize: 20.0,
+                              fontSize: rSize*0.02,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
                             ),
@@ -117,7 +117,7 @@ class _TransactionsState extends State<Transactions> {
                       return Card(
                         margin: EdgeInsets.symmetric(vertical: rSize * 0.005,horizontal: rSize * 0.005),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                          borderRadius: BorderRadius.circular(rSize*0.010),
                         ),
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                         child: ListView(
@@ -137,7 +137,7 @@ class _TransactionsState extends State<Transactions> {
                                         style: FlutterFlowTheme.of(context).displaySmall.override(
                                               fontFamily: 'Roboto',
                                               color: FlutterFlowTheme.of(context).primaryText,
-                                              fontSize: 16.0,
+                                              fontSize: rSize*0.016,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -150,7 +150,7 @@ class _TransactionsState extends State<Transactions> {
                                           child: Icon(
                                             Icons.arrow_back_ios_new,
                                             color: FlutterFlowTheme.of(context).primaryText,
-                                            size: 15,
+                                            size: rSize*0.015,
                                           )),
                                     ],
                                   ),
@@ -184,7 +184,7 @@ class _TransactionsState extends State<Transactions> {
                                         Container(
                                           decoration: BoxDecoration(
                                             // color: AppColors.kViolate.withOpacity(0.2),
-                                            borderRadius: BorderRadius.circular(15),
+                                            borderRadius: BorderRadius.circular(rSize*0.015),
                                           ),
                                           // padding: EdgeInsets.all(rSize * 0.015),
                                           child: Column(

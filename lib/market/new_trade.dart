@@ -73,7 +73,7 @@ class _AddTransactionState extends State<AddTransaction> {
                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                   fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).primaryText,
-                                  fontSize: 14.0,
+                                  fontSize: rSize*0.014,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -95,9 +95,9 @@ class _AddTransactionState extends State<AddTransaction> {
                   _marketNotifier.selectSecurity(result);
                 }),
                 decoration: AppStyles.inputDecoration(context,
-                    contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                    contentPadding: EdgeInsets.symmetric(vertical: rSize*0.015, horizontal: rSize*0.015),
                     suffix: Container(
-                      height: 50,
+                      height: rSize*0.050,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(10),
@@ -107,7 +107,7 @@ class _AddTransactionState extends State<AddTransaction> {
                       child: Icon(
                         Icons.search_rounded,
                         color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 24.0,
+                        size: rSize*0.024,
                       ),
                     ),
                     focusColor: FlutterFlowTheme.of(context).alternate),
@@ -132,7 +132,7 @@ class _AddTransactionState extends State<AddTransaction> {
                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                   fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).primaryText,
-                                  fontSize: 14.0,
+                                  fontSize: rSize*0.014,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -154,7 +154,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 onTap: () {
                   openDateTimePicker();
                 },
-                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(15)),
+                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015)),
               ),
               SizedBox(
                 height: rSize * 0.015,
@@ -162,14 +162,14 @@ class _AddTransactionState extends State<AddTransaction> {
               label(context, '2mpa9jiq' /* Notes */),
               TextFormField(
                 controller: _marketNotifier.descController,
-                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(15)),
+                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015)),
               ),
               SizedBox(
                 height: rSize * 0.015,
               ),
               label(context, 'u7hyldvt' /* Order Type */),
               TextFormField(
-                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(15)),
+                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015)),
               ),
               SizedBox(
                 height: rSize * 0.015,
@@ -181,7 +181,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 onChanged: (value) {
                   _marketNotifier.updateAmount(widget.model.price!);
                 },
-                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(15)),
+                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015)),
               ),
               SizedBox(
                 height: rSize * 0.015,
@@ -191,11 +191,11 @@ class _AddTransactionState extends State<AddTransaction> {
                 readOnly: true,controller: TextEditingController(text: widget.model.price ?? ''),
                 decoration: AppStyles.inputDecoration(context,
                     focusColor: FlutterFlowTheme.of(context).customColor4,
-                    contentPadding: EdgeInsets.all(15),
+                    contentPadding: EdgeInsets.all(rSize*0.015),
                     prefix: Container(
-                      height: 50,
-                      width: 60,
-                      margin: EdgeInsets.only(right: 10),
+                      height: rSize*0.050,
+                      width: rSize*0.060,
+                      margin: EdgeInsets.only(right: rSize*0.010),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -246,7 +246,7 @@ class _AddTransactionState extends State<AddTransaction> {
                             ),
                       ),
                     ),
-                    contentPadding: EdgeInsets.all(15)),
+                    contentPadding: EdgeInsets.all(rSize*0.015)),
               ),
               SizedBox(
                 height: rSize * 0.015,
@@ -257,11 +257,11 @@ class _AddTransactionState extends State<AddTransaction> {
                 controller: TextEditingController(text: _marketNotifier.amount.toString()),
                 decoration: AppStyles.inputDecoration(context,
                     focusColor: FlutterFlowTheme.of(context).customColor4,
-                    contentPadding: EdgeInsets.all(15),
+                    contentPadding: EdgeInsets.all(rSize*0.015),
                     prefix: Container(
-                      height: 50,
-                      width: 60,
-                      margin: EdgeInsets.only(right: 10),
+                      height: rSize*0.050,
+                      width: rSize*0.060,
+                      margin: EdgeInsets.only(right: rSize*0.010),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -309,14 +309,14 @@ class _AddTransactionState extends State<AddTransaction> {
 
   Padding label(BuildContext context, String text) {
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
       child: Text(
         FFLocalizations.of(context).getText(
           text,
         ),
         style: FlutterFlowTheme.of(context).bodyMedium.override(
               fontFamily: 'Roboto',
-              fontSize: 16.0,
+              fontSize: rSize*0.016,
               letterSpacing: 0.0,
             ),
       ),

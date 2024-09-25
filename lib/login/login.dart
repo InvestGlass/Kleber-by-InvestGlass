@@ -63,7 +63,7 @@ class _LoginState extends State<Login> {
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Roboto',
                             color: FlutterFlowTheme.of(context).secondaryText,
-                            fontSize: 30.0,
+                            fontSize: rSize*0.03,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
                           ),
@@ -78,7 +78,7 @@ class _LoginState extends State<Login> {
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Roboto',
                             color: FlutterFlowTheme.of(context).secondaryText,
-                            fontSize: 30.0,
+                            fontSize: rSize*0.03,
                             letterSpacing: 0.0,lineHeight: 0,
                             fontWeight: FontWeight.w600,
                           ),
@@ -201,13 +201,13 @@ class _LoginState extends State<Login> {
                             options: FFButtonOptions(
                               width: MediaQuery.sizeOf(context).width * 0.5,
                               height: 50.0,
-                              padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                              iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(rSize*0.024, 0.0, rSize*0.024, 0.0),
+                              
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Roboto',
                                     color: FlutterFlowTheme.of(context).info,
-                                    fontSize: 16.0,
+                                    fontSize: rSize*0.016,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -216,7 +216,7 @@ class _LoginState extends State<Login> {
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(8.0),
+                              borderRadius: BorderRadius.circular(rSize*0.008),
                             ),
                             showLoadingIndicator: false,
                           ),

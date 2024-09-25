@@ -59,7 +59,7 @@ class _OTPScreenState extends State<OTPScreen> {
             Card(
               color: FlutterFlowTheme.of(context).primaryBackground,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(rSize*0.010),
               ),
               margin: EdgeInsets.symmetric(vertical: rSize * 0.03, horizontal: rSize * 0.01),
               elevation: 2,
@@ -81,7 +81,7 @@ class _OTPScreenState extends State<OTPScreen> {
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                 fontFamily: 'Roboto',
                                 color: FlutterFlowTheme.of(context).primary,
-                                fontSize: 26.0,
+                                fontSize: rSize*0.026,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -95,7 +95,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             textAlign: TextAlign.start,
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   fontFamily: 'Roboto',
-                                  fontSize: 16.0,
+                                  fontSize: rSize*0.016,
                                   letterSpacing: 0.0,
                                 ),
                           )
@@ -113,7 +113,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 textAlign: TextAlign.start,
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'Roboto',
-                                      fontSize: 16.0,
+                                      fontSize: rSize*0.016,
                                       letterSpacing: 0.0,
                                     ),
                               ),
@@ -127,7 +127,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             textAlign: TextAlign.start,
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   fontFamily: 'Roboto',
-                                  fontSize: 16.0,
+                                  fontSize: rSize*0.016,
                                   letterSpacing: 0.0,
                                 ),
                           ),
@@ -135,7 +135,7 @@ class _OTPScreenState extends State<OTPScreen> {
                           height: rSize * 0.02,
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
                           child: PinCodeTextField(
                             autoDisposeControllers: false,
                             appContext: context,
@@ -202,7 +202,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'Roboto',
                                       color: FlutterFlowTheme.of(context).primaryText,
-                                      fontSize: 16.0,
+                                      fontSize: rSize*0.016,
                                       letterSpacing: 0.0,
                                     ),
                               ),
@@ -217,7 +217,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Roboto',
                                           color: FlutterFlowTheme.of(context).primary,
-                                          fontSize: 16.0,
+                                          fontSize: rSize*0.016,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -300,7 +300,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                                       fontFamily: 'Roboto',
                                       color: FlutterFlowTheme.of(context).primary,
-                                      fontSize: 26.0,
+                                      fontSize: rSize*0.026,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -335,7 +335,7 @@ class _OTPScreenState extends State<OTPScreen> {
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                 fontFamily: 'Roboto',
                                 color: FlutterFlowTheme.of(context).grayLight,
-                                fontSize: 16.0,
+                                fontSize: rSize*0.016,
                                 letterSpacing: 0.0,
                               ),
                         ),
@@ -350,13 +350,13 @@ class _OTPScreenState extends State<OTPScreen> {
                                   borderRadius: BorderRadius.circular(4.0),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 0.0, 10.0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(rSize*0.010, rSize*0.010, 0.0, rSize*0.010),
                                   child: Text(
                                     key,
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Roboto',
                                           color: FlutterFlowTheme.of(context).secondaryText,
-                                          fontSize: 16.0,
+                                          fontSize: rSize*0.016,
                                           letterSpacing: 0.0,
                                         ),
                                   ),
@@ -364,7 +364,7 @@ class _OTPScreenState extends State<OTPScreen> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -394,9 +394,9 @@ class _OTPScreenState extends State<OTPScreen> {
                           ),
                           options: FFButtonOptions(
                             width: MediaQuery.sizeOf(context).width * 0.5,
-                            height: 40.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            height: rSize*0.04,
+                            padding: EdgeInsetsDirectional.fromSTEB(rSize*0.024, 0.0, rSize*0.024, 0.0),
+                            
                             color: FlutterFlowTheme.of(context).primary,
                             textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                   fontFamily: 'Roboto',
@@ -408,7 +408,7 @@ class _OTPScreenState extends State<OTPScreen> {
                               color: Colors.transparent,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(8.0),
+                            borderRadius: BorderRadius.circular(rSize*0.008),
                           ),
                         ),
                         SizedBox(

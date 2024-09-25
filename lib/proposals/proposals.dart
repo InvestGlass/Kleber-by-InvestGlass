@@ -110,7 +110,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                   return Card(
                     margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                      borderRadius: BorderRadius.circular(rSize*0.010),
                     ),
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     child: ListView(
@@ -131,7 +131,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                     style: FlutterFlowTheme.of(context).displaySmall.override(
                                           fontFamily: 'Roboto',
                                           color: FlutterFlowTheme.of(context).primaryText,
-                                          fontSize: 16.0,
+                                          fontSize: rSize*0.016,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -144,7 +144,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                       color: item.state == 'Accepted'
                                           ? FlutterFlowTheme.of(context).customColor2
                                           : FlutterFlowTheme.of(context).customColor3,
-                                      size: 20.0,
+                                      size: rSize*0.020,
                                     ),
                                     SizedBox(
                                       width: rSize * 0.015,
@@ -154,7 +154,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                       child: Icon(
                                         Icons.arrow_back_ios_new,
                                         color: FlutterFlowTheme.of(context).primaryText,
-                                        size: 15,
+                                        size: rSize*0.015,
                                       )),
                                 ],
                               ),
@@ -163,7 +163,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                               ListView(
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
-                                padding: const EdgeInsets.only(top: 15),
+                                padding: EdgeInsets.only(top: rSize*0.015),
                                 children: [
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,7 +174,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                               fontFamily: 'Roboto',
                                               color: FlutterFlowTheme.of(context).primaryText,
-                                              fontSize: 16.0,
+                                              fontSize: rSize*0.016,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -237,7 +237,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                       fontFamily: 'Roboto',
                                                       color: FlutterFlowTheme.of(context).primaryText,
-                                                      fontSize: 16.0,
+                                                      fontSize: rSize*0.016,
                                                       letterSpacing: 0.0,
                                                       fontWeight: FontWeight.normal,
                                                     ),
@@ -257,7 +257,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                               Icon(
                                                 Icons.close_rounded,
                                                 color: FlutterFlowTheme.of(context).customColor3,
-                                                size: 24.0,
+                                                size: rSize*0.024,
                                               ),
                                               Text(
                                                 '  ${FFLocalizations.of(context).getText(
@@ -266,7 +266,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                   fontFamily: 'Roboto',
                                                   color: FlutterFlowTheme.of(context).customColor3,
-                                                  fontSize: 16.0,
+                                                  fontSize: rSize*0.016,
                                                   letterSpacing: 0.0,
                                                 ),
                                               ),
@@ -279,7 +279,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                               Icon(
                                                 Icons.done_rounded,
                                                 color: FlutterFlowTheme.of(context).customColor2,
-                                                size: 24.0,
+                                                size: rSize*0.024,
                                               ),
                                               Text(
                                                 '  ${FFLocalizations.of(context).getText(
@@ -288,7 +288,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                       fontFamily: 'Roboto',
                                                       color: FlutterFlowTheme.of(context).customColor2,
-                                                      fontSize: 16.0,
+                                                      fontSize: rSize*0.016,
                                                       letterSpacing: 0.0,
                                                     ),
                                               ),
@@ -461,7 +461,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                 color: Colors.transparent,
                 child: Container(
                   decoration: BoxDecoration(color: FlutterFlowTheme.of(context).secondaryBackground, borderRadius: BorderRadius.circular(10)),
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  margin: EdgeInsets.symmetric(horizontal: rSize*0.015),
                   child: StatefulBuilder(
                     builder: (context, setState) {
                       Provider.of<ProposalController>(context, listen: false).getProposalTypes(context);
@@ -487,7 +487,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                     style: FlutterFlowTheme.of(context).headlineMedium.override(
                                           fontFamily: 'Roboto',
                                           color: FlutterFlowTheme.of(context).primary,
-                                          fontSize: 26.0,
+                                          fontSize: rSize*0.026,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -498,6 +498,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                     },
                                     child: Icon(
                                       Icons.close,
+                                      size: rSize*0.025,
                                       color: FlutterFlowTheme.of(context).primary,
                                     ),
                                   )
@@ -512,7 +513,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                 ),
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'Roboto',
-                                      fontSize: 18.0,
+                                      fontSize: rSize*0.018,
                                       letterSpacing: 0.0,
                                     ),
                               ),
@@ -528,7 +529,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                 decoration: AppStyles.inputDecoration(
                                   context,
                                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                  contentPadding: const EdgeInsets.all(15),
+                                  contentPadding: EdgeInsets.all(rSize*0.015),
                                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                                         fontFamily: 'Roboto',
                                         letterSpacing: 0.0,
@@ -544,7 +545,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                 ),
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'Roboto',
-                                      fontSize: 18.0,
+                                      fontSize: rSize*0.018,
                                       letterSpacing: 0.0,
                                     ),
                               ),
@@ -560,7 +561,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                 decoration: AppStyles.inputDecoration(
                                   context,
                                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                  contentPadding: const EdgeInsets.all(15),
+                                  contentPadding: EdgeInsets.all(rSize*0.015),
                                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                                         fontFamily: 'Roboto',
                                         letterSpacing: 0.0,
@@ -576,7 +577,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                 ),
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'Roboto',
-                                      fontSize: 18.0,
+                                      fontSize: rSize*0.018,
                                       letterSpacing: 0.0,
                                     ),
                               ),
@@ -599,7 +600,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                               style: FlutterFlowTheme.of(context).bodySmall.override(
                                                     fontFamily: 'Roboto',
                                                     color: FlutterFlowTheme.of(context).primaryText,
-                                                    fontSize: 14.0,
+                                                    fontSize: rSize*0.014,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.normal,
                                                   ),
@@ -698,7 +699,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                         style: FlutterFlowTheme.of(context).headlineMedium.override(
                               fontFamily: 'Roboto',
                               color: FlutterFlowTheme.of(context).primary,
-                              fontSize: 26.0,
+                              fontSize: rSize*0.026,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
                             ),
@@ -724,52 +725,65 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
     );
   }
 
-  Row sortDialogElement(int value, String label, BuildContext context) {
-    return Row(
-      children: [
-        Theme(
-          data: ThemeData(unselectedWidgetColor: FlutterFlowTheme.of(context).primaryText),
-          child: Radio(
-            activeColor: FlutterFlowTheme.of(context).primary,
-            value: value,
-            groupValue: _notifier.selectedSortIndex,
-            onChanged: (p0) {
-              _notifier.selectedSortIndex = value;
-              if (value == 0) {
-                _notifier.direction = 'desc';
-                _notifier.column = 'created_at';
-              } else if (value == 1) {
-                _notifier.direction = 'asc';
-                _notifier.column = 'created_at';
-              } else if (value == 2) {
-                _notifier.direction = 'asc';
-                _notifier.column = 'name';
-              } else if (value == 3) {
-                _notifier.direction = 'desc';
-                _notifier.column = 'name';
-              }
-              _notifier.selectedFilterList.removeWhere(
-                (element) => element.type == FilterTypes.SORT.name,
-              );
-              _notifier.selectedFilterList.add(FilterModel(_notifier.sortList[value], FilterTypes.SORT.name));
-              _pageKey = 1;
-              _notifier.pagingController.refresh();
-              Navigator.pop(context);
-            },
+  Widget sortDialogElement(int value, String label, BuildContext context) {
+    final bool isTablet = (MediaQuery.of(context).size.width > 600);
+    return SizedBox(
+      height: rSize * 0.050,
+      child: Row(
+        children: [
+          SizedBox(
+            width: isTablet ? rSize * 0.015 : 0,
           ),
-        ),
-        Expanded(
-            child: Text(
-          label,
-          style: FlutterFlowTheme.of(context).displaySmall.override(
-                fontFamily: 'Roboto',
-                color: FlutterFlowTheme.of(context).primaryText,
-                fontSize: 16.0,
-                letterSpacing: 0.0,
-                fontWeight: FontWeight.w500,
+          Theme(
+            data: ThemeData(unselectedWidgetColor: FlutterFlowTheme.of(context).primaryText),
+            child: Transform.scale(
+              scale: rSize * 0.0012,
+              child: Radio(
+                activeColor: FlutterFlowTheme.of(context).primary,
+                value: value,
+                groupValue: _notifier.selectedSortIndex,
+                onChanged: (p0) {
+                  _notifier.selectedSortIndex = value;
+                  if (value == 0) {
+                    _notifier.direction = 'desc';
+                    _notifier.column = 'created_at';
+                  } else if (value == 1) {
+                    _notifier.direction = 'asc';
+                    _notifier.column = 'created_at';
+                  } else if (value == 2) {
+                    _notifier.direction = 'asc';
+                    _notifier.column = 'name';
+                  } else if (value == 3) {
+                    _notifier.direction = 'desc';
+                    _notifier.column = 'name';
+                  }
+                  _notifier.selectedFilterList.removeWhere(
+                    (element) => element.type == FilterTypes.SORT.name,
+                  );
+                  _notifier.selectedFilterList.add(FilterModel(_notifier.sortList[value], FilterTypes.SORT.name));
+                  _pageKey = 1;
+                  _notifier.pagingController.refresh();
+                  Navigator.pop(context);
+                },
               ),
-        )),
-      ],
+            ),
+          ),
+          SizedBox(
+            width: isTablet ? rSize * 0.01 : 0,
+          ),
+          Expanded(
+              child: Text(
+            label,
+            style: FlutterFlowTheme.of(context).displaySmall.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontSize: rSize*0.016,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.w500,
+                ),
+          )),
+        ],
+      ),
     );
   }
 
@@ -789,7 +803,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
                   color: FlutterFlowTheme.of(context).primaryText,
-                  fontSize: 16.0,
+                  fontSize: rSize*0.016,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.normal,
                 ),
@@ -799,7 +813,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
               child: Icon(
                 Icons.arrow_back_ios_new,
                 color: FlutterFlowTheme.of(context).primaryText,
-                size: 15,
+                size: rSize*0.015,
               ))
         ],
       ),
@@ -812,21 +826,21 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(rSize * 0.01),
-        decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: const BorderRadius.all(Radius.circular(10))),
+        decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.all(Radius.circular(rSize*0.010))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               'assets/$img',
               color: FlutterFlowTheme.of(context).secondaryBackground,
-              scale: 25,
+              height: rSize*0.02,width: rSize*0.02,
             ),
             Text(
               label,
               style: FlutterFlowTheme.of(context).displaySmall.override(
                     fontFamily: 'Roboto',
                     color: FlutterFlowTheme.of(context).secondaryBackground,
-                    fontSize: 14.0,
+                    fontSize: rSize*0.014,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.normal,
                   ),

@@ -45,16 +45,16 @@ class _NewsFeedSwipeCardWidgetState extends State<NewsFeedSwipeCardWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.sizeOf(context).width * 1.0,
-      height: MediaQuery.sizeOf(context).height * 1.0,
+      width: double.infinity,
+      height: rSize*0.5,
       child: Stack(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12.0),
             child: Image.network(
               widget.image!,
-              width: MediaQuery.sizeOf(context).width * 1.0,
-              height: MediaQuery.sizeOf(context).height * 1.0,
+              width: double.infinity,
+              height: rSize*0.5,
               fit: BoxFit.cover,
             ),
           ),
@@ -67,7 +67,7 @@ class _NewsFeedSwipeCardWidgetState extends State<NewsFeedSwipeCardWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 20.0),
+            padding: EdgeInsetsDirectional.fromSTEB(rSize*0.015, 0.0, rSize*0.015, rSize*0.020),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.end,
@@ -79,15 +79,15 @@ class _NewsFeedSwipeCardWidgetState extends State<NewsFeedSwipeCardWidget> {
                     Container(
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).customColor1,
-                        borderRadius: BorderRadius.circular(24.0),
+                        borderRadius: BorderRadius.circular(rSize*0.024),
                       ),
                       margin: EdgeInsets.symmetric(vertical: rSize*0.005),
                       alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Align(
                         alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              10.0, 5.0, 10.0, 5.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              rSize*0.010, rSize*0.005, rSize*0.010, rSize*0.005),
                           child: Container(
                             decoration: const BoxDecoration(),
                             child: Text(
@@ -97,7 +97,7 @@ class _NewsFeedSwipeCardWidgetState extends State<NewsFeedSwipeCardWidget> {
                                   .override(
                                     fontFamily: 'Roboto',
                                     color: FlutterFlowTheme.of(context).info,
-                                    fontSize: 16.0,
+                                    fontSize: rSize*0.016,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -113,7 +113,7 @@ class _NewsFeedSwipeCardWidgetState extends State<NewsFeedSwipeCardWidget> {
                   maxLines: 2,
                   style: FlutterFlowTheme.of(context).titleMedium.override(
                         fontFamily: 'Roboto',
-                        fontSize: 25.0,
+                        fontSize: rSize*0.025,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w600,
                       ),
@@ -147,11 +147,11 @@ class _NewsFeedSwipeCardWidgetState extends State<NewsFeedSwipeCardWidget> {
                     '5tqbxl7s' /* Read */,
                   ),
                   options: FFButtonOptions(
-                    height: 40.0,
+                    height: rSize*0.04,
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(rSize*0.024, 0.0, rSize*0.024, 0.0),
                     iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).customColor1,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Roboto',
@@ -163,7 +163,7 @@ class _NewsFeedSwipeCardWidgetState extends State<NewsFeedSwipeCardWidget> {
                       color: Colors.transparent,
                       width: 1.0,
                     ),
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(rSize*0.008),
                   ),
                 ),
               ]),

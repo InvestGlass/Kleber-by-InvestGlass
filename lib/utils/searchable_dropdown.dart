@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kleber_bank/utils/app_styles.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 
+import '../main.dart';
 import 'flutter_flow_theme.dart';
 
 class SearchableDropdown extends StatefulWidget {
@@ -54,10 +55,10 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 56,
+      height: rSize*0.056,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(rSize*0.010),
           border: Border.all(
             color: FlutterFlowTheme.of(context).alternate,
             width: 2,
@@ -72,7 +73,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
             hint: Text(
               widget.hint,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: rSize*0.014,
                 color: Theme.of(context).hintColor,
               ),
             ),
@@ -88,32 +89,32 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                 selectedValue = value;
               });
             },
-            buttonStyleData: const ButtonStyleData(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              height: 40,
-              width: 200,
+            buttonStyleData: ButtonStyleData(
+              padding: EdgeInsets.symmetric(horizontal: rSize*0.016),
+              height: rSize*0.040,
+              width: rSize*0.200,
             ),
             dropdownStyleData: DropdownStyleData(
-              maxHeight: 200,
+              maxHeight: rSize*0.200,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(rSize*0.010),
                 border: Border.all(
                   color: FlutterFlowTheme.of(context).alternate,
                   width: 2,
                 ), // Set the dropdown corner radius here
               ),
             ),
-            menuItemStyleData: const MenuItemStyleData(
-              height: 40,
+            menuItemStyleData: MenuItemStyleData(
+              height: rSize*0.040,
             ),
             dropdownSearchData: !widget.isSearchable
                 ? null
                 : DropdownSearchData(
                     searchController: textEditingController,
-                    searchInnerWidgetHeight: 50,
+                    searchInnerWidgetHeight: rSize*0.050,
                     searchInnerWidget: Container(
-                      margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                      margin: EdgeInsets.only(top: rSize*0.010, left: rSize*0.010, right: rSize*0.010),
                       child: TextFormField(
                         maxLines: 1,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -128,7 +129,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                             fillColor: Colors.transparent,
                             borderWidth: 0.2,
                             focusColor: FlutterFlowTheme.of(context).primaryText,
-                            contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10)),
+                            contentPadding:EdgeInsets.symmetric(vertical: rSize*0.01, horizontal: rSize*0.01)),
                       ),
                     ),
                     searchMatchFn: widget.searchMatchFn,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '../utils/app_colors.dart';
 import '../utils/button_widget.dart';
 import '../utils/flutter_flow_theme.dart';
@@ -81,13 +82,13 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(rSize*0.010),
         ),
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
             color: widget.bgColor ?? FlutterFlowTheme.of(context).secondaryBackground,
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(rSize*0.010),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -95,12 +96,12 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
             children: [
               Container(
                 width: double.infinity,
-                height: 250.0,
+                height: rSize*0.250,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).alternate,
                 ),
                 child: SizedBox(
-                  height: 250.0,
+                  height: rSize*0.250,
                   child: Stack(
                     children: [
                       if (widget.data?.videoUrl != null &&
@@ -150,13 +151,13 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                       Align(
                         alignment: const AlignmentDirectional(1.0, -1.0),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 15.0, 0.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, rSize*0.015, 0.0, 0.0),
                           child: Container(
                             color: getColor(widget.data!.assetClassName!),
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 5.0, 15.0, 5.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  rSize*0.010, rSize*0.005, rSize*0.015, rSize*0.005),
                               child: Text(
                                 widget.data!.assetClassName!,
                                 style: FlutterFlowTheme.of(context)
@@ -176,20 +177,20 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 15.0),
+                padding: EdgeInsetsDirectional.fromSTEB(rSize*0.015, 0.0, rSize*0.015, rSize*0.015),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 10.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, rSize*0.015, 0.0, rSize*0.010),
                       child: Text(
                         widget.data!.name!,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Roboto',
                               color: FlutterFlowTheme.of(context).primaryText,
-                              fontSize: 18.0,
+                              fontSize: rSize*0.018,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
                             ),
@@ -198,7 +199,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                     Container(
                       width: double.infinity,
                       height: 1.0,
-                      margin: EdgeInsets.only(bottom: 15),
+                      margin: EdgeInsets.only(bottom: rSize*0.015),
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).customColor4,
                       ),
@@ -222,10 +223,10 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                               '7v8svtoq' /* New Transaction */,
                             ),
                             options: FFButtonOptions(
-                              height: 40.0,
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 0.0, 24.0, 0.0),
-                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                              height: rSize*0.04,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  rSize*0.024, 0.0, rSize*0.024, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primary,
                               // color: AppColors.kHint,
@@ -241,7 +242,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
-                              borderRadius: BorderRadius.circular(8.0),
+                              borderRadius: BorderRadius.circular(rSize*0.008),
                             ),
                           ),
                         ),

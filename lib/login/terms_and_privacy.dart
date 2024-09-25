@@ -84,7 +84,7 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy>  with TickerProviderS
                   return Page(_controller.termOfServiceContent['privacy_policy']);
                   /*return SingleChildScrollView(
                           padding:
-                              const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                              const EdgeInsets.symmetric(horizontal: 16, vertical: rSize*0.02),
                           child: Column(
                             children: [
                               CommonShadowWidget(

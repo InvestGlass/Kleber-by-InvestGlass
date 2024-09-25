@@ -44,7 +44,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             child: Icon(
               Icons.arrow_back_rounded,
               color: FlutterFlowTheme.of(context).primaryText,
-              size: 24.0,
+              size: rSize*0.024,
             ),
           )),
       body: Container(
@@ -55,14 +55,14 @@ class _ChangePasswordState extends State<ChangePassword> {
             padding: EdgeInsets.symmetric(vertical: rSize * 0.02, horizontal: rSize * 0.015),
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize*0.010),
                 child: Text(
                   FFLocalizations.of(context).getText(
                     '510yg9y6' /* Current password */,
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
-                        fontSize: 16.0,
+                        fontSize: rSize*0.016,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
                       ),
@@ -92,7 +92,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                       child:
                           Icon(_notifier.showCurrentPwd ? Icons.visibility : Icons.visibility_off, color: FlutterFlowTheme.of(context).primaryText)),
                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
+                  contentPadding: EdgeInsets.symmetric(horizontal: rSize*0.015, vertical: rSize*0.018),
                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                         fontFamily: 'Roboto',
                         letterSpacing: 0.0,
@@ -100,14 +100,14 @@ class _ChangePasswordState extends State<ChangePassword> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize * 0.025, 0.0, 10.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize * 0.025, 0.0, rSize*0.010),
                 child: Text(
                   FFLocalizations.of(context).getText(
                     '2l6qayo4' /* New password */,
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
-                        fontSize: 16.0,
+                        fontSize: rSize*0.016,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
                       ),
@@ -134,7 +134,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   hint: FFLocalizations.of(context).getText(
                     '2l6qayo4' /* New password */,
                   ),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 18),
+                  contentPadding: EdgeInsets.symmetric(horizontal: rSize*0.015, vertical: rSize*0.018),
                   suffix: GestureDetector(
                       onTap: () {
                         _notifier.changeNewPwdVisibilityStatus();
@@ -148,14 +148,14 @@ class _ChangePasswordState extends State<ChangePassword> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize * 0.025, 0.0, 10.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize * 0.025, 0.0, rSize*0.010),
                 child: Text(
                   FFLocalizations.of(context).getText(
                     'lz5cj3qp' /* Confirm new password */,
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
-                        fontSize: 16.0,
+                        fontSize: rSize*0.016,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
                       ),
@@ -178,7 +178,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 },
                 obscureText: !_notifier.showConfirmNewPwd,
                 decoration: AppStyles.inputDecoration(context,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 18),
+                    contentPadding: EdgeInsets.symmetric(horizontal: rSize*0.015, vertical: rSize*0.018),
                     hint: FFLocalizations.of(context).getText(
                       'lz5cj3qp' /* Confirm new password */,
                     ),

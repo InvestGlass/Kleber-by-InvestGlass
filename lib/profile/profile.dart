@@ -39,7 +39,7 @@ class _ProfileState extends State<Profile> {
             SharedPrefUtils.instance.getUserData().user!.username!,
             style: FlutterFlowTheme.of(context).headlineSmall.override(
                   fontFamily: 'Roboto',
-                  fontSize: 20.0,
+                  fontSize: rSize*0.02,
                   letterSpacing: 0.0,
                 ),
           ),
@@ -48,7 +48,7 @@ class _ProfileState extends State<Profile> {
             style: FlutterFlowTheme.of(context).bodySmall.override(
                   fontFamily: 'Outfit',
                   color: FlutterFlowTheme.of(context).primary,
-                  fontSize: 16.0,
+                  fontSize: rSize*0.016,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.normal,
                 ),
@@ -132,7 +132,7 @@ class _ProfileState extends State<Profile> {
                 child: Card(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(rSize*0.010),
                   ),
                   elevation: 2,
                   child: AppWidgets.btn(
@@ -142,8 +142,8 @@ class _ProfileState extends State<Profile> {
                       ),
                       textColor: FlutterFlowTheme.of(context).primaryText,
                       bgColor: FlutterFlowTheme.of(context).secondaryBackground,
-                      horizontalPadding: 40,
-                      verticalPadding: 17),
+                      horizontalPadding: rSize*0.040,
+                      verticalPadding: rSize*0.017),
                 ),
               ),
             ],
@@ -180,7 +180,7 @@ class _ProfileState extends State<Profile> {
                         style: FlutterFlowTheme.of(context).headlineMedium.override(
                               fontFamily: 'Roboto',
                               color: FlutterFlowTheme.of(context).primary,
-                              fontSize: 26.0,
+                              fontSize: rSize*0.026,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
                             ),
@@ -217,34 +217,47 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Row languageSelectionElement(int value, String label) {
-    return Row(
-      children: [
-        Theme(
-          data: ThemeData(unselectedWidgetColor: FlutterFlowTheme.of(context).primaryText),
-          child: Radio(
-            value: value,
-            activeColor: FlutterFlowTheme.of(context).primary,
-            groupValue: _notifier.selectedLanguage,
-            onChanged: (p0) {
-              _notifier.changeLanguage(p0!);
-              _mainNotifier.changeLanguage(_notifier.selectedLanguage);
-              Navigator.pop(context);
-            },
+  Widget languageSelectionElement(int value, String label) {
+    final bool isTablet = (MediaQuery.of(context).size.width > 600);
+    return SizedBox(
+      height: rSize * 0.050,
+      child: Row(
+        children: [
+          SizedBox(
+            width: isTablet ? rSize * 0.015 : 0,
           ),
-        ),
-        Expanded(
-            child: Text(
-          label,
-          style: FlutterFlowTheme.of(context).displaySmall.override(
-                fontFamily: 'Roboto',
-                color: FlutterFlowTheme.of(context).primaryText,
-                fontSize: 16.0,
-                letterSpacing: 0.0,
-                fontWeight: FontWeight.w500,
+          Theme(
+            data: ThemeData(unselectedWidgetColor: FlutterFlowTheme.of(context).primaryText),
+            child: Transform.scale(
+              scale: rSize * 0.0012,
+              child: Radio(
+                value: value,
+                activeColor: FlutterFlowTheme.of(context).primary,
+                groupValue: _notifier.selectedLanguage,
+                onChanged: (p0) {
+                  _notifier.changeLanguage(p0!);
+                  _mainNotifier.changeLanguage(_notifier.selectedLanguage);
+                  Navigator.pop(context);
+                },
               ),
-        )),
-      ],
+            ),
+          ),
+          SizedBox(
+            width: isTablet ? rSize * 0.01 : 0,
+          ),
+          Expanded(
+              child: Text(
+            label,
+            style: FlutterFlowTheme.of(context).displaySmall.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontSize: rSize*0.016,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.w500,
+                ),
+          )),
+        ],
+      ),
     );
   }
 
@@ -254,11 +267,11 @@ class _ProfileState extends State<Profile> {
       child: Card(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(rSize*0.010),
         ),
         elevation: 2,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+          padding: EdgeInsets.symmetric(horizontal: rSize*0.015, vertical: rSize*0.02),
           child: Row(
             children: [
               Expanded(
@@ -274,7 +287,7 @@ class _ProfileState extends State<Profile> {
                   child: Icon(
                     Icons.arrow_back_ios_new,
                     color: FlutterFlowTheme.of(context).secondaryText,
-                    size: 15,
+                    size: rSize*0.015,
                   ))
             ],
           ),

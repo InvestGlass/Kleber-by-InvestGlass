@@ -46,7 +46,7 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   void dispose() {
-    _controller.selectedIndex=0;
+    _controller.selectedIndex = 0;
     super.dispose();
   }
 
@@ -74,14 +74,14 @@ class _DashboardState extends State<Dashboard> {
                     0,
                     Icons.home_rounded,
                     FFLocalizations.of(context).getText(
-                      'fiha8uf5' *//* Home *//*,
+                      'fiha8uf5' */ /* Home */ /*,
                     )),
                 bottombarCell(
                     context,
                     1,
                     Icons.bar_chart,
                     FFLocalizations.of(context).getText(
-                      'xn2nrgyp' *//* Portfolio *//*,
+                      'xn2nrgyp' */ /* Portfolio */ /*,
                     ),
                     widget: _controller.selectedIndex == 1
                         ? SvgPicture.asset(
@@ -97,7 +97,7 @@ class _DashboardState extends State<Dashboard> {
                     2,
                     Icons.home_rounded,
                     FFLocalizations.of(context).getText(
-                      'nkifu7jq' *//* Proposal *//*,
+                      'nkifu7jq' */ /* Proposal */ /*,
                     ),
                     widget: _controller.selectedIndex == 2
                         ? SvgPicture.asset(
@@ -117,7 +117,7 @@ class _DashboardState extends State<Dashboard> {
                     3,
                     Icons.account_circle_rounded,
                     FFLocalizations.of(context).getText(
-                      'w5wtcpj4' *//* Profile *//*,
+                      'w5wtcpj4' */ /* Profile */ /*,
                     )),
               ],
             ),
@@ -177,7 +177,7 @@ class _DashboardState extends State<Dashboard> {
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Roboto',
                             color:AppConst.titleList[_controller.selectedIndex] == e ? FlutterFlowTheme.of(context).primary : FlutterFlowTheme.of(context).customColor5,
-                            fontSize: 12.0,
+                            fontSize: rSize*0.012,
                             letterSpacing: 0.0,
                             ),
                           ),
@@ -227,9 +227,7 @@ class _DashboardState extends State<Dashboard> {
                       left: 0,
                       right: 0,
                       child: Image.asset(
-                        Theme.of(context).brightness == Brightness.dark
-                            ? 'assets/bgBottomNavDark.png'
-                            : 'assets/bgBottomNavLight.png',
+                        Theme.of(context).brightness == Brightness.dark ? 'assets/bgBottomNavDark.png' : 'assets/bgBottomNavLight.png',
                         fit: BoxFit.cover,
                         // width: 200,
                       ),
@@ -254,9 +252,9 @@ class _DashboardState extends State<Dashboard> {
                             ),
                             widget: _controller.selectedIndex == 1
                                 ? SvgPicture.asset(
-                              Theme.of(context).brightness == Brightness.dark ? 'assets/bar-chart-dark-theme.svg' : 'assets/bar_chart.svg',
-                              fit: BoxFit.contain,
-                            )
+                                    Theme.of(context).brightness == Brightness.dark ? 'assets/bar-chart-dark-theme.svg' : 'assets/bar_chart.svg',
+                                    fit: BoxFit.contain,
+                                  )
                                 : null),
                         SizedBox(
                           width: rSize * 0.05,
@@ -270,17 +268,17 @@ class _DashboardState extends State<Dashboard> {
                             ),
                             widget: _controller.selectedIndex == 2
                                 ? SvgPicture.asset(
-                              Theme.of(context).brightness == Brightness.dark
-                                  ? 'assets/proposal-icon-new-dark-theme.svg'
-                                  : 'assets/proposal-icon-new.svg',
-                              fit: BoxFit.contain,
-                            )
+                                    Theme.of(context).brightness == Brightness.dark
+                                        ? 'assets/proposal-icon-new-dark-theme.svg'
+                                        : 'assets/proposal-icon-new.svg',
+                                    fit: BoxFit.contain,
+                                  )
                                 : SvgPicture.asset(
-                              Theme.of(context).brightness == Brightness.dark
-                                  ? 'assets/proposal-icon-new-unselected-dark-theme.svg'
-                                  : 'assets/proposal-icon-new-unselected.svg',
-                              fit: BoxFit.contain,
-                            )),
+                                    Theme.of(context).brightness == Brightness.dark
+                                        ? 'assets/proposal-icon-new-unselected-dark-theme.svg'
+                                        : 'assets/proposal-icon-new-unselected.svg',
+                                    fit: BoxFit.contain,
+                                  )),
                         bottombarCell(
                             context,
                             3,
@@ -292,14 +290,15 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     Positioned(
                       // width: MediaQuery.of(context).size.width,
-                      bottom: 30,
+                      bottom: rSize * 0.03,
                       child: Align(
                           alignment: Alignment.center,
                           child: GestureDetector(
                             onTap: () => showOptions(),
                             child: Image.asset(
                               'assets/app_launcher_icon.png',
-                              scale: 1.7,
+                              height: rSize * 0.1,
+                              width: rSize * 0.1,
                             ),
                           )),
                     ),
@@ -327,15 +326,15 @@ class _DashboardState extends State<Dashboard> {
             height: rSize * 0.01,
           ),
           Container(
-            margin: EdgeInsets.only(top: 10, bottom: 5),
-            width: _controller.iconSize,
-            height: _controller.iconSize,
+            margin: EdgeInsets.only(top: rSize * 0.010, bottom: 5),
+            width: rSize * 0.04,
+            height: rSize * 0.04,
             decoration: const BoxDecoration(),
             child: widget ??
                 Icon(
                   iconData,
                   color: _controller.selectedIndex != index ? FlutterFlowTheme.of(context).customColor5 : FlutterFlowTheme.of(context).primary,
-                  size: _controller.iconSize,
+                  size: rSize * 0.04,
                 ),
           ),
           Text(
@@ -344,7 +343,7 @@ class _DashboardState extends State<Dashboard> {
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
                   color: FlutterFlowTheme.of(context).customColor5,
-                  fontSize: 14.0,
+                  fontSize: rSize * 0.014,
                   letterSpacing: 0.0,
                   lineHeight: 1.0,
                 ),
@@ -366,61 +365,66 @@ class _DashboardState extends State<Dashboard> {
             Card(
               color: FlutterFlowTheme.of(context).secondaryBackground,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
+                borderRadius: BorderRadius.circular(rSize * 0.010),
               ),
-              margin: EdgeInsets.only(bottom: 110,left: 30,right: 30),
+              margin: EdgeInsets.only(bottom: rSize * 0.11, left: rSize * 0.030, right: rSize * 0.030),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                padding: EdgeInsets.symmetric(vertical: rSize * 0.010, horizontal: rSize * 0.020),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     actionMenuItem(
-                        context,
-                        SvgPicture.asset(
-                          Theme.of(context).brightness == Brightness.dark ? 'assets/folder_icon-dark-theme.svg' : 'assets/folder_icon.svg',
-                          fit: BoxFit.contain,
-                          height: 25,
-                          width: 25,
-                        ),
-                        FFLocalizations.of(context).getText(
-                          '13mzcnly' /* Document */,
-                        ),onTap: () {
-                      Navigator.pop(context);
-                          CommonFunctions.navigate(context, Documents());
-                        },),
-                    SizedBox(width: rSize*0.02,),
+                      context,
+                      SvgPicture.asset(
+                        Theme.of(context).brightness == Brightness.dark ? 'assets/folder_icon-dark-theme.svg' : 'assets/folder_icon.svg',
+                        fit: BoxFit.contain,
+                        height: rSize * 0.025,
+                        width: rSize * 0.025,
+                      ),
+                      FFLocalizations.of(context).getText(
+                        '13mzcnly' /* Document */,
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        CommonFunctions.navigate(context, Documents());
+                      },
+                    ),
+                    SizedBox(
+                      width: rSize * 0.02,
+                    ),
                     actionMenuItem(
-                        context,
-                        SvgPicture.asset(
-                          Theme.of(context).brightness == Brightness.dark
-                              ? 'assets/money-bill-trend-up-solid-dark-theme.svg'
-                              : 'assets/money-bill-trend-up-solid.svg',
-                          fit: BoxFit.contain,
-                          height: 25,
-                          width: 25,
-                        ),
-                        FFLocalizations.of(context).getText(
-                          'o5wm04m6' /* Market */,
-                        ),onTap: () {
-                      Navigator.pop(context);
-                      CommonFunctions.navigate(context, const Market());
-                        },),
-                    SizedBox(width: rSize*0.02,),
+                      context,
+                      SvgPicture.asset(
+                        Theme.of(context).brightness == Brightness.dark
+                            ? 'assets/money-bill-trend-up-solid-dark-theme.svg'
+                            : 'assets/money-bill-trend-up-solid.svg',
+                        fit: BoxFit.contain,
+                        height: rSize * 0.025,
+                        width: rSize * 0.025,
+                      ),
+                      FFLocalizations.of(context).getText(
+                        'o5wm04m6' /* Market */,
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        CommonFunctions.navigate(context, const Market());
+                      },
+                    ),
+                    SizedBox(
+                      width: rSize * 0.02,
+                    ),
                     actionMenuItem(
-                        context,
-                        FaIcon(
-                          FontAwesomeIcons.upload,
-                          color: FlutterFlowTheme.of(context)
-                              .primary,
-                          size: 30
-                        ),
-                        FFLocalizations.of(context).getText(
-                          't2nv4kvj' /* Upload */,
-                        ),onTap: () {
-                      Navigator.pop(context);
-                      CommonFunctions.navigate(context, const UploadDocument());
-                        },),
+                      context,
+                      FaIcon(FontAwesomeIcons.upload, color: FlutterFlowTheme.of(context).primary, size: rSize * 0.030),
+                      FFLocalizations.of(context).getText(
+                        't2nv4kvj' /* Upload */,
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        CommonFunctions.navigate(context, const UploadDocument());
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -431,7 +435,7 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget actionMenuItem(BuildContext context, Widget image, String label,{required void Function() onTap}) {
+  Widget actionMenuItem(BuildContext context, Widget image, String label, {required void Function() onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: Column(
@@ -444,7 +448,7 @@ class _DashboardState extends State<Dashboard> {
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
                   color: FlutterFlowTheme.of(context).primary,
-                  fontSize: 14.0,
+                  fontSize: rSize * 0.014,
                   letterSpacing: 0.0,
                   lineHeight: 1.0,
                 ),

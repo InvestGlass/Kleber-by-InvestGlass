@@ -10,6 +10,7 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../documents/documents_controller.dart';
+import '../main.dart';
 import '../utils/api_calls.dart';
 import '../utils/app_widgets.dart';
 import '../utils/common_functions.dart';
@@ -116,6 +117,7 @@ class _ViewDocumentState extends State<ViewDocument> {
               onTap: () => Navigator.pop(context),
               child: Icon(
                 Icons.arrow_back,
+                size: rSize*0.025,
                 color: FlutterFlowTheme.of(context).primary,
               )),
           centerTitle: true),
@@ -124,7 +126,7 @@ class _ViewDocumentState extends State<ViewDocument> {
           ? Wrap(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: rSize*0.02),
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                   child: getWidget(context),
                 ),
@@ -172,7 +174,7 @@ class _ViewDocumentState extends State<ViewDocument> {
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
                   color: FlutterFlowTheme.of(context).customColor2,
-                  fontSize: 16.0,
+                  fontSize: rSize*0.016,
                   letterSpacing: 0.0,
                 ),
           ),
@@ -190,7 +192,7 @@ class _ViewDocumentState extends State<ViewDocument> {
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
                   color: FlutterFlowTheme.of(context).customColor3,
-                  fontSize: 16.0,
+                  fontSize: rSize*0.016,
                   letterSpacing: 0.0,
                 ),
           ),

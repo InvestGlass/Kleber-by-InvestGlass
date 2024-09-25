@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '../market/flutter_flow_video_player.dart';
 import '../utils/button_widget.dart';
 import '../utils/flutter_flow_theme.dart';
@@ -80,13 +81,13 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(rSize*0.010),
         ),
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
             color: widget.bgColor ?? FlutterFlowTheme.of(context).secondaryBackground,
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(rSize*0.010),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -149,13 +150,13 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                       Align(
                         alignment: const AlignmentDirectional(1.0, -1.0),
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 15.0, 0.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, rSize*0.015, 0.0, 0.0),
                           child: Container(
                             color: getColor(widget.data!.assetClassName!),
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 5.0, 15.0, 5.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  rSize*0.010, rSize*0.005, rSize*0.015, rSize*0.005),
                               child: Text(
                                 widget.data!.assetClassName!,
                                 style: FlutterFlowTheme.of(context)
@@ -175,7 +176,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 15.0),
+                padding: EdgeInsetsDirectional.fromSTEB(rSize*0.015, 0.0, rSize*0.015, rSize*0.015),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,13 +184,13 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
 
                     Padding(
                       padding:
-                      const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(0.0, rSize*0.015, 0.0, 0.0),
                       child: Text(
                         widget.data!.name!,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Roboto',
                           color: FlutterFlowTheme.of(context).primary,
-                          fontSize: 18.0,
+                          fontSize: rSize*0.018,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
                         ),
@@ -198,7 +199,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                     if (widget.data?.isin != null && widget.data?.isin != '')
                       Padding(
                         padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         child: Text(
                           widget.data!.isin!,
                           style: FlutterFlowTheme.of(context)
@@ -206,7 +207,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                               .override(
                             fontFamily: 'Roboto',
                             color: FlutterFlowTheme.of(context).primaryText,
-                            fontSize: 18.0,
+                            fontSize: rSize*0.018,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
                           ),
@@ -223,7 +224,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                             fontFamily: 'Roboto',
                             color: FlutterFlowTheme.of(context)
                                 .primaryText,
-                            fontSize: 18.0,
+                            fontSize: rSize*0.018,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
                           ),
@@ -242,7 +243,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                               fontFamily: 'Roboto',
                               color: FlutterFlowTheme.of(context)
                                   .primaryText,
-                              fontSize: 18.0,
+                              fontSize: rSize*0.018,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
                             ),

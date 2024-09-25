@@ -2,6 +2,7 @@ import 'package:kleber_bank/login/login.dart';
 import 'package:kleber_bank/utils/app_styles.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 
+import '../main.dart';
 import '../utils/button_widget.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
@@ -36,7 +37,7 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(30.0, 35.0, 30.0, 30.0),
+              padding: EdgeInsetsDirectional.fromSTEB(30.0, 35.0, 30.0, 30.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -89,8 +90,8 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                                   options: FFButtonOptions(
                                     width: MediaQuery.sizeOf(context).width * 0.5,
                                     height: 50.0,
-                                    padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(rSize*0.024, 0.0, rSize*0.024, 0.0),
+                                    
                                     color: FlutterFlowTheme.of(context).primary,
                                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                           fontFamily: 'Roboto',
@@ -102,7 +103,7 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                                       color: Colors.transparent,
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderRadius: BorderRadius.circular(rSize*0.008),
                                   ),
                                   showLoadingIndicator: false,
                                 ),
@@ -112,7 +113,7 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                           Align(
                             alignment: const AlignmentDirectional(0.0, -1.0),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
+                              borderRadius: BorderRadius.circular(rSize*0.008),
                               child: Image.asset(
                                 Theme.of(context).brightness == Brightness.dark ? 'assets/white-investglass.png' : 'assets/logo.png',
                                 width: 150.0,

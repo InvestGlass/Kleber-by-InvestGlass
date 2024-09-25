@@ -77,7 +77,7 @@ class _PositionsState extends State<Positions> {
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Roboto',
                             color: FlutterFlowTheme.of(context).primary,
-                            fontSize: 25.0,
+                            fontSize: rSize*0.025,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w600,
                           ),
@@ -87,7 +87,7 @@ class _PositionsState extends State<Positions> {
                       DateFormat('yyyy-MM-dd', FFLocalizations.of(context).languageCode).format(DateTime.now()),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Roboto',
-                            fontSize: 20.0,
+                            fontSize: rSize*0.02,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
                           ),
@@ -121,7 +121,7 @@ class _PositionsState extends State<Positions> {
                               style: FlutterFlowTheme.of(context).bodySmall.override(
                                     fontFamily: 'Roboto',
                                     color: FlutterFlowTheme.of(context).primaryText,
-                                    fontSize: 14.0,
+                                    fontSize: rSize*0.014,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -137,7 +137,7 @@ class _PositionsState extends State<Positions> {
                             Icon(
                               Icons.sort_rounded,
                               color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 24.0,
+                              size: rSize*0.024,
                             ), // Custom icon for selected item
                             SizedBox(width: 8),
                             Text(item, style: TextStyle(fontWeight: FontWeight.bold)), // Custom text style
@@ -168,7 +168,7 @@ class _PositionsState extends State<Positions> {
                     String currency = item.referenceCurrency ?? '-';
                     return Card(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(rSize*0.010),
                       ),
                       margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
                       elevation: 2,
@@ -190,7 +190,7 @@ class _PositionsState extends State<Positions> {
                                       style: FlutterFlowTheme.of(context).displaySmall.override(
                                             fontFamily: 'Roboto',
                                             color: FlutterFlowTheme.of(context).primaryText,
-                                            fontSize: 16.0,
+                                            fontSize: rSize*0.016,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -203,7 +203,7 @@ class _PositionsState extends State<Positions> {
                                         child: Icon(
                                           Icons.arrow_back_ios_new,
                                           color: FlutterFlowTheme.of(context).primaryText,
-                                          size: 15,
+                                          size: rSize*0.015,
                                         )),
                                   ],
                                 ),
@@ -239,7 +239,7 @@ class _PositionsState extends State<Positions> {
                                       Container(
                                         decoration: BoxDecoration(
                                           // color: AppColors.kViolate.withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius: BorderRadius.circular(rSize*0.015),
                                         ),
                                         // padding: EdgeInsets.all(rSize * 0.015),
                                         child: Column(
@@ -358,13 +358,13 @@ class _PositionsState extends State<Positions> {
       return FaIcon(
         FontAwesomeIcons.caretUp,
         color: FlutterFlowTheme.of(context).customColor2,
-        size: 24.0,
+        size: rSize*0.024,
       );
     } else {
       return FaIcon(
         FontAwesomeIcons.caretDown,
         color: FlutterFlowTheme.of(context).customColor3,
-        size: 24.0,
+        size: rSize*0.024,
       );
     }
   }

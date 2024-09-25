@@ -3,11 +3,12 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:kleber_bank/utils/api_calls.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 
+import '../main.dart';
 import 'home_news_model.dart';
 
 class HomeController extends ChangeNotifier{
   CardSwiperController swipeableStackController= CardSwiperController();
-  double buttonSize = 40.0;
+  double buttonSize = rSize*0.045;
   List<HomeNewsModel> popularNewsList=[];
   bool refresh=false;
   int swipeCount=0;
