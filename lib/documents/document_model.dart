@@ -94,7 +94,7 @@ class Document {
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     ancestry: json["ancestry"],
     clientId: json["client_id"],
-    freezed: json["freezed"],
+    freezed: json["freezed"]??false,
     shareOnClientPortal: json["share_on_client_portal"],
     requestProposalApproval: json["request_proposal_approval"]??true,
     creatorId: json["creator_id"],

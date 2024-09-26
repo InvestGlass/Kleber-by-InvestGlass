@@ -37,12 +37,12 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
         child: Stack(
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(30.0, 35.0, 30.0, 30.0),
+              padding: EdgeInsetsDirectional.fromSTEB(rSize*0.030, rSize*0.035, rSize*0.030, rSize*0.030),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    height: MediaQuery.of(context).padding.top-20,
+                    height: MediaQuery.of(context).padding.top-(20),
                     decoration: const BoxDecoration(),
                   ),
                   Expanded(
@@ -62,7 +62,7 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                                       : 'assets/onborading_background.png',
                                 ).image,
                               ),
-                              borderRadius: BorderRadius.circular(12.0),
+                              borderRadius: BorderRadius.circular(rSize*0.012),
                             ),
                           ),
                           if (false)
@@ -89,7 +89,7 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                                   ),
                                   options: FFButtonOptions(
                                     width: MediaQuery.sizeOf(context).width * 0.5,
-                                    height: 50.0,
+                                    height: rSize*0.050,
                                     padding: EdgeInsetsDirectional.fromSTEB(rSize*0.024, 0.0, rSize*0.024, 0.0),
                                     
                                     color: FlutterFlowTheme.of(context).primary,
@@ -116,8 +116,8 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                               borderRadius: BorderRadius.circular(rSize*0.008),
                               child: Image.asset(
                                 Theme.of(context).brightness == Brightness.dark ? 'assets/white-investglass.png' : 'assets/logo.png',
-                                width: 150.0,
-                                height: 50.0,
+                                width: rSize*0.150,
+                                height: rSize*0.050,
                                 fit: BoxFit.contain,
                               ),
                             ),

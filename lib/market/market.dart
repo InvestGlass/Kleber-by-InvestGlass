@@ -291,6 +291,7 @@ class _MarketState extends State<Market> {
                                     },
                                     child: Icon(
                                       Icons.close,
+                                      size:rSize*0.025,
                                       color: FlutterFlowTheme.of(context).primary,
                                     ),
                                   )

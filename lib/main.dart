@@ -25,6 +25,7 @@ import 'main_controller.dart';
 import 'market/market_controller.dart';
 
 double rSize = 0;
+bool isTablet=false;
 late BuildContext globalContext;
 
 void main() async {
@@ -99,6 +100,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     _notifier=Provider.of<MainController>(context);
+    isTablet = (MediaQuery.of(context).size.width > 600);
     globalContext=context;
     Size ksize = MediaQuery.of(context).size;
     rSize = pow((ksize.height * ksize.height) + (ksize.width * ksize.width), 1 / 2) as double;

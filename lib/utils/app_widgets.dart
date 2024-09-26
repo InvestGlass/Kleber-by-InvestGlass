@@ -30,7 +30,7 @@ class AppWidgets {
   static Container healthAlertElement(
       BuildContext context, String title, Color bgColor, IconData iconData, String label, Appropriateness model, TextStyle textStyle) {
     return Container(
-      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(rSize*0.010)),
       padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.015),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +40,7 @@ class AppWidgets {
               Icon(
                 iconData,
                 color: textStyle.color,
-                size: 20,
+                size: rSize*0.020,
               ),
               Expanded(
                   child: Text(
@@ -90,8 +90,8 @@ class AppWidgets {
                             shape: BoxShape.circle,
                             color: FlutterFlowTheme.of(context).primaryText,
                           ),
-                          height: 8,
-                          width: 8,
+                          height: rSize*0.008,
+                          width: rSize*0.008,
                         ),
                         SizedBox(
                           width: rSize * 0.015,
@@ -113,7 +113,7 @@ class AppWidgets {
                 separatorBuilder: (context, index) => Container(
                       height: 0.2,
                       margin: EdgeInsets.symmetric(vertical: rSize * 0.01),
-                      color: AppColors.kHint,
+                      color: FlutterFlowTheme.of(context).customColor2,
                     ),
                 itemCount: model.listDetails!.length)
           }
@@ -374,9 +374,26 @@ class AppWidgets {
         ));
   }
 
-  static AppBar appBar(BuildContext context, String title, {Widget? leading, List<Widget>? actions, bool centerTitle = false}) {
+  static PreferredSize appBar(BuildContext context, String title, {Widget? leading, List<Widget>? actions, bool centerTitle = false}) {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(rSize*0.06),
+      child: isTablet?Container(
+        color: FlutterFlowTheme.of(context).secondaryBackground,
+        padding: EdgeInsets.symmetric(horizontal: rSize*0.015),
+        child: Column(
+          children: [
+            Expanded(child: SizedBox()),
+            appbar_(context, title,leading: leading,actions: actions,centerTitle: centerTitle),
+            Expanded(child: SizedBox()),
+          ],
+        ),
+      ):appbar_(context, title,leading: leading,actions: actions,centerTitle: centerTitle),
+    );
+  }
+
+  static AppBar appbar_(BuildContext context, String title, {Widget? leading, List<Widget>? actions, bool centerTitle = false}){
     return AppBar(
-      elevation: 4,
+      elevation: isTablet?0:4,
       actions: actions,
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       surfaceTintColor: Colors.transparent,
@@ -386,12 +403,12 @@ class AppWidgets {
         textAlign: TextAlign.center,
         maxLines: 1,
         style: FlutterFlowTheme.of(context).bodyMedium.override(
-              fontFamily: 'Roboto',
-              color: FlutterFlowTheme.of(context).primary,
-              fontSize: rSize*0.03,
-              letterSpacing: 0.0,
-              fontWeight: FontWeight.w600,
-            ),
+          fontFamily: 'Roboto',
+          color: FlutterFlowTheme.of(context).primary,
+          fontSize: rSize*0.028,
+          letterSpacing: 0.0,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       centerTitle: centerTitle,
     );

@@ -687,7 +687,6 @@ class _DocumentsState extends State<Documents> {
   }
 
   Widget sortDialogElement(int value, String label) {
-    final bool isTablet = (MediaQuery.of(context).size.width > 600);
     return SizedBox(
       height: rSize * 0.050,
       child: Row(
@@ -866,7 +865,7 @@ class _DocumentsState extends State<Documents> {
       return FaIcon(
         FontAwesomeIcons.file,
         color: FlutterFlowTheme.of(context).primary,
-        size: 30.0,
+        size: rSize*0.030,
       );
     }
 

@@ -64,7 +64,7 @@ class _PositionsState extends State<Positions> {
                     onTap: () => Navigator.pop(context),
                     child: Icon(
                       Icons.close,
-                      size: 30,
+                      size: rSize*0.030,
                       color: FlutterFlowTheme.of(context).primary,
                     )),
                 Column(

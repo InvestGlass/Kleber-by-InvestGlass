@@ -218,7 +218,6 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget languageSelectionElement(int value, String label) {
-    final bool isTablet = (MediaQuery.of(context).size.width > 600);
     return SizedBox(
       height: rSize * 0.050,
       child: Row(

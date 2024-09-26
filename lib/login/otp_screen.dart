@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kleber_bank/login/user_info_model.dart';
 import 'package:kleber_bank/utils/app_const.dart';
-import 'package:kleber_bank/utils/shared_pref_utils.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../main.dart';
-import '../utils/app_colors.dart';
 import '../utils/app_styles.dart';
-import '../utils/app_widgets.dart';
 import '../utils/button_widget.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
@@ -51,7 +47,8 @@ class _OTPScreenState extends State<OTPScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        decoration: BoxDecoration(),alignment: Alignment.center,
+        decoration: const BoxDecoration(),
+        alignment: Alignment.center,
         margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
         child: ListView(
           shrinkWrap: true,
@@ -59,13 +56,13 @@ class _OTPScreenState extends State<OTPScreen> {
             Card(
               color: FlutterFlowTheme.of(context).primaryBackground,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(rSize*0.010),
+                borderRadius: BorderRadius.circular(rSize * 0.010),
               ),
               margin: EdgeInsets.symmetric(vertical: rSize * 0.03, horizontal: rSize * 0.01),
               elevation: 2,
               child: Padding(
                 padding:
-                    EdgeInsets.only(left: rSize * 0.02, right: rSize * 0.02, top: rSize * 0.03, bottom: MediaQuery.of(context).viewInsets.bottom),
+                    EdgeInsets.only(left: rSize * 0.02, right: rSize * 0.02, top: rSize * 0.03, bottom: rSize * 0.02),
                 child: Form(
                     key: _formKey,
                     child: Column(
@@ -81,13 +78,13 @@ class _OTPScreenState extends State<OTPScreen> {
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                 fontFamily: 'Roboto',
                                 color: FlutterFlowTheme.of(context).primary,
-                                fontSize: rSize*0.026,
+                                fontSize: rSize * 0.026,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w600,
                               ),
                         ),
                         SizedBox(
-                          height: rSize * 0.02,
+                          height: rSize * 0.005,
                         ),
                         if (model.verification != 'authentification' && widget.map != null && widget.map!.containsKey('location')) ...{
                           Text(
@@ -95,13 +92,13 @@ class _OTPScreenState extends State<OTPScreen> {
                             textAlign: TextAlign.start,
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   fontFamily: 'Roboto',
-                                  fontSize: rSize*0.016,
+                                  fontSize: rSize * 0.016,
                                   letterSpacing: 0.0,
                                 ),
                           )
                         },
                         SizedBox(
-                          height: rSize * 0.01,
+                          height: rSize * 0.03,
                         ),
                         if (model.verification != 'authentification')
                           Row(
@@ -113,7 +110,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 textAlign: TextAlign.start,
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'Roboto',
-                                      fontSize: rSize*0.016,
+                                      fontSize: rSize * 0.016,
                                       letterSpacing: 0.0,
                                     ),
                               ),
@@ -127,7 +124,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             textAlign: TextAlign.start,
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   fontFamily: 'Roboto',
-                                  fontSize: rSize*0.016,
+                                  fontSize: rSize * 0.016,
                                   letterSpacing: 0.0,
                                 ),
                           ),
@@ -135,7 +132,7 @@ class _OTPScreenState extends State<OTPScreen> {
                           height: rSize * 0.02,
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize*0.005),
                           child: PinCodeTextField(
                             autoDisposeControllers: false,
                             appContext: context,
@@ -155,15 +152,10 @@ class _OTPScreenState extends State<OTPScreen> {
                             hintCharacter: '●',
                             keyboardType: TextInputType.number,
                             pinTheme: PinTheme(
-                              fieldHeight: 44.0,
-                              fieldWidth: 44.0,
+                              fieldHeight: rSize*0.044,
+                              fieldWidth: rSize*0.044,
                               borderWidth: 2.0,
-                              borderRadius: const BorderRadius.only(
-                                bottomLeft: Radius.circular(12.0),
-                                bottomRight: Radius.circular(12.0),
-                                topLeft: Radius.circular(12.0),
-                                topRight: Radius.circular(12.0),
-                              ),
+                              borderRadius: BorderRadius.circular(rSize*0.012),
                               shape: PinCodeFieldShape.box,
                               activeColor: FlutterFlowTheme.of(context).primaryText,
                               inactiveColor: FlutterFlowTheme.of(context).alternate,
@@ -193,7 +185,8 @@ class _OTPScreenState extends State<OTPScreen> {
                           height: rSize * 0.01,
                         ),
                         if (model.verification != 'authentification') ...{
-                          Row(mainAxisAlignment: MainAxisAlignment.center,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 FFLocalizations.of(context).getText(
@@ -202,7 +195,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'Roboto',
                                       color: FlutterFlowTheme.of(context).primaryText,
-                                      fontSize: rSize*0.016,
+                                      fontSize: rSize * 0.016,
                                       letterSpacing: 0.0,
                                     ),
                               ),
@@ -217,7 +210,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Roboto',
                                           color: FlutterFlowTheme.of(context).primary,
-                                          fontSize: rSize*0.016,
+                                          fontSize: rSize * 0.016,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -300,7 +293,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 style: FlutterFlowTheme.of(context).headlineMedium.override(
                                       fontFamily: 'Roboto',
                                       color: FlutterFlowTheme.of(context).primary,
-                                      fontSize: rSize*0.026,
+                                      fontSize: rSize * 0.026,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -315,7 +308,7 @@ class _OTPScreenState extends State<OTPScreen> {
                           data: 'otpauth://totp/InvestGlass?secret=$key&issuer=InvestGlass',
                           version: QrVersions.auto,
                           backgroundColor: Colors.transparent,
-                          size: 200.0,
+                          size: rSize*0.200,
                           dataModuleStyle: QrDataModuleStyle(
                             dataModuleShape: QrDataModuleShape.square,
                             color: FlutterFlowTheme.of(context).primaryText,
@@ -335,7 +328,7 @@ class _OTPScreenState extends State<OTPScreen> {
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                 fontFamily: 'Roboto',
                                 color: FlutterFlowTheme.of(context).grayLight,
-                                fontSize: rSize*0.016,
+                                fontSize: rSize * 0.016,
                                 letterSpacing: 0.0,
                               ),
                         ),
@@ -347,16 +340,16 @@ class _OTPScreenState extends State<OTPScreen> {
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context).grayLight,
-                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderRadius: BorderRadius.circular(rSize*0.004),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(rSize*0.010, rSize*0.010, 0.0, rSize*0.010),
+                                  padding: EdgeInsetsDirectional.fromSTEB(rSize * 0.010, rSize * 0.010, 0.0, rSize * 0.010),
                                   child: Text(
                                     key,
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Roboto',
                                           color: FlutterFlowTheme.of(context).secondaryText,
-                                          fontSize: rSize*0.016,
+                                          fontSize: rSize * 0.016,
                                           letterSpacing: 0.0,
                                         ),
                                   ),
@@ -364,7 +357,7 @@ class _OTPScreenState extends State<OTPScreen> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(rSize*0.005, 0.0, 0.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -376,7 +369,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 child: Icon(
                                   Icons.file_copy_outlined,
                                   color: FlutterFlowTheme.of(context).primary,
-                                  size: 30.0,
+                                  size: rSize*0.030,
                                 ),
                               ),
                             ),
@@ -394,9 +387,8 @@ class _OTPScreenState extends State<OTPScreen> {
                           ),
                           options: FFButtonOptions(
                             width: MediaQuery.sizeOf(context).width * 0.5,
-                            height: rSize*0.04,
-                            padding: EdgeInsetsDirectional.fromSTEB(rSize*0.024, 0.0, rSize*0.024, 0.0),
-                            
+                            height: rSize * 0.04,
+                            padding: EdgeInsetsDirectional.fromSTEB(rSize * 0.024, 0.0, rSize * 0.024, 0.0),
                             color: FlutterFlowTheme.of(context).primary,
                             textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                   fontFamily: 'Roboto',
@@ -408,7 +400,7 @@ class _OTPScreenState extends State<OTPScreen> {
                               color: Colors.transparent,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(rSize*0.008),
+                            borderRadius: BorderRadius.circular(rSize * 0.008),
                           ),
                         ),
                         SizedBox(

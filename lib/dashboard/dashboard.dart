@@ -290,15 +290,16 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     Positioned(
                       // width: MediaQuery.of(context).size.width,
-                      bottom: rSize * 0.03,
+                      bottom: isTablet?rSize * 0.038:rSize * 0.03,
                       child: Align(
                           alignment: Alignment.center,
                           child: GestureDetector(
                             onTap: () => showOptions(),
                             child: Image.asset(
                               'assets/app_launcher_icon.png',
-                              height: rSize * 0.1,
-                              width: rSize * 0.1,
+                              scale: isTablet?0.7:1.7,
+                              // height: rSize * 0.1,
+                              // width: rSize * 0.1,
                             ),
                           )),
                     ),

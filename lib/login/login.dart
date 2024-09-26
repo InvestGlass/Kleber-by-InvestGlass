@@ -92,14 +92,14 @@ class _LoginState extends State<Login> {
                               ),
                               style: TextStyle(
                                   color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 30,height: 0,
+                                  fontSize: rSize*0.030,height: 0,
                                   fontWeight: FontWeight.w600,
                                   fontFamily: 'Roboto',),
                             ),
                             Container(
                               color: FlutterFlowTheme.of(context).primary,
-                              height: 5,
-                              width: 110,
+                              height: rSize*0.005,
+                              width: rSize*0.110,
                             )
                           ],
                         )
@@ -140,10 +140,13 @@ class _LoginState extends State<Login> {
                                   fontFamily: 'Roboto',
                                   letterSpacing: 0.0,
                                 ),
-                            suffix: Icon(
-                              Icons.account_circle_outlined,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 25.0,
+                            suffix: Padding(
+                              padding: EdgeInsets.all(rSize*0.01),
+                              child: Icon(
+                                Icons.account_circle_outlined,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                size: rSize*0.025,
+                              ),
                             )),
                       ),
                       SizedBox(
@@ -177,9 +180,13 @@ class _LoginState extends State<Login> {
                                 onTap: () {
                                   _controller.changeVisibility();
                                 },
-                                child: Icon(
-                                  _controller.hidePwd ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                                  color: FlutterFlowTheme.of(context).primaryText,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: rSize*0.01),
+                                  child: Icon(
+                                    _controller.hidePwd ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                                    color: FlutterFlowTheme.of(context).primaryText,
+                                    size: rSize*0.025,
+                                  ),
                                 ))),
                       ),
                       SizedBox(
@@ -200,7 +207,7 @@ class _LoginState extends State<Login> {
                             ),
                             options: FFButtonOptions(
                               width: MediaQuery.sizeOf(context).width * 0.5,
-                              height: 50.0,
+                              height: rSize*0.050,
                               padding: EdgeInsetsDirectional.fromSTEB(rSize*0.024, 0.0, rSize*0.024, 0.0),
                               
                               color: FlutterFlowTheme.of(context).primary,

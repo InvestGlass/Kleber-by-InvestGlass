@@ -34,7 +34,7 @@ class _UploadDocumentState extends State<UploadDocument> {
           context,
           FFLocalizations.of(context).getText(
             '4kyuvn3o' /* Upload Document */,
-          ),
+          ),centerTitle: true,
           leading: GestureDetector(
               onTap: () => Navigator.pop(context),
               child: Icon(

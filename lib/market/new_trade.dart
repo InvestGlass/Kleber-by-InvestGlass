@@ -1,11 +1,7 @@
-import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:kleber_bank/main.dart';
 import 'package:kleber_bank/market/market_controller.dart';
 import 'package:kleber_bank/market/market_list_model.dart';
-import 'package:kleber_bank/portfolio/portfolio.dart';
 import 'package:kleber_bank/portfolio/portfolio_controller.dart';
 import 'package:kleber_bank/securitySelection/security_selection.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
@@ -74,7 +70,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                   fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).primaryText,
                                   fontSize: rSize*0.014,
-                                  letterSpacing: 0.0,
+                                  letterSpacing: 0,
                                   fontWeight: FontWeight.normal,
                                 ),
                           ),
@@ -89,6 +85,12 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               label(context, 'rumkikc1' /* Name, ISIN, FIGI or Ticket */),
               TextFormField(
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).info,
+                  fontSize: rSize*0.018,
+                  letterSpacing: 0.0,
+                ),
                 readOnly: true,
                 controller: TextEditingController(text: _marketNotifier.selectedSecurity?.name),
                 onTap: () => CommonFunctions.navigate(context, SecuritySelection(), onBack: (result) {
@@ -97,11 +99,12 @@ class _AddTransactionState extends State<AddTransaction> {
                 decoration: AppStyles.inputDecoration(context,
                     contentPadding: EdgeInsets.symmetric(vertical: rSize*0.015, horizontal: rSize*0.015),
                     suffix: Container(
-                      height: rSize*0.050,
+                      height: rSize*0.056,
+                      width: rSize*0.050,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
+                            topRight: Radius.circular(rSize*0.010),
+                            bottomRight: Radius.circular(rSize*0.010),
                           ),
                           color: FlutterFlowTheme.of(context).alternate),
                       child: Icon(
@@ -133,7 +136,7 @@ class _AddTransactionState extends State<AddTransaction> {
                                   fontFamily: 'Roboto',
                                   color: FlutterFlowTheme.of(context).primaryText,
                                   fontSize: rSize*0.014,
-                                  letterSpacing: 0.0,
+                                  letterSpacing: 0,
                                   fontWeight: FontWeight.normal,
                                 ),
                           ),
@@ -148,59 +151,101 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               label(context, '7fx237xy' /* Time In Force */),
               TextFormField(
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).info,
+                  fontSize: rSize*0.018,
+                  letterSpacing: 0.0,
+                ),
                 readOnly: true,
                 controller: TextEditingController(
                     text: _marketNotifier.selectedDateTime),
                 onTap: () {
                   openDateTimePicker();
                 },
-                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015)),
+                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015),suffix: Container(
+                  height: rSize*0.056,
+                  width: rSize*0.050,
+                ),),
               ),
               SizedBox(
                 height: rSize * 0.015,
               ),
               label(context, '2mpa9jiq' /* Notes */),
               TextFormField(
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).info,
+                  fontSize: rSize*0.018,
+                  letterSpacing: 0.0,
+                ),
                 controller: _marketNotifier.descController,
-                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015)),
+                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015),suffix: Container(
+                  height: rSize*0.056,
+                  width: rSize*0.050,
+                ),),
               ),
               SizedBox(
                 height: rSize * 0.015,
               ),
               label(context, 'u7hyldvt' /* Order Type */),
               TextFormField(
-                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015)),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).info,
+                  fontSize: rSize*0.018,
+                  letterSpacing: 0.0,
+                ),
+                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015),suffix: Container(
+                  height: rSize*0.056,
+                  width: rSize*0.050,
+                ),),
               ),
               SizedBox(
                 height: rSize * 0.015,
               ),
               label(context, '2odrp5sn' /* Quantity */),
               TextFormField(
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).info,
+                  fontSize: rSize*0.018,
+                  letterSpacing: 0.0,
+                ),
                 keyboardType: TextInputType.number,
                 controller: _marketNotifier.qtyController,
                 onChanged: (value) {
                   _marketNotifier.updateAmount(widget.model.price!);
                 },
-                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015)),
+                decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015),suffix: Container(
+                  height: rSize*0.056,
+                  width: rSize*0.050,
+                ),),
               ),
               SizedBox(
                 height: rSize * 0.015,
               ),
               label(context, 'lz424u11' /* Current Price */),
               TextFormField(
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).info,
+                  fontSize: rSize*0.018,
+                  letterSpacing: 0.0,
+                ),
                 readOnly: true,controller: TextEditingController(text: widget.model.price ?? ''),
                 decoration: AppStyles.inputDecoration(context,
                     focusColor: FlutterFlowTheme.of(context).customColor4,
                     contentPadding: EdgeInsets.all(rSize*0.015),
                     prefix: Container(
-                      height: rSize*0.050,
+                      height: rSize*0.056,
                       width: rSize*0.060,
                       margin: EdgeInsets.only(right: rSize*0.010),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
+                            topLeft: Radius.circular(rSize*0.010),
+                            bottomLeft: Radius.circular(rSize*0.010),
                           ),
                           color: FlutterFlowTheme.of(context).customColor4),
                       child: Text(
@@ -209,7 +254,7 @@ class _AddTransactionState extends State<AddTransaction> {
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Roboto',
-                              letterSpacing: 0.0,
+                              letterSpacing: 0,
                             ),
                       ),
                     )),
@@ -219,6 +264,12 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               label(context, 'q9p7fv0r' /* Limit Price */),
               TextFormField(
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).info,
+                  fontSize: rSize*0.018,
+                  letterSpacing: 0.0,
+                ),
                 keyboardType: TextInputType.number,
                 controller: _marketNotifier.limitPriceController,
                 onChanged: (value) {
@@ -226,14 +277,14 @@ class _AddTransactionState extends State<AddTransaction> {
                 },
                 decoration: AppStyles.inputDecoration(context,
                     prefix: Container(
-                      height: 50,
-                      width: 60,
-                      margin: EdgeInsets.only(right: 10),
+                      height: rSize*0.056,
+                      width: rSize*0.060,
+                      margin: EdgeInsets.only(right: rSize*0.010),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
+                            topLeft: Radius.circular(rSize*0.010),
+                            bottomLeft: Radius.circular(rSize*0.010),
                           ),
                           color: FlutterFlowTheme.of(context).alternate),
                       child: Text(
@@ -242,7 +293,7 @@ class _AddTransactionState extends State<AddTransaction> {
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Roboto',
-                              letterSpacing: 0.0,
+                              letterSpacing: 0,
                             ),
                       ),
                     ),
@@ -253,20 +304,26 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               label(context, '4noemhfd' /* Amount */),
               TextFormField(
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).info,
+                  fontSize: rSize*0.018,
+                  letterSpacing: 0.0,
+                ),
                 readOnly: true,
                 controller: TextEditingController(text: _marketNotifier.amount.toString()),
                 decoration: AppStyles.inputDecoration(context,
                     focusColor: FlutterFlowTheme.of(context).customColor4,
                     contentPadding: EdgeInsets.all(rSize*0.015),
                     prefix: Container(
-                      height: rSize*0.050,
+                      height: rSize*0.056,
                       width: rSize*0.060,
                       margin: EdgeInsets.only(right: rSize*0.010),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
+                            topLeft: Radius.circular(rSize*0.010),
+                            bottomLeft: Radius.circular(rSize*0.010),
                           ),
                           color: FlutterFlowTheme.of(context).customColor4),
                       child: Text(
@@ -275,7 +332,7 @@ class _AddTransactionState extends State<AddTransaction> {
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Roboto',
-                              letterSpacing: 0.0,
+                              letterSpacing: 0,
                             ),
                       ),
                     )),
@@ -309,7 +366,7 @@ class _AddTransactionState extends State<AddTransaction> {
 
   Padding label(BuildContext context, String text) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, rSize*0.005),
       child: Text(
         FFLocalizations.of(context).getText(
           text,
@@ -317,7 +374,7 @@ class _AddTransactionState extends State<AddTransaction> {
         style: FlutterFlowTheme.of(context).bodyMedium.override(
               fontFamily: 'Roboto',
               fontSize: rSize*0.016,
-              letterSpacing: 0.0,
+              letterSpacing: 0,
             ),
       ),
     );

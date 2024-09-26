@@ -65,11 +65,11 @@ class _ChatHistoryState extends State<ChatHistory> {
           child: Icon(
             Icons.refresh_rounded,
             color: FlutterFlowTheme.of(context).primary,
-            size: 30.0,
+            size: rSize*0.030,
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          padding: EdgeInsets.symmetric(horizontal: rSize*0.005),
           child: GestureDetector(
             onTap: () async {
               await launchUrl(Uri(
@@ -80,7 +80,7 @@ class _ChatHistoryState extends State<ChatHistory> {
             child: Icon(
               Icons.call_outlined,
               color: FlutterFlowTheme.of(context).primary,
-              size: 30.0,
+              size: rSize*0.030,
             ),
           ),
         ),/*
@@ -90,7 +90,7 @@ class _ChatHistoryState extends State<ChatHistory> {
           size: 30.0,
         ),*/
         SizedBox(
-          width: rSize*0.015,
+          width: rSize*0.01,
         )
       ]),
       body: Container(
@@ -121,9 +121,9 @@ class _ChatHistoryState extends State<ChatHistory> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsetsDirectional.all(10),
+                        padding: EdgeInsetsDirectional.all(rSize*0.010),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(rSize*0.020),
                           border: Border.all(
                             color: FlutterFlowTheme.of(context).customColor4,
                             width: 1.5,
@@ -170,15 +170,15 @@ class _ChatHistoryState extends State<ChatHistory> {
                   ),
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).info,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(12.0),
-                      bottomRight: Radius.circular(12.0),
-                      topLeft: Radius.circular(0.0),
-                      topRight: Radius.circular(12.0),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(rSize*0.012),
+                      bottomRight: Radius.circular(rSize*0.012),
+                      topLeft: const Radius.circular(0.0),
+                      topRight: Radius.circular(rSize*0.012),
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: EdgeInsets.all(rSize*0.012),
                     child: Text(
                       item.comment ?? '',
                       textAlign: TextAlign.start,
@@ -193,7 +193,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize*0.005, 0.0, 0.0),
                   child: Text(
                     CommonFunctions.dateTimeFormat(
                       'yyyy-MM-dd HH:mm',
@@ -216,7 +216,7 @@ class _ChatHistoryState extends State<ChatHistory> {
           separatorBuilder: (BuildContext context, int index) {
             ChatHistoryModel item = _notifier.chatHistoryPagingController.itemList![index];
 
-            return SizedBox();
+            return const SizedBox();
           },
         ),
       ),
@@ -228,19 +228,25 @@ class _ChatHistoryState extends State<ChatHistory> {
           children: [
             Expanded(
               child: TextFormField(
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).info,
+                  fontSize: rSize*0.018,
+                  letterSpacing: 0.0,
+                ),
                 controller: _notifier.msgController,
                 decoration: AppStyles.inputDecoration(context,
                     focusColor: FlutterFlowTheme.of(context).alternate,
                     fillColor: FlutterFlowTheme.of(context).primaryBackground,
                     borderRadius: rSize*0.020,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                    contentPadding: EdgeInsets.symmetric(vertical: rSize*0.012, horizontal: rSize*0.020),
                     hint: FFLocalizations.of(context).getText(
                       '0lw6g9ud' /* Type new message */,
                     )),
               ),
             ),
             SizedBox(
-              width: 20,
+              width: rSize*0.020,
             ),
             GestureDetector(
               onTap: () {
