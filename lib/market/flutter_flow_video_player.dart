@@ -5,6 +5,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 
+import '../main.dart';
 import '../utils/flutter_flow_theme.dart';
 
 
@@ -200,15 +201,15 @@ class _FlutterFlowVideoPlayerState extends State<FlutterFlowVideoPlayer>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 50.0,
-                          height: 50.0,
+                          width: rSize*0.050,
+                          height: rSize*0.050,
                           child: CircularProgressIndicator(
                             valueColor: AlwaysStoppedAnimation<Color>(
                               FlutterFlowTheme.of(context).primary,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: rSize*0.020),
                         const Text('Loading'),
                       ],
                     ),

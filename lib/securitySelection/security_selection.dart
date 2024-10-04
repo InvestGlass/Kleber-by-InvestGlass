@@ -68,7 +68,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
         bottomNavigationBar: Wrap(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: rSize*0.02),
+              padding: EdgeInsets.symmetric(horizontal: rSize*0.040, vertical: rSize*0.02),
               color: FlutterFlowTheme.of(context).secondaryBackground,
               child: GestureDetector(
                 onTap: () {
@@ -107,12 +107,12 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                   GestureDetector(
                     onTap: () => openFilterDialog(context),
                     child: Container(
-                      height: 45,
-                      width: 45,
-                      decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.circular(8)),
+                      height: rSize*0.045,
+                      width: rSize*0.045,
+                      decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.circular(rSize*0.008)),
                       child: Icon(
                         Icons.filter_alt_outlined,
-                        size: 25,
+                        size: rSize*0.025,
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
                     ),
@@ -124,25 +124,15 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                     child: TextField(
                       controller: _notifier.searchController,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
-                            letterSpacing: 0.0,
-                          ),
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(rSize*0.01), borderSide: BorderSide(color: Colors.transparent, width: 1)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(rSize*0.01), borderSide: BorderSide(color: Colors.transparent, width: 1)),
-                          fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                          filled: true,
-                          hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Roboto',
-                                letterSpacing: 0.0,
-                              ),
-                          hintText: FFLocalizations.of(context).getText(
-                            'wzls4zjf' /* Type security name */,
-                          ),
-                          prefixIcon: Icon(Icons.search),
-                          contentPadding: EdgeInsets.symmetric(vertical: rSize*0.01)),
+                        fontFamily: 'Roboto',
+                        letterSpacing: 0.0,
+                      ),
+                      decoration: AppStyles.inputDecoration(context,hint: FFLocalizations.of(context).getText(
+                        'wzls4zjf' /* Type security name */,
+                      ),prefix: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Icon(Icons.search,size: rSize*0.025,),
+                      ),contentPadding: EdgeInsets.symmetric(vertical: rSize*0.017,horizontal: 20),focusColor: FlutterFlowTheme.of(context).primaryBackground),
                       onChanged: (value) {
                         if (_debounce?.isActive ?? false) _debounce?.cancel();
                         _debounce = Timer(const Duration(milliseconds: 500), () async {
@@ -265,6 +255,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                     },
                                     child: Icon(
                                       Icons.close,
+                                      size: rSize*0.025,
                                       color: AppColors.kTextFieldInput,
                                     ),
                                   )

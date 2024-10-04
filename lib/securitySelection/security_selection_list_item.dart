@@ -95,12 +95,12 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
             children: [
               Container(
                 width: double.infinity,
-                height: 250.0,
+                height: rSize*0.250,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).alternate,
                 ),
                 child: SizedBox(
-                  height: 250.0,
+                  height: rSize*0.250,
                   child: Stack(
                     children: [
                       if (widget.data?.videoUrl != null &&
@@ -111,7 +111,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                             path: widget.data!.videoUrl!,
                             videoType: VideoType.network,
                             width: double.infinity,
-                            height: 250.0,
+                            height: rSize*0.250,
                             autoPlay: false,
                             looping: false,
                             showControls: true,
@@ -229,7 +229,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(width: 5,),
+                        SizedBox(width: rSize*0.005,),
                         Expanded(
                           child: Text(
                             widget.data?.price != null &&

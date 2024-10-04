@@ -161,9 +161,9 @@ class CashFlowDistribution {
 }
 
 class Chart {
-  int? year;
-  int? principal;
-  int? coupon;
+  String? year;
+  String? principal;
+  String? coupon;
 
   Chart({
     this.year,
@@ -176,9 +176,9 @@ class Chart {
   String toRawJson() => json.encode(toJson());
 
   factory Chart.fromJson(Map<String, dynamic> json) => Chart(
-    year: json["year"],
-    principal: json["principal"],
-    coupon: json["coupon"],
+    year: json["year"].toString(),
+    principal: json["principal"].toString(),
+    coupon: json["coupon"].toString(),
   );
 
   Map<String, dynamic> toJson() => {

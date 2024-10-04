@@ -112,7 +112,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                             path: widget.data!.videoUrl!,
                             videoType: VideoType.network,
                             width: double.infinity,
-                            height: 250.0,
+                            height: rSize*0.250,
                             autoPlay: false,
                             looping: false,
                             showControls: true,

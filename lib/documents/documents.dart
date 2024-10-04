@@ -372,7 +372,7 @@ class _DocumentsState extends State<Documents> {
                                     },
                                     child: Icon(
                                       Icons.close,
-                                      size:rSize*0.025,
+                                      size: rSize * 0.025,
                                       color: FlutterFlowTheme.of(context).primary,
                                     ),
                                   )
@@ -865,10 +865,10 @@ class _DocumentsState extends State<Documents> {
       return FaIcon(
         FontAwesomeIcons.file,
         color: FlutterFlowTheme.of(context).primary,
-        size: rSize*0.030,
+        size: rSize * 0.030,
       );
     }
 
-    return Icon(Icons.folder_outlined, color: FlutterFlowTheme.of(context).primary, size: 30.0);
+    return Icon(Icons.folder_outlined, color: FlutterFlowTheme.of(context).primary, size: rSize * 0.030);
   }
 }

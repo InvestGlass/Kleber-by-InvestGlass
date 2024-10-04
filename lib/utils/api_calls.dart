@@ -227,7 +227,9 @@ class ApiCalls {
           'get')) as List;
 
       return json.map((jsonItem) => PortfolioModel.fromJson(jsonItem)).toList();
-    } catch (e) {}
+    } on Error catch (e) {
+      print('$e ${e.stackTrace}');
+    }
     return [];
   }
 
