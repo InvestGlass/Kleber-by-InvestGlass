@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -227,8 +229,9 @@ class _DashboardState extends State<Dashboard> {
                       left: 0,
                       right: 0,
                       child: Image.asset(
-                        Theme.of(context).brightness == Brightness.dark ? 'assets/bgBottomNavDark.png' : 'assets/bgBottomNavLight.png',
+                        getImage(),
                         fit: BoxFit.cover,
+                        height:isTablet && Platform.isIOS?rSize*0.09:null
                         // width: 200,
                       ),
                     ),
@@ -288,16 +291,19 @@ class _DashboardState extends State<Dashboard> {
                             )),
                       ],
                     ),
-                    Positioned(
+                    Positioned.fill(
                       // width: MediaQuery.of(context).size.width,
                       bottom: isTablet?rSize * 0.038:rSize * 0.03,
+                      // bottom: 50,
+                      // width: rSize*0.25,
+                      // height: rSize*0.25,
                       child: Align(
                           alignment: Alignment.center,
                           child: GestureDetector(
                             onTap: () => showOptions(),
                             child: Image.asset(
                               'assets/app_launcher_icon.png',
-                              scale: isTablet?0.7:1.7,
+                              // scale: isTablet?0.7:1.7,
                               // height: rSize * 0.1,
                               // width: rSize * 0.1,
                             ),
@@ -327,7 +333,7 @@ class _DashboardState extends State<Dashboard> {
             height: rSize * 0.01,
           ),
           Container(
-            margin: EdgeInsets.only(top: rSize * 0.010, bottom: 5),
+            margin: EdgeInsets.only(top: rSize * 0.010, bottom: rSize*0.005),
             width: rSize * 0.04,
             height: rSize * 0.04,
             decoration: const BoxDecoration(),
@@ -457,5 +463,19 @@ class _DashboardState extends State<Dashboard> {
         ],
       ),
     );
+  }
+
+  String getImage() {
+    if(Theme.of(context).brightness == Brightness.dark){
+      if(isTablet && Platform.isIOS){
+        return 'assets/bgBottomNavDark1.png';
+      }else if(Platform.isIOS){
+        return 'assets/bgBottomNavDark.png';
+      }else{
+        return 'assets/bgBottomNavDark.png';
+      }
+    }else{
+      return 'assets/bgBottomNavLight.png';
+    }
   }
 }
