@@ -194,43 +194,7 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         height: rSize * 0.02,
                       ),
-                      GestureDetector(
-                        onTap: () => CommonFunctions.navigate(context,Signup()),
-                        child: RichText(
-                          textScaler: MediaQuery.of(context).textScaler,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Click here to',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                  fontFamily: 'Roboto',
-                                  color: FlutterFlowTheme.of(context)
-                                      .customColor4,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: rSize*0.016
-                                ),
-                              ),
-                              TextSpan(
-                                text: ' Signup',
-                                style: TextStyle(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primary,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w500,
-                              fontSize: rSize*0.016
-                            ),
-                          ),
-                        ),
-                      ),
+
                       SizedBox(
                         height: rSize * 0.02,
                       ),
@@ -252,6 +216,49 @@ class _LoginState extends State<Login> {
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).viewInsets.bottom + rSize * 0.025,
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: GestureDetector(
+                          onTap: () => CommonFunctions.navigate(context,Signup()),
+                          child: RichText(
+                            textScaler: MediaQuery.of(context).textScaler,
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Click here to',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.of(context)
+                                          .customColor4,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: rSize*0.016
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: ' Signup',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primary,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: rSize*0.016
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: rSize * 0.01,
                       ),
                     ],
                   ))
