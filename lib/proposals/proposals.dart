@@ -107,12 +107,13 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                       context);
                 }, itemBuilder: (context, item, index) {
                   String date = DateFormat('yyyy-MM-dd HH:mm').format(item.updatedAt!);
-                  return Card(
+
+                  return Container(
+                    decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        boxShadow: AppStyles.shadow(),
+                        borderRadius: BorderRadius.circular(rSize * 0.01)),
                     margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(rSize*0.010),
-                    ),
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
                     child: ListView(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -130,8 +131,8 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                     item.name!,
                                     style: FlutterFlowTheme.of(context).displaySmall.override(
                                           fontFamily: 'Roboto',
-                                          color: FlutterFlowTheme.of(context).primaryText,
-                                          fontSize: rSize*0.016,
+                                          color: FlutterFlowTheme.of(context).customColor4,
+                                          fontSize: rSize * 0.016,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -139,31 +140,31 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                   SizedBox(
                                     width: rSize * 0.015,
                                   ),
-                                    Icon(
-                                      item.state == 'Accepted' ? Icons.done_rounded : item.state == 'Rejected' ?Icons.close_rounded:null,
-                                      color: item.state == 'Accepted'
-                                          ? FlutterFlowTheme.of(context).customColor2
-                                          : FlutterFlowTheme.of(context).customColor3,
-                                      size: rSize*0.020,
-                                    ),
-                                    SizedBox(
-                                      width: rSize * 0.015,
-                                    ),
+                                  Icon(
+                                    item.state == 'Accepted'
+                                        ? Icons.done_rounded
+                                        : item.state == 'Rejected'
+                                            ? Icons.close_rounded
+                                            : null,
+                                    color: item.state == 'Accepted'
+                                        ? FlutterFlowTheme.of(context).customColor2
+                                        : FlutterFlowTheme.of(context).customColor3,
+                                    size: rSize * 0.020,
+                                  ),
+                                  SizedBox(
+                                    width: rSize * 0.015,
+                                  ),
                                   RotatedBox(
-                                      quarterTurns: _notifier.selectedIndex == index ? 1 : 3,
-                                      child: Icon(
-                                        Icons.arrow_back_ios_new,
-                                        color: FlutterFlowTheme.of(context).primaryText,
-                                        size: rSize*0.015,
-                                      )),
+                                      quarterTurns: _notifier.selectedIndex == index ? 1 : 4,
+                                      child: AppWidgets.doubleBack(context)),
                                 ],
                               ),
                             ),
                             if (_notifier.selectedIndex == index) ...{
                               ListView(
                                 shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                padding: EdgeInsets.only(top: rSize*0.015),
+                                physics: const NeverScrollableScrollPhysics(),
+                                padding: EdgeInsets.only(top: rSize * 0.015),
                                 children: [
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,7 +175,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                               fontFamily: 'Roboto',
                                               color: FlutterFlowTheme.of(context).primaryText,
-                                              fontSize: rSize*0.016,
+                                              fontSize: rSize * 0.016,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -236,8 +237,8 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                 ),
                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                       fontFamily: 'Roboto',
-                                                      color: FlutterFlowTheme.of(context).primaryText,
-                                                      fontSize: rSize*0.016,
+                                                      color: FlutterFlowTheme.of(context).customColor4,
+                                                      fontSize: rSize * 0.016,
                                                       letterSpacing: 0.0,
                                                       fontWeight: FontWeight.normal,
                                                     ),
@@ -250,130 +251,130 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                         )
                                       },
                                       // if (item.requestProposalApproval!) ...{
-                                        if (item.state == 'Rejected') ...{
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.close_rounded,
-                                                color: FlutterFlowTheme.of(context).customColor3,
-                                                size: rSize*0.024,
-                                              ),
-                                              Text(
-                                                '  ${FFLocalizations.of(context).getText(
+                                      if (item.state == 'Rejected') ...{
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.close_rounded,
+                                              color: FlutterFlowTheme.of(context).customColor3,
+                                              size: rSize * 0.024,
+                                            ),
+                                            Text(
+                                              '  ${FFLocalizations.of(context).getText(
+                                                'rejected',
+                                              )}',
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                    fontFamily: 'Roboto',
+                                                    color: FlutterFlowTheme.of(context).customColor3,
+                                                    fontSize: rSize * 0.016,
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                            ),
+                                          ],
+                                        )
+                                      } else if (item.state == 'Accepted') ...{
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.done_rounded,
+                                              color: FlutterFlowTheme.of(context).customColor2,
+                                              size: rSize * 0.024,
+                                            ),
+                                            Text(
+                                              '  ${FFLocalizations.of(context).getText(
+                                                'c64nnx2a' /* Accepted at  */,
+                                              )} ${DateFormat('yyyy-MM-dd HH:mm').format(item.acceptedDate!)}',
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                    fontFamily: 'Roboto',
+                                                    color: FlutterFlowTheme.of(context).customColor2,
+                                                    fontSize: rSize * 0.016,
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                            ),
+                                          ],
+                                        )
+                                      } else if (item.requestProposalApproval! && item.state == 'Pending') ...{
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: rSize * 0.02,
+                                            ),
+                                            Expanded(
+                                                child: GestureDetector(
+                                              onTap: () => AppWidgets.showAlert(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'decline_proposal' /* Decline Proposal*/,
+                                                  ),
+                                                  FFLocalizations.of(context).getText(
+                                                    's1jcpzx6' /*cancel*/,
+                                                  ),
+                                                  FFLocalizations.of(context).getText(
+                                                    'bdc48oru' /*confirm*/,
+                                                  ), () {
+                                                Navigator.pop(context);
+                                              }, () {
+                                                _notifier.updateState(
                                                   'rejected',
-                                                )}',
-                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                  fontFamily: 'Roboto',
-                                                  color: FlutterFlowTheme.of(context).customColor3,
-                                                  fontSize: rSize*0.016,
-                                                  letterSpacing: 0.0,
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        } else if (item.state == 'Accepted') ...{
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.done_rounded,
-                                                color: FlutterFlowTheme.of(context).customColor2,
-                                                size: rSize*0.024,
-                                              ),
-                                              Text(
-                                                '  ${FFLocalizations.of(context).getText(
-                                                  'c64nnx2a' /* Accepted at  */,
-                                                )} ${DateFormat('yyyy-MM-dd HH:mm').format(item.acceptedDate!)}',
-                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                      fontFamily: 'Roboto',
-                                                      color: FlutterFlowTheme.of(context).customColor2,
-                                                      fontSize: rSize*0.016,
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                              ),
-                                            ],
-                                          )
-                                        } else if (item.requestProposalApproval! && item.state == 'Pending')...{
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: rSize * 0.02,
-                                              ),
-                                              Expanded(
-                                                  child: GestureDetector(
-                                                    onTap: () => AppWidgets.showAlert(
-                                                        context,
-                                                        FFLocalizations.of(context).getText(
-                                                          'decline_proposal' /* Decline Proposal*/,
-                                                        ),
-                                                        FFLocalizations.of(context).getText(
-                                                          's1jcpzx6' /*cancel*/,
-                                                        ),
-                                                        FFLocalizations.of(context).getText(
-                                                          'bdc48oru' /*confirm*/,
-                                                        ), () {
-                                                      Navigator.pop(context);
-                                                    }, () {
-                                                      _notifier.updateState(
-                                                        'rejected',
-                                                        item.id,
-                                                        index,
-                                                        context,
-                                                      );
-                                                    },
-                                                        btn1BgColor: FlutterFlowTheme.of(context).customColor3,
-                                                        btn2BgColor: FlutterFlowTheme.of(context).customColor2),
-                                                    child: AppWidgets.btnWithIcon(
-                                                        context,
-                                                        '  ${FFLocalizations.of(context).getText(
-                                                          'j0hr735r' /* Decline*/,
-                                                        )}',
-                                                        FlutterFlowTheme.of(context).customColor3,
-                                                        const Icon(
-                                                          Icons.close,
-                                                          color: Colors.white,
-                                                        )),
+                                                  item.id,
+                                                  index,
+                                                  context,
+                                                );
+                                              },
+                                                  btn1BgColor: FlutterFlowTheme.of(context).customColor3,
+                                                  btn2BgColor: FlutterFlowTheme.of(context).customColor2),
+                                              child: AppWidgets.btnWithIcon(
+                                                  context,
+                                                  '  ${FFLocalizations.of(context).getText(
+                                                    'j0hr735r' /* Decline*/,
+                                                  )}',
+                                                  FlutterFlowTheme.of(context).customColor3,
+                                                  const Icon(
+                                                    Icons.close,
+                                                    color: Colors.white,
                                                   )),
-                                              SizedBox(
-                                                width: rSize * 0.02,
-                                              ),
-                                              Expanded(
-                                                  child: GestureDetector(
-                                                    onTap: () => AppWidgets.showAlert(
-                                                        context,
-                                                        FFLocalizations.of(context).getText(
-                                                          'accept_proposal' /* accept Proposal*/,
-                                                        ),
-                                                        FFLocalizations.of(context).getText(
-                                                          's1jcpzx6' /*cancel*/,
-                                                        ),
-                                                        FFLocalizations.of(context).getText(
-                                                          'bdc48oru' /*confirm*/,
-                                                        ), () {
-                                                      Navigator.pop(context);
-                                                    }, () {
-                                                      _notifier.updateState('accepted', item.id, index, context);
-                                                    },
-                                                        btn1BgColor: FlutterFlowTheme.of(context).customColor3,
-                                                        btn2BgColor: FlutterFlowTheme.of(context).customColor2),
-                                                    child: AppWidgets.btnWithIcon(
-                                                        context,
-                                                        '  ${FFLocalizations.of(context).getText(
-                                                          '3esw1ind' /* Accept */,
-                                                        )}',
-                                                        FlutterFlowTheme.of(context).customColor2,
-                                                        const Icon(
-                                                          Icons.done,
-                                                          color: Colors.white,
-                                                        )),
+                                            )),
+                                            SizedBox(
+                                              width: rSize * 0.02,
+                                            ),
+                                            Expanded(
+                                                child: GestureDetector(
+                                              onTap: () => AppWidgets.showAlert(
+                                                  context,
+                                                  FFLocalizations.of(context).getText(
+                                                    'accept_proposal' /* accept Proposal*/,
+                                                  ),
+                                                  FFLocalizations.of(context).getText(
+                                                    's1jcpzx6' /*cancel*/,
+                                                  ),
+                                                  FFLocalizations.of(context).getText(
+                                                    'bdc48oru' /*confirm*/,
+                                                  ), () {
+                                                Navigator.pop(context);
+                                              }, () {
+                                                _notifier.updateState('accepted', item.id, index, context);
+                                              },
+                                                  btn1BgColor: FlutterFlowTheme.of(context).customColor3,
+                                                  btn2BgColor: FlutterFlowTheme.of(context).customColor2),
+                                              child: AppWidgets.btnWithIcon(
+                                                  context,
+                                                  '  ${FFLocalizations.of(context).getText(
+                                                    '3esw1ind' /* Accept */,
+                                                  )}',
+                                                  FlutterFlowTheme.of(context).customColor2,
+                                                  const Icon(
+                                                    Icons.done,
+                                                    color: Colors.white,
                                                   )),
-                                              SizedBox(
-                                                width: rSize * 0.02,
-                                              ),
-                                            ],
-                                          )
-                                        },
+                                            )),
+                                            SizedBox(
+                                              width: rSize * 0.02,
+                                            ),
+                                          ],
+                                        )
+                                      },
                                       // },
                                       SizedBox(
                                         height: rSize * 0.025,
@@ -409,7 +410,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                       SizedBox(
                                         height: rSize * 0.01,
                                       ),
-    /*AppWidgets.divider(context),
+                                      /*AppWidgets.divider(context),
                                       SizedBox(
                                         height: rSize * 0.01,
                                       ),
@@ -461,7 +462,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                 color: Colors.transparent,
                 child: Container(
                   decoration: BoxDecoration(color: FlutterFlowTheme.of(context).secondaryBackground, borderRadius: BorderRadius.circular(10)),
-                  margin: EdgeInsets.symmetric(horizontal: rSize*0.015),
+                  margin: EdgeInsets.symmetric(horizontal: rSize * 0.015),
                   child: StatefulBuilder(
                     builder: (context, setState) {
                       Provider.of<ProposalController>(context, listen: false).getProposalTypes(context);
@@ -487,7 +488,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                     style: FlutterFlowTheme.of(context).headlineMedium.override(
                                           fontFamily: 'Roboto',
                                           color: FlutterFlowTheme.of(context).primary,
-                                          fontSize: rSize*0.026,
+                                          fontSize: rSize * 0.026,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -498,7 +499,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                     },
                                     child: Icon(
                                       Icons.close,
-                                      size: rSize*0.025,
+                                      size: rSize * 0.025,
                                       color: FlutterFlowTheme.of(context).primary,
                                     ),
                                   )
@@ -513,7 +514,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                 ),
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'Roboto',
-                                      fontSize: rSize*0.018,
+                                      fontSize: rSize * 0.018,
                                       letterSpacing: 0.0,
                                     ),
                               ),
@@ -529,7 +530,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                 decoration: AppStyles.inputDecoration(
                                   context,
                                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                  contentPadding: EdgeInsets.all(rSize*0.015),
+                                  contentPadding: EdgeInsets.all(rSize * 0.015),
                                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                                         fontFamily: 'Roboto',
                                         letterSpacing: 0.0,
@@ -545,7 +546,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                 ),
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'Roboto',
-                                      fontSize: rSize*0.018,
+                                      fontSize: rSize * 0.018,
                                       letterSpacing: 0.0,
                                     ),
                               ),
@@ -561,7 +562,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                 decoration: AppStyles.inputDecoration(
                                   context,
                                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                  contentPadding: EdgeInsets.all(rSize*0.015),
+                                  contentPadding: EdgeInsets.all(rSize * 0.015),
                                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                                         fontFamily: 'Roboto',
                                         letterSpacing: 0.0,
@@ -577,7 +578,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                 ),
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'Roboto',
-                                      fontSize: rSize*0.018,
+                                      fontSize: rSize * 0.018,
                                       letterSpacing: 0.0,
                                     ),
                               ),
@@ -600,7 +601,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                               style: FlutterFlowTheme.of(context).bodySmall.override(
                                                     fontFamily: 'Roboto',
                                                     color: FlutterFlowTheme.of(context).primaryText,
-                                                    fontSize: rSize*0.014,
+                                                    fontSize: rSize * 0.014,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.normal,
                                                   ),
@@ -699,7 +700,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                         style: FlutterFlowTheme.of(context).headlineMedium.override(
                               fontFamily: 'Roboto',
                               color: FlutterFlowTheme.of(context).primary,
-                              fontSize: rSize*0.026,
+                              fontSize: rSize * 0.026,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
                             ),
@@ -777,7 +778,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
             style: FlutterFlowTheme.of(context).displaySmall.override(
                   fontFamily: 'Roboto',
                   color: FlutterFlowTheme.of(context).primaryText,
-                  fontSize: rSize*0.016,
+                  fontSize: rSize * 0.016,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w500,
                 ),
@@ -794,7 +795,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
         children: [
           Icon(
             iconData,
-            color: FlutterFlowTheme.of(context).primaryText,
+            color: FlutterFlowTheme.of(context).customColor4,
             size: 20,
           ),
           Expanded(
@@ -802,8 +803,8 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
             title,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  fontSize: rSize*0.016,
+                  color: FlutterFlowTheme.of(context).customColor4,
+                  fontSize: rSize * 0.016,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.normal,
                 ),
@@ -812,8 +813,8 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
               quarterTurns: 2,
               child: Icon(
                 Icons.arrow_back_ios_new,
-                color: FlutterFlowTheme.of(context).primaryText,
-                size: rSize*0.015,
+                color: FlutterFlowTheme.of(context).customColor4,
+                size: rSize * 0.015,
               ))
         ],
       ),
@@ -826,21 +827,22 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(rSize * 0.01),
-        decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.all(Radius.circular(rSize*0.010))),
+        decoration: AppWidgets.gradiantDecoration(context),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               'assets/$img',
               color: FlutterFlowTheme.of(context).secondaryBackground,
-              height: rSize*0.02,width: rSize*0.02,
+              height: rSize * 0.02,
+              width: rSize * 0.02,
             ),
             Text(
               label,
               style: FlutterFlowTheme.of(context).displaySmall.override(
                     fontFamily: 'Roboto',
                     color: FlutterFlowTheme.of(context).secondaryBackground,
-                    fontSize: rSize*0.014,
+                    fontSize: rSize * 0.014,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.normal,
                   ),

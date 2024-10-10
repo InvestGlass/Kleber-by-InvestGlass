@@ -45,7 +45,7 @@ class _AddTransactionState extends State<AddTransaction> {
       decoration: AppStyles.commonBg(context),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppWidgets.appBar(context, 'New Trade', centerTitle: true,leading:AppWidgets.backArrow(context) ),
+        appBar: AppWidgets.appBar(context, 'New Trade', centerTitle: true,leading:AppWidgets.backArrow(context)),
         body: Form(
           child: ListView(
             shrinkWrap: true,
@@ -68,10 +68,9 @@ class _AddTransactionState extends State<AddTransaction> {
                             item.title!,
                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                   fontFamily: 'Roboto',
-                                  color: FlutterFlowTheme.of(context).primaryText,
+                                  color: FlutterFlowTheme.of(context).customColor4,
                                   fontSize: rSize*0.014,
-                                  letterSpacing: 0,
-                                  fontWeight: FontWeight.normal,
+                              fontWeight: FontWeight.w500
                                 ),
                           ),
                         ))
@@ -87,7 +86,7 @@ class _AddTransactionState extends State<AddTransaction> {
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
-                  color: FlutterFlowTheme.of(context).info,
+                  color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
                   letterSpacing: 0.0,
                 ),
@@ -134,10 +133,9 @@ class _AddTransactionState extends State<AddTransaction> {
                             item.name!.replaceAll('_', ' '),
                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                   fontFamily: 'Roboto',
-                                  color: FlutterFlowTheme.of(context).primaryText,
+                                  color: FlutterFlowTheme.of(context).customColor4,
                                   fontSize: rSize*0.014,
-                                  letterSpacing: 0,
-                                  fontWeight: FontWeight.normal,
+                                fontWeight: FontWeight.w500
                                 ),
                           ),
                         ))
@@ -153,9 +151,9 @@ class _AddTransactionState extends State<AddTransaction> {
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
-                  color: FlutterFlowTheme.of(context).info,
+                  color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
-                  letterSpacing: 0.0,
+                    fontWeight: FontWeight.w500
                 ),
                 readOnly: true,
                 controller: TextEditingController(
@@ -175,9 +173,9 @@ class _AddTransactionState extends State<AddTransaction> {
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
-                  color: FlutterFlowTheme.of(context).info,
+                  color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
-                  letterSpacing: 0.0,
+                    fontWeight: FontWeight.w500
                 ),
                 controller: _marketNotifier.descController,
                 decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015),suffix: Container(
@@ -192,9 +190,9 @@ class _AddTransactionState extends State<AddTransaction> {
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
-                  color: FlutterFlowTheme.of(context).info,
+                  color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
-                  letterSpacing: 0.0,
+                    fontWeight: FontWeight.w500
                 ),
                 decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015),suffix: Container(
                   height: rSize*0.056,
@@ -208,9 +206,9 @@ class _AddTransactionState extends State<AddTransaction> {
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
-                  color: FlutterFlowTheme.of(context).info,
+                  color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
-                  letterSpacing: 0.0,
+                    fontWeight: FontWeight.w500
                 ),
                 keyboardType: TextInputType.number,
                 controller: _marketNotifier.qtyController,
@@ -229,9 +227,9 @@ class _AddTransactionState extends State<AddTransaction> {
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
-                  color: FlutterFlowTheme.of(context).info,
+                  color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
-                  letterSpacing: 0.0,
+                    fontWeight: FontWeight.w500
                 ),
                 readOnly: true,controller: TextEditingController(text: widget.model.price ?? ''),
                 decoration: AppStyles.inputDecoration(context,
@@ -266,9 +264,9 @@ class _AddTransactionState extends State<AddTransaction> {
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
-                  color: FlutterFlowTheme.of(context).info,
+                  color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
-                  letterSpacing: 0.0,
+                    fontWeight: FontWeight.w500
                 ),
                 keyboardType: TextInputType.number,
                 controller: _marketNotifier.limitPriceController,
@@ -306,9 +304,9 @@ class _AddTransactionState extends State<AddTransaction> {
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
-                  color: FlutterFlowTheme.of(context).info,
+                  color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
-                  letterSpacing: 0.0,
+                    fontWeight: FontWeight.w500
                 ),
                 readOnly: true,
                 controller: TextEditingController(text: _marketNotifier.amount.toString()),
@@ -374,7 +372,7 @@ class _AddTransactionState extends State<AddTransaction> {
         style: FlutterFlowTheme.of(context).bodyMedium.override(
               fontFamily: 'Roboto',
               fontSize: rSize*0.016,
-              letterSpacing: 0,
+              color: FlutterFlowTheme.of(context).customColor4,
             ),
       ),
     );

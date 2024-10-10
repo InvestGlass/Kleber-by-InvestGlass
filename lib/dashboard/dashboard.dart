@@ -31,7 +31,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
-  late PageController controller;
+  late PageController pagingController;
 
   late DashboardController _controller;
 
@@ -40,7 +40,7 @@ class _DashboardState extends State<Dashboard> {
     if (AppConst.userModel != null) {
       SharedPrefUtils.instance.putString(USER_DATA, AppConst.userModel!.toRawJson());
     }
-    controller = PageController(initialPage: 0);
+    pagingController = PageController(initialPage: 0);
     super.initState();
   }
 
@@ -194,26 +194,83 @@ class _DashboardState extends State<Dashboard> {
         controller.animateToPage(i, duration: Duration(milliseconds: 100), curve: Curves.easeInOut);
         // controller=PageController(initialPage: value);
       }),*/
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: FlutterFlowTheme.of(context).info,
+        currentIndex: _controller.selectedIndex,
+        onTap: (value) {
+          if (value!=2) {
+            _controller.changeIndex(value);
+            pagingController.animateToPage(value, duration: Duration(microseconds: 500), curve: Curves.bounceInOut);
+          }else{
+            showOptions();
+          }
+        },
+        selectedLabelStyle: TextStyle(
+          color: FlutterFlowTheme.of(context).primary,
+          fontSize: rSize * 0.016,
+          height: 0,
+          fontWeight: FontWeight.w600,
+          fontFamily: 'Roboto',
+        ),
+        unselectedLabelStyle: TextStyle(
+          color: FlutterFlowTheme.of(context).customColor4,
+          fontSize: rSize * 0.016,
+          height: 0,
+          fontWeight: FontWeight.w600,
+          fontFamily: 'Roboto',
+        ),
+        elevation: 3,
+        selectedItemColor: FlutterFlowTheme.of(context).primary,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        unselectedItemColor: FlutterFlowTheme.of(context).customColor4,
+        items: [
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.symmetric(vertical: rSize * 0.005,horizontal: 0),
+                child: const Icon(Icons.home),
+              ),
+              label: FFLocalizations.of(context).getText('fiha8uf5' /* Home */)),
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.symmetric(vertical: rSize * 0.005),
+                child: const Icon(Icons.add_chart_outlined),
+              ),
+              label: FFLocalizations.of(context).getText('xn2nrgyp' /* Portfolio */)),
+          BottomNavigationBarItem(
+              icon: Image.asset('assets/app_launcher_icon.png',height: rSize*0.065,),
+              label:''),
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.symmetric(vertical: rSize * 0.005),
+                child: const Icon(Icons.auto_graph),
+              ),
+              label: FFLocalizations.of(context).getText('nkifu7jq' /* Proposal */)),
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.symmetric(vertical: rSize * 0.005),
+                child: const Icon(Icons.face),
+              ),
+              label: FFLocalizations.of(context).getText('w5wtcpj4' /* Profile */)),
+        ],
+      ),
       body: Container(
         decoration: AppStyles.commonBg(context),
         child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 30.0),
-              child: PageView(
-                controller: controller,
-                physics: NeverScrollableScrollPhysics(),
-                children: const [
-                  Home(),
-                  Portfolio(),
-                  // Market(),
-                  Proposals(),
-                  Profile(),
-                ],
-                onPageChanged: (page) {},
-              ),
+            PageView(
+              controller: pagingController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: const [
+                Home(),
+                Portfolio(),
+                Documents(),
+                Proposals(),
+                Profile(),
+              ],
+              onPageChanged: (page) {},
             ),
-            Positioned(
+            /*Positioned(
               bottom: 0,
               left: 0,
               right: 0,
@@ -241,14 +298,14 @@ class _DashboardState extends State<Dashboard> {
                             0,
                             Icons.home_rounded,
                             FFLocalizations.of(context).getText(
-                              'fiha8uf5' /* Home */,
+                              'fiha8uf5' */ /* Home */ /*,
                             )),
                         bottombarCell(
                             context,
                             1,
                             Icons.bar_chart,
                             FFLocalizations.of(context).getText(
-                              'xn2nrgyp' /* Portfolio */,
+                              'xn2nrgyp' */ /* Portfolio */ /*,
                             ),
                             widget: _controller.selectedIndex == 1
                                 ? SvgPicture.asset(
@@ -264,7 +321,7 @@ class _DashboardState extends State<Dashboard> {
                             2,
                             Icons.home_rounded,
                             FFLocalizations.of(context).getText(
-                              'nkifu7jq' /* Proposal */,
+                              'nkifu7jq' */ /* Proposal */ /*,
                             ),
                             widget: _controller.selectedIndex == 2
                                 ? SvgPicture.asset(
@@ -284,7 +341,7 @@ class _DashboardState extends State<Dashboard> {
                             3,
                             Icons.account_circle_rounded,
                             FFLocalizations.of(context).getText(
-                              'w5wtcpj4' /* Profile */,
+                              'w5wtcpj4' */ /* Profile */ /*,
                             )),
                       ],
                     ),
@@ -306,7 +363,7 @@ class _DashboardState extends State<Dashboard> {
                   ],
                 ),
               ),
-            )
+            )*/
           ],
         ),
       ),
@@ -317,7 +374,7 @@ class _DashboardState extends State<Dashboard> {
     return GestureDetector(
       onTap: () {
         _controller.changeIndex(index);
-        controller.animateToPage(index, duration: Duration(milliseconds: 100), curve: Curves.easeInOut);
+        pagingController.animateToPage(index, duration: const Duration(milliseconds: 100), curve: Curves.easeInOut);
       },
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -363,70 +420,70 @@ class _DashboardState extends State<Dashboard> {
         alignment: Alignment.bottomCenter,
         child: Wrap(
           children: [
-            Card(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(rSize * 0.010),
-              ),
-              margin: EdgeInsets.only(bottom: rSize * 0.11, left: rSize * 0.030, right: rSize * 0.030),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: rSize * 0.010, horizontal: rSize * 0.020),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    actionMenuItem(
-                      context,
-                      SvgPicture.asset(
-                        Theme.of(context).brightness == Brightness.dark ? 'assets/folder_icon-dark-theme.svg' : 'assets/folder_icon.svg',
-                        fit: BoxFit.contain,
-                        height: rSize * 0.025,
-                        width: rSize * 0.025,
+            Material(
+              color: Colors.transparent,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    boxShadow: AppStyles.shadow(),
+                    borderRadius: BorderRadius.circular(rSize*0.01)
+                ),
+                margin: EdgeInsets.only(bottom: rSize * 0.11, left: rSize * 0.030, right: rSize * 0.030),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: rSize * 0.010, horizontal: rSize * 0.020),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      actionMenuItem(
+                        context,
+                        Icon(Icons.file_copy,color: FlutterFlowTheme.of(context).customColor4,),
+                        FFLocalizations.of(context).getText(
+                          '13mzcnly' /* Document */,
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          CommonFunctions.navigate(context, const Documents());
+                        },
                       ),
-                      FFLocalizations.of(context).getText(
-                        '13mzcnly' /* Document */,
+                      SizedBox(
+                        width: rSize * 0.02,
                       ),
-                      onTap: () {
-                        Navigator.pop(context);
-                        CommonFunctions.navigate(context, Documents());
-                      },
-                    ),
-                    SizedBox(
-                      width: rSize * 0.02,
-                    ),
-                    actionMenuItem(
-                      context,
-                      SvgPicture.asset(
-                        Theme.of(context).brightness == Brightness.dark
-                            ? 'assets/money-bill-trend-up-solid-dark-theme.svg'
-                            : 'assets/money-bill-trend-up-solid.svg',
-                        fit: BoxFit.contain,
-                        height: rSize * 0.025,
-                        width: rSize * 0.025,
+                      actionMenuItem(
+                        context,
+                        SvgPicture.asset(
+                          Theme.of(context).brightness == Brightness.dark
+                              ? 'assets/money-bill-trend-up-solid-dark-theme.svg'
+                              : 'assets/money-bill-trend-up-solid.svg',
+                          fit: BoxFit.contain,
+                          color: FlutterFlowTheme.of(context).customColor4,
+                          height: rSize * 0.025,
+                          width: rSize * 0.025,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          'o5wm04m6' /* Market */,
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          CommonFunctions.navigate(context, const Market());
+                        },
                       ),
-                      FFLocalizations.of(context).getText(
-                        'o5wm04m6' /* Market */,
+                      SizedBox(
+                        width: rSize * 0.02,
                       ),
-                      onTap: () {
-                        Navigator.pop(context);
-                        CommonFunctions.navigate(context, const Market());
-                      },
-                    ),
-                    SizedBox(
-                      width: rSize * 0.02,
-                    ),
-                    actionMenuItem(
-                      context,
-                      FaIcon(FontAwesomeIcons.upload, color: FlutterFlowTheme.of(context).primary, size: rSize * 0.030),
-                      FFLocalizations.of(context).getText(
-                        't2nv4kvj' /* Upload */,
+                      actionMenuItem(
+                        context,
+                        FaIcon(FontAwesomeIcons.upload, color: FlutterFlowTheme.of(context).customColor4, size: rSize * 0.030),
+                        FFLocalizations.of(context).getText(
+                          't2nv4kvj' /* Upload */,
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          CommonFunctions.navigate(context, const UploadDocument());
+                        },
                       ),
-                      onTap: () {
-                        Navigator.pop(context);
-                        CommonFunctions.navigate(context, const UploadDocument());
-                      },
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -442,13 +499,13 @@ class _DashboardState extends State<Dashboard> {
       child: Column(
         children: [
           image,
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             label,
             maxLines: 1,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
-                  color: FlutterFlowTheme.of(context).primary,
+                  color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize * 0.014,
                   letterSpacing: 0.0,
                   lineHeight: 1.0,

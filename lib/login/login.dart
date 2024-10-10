@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kleber_bank/login/signup.dart';
+import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:provider/provider.dart';
 
 import '../main.dart';
@@ -112,7 +114,7 @@ class _LoginState extends State<Login> {
                   key: _formKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Image.asset('assets/logo.png',scale: 2,),
                       SizedBox(
@@ -192,40 +194,59 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         height: rSize * 0.02,
                       ),
+                      GestureDetector(
+                        onTap: () => CommonFunctions.navigate(context,Signup()),
+                        child: RichText(
+                          textScaler: MediaQuery.of(context).textScaler,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Click here to',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                  fontFamily: 'Roboto',
+                                  color: FlutterFlowTheme.of(context)
+                                      .customColor4,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: rSize*0.016
+                                ),
+                              ),
+                              TextSpan(
+                                text: ' Signup',
+                                style: TextStyle(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w500,
+                              fontSize: rSize*0.016
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: rSize * 0.02,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          FFButtonWidget(
-                            onPressed: () {
+                          GestureDetector(
+                            onTap: () {
                               FocusManager.instance.primaryFocus?.unfocus();
                               if (_formKey.currentState!.validate()) {
                                 _controller.doLogin(context);
                               }
                             },
-                            text: FFLocalizations.of(context).getText(
+                            child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
                               'rf7r2nk0' /* login */,
-                            ),
-                            options: FFButtonOptions(
-                              width: MediaQuery.sizeOf(context).width * 0.5,
-                              height: rSize*0.050,
-                              padding: EdgeInsetsDirectional.fromSTEB(rSize*0.024, 0.0, rSize*0.024, 0.0),
-                              
-                              color: FlutterFlowTheme.of(context).primary,
-                              textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.of(context).info,
-                                    fontSize: rSize*0.016,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                              elevation: 3.0,
-                              borderSide: const BorderSide(
-                                color: Colors.transparent,
-                                width: 1.0,
-                              ),
-                              borderRadius: BorderRadius.circular(rSize*0.008),
-                            ),
-                            showLoadingIndicator: false,
+                            ),horizontalPadding: rSize*0.08,verticalPadding: rSize*0.018,),
                           ),
                         ],
                       ),

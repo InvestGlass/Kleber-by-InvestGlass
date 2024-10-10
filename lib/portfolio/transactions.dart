@@ -58,13 +58,7 @@ class _TransactionsState extends State<Transactions> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: Icon(
-                        Icons.close,
-                        size: rSize*0.030,
-                        color: FlutterFlowTheme.of(context).primary,
-                      )),
+              AppWidgets.backArrow(context,padding: EdgeInsets.all(rSize*0.010)),
                   Column(
                     children: [
                       Text(
@@ -74,7 +68,7 @@ class _TransactionsState extends State<Transactions> {
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Roboto',
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: FlutterFlowTheme.of(context).customColor4,
                               fontSize: rSize*0.025,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
@@ -86,8 +80,9 @@ class _TransactionsState extends State<Transactions> {
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Roboto',
                               fontSize: rSize*0.02,
+                          color: FlutterFlowTheme.of(context).customColor4,
                               letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w400,
                             ),
                       ),
                     ],
@@ -114,12 +109,13 @@ class _TransactionsState extends State<Transactions> {
                       ), context);
                     }, itemBuilder: (context, item, index) {
                       String currency = item.portfolioSecurity!.referenceCurrency!;
-                      return Card(
-                        margin: EdgeInsets.symmetric(vertical: rSize * 0.005,horizontal: rSize * 0.005),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(rSize*0.010),
-                        ),
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                      return Container(
+                      decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      boxShadow: AppStyles.shadow(),
+                      borderRadius: BorderRadius.circular(rSize*0.01)
+                      ),
+                      margin: EdgeInsets.symmetric(horizontal: rSize * 0.005, vertical: rSize * 0.005),
                         child: ListView(
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
@@ -146,12 +142,8 @@ class _TransactionsState extends State<Transactions> {
                                         width: rSize * 0.015,
                                       ),
                                       RotatedBox(
-                                          quarterTurns: _notifier.selectedTransactionIndex == index ? 1 : 3,
-                                          child: Icon(
-                                            Icons.arrow_back_ios_new,
-                                            color: FlutterFlowTheme.of(context).primaryText,
-                                            size: rSize*0.015,
-                                          )),
+                                          quarterTurns: _notifier.selectedTransactionIndex == index ? 1 : 4,
+                                          child: AppWidgets.doubleBack(context)),
                                     ],
                                   ),
                                   if (_notifier.selectedTransactionIndex != index) ...{

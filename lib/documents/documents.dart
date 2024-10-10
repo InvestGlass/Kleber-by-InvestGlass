@@ -83,28 +83,22 @@ class _DocumentsState extends State<Documents> {
               : FFLocalizations.of(context).getText(
                   'dlgf18jl' /* Document */,
                 ),
-          leading: GestureDetector(
-              onTap: () {
-                if (_notifier.ancestryFolderList.isNotEmpty) {
-                  _notifier.goToPreviousFolder();
-                  _pageKey = 1;
-                  _notifier.pagingController.refresh();
-                } else {
-                  Navigator.pop(context);
-                }
-              },
-              child: Icon(
-                Icons.arrow_back,
-                size: rSize * 0.025,
-                color: FlutterFlowTheme.of(context).primary,
-              )),
+          leading: AppWidgets.backArrow(context,onTap: () {
+            if (_notifier.ancestryFolderList.isNotEmpty) {
+              _notifier.goToPreviousFolder();
+              _pageKey = 1;
+              _notifier.pagingController.refresh();
+            } else {
+              Navigator.pop(context);
+            }
+          },),
           centerTitle: true),
       body: Container(
         decoration: AppStyles.commonBg(context),
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: rSize * 0.03, vertical: rSize * 0.01),
+              padding: EdgeInsets.only(left: rSize * 0.03,right: rSize * 0.03, top: rSize * 0.01, bottom: rSize * 0.01),
               child: Row(
                 children: [
                   cell(
@@ -163,11 +157,13 @@ class _DocumentsState extends State<Documents> {
                           _notifier.pagingController.refresh();
                         }
                       },
-                      child: Card(
-                        color: FlutterFlowTheme.of(context).secondaryBackground.withOpacity(item.freezed! ? 0.1 : 1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(rSize * 0.010),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).secondaryBackground.withOpacity(item.freezed! ? 0.1 : 1),
+                            boxShadow: AppStyles.shadow(),
+                            borderRadius: BorderRadius.circular(rSize*0.01)
                         ),
+                        margin: EdgeInsetsDirectional.symmetric(vertical: rSize*0.005),
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: rSize * 0.01, horizontal: rSize * 0.015),
                           child: Row(children: [
@@ -184,7 +180,7 @@ class _DocumentsState extends State<Documents> {
                                   maxLines: 2,
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
-                                        color: item.freezed! ? FlutterFlowTheme.of(context).secondaryText : FlutterFlowTheme.of(context).primaryText,
+                                        color: item.freezed! ? FlutterFlowTheme.of(context).secondaryText : FlutterFlowTheme.of(context).customColor4,
                                         fontSize: rSize * 0.016,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
@@ -258,7 +254,7 @@ class _DocumentsState extends State<Documents> {
                               Icon(
                                 Icons.lock,
                                 size: rSize * 0.025,
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color: FlutterFlowTheme.of(context).customColor4,
                               )
                             },
                             /*const RotatedBox(
@@ -288,7 +284,7 @@ class _DocumentsState extends State<Documents> {
       onTap: onTap,
       child: Container(
         height: rSize * 0.038,
-        decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.all(Radius.circular(rSize * 0.010))),
+        decoration: AppWidgets.gradiantDecoration(context),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -805,7 +801,7 @@ class _DocumentsState extends State<Documents> {
       child: Icon(
         Icons.more_vert,
         size: rSize * 0.025,
-        color: FlutterFlowTheme.of(context).primary,
+        color: FlutterFlowTheme.of(context).customColor4,
       ),
     );
   }
@@ -860,15 +856,15 @@ class _DocumentsState extends State<Documents> {
   getTypeName(String? documentType) {
     if (documentType == 'form') {
       return SvgPicture.asset(
-          Theme.of(context).brightness == Brightness.dark ? 'assets/form-svgrepo-com-dark-theme.svg' : 'assets/form-svgrepo-com.svg');
+          Theme.of(context).brightness == Brightness.dark ? 'assets/form-svgrepo-com-dark-theme.svg' : 'assets/form-svgrepo-com.svg',color: FlutterFlowTheme.of(context).customColor4,);
     } else if (documentType == 'document' || documentType == 'package') {
       return FaIcon(
         FontAwesomeIcons.file,
-        color: FlutterFlowTheme.of(context).primary,
+        color: FlutterFlowTheme.of(context).customColor4,
         size: rSize * 0.030,
       );
     }
 
-    return Icon(Icons.folder_outlined, color: FlutterFlowTheme.of(context).primary, size: rSize * 0.030);
+    return Icon(Icons.folder_outlined, color: FlutterFlowTheme.of(context).customColor4, size: rSize * 0.030);
   }
 }

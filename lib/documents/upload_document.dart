@@ -35,13 +35,7 @@ class _UploadDocumentState extends State<UploadDocument> {
           FFLocalizations.of(context).getText(
             '4kyuvn3o' /* Upload Document */,
           ),centerTitle: true,
-          leading: GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Icon(
-                Icons.arrow_back,
-                size: rSize*0.025,
-                color: FlutterFlowTheme.of(context).primaryText,
-              ))),
+          leading: AppWidgets.backArrow(context)),
       body: Container(
         decoration: AppStyles.commonBg(context),
         child: ListView(

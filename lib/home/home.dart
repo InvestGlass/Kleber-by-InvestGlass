@@ -73,10 +73,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Roboto',
-                      color: FlutterFlowTheme.of(context).primaryText,
+                      color: FlutterFlowTheme.of(context).customColor4,
                       fontSize: rSize * 0.024,
                       letterSpacing: 0.0,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.w500,
                     ),
               ),
             ),
@@ -95,11 +95,13 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                         throw Exception('Could not launch $url');
                       }
                     },
-                    child: Card(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(rSize * 0.010),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: AppStyles.shadow(),
+                          borderRadius: BorderRadius.circular(rSize*0.01)
                       ),
+                      margin: EdgeInsets.only(right: rSize * 0.01,bottom: rSize * 0.01,left: 2),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -130,7 +132,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                       minFontSize: 12.0,
                                       style: FlutterFlowTheme.of(context).titleMedium.override(
                                             fontFamily: 'Roboto',
-                                            color: FlutterFlowTheme.of(context).primaryText,
+                                            color: FlutterFlowTheme.of(context).customColor4,
                                             fontSize: rSize * 0.018,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
@@ -182,10 +184,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
-                        color: FlutterFlowTheme.of(context).primaryText,
+                        color: FlutterFlowTheme.of(context).customColor4,
                         fontSize: rSize * 0.024,
                         letterSpacing: 0.0,
-                        fontWeight: FontWeight.normal,
+                        fontWeight: FontWeight.w500,
                       ),
                 )),
             if (!_notifier.refresh) ...{
@@ -201,7 +203,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                       ),
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
                             fontFamily: 'Roboto',
-                            color: FlutterFlowTheme.of(context).secondaryText,
+                            color: FlutterFlowTheme.of(context).customColor4,
                             fontSize: rSize * 0.02,
                             letterSpacing: 0.0,
                           ),

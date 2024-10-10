@@ -179,7 +179,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               labelRotation: 45,
               labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
                     fontFamily: 'Roboto',
-                    color: FlutterFlowTheme.of(context).primaryText,
+                    color: FlutterFlowTheme.of(context).customColor4,
                     fontSize: rSize * 0.014,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.normal,
@@ -199,7 +199,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               opposedPosition: isAr,
               labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
                     fontFamily: 'Roboto',
-                    color: FlutterFlowTheme.of(context).primaryText,
+                    color: FlutterFlowTheme.of(context).customColor4,
                     fontSize: rSize * 0.014,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.normal,

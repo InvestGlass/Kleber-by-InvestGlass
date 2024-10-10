@@ -66,9 +66,9 @@ Future<dynamic> jsonResponse(BuildContext context, Uri uri, String method, {Obje
     CommonFunctions.showToast(AppConst.connectionError);
   } on TimeoutException catch (e) {
     CommonFunctions.showToast(AppConst.connectionTimeOut);
-  } on Error catch (e) {
+  } catch (e) {
     CommonFunctions.showToast(AppConst.somethingWentWrong);
-    print('add cust error ${e.toString()}::: ${e.stackTrace}');
+    // print('add cust error ${e.toString()}::: ${e.stackTrace}');
   }
   return {};
 }

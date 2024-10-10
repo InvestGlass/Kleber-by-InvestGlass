@@ -107,39 +107,51 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                   GestureDetector(
                     onTap: () => openFilterDialog(context),
                     child: Container(
-                      height: rSize*0.045,
-                      width: rSize*0.045,
-                      decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.circular(rSize*0.008)),
+                      decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: AppStyles.shadow(),
+                          borderRadius: BorderRadius.circular(rSize*0.01)
+                      ),
+                      height: rSize * 0.05,
+                      width: rSize * 0.05,
                       child: Icon(
                         Icons.filter_alt_outlined,
-                        size: rSize*0.025,
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        size: rSize * 0.025,
+                        color: FlutterFlowTheme.of(context).primary,
                       ),
                     ),
                   ),
                   SizedBox(
-                    width: 10,
+                    width: rSize * 0.010,
                   ),
                   Expanded(
-                    child: TextField(
-                      controller: _notifier.searchController,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Roboto',
-                        letterSpacing: 0.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: AppStyles.shadow(),
+                          borderRadius: BorderRadius.circular(rSize*0.01)
                       ),
-                      decoration: AppStyles.inputDecoration(context,hint: FFLocalizations.of(context).getText(
-                        'wzls4zjf' /* Type security name */,
-                      ),prefix: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Icon(Icons.search,size: rSize*0.025,),
-                      ),contentPadding: EdgeInsets.symmetric(vertical: rSize*0.017,horizontal: 20),focusColor: FlutterFlowTheme.of(context).primaryBackground),
-                      onChanged: (value) {
-                        if (_debounce?.isActive ?? false) _debounce?.cancel();
-                        _debounce = Timer(const Duration(milliseconds: 500), () async {
-                          pageKey = 1;
-                          _notifier.refresh();
-                        });
-                      },
+                      child: TextField(
+                        controller: _notifier.searchController,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w500,
+                            color: FlutterFlowTheme.of(context).customColor4
+                        ),
+                        decoration: AppStyles.inputDecoration(context,hint: FFLocalizations.of(context).getText(
+                          'wzls4zjf' /* Type security name */,
+                        ),prefix: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: rSize*0.015),
+                          child: Icon(Icons.search,size: rSize*0.025,color: FlutterFlowTheme.of(context).customColor4,),
+                        ),contentPadding: EdgeInsets.symmetric(vertical: rSize*0.017,horizontal: 20),focusColor: Colors.transparent),
+                        onChanged: (value) {
+                          if (_debounce?.isActive ?? false) _debounce?.cancel();
+                          _debounce = Timer(const Duration(milliseconds: 500), () async {
+                            pageKey = 1;
+                            _notifier.refresh();
+                          });
+                        },
+                      ),
                     ),
                   ),
                 ],
@@ -243,7 +255,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                         ),
                                     style: FlutterFlowTheme.of(context).headlineMedium.override(
                                       fontFamily: 'Roboto',
-                                      color: FlutterFlowTheme.of(context).primary,
+                                      color: FlutterFlowTheme.of(context).customColor4,
                                       fontSize: rSize*0.026,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
@@ -256,7 +268,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                     child: Icon(
                                       Icons.close,
                                       size: rSize*0.025,
-                                      color: AppColors.kTextFieldInput,
+                                      color: FlutterFlowTheme.of(context).primary,
                                     ),
                                   )
                                 ],
@@ -273,7 +285,8 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
                                         fontSize: rSize*0.018,
-                                        letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w200,
+                                    color: FlutterFlowTheme.of(context).customColor4,
                                       ),
                                 ),
                               ),
@@ -292,10 +305,9 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                             item.name!,
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                                   fontFamily: 'Roboto',
-                                                  color: FlutterFlowTheme.of(context).primaryText,
                                                   fontSize: rSize*0.014,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.normal,
+                                              color: FlutterFlowTheme.of(context).customColor4,
+                                              fontWeight: FontWeight.w500,
                                                 ),
                                           ),
                                         ))
@@ -316,7 +328,8 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
                                         fontSize: rSize*0.018,
-                                        letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w200,
+                                    color: FlutterFlowTheme.of(context).customColor4,
                                       ),
                                 ),
                               ),
@@ -335,10 +348,9 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                             item.name!,
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                                   fontFamily: 'Roboto',
-                                                  color: FlutterFlowTheme.of(context).primaryText,
                                                   fontSize: rSize*0.014,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.normal,
+                                              color: FlutterFlowTheme.of(context).customColor4,
+                                              fontWeight: FontWeight.w500,
                                                 ),
                                           ),
                                         ))
@@ -359,7 +371,8 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
                                         fontSize: rSize*0.018,
-                                        letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w200,
+                                    color: FlutterFlowTheme.of(context).customColor4,
                                       ),
                                 ),
                               ),
@@ -378,10 +391,9 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                             item.name!,
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                                   fontFamily: 'Roboto',
-                                                  color: FlutterFlowTheme.of(context).primaryText,
                                                   fontSize: rSize*0.014,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.normal,
+                                              color: FlutterFlowTheme.of(context).customColor4,
+                                              fontWeight: FontWeight.w500,
                                                 ),
                                           ),
                                         ))

@@ -108,6 +108,37 @@ class AppStyles {
     );
   }
 
+  static List<BoxShadow> shadow() {
+    return [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.25),
+        spreadRadius: 0, // how wide the shadow is spread
+        blurRadius: 3, // how blurry the shadow is
+        offset: Offset(0, 0),
+      ),
+    ];
+  }
+
+  static iconBg(BuildContext context,{EdgeInsetsGeometry? margin,required IconData data,required double size,EdgeInsetsGeometry? padding,void Function()? onTap}){
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: margin??EdgeInsets.all(rSize*0.010),
+        padding: padding??EdgeInsets.zero,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(rSize*0.008),
+            color: FlutterFlowTheme.of(context).info,
+            boxShadow: AppStyles.shadow()
+        ),alignment: Alignment.center,
+        child: Icon(
+          data,
+          size: size,
+          color: FlutterFlowTheme.of(context).primary,
+        ),
+      ),
+    );
+  }
+
   static InputDecoration inputDecoration(BuildContext context,
       {String? hint,
       String? label,
@@ -127,7 +158,8 @@ class AppStyles {
       labelStyle: labelStyle,hintText: hint,
       hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
             fontFamily: 'Roboto',
-            letterSpacing: 0.0,
+            fontWeight: FontWeight.w200,
+        color: FlutterFlowTheme.of(context).customColor4
           ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(

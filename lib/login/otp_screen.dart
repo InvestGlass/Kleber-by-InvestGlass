@@ -53,13 +53,13 @@ class _OTPScreenState extends State<OTPScreen> {
         child: ListView(
           shrinkWrap: true,
           children: [
-            Card(
-              color: FlutterFlowTheme.of(context).primaryBackground,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(rSize * 0.010),
+            Container(
+              decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  boxShadow: AppStyles.shadow(),
+                  borderRadius: BorderRadius.circular(rSize*0.01)
               ),
               margin: EdgeInsets.symmetric(vertical: rSize * 0.03, horizontal: rSize * 0.01),
-              elevation: 2,
               child: Padding(
                 padding:
                     EdgeInsets.only(left: rSize * 0.02, right: rSize * 0.02, top: rSize * 0.03, bottom: rSize * 0.02),
@@ -77,9 +77,8 @@ class _OTPScreenState extends State<OTPScreen> {
                           ),
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                 fontFamily: 'Roboto',
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: FlutterFlowTheme.of(context).customColor4,
                                 fontSize: rSize * 0.026,
-                                letterSpacing: 0.0,
                                 fontWeight: FontWeight.w600,
                               ),
                         ),
@@ -93,7 +92,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   fontFamily: 'Roboto',
                                   fontSize: rSize * 0.016,
-                                  letterSpacing: 0.0,
+                              color: FlutterFlowTheme.of(context).customColor4,
                                 ),
                           )
                         },
@@ -111,7 +110,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'Roboto',
                                       fontSize: rSize * 0.016,
-                                      letterSpacing: 0.0,
+                                  color: FlutterFlowTheme.of(context).customColor4,
                                     ),
                               ),
                             ],
@@ -125,7 +124,8 @@ class _OTPScreenState extends State<OTPScreen> {
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                   fontFamily: 'Roboto',
                                   fontSize: rSize * 0.016,
-                                  letterSpacing: 0.0,
+                              fontWeight: FontWeight.w300,
+                              color: FlutterFlowTheme.of(context).customColor4,
                                 ),
                           ),
                         SizedBox(
@@ -194,7 +194,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 ),
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       fontFamily: 'Roboto',
-                                      color: FlutterFlowTheme.of(context).primaryText,
+                                      color: FlutterFlowTheme.of(context).customColor4,
                                       fontSize: rSize * 0.016,
                                       letterSpacing: 0.0,
                                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kleber_bank/utils/app_styles.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../main.dart';
@@ -152,7 +153,7 @@ class AppWidgets {
     );
   }
 
-  static Widget portfolioListElement(BuildContext context, String label, String value, {String middleValue = '', Widget? icon}) {
+  static Widget portfolioListElement(BuildContext context, String label, String value, {String middleValue = '', Widget? icon,Widget? richText}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -161,6 +162,7 @@ class AppWidgets {
           style: FlutterFlowTheme.of(context).bodyMedium.override(
                 fontFamily: 'Roboto',
                 fontSize: rSize*0.016,
+                color: FlutterFlowTheme.of(context).customColor4,
                 letterSpacing: 0.0,
               ),
         ),
@@ -178,19 +180,25 @@ class AppWidgets {
           SizedBox(
             width: rSize * 0.015,
           ),
-          Expanded(
-            child: Text(
-              value,
-              textAlign: TextAlign.end,
-              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Roboto',
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    fontSize: rSize*0.016,
-                    letterSpacing: 0.0,
-                    fontWeight: FontWeight.normal,
-                  ),
-            ),
-          ),
+          if(richText!=null)...{
+            Expanded(child: SizedBox(),),
+            richText
+          }else...{
+            Expanded(
+              child: Text(
+                value,
+                textAlign: TextAlign.end,
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Roboto',
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontSize: rSize*0.016,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            )
+          }
+          ,
           if (icon != null) ...{
             SizedBox(
               width: 10,
@@ -291,10 +299,24 @@ class AppWidgets {
   }
 
   static BoxDecoration gradiantDecoration(BuildContext context, {bool borderOnly = false, Color? color}) {
-    return BoxDecoration(
-        color: borderOnly ? Colors.transparent : color ?? FlutterFlowTheme.of(context).primary,
+    if(borderOnly){
+      return BoxDecoration(
+        color: Colors.transparent,
         border: Border.all(color: color ?? FlutterFlowTheme.of(context).primary, width: 1),
         borderRadius: BorderRadius.circular(rSize*0.010));
+    }
+    return BoxDecoration(
+        gradient: LinearGradient(
+            colors: [
+              FlutterFlowTheme.of(context).customColor1,
+              color??FlutterFlowTheme.of(context).primary,
+            ],
+            begin: Alignment.centerLeft, // Gradient starts from the left
+            end: Alignment.centerRight, // Gradient ends on the right
+            stops: [0.0, 1.0],
+            tileMode: TileMode.clamp),boxShadow: AppStyles.shadow(),
+        borderRadius: BorderRadius.circular(rSize*0.008));
+
   }
 
   static Expanded sheetElement(String img, String label, void Function()? onTap, BuildContext context) {
@@ -358,7 +380,15 @@ class AppWidgets {
     );
   }
 
-  static backArrow(BuildContext context,{void Function()? onTap}){
+
+  static doubleBack(BuildContext context){
+    return Image.asset(
+      'assets/double_arrow.png',
+      height: rSize * 0.02,
+      color: FlutterFlowTheme.of(context).customColor4,
+    );
+  }
+  static backArrow(BuildContext context,{void Function()? onTap,EdgeInsetsGeometry? padding}){
     return InkWell(
         onTap: () {
           if(onTap!=null){
@@ -367,10 +397,19 @@ class AppWidgets {
             Navigator.pop(context);
           }
         },
-        child: Icon(
-          Icons.arrow_back,
-          size: rSize*0.025,
-          color: FlutterFlowTheme.of(context).primary,
+        child: Container(
+          margin: EdgeInsets.all(rSize*0.010),
+          padding: padding??EdgeInsets.zero,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(rSize*0.008),
+            color: FlutterFlowTheme.of(context).info,
+            boxShadow: AppStyles.shadow()
+          ),alignment: Alignment.center,
+          child: Icon(
+            Icons.arrow_back,
+            size: rSize*0.025,
+            color: FlutterFlowTheme.of(context).primary,
+          ),
         ));
   }
 
@@ -378,7 +417,7 @@ class AppWidgets {
     return PreferredSize(
       preferredSize: Size.fromHeight(rSize*0.06),
       child: isTablet?Container(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: FlutterFlowTheme.of(context).primaryBackground,
         padding: EdgeInsets.symmetric(horizontal: rSize*0.015),
         child: Column(
           children: [
@@ -393,9 +432,9 @@ class AppWidgets {
 
   static AppBar appbar_(BuildContext context, String title, {Widget? leading, List<Widget>? actions, bool centerTitle = false}){
     return AppBar(
-      elevation: isTablet?0:4,
+      elevation: 0,
       actions: actions,
-      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       surfaceTintColor: Colors.transparent,
       leading: leading,
       title: Text(
@@ -404,13 +443,13 @@ class AppWidgets {
         maxLines: 1,
         style: FlutterFlowTheme.of(context).bodyMedium.override(
           fontFamily: 'Roboto',
-          color: FlutterFlowTheme.of(context).primary,
-          fontSize: rSize*0.028,
+          color: FlutterFlowTheme.of(context).customColor4,
+          fontSize: rSize*0.025,
           letterSpacing: 0.0,
           fontWeight: FontWeight.w600,
         ),
       ),
-      centerTitle: centerTitle,
+      centerTitle: true,
     );
   }
 

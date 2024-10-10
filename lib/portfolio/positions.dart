@@ -10,6 +10,7 @@ import 'package:kleber_bank/utils/searchable_dropdown.dart';
 import 'package:provider/provider.dart';
 
 import '../main.dart';
+import '../utils/app_styles.dart';
 import '../utils/common_functions.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
@@ -60,13 +61,7 @@ class _PositionsState extends State<Positions> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: Icon(
-                      Icons.close,
-                      size: rSize*0.030,
-                      color: FlutterFlowTheme.of(context).primary,
-                    )),
+                AppWidgets.backArrow(context,padding: EdgeInsets.all(rSize*0.010)),
                 Column(
                   children: [
                     Text(
@@ -76,7 +71,7 @@ class _PositionsState extends State<Positions> {
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Roboto',
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: FlutterFlowTheme.of(context).customColor4,
                             fontSize: rSize*0.025,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w600,
@@ -88,8 +83,9 @@ class _PositionsState extends State<Positions> {
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Roboto',
                             fontSize: rSize*0.02,
+                        color: FlutterFlowTheme.of(context).customColor4,
                             letterSpacing: 0.0,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                           ),
                     ),
                   ],
@@ -120,7 +116,7 @@ class _PositionsState extends State<Positions> {
                               item,
                               style: FlutterFlowTheme.of(context).bodySmall.override(
                                     fontFamily: 'Roboto',
-                                    color: FlutterFlowTheme.of(context).primaryText,
+                                    color: FlutterFlowTheme.of(context).customColor4,
                                     fontSize: rSize*0.014,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
@@ -136,11 +132,17 @@ class _PositionsState extends State<Positions> {
                           children: [
                             Icon(
                               Icons.sort_rounded,
-                              color: FlutterFlowTheme.of(context).secondaryText,
+                              color: FlutterFlowTheme.of(context).customColor4,
                               size: rSize*0.024,
                             ), // Custom icon for selected item
-                            SizedBox(width: 8),
-                            Text(item, style: TextStyle(fontWeight: FontWeight.bold)), // Custom text style
+                            SizedBox(width: rSize*0.008),
+                            Text(item, style: FlutterFlowTheme.of(context).bodySmall.override(
+                              fontFamily: 'Roboto',
+                              color: FlutterFlowTheme.of(context).customColor4,
+                              fontSize: rSize*0.016,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w500,
+                            )), // Custom text style
                           ],
                         );
                       }).toList();
@@ -166,13 +168,13 @@ class _PositionsState extends State<Positions> {
                     return AppWidgets.emptyView('No Positions Found', context);
                   }, itemBuilder: (context, item, index) {
                     String currency = item.referenceCurrency ?? '-';
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(rSize*0.010),
+                    return Container(
+                      decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: AppStyles.shadow(),
+                          borderRadius: BorderRadius.circular(rSize*0.01)
                       ),
                       margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
-                      elevation: 2,
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
                       child: ListView(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -199,12 +201,8 @@ class _PositionsState extends State<Positions> {
                                       width: rSize * 0.015,
                                     ),
                                     RotatedBox(
-                                        quarterTurns: _notifier.selectedPositionIndex == index ? 1 : 3,
-                                        child: Icon(
-                                          Icons.arrow_back_ios_new,
-                                          color: FlutterFlowTheme.of(context).primaryText,
-                                          size: rSize*0.015,
-                                        )),
+                                        quarterTurns: _notifier.selectedPositionIndex == index ? 1 : 4,
+                                        child: AppWidgets.doubleBack(context)),
                                   ],
                                 ),
                                 if (_notifier.selectedPositionIndex != index) ...{

@@ -87,13 +87,17 @@ class _MarketState extends State<Market> {
                   GestureDetector(
                     onTap: () => openFilterDialog(context),
                     child: Container(
-                      height: rSize * 0.045,
-                      width: rSize * 0.045,
-                      decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primary, borderRadius: BorderRadius.circular(rSize * 0.008)),
+                      decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: AppStyles.shadow(),
+                          borderRadius: BorderRadius.circular(rSize*0.01)
+                      ),
+                      height: rSize * 0.05,
+                      width: rSize * 0.05,
                       child: Icon(
                         Icons.filter_alt_outlined,
                         size: rSize * 0.025,
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: FlutterFlowTheme.of(context).primary,
                       ),
                     ),
                   ),
@@ -101,25 +105,33 @@ class _MarketState extends State<Market> {
                     width: rSize * 0.010,
                   ),
                   Expanded(
-                    child: TextField(
-                      controller: _notifier.searchController,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
-                            letterSpacing: 0.0,
-                          ),
-                      decoration: AppStyles.inputDecoration(context,hint: FFLocalizations.of(context).getText(
-                        'wzls4zjf' /* Type security name */,
-                      ),prefix: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Icon(Icons.search,size: rSize*0.025,),
-                      ),contentPadding: EdgeInsets.symmetric(vertical: rSize*0.017,horizontal: 20),focusColor: FlutterFlowTheme.of(context).primaryBackground),
-                      onChanged: (value) {
-                        if (_debounce?.isActive ?? false) _debounce?.cancel();
-                        _debounce = Timer(const Duration(milliseconds: 500), () async {
-                          pageKey = 1;
-                          _notifier.refresh();
-                        });
-                      },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: AppStyles.shadow(),
+                          borderRadius: BorderRadius.circular(rSize*0.01)
+                      ),
+                      child: TextField(
+                        controller: _notifier.searchController,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w500,
+                          color: FlutterFlowTheme.of(context).customColor4
+                            ),
+                        decoration: AppStyles.inputDecoration(context,hint: FFLocalizations.of(context).getText(
+                          'wzls4zjf' /* Type security name */,
+                        ),prefix: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: rSize*0.015),
+                          child: Icon(Icons.search,size: rSize*0.025,color: FlutterFlowTheme.of(context).customColor4,),
+                        ),contentPadding: EdgeInsets.symmetric(vertical: rSize*0.017,horizontal: 20),focusColor: Colors.transparent),
+                        onChanged: (value) {
+                          if (_debounce?.isActive ?? false) _debounce?.cancel();
+                          _debounce = Timer(const Duration(milliseconds: 500), () async {
+                            pageKey = 1;
+                            _notifier.refresh();
+                          });
+                        },
+                      ),
                     ),
                   ),
                 ],
@@ -252,8 +264,9 @@ class _MarketState extends State<Market> {
                 color: Colors.transparent,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                    borderRadius: BorderRadius.circular(rSize * 0.01),
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      boxShadow: AppStyles.shadow(),
+                      borderRadius: BorderRadius.circular(rSize*0.01)
                   ),
                   margin: EdgeInsets.symmetric(horizontal: rSize * 0.015),
                   child: StatefulBuilder(
@@ -279,7 +292,7 @@ class _MarketState extends State<Market> {
                                     ),
                                     style: FlutterFlowTheme.of(context).headlineMedium.override(
                                           fontFamily: 'Roboto',
-                                          color: FlutterFlowTheme.of(context).primary,
+                                          color: FlutterFlowTheme.of(context).customColor4,
                                           fontSize: rSize * 0.026,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
@@ -309,7 +322,8 @@ class _MarketState extends State<Market> {
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
                                         fontSize: rSize * 0.018,
-                                        letterSpacing: 0.0,
+                                        color: FlutterFlowTheme.of(context).customColor4,
+                                    fontWeight: FontWeight.w200
                                       ),
                                 ),
                               ),
@@ -328,10 +342,9 @@ class _MarketState extends State<Market> {
                                             item.name!,
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                                   fontFamily: 'Roboto',
-                                                  color: FlutterFlowTheme.of(context).primaryText,
                                                   fontSize: rSize * 0.014,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.normal,
+                                                  color: FlutterFlowTheme.of(context).customColor4,
+                                                  fontWeight: FontWeight.w500,
                                                 ),
                                           ),
                                         ))
@@ -352,7 +365,8 @@ class _MarketState extends State<Market> {
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
                                         fontSize: rSize * 0.018,
-                                        letterSpacing: 0.0,
+                                        color: FlutterFlowTheme.of(context).customColor4,
+                                    fontWeight: FontWeight.w200
                                       ),
                                 ),
                               ),
@@ -371,10 +385,10 @@ class _MarketState extends State<Market> {
                                             item.name!,
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                                   fontFamily: 'Roboto',
-                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                  color: FlutterFlowTheme.of(context).customColor4,
                                                   fontSize: rSize * 0.014,
                                                   letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.normal,
+                                                  fontWeight: FontWeight.w500,
                                                 ),
                                           ),
                                         ))
@@ -395,7 +409,8 @@ class _MarketState extends State<Market> {
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontFamily: 'Roboto',
                                         fontSize: rSize * 0.018,
-                                        letterSpacing: 0.0,
+                                        color: FlutterFlowTheme.of(context).customColor4,
+                                    fontWeight: FontWeight.w200
                                       ),
                                 ),
                               ),
@@ -414,10 +429,10 @@ class _MarketState extends State<Market> {
                                             item.name!,
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
                                                   fontFamily: 'Roboto',
-                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                  color: FlutterFlowTheme.of(context).customColor4,
                                                   fontSize: rSize * 0.014,
                                                   letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.normal,
+                                                  fontWeight: FontWeight.w500,
                                                 ),
                                           ),
                                         ))

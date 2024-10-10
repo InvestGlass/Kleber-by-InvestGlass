@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../login/on_boarding_page_widget.dart';
 import '../main_controller.dart';
+import '../utils/app_styles.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
 
@@ -129,22 +130,15 @@ class _ProfileState extends State<Profile> {
                   await SharedPrefUtils.instance.logout();
                   CommonFunctions.navigate(context, const OnBoardingPageWidget(), removeAllScreensFromStack: true);
                 },
-                child: Card(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(rSize*0.010),
-                  ),
-                  elevation: 2,
-                  child: AppWidgets.btn(
-                      context,
-                      FFLocalizations.of(context).getText(
-                        'c0xbwwci' /* Logout */,
-                      ),
-                      textColor: FlutterFlowTheme.of(context).primaryText,
-                      bgColor: FlutterFlowTheme.of(context).secondaryBackground,
-                      horizontalPadding: rSize*0.040,
-                      verticalPadding: rSize*0.017),
-                ),
+                child: AppWidgets.btn(
+                    context,
+                    FFLocalizations.of(context).getText(
+                      'c0xbwwci' /* Logout */,
+                    ),
+                    // textColor: FlutterFlowTheme.of(context).primaryText,
+                    // bgColor: FlutterFlowTheme.of(context).secondaryBackground,
+                    horizontalPadding: rSize*0.040,
+                    verticalPadding: rSize*0.017),
               ),
             ],
           ),
@@ -263,12 +257,12 @@ class _ProfileState extends State<Profile> {
   Widget cell(String title, void Function()? onTap) {
     return GestureDetector(
       onTap: onTap,
-      child: Card(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(rSize*0.010),
+      child: Container(
+        decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            boxShadow: AppStyles.shadow(),
+            borderRadius: BorderRadius.circular(rSize*0.01)
         ),
-        elevation: 2,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: rSize*0.015, vertical: rSize*0.02),
           child: Row(
@@ -279,15 +273,10 @@ class _ProfileState extends State<Profile> {
                 style: FlutterFlowTheme.of(context).labelMedium.override(
                       fontFamily: 'Roboto',
                       letterSpacing: 0.0,
+                  color: FlutterFlowTheme.of(context).customColor4,
                     ),
               )),
-              RotatedBox(
-                  quarterTurns: 2,
-                  child: Icon(
-                    Icons.arrow_back_ios_new,
-                    color: FlutterFlowTheme.of(context).secondaryText,
-                    size: rSize*0.015,
-                  ))
+              AppWidgets.doubleBack(context)
             ],
           ),
         ),

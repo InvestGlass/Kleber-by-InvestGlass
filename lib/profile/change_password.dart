@@ -39,14 +39,7 @@ class _ChangePasswordState extends State<ChangePassword> {
           FFLocalizations.of(context).getText(
             'afxtmzhw' /* Change Password */,
           ),
-          leading: GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Icon(
-              Icons.arrow_back_rounded,
-              color: FlutterFlowTheme.of(context).primaryText,
-              size: rSize*0.024,
-            ),
-          )),
+          leading: AppWidgets.backArrow(context)),
       body: Container(
         decoration: AppStyles.commonBg(context),
         child: Form(
@@ -63,7 +56,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
                         fontSize: rSize*0.016,
-                        letterSpacing: 0.0,
+                        color: FlutterFlowTheme.of(context).customColor4,
                         fontWeight: FontWeight.w500,
                       ),
                 ),
@@ -108,7 +101,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
                         fontSize: rSize*0.016,
-                        letterSpacing: 0.0,
+                    color: FlutterFlowTheme.of(context).customColor4,
                         fontWeight: FontWeight.w500,
                       ),
                 ),
@@ -156,7 +149,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
                         fontSize: rSize*0.016,
-                        letterSpacing: 0.0,
+                    color: FlutterFlowTheme.of(context).customColor4,
                         fontWeight: FontWeight.w500,
                       ),
                 ),

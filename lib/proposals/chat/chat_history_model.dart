@@ -34,7 +34,7 @@ class ChatHistoryModel {
   factory ChatHistoryModel.fromJson(Map<String, dynamic> json) => ChatHistoryModel(
     id: json["id"],
     title: json["title"],
-    comment: json["comment"],
+    comment: json["comment"]?.toString()??'',
     commentHtml: json["comment_html"],
     bullBear: json["bull_bear"],
     category: json["category"],

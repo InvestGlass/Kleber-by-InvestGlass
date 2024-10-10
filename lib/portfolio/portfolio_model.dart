@@ -49,7 +49,7 @@ class PortfolioModel {
     strategy: json["strategy"],
     concentration: Concentration.fromJson(json["concentration"]),
     cashFlowDistribution: CashFlowDistribution.fromJson(json["cash_flow_distribution"]),
-    netValue: json["net_value"],
+    netValue: json["net_value"]??'',
     portfolioValue: json["portfolio_value"],
     amountInvested: json["amount_invested"],
     cashAvailable: json["cash_available"],

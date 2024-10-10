@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../main.dart';
 import '../market/flutter_flow_video_player.dart';
+import '../utils/app_styles.dart';
 import '../utils/button_widget.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
@@ -78,146 +79,161 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
           widget.data!,
         );
       },
-      child: Card(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(rSize*0.010),
+      child: Container(
+        decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            boxShadow: AppStyles.shadow(),
+            borderRadius: BorderRadius.circular(rSize*0.01)
         ),
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: widget.bgColor ?? FlutterFlowTheme.of(context).secondaryBackground,
-            borderRadius: BorderRadius.circular(rSize*0.010),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: double.infinity,
+        margin: EdgeInsets.only(bottom: rSize*0.01),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: double.infinity,
+              height: rSize*0.250,
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).alternate,
+              ),
+              child: SizedBox(
                 height: rSize*0.250,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).alternate,
-                ),
-                child: SizedBox(
-                  height: rSize*0.250,
-                  child: Stack(
-                    children: [
-                      if (widget.data?.videoUrl != null &&
-                          widget.data?.videoUrl != '')
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: FlutterFlowVideoPlayer(
-                            path: widget.data!.videoUrl!,
-                            videoType: VideoType.network,
-                            width: double.infinity,
-                            height: rSize*0.250,
-                            autoPlay: false,
-                            looping: false,
-                            showControls: true,
-                            allowFullScreen: true,
-                            allowPlaybackSpeedMenu: true,
-                            lazyLoad: false,
-                          ),
+                child: Stack(
+                  children: [
+                    if (widget.data?.videoUrl != null &&
+                        widget.data?.videoUrl != '')
+                      Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: FlutterFlowVideoPlayer(
+                          path: widget.data!.videoUrl!,
+                          videoType: VideoType.network,
+                          width: double.infinity,
+                          height: rSize*0.250,
+                          autoPlay: false,
+                          looping: false,
+                          showControls: true,
+                          allowFullScreen: true,
+                          allowPlaybackSpeedMenu: true,
+                          lazyLoad: false,
                         ),
-                      if (widget.data?.videoUrl == null ||
-                          widget.data?.videoUrl == '')
-                        Stack(
-                          children: [
-                            if (widget.data?.imageUrl == null ||
-                                widget.data?.imageUrl == '')
-                              Image.asset(
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? 'assets/items_default.jpg'
-                                    : 'assets/items_default.jpg',
+                      ),
+                    if (widget.data?.videoUrl == null ||
+                        widget.data?.videoUrl == '')
+                      Stack(
+                        children: [
+                          if (widget.data?.imageUrl == null ||
+                              widget.data?.imageUrl == '')
+                            Image.asset(
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? 'assets/items_default.jpg'
+                                  : 'assets/items_default.jpg',
+                              width: double.infinity,
+                              height: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
+                          if (widget.data?.imageUrl != null &&
+                              widget.data?.imageUrl != '')
+                            Align(
+                              alignment: const AlignmentDirectional(0.0, 0.0),
+                              child: Image.network(
+                                widget.data!.imageUrl!,
                                 width: double.infinity,
                                 height: double.infinity,
                                 fit: BoxFit.cover,
                               ),
-                            if (widget.data?.imageUrl != null &&
-                                widget.data?.imageUrl != '')
-                              Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
-                                child: Image.network(
-                                  widget.data!.imageUrl!,
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                          ],
-                        ),
-                      Align(
-                        alignment: const AlignmentDirectional(1.0, -1.0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, rSize*0.015, 0.0, 0.0),
-                          child: Container(
-                            color: getColor(widget.data!.assetClassName!),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  rSize*0.010, rSize*0.005, rSize*0.015, rSize*0.005),
-                              child: Text(
-                                widget.data!.assetClassName!,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Roboto',
-                                      color: FlutterFlowTheme.of(context).info,
-                                      letterSpacing: 0.0,
-                                    ),
-                              ),
+                            ),
+                        ],
+                      ),
+                    Align(
+                      alignment: const AlignmentDirectional(1.0, -1.0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, rSize*0.015, 0.0, 0.0),
+                        child: Container(
+                          color: getColor(widget.data!.assetClassName!),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                rSize*0.010, rSize*0.005, rSize*0.015, rSize*0.005),
+                            child: Text(
+                              widget.data!.assetClassName!,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Roboto',
+                                    color: FlutterFlowTheme.of(context).info,
+                                    letterSpacing: 0.0,
+                                  ),
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(rSize*0.015, 0.0, rSize*0.015, rSize*0.015),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(rSize*0.015, 0.0, rSize*0.015, rSize*0.015),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
 
+                  Padding(
+                    padding:
+                    EdgeInsetsDirectional.fromSTEB(0.0, rSize*0.015, 0.0, 0.0),
+                    child: Text(
+                      widget.data!.name!,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Roboto',
+                        color: FlutterFlowTheme.of(context).primary,
+                        fontSize: rSize*0.018,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  if (widget.data?.isin != null && widget.data?.isin != '')
                     Padding(
                       padding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, rSize*0.015, 0.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       child: Text(
-                        widget.data!.name!,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        widget.data!.isin!,
+                        style: FlutterFlowTheme.of(context)
+                            .bodyMedium
+                            .override(
                           fontFamily: 'Roboto',
-                          color: FlutterFlowTheme.of(context).primary,
+                          color: FlutterFlowTheme.of(context).primaryText,
                           fontSize: rSize*0.018,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
-                    if (widget.data?.isin != null && widget.data?.isin != '')
-                      Padding(
-                        padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        child: Text(
-                          widget.data!.isin!,
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                            fontFamily: 'Roboto',
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            fontSize: rSize*0.018,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w500,
-                          ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        widget.data!.currencyName!,
+                        style: FlutterFlowTheme.of(context)
+                            .bodyMedium
+                            .override(
+                          fontFamily: 'Roboto',
+                          color: FlutterFlowTheme.of(context)
+                              .primaryText,
+                          fontSize: rSize*0.018,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Text(
-                          widget.data!.currencyName!,
+                      SizedBox(width: rSize*0.005,),
+                      Expanded(
+                        child: Text(
+                          widget.data?.price != null &&
+                              widget.data?.price != ''
+                              ? CommonFunctions.formatDoubleWithThousandSeperator(
+                              widget.data!.price!, false, 2)
+                              : 'N/A',
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -229,33 +245,13 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(width: rSize*0.005,),
-                        Expanded(
-                          child: Text(
-                            widget.data?.price != null &&
-                                widget.data?.price != ''
-                                ? CommonFunctions.formatDoubleWithThousandSeperator(
-                                widget.data!.price!, false, 2)
-                                : 'N/A',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                              fontFamily: 'Roboto',
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryText,
-                              fontSize: rSize*0.018,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ]
-                ),
+                      ),
+                    ],
+                  ),
+                ]
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

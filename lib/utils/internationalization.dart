@@ -974,7 +974,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'USD \$',
     },
     'h2vfcolj': {
-      'en': 'Transmit',
+      'en': 'TRANSMIT',
       'ar': 'نقل',
       'vi': 'Chuyển giao',
     },
@@ -1913,12 +1913,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'Đến',
     },
     'zw535eku': {
-      'en': 'Clear',
+      'en': 'CLEAR',
       'ar': 'يمسح',
       'vi': 'Xoá',
     },
     'r8wu2qe3': {
-      'en': 'Apply',
+      'en': 'APPLY',
       'ar': 'يتقدم',
       'vi': 'Áp dụng',
     },
@@ -2159,7 +2159,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // market_list_item
   {
     '7v8svtoq': {
-      'en': 'New Transaction',
+      'en': 'NEW TRANSACTION',
       'ar': 'معاملة جديدة',
       'vi': 'Giao dịch mới',
     },
@@ -2482,7 +2482,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // portfolio_list_item
   {
     '83o1ghax': {
-      'en': 'Net Value',
+      'en': 'NET VALUE',
       'ar': 'صافي القيمة',
       'vi': 'Giá trị ròng',
     },
@@ -2612,12 +2612,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'VẤN ĐỀ LỚN',
     },
     'd8zszkbn': {
-      'en': 'Positions',
+      'en': 'POSITIONS',
       'ar': 'المواقف',
       'vi': 'Vị trí',
     },
     'u192lk22': {
-      'en': 'Transactions',
+      'en': 'TRANSACTIONS',
       'ar': 'المعاملات',
       'vi': 'Giao dịch',
     },
