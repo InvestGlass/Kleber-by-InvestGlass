@@ -246,7 +246,7 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy>  with TickerProviderS
                       },
                       child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
                         '3esw1ind' /* Accept */,
-                      ),bgColor: _controller.accepted?FlutterFlowTheme.of(context).primary:AppColors.kHint,verticalPadding: 8),
+                      ),bgColor: _controller.accepted?FlutterFlowTheme.of(context).primary:AppColors.kHint),
                     ),
                   )
                 ],

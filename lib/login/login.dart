@@ -206,7 +206,7 @@ class _LoginState extends State<Login> {
                             },
                             child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
                               'rf7r2nk0' /* login */,
-                            ),horizontalPadding: rSize*0.08,verticalPadding: rSize*0.018,),
+                            ),horizontalPadding: rSize*0.08),
                           ),
                         ],
                       ),

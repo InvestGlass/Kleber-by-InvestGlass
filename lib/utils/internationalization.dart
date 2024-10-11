@@ -1803,12 +1803,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'Tùy chọn bộ lọc',
     },
     'filter': {
-      'en': 'Filter',
+      'en': 'FILTER',
       'ar': 'فلتر',
       'vi': 'Lọc',
     },
     'sort': {
-      'en': 'Sort',
+      'en': 'SORT',
       'ar': 'نوع',
       'vi': 'LOẠI',
     },
@@ -2390,7 +2390,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'Chợ',
     },
     't2nv4kvj': {
-      'en': 'Upload',
+      'en': 'UPLOAD',
       'ar': 'رفع',
       'vi': 'Tải lên',
     },

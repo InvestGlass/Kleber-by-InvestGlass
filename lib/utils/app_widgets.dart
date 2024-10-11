@@ -246,7 +246,6 @@ class AppWidgets {
   static Widget btn(BuildContext context, String label,
       {double? width,
       double horizontalPadding = 0,
-      double? verticalPadding,
       Widget? widget,
       bool borderOnly = false,
       Color? bgColor,
@@ -255,7 +254,7 @@ class AppWidgets {
       width: width,
       alignment: Alignment.center,
       decoration: gradiantDecoration(context, borderOnly: borderOnly, color: bgColor),
-      padding: EdgeInsets.symmetric(vertical: verticalPadding ?? rSize * 0.012, horizontal: horizontalPadding),
+      padding: EdgeInsets.symmetric(vertical: rSize * 0.017, horizontal: horizontalPadding),
       child: widget ??
           Text(
             label,
@@ -266,7 +265,7 @@ class AppWidgets {
                       letterSpacing: 0.0,
                     )
                 : FlutterFlowTheme.of(context).bodySmall.override(
-                      fontFamily: 'Lexend Deca',
+                      fontFamily: 'Roboto',
                       color: textColor ?? Colors.white,
                       fontSize: rSize*0.014,
                       letterSpacing: 0.0,

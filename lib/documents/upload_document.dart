@@ -213,8 +213,7 @@ class _UploadDocumentState extends State<UploadDocument> {
             ),
             textColor: Colors.white,
             bgColor: FlutterFlowTheme.of(context).primary,
-            horizontalPadding: rSize * 0.020,
-            verticalPadding: rSize * 0.005));
+            horizontalPadding: rSize * 0.020));
     /*return GestureDetector(
 
         child: Container(
