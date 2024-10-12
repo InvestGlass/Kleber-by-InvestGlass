@@ -1413,7 +1413,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'danh mục đầu tư',
     },
     'eg1yw963': {
-      'en': 'Transaction',
+      'en': 'Transactions',
       'ar': 'عملية',
       'vi': 'Giao dịch',
     },
@@ -2400,7 +2400,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'Tài liệu',
     },
     'o5wm04m6': {
-      'en': 'Market',
+      'en': 'MARKET',
       'ar': 'سوق',
       'vi': 'Chợ',
     },

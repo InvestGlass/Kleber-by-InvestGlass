@@ -99,7 +99,7 @@ class _ChatHistoryState extends State<ChatHistory> {
       ]),
       body: Container(
         height: double.infinity,
-        decoration: BoxDecoration(border: Border()),
+        decoration: const BoxDecoration(border: Border()),
         child: PagedListView<int, ChatHistoryModel>.separated(
           pagingController: _notifier.chatHistoryPagingController,
           reverse: true,
@@ -136,7 +136,6 @@ class _ChatHistoryState extends State<ChatHistory> {
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                 fontFamily: 'Roboto',
                                 fontSize: rSize * 0.016,
-                                letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
                               ),
                         ),

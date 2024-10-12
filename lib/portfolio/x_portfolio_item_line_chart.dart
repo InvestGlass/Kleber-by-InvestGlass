@@ -52,11 +52,14 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
 
   TrackballBehavior? _trackballBehavior;
 
+  // late List<String> data;
+  late TooltipBehavior _tooltip;
+
   @override
   void initState() {
     touchedValue = -1;
     super.initState();
-
+    _tooltip = TooltipBehavior(enable: true);
     _trackballBehavior = TrackballBehavior(
       enable: true,
       activationMode: ActivationMode.singleTap,
@@ -226,10 +229,10 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
           ),
         ),
         if (overIntialVisible) ...[
-          SizedBox(width: rSize*0.002),
+          SizedBox(width: rSize * 0.002),
           Icon(
             Icons.chevron_right_rounded,
-            size: rSize*0.025,
+            size: rSize * 0.025,
             color: Color(0xFF8C8C8C),
           ),
         ],
@@ -242,7 +245,25 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     return SizedBox(
       // width: widget.customWidth,
       height: widget.height,
-      child: widget.xLabels.isEmpty ? null : buildSFLineChart(),
+      child: widget.xLabels.isEmpty ? null : circularChart() /*buildSFLineChart()*/,
     );
+  }
+
+  circularChart() {
+    return SfCircularChart(tooltipBehavior: _tooltip, series: <CircularSeries<String, String>>[
+      DoughnutSeries<String, String>(
+          dataSource: widget.xLabels,innerRadius: '50%',
+          xValueMapper: (String data, _) => widget.xLabels[_],
+          yValueMapper: (String data, _) => widget.listY[_],
+          dataLabelSettings: DataLabelSettings(
+              textStyle: FlutterFlowTheme.of(context).displaySmall.override(
+                    fontFamily: 'Roboto',
+                    color: FlutterFlowTheme.of(context).customColor4,
+                    fontSize: rSize * 0.014,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.normal,
+                  ),color: Colors.white,),
+          name: 'Gold')
+    ]);
   }
 }

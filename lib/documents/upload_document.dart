@@ -98,7 +98,7 @@ class _UploadDocumentState extends State<UploadDocument> {
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Roboto',
                     fontSize: rSize * 0.02,
-                    letterSpacing: 0.0,
+                    color: FlutterFlowTheme.of(context).customColor4,
                     fontWeight: FontWeight.w500,
                   ),
             ),
@@ -159,7 +159,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Roboto',
                       fontSize: rSize * 0.02,
-                      letterSpacing: 0.0,
+                      color: FlutterFlowTheme.of(context).customColor4,
                       fontWeight: FontWeight.w500,
                     ),
               ),

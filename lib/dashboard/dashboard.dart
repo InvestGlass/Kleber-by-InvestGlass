@@ -239,8 +239,8 @@ class _DashboardState extends State<Dashboard> {
                   data: Icons.home,
                   size: rSize * 0.020,
                   padding: EdgeInsets.all(rSize * 0.015),
-                  customIcon: Transform.rotate(angle: 1.7, child: Icon(Icons.compare_arrows, size: rSize * 0.025, color: getColor(2)))),
-              label: FFLocalizations.of(context).getText('more')),
+                  customIcon: Image.asset('assets/more.png',color: getColor(2),)),
+              label: FFLocalizations.of(context).getText('more'),),
           BottomNavigationBarItem(
               icon:
                   AppStyles.iconBg(context, data: Icons.auto_graph, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015), color: getColor(3)),
@@ -498,7 +498,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         onTap: () {
                           Navigator.pop(context);
-                          CommonFunctions.navigate(context, ChatHistory(ProposalModel(advisor: Advisor(name: 'Static', phoneOffice: '123'))));
+                          CommonFunctions.navigate(context, ChatHistory(ProposalModel(advisor: Advisor(name: 'CHAT', phoneOffice: '123'))));
                         },
                       ),
                     ],

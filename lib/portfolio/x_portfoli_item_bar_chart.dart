@@ -16,6 +16,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../main.dart';
 import '../utils/flutter_flow_theme.dart';
+import '../utils/shared_pref_utils.dart';
 
 class XPortfoliItemBarChart extends StatefulWidget {
   const XPortfoliItemBarChart({
@@ -140,7 +141,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
   }
 
   Widget buildColumnChart() {
-    final isAr = false /*true if current language is arebic*/;
+    final isAr = (SharedPrefUtils.instance.getString(SELECTED_LANGUAGE) == 'ar');
     final initialVisibleMaximum = checkShowSecondColumn() ? 1.5 : 2.5;
     final overIntialVisible = widget.xLabels.length > (initialVisibleMaximum.floor() + 1);
     return Row(

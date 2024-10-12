@@ -652,7 +652,7 @@ class _DocumentsState extends State<Documents> {
                         ),
                         style: FlutterFlowTheme.of(context).headlineMedium.override(
                               fontFamily: 'Roboto',
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: FlutterFlowTheme.of(context).customColor4,
                               fontSize: rSize * 0.026,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
@@ -692,7 +692,7 @@ class _DocumentsState extends State<Documents> {
           ),
           Theme(
             data: ThemeData(
-              unselectedWidgetColor: FlutterFlowTheme.of(context).primaryText,
+              unselectedWidgetColor: FlutterFlowTheme.of(context).customColor4,
             ),
             child: Transform.scale(
               scale: rSize * 0.0012,
@@ -720,7 +720,7 @@ class _DocumentsState extends State<Documents> {
             ),
             style: FlutterFlowTheme.of(context).displaySmall.override(
                   fontFamily: 'Roboto',
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize * 0.016,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w500,
