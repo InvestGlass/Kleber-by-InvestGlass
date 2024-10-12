@@ -223,7 +223,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'Tài liệu',
     },
     'lh2w6q42': {
-      'en': 'Select ',
+      'en': 'SELECT ',
       'ar': 'يختار',
       'vi': 'Lựa chọn',
     },
@@ -1325,9 +1325,9 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'Cập nhật cuối cùng',
     },
     'ke604v9b': {
-      'en': 'Read proposal',
-      'ar': 'قراءة الاقتراح',
-      'vi': 'Đọc đề xuất',
+      'en': 'PREVIEW PROPOSAL',
+      'ar': 'عرض المعاينة',
+      'vi': 'XEM TRƯỚC ĐỀ XUẤT',
     },
     'prtogarh': {
       'en': 'I read the documents and agree to the terms of the proposal',
@@ -1379,13 +1379,18 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'الدردشة مع المستشار الخاص بك',
       'vi': 'Trò chuyện với cố vấn của bạn',
     },
+    'chat': {
+      'en': 'Chat',
+      'ar': 'محادثة',
+      'vi': 'trò chuyện',
+    },
     'dperp1f4': {
       'en': 'Schedule appointment',
       'ar': 'تحديد موعد',
       'vi': 'Lịch hẹn',
     },
     'mlj5814u': {
-      'en': 'Proposal',
+      'en': 'PROPOSAL',
       'ar': 'عرض',
       'vi': 'Đề xuất',
     },
@@ -1413,7 +1418,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'Giao dịch',
     },
     '1vddbh59': {
-      'en': 'Document',
+      'en': 'DOCUMENT',
       'ar': 'وثيقة',
       'vi': 'Tài liệu',
     },
@@ -1496,7 +1501,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'Lựa chọn yêu thích',
     },
     'yiyjkffh': {
-      'en': 'Refresh',
+      'en': 'REFRESH',
       'ar': 'ينعش',
       'vi': 'Làm mới',
     },
@@ -2324,6 +2329,16 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'مَلَفّ',
       'vi': 'danh mục đầu tư',
     },
+    'new_order': {
+      'en': 'New Order',
+      'ar': 'طلب جديد',
+      'vi': 'Đơn hàng mới',
+    },
+    'more': {
+      'en': 'More',
+      'ar': 'أكثر',
+      'vi': 'hơn',
+    },
     'a850huyh': {
       'en': 'Portfolio',
       'ar': 'مَلَفّ',
@@ -2613,6 +2628,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'd8zszkbn': {
       'en': 'POSITIONS',
+      'ar': 'المواقف',
+      'vi': 'Vị trí',
+    },
+    'position': {
+      'en': 'Positions',
       'ar': 'المواقف',
       'vi': 'Vị trí',
     },

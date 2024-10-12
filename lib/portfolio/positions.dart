@@ -37,9 +37,11 @@ class _PositionsState extends State<Positions> {
     super.initState();
   }
 
-  Future<void> _fetchPageActivity(BuildContext context,) async {
+  Future<void> _fetchPageActivity(
+    BuildContext context,
+  ) async {
     var notifier = Provider.of<PortfolioController>(context, listen: false);
-    List<PositionModel> list = await ApiCalls.getPositionList(context,_pageKey, widget.id, notifier.column, notifier.direction);
+    List<PositionModel> list = await ApiCalls.getPositionList(context, _pageKey, widget.id, notifier.column, notifier.direction);
     final isLastPage = list.length < 10;
     if (isLastPage) {
       _pagingController.appendLastPage(list);
@@ -53,49 +55,16 @@ class _PositionsState extends State<Positions> {
   Widget build(BuildContext context) {
     _notifier = Provider.of<PortfolioController>(context);
     return Scaffold(
-      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+      appBar: AppWidgets.appBar(
+          context,
+          FFLocalizations.of(context).getText(
+            'd8zszkbn' /* Position*/,
+          ),
+          leading: AppWidgets.backArrow(context)),
       body: Padding(
-        padding: EdgeInsets.only(left: rSize * 0.015, right: rSize * 0.015, top: rSize * 0.05),
+        padding: EdgeInsets.only(left: rSize * 0.015, right: rSize * 0.015, top: rSize * 0.015),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AppWidgets.backArrow(context,padding: EdgeInsets.all(rSize*0.010)),
-                Column(
-                  children: [
-                    Text(
-                      textAlign: TextAlign.center,
-                      FFLocalizations.of(context).getText(
-                        'qhszshsn' /* Position as of */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
-                            color: FlutterFlowTheme.of(context).customColor4,
-                            fontSize: rSize*0.025,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
-                    Text(
-                      textAlign: TextAlign.center,
-                      DateFormat('yyyy-MM-dd', FFLocalizations.of(context).languageCode).format(DateTime.now()),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
-                            fontSize: rSize*0.02,
-                        color: FlutterFlowTheme.of(context).customColor4,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w400,
-                          ),
-                    ),
-                  ],
-                ),
-                SizedBox()
-              ],
-            ),
-            SizedBox(
-              height: rSize * 0.02,
-            ),
             Row(
               children: [
                 Expanded(
@@ -117,7 +86,7 @@ class _PositionsState extends State<Positions> {
                               style: FlutterFlowTheme.of(context).bodySmall.override(
                                     fontFamily: 'Roboto',
                                     color: FlutterFlowTheme.of(context).customColor4,
-                                    fontSize: rSize*0.014,
+                                    fontSize: rSize * 0.014,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -133,16 +102,17 @@ class _PositionsState extends State<Positions> {
                             Icon(
                               Icons.sort_rounded,
                               color: FlutterFlowTheme.of(context).customColor4,
-                              size: rSize*0.024,
+                              size: rSize * 0.024,
                             ), // Custom icon for selected item
-                            SizedBox(width: rSize*0.008),
-                            Text(item, style: FlutterFlowTheme.of(context).bodySmall.override(
-                              fontFamily: 'Roboto',
-                              color: FlutterFlowTheme.of(context).customColor4,
-                              fontSize: rSize*0.016,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                            )), // Custom text style
+                            SizedBox(width: rSize * 0.008),
+                            Text(item,
+                                style: FlutterFlowTheme.of(context).bodySmall.override(
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.of(context).customColor4,
+                                      fontSize: rSize * 0.016,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                    )), // Custom text style
                           ],
                         );
                       }).toList();
@@ -172,8 +142,7 @@ class _PositionsState extends State<Positions> {
                       decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).secondaryBackground,
                           boxShadow: AppStyles.shadow(),
-                          borderRadius: BorderRadius.circular(rSize*0.01)
-                      ),
+                          borderRadius: BorderRadius.circular(rSize * 0.01)),
                       margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
                       child: ListView(
                         shrinkWrap: true,
@@ -192,7 +161,7 @@ class _PositionsState extends State<Positions> {
                                       style: FlutterFlowTheme.of(context).displaySmall.override(
                                             fontFamily: 'Roboto',
                                             color: FlutterFlowTheme.of(context).primaryText,
-                                            fontSize: rSize*0.016,
+                                            fontSize: rSize * 0.016,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -200,9 +169,7 @@ class _PositionsState extends State<Positions> {
                                     SizedBox(
                                       width: rSize * 0.015,
                                     ),
-                                    RotatedBox(
-                                        quarterTurns: _notifier.selectedPositionIndex == index ? 1 : 4,
-                                        child: AppWidgets.doubleBack(context)),
+                                    RotatedBox(quarterTurns: _notifier.selectedPositionIndex == index ? 1 : 4, child: AppWidgets.doubleBack(context)),
                                   ],
                                 ),
                                 if (_notifier.selectedPositionIndex != index) ...{
@@ -237,7 +204,7 @@ class _PositionsState extends State<Positions> {
                                       Container(
                                         decoration: BoxDecoration(
                                           // color: AppColors.kViolate.withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(rSize*0.015),
+                                          borderRadius: BorderRadius.circular(rSize * 0.015),
                                         ),
                                         // padding: EdgeInsets.all(rSize * 0.015),
                                         child: Column(
@@ -275,7 +242,8 @@ class _PositionsState extends State<Positions> {
                                                 FFLocalizations.of(context).getText(
                                                   'fbgy82bc' /* Last Price */,
                                                 ),
-                                                '$currency ${item.lastPrice ?? ' - '}'),
+                                                '$currency ${item.lastPrice ?? ' - '}',
+                                                richText: AppWidgets.buildRichText(context, '$currency ${item.lastPrice ?? ' - '}')),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
@@ -284,7 +252,8 @@ class _PositionsState extends State<Positions> {
                                                 FFLocalizations.of(context).getText(
                                                   'swv2ctiz' /* Cost Price */,
                                                 ),
-                                                '$currency ${item.costPrice ?? ' - '}'),
+                                                '$currency ${item.costPrice ?? ' - '}',
+                                                richText: AppWidgets.buildRichText(context, '$currency ${item.costPrice ?? ' - '}')),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
@@ -316,7 +285,9 @@ class _PositionsState extends State<Positions> {
                                                 FFLocalizations.of(context).getText(
                                                   'juhk5a4f' /* Amount */,
                                                 ),
-                                                '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('$currency ${item.amount}', (double.tryParse(item.amount!) ?? 0) == 0, 2)}'),
+                                                '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('$currency ${item.amount}', (double.tryParse(item.amount!) ?? 0) == 0, 2)}',
+                                                richText: AppWidgets.buildRichText(context,
+                                                    '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('$currency ${item.amount}', (double.tryParse(item.amount!) ?? 0) == 0, 2)}')),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
@@ -326,7 +297,6 @@ class _PositionsState extends State<Positions> {
                                                   'xai3n31z' /* Allocation */,
                                                 ),
                                                 item.allocation?.toString().replaceAll(' ', '') ?? '-'),
-
                                           ],
                                         ),
                                       ),
@@ -356,13 +326,13 @@ class _PositionsState extends State<Positions> {
       return FaIcon(
         FontAwesomeIcons.caretUp,
         color: FlutterFlowTheme.of(context).customColor2,
-        size: rSize*0.024,
+        size: rSize * 0.024,
       );
     } else {
       return FaIcon(
         FontAwesomeIcons.caretDown,
         color: FlutterFlowTheme.of(context).customColor3,
-        size: rSize*0.024,
+        size: rSize * 0.024,
       );
     }
   }

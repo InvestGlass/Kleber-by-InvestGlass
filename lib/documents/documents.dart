@@ -81,7 +81,7 @@ class _DocumentsState extends State<Documents> {
           _notifier.folderPathList.isNotEmpty
               ? _notifier.folderPathList.last.replaceAll('/', '')
               : FFLocalizations.of(context).getText(
-                  'dlgf18jl' /* Document */,
+                  '1vddbh59' /* Document */,
                 ),
           leading: AppWidgets.backArrow(context,onTap: () {
             if (_notifier.ancestryFolderList.isNotEmpty) {
@@ -746,7 +746,7 @@ class _DocumentsState extends State<Documents> {
             Icon(
               Icons.remove_red_eye,
               size: rSize * 0.025,
-              color: FlutterFlowTheme.of(context).primary,
+              color: FlutterFlowTheme.of(context).customColor4,
             ), () {
           CommonFunctions.navigate(
               context,
@@ -769,7 +769,7 @@ class _DocumentsState extends State<Documents> {
               Icon(
                 Icons.cloud_download_outlined,
                 size: rSize * 0.025,
-                color: FlutterFlowTheme.of(context).primary,
+                color: FlutterFlowTheme.of(context).customColor4,
               ), () {
             downloadDoc(item);
           }),
@@ -785,7 +785,7 @@ class _DocumentsState extends State<Documents> {
                 height: rSize * 0.025,
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
-                  FlutterFlowTheme.of(context).primary,
+                  FlutterFlowTheme.of(context).customColor4,
                   BlendMode.srcIn,
                 ),
               ), () {
@@ -828,7 +828,7 @@ class _DocumentsState extends State<Documents> {
             label,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Roboto',
-                  color: FlutterFlowTheme.of(context).primaryText,
+                  color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize * 0.016,
                   letterSpacing: 0,
                   fontWeight: FontWeight.w500,

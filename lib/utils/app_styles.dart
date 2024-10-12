@@ -119,7 +119,7 @@ class AppStyles {
     ];
   }
 
-  static iconBg(BuildContext context,{EdgeInsetsGeometry? margin,required IconData data,required double size,EdgeInsetsGeometry? padding,void Function()? onTap}){
+  static iconBg(BuildContext context,{EdgeInsetsGeometry? margin,required IconData data,required double size,EdgeInsetsGeometry? padding,void Function()? onTap,Widget? customIcon,Color? color}){
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -127,16 +127,35 @@ class AppStyles {
         padding: padding??EdgeInsets.zero,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(rSize*0.008),
-            color: FlutterFlowTheme.of(context).info,
-            boxShadow: AppStyles.shadow()
-        ),alignment: Alignment.center,
-        child: Icon(
+          color: FlutterFlowTheme.of(context).secondaryBackground,
+          gradient:LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: [0.0, 0.5, 1.0],
+            colors: [
+              FlutterFlowTheme
+                  .of(context).customColor6,
+              Colors.white,
+              FlutterFlowTheme
+                  .of(context)
+              .customColor6,
+            ],
+          ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.25),
+                spreadRadius: 3, // how wide the shadow is spread
+                blurRadius: 6, // how blurry the shadow is
+                offset: Offset(0, 0),
+              ),
+            ],
+        ),
+        child: customIcon??Icon(
           data,
           size: size,
-          color: FlutterFlowTheme.of(context).primary,
+          color: color??FlutterFlowTheme.of(context).primary,
         ),
-      ),
-    );
+    ));
   }
 
   static InputDecoration inputDecoration(BuildContext context,

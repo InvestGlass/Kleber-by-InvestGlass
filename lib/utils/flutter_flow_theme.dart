@@ -60,6 +60,7 @@ abstract class FlutterFlowTheme {
   late Color customColor2;
   late Color customColor3;
   late Color customColor4;
+  late Color customColor6;
   late Color grayLight;
   late Color customColor5;
   late Color bgTopGradient;
@@ -156,6 +157,7 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color customColor2 = const Color(0xFF1DB100);
   late Color customColor3 = const Color(0xFFFF3F16);
   late Color customColor4 = const Color(0xFFB1B1B1);
+  late Color customColor6 = const Color(0xFFEBEBEB);
   late Color grayLight = const Color(0xFF8B97A2);
   late Color customColor5 = const Color(0xFF8C8C8C);
   late Color bgTopGradient = const Color(0xFF325D80);
@@ -335,6 +337,7 @@ class DarkModeTheme extends FlutterFlowTheme {
   late Color customColor2 = const Color(0xFF2FD100);
   late Color customColor3 = const Color(0xFFFF5959);
   late Color customColor4 = const Color(0xFFB1B1B1);
+  late Color customColor6 = const Color(0xFFEBEBEB);
   late Color grayLight = const Color(0xFFC0BED3);
   late Color customColor5 = const Color(0xFF8F99A2);
   late Color bgTopGradient = const Color(0xFF325D80);

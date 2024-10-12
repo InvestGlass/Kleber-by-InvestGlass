@@ -111,15 +111,9 @@ class _ViewDocumentState extends State<ViewDocument> {
       appBar: AppWidgets.appBar(
           context,
           FFLocalizations.of(context).getText(
-            !widget.isProposal ? 'dlgf18jl' /* Document */ : 'mlj5814u' /* Proposal */,
+            !widget.isProposal ? '1vddbh59' /* Document */ : 'mlj5814u' /* Proposal */,
           ),
-          leading: GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Icon(
-                Icons.arrow_back,
-                size: rSize*0.025,
-                color: FlutterFlowTheme.of(context).primary,
-              )),
+          leading: AppWidgets.backArrow(context),
           centerTitle: true),
       body: child,
       bottomNavigationBar: (widget.item?.requestProposalApproval??false)

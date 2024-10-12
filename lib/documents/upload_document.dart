@@ -33,7 +33,7 @@ class _UploadDocumentState extends State<UploadDocument> {
       appBar: AppWidgets.appBar(
           context,
           FFLocalizations.of(context).getText(
-            '4kyuvn3o' /* Upload Document */,
+            '3hz1whes' /* Upload*/,
           ),centerTitle: true,
           leading: AppWidgets.backArrow(context)),
       body: Container(
@@ -110,10 +110,7 @@ class _UploadDocumentState extends State<UploadDocument> {
               maxLines: 3,
               controller: _notifier.descController,
               textAlign: TextAlign.start,
-              decoration: AppStyles.inputDecoration(context,
-                  hint: FFLocalizations.of(context).getText(
-                    'alsw67uc' /* Document's description */,
-                  )),
+              decoration: AppStyles.inputDecoration(context,),
             ),
             SizedBox(
               height: rSize * 0.02,
@@ -133,8 +130,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                         't2nv4kvj' /* Upload */,
                       ),
                       textColor: Colors.white,
-                      horizontalPadding: rSize * 0.03,
-                      bgColor: isButtonDisabled() ? AppColors.kHint : FlutterFlowTheme.of(context).primary),
+                      horizontalPadding: rSize * 0.03,),
                 ),
               ],
             )
@@ -167,7 +163,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                       fontWeight: FontWeight.w500,
                     ),
               ),
-              Text(
+              /*Text(
                 content,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Roboto',
@@ -176,7 +172,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.w600,
                     ),
-              )
+              )*/
             ],
           ),
         ),
@@ -212,7 +208,6 @@ class _UploadDocumentState extends State<UploadDocument> {
               'lh2w6q42' /* Select  */,
             ),
             textColor: Colors.white,
-            bgColor: FlutterFlowTheme.of(context).primary,
             horizontalPadding: rSize * 0.020));
     /*return GestureDetector(
 

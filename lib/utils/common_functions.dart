@@ -206,6 +206,7 @@ class CommonFunctions{
       bool hideDecimalIfIs0,
       int numberOfDecimal,
       ) {
+    hideDecimalIfIs0=false;
     final value = double.tryParse(doubleStr.replaceAll(',', '')) ?? 0;
     if (value != 0 && value ~/ math.pow(10, 15) > 0) {
       return value.toStringAsPrecision(15);

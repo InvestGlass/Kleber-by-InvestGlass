@@ -39,7 +39,7 @@ class TransactionModel {
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) => TransactionModel(
     id: json["id"],
-    openPrice: double.tryParse(json["open_price"]?.toString()??'0')??0.0,
+    openPrice: double.tryParse(json["open_price"]?.toString()??'0.0')??0.0,
     openRate: json["open_rate"],
     quantity: json["quantity"],
     amount: json["amount"],

@@ -191,8 +191,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                       ),
                 )),
             if (!_notifier.refresh) ...{
-              SizedBox(
-                height: 350,
+              Image.asset('assets/home_placeholder.png'),
+              Visibility(
+                  visible: false,
+                  child: SizedBox(
+                height: rSize * 0.350,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -202,14 +205,14 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                         'g2rxi1c1' /* Favourite selection */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
-                            fontFamily: 'Roboto',
-                            color: FlutterFlowTheme.of(context).customColor4,
-                            fontSize: rSize * 0.02,
-                            letterSpacing: 0.0,
-                          ),
+                        fontFamily: 'Roboto',
+                        color: FlutterFlowTheme.of(context).customColor4,
+                        fontSize: rSize * 0.02,
+                        letterSpacing: 0.0,
+                      ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: rSize * 0.01,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -228,8 +231,9 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                     ),
                   ],
                 ),
-              ),
+              )),
             } else ...{
+
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -340,11 +344,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                       'yj6g8w9q' /* Swipe left */,
                                     ),
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                          fontFamily: 'Roboto',
-                                          color: FlutterFlowTheme.of(context).customColor4,
-                                          fontSize: rSize * 0.016,
-                                          letterSpacing: 0.0,
-                                        ),
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.of(context).customColor4,
+                                      fontSize: rSize * 0.016,
+                                      letterSpacing: 0.0,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -391,11 +395,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                       '35ozpi3w' /* Swipe right */,
                                     ),
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                          fontFamily: 'Roboto',
-                                          color: FlutterFlowTheme.of(context).customColor4,
-                                          fontSize: rSize * 0.016,
-                                          letterSpacing: 0.0,
-                                        ),
+                                      fontFamily: 'Roboto',
+                                      color: FlutterFlowTheme.of(context).customColor4,
+                                      fontSize: rSize * 0.016,
+                                      letterSpacing: 0.0,
+                                    ),
                                   ),
                                 ),
                                 Icon(

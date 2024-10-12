@@ -33,27 +33,49 @@ class _ProfileState extends State<Profile> {
     _mainNotifier = Provider.of<MainController>(context);
     return Scaffold(
       backgroundColor: Colors.transparent,
+      bottomNavigationBar: Wrap(
+        children: [
+          GestureDetector(
+            onTap: () async {
+              await SharedPrefUtils.instance.logout();
+              CommonFunctions.navigate(context, const OnBoardingPageWidget(), removeAllScreensFromStack: true);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppWidgets.btn(
+                    context,
+                    FFLocalizations.of(context).getText(
+                      'c0xbwwci' /* Logout */,
+                    ),
+                    margin: EdgeInsets.only(bottom: rSize*0.015),
+                    horizontalPadding: rSize*0.040),
+              ],
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: MediaQuery.of(context).padding.top + 10),
         children: [
           Text(
-            SharedPrefUtils.instance.getUserData().user!.username!,
+            SharedPrefUtils.instance.getUserData().user!.id!.toString(),
             style: FlutterFlowTheme.of(context).headlineSmall.override(
                   fontFamily: 'Roboto',
                   fontSize: rSize*0.02,
                   letterSpacing: 0.0,
                 ),
           ),
-          Text(
+          /*Text(
             SharedPrefUtils.instance.getUserData().user!.email!,
             style: FlutterFlowTheme.of(context).bodySmall.override(
-                  fontFamily: 'Outfit',
+                  fontFamily: 'Roboto',
                   color: FlutterFlowTheme.of(context).primary,
                   fontSize: rSize*0.016,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.normal,
                 ),
-          ),
+          ),*/
           SizedBox(
             height: rSize * 0.03,
           ),
@@ -122,25 +144,15 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: rSize * 0.015,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () async {
-                  await SharedPrefUtils.instance.logout();
-                  CommonFunctions.navigate(context, const OnBoardingPageWidget(), removeAllScreensFromStack: true);
-                },
-                child: AppWidgets.btn(
-                    context,
-                    FFLocalizations.of(context).getText(
-                      'c0xbwwci' /* Logout */,
-                    ),
-                    // textColor: FlutterFlowTheme.of(context).primaryText,
-                    // bgColor: FlutterFlowTheme.of(context).secondaryBackground,
-                    horizontalPadding: rSize*0.040),
-              ),
-            ],
+          Text(
+            'Authorization code 721864 to communicate to support',
+            style: FlutterFlowTheme.of(context).headlineSmall.override(
+              fontFamily: 'Roboto',
+              fontSize: rSize*0.016,
+              color:FlutterFlowTheme.of(context).customColor4
+            ),
           ),
+
         ],
       ),
     );

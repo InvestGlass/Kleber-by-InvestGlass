@@ -167,6 +167,9 @@ class AppWidgets {
               ),
         ),
         if (middleValue.isNotEmpty) ...{
+          if(isAmount(middleValue))...{
+            buildRichText(context, middleValue)
+          }else...{
           Text(
             middleValue,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -174,7 +177,7 @@ class AppWidgets {
                   fontSize: rSize*0.016,
                   letterSpacing: 0.0,
                 ),
-          )
+          )}
         },
         if (middleValue.isEmpty) ...{
           SizedBox(
@@ -197,8 +200,7 @@ class AppWidgets {
                 ),
               ),
             )
-          }
-          ,
+          },
           if (icon != null) ...{
             SizedBox(
               width: 10,
@@ -220,6 +222,8 @@ class AppWidgets {
       ],
     );
   }
+
+  static bool isAmount(String middleValue) => middleValue.contains(' ') && middleValue.contains('.');
 
   static emptyView(String msg, BuildContext context) {
     return Column(
@@ -249,10 +253,12 @@ class AppWidgets {
       Widget? widget,
       bool borderOnly = false,
       Color? bgColor,
+        EdgeInsetsGeometry? margin,
       Color? textColor}) {
     return Container(
       width: width,
       alignment: Alignment.center,
+      margin: margin,
       decoration: gradiantDecoration(context, borderOnly: borderOnly, color: bgColor),
       padding: EdgeInsets.symmetric(vertical: rSize * 0.017, horizontal: horizontalPadding),
       child: widget ??
@@ -449,6 +455,69 @@ class AppWidgets {
         ),
       ),
       centerTitle: true,
+    );
+  }
+
+  static RichText buildRichText(BuildContext context, String value) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: (value.split(' ')[1]).split('.')[0],
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+              fontFamily: 'Roboto',
+              color: FlutterFlowTheme.of(context).primaryText,
+              fontSize: rSize * 0.016,
+              letterSpacing: 0,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          TextSpan(
+            text: '.${(value.split(' ')[1]).split('.')[1]}',
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+              fontFamily: 'Roboto',
+              color: FlutterFlowTheme.of(context).customColor4,
+              fontSize: rSize * 0.016,
+              letterSpacing: 0,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          TextSpan(
+            text: ' ${value.split(' ')[0]}',
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+              fontFamily: 'Roboto',
+              color: FlutterFlowTheme.of(context).customColor4,
+              fontSize: rSize * 0.016,
+              letterSpacing: 0,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+          if (value.split(' ').length > 2) ...{
+            TextSpan(
+              text: ' ${value.split(' ')[2]}',
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                fontFamily: 'Roboto',
+                color: FlutterFlowTheme.of(context).primaryText,
+                fontSize: rSize * 0.016,
+                letterSpacing: 0,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          },
+          if (value.split(' ').length > 3) ...{
+            TextSpan(
+              text: value.split(' ')[3],
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                fontFamily: 'Roboto',
+                color: FlutterFlowTheme.of(context).primaryText,
+                fontSize: rSize * 0.016,
+                letterSpacing: 0,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          }
+        ],
+      ),
     );
   }
 
