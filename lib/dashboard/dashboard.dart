@@ -200,10 +200,10 @@ class _DashboardState extends State<Dashboard> {
         backgroundColor: FlutterFlowTheme.of(context).info,
         currentIndex: _controller.selectedIndex,
         onTap: (value) {
-          if (value!=2) {
+          if (value != 2) {
             _controller.changeIndex(value);
             pagingController.animateToPage(value, duration: Duration(microseconds: 500), curve: Curves.bounceInOut);
-          }else{
+          } else {
             showOptions();
           }
         },
@@ -228,20 +228,25 @@ class _DashboardState extends State<Dashboard> {
         unselectedItemColor: FlutterFlowTheme.of(context).customColor4,
         items: [
           BottomNavigationBarItem(
-              icon: AppStyles.iconBg(context, data: Icons.home, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015),color: getColor(0)),
+              icon: AppStyles.iconBg(context, data: Icons.home, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015), color: getColor(0)),
               label: FFLocalizations.of(context).getText('fiha8uf5' /* Home */)),
           BottomNavigationBarItem(
-              icon: AppStyles.iconBg(context, data: Icons.add_chart_outlined, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015),color: getColor(1)),
+              icon: AppStyles.iconBg(context,
+                  data: Icons.add_chart_outlined, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015), color: getColor(1)),
               label: FFLocalizations.of(context).getText('xn2nrgyp' /* Portfolio */)),
           BottomNavigationBarItem(
-              icon: AppStyles.iconBg(context, data: Icons.home, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015),customIcon: Transform.rotate(angle: 1.7,
-                  child: Icon(Icons.compare_arrows,size: rSize*0.025,color: getColor(2)))),
-              label:FFLocalizations.of(context).getText('more')),
+              icon: AppStyles.iconBg(context,
+                  data: Icons.home,
+                  size: rSize * 0.020,
+                  padding: EdgeInsets.all(rSize * 0.015),
+                  customIcon: Transform.rotate(angle: 1.7, child: Icon(Icons.compare_arrows, size: rSize * 0.025, color: getColor(2)))),
+              label: FFLocalizations.of(context).getText('more')),
           BottomNavigationBarItem(
-              icon: AppStyles.iconBg(context, data: Icons.auto_graph, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015),color: getColor(3)),
+              icon:
+                  AppStyles.iconBg(context, data: Icons.auto_graph, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015), color: getColor(3)),
               label: FFLocalizations.of(context).getText('nkifu7jq' /* Proposal */)),
           BottomNavigationBarItem(
-              icon: AppStyles.iconBg(context, data: Icons.face, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015),color: getColor(4)),
+              icon: AppStyles.iconBg(context, data: Icons.face, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015), color: getColor(4)),
               label: FFLocalizations.of(context).getText('w5wtcpj4' /* Profile */)),
         ],
       ),
@@ -417,8 +422,7 @@ class _DashboardState extends State<Dashboard> {
                 decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     boxShadow: AppStyles.shadow(),
-                    borderRadius: BorderRadius.circular(rSize*0.01)
-                ),
+                    borderRadius: BorderRadius.circular(rSize * 0.01)),
                 margin: EdgeInsets.only(bottom: rSize * 0.11, left: rSize * 0.030, right: rSize * 0.030),
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: rSize * 0.010, horizontal: rSize * 0.020),
@@ -428,7 +432,11 @@ class _DashboardState extends State<Dashboard> {
                     children: [
                       actionMenuItem(
                         context,
-                        AppStyles.iconBg(context, data: Icons.file_copy, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015),color: FlutterFlowTheme.of(context).customColor4),
+                        AppStyles.iconBg(context,
+                            data: Icons.file_copy,
+                            size: rSize * 0.020,
+                            padding: EdgeInsets.all(rSize * 0.015),
+                            color: FlutterFlowTheme.of(context).customColor4),
                         FFLocalizations.of(context).getText(
                           '13mzcnly' /* Document */,
                         ),
@@ -437,20 +445,22 @@ class _DashboardState extends State<Dashboard> {
                           CommonFunctions.navigate(context, const Documents());
                         },
                       ),
-                      SizedBox(
-                        width: rSize * 0.02,
-                      ),
+
                       actionMenuItem(
                         context,
-                        AppStyles.iconBg(context, data: Icons.home, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015),customIcon:SvgPicture.asset(
-                          Theme.of(context).brightness == Brightness.dark
-                              ? 'assets/money-bill-trend-up-solid-dark-theme.svg'
-                              : 'assets/money-bill-trend-up-solid.svg',
-                          fit: BoxFit.contain,
-                          color: FlutterFlowTheme.of(context).customColor4,
-                          height: rSize * 0.025,
-                          width: rSize * 0.025,
-                        ) ),
+                        AppStyles.iconBg(context,
+                            data: Icons.home,
+                            size: rSize * 0.020,
+                            padding: EdgeInsets.all(rSize * 0.015),
+                            customIcon: SvgPicture.asset(
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? 'assets/money-bill-trend-up-solid-dark-theme.svg'
+                                  : 'assets/money-bill-trend-up-solid.svg',
+                              fit: BoxFit.contain,
+                              color: FlutterFlowTheme.of(context).customColor4,
+                              height: rSize * 0.025,
+                              width: rSize * 0.025,
+                            )),
                         FFLocalizations.of(context).getText(
                           'o5wm04m6' /* Market */,
                         ),
@@ -459,12 +469,14 @@ class _DashboardState extends State<Dashboard> {
                           CommonFunctions.navigate(context, const Market());
                         },
                       ),
-                      SizedBox(
-                        width: rSize * 0.02,
-                      ),
+
                       actionMenuItem(
                         context,
-                        AppStyles.iconBg(context, data: FontAwesomeIcons.upload, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015),color: FlutterFlowTheme.of(context).customColor4),
+                        AppStyles.iconBg(context,
+                            data: FontAwesomeIcons.upload,
+                            size: rSize * 0.020,
+                            padding: EdgeInsets.all(rSize * 0.015),
+                            color: FlutterFlowTheme.of(context).customColor4),
                         FFLocalizations.of(context).getText(
                           '3hz1whes' /* Upload */,
                         ),
@@ -473,18 +485,20 @@ class _DashboardState extends State<Dashboard> {
                           CommonFunctions.navigate(context, const UploadDocument());
                         },
                       ),
-                      SizedBox(
-                        width: rSize * 0.02,
-                      ),
+
                       actionMenuItem(
                         context,
-                        AppStyles.iconBg(context, data: FontAwesomeIcons.message, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015),color: FlutterFlowTheme.of(context).customColor4),
+                        AppStyles.iconBg(context,
+                            data: FontAwesomeIcons.message,
+                            size: rSize * 0.020,
+                            padding: EdgeInsets.all(rSize * 0.015),
+                            color: FlutterFlowTheme.of(context).customColor4),
                         FFLocalizations.of(context).getText(
                           'chat',
                         ),
                         onTap: () {
                           Navigator.pop(context);
-                          CommonFunctions.navigate(context, ChatHistory(ProposalModel(advisor: Advisor(name: 'Static',phoneOffice:'123'))));
+                          CommonFunctions.navigate(context, ChatHistory(ProposalModel(advisor: Advisor(name: 'Static', phoneOffice: '123'))));
                         },
                       ),
                     ],
@@ -521,7 +535,7 @@ class _DashboardState extends State<Dashboard> {
   }
 
   getColor(int i) {
-    if(_controller.selectedIndex==i){
+    if (_controller.selectedIndex == i) {
       return FlutterFlowTheme.of(context).primary;
     }
     return FlutterFlowTheme.of(context).customColor4;
