@@ -158,7 +158,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                   constraints: BoxConstraints(
                     maxWidth: MediaQuery.sizeOf(context).width * 0.9,
                   ),
-                  margin: EdgeInsets.only(right: rSize*0.01),
+                  margin: EdgeInsets.symmetric(horizontal: rSize*0.01),
                   decoration: BoxDecoration(
                     color: isMe(item)?FlutterFlowTheme.of(context).info:FlutterFlowTheme.of(context).secondary.withOpacity(0.2),
                     borderRadius: BorderRadius.only(
@@ -183,7 +183,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize * 0.005, rSize*0.01, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(rSize*0.01, rSize * 0.005, rSize*0.01, 0.0),
                   child: Text(
                     CommonFunctions.dateTimeFormat(
                       'HH:mm',
