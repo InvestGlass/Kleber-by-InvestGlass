@@ -1427,6 +1427,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'عرض',
       'vi': 'Đề xuất',
     },
+    'hello': {
+      'en': 'Hello! How can I assist you?',
+      'ar': 'مرحبًا! كيف يمكنني مساعدتك؟',
+      'vi': 'Xin chào! Tôi có thể giúp gì cho bạn?',
+    },
     'jmpup8vw': {
       'en': 'Home',
       'ar': 'بيت',

@@ -81,7 +81,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
       },
       child: Container(
         decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).secondaryBackground,
+            color: widget.bgColor??FlutterFlowTheme.of(context).secondaryBackground,
             boxShadow: AppStyles.shadow(),
             borderRadius: BorderRadius.circular(rSize*0.01)
         ),

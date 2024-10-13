@@ -245,7 +245,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     return SizedBox(
       // width: widget.customWidth,
       height: widget.height,
-      child: widget.xLabels.isEmpty ? null : circularChart() /*buildSFLineChart()*/,
+      child: widget.xLabels.isEmpty ? null : /*circularChart()*/ buildSFLineChart(),
     );
   }
 

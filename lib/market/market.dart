@@ -97,7 +97,7 @@ class _MarketState extends State<Market> {
                       child: Icon(
                         Icons.filter_alt_outlined,
                         size: rSize * 0.025,
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: FlutterFlowTheme.of(context).customColor4,
                       ),
                     ),
                   ),
@@ -123,7 +123,7 @@ class _MarketState extends State<Market> {
                         ),prefix: Padding(
                           padding: EdgeInsets.symmetric(horizontal: rSize*0.015),
                           child: Icon(Icons.search,size: rSize*0.025,color: FlutterFlowTheme.of(context).customColor4,),
-                        ),contentPadding: EdgeInsets.symmetric(vertical: rSize*0.017,horizontal: 20),focusColor: Colors.transparent),
+                        ),contentPadding: EdgeInsets.symmetric(vertical: rSize*0.017,horizontal: rSize*0.020),focusColor: Colors.transparent),
                         onChanged: (value) {
                           if (_debounce?.isActive ?? false) _debounce?.cancel();
                           _debounce = Timer(const Duration(milliseconds: 500), () async {

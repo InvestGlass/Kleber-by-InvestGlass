@@ -93,7 +93,9 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                     Padding(
                       padding: EdgeInsets.only(left: rSize * 0.015, bottom: rSize * 0.015, top: rSize * 0.015),
                       child: Text(
-                        'Hello! How can I assist you?',
+                        FFLocalizations.of(context).getText(
+                          'hello',
+                        ),
                         style: FlutterFlowTheme.of(context).displaySmall.override(
                               fontFamily: 'Roboto',
                               color: FlutterFlowTheme.of(context).primaryText,

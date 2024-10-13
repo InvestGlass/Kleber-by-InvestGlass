@@ -126,18 +126,17 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                     width: rSize * 0.27,
                                     margin: EdgeInsets.only(top: rSize * 0.005),
                                     alignment: Alignment.centerLeft,
-                                    child: AutoSizeText(
+                                    child: Text(
                                       model.title ?? '',
                                       maxLines: 2,
-                                      minFontSize: 12.0,
                                       style: FlutterFlowTheme.of(context).titleMedium.override(
-                                            fontFamily: 'Roboto',
-                                            color: FlutterFlowTheme.of(context).customColor4,
-                                            fontSize: rSize * 0.018,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w500,
-                                            lineHeight: 1.2,
-                                          ),
+                                        fontFamily: 'Roboto',
+                                        color: FlutterFlowTheme.of(context).customColor4,
+                                        fontSize: rSize * 0.014,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                        lineHeight: 1.2,
+                                      ),
                                     )),
                                 SizedBox(
                                   height: rSize * 0.01,
@@ -151,9 +150,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                     alignment: const AlignmentDirectional(0.0, 0.0),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(rSize * 0.010, rSize * 0.005, rSize * 0.010, rSize * 0.005),
-                                      child: AutoSizeText(
+                                      child: Text(
                                         DateFormat('yyyy-MM-dd').format(model.date ?? DateTime.now()),
-                                        minFontSize: 1.0,
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                               fontFamily: 'Roboto',
                                               color: FlutterFlowTheme.of(context).info,
