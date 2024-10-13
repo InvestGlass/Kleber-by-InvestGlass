@@ -33,7 +33,7 @@ class _UploadDocumentState extends State<UploadDocument> {
       appBar: AppWidgets.appBar(
           context,
           FFLocalizations.of(context).getText(
-            '3hz1whes' /* Upload*/,
+            't2nv4kvj' /* Upload*/,
           ),centerTitle: true,
           leading: AppWidgets.backArrow(context)),
       body: Container(

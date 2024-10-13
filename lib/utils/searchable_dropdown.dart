@@ -92,10 +92,19 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
             buttonStyleData: ButtonStyleData(
               padding: EdgeInsets.symmetric(horizontal: rSize*0.016),
               height: rSize*0.040,
-              width: rSize*0.200,
+              width: rSize*0.200,decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).secondaryBackground,
+              borderRadius: BorderRadius.circular(rSize*0.010),
+              border: Border.all(
+                color: FlutterFlowTheme.of(context).alternate,
+                width: 2,
+              ), // Set the dropdown corner radius here
+            ),
             ),
             dropdownStyleData: DropdownStyleData(
-              maxHeight: rSize*0.200,
+              maxHeight: rSize*0.200,scrollbarTheme: ScrollbarThemeData(
+              thumbColor: WidgetStateProperty.all(Colors.transparent), // Change the scrollbar color here
+            ),
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
                 borderRadius: BorderRadius.circular(rSize*0.010),
@@ -114,6 +123,10 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                     searchController: textEditingController,
                     searchInnerWidgetHeight: rSize*0.050,
                     searchInnerWidget: Container(
+                      decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: AppStyles.shadow(),
+                          borderRadius: BorderRadius.circular(rSize * 0.01)),
                       margin: EdgeInsets.only(top: rSize*0.010, left: rSize*0.010, right: rSize*0.010),
                       child: TextFormField(
                         maxLines: 1,
@@ -128,7 +141,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                             hint: widget.searchHint,
                             fillColor: Colors.transparent,
                             borderWidth: 0.2,
-                            focusColor: FlutterFlowTheme.of(context).primaryText,
+                            focusColor: FlutterFlowTheme.of(context).customColor4,
                             contentPadding:EdgeInsets.symmetric(vertical: rSize*0.01, horizontal: rSize*0.01)),
                       ),
                     ),

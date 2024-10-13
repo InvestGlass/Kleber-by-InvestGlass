@@ -264,7 +264,7 @@ class _MarketState extends State<Market> {
                 color: Colors.transparent,
                 child: Container(
                   decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: FlutterFlowTheme.of(context).primaryBackground,
                       boxShadow: AppStyles.shadow(),
                       borderRadius: BorderRadius.circular(rSize*0.01)
                   ),
@@ -305,7 +305,7 @@ class _MarketState extends State<Market> {
                                     child: Icon(
                                       Icons.close,
                                       size:rSize*0.025,
-                                      color: FlutterFlowTheme.of(context).primary,
+                                      color: FlutterFlowTheme.of(context).customColor4,
                                     ),
                                   )
                                 ],
@@ -315,17 +315,10 @@ class _MarketState extends State<Market> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize * 0.010),
-                                child: Text(
-                                  FFLocalizations.of(context).getText(
+                                child: AppWidgets.label(context,FFLocalizations.of(context).getText(
                                     '1p01lh7n' /* Asset Class */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'Roboto',
-                                        fontSize: rSize * 0.018,
-                                        color: FlutterFlowTheme.of(context).customColor4,
-                                    fontWeight: FontWeight.w200
-                                      ),
-                                ),
+                                  )
+                ),
                               ),
                               SearchableDropdown(
                                 selectedValue: selectedAssetClass,
@@ -358,17 +351,10 @@ class _MarketState extends State<Market> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize * 0.010),
-                                child: Text(
-                                  FFLocalizations.of(context).getText(
+                                child: AppWidgets.label(context,FFLocalizations.of(context).getText(
                                     'zfneqwjq' /* Industry */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'Roboto',
-                                        fontSize: rSize * 0.018,
-                                        color: FlutterFlowTheme.of(context).customColor4,
-                                    fontWeight: FontWeight.w200
-                                      ),
-                                ),
+                                  )
+                ),
                               ),
                               SearchableDropdown(
                                 selectedValue: selectedIndustry,
@@ -402,17 +388,10 @@ class _MarketState extends State<Market> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize * 0.010),
-                                child: Text(
-                                  FFLocalizations.of(context).getText(
+                                child: AppWidgets.label(context,FFLocalizations.of(context).getText(
                                     'nkjefkra' /* Currency */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'Roboto',
-                                        fontSize: rSize * 0.018,
-                                        color: FlutterFlowTheme.of(context).customColor4,
-                                    fontWeight: FontWeight.w200
-                                      ),
-                                ),
+                                  )
+                ),
                               ),
                               SearchableDropdown(
                                 selectedValue: selectedCurrency,

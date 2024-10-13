@@ -186,7 +186,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                       widget.data!.name!,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
-                        color: FlutterFlowTheme.of(context).primary,
+                        color:FlutterFlowTheme.of(context).customColor4,
                         fontSize: rSize*0.018,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
@@ -194,20 +194,16 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                     ),
                   ),
                   if (widget.data?.isin != null && widget.data?.isin != '')
-                    Padding(
-                      padding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      child: Text(
-                        widget.data!.isin!,
-                        style: FlutterFlowTheme.of(context)
-                            .bodyMedium
-                            .override(
-                          fontFamily: 'Roboto',
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          fontSize: rSize*0.018,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    Text(
+                      widget.data!.isin!,
+                      style: FlutterFlowTheme.of(context)
+                          .bodyMedium
+                          .override(
+                        fontFamily: 'Roboto',
+                        color:FlutterFlowTheme.of(context).customColor4,
+                        fontSize: rSize*0.018,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   Row(
@@ -219,8 +215,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                             .bodyMedium
                             .override(
                           fontFamily: 'Roboto',
-                          color: FlutterFlowTheme.of(context)
-                              .primaryText,
+                          color:FlutterFlowTheme.of(context).customColor4,
                           fontSize: rSize*0.018,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
@@ -238,8 +233,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                               .bodyMedium
                               .override(
                             fontFamily: 'Roboto',
-                            color: FlutterFlowTheme.of(context)
-                                .primaryText,
+                            color:FlutterFlowTheme.of(context).customColor4,
                             fontSize: rSize*0.018,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,

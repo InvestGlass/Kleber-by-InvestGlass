@@ -237,6 +237,12 @@ class _ProfileState extends State<Profile> {
               child: Radio(
                 value: value,
                 activeColor: FlutterFlowTheme.of(context).customColor4,
+                fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+                  if (states.contains(MaterialState.selected)) {
+                    return FlutterFlowTheme.of(context).customColor4;
+                  }
+                  return FlutterFlowTheme.of(context).customColor4;
+                }),
 
                 groupValue: _notifier.selectedLanguage,
                 onChanged: (p0) {

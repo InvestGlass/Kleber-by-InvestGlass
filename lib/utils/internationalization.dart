@@ -1418,7 +1418,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'Giao dịch',
     },
     '1vddbh59': {
-      'en': 'DOCUMENT',
+      'en': 'DOCUMENTS',
       'ar': 'وثيقة',
       'vi': 'Tài liệu',
     },
@@ -1446,11 +1446,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Portfolio',
       'ar': 'مَلَفّ',
       'vi': 'Đầu tư',
-    },
-    '00c8hcyy': {
-      'en': 'Market',
-      'ar': 'سوق',
-      'vi': 'Chợ',
     },
     'd33p2mgm': {
       'en': 'Market',
@@ -1481,7 +1476,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // home_page_view
   {
     'ran9xdwl': {
-      'en': 'Popular',
+      'en': 'POPULAR',
       'ar': 'شائع',
       'vi': 'Phổ biến',
     },
@@ -1491,7 +1486,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': '',
     },
     'gln3vyrv': {
-      'en': 'Recomended',
+      'en': 'RECOMMENDED',
       'ar': 'موصى به',
       'vi': 'Được đề xuất',
     },
@@ -2330,7 +2325,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'danh mục đầu tư',
     },
     'new_order': {
-      'en': 'New Order',
+      'en': 'NEW ORDER',
       'ar': 'طلب جديد',
       'vi': 'Đơn hàng mới',
     },
@@ -2395,8 +2390,8 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'Tải lên',
     },
     '13mzcnly': {
-      'en': 'Document',
-      'ar': 'وثيقة',
+      'en': 'Documents',
+      'ar': 'وثائق',
       'vi': 'Tài liệu',
     },
     'o5wm04m6': {
@@ -2710,7 +2705,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // select_security_bottom_sheet
   {
     'k3na7l6v': {
-      'en': 'Select Security',
+      'en': 'SELECT SECURITY',
       'ar': '',
       'vi': '',
     },

@@ -45,7 +45,9 @@ class _AddTransactionState extends State<AddTransaction> {
       decoration: AppStyles.commonBg(context),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppWidgets.appBar(context, 'New Trade', centerTitle: true,leading:AppWidgets.backArrow(context)),
+        appBar: AppWidgets.appBar(context, FFLocalizations.of(context).getText(
+          'new_order' /* new order */,
+        ), centerTitle: true,leading:AppWidgets.backArrow(context)),
         body: Form(
           child: ListView(
             shrinkWrap: true,

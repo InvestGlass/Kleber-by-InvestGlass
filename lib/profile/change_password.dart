@@ -49,18 +49,11 @@ class _ChangePasswordState extends State<ChangePassword> {
             children: [
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize*0.010),
-                child: Text(
-                  FFLocalizations.of(context).getText(
+                child: AppWidgets.label(context,FFLocalizations.of(context).getText(
                     '510yg9y6' /* Current password */,
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Roboto',
-                        fontSize: rSize*0.016,
-                        color: FlutterFlowTheme.of(context).customColor4,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  )
                 ),
-              ),
+                ),
               TextFormField(
                 controller: _notifier.currentPwdController,
                 style: FlutterFlowTheme.of(context).bodyLarge.override(
@@ -94,17 +87,9 @@ class _ChangePasswordState extends State<ChangePassword> {
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize * 0.025, 0.0, rSize*0.010),
-                child: Text(
-                  FFLocalizations.of(context).getText(
-                    '2l6qayo4' /* New password */,
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Roboto',
-                        fontSize: rSize*0.016,
-                    color: FlutterFlowTheme.of(context).customColor4,
-                        fontWeight: FontWeight.w500,
-                      ),
-                ),
+                child: AppWidgets.label(context, FFLocalizations.of(context).getText(
+                  '2l6qayo4' /* New password */,
+                )),
               ),
               TextFormField(
                 controller: _notifier.newPwdController,
@@ -142,16 +127,9 @@ class _ChangePasswordState extends State<ChangePassword> {
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize * 0.025, 0.0, rSize*0.010),
-                child: Text(
-                  FFLocalizations.of(context).getText(
+                child: AppWidgets.label(context,FFLocalizations.of(context).getText(
                     'lz5cj3qp' /* Confirm new password */,
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Roboto',
-                        fontSize: rSize*0.016,
-                    color: FlutterFlowTheme.of(context).customColor4,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  )
                 ),
               ),
               TextFormField(

@@ -5,7 +5,6 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kleber_bank/market/video_player_widget.dart';
 import 'package:kleber_bank/securitySelection/security_selection_controller.dart';
 import 'package:kleber_bank/securitySelection/security_selection_list_item.dart';
-import 'package:kleber_bank/utils/app_colors.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/searchable_dropdown.dart';
 import 'package:provider/provider.dart';
@@ -117,7 +116,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                       child: Icon(
                         Icons.filter_alt_outlined,
                         size: rSize * 0.025,
-                        color: FlutterFlowTheme.of(context).primary,
+                        color: FlutterFlowTheme.of(context).customColor4,
                       ),
                     ),
                   ),
@@ -231,7 +230,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                 color: Colors.transparent,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
                     borderRadius: BorderRadius.circular(rSize*0.01),
                   ),
                   margin: EdgeInsets.symmetric(horizontal: rSize*0.015),
@@ -268,7 +267,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                     child: Icon(
                                       Icons.close,
                                       size: rSize*0.025,
-                                      color: FlutterFlowTheme.of(context).primary,
+                                      color: FlutterFlowTheme.of(context).customColor4,
                                     ),
                                   )
                                 ],
@@ -278,17 +277,10 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize*0.010),
-                                child: Text(
-                                  FFLocalizations.of(context).getText(
+                                child: AppWidgets.label(context,FFLocalizations.of(context).getText(
                                     '1p01lh7n' /* Asset Class */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'Roboto',
-                                        fontSize: rSize*0.018,
-                                      fontWeight: FontWeight.w200,
-                                    color: FlutterFlowTheme.of(context).customColor4,
-                                      ),
-                                ),
+                                  )
+                ),
                               ),
                               SearchableDropdown(
                                 selectedValue: selectedAssetClass,
@@ -321,17 +313,10 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize*0.010),
-                                child: Text(
-                                  FFLocalizations.of(context).getText(
+                                child: AppWidgets.label(context,FFLocalizations.of(context).getText(
                                     'zfneqwjq' /* Industry */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'Roboto',
-                                        fontSize: rSize*0.018,
-                                    fontWeight: FontWeight.w200,
-                                    color: FlutterFlowTheme.of(context).customColor4,
-                                      ),
-                                ),
+                                  )
+                ),
                               ),
                               SearchableDropdown(
                                 selectedValue: selectedIndustry,

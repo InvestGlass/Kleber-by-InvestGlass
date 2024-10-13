@@ -62,11 +62,12 @@ class _PositionsState extends State<Positions> {
           ),
           leading: AppWidgets.backArrow(context)),
       body: Padding(
-        padding: EdgeInsets.only(left: rSize * 0.015, right: rSize * 0.015, top: rSize * 0.015),
+        padding: EdgeInsets.only(top: rSize * 0.015),
         child: Column(
           children: [
             Row(
               children: [
+                SizedBox(width: rSize*0.015,),
                 Expanded(
                   child: SearchableDropdown(
                     selectedValue: _notifier.selectedPositionFilter,
@@ -110,7 +111,6 @@ class _PositionsState extends State<Positions> {
                                       fontFamily: 'Roboto',
                                       color: FlutterFlowTheme.of(context).customColor4,
                                       fontSize: rSize * 0.016,
-                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                     )), // Custom text style
                           ],
@@ -119,6 +119,7 @@ class _PositionsState extends State<Positions> {
                     },
                   ),
                 ),
+                SizedBox(width: rSize*0.015,),
               ],
             ),
             SizedBox(
@@ -143,7 +144,7 @@ class _PositionsState extends State<Positions> {
                           color: FlutterFlowTheme.of(context).secondaryBackground,
                           boxShadow: AppStyles.shadow(),
                           borderRadius: BorderRadius.circular(rSize * 0.01)),
-                      margin: EdgeInsets.symmetric(vertical: rSize * 0.005),
+                      margin: EdgeInsets.symmetric(vertical: rSize * 0.005,horizontal: rSize*0.015),
                       child: ListView(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),

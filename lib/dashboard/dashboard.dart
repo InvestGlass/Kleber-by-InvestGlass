@@ -462,7 +462,7 @@ class _DashboardState extends State<Dashboard> {
                               width: rSize * 0.025,
                             )),
                         FFLocalizations.of(context).getText(
-                          'o5wm04m6' /* Market */,
+                          'd33p2mgm' /* Market */,
                         ),
                         onTap: () {
                           Navigator.pop(context);

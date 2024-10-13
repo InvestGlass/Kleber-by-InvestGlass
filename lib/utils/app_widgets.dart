@@ -281,6 +281,18 @@ class AppWidgets {
     );
   }
 
+  static label(BuildContext context, String text){
+    return Text(
+      text,
+      style: FlutterFlowTheme.of(context).bodyMedium.override(
+        fontFamily: 'Roboto',
+        fontSize: rSize*0.016,
+        color: FlutterFlowTheme.of(context).customColor4,
+        fontWeight: FontWeight.w500,
+      ),
+    );
+  }
+
   static Widget btnWithIcon(BuildContext context, String label, Color bgColor, Widget icon) {
     return Container(
       alignment: Alignment.center,
@@ -619,16 +631,14 @@ class AppWidgets {
                 onSubmit: onSubmit,
                 rangeTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Roboto',
-                      color: FlutterFlowTheme.of(context).info,
+                  color:FlutterFlowTheme.of(context).customColor4,
                       fontSize: rSize*0.016,
-                      letterSpacing: 0.0,
                       fontWeight: FontWeight.normal,
                     ),
                 selectionTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Roboto',
-                      color: FlutterFlowTheme.of(context).info,
+                  color:FlutterFlowTheme.of(context).customColor4,
                       fontSize: rSize*0.016,
-                      letterSpacing: 0.0,
                       fontWeight: FontWeight.normal,
                     ),
                 cellBuilder: (context, cellDetails) {
@@ -643,7 +653,7 @@ class AppWidgets {
                       cellDetails.date.day.toString(),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Roboto',
-                            color: FlutterFlowTheme.of(context).primaryText,
+                        color:FlutterFlowTheme.of(context).customColor4,
                             fontSize: rSize*0.016,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.normal,
@@ -662,7 +672,6 @@ class AppWidgets {
                         fontFamily: 'Roboto',
                         color: FlutterFlowTheme.of(context).primaryText,
                         fontSize: rSize*0.016,
-                        letterSpacing: 0.0,
                         fontWeight: FontWeight.normal,
                       ),
                 ),
