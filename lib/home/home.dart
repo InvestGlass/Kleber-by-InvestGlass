@@ -66,7 +66,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: MediaQuery.of(context).padding.top + 10),
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(rSize*0.015, 0.0, 0.0, rSize*0.010),
+              padding: EdgeInsetsDirectional.fromSTEB(0, 0.0, 0.0, rSize*0.010),
               child: Text(
                 FFLocalizations.of(context).getText(
                   'ran9xdwl' /* Popular */,

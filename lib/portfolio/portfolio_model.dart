@@ -15,6 +15,7 @@ class PortfolioModel {
   List<PerformanceChart>? performanceChart;
   List<SChart>? assetClassChart;
   List<SChart>? currenciesChart;
+  String? sectionName;
   Appropriateness? appropriateness;
   Appropriateness? suitability;
 
@@ -35,6 +36,7 @@ class PortfolioModel {
     this.currenciesChart,
     this.appropriateness,
     this.suitability,
+    this.sectionName,
   });
 
   factory PortfolioModel.fromRawJson(String str) => PortfolioModel.fromJson(json.decode(str));

@@ -124,7 +124,8 @@ class AppStyles {
       onTap: onTap,
       child: Container(
         margin: margin??EdgeInsets.all(rSize*0.010),
-        padding: padding??EdgeInsets.zero,
+        height: rSize*0.05,
+        width: rSize*0.05,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(rSize*0.008),
           color: FlutterFlowTheme.of(context).secondaryBackground,

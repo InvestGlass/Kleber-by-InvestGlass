@@ -1,6 +1,7 @@
 // Automatic FlutterFlow imports
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kleber_bank/utils/app_widgets.dart';
 
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
@@ -13,6 +14,7 @@ import 'dart:math';
 
 import '../main.dart';
 import '../utils/flutter_flow_theme.dart';
+import '../utils/internationalization.dart';
 import '../utils/shared_pref_utils.dart';
 
 class XPortfolioItemLineChart extends StatefulWidget {
@@ -23,7 +25,9 @@ class XPortfolioItemLineChart extends StatefulWidget {
     this.customWidth,
     this.xLabels = const [],
     this.listY = const [],
+    this.listAmount = const [],
     this.additionPercents = const [],
+    this.sectionName='',
   });
 
   final double? width;
@@ -31,7 +35,9 @@ class XPortfolioItemLineChart extends StatefulWidget {
   final double? customWidth;
   final List<String> xLabels;
   final List<double> listY;
+  final List<double> listAmount;
   final List<double> additionPercents;
+  final String? sectionName;
 
   @override
   State<XPortfolioItemLineChart> createState() => _XPortfolioItemLineChartState();
@@ -115,7 +121,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
             ],
           ),
           coordinateUnit: CoordinateUnit.point,
-          x: widget.xLabels[i],
+          x: getDate(i),
           y: columnStart + additionPercent + (additionPercent > 0 ? additionalValue : -additionalValue),
         ),
       );
@@ -245,25 +251,162 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     return SizedBox(
       // width: widget.customWidth,
       height: widget.height,
-      child: widget.xLabels.isEmpty ? null : /*circularChart()*/ buildSFLineChart(),
+      child: widget.xLabels.isEmpty ? null : circularChart() /*buildSFLineChart()*/,
     );
   }
 
-  circularChart() {
-    return SfCircularChart(tooltipBehavior: _tooltip, series: <CircularSeries<String, String>>[
-      DoughnutSeries<String, String>(
-          dataSource: widget.xLabels,innerRadius: '50%',
-          xValueMapper: (String data, _) => widget.xLabels[_],
-          yValueMapper: (String data, _) => widget.listY[_],
-          dataLabelSettings: DataLabelSettings(
-              textStyle: FlutterFlowTheme.of(context).displaySmall.override(
+  circularChart() {/*
+    widget.listY.removeAt(0);
+    widget.listY.removeAt(0);
+    widget.listY.insert(0,20);
+    widget.listY.insert(0,50);*/
+    if(widget.sectionName==FFLocalizations.of(context).getText(
+      '7h0zeqv0' /* Asset Class */,
+    )){
+      return SfCircularChart(tooltipBehavior: _tooltip,
+          legend: Legend(isVisible: true,overflowMode: LegendItemOverflowMode.scroll,position:LegendPosition.right,legendItemBuilder: (legendText, series, point, seriesIndex) {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      legendText,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Roboto',
+                        fontSize: rSize*0.014,
+                        color: FlutterFlowTheme.of(context).customColor4,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      '(${widget.listY[seriesIndex]}%)',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Roboto',
+                        fontSize: rSize*0.012,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    )
+                  ],
+                )
+              ],
+            );
+          }, ),
+          series: <CircularSeries<String, String>>[
+            DoughnutSeries<String, String>(
+                dataSource: widget.xLabels,innerRadius: '70%',
+                xValueMapper: (String data, _) => getDate(_),
+                yValueMapper: (String data, _) => widget.listY[_]<0?0:widget.listY[_],emptyPointSettings: EmptyPointSettings(),
+                dataLabelMapper: (datum, _) => '${widget.listY[_]<0?0:widget.listY[_]}%',
+                // pointColorMapper: (datum, index) => FlutterFlowTheme.of(context).primary.withOpacity(),
+                dataLabelSettings: DataLabelSettings(
+                  textStyle: FlutterFlowTheme.of(context).displaySmall.override(
                     fontFamily: 'Roboto',
-                    color: FlutterFlowTheme.of(context).customColor4,
                     fontSize: rSize * 0.014,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.normal,
-                  ),color: Colors.white,),
+                  ),isVisible: false,overflowMode:OverflowMode.shift, ),enableTooltip: true,
+                name: 'Gold')
+          ]);
+    }if(widget.sectionName==FFLocalizations.of(context).getText(
+      'o00oeypg' /* Currency */,
+    )){
+      return SfCircularChart(tooltipBehavior: _tooltip,
+          legend: Legend(isVisible: true,overflowMode: LegendItemOverflowMode.scroll,position:LegendPosition.right,legendItemBuilder: (legendText, series, point, seriesIndex) {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      legendText,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Roboto',
+                        fontSize: rSize*0.014,
+                        color: FlutterFlowTheme.of(context).customColor4,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      '(${widget.listY[seriesIndex]}%)',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Roboto',
+                        fontSize: rSize*0.012,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    )
+                  ],
+                )
+              ],
+            );
+          }, ),
+          series: <CircularSeries<String, String>>[
+            DoughnutSeries<String, String>(
+                dataSource: widget.xLabels,innerRadius: '70%',
+                xValueMapper: (String data, _) => getDate(_),
+                yValueMapper: (String data, _) => widget.listY[_],emptyPointSettings: EmptyPointSettings(),
+                dataLabelMapper: (datum, _) => '${widget.listY[_]}%\n(${widget.listAmount[_]})',
+                dataLabelSettings: DataLabelSettings(
+                  textStyle: FlutterFlowTheme.of(context).displaySmall.override(
+                    fontFamily: 'Roboto',
+                    fontSize: rSize * 0.014,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.normal,
+                  ),isVisible: false,overflowMode:OverflowMode.shift, ),enableTooltip: true,
+                name: 'Gold')
+          ]);
+    }
+    return SfCircularChart(tooltipBehavior: _tooltip,
+        legend: Legend(isVisible: true,overflowMode: LegendItemOverflowMode.scroll,position:LegendPosition.right,legendItemBuilder: (legendText, series, point, seriesIndex) {
+          return Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    legendText,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Roboto',
+                      fontSize: rSize*0.014,
+                      color: FlutterFlowTheme.of(context).customColor4,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    '(${widget.listY[seriesIndex]}%)',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Roboto',
+                      fontSize: rSize*0.012,
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  )
+                ],
+              )
+            ],
+          );
+        }, ),
+        series: <CircularSeries<String, String>>[
+      DoughnutSeries<String, String>(
+          dataSource: widget.xLabels,innerRadius: '70%',
+          xValueMapper: (String data, _) => getDate(_),
+          yValueMapper: (String data, _) => widget.listY[_],emptyPointSettings: EmptyPointSettings(),
+          dataLabelMapper: (datum, _) => '${widget.listY[_]}%\n(${getDate(_)})',
+          dataLabelSettings: DataLabelSettings(
+              textStyle: FlutterFlowTheme.of(context).displaySmall.override(
+                    fontFamily: 'Roboto',
+                    fontSize: rSize * 0.014,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.normal,
+                  ),isVisible: false,overflowMode:OverflowMode.shift, ),enableTooltip: true,
           name: 'Gold')
     ]);
   }
+
+  String getDate(int _) => widget.xLabels[_];
 }

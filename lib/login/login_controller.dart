@@ -35,6 +35,8 @@ class LoginController extends ChangeNotifier {
             (value) async {
               CommonFunctions.dismissLoader(context);
               if (value != null) {
+                userNameController.clear();
+                pwdController.clear();
                 if (!(value.user?.tosAccepted ?? false)) {
                   CommonFunctions.navigate(context, TermsAndPrivacy());
                 }else if ((value.verification ?? '').isEmpty) {

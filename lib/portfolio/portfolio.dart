@@ -201,309 +201,83 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                   SizedBox(
                                     height: rSize * 0.015,
                                   ),
-                                  if (item.performanceChart!.isNotEmpty) ...{
-                                    Text(
-                                        FFLocalizations.of(context).getText(
-                                          'zomhasya' /* Performance */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                              fontFamily: 'Roboto',
-                                              color: FlutterFlowTheme.of(context).secondaryText,
-                                              fontSize: rSize * 0.016,
-                                              letterSpacing: 0,
-                                              fontWeight: FontWeight.w500,
-                                            )),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                            item.sectionName??FFLocalizations.of(context).getText(
+                                              'zomhasya' /* Performance */,
+                                            ),
+                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                  fontFamily: 'Roboto',
+                                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                                  fontSize: rSize * 0.016,
+                                                  letterSpacing: 0,
+                                                  fontWeight: FontWeight.w500,
+                                                )),
+                                        popupMenu(ontap: (i) {
+                                          pagingController.itemList![index].sectionName = getName(context,i);
+                                          setState(() {
+
+                                          });
+                                        })
+                                      ],
+                                    ),
                                     SizedBox(
                                       height: rSize * 0.035,
                                     ),
-                                    XPortfolioItemLineChart(
-                                      width: MediaQuery.sizeOf(context).width * 1,
-                                      height: rSize * 0.300,
-                                      xLabels: item.performanceChart!.map((e) => e.date.toString().split(' ')[0]).toList(),
-                                      listY: item.performanceChart!.map((e) => e.amount!).toList(),
-                                      customWidth: item.performanceChart!.map((e) => e.amount).toList().length * 100,
-                                      additionPercents: item.performanceChart!.map((e) => e.twrPercentage ?? 0.0).toList(),
-                                    ),
-                                    AppWidgets.divider(context)
-                                  },
-                                  SizedBox(
-                                    height: rSize * 0.015,
-                                  ),
-                                  Text(
-                                    FFLocalizations.of(context).getText(
-                                      '7h0zeqv0' /* Asset Class */,
-                                    ),
-                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                          fontFamily: 'Roboto',
-                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                          fontSize: rSize * 0.016,
-                                          letterSpacing: 0,
-                                          fontWeight: FontWeight.w500,
+                                      Visibility(
+                                        visible: pagingController.itemList![index].sectionName==FFLocalizations.of(context).getText(
+                                          'zomhasya' /* Performance */,
                                         ),
-                                  ),
-                                  SizedBox(
-                                    height: rSize * 0.02,
-                                  ),
-                                  XPortfoliItemBarChart(
-                                    width: MediaQuery.sizeOf(context).width * 1,
-                                    height: rSize * 0.300,
-                                    xLabels: item.assetClassChart!.map((e) => e.assetClass ?? '').toList(),
-                                    listY1: item.assetClassChart!.map((e) => e.amount1!).toList(),
-                                    listY2: item.assetClassChart!.map((e) => e.amount2!).toList(),
-                                    showPercentageWithUpDownArrowOnTopOfBar: true,
-                                    listY3: item.assetClassChart!.map((e) => e.amount3!).toList(),
-                                    showAmountWhenClickOnBar: true,
-                                  ),
-                                  AppWidgets.divider(context),
-                                  SizedBox(
-                                    height: rSize * 0.015,
-                                  ),
-                                  Text(
-                                      FFLocalizations.of(context).getText(
-                                        'o00oeypg' /* Currency */,
-                                      ),
-                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                            fontFamily: 'Roboto',
-                                            color: FlutterFlowTheme.of(context).secondaryText,
-                                            fontSize: rSize * 0.016,
-                                            letterSpacing: 0,
-                                            fontWeight: FontWeight.w500,
-                                          )),
-                                  SizedBox(
-                                    height: rSize * 0.02,
-                                  ),
-                                  XPortfoliItemBarChart(
-                                    width: MediaQuery.sizeOf(context).width * 1,
-                                    height: rSize * 0.300,
-                                    xLabels: item.currenciesChart!.map((e) => e.assetClass ?? '').toList(),
-                                    listY1: item.currenciesChart!.map((e) => e.amount1!).toList(),
-                                    listY2: item.currenciesChart!.map((e) => e.amount2!).toList(),
-                                    showPercentageWithUpDownArrowOnTopOfBar: true,
-                                    listY3: item.currenciesChart!.map((e) => e.amount3!).toList(),
-                                    showAmountWhenClickOnBar: true,
-                                  ),
-                                  AppWidgets.divider(context),
-                                  SizedBox(
-                                    height: rSize * 0.02,
-                                  ),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                          child: Text(
-                                              FFLocalizations.of(context).getText(
-                                                '6u2u1x9z' /* Health Alerts */,
-                                              ),
-                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                    fontFamily: 'Roboto',
-                                                    color: FlutterFlowTheme.of(context).secondaryText,
-                                                    fontSize: rSize * 0.016,
-                                                    letterSpacing: 0,
-                                                    fontWeight: FontWeight.w500,
-                                                  ))),
-                                      GestureDetector(
-                                        onTap: () => CommonFunctions.navigate(context, HealthCheck(item.appropriateness, item.suitability)),
-                                        child: Text(
-                                          FFLocalizations.of(context).getText(
-                                            '2um0eu09' /* Detail */,
+                                        child: XPortfolioItemLineChart(
+                                          width: MediaQuery.sizeOf(context).width * 1,
+                                          height: rSize * 0.300,
+                                          xLabels: item.performanceChart!.map((e) => e.date.toString().split(' ')[0]).toList(),
+                                          listY: item.performanceChart!.map((e) => e.amount!).toList(),
+                                          customWidth: item.performanceChart!.map((e) => e.amount).toList().length * 100,
+                                          additionPercents: item.performanceChart!.map((e) => e.twrPercentage ?? 0.0).toList(),
+                                          sectionName: item.sectionName??FFLocalizations.of(context).getText(
+                                            'zomhasya' /* Performance */,
                                           ),
-                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                fontFamily: 'Roboto',
-                                                color: FlutterFlowTheme.of(context).primary,
-                                                fontSize: rSize * 0.016,
-                                                letterSpacing: 0,
-                                                fontWeight: FontWeight.w500,
-                                              ),
                                         ),
+                                      )
+                                      ,
+                      Visibility(
+                      visible: pagingController.itemList![index].sectionName==FFLocalizations.of(context).getText(
+                      '7h0zeqv0' /* Asset Class */,
+                      ),
+                      child: XPortfolioItemLineChart(
+                      width: MediaQuery.sizeOf(context).width * 1,
+                      height: rSize * 0.300,
+                      xLabels: item.assetClassChart!.map((e) => e.assetClass ?? '').toList(),
+                      listY: item.assetClassChart!.map((e) => e.amount1!).toList(),
+                      listAmount: item.assetClassChart!.map((e) => e.amount3!).toList(),
+                      sectionName: FFLocalizations.of(context).getText(
+    '7h0zeqv0' /* Asset Class */,
+    ),
+    ),),
+
+                                      Visibility(
+                                        visible: pagingController.itemList![index].sectionName==FFLocalizations.of(context).getText(
+                                          'o00oeypg' /* Currency */,
+                                        ),
+                                        child: XPortfolioItemLineChart(
+                                          width: MediaQuery.sizeOf(context).width * 1,
+                                          height: rSize * 0.300,
+                                          xLabels: item.currenciesChart!.map((e) => e.assetClass ?? '').toList(),
+                                          listY: item.currenciesChart!.map((e) => e.amount1!).toList(),
+                                          listAmount: item.currenciesChart!.map((e) => e.amount3!).toList(),
+                                          sectionName: FFLocalizations.of(context).getText(
+                                            'o00oeypg' /* Currency */,
+                                          ),
+                                        ),
+                                      ),Visibility(
+                                        visible: pagingController.itemList![index].sectionName==FFLocalizations.of(context).getText(
+                                          '6u2u1x9z' /* Health Alerts */,
+                                        ),
+                                        child: healthAlertSection(context, item),
                                       ),
-                                      RotatedBox(
-                                          quarterTurns: 2,
-                                          child: Icon(
-                                            Icons.arrow_back_ios,
-                                            color: FlutterFlowTheme.of(context).primary,
-                                            size: rSize * 0.012,
-                                          ))
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: rSize * 0.015,
-                                  ),
-                                  Container(
-                                    decoration: const BoxDecoration(),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(0, rSize * 0.010, 0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: FlutterFlowTheme.of(context).primaryBackground,
-                                                borderRadius: BorderRadius.only(
-                                                  bottomLeft: Radius.circular(rSize * 0.012),
-                                                  bottomRight: Radius.circular(0.0),
-                                                  topLeft: Radius.circular(rSize * 0.012),
-                                                  topRight: Radius.circular(0.0),
-                                                ),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional.fromSTEB(0, rSize * 0.020, 0, rSize * 0.020),
-                                                child: Column(
-                                                  mainAxisSize: MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, rSize * 0.020),
-                                                      child: SizedBox(
-                                                        width: rSize * 0.140,
-                                                        height: rSize * 0.115,
-                                                        child: Stack(
-                                                          alignment: const AlignmentDirectional(0, 1.0),
-                                                          children: [
-                                                            Container(
-                                                              width: rSize * 0.100,
-                                                              height: rSize * 0.100,
-                                                              decoration: const BoxDecoration(
-                                                                color: Color(0x3FF9CF58),
-                                                              ),
-                                                              child: Icon(
-                                                                Icons.warning_amber_rounded,
-                                                                color: FlutterFlowTheme.of(context).warning,
-                                                                size: rSize * 0.050,
-                                                              ),
-                                                            ),
-                                                            Align(
-                                                              alignment: const AlignmentDirectional(1, -1.0),
-                                                              child: Container(
-                                                                width: rSize * 0.040,
-                                                                height: rSize * 0.030,
-                                                                decoration: BoxDecoration(
-                                                                  color: FlutterFlowTheme.of(context).warning,
-                                                                ),
-                                                                alignment: const AlignmentDirectional(0, 0.0),
-                                                                child: Text(
-                                                                  (int length) {
-                                                                    return '$length${length <= 10 ? '' : '+'}';
-                                                                  }(item.appropriateness!.listDetails?.length ?? 0),
-                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                        fontFamily: 'Roboto',
-                                                                        color: FlutterFlowTheme.of(context).info,
-                                                                        fontSize: rSize * 0.016,
-                                                                        letterSpacing: 0,
-                                                                        fontWeight: FontWeight.w500,
-                                                                      ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      FFLocalizations.of(context).getText(
-                                                        'kc4yx2mm' /* MINOR ISSUES */,
-                                                      ),
-                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                            fontFamily: 'Roboto',
-                                                            fontSize: rSize * 0.016,
-                                                            letterSpacing: 0,
-                                                            fontWeight: FontWeight.w500,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: rSize * 0.002,
-                                            decoration: const BoxDecoration(),
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: FlutterFlowTheme.of(context).primaryBackground,
-                                                borderRadius: BorderRadius.only(
-                                                  bottomLeft: Radius.circular(0.0),
-                                                  bottomRight: Radius.circular(rSize * 0.012),
-                                                  topLeft: Radius.circular(0.0),
-                                                  topRight: Radius.circular(rSize * 0.012),
-                                                ),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional.fromSTEB(0, rSize * 0.020, 0, rSize * 0.020),
-                                                child: Column(
-                                                  mainAxisSize: MainAxisSize.max,
-                                                  children: [
-                                                    Align(
-                                                      alignment: const AlignmentDirectional(0, 1.0),
-                                                      child: Padding(
-                                                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, rSize * 0.020),
-                                                        child: SizedBox(
-                                                          width: rSize * 0.140,
-                                                          height: rSize * 0.115,
-                                                          child: Stack(
-                                                            alignment: const AlignmentDirectional(0, 1.0),
-                                                            children: [
-                                                              Container(
-                                                                width: rSize * 0.100,
-                                                                height: rSize * 0.100,
-                                                                decoration: const BoxDecoration(
-                                                                  color: Color(0x41FF5963),
-                                                                ),
-                                                                child: Icon(
-                                                                  Icons.error_outline_rounded,
-                                                                  color: FlutterFlowTheme.of(context).error,
-                                                                  size: rSize * 0.050,
-                                                                ),
-                                                              ),
-                                                              Align(
-                                                                alignment: const AlignmentDirectional(1, -1.0),
-                                                                child: Container(
-                                                                  width: rSize * 0.040,
-                                                                  height: rSize * 0.030,
-                                                                  decoration: BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(context).error,
-                                                                  ),
-                                                                  alignment: const AlignmentDirectional(0, 0.0),
-                                                                  child: Text(
-                                                                    (int length) {
-                                                                      return '$length${length <= 10 ? '' : '+'}';
-                                                                    }(item.suitability!.listDetails?.length ?? 0),
-                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                          fontFamily: 'Roboto',
-                                                                          color: FlutterFlowTheme.of(context).info,
-                                                                          fontSize: rSize * 0.016,
-                                                                          letterSpacing: 0,
-                                                                          fontWeight: FontWeight.w500,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      FFLocalizations.of(context).getText(
-                                                        'ko88t7mf' /* MAJOR ISSUES */,
-                                                      ),
-                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                            fontFamily: 'Roboto',
-                                                            fontSize: rSize * 0.016,
-                                                            letterSpacing: 0,
-                                                            fontWeight: FontWeight.w500,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
@@ -525,7 +299,8 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                AppStyles.iconBg(context, data: FontAwesomeIcons.shoppingBasket, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015)),
+                                AppStyles.iconBg(context,
+                                    data: FontAwesomeIcons.shoppingBasket, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015)),
                                 Text(FFLocalizations.of(context).getText(
                                   'position',
                                 ))
@@ -537,9 +312,11 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                         GestureDetector(
                             onTap: () => CommonFunctions.navigate(context, Transactions(item.title!)),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                AppStyles.iconBg(context, data: FontAwesomeIcons.dollarSign, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015)),
+                                AppStyles.iconBg(context,
+                                    data: FontAwesomeIcons.dollarSign, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015)),
                                 Text(FFLocalizations.of(context).getText(
                                   'eg1yw963' /* Transactions */,
                                 ))
@@ -554,7 +331,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                               children: [
                                 AppStyles.iconBg(context, data: FontAwesomeIcons.dollarSign, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015)),
                                 Text(FFLocalizations.of(context).getText(
-                                  'new_order' *//* New Order *//*,
+                                  'new_order' */ /* New Order */ /*,
                                 ))
                               ],
                             )),*/
@@ -570,7 +347,276 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
     );
   }
 
+  Column healthAlertSection(BuildContext context, PortfolioModel item) {
+    return Column(
+                                  children: [
+                                    Container(
+                                      decoration: const BoxDecoration(),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(context).primaryBackground,
+                                                  borderRadius: BorderRadius.only(
+                                                    bottomLeft: Radius.circular(rSize * 0.012),
+                                                    bottomRight: Radius.circular(0.0),
+                                                    topLeft: Radius.circular(rSize * 0.012),
+                                                    topRight: Radius.circular(0.0),
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(0, rSize * 0.020, 0, rSize * 0.020),
+                                                  child: Column(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, rSize * 0.020),
+                                                        child: SizedBox(
+                                                          width: rSize * 0.140,
+                                                          height: rSize * 0.115,
+                                                          child: Stack(
+                                                            alignment: const AlignmentDirectional(0, 1.0),
+                                                            children: [
+                                                              Container(
+                                                                width: rSize * 0.100,
+                                                                height: rSize * 0.100,
+                                                                decoration: const BoxDecoration(
+                                                                  color: Color(0x3FF9CF58),
+                                                                ),
+                                                                child: Icon(
+                                                                  Icons.warning_amber_rounded,
+                                                                  color: FlutterFlowTheme.of(context).warning,
+                                                                  size: rSize * 0.050,
+                                                                ),
+                                                              ),
+                                                              Align(
+                                                                alignment: const AlignmentDirectional(1, -1.0),
+                                                                child: Container(
+                                                                  width: rSize * 0.040,
+                                                                  height: rSize * 0.030,
+                                                                  decoration: BoxDecoration(
+                                                                    color: FlutterFlowTheme.of(context).warning,
+                                                                  ),
+                                                                  alignment: const AlignmentDirectional(0, 0.0),
+                                                                  child: Text(
+                                                                    (int length) {
+                                                                      return '$length${length <= 10 ? '' : '+'}';
+                                                                    }(item.appropriateness!.listDetails?.length ?? 0),
+                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                          fontFamily: 'Roboto',
+                                                                          color: FlutterFlowTheme.of(context).info,
+                                                                          fontSize: rSize * 0.016,
+                                                                          letterSpacing: 0,
+                                                                          fontWeight: FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        FFLocalizations.of(context).getText(
+                                                          'kc4yx2mm' /* MINOR ISSUES */,
+                                                        ),
+                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                              fontFamily: 'Roboto',
+                                                              fontSize: rSize * 0.016,
+                                                              letterSpacing: 0,
+                                                              fontWeight: FontWeight.w500,
+                                                            ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: rSize * 0.002,
+                                              decoration: const BoxDecoration(),
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(context).primaryBackground,
+                                                  borderRadius: BorderRadius.only(
+                                                    bottomLeft: Radius.circular(0.0),
+                                                    bottomRight: Radius.circular(rSize * 0.012),
+                                                    topLeft: Radius.circular(0.0),
+                                                    topRight: Radius.circular(rSize * 0.012),
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(0, rSize * 0.020, 0, rSize * 0.020),
+                                                  child: Column(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    children: [
+                                                      Align(
+                                                        alignment: const AlignmentDirectional(0, 1.0),
+                                                        child: Padding(
+                                                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, rSize * 0.020),
+                                                          child: SizedBox(
+                                                            width: rSize * 0.140,
+                                                            height: rSize * 0.115,
+                                                            child: Stack(
+                                                              alignment: const AlignmentDirectional(0, 1.0),
+                                                              children: [
+                                                                Container(
+                                                                  width: rSize * 0.100,
+                                                                  height: rSize * 0.100,
+                                                                  decoration: const BoxDecoration(
+                                                                    color: Color(0x41FF5963),
+                                                                  ),
+                                                                  child: Icon(
+                                                                    Icons.error_outline_rounded,
+                                                                    color: FlutterFlowTheme.of(context).error,
+                                                                    size: rSize * 0.050,
+                                                                  ),
+                                                                ),
+                                                                Align(
+                                                                  alignment: const AlignmentDirectional(1, -1.0),
+                                                                  child: Container(
+                                                                    width: rSize * 0.040,
+                                                                    height: rSize * 0.030,
+                                                                    decoration: BoxDecoration(
+                                                                      color: FlutterFlowTheme.of(context).error,
+                                                                    ),
+                                                                    alignment: const AlignmentDirectional(0, 0.0),
+                                                                    child: Text(
+                                                                      (int length) {
+                                                                        return '$length${length <= 10 ? '' : '+'}';
+                                                                      }(item.suitability!.listDetails?.length ?? 0),
+                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                            fontFamily: 'Roboto',
+                                                                            color: FlutterFlowTheme.of(context).info,
+                                                                            fontSize: rSize * 0.016,
+                                                                            letterSpacing: 0,
+                                                                            fontWeight: FontWeight.w500,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        FFLocalizations.of(context).getText(
+                                                          'ko88t7mf' /* MAJOR ISSUES */,
+                                                        ),
+                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                              fontFamily: 'Roboto',
+                                                              fontSize: rSize * 0.016,
+                                                              letterSpacing: 0,
+                                                              fontWeight: FontWeight.w500,
+                                                            ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+  }
+
+  String getName(BuildContext context, int i) {
+    if (i==1) {
+      return FFLocalizations.of(context).getText(
+                                                'zomhasya' /* Performance */,
+                                              );
+    }else if (i==2) {
+      return FFLocalizations.of(context).getText(
+        '7h0zeqv0' /* Asset Class */,
+                                              );
+    }else if (i==3) {
+      return FFLocalizations.of(context).getText(
+        'nkjefkra' /* Currency */,
+                                              );
+    }else{
+      return FFLocalizations.of(context).getText(
+        '6u2u1x9z' /* Health Alerts */,
+      );
+    }
+  }
+
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+
+  popupMenu({required Function ontap}) {
+    return PopupMenuButton<int>(
+      padding: EdgeInsets.zero,
+      // surfaceTintColor: Colors.white,
+      position: PopupMenuPosition.under,
+      color: FlutterFlowTheme.of(context).primaryBackground,
+      itemBuilder: (context) => [
+        popupMenuItem(
+            1,
+            FFLocalizations.of(context).getText(
+              'zomhasya' /* Performance */,
+            ), () {
+          ontap(1);
+        }),
+        popupMenuItem(
+            2,
+            FFLocalizations.of(context).getText(
+              '7h0zeqv0' /* Asset Class */,
+            ), () {
+          ontap(2);
+        }),
+        popupMenuItem(
+            3,
+            FFLocalizations.of(context).getText(
+              'nkjefkra' /* Currency */,
+            ), () {
+          ontap(3);
+        }),
+        popupMenuItem(
+            4,
+            FFLocalizations.of(context).getText(
+              '6u2u1x9z' /* Health Alerts */,
+            ), () {
+          ontap(4);
+        }),
+      ],
+      offset: const Offset(0, 0),
+      elevation: 2,
+      child: AppStyles.iconBg(
+        context,
+        data: FontAwesomeIcons.chartBar,
+        size: rSize * 0.02,
+        margin: EdgeInsets.symmetric(horizontal: rSize * 0.008),
+      ),
+    );
+  }
+
+  PopupMenuItem<int> popupMenuItem(int value, String label, void Function()? onTap) {
+    return PopupMenuItem(
+        value: value,
+        onTap: onTap,
+        height: rSize * 0.04,
+        // padding: EdgeInsets.all(rSize * 0.01),
+        // row has two child icon and text.
+        child: Text(
+          label,
+          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                fontFamily: 'Roboto',
+                color: FlutterFlowTheme.of(context).customColor4,
+                fontSize: rSize * 0.016,
+                letterSpacing: 0,
+                fontWeight: FontWeight.w500,
+              ),
+        ));
+  }
 }

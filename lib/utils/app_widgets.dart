@@ -425,7 +425,7 @@ class AppWidgets {
           child: Icon(
             Icons.arrow_back,
             size: rSize*0.025,
-            color: FlutterFlowTheme.of(context).primary,
+            color: FlutterFlowTheme.of(context).customColor4,
           ),
         ));
   }

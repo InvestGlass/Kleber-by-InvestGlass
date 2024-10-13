@@ -2413,7 +2413,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // portfolio_issue_detail_bottom_sheet
   {
     'acyeoaaw': {
-      'en': 'Portfolio Health Check',
+      'en': 'PORTFOLIO HEALTH CHECK',
       'ar': 'فحص صحة المحفظة',
       'vi': 'Kiểm tra tình trạng danh mục đầu tư',
     },
