@@ -48,16 +48,16 @@ class PortfolioController extends ChangeNotifier{
       column='roi';
       direction='asc';
     }else if(index==2){
-      column='name';
+      column='security_name';
       direction='asc';
     }else if(index==3){
-      column='name';
+      column='security_name';
       direction='desc';
     }else if(index==4){
-      column='allocations';
+      column='allocation';
       direction='desc';
     }else if(index==5){
-      column='allocations';
+      column='allocation';
       direction='asc';
     }
     notifyListeners();
