@@ -250,10 +250,14 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     return SizedBox(
       // width: widget.customWidth,
       height: widget.height,
-      child: widget.xLabels.isEmpty ? null : widget.sectionName!=FFLocalizations.of(context).getText(
-        'zomhasya' /* Performance */,
-      )?circularChart() :buildSFLineChart(),
+      child: widget.xLabels.isEmpty ? null : !isPerformance(context)?circularChart() :buildSFLineChart(),
     );
+  }
+
+  bool isPerformance(BuildContext context) {
+    return widget.sectionName==FFLocalizations.of(context).getText(
+      'zomhasya' /* Performance */,
+    ) || widget.sectionName==null;
   }
 
   circularChart() {
