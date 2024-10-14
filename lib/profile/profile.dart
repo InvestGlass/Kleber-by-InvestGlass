@@ -59,7 +59,7 @@ class _ProfileState extends State<Profile> {
         padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: MediaQuery.of(context).padding.top + 10),
         children: [
           Text(
-            SharedPrefUtils.instance.getUserData().user!.id!.toString(),
+            SharedPrefUtils.instance.getUserData().user!.username!.toString(),
             style: FlutterFlowTheme.of(context).headlineSmall.override(
                   fontFamily: 'Roboto',
                   fontSize: rSize*0.02,

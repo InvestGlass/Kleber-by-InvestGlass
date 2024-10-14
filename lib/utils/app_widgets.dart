@@ -280,6 +280,33 @@ class AppWidgets {
           ),
     );
   }
+  static Widget btnWithoutGradiant(BuildContext context, String label,
+      Color bgColor,
+      {double? width,
+      double horizontalPadding = 0,
+        EdgeInsetsGeometry? margin,
+      Color? textColor}) {
+    return Container(
+      width: width,
+      alignment: Alignment.center,
+      margin: margin,
+      decoration: BoxDecoration(
+          color: bgColor,
+          border: Border.all(color: bgColor , width: 1),
+          borderRadius: BorderRadius.circular(rSize*0.010)),
+      padding: EdgeInsets.symmetric(vertical: rSize * 0.017, horizontal: horizontalPadding),
+      child: Text(
+            label,
+            style: FlutterFlowTheme.of(context).bodySmall.override(
+                      fontFamily: 'Roboto',
+                      color: Colors.white,
+                      fontSize: rSize*0.014,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.normal,
+                    ),
+          ),
+    );
+  }
 
   static label(BuildContext context, String text){
     return Text(
@@ -296,7 +323,9 @@ class AppWidgets {
   static Widget btnWithIcon(BuildContext context, String label, Color bgColor, Widget icon) {
     return Container(
       alignment: Alignment.center,
-      decoration: gradiantDecoration(context, borderOnly: false, color: bgColor),
+      decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(rSize*0.010)),
       padding: EdgeInsets.symmetric(vertical: rSize * 0.005),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -591,11 +620,11 @@ class AppWidgets {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            GestureDetector(onTap: onTap1, child: btn(context, label1, horizontalPadding: rSize * 0.02, bgColor: btn1BgColor)),
+                            GestureDetector(onTap: onTap1, child: btnWithoutGradiant(context, label1,btn1BgColor!, horizontalPadding: rSize * 0.02, )),
                             SizedBox(
                               width: rSize * 0.02,
                             ),
-                            GestureDetector(onTap: onTap2, child: btn(context, label2, horizontalPadding: rSize * 0.02, bgColor: btn2BgColor)),
+                            GestureDetector(onTap: onTap2, child: btnWithoutGradiant(context, label2,btn2BgColor!, horizontalPadding: rSize * 0.02, )),
                           ],
                         ),
                         SizedBox(

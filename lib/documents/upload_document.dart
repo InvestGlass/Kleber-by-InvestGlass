@@ -163,7 +163,8 @@ class _UploadDocumentState extends State<UploadDocument> {
                       fontWeight: FontWeight.w500,
                     ),
               ),
-              /*Text(
+              if(_notifier.image!=null)
+              Text(
                 content,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Roboto',
@@ -172,7 +173,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.w600,
                     ),
-              )*/
+              )
             ],
           ),
         ),

@@ -124,6 +124,7 @@ class AppStyles {
       onTap: onTap,
       child: Container(
         margin: margin??EdgeInsets.all(rSize*0.010),
+        padding: padding,
         height: rSize*0.05,
         width: rSize*0.05,
         decoration: BoxDecoration(

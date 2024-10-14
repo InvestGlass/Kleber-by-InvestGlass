@@ -498,7 +498,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         onTap: () {
                           Navigator.pop(context);
-                          CommonFunctions.navigate(context, ChatHistory(ProposalModel(advisor: Advisor(name: 'CHAT', phoneOffice: '123'))));
+                          CommonFunctions.navigate(context, ChatHistory(ProposalModel(advisor: Advisor(name: 'CHAT', phoneOffice: '+41763358815'))));
                         },
                       ),
                     ],

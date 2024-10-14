@@ -83,7 +83,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(rSize * 0.01),
                         child: Image.asset(
-                          'assets/advisor.jpg',
+                          'assets/advisor.png',
                           height: rSize * 0.07,
                           width: rSize * 0.07,
                           fit: BoxFit.fitHeight,

@@ -322,7 +322,7 @@ class _PositionsState extends State<Positions> {
 
   getIcon(double d) {
     if (d == 0) {
-      return SizedBox();
+      return null;
     } else if (d > 0) {
       return FaIcon(
         FontAwesomeIcons.caretUp,

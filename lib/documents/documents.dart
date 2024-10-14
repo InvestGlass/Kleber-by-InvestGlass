@@ -753,7 +753,7 @@ class _DocumentsState extends State<Documents> {
               ), () {
             downloadDoc(item);
           }),
-        if (item.requestProposalApproval! && item.documentStatus == null)
+        if (index==4 && item.requestProposalApproval! && item.documentStatus == null)
           popupMenuItem(
               3,
               FFLocalizations.of(context).getText(

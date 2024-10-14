@@ -244,7 +244,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                       )
                                       ,
                       Visibility(
-                      visible: pagingController.itemList![index].sectionName==FFLocalizations.of(context).getText(
+                      visible: pagingController.itemList![index].sectionName==null || pagingController.itemList![index].sectionName==FFLocalizations.of(context).getText(
                       '7h0zeqv0' /* Asset Class */,
                       ),
                       child: XPortfolioItemLineChart(
@@ -299,11 +299,16 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                AppStyles.iconBg(context,
+                                AppStyles.iconBg(context,color: FlutterFlowTheme.of(context).customColor4,
                                     data: FontAwesomeIcons.shoppingBasket, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015)),
                                 Text(FFLocalizations.of(context).getText(
                                   'position',
-                                ))
+                                ),style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  fontFamily: 'Roboto',
+                                  fontSize: rSize * 0.016,
+                                  color: FlutterFlowTheme.of(context).primaryText,
+                                  fontWeight: FontWeight.w400,
+                                ),)
                               ],
                             )),
                         SizedBox(
@@ -315,11 +320,18 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                               mainAxisAlignment: MainAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                AppStyles.iconBg(context,
+                                AppStyles.iconBg(context,color: FlutterFlowTheme.of(context).customColor4,
                                     data: FontAwesomeIcons.dollarSign, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015)),
                                 Text(FFLocalizations.of(context).getText(
                                   'eg1yw963' /* Transactions */,
-                                ))
+                                ),
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      fontFamily: 'Roboto',
+                                      fontSize: rSize * 0.016,
+                                      color: FlutterFlowTheme.of(context).primaryText,
+                                      fontWeight: FontWeight.w400,
+                                    )
+                                )
                               ],
                             )),
                         /*SizedBox(
@@ -593,11 +605,11 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
           ontap(4);
         }),
       ],
-      offset: const Offset(0, 0),
-      elevation: 2,
+      offset: const Offset(-5, 10),shadowColor: Colors.black,
+      elevation: 2,constraints: BoxConstraints(maxWidth: rSize*0.13),
       child: AppStyles.iconBg(
         context,
-        data: FontAwesomeIcons.chartBar,
+        data: FontAwesomeIcons.chartBar,color: FlutterFlowTheme.of(context).customColor4,
         size: rSize * 0.02,
         margin: EdgeInsets.symmetric(horizontal: rSize * 0.008),
       ),
