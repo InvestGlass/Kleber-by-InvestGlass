@@ -121,7 +121,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
             ],
           ),
           coordinateUnit: CoordinateUnit.point,
-          x: getDate(i),
+          x: widget.xLabels,
           y: columnStart + additionPercent + (additionPercent > 0 ? additionalValue : -additionalValue),
         ),
       );
@@ -255,11 +255,9 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     );
   }
 
-  circularChart() {/*
-    widget.listY.removeAt(0);
-    widget.listY.removeAt(0);
-    widget.listY.insert(0,20);
-    widget.listY.insert(0,50);*/
+  circularChart() {
+    List<ChartModel> list=List<ChartModel>.generate(widget.listY.length,(index) => ChartModel(widget.listY[index], widget.xLabels[index], widget.listAmount.isEmpty?0:widget.listAmount[index]),);
+    list.sort((a, b) => a.percentage.compareTo(b.percentage));
     if(widget.sectionName==FFLocalizations.of(context).getText(
       '7h0zeqv0' /* Asset Class */,
     )){
@@ -281,7 +279,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                       ),
                     ),
                     Text(
-                      '(${widget.listY[seriesIndex]}%)',
+                      '(${list[seriesIndex].percentage}%)',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
                         fontSize: rSize*0.012,
@@ -294,12 +292,12 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               ],
             );
           }, ),
-          series: <CircularSeries<String, String>>[
-            DoughnutSeries<String, String>(
-                dataSource: widget.xLabels,innerRadius: '70%',
-                xValueMapper: (String data, _) => getDate(_),
-                yValueMapper: (String data, _) => widget.listY[_]<0?0:widget.listY[_],emptyPointSettings: EmptyPointSettings(),
-                dataLabelMapper: (datum, _) => '${widget.listY[_]<0?0:widget.listY[_]}%',
+          series: <CircularSeries>[
+            DoughnutSeries<ChartModel, String>(
+                dataSource: list,innerRadius: '70%',
+                xValueMapper: (ChartModel data, _) => list[_].label,
+                yValueMapper: (ChartModel data, _) => list[_].percentage<0?0:list[_].percentage,emptyPointSettings: EmptyPointSettings(),
+                dataLabelMapper: (datum, _) => '${list[_].percentage<0?0:list[_].percentage}%',
                 // pointColorMapper: (datum, index) => FlutterFlowTheme.of(context).primary.withOpacity(),
                 dataLabelSettings: DataLabelSettings(
                   textStyle: FlutterFlowTheme.of(context).displaySmall.override(
@@ -331,7 +329,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                       ),
                     ),
                     Text(
-                      '(${widget.listY[seriesIndex]}%)',
+                      '(${list[seriesIndex].percentage}%)',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
                         fontSize: rSize*0.012,
@@ -344,19 +342,19 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               ],
             );
           }, ),
-          series: <CircularSeries<String, String>>[
-            DoughnutSeries<String, String>(
-                dataSource: widget.xLabels,innerRadius: '70%',
-                xValueMapper: (String data, _) => getDate(_),
-                yValueMapper: (String data, _) => widget.listY[_],emptyPointSettings: EmptyPointSettings(),
-                dataLabelMapper: (datum, _) => '${widget.listY[_]}%\n(${widget.listAmount[_]})',
+          series: <CircularSeries>[
+            DoughnutSeries<ChartModel, String>(
+                dataSource: list,innerRadius: '70%',
+                xValueMapper: (ChartModel data, _) => list[_].label,
+                yValueMapper: (ChartModel data, _) => list[_].percentage,emptyPointSettings: EmptyPointSettings(),
+                dataLabelMapper: (datum, _) => '${list[_].percentage}%\n(${list[_].amount})',
                 dataLabelSettings: DataLabelSettings(
                   textStyle: FlutterFlowTheme.of(context).displaySmall.override(
                     fontFamily: 'Roboto',
                     fontSize: rSize * 0.014,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.normal,
-                  ),isVisible: false,overflowMode:OverflowMode.shift, ),enableTooltip: true,
+                  ),isVisible: false,overflowMode:OverflowMode.shift),enableTooltip: true,
                 name: 'Gold')
           ]);
     }
@@ -378,7 +376,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                     ),
                   ),
                   Text(
-                    '(${widget.listY[seriesIndex]}%)',
+                    '(${list[seriesIndex].percentage}%)',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Roboto',
                       fontSize: rSize*0.012,
@@ -391,12 +389,12 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
             ],
           );
         }, ),
-        series: <CircularSeries<String, String>>[
-      DoughnutSeries<String, String>(
-          dataSource: widget.xLabels,innerRadius: '70%',
-          xValueMapper: (String data, _) => getDate(_),
-          yValueMapper: (String data, _) => widget.listY[_],emptyPointSettings: EmptyPointSettings(),
-          dataLabelMapper: (datum, _) => '${widget.listY[_]}%\n(${getDate(_)})',
+        series: <CircularSeries>[
+      DoughnutSeries<ChartModel, String>(
+          dataSource: list,innerRadius: '70%',
+          xValueMapper: (ChartModel data, _) => list[_].label,
+          yValueMapper: (ChartModel data, _) => list[_].percentage,emptyPointSettings: EmptyPointSettings(),
+          dataLabelMapper: (datum, _) => '${list[_].percentage}%\n(${list[_].label})',
           dataLabelSettings: DataLabelSettings(
               textStyle: FlutterFlowTheme.of(context).displaySmall.override(
                     fontFamily: 'Roboto',
@@ -408,5 +406,12 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     ]);
   }
 
-  String getDate(int _) => widget.xLabels[_];
+}
+
+class ChartModel{
+  double percentage;
+  String label;
+  double amount;
+
+  ChartModel(this.percentage, this.label, this.amount);
 }

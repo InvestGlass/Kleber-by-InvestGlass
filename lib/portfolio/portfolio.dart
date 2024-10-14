@@ -347,118 +347,35 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
     );
   }
 
-  Column healthAlertSection(BuildContext context, PortfolioModel item) {
-    return Column(
-                                  children: [
-                                    Container(
-                                      decoration: const BoxDecoration(),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Expanded(
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(context).primaryBackground,
-                                                  borderRadius: BorderRadius.only(
-                                                    bottomLeft: Radius.circular(rSize * 0.012),
-                                                    bottomRight: Radius.circular(0.0),
-                                                    topLeft: Radius.circular(rSize * 0.012),
-                                                    topRight: Radius.circular(0.0),
+  GestureDetector healthAlertSection(BuildContext context, PortfolioModel item) {
+    return GestureDetector(
+      onTap: () => CommonFunctions.navigate(context,HealthCheck(item.appropriateness, item.suitability)),
+      child: Column(
+                                    children: [
+                                      Container(
+                                        decoration: const BoxDecoration(),
+                                        child: Padding(
+                                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(context).primaryBackground,
+                                                    borderRadius: BorderRadius.only(
+                                                      bottomLeft: Radius.circular(rSize * 0.012),
+                                                      bottomRight: Radius.circular(0.0),
+                                                      topLeft: Radius.circular(rSize * 0.012),
+                                                      topRight: Radius.circular(0.0),
+                                                    ),
                                                   ),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional.fromSTEB(0, rSize * 0.020, 0, rSize * 0.020),
-                                                  child: Column(
-                                                    mainAxisSize: MainAxisSize.max,
-                                                    children: [
-                                                      Padding(
-                                                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, rSize * 0.020),
-                                                        child: SizedBox(
-                                                          width: rSize * 0.140,
-                                                          height: rSize * 0.115,
-                                                          child: Stack(
-                                                            alignment: const AlignmentDirectional(0, 1.0),
-                                                            children: [
-                                                              Container(
-                                                                width: rSize * 0.100,
-                                                                height: rSize * 0.100,
-                                                                decoration: const BoxDecoration(
-                                                                  color: Color(0x3FF9CF58),
-                                                                ),
-                                                                child: Icon(
-                                                                  Icons.warning_amber_rounded,
-                                                                  color: FlutterFlowTheme.of(context).warning,
-                                                                  size: rSize * 0.050,
-                                                                ),
-                                                              ),
-                                                              Align(
-                                                                alignment: const AlignmentDirectional(1, -1.0),
-                                                                child: Container(
-                                                                  width: rSize * 0.040,
-                                                                  height: rSize * 0.030,
-                                                                  decoration: BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(context).warning,
-                                                                  ),
-                                                                  alignment: const AlignmentDirectional(0, 0.0),
-                                                                  child: Text(
-                                                                    (int length) {
-                                                                      return '$length${length <= 10 ? '' : '+'}';
-                                                                    }(item.appropriateness!.listDetails?.length ?? 0),
-                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                          fontFamily: 'Roboto',
-                                                                          color: FlutterFlowTheme.of(context).info,
-                                                                          fontSize: rSize * 0.016,
-                                                                          letterSpacing: 0,
-                                                                          fontWeight: FontWeight.w500,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        FFLocalizations.of(context).getText(
-                                                          'kc4yx2mm' /* MINOR ISSUES */,
-                                                        ),
-                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                              fontFamily: 'Roboto',
-                                                              fontSize: rSize * 0.016,
-                                                              letterSpacing: 0,
-                                                              fontWeight: FontWeight.w500,
-                                                            ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: rSize * 0.002,
-                                              decoration: const BoxDecoration(),
-                                            ),
-                                            Expanded(
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(context).primaryBackground,
-                                                  borderRadius: BorderRadius.only(
-                                                    bottomLeft: Radius.circular(0.0),
-                                                    bottomRight: Radius.circular(rSize * 0.012),
-                                                    topLeft: Radius.circular(0.0),
-                                                    topRight: Radius.circular(rSize * 0.012),
-                                                  ),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional.fromSTEB(0, rSize * 0.020, 0, rSize * 0.020),
-                                                  child: Column(
-                                                    mainAxisSize: MainAxisSize.max,
-                                                    children: [
-                                                      Align(
-                                                        alignment: const AlignmentDirectional(0, 1.0),
-                                                        child: Padding(
+                                                  child: Padding(
+                                                    padding: EdgeInsetsDirectional.fromSTEB(0, rSize * 0.020, 0, rSize * 0.020),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      children: [
+                                                        Padding(
                                                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, rSize * 0.020),
                                                           child: SizedBox(
                                                             width: rSize * 0.140,
@@ -470,11 +387,11 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                                                   width: rSize * 0.100,
                                                                   height: rSize * 0.100,
                                                                   decoration: const BoxDecoration(
-                                                                    color: Color(0x41FF5963),
+                                                                    color: Color(0x3FF9CF58),
                                                                   ),
                                                                   child: Icon(
-                                                                    Icons.error_outline_rounded,
-                                                                    color: FlutterFlowTheme.of(context).error,
+                                                                    Icons.warning_amber_rounded,
+                                                                    color: FlutterFlowTheme.of(context).warning,
                                                                     size: rSize * 0.050,
                                                                   ),
                                                                 ),
@@ -484,13 +401,13 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                                                     width: rSize * 0.040,
                                                                     height: rSize * 0.030,
                                                                     decoration: BoxDecoration(
-                                                                      color: FlutterFlowTheme.of(context).error,
+                                                                      color: FlutterFlowTheme.of(context).warning,
                                                                     ),
                                                                     alignment: const AlignmentDirectional(0, 0.0),
                                                                     child: Text(
                                                                       (int length) {
                                                                         return '$length${length <= 10 ? '' : '+'}';
-                                                                      }(item.suitability!.listDetails?.length ?? 0),
+                                                                      }(item.appropriateness!.listDetails?.length ?? 0),
                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                             fontFamily: 'Roboto',
                                                                             color: FlutterFlowTheme.of(context).info,
@@ -505,29 +422,115 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
-                                                      Text(
-                                                        FFLocalizations.of(context).getText(
-                                                          'ko88t7mf' /* MAJOR ISSUES */,
+                                                        Text(
+                                                          FFLocalizations.of(context).getText(
+                                                            'kc4yx2mm' /* MINOR ISSUES */,
+                                                          ),
+                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                fontFamily: 'Roboto',
+                                                                fontSize: rSize * 0.016,
+                                                                letterSpacing: 0,
+                                                                fontWeight: FontWeight.w500,
+                                                              ),
                                                         ),
-                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                              fontFamily: 'Roboto',
-                                                              fontSize: rSize * 0.016,
-                                                              letterSpacing: 0,
-                                                              fontWeight: FontWeight.w500,
-                                                            ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                              Container(
+                                                width: rSize * 0.002,
+                                                decoration: const BoxDecoration(),
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(context).primaryBackground,
+                                                    borderRadius: BorderRadius.only(
+                                                      bottomLeft: Radius.circular(0.0),
+                                                      bottomRight: Radius.circular(rSize * 0.012),
+                                                      topLeft: Radius.circular(0.0),
+                                                      topRight: Radius.circular(rSize * 0.012),
+                                                    ),
+                                                  ),
+                                                  child: Padding(
+                                                    padding: EdgeInsetsDirectional.fromSTEB(0, rSize * 0.020, 0, rSize * 0.020),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      children: [
+                                                        Align(
+                                                          alignment: const AlignmentDirectional(0, 1.0),
+                                                          child: Padding(
+                                                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, rSize * 0.020),
+                                                            child: SizedBox(
+                                                              width: rSize * 0.140,
+                                                              height: rSize * 0.115,
+                                                              child: Stack(
+                                                                alignment: const AlignmentDirectional(0, 1.0),
+                                                                children: [
+                                                                  Container(
+                                                                    width: rSize * 0.100,
+                                                                    height: rSize * 0.100,
+                                                                    decoration: const BoxDecoration(
+                                                                      color: Color(0x41FF5963),
+                                                                    ),
+                                                                    child: Icon(
+                                                                      Icons.error_outline_rounded,
+                                                                      color: FlutterFlowTheme.of(context).error,
+                                                                      size: rSize * 0.050,
+                                                                    ),
+                                                                  ),
+                                                                  Align(
+                                                                    alignment: const AlignmentDirectional(1, -1.0),
+                                                                    child: Container(
+                                                                      width: rSize * 0.040,
+                                                                      height: rSize * 0.030,
+                                                                      decoration: BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context).error,
+                                                                      ),
+                                                                      alignment: const AlignmentDirectional(0, 0.0),
+                                                                      child: Text(
+                                                                        (int length) {
+                                                                          return '$length${length <= 10 ? '' : '+'}';
+                                                                        }(item.suitability!.listDetails?.length ?? 0),
+                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                              fontFamily: 'Roboto',
+                                                                              color: FlutterFlowTheme.of(context).info,
+                                                                              fontSize: rSize * 0.016,
+                                                                              letterSpacing: 0,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          FFLocalizations.of(context).getText(
+                                                            'ko88t7mf' /* MAJOR ISSUES */,
+                                                          ),
+                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                fontFamily: 'Roboto',
+                                                                fontSize: rSize * 0.016,
+                                                                letterSpacing: 0,
+                                                                fontWeight: FontWeight.w500,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                );
+                                    ],
+                                  ),
+    );
   }
 
   String getName(BuildContext context, int i) {
