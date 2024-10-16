@@ -474,6 +474,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'ar': 'معاينة',
       'vi': 'Xem trước',
     },
+    'edit': {
+      'en': 'Edit',
+      'ar': 'يحرر',
+      'vi': 'biên tập',
+    },
     'download': {
       'en': 'Download',
       'ar': 'تحميل',
@@ -1131,7 +1136,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // SelectLanguagePage
   {
     'cnc2a7kn': {
-      'en': 'Change Language',
+      'en': 'CHANGE LANGUAGE',
       'ar': 'تغيير اللغة',
       'vi': 'Thay đổi ngôn ngữ',
     },
@@ -2682,7 +2687,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'vi': 'Cài đặt tài khoản',
     },
     'afxtmzhw': {
-      'en': 'Change Password',
+      'en': 'CHANGE PASSWORD',
       'ar': 'تغيير كلمة المرور',
       'vi': 'Đổi mật khẩu',
     },

@@ -31,7 +31,7 @@ class AppWidgets {
   static Container healthAlertElement(
       BuildContext context, String title, Color bgColor, IconData iconData, String label, Appropriateness model, TextStyle textStyle) {
     return Container(
-      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(rSize*0.010)),
+      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(rSize*0.010),boxShadow: AppStyles.shadow()),
       padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.015),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -448,7 +448,7 @@ class AppWidgets {
           padding: padding??EdgeInsets.zero,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(rSize*0.008),
-            color: FlutterFlowTheme.of(context).info,
+            color: FlutterFlowTheme.of(context).secondaryBackground,
             boxShadow: AppStyles.shadow()
           ),alignment: Alignment.center,
           child: Icon(

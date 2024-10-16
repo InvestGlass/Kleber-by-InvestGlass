@@ -427,7 +427,12 @@ class ApiCalls {
       );
       Map<String, dynamic> map = await jsonResponse(context, url, 'post', body: {"current_password": currentPwd, "new_password": newPwd});
       if (map.containsKey('errors')) {
-        CommonFunctions.showToast(map['errors']);
+        if (map['errors'] is List) {
+          CommonFunctions.showToast(map['errors'][0]);
+        } else {
+          CommonFunctions.showToast(map['errors']);
+        }
+
         return false;
       } else {
         return map['success'];

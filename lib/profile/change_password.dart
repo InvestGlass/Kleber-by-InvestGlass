@@ -40,150 +40,150 @@ class _ChangePasswordState extends State<ChangePassword> {
             'afxtmzhw' /* Change Password */,
           ),
           leading: AppWidgets.backArrow(context)),
-      body: Container(
-        decoration: AppStyles.commonBg(context),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            padding: EdgeInsets.symmetric(vertical: rSize * 0.02, horizontal: rSize * 0.015),
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize*0.010),
-                child: AppWidgets.label(context,FFLocalizations.of(context).getText(
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: EdgeInsets.symmetric(vertical: rSize * 0.02, horizontal: rSize * 0.015),
+          children: [
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize * 0.010),
+              child: AppWidgets.label(
+                  context,
+                  FFLocalizations.of(context).getText(
                     '510yg9y6' /* Current password */,
-                  )
-                ),
-                ),
-              TextFormField(
-                controller: _notifier.currentPwdController,
-                style: FlutterFlowTheme.of(context).bodyLarge.override(
-                      fontFamily: 'Roboto',
-                      letterSpacing: 0.0,
-                    ),
-                obscureText: !_notifier.showCurrentPwd,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Required';
-                  }
-                },
-                decoration: AppStyles.inputDecoration(
-                  context,
-                  hint: FFLocalizations.of(context).getText(
-                    '729kp7ui' /* Your current password */,
+                  )),
+            ),
+            TextFormField(
+              controller: _notifier.currentPwdController,
+              style: FlutterFlowTheme.of(context).bodyLarge.override(
+                    fontFamily: 'Roboto',
+                    letterSpacing: 0.0,
                   ),
-                  suffix: GestureDetector(
-                      onTap: () {
-                        _notifier.changeCurrentPwdVisibilityStatus();
-                      },
-                      child:
-                          Icon(_notifier.showCurrentPwd ? Icons.visibility : Icons.visibility_off, color: FlutterFlowTheme.of(context).primaryText)),
-                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                  contentPadding: EdgeInsets.symmetric(horizontal: rSize*0.015, vertical: rSize*0.018),
-                  labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                        fontFamily: 'Roboto',
-                        letterSpacing: 0.0,
-                      ),
+              obscureText: !_notifier.showCurrentPwd,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Required';
+                }
+              },
+              decoration: AppStyles.inputDecoration(
+                context,
+                hint: FFLocalizations.of(context).getText(
+                  '729kp7ui' /* Your current password */,
                 ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize * 0.025, 0.0, rSize*0.010),
-                child: AppWidgets.label(context, FFLocalizations.of(context).getText(
-                  '2l6qayo4' /* New password */,
-                )),
-              ),
-              TextFormField(
-                controller: _notifier.newPwdController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Required';
-                  } else if (value.length < 6) {
-                    return FFLocalizations.of(context).getText(
-                      'gtihat6e' /* New password needs at least... */,
-                    );
-                  }
-                },
-                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                suffix: GestureDetector(
+                    onTap: () {
+                      _notifier.changeCurrentPwdVisibilityStatus();
+                    },
+                    child: Icon(_notifier.showCurrentPwd ? Icons.visibility : Icons.visibility_off, color: FlutterFlowTheme.of(context).primaryText)),
+                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                contentPadding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.018),
+                labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                       fontFamily: 'Roboto',
                       letterSpacing: 0.0,
                     ),
-                obscureText: !_notifier.showNewPwd,
-                decoration: AppStyles.inputDecoration(
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize * 0.025, 0.0, rSize * 0.010),
+              child: AppWidgets.label(
                   context,
-                  hint: FFLocalizations.of(context).getText(
+                  FFLocalizations.of(context).getText(
                     '2l6qayo4' /* New password */,
+                  )),
+            ),
+            TextFormField(
+              controller: _notifier.newPwdController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Required';
+                } else if (value.length < 6) {
+                  return FFLocalizations.of(context).getText(
+                    'gtihat6e' /* New password needs at least... */,
+                  );
+                }
+              },
+              style: FlutterFlowTheme.of(context).bodyLarge.override(
+                    fontFamily: 'Roboto',
+                    letterSpacing: 0.0,
                   ),
-                  contentPadding: EdgeInsets.symmetric(horizontal: rSize*0.015, vertical: rSize*0.018),
-                  suffix: GestureDetector(
-                      onTap: () {
-                        _notifier.changeNewPwdVisibilityStatus();
-                      },
-                      child: Icon(_notifier.showNewPwd ? Icons.visibility : Icons.visibility_off, color: FlutterFlowTheme.of(context).primaryText)),
-                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                  labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                        fontFamily: 'Roboto',
-                        letterSpacing: 0.0,
-                      ),
+              obscureText: !_notifier.showNewPwd,
+              decoration: AppStyles.inputDecoration(
+                context,
+                hint: FFLocalizations.of(context).getText(
+                  '2l6qayo4' /* New password */,
                 ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize * 0.025, 0.0, rSize*0.010),
-                child: AppWidgets.label(context,FFLocalizations.of(context).getText(
-                    'lz5cj3qp' /* Confirm new password */,
-                  )
-                ),
-              ),
-              TextFormField(
-                controller: _notifier.confirmNewPwdController,
-                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                contentPadding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.018),
+                suffix: GestureDetector(
+                    onTap: () {
+                      _notifier.changeNewPwdVisibilityStatus();
+                    },
+                    child: Icon(_notifier.showNewPwd ? Icons.visibility : Icons.visibility_off, color: FlutterFlowTheme.of(context).primaryText)),
+                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                       fontFamily: 'Roboto',
                       letterSpacing: 0.0,
                     ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Required';
-                  } else if (_notifier.newPwdController.text != value) {
-                    return FFLocalizations.of(context).getText(
-                      'y6byl3gh' /* Confirm new password must... */,
-                    );
-                  }
-                },
-                obscureText: !_notifier.showConfirmNewPwd,
-                decoration: AppStyles.inputDecoration(context,
-                    contentPadding: EdgeInsets.symmetric(horizontal: rSize*0.015, vertical: rSize*0.018),
-                    hint: FFLocalizations.of(context).getText(
-                      'lz5cj3qp' /* Confirm new password */,
-                    ),
-                    suffix: GestureDetector(
-                        onTap: () {
-                          _notifier.changeConfirmNewPwdVisibilityStatus();
-                        },
-                        child: Icon(_notifier.showConfirmNewPwd ? Icons.visibility : Icons.visibility_off,
-                            color: FlutterFlowTheme.of(context).primaryText))),
               ),
-              SizedBox(
-                height: rSize * 0.03,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize * 0.025, 0.0, rSize * 0.010),
+              child: AppWidgets.label(
+                  context,
+                  FFLocalizations.of(context).getText(
+                    'lz5cj3qp' /* Confirm new password */,
+                  )),
+            ),
+            TextFormField(
+              controller: _notifier.confirmNewPwdController,
+              style: FlutterFlowTheme.of(context).bodyLarge.override(
+                    fontFamily: 'Roboto',
+                    letterSpacing: 0.0,
+                  ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Required';
+                } else if (_notifier.newPwdController.text != value) {
+                  return FFLocalizations.of(context).getText(
+                    'y6byl3gh' /* Confirm new password must... */,
+                  );
+                }
+              },
+              obscureText: !_notifier.showConfirmNewPwd,
+              decoration: AppStyles.inputDecoration(context,
+                  contentPadding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.018),
+                  hint: FFLocalizations.of(context).getText(
+                    'lz5cj3qp' /* Confirm new password */,
+                  ),
+                  suffix: GestureDetector(
                       onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          _notifier.changePassword(context);
-                        }
+                        _notifier.changeConfirmNewPwdVisibilityStatus();
                       },
-                      child: AppWidgets.btn(
-                          context,
-                          FFLocalizations.of(context).getText(
-                            'iy4dy5qk' /* Change password */,
-                          ),
-                          textColor: Colors.white,
-                          horizontalPadding: rSize * 0.025,
-                          bgColor: FlutterFlowTheme.of(context).primary)),
-                ],
-              )
-            ],
-          ),
+                      child: Icon(_notifier.showConfirmNewPwd ? Icons.visibility : Icons.visibility_off,
+                          color: FlutterFlowTheme.of(context).primaryText))),
+            ),
+            SizedBox(
+              height: rSize * 0.03,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        _notifier.changePassword(context);
+                      }
+                    },
+                    child: AppWidgets.btn(
+                        context,
+                        FFLocalizations.of(context).getText(
+                          'afxtmzhw' /* Change password */,
+                        ),
+                        textColor: Colors.white,
+                        horizontalPadding: rSize * 0.025,
+                        bgColor: FlutterFlowTheme.of(context).primary)),
+              ],
+            )
+          ],
         ),
       ),
     );

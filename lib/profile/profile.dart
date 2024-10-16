@@ -102,7 +102,7 @@ class _ProfileState extends State<Profile> {
           ),
           cell(
             FFLocalizations.of(context).getText(
-              'wvo4yj9k' /* Change Language*/,
+              'cnc2a7kn' /* Change Language*/,
             ),
             () => openLanguageSelectionBottomSheet(),
           ),

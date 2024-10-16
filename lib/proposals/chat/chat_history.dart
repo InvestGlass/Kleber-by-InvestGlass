@@ -61,6 +61,7 @@ class _ChatHistoryState extends State<ChatHistory> {
       appBar: AppWidgets.appBar(context, widget.model.advisor?.name ?? '', leading: AppWidgets.backArrow(context), actions: [
         AppStyles.iconBg(
           context,
+          color: FlutterFlowTheme.of(context).customColor4,
           padding: EdgeInsets.symmetric(horizontal: rSize * 0.008),
           margin: EdgeInsets.symmetric(vertical: rSize * 0.008),
           data: Icons.refresh_rounded,
@@ -79,6 +80,7 @@ class _ChatHistoryState extends State<ChatHistory> {
             left: rSize * 0.008,
           ),
           data: Icons.call_outlined,
+          color: FlutterFlowTheme.of(context).customColor4,
           onTap: () async {
             await launchUrl(Uri(
               scheme: 'tel',
@@ -247,6 +249,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                   children: [
                     AppStyles.iconBg(context,
                         data: Icons.send_rounded,
+                        color: FlutterFlowTheme.of(context).customColor4,
                         size: rSize * 0.024,
                         padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.015),
                         margin: EdgeInsets.only(left: rSize * 0.01))

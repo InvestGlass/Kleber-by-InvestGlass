@@ -349,16 +349,9 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize*0.010),
-                                child: Text(
-                                  FFLocalizations.of(context).getText(
-                                    'nkjefkra' /* Currency */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'Roboto',
-                                        fontSize: rSize*0.018,
-                                    fontWeight: FontWeight.w200,
-                                    color: FlutterFlowTheme.of(context).customColor4,
-                                      ),
+                                child: AppWidgets.label(context,FFLocalizations.of(context).getText(
+                                  'nkjefkra' /* Currency */,
+                                )
                                 ),
                               ),
                               SearchableDropdown(

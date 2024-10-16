@@ -124,7 +124,13 @@ class _UploadDocumentState extends State<UploadDocument> {
                       _notifier.uploadDoc(context);
                     }
                   },
-                  child: AppWidgets.btn(
+                  child: _notifier.image==null?AppWidgets.btnWithoutGradiant(
+                      context,
+                      FFLocalizations.of(context).getText(
+                        't2nv4kvj' /* Upload */,
+                      ),
+                    FlutterFlowTheme.of(context).customColor4,
+                      horizontalPadding: rSize * 0.03,):AppWidgets.btn(
                       context,
                       FFLocalizations.of(context).getText(
                         't2nv4kvj' /* Upload */,

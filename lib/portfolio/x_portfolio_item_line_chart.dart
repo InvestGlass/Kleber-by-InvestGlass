@@ -275,13 +275,9 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   circularChart() {
     List<ChartModel> list = List<ChartModel>.generate(
       widget.listY.length,
-      (index) => ChartModel(widget.listY[index], widget.xLabels[index], widget.listAmount.isEmpty ? 0 : widget.listAmount[index]),
+      (index) => ChartModel(widget.listY[index]<=0?0:widget.listY[index], widget.xLabels[index], widget.listAmount.isEmpty ? 0 : widget.listAmount[index]),
     );
     list.sort((a, b) => a.percentage.compareTo(b.percentage));
-    if (widget.sectionName ==
-        FFLocalizations.of(context).getText(
-          '7h0zeqv0' /* Asset Class */,
-        )) {
       return SfCircularChart(
           tooltipBehavior: _tooltip,
           legend: Legend(
@@ -289,33 +285,48 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
             overflowMode: LegendItemOverflowMode.scroll,
             position: LegendPosition.right,
             legendItemBuilder: (legendText, series, point, seriesIndex) {
-              return Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        legendText,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
-                              fontSize: rSize * 0.014,
-                              color: FlutterFlowTheme.of(context).customColor4,
-                              fontWeight: FontWeight.w500,
-                            ),
+              return ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: rSize*0.13,minWidth:rSize*0.13 ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        // color: getColor(list[seriesIndex].percentage,widget.listY.reduce((a, b) => a > b ? a : b),widget.listY.reduce((a, b) => a < b ? a : b))
+                        color: colorList[seriesIndex]
                       ),
-                      Text(
-                        '(${list[seriesIndex].percentage}%)',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
-                              fontSize: rSize * 0.012,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              fontWeight: FontWeight.normal,
-                            ),
-                      )
-                    ],
-                  )
-                ],
+                      height: rSize*0.02,
+                      width: rSize*0.02,
+                      margin: EdgeInsets.only(right: rSize*0.01),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            legendText,maxLines: 1,overflow: TextOverflow.ellipsis,
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  fontFamily: 'Roboto',
+                                  fontSize: rSize * 0.014,
+                                  color: FlutterFlowTheme.of(context).customColor4,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                          Text(
+                            '(${list[seriesIndex].percentage}%)',
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  fontFamily: 'Roboto',
+                                  fontSize: rSize * 0.012,
+                                  color: FlutterFlowTheme.of(context).primaryText,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               );
             },
           ),
@@ -323,8 +334,13 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
             DoughnutSeries<ChartModel, String>(
                 dataSource: list,
                 innerRadius: '70%',
-                xValueMapper: (ChartModel data, _) => list[_].label,
+                xValueMapper: (ChartModel data, _) => list[_].label,explode: true,
                 yValueMapper: (ChartModel data, _) => list[_].percentage < 0 ? 0 : list[_].percentage,
+                pointColorMapper: (ChartModel data, _) {
+                  // Get the color based on the sales value
+                  // return getColor(data.percentage,widget.listY.reduce((a, b) => a > b ? a : b),widget.listY.reduce((a, b) => a < b ? a : b));
+                  return colorList[_];
+                },
                 emptyPointSettings: EmptyPointSettings(),
                 dataLabelMapper: (datum, _) => '${list[_].percentage < 0 ? 0 : list[_].percentage}%',
                 // pointColorMapper: (datum, index) => FlutterFlowTheme.of(context).primary.withOpacity(),
@@ -332,7 +348,6 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                   textStyle: FlutterFlowTheme.of(context).displaySmall.override(
                         fontFamily: 'Roboto',
                         fontSize: rSize * 0.014,
-                        letterSpacing: 0,
                         fontWeight: FontWeight.normal,
                       ),
                   isVisible: false,
@@ -341,127 +356,6 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                 enableTooltip: true,
                 name: 'Gold')
           ]);
-    }
-    if (widget.sectionName ==
-        FFLocalizations.of(context).getText(
-          'o00oeypg' /* Currency */,
-        )) {
-      return SfCircularChart(
-          tooltipBehavior: _tooltip,
-          legend: Legend(
-            isVisible: true,
-            overflowMode: LegendItemOverflowMode.scroll,
-            position: LegendPosition.right,
-            legendItemBuilder: (legendText, series, point, seriesIndex) {
-              return Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        legendText,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
-                              fontSize: rSize * 0.014,
-                              color: FlutterFlowTheme.of(context).customColor4,
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ),
-                      Text(
-                        '(${list[seriesIndex].percentage}%)',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
-                              fontSize: rSize * 0.012,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              fontWeight: FontWeight.normal,
-                            ),
-                      )
-                    ],
-                  )
-                ],
-              );
-            },
-          ),
-          series: <CircularSeries>[
-            DoughnutSeries<ChartModel, String>(
-                dataSource: list,
-                innerRadius: '70%',
-                xValueMapper: (ChartModel data, _) => list[_].label,
-                yValueMapper: (ChartModel data, _) => list[_].percentage,
-                emptyPointSettings: EmptyPointSettings(),
-                dataLabelMapper: (datum, _) => '${list[_].percentage}%\n(${list[_].amount})',
-                dataLabelSettings: DataLabelSettings(
-                    textStyle: FlutterFlowTheme.of(context).displaySmall.override(
-                          fontFamily: 'Roboto',
-                          fontSize: rSize * 0.014,
-                          letterSpacing: 0,
-                          fontWeight: FontWeight.normal,
-                        ),
-                    isVisible: false,
-                    overflowMode: OverflowMode.shift),
-                enableTooltip: true,
-                name: 'Gold')
-          ]);
-    }
-    return SfCircularChart(
-        tooltipBehavior: _tooltip,
-        legend: Legend(
-          isVisible: true,
-          overflowMode: LegendItemOverflowMode.scroll,
-          position: LegendPosition.right,
-          legendItemBuilder: (legendText, series, point, seriesIndex) {
-            return Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      legendText,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
-                            fontSize: rSize * 0.014,
-                            color: FlutterFlowTheme.of(context).customColor4,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                    Text(
-                      '(${list[seriesIndex].percentage}%)',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
-                            fontSize: rSize * 0.012,
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            fontWeight: FontWeight.normal,
-                          ),
-                    )
-                  ],
-                )
-              ],
-            );
-          },
-        ),
-        series: <CircularSeries>[
-          DoughnutSeries<ChartModel, String>(
-              dataSource: list,
-              innerRadius: '70%',
-              xValueMapper: (ChartModel data, _) => list[_].label,
-              yValueMapper: (ChartModel data, _) => list[_].percentage,
-              emptyPointSettings: EmptyPointSettings(),
-              dataLabelMapper: (datum, _) => '${list[_].percentage}%\n(${list[_].label})',
-              dataLabelSettings: DataLabelSettings(
-                textStyle: FlutterFlowTheme.of(context).displaySmall.override(
-                      fontFamily: 'Roboto',
-                      fontSize: rSize * 0.014,
-                      letterSpacing: 0,
-                      fontWeight: FontWeight.normal,
-                    ),
-                isVisible: false,
-                overflowMode: OverflowMode.shift,
-              ),
-              enableTooltip: true,
-              name: 'Gold')
-        ]);
   }
 
   label(BuildContext context, String s) {
@@ -475,6 +369,16 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
       ),
     );
   }
+
+  Color getColor(double value, double minValue, double maxValue) {
+    double ratio = (value - minValue) / (maxValue - minValue);
+    Color darkBlue = Color(0xFF001F3F); // Darker blue
+    Color lightBlue = Color(0xFF7FDBFF); // Lighter blue
+    int r = (darkBlue.red + (lightBlue.red - darkBlue.red) * ratio).round();
+    int g = (darkBlue.green + (lightBlue.green - darkBlue.green) * ratio).round();
+    int b = (darkBlue.blue + (lightBlue.blue - darkBlue.blue) * ratio).round();
+    return Color.fromARGB(255, r, g, b);
+  }
 }
 
 class ChartModel {
@@ -484,3 +388,35 @@ class ChartModel {
 
   ChartModel(this.percentage, this.label, this.amount);
 }
+
+const colorList=[
+  Color(0XFF00008B),
+Color(0XFF0000CD),
+Color(0XFF0000FF),
+Color(0XFF1E90FF),
+Color(0XFF00BFFF),
+Color(0XFF87CEEB),
+Color(0XFF00CED1),
+Color(0XFF48D1CC),
+Color(0XFF40E0D0),
+Color(0XFF5F9EA0),
+Color(0XFF4682B4),
+Color(0XFF1C6E8E),
+Color(0XFFB0E0E6),
+Color(0XFFADD8E6),
+Color(0XFF87CEFA),
+Color(0XFFB0E0E6),
+Color(0XFFE0FFFF),
+Color(0XFFAFEEEE),
+Color(0XFF00FFFF),
+Color(0XFF66CDAA),
+Color(0XFF40E0D0),
+Color(0XFF20B2AA),
+Color(0XFF00FA9A),
+Color(0XFF98FB98),
+Color(0XFF00FF7F),
+Color(0XFF3CB371),
+Color(0XFF2E8B57),
+Color(0XFF228B22),
+Color(0XFF008000),
+Color(0XFF006400)];

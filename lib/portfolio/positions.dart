@@ -104,7 +104,7 @@ class _PositionsState extends State<Positions> {
                               Icons.sort_rounded,
                               color: FlutterFlowTheme.of(context).customColor4,
                               size: rSize * 0.024,
-                            ), // Custom icon for selected item
+                            ),
                             SizedBox(width: rSize * 0.008),
                             Text(item,
                                 style: FlutterFlowTheme.of(context).bodySmall.override(
@@ -112,7 +112,7 @@ class _PositionsState extends State<Positions> {
                                       color: FlutterFlowTheme.of(context).customColor4,
                                       fontSize: rSize * 0.016,
                                       fontWeight: FontWeight.w500,
-                                    )), // Custom text style
+                                    )),
                           ],
                         );
                       }).toList();

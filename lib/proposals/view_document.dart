@@ -20,14 +20,11 @@ import '../utils/internationalization.dart';
 import '../utils/shared_pref_utils.dart';
 
 class ViewDocument extends StatefulWidget {
-  final String documentId;
-  final bool isProposal;
   final bool? showSignButton;
-  final String ext, url;
   Document? item;
   final int? index;
 
-  ViewDocument(this.documentId, this.isProposal, {this.showSignButton = false, this.ext = 'pdf', this.url = '', this.item, this.index, super.key});
+  ViewDocument( {this.showSignButton = false, this.item, this.index, super.key});
 
   @override
   State<ViewDocument> createState() => _ViewDocumentState();
@@ -62,8 +59,8 @@ class _ViewDocumentState extends State<ViewDocument> {
 
   ///Get the PDF document as bytes
   void getPdfBytes() async {
-    if (widget.url.isEmpty) {
-      _documentBytes = await http.readBytes(Uri.parse('${EndPoints.baseUrl}documents/${widget.documentId}'),
+    if ((widget.item?.url??'').isEmpty) {
+      _documentBytes = await http.readBytes(Uri.parse('${EndPoints.baseUrl}documents/${widget.item!.id}'),
           headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
     }
     setState(() {});
@@ -74,7 +71,7 @@ class _ViewDocumentState extends State<ViewDocument> {
     _notifier = Provider.of<DocumentsController>(context);
     Widget child = const Center(child: CircularProgressIndicator());
     if (_documentBytes != null) {
-      if (widget.ext.toLowerCase() == 'pdf' || widget.ext.toLowerCase() == 'txt') {
+      if (widget.item!.originalFilename!.split('.').last.toLowerCase() == 'pdf' || widget.item!.originalFilename!.toLowerCase() == 'txt') {
         child = SfPdfViewer.memory(
           _documentBytes!,
         );
@@ -84,7 +81,7 @@ class _ViewDocumentState extends State<ViewDocument> {
         );
       }
     }
-    if (widget.url.isNotEmpty) {
+    if ((widget.item?.url??'').isNotEmpty) {
       child = WebViewWidget(
           controller: WebViewController()
             ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -105,13 +102,13 @@ class _ViewDocumentState extends State<ViewDocument> {
                 },
               ),
             )
-            ..loadRequest(Uri.parse(widget.url)));
+            ..loadRequest(Uri.parse((widget.item?.url??''))));
     }
     return Scaffold(
       appBar: AppWidgets.appBar(
           context,
           FFLocalizations.of(context).getText(
-            !widget.isProposal ? '1vddbh59' /* Document */ : 'mlj5814u' /* Proposal */,
+            '1vddbh59' /* Document */,
           ),
           leading: AppWidgets.backArrow(context),
           centerTitle: true),

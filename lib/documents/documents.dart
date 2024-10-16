@@ -158,6 +158,14 @@ class _DocumentsState extends State<Documents> {
                           _notifier.openFolder(item);
                           _pageKey = 1;
                           _notifier.pagingController.refresh();
+                        }else{
+                          CommonFunctions.navigate(
+                              context,
+                              ViewDocument(
+                                showSignButton: item.requestProposalApproval != null && item.requestProposalApproval!,
+                                item: item,
+                                index: index,
+                              ));
                         }
                       },
                       child: Container(
@@ -720,22 +728,20 @@ class _DocumentsState extends State<Documents> {
       itemBuilder: (context) => [
         popupMenuItem(
             1,
-            FFLocalizations.of(context).getText(
+        item.documentType == 'form'?FFLocalizations.of(context).getText(
+          'edit',
+        ):FFLocalizations.of(context).getText(
               'preview',
             ),
             Icon(
-              Icons.remove_red_eye,
+              item.documentType == 'form'?Icons.edit:Icons.remove_red_eye,
               size: rSize * 0.025,
               color: FlutterFlowTheme.of(context).customColor4,
             ), () {
           CommonFunctions.navigate(
               context,
               ViewDocument(
-                item.id.toString(),
-                false,
                 showSignButton: item.requestProposalApproval != null && item.requestProposalApproval!,
-                ext: item.originalFilename!.split('.').last,
-                url: item.url ?? '',
                 item: item,
                 index: index,
               ));

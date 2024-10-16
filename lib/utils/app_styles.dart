@@ -137,7 +137,7 @@ class AppStyles {
             colors: [
               FlutterFlowTheme
                   .of(context).customColor6,
-              Colors.white,
+              FlutterFlowTheme.of(context).secondaryBackground,
               FlutterFlowTheme
                   .of(context)
               .customColor6,

@@ -197,7 +197,7 @@ class _DashboardState extends State<Dashboard> {
         // controller=PageController(initialPage: value);
       }),*/
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: FlutterFlowTheme.of(context).info,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         currentIndex: _controller.selectedIndex,
         onTap: (value) {
           if (value != 2) {

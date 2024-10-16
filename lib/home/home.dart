@@ -74,7 +74,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                       fontFamily: 'Roboto',
                       color: FlutterFlowTheme.of(context).customColor4,
-                      fontSize: rSize * 0.024,
+                      fontSize: rSize * 0.022,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.w500,
                     ),
@@ -119,52 +119,54 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                           ),
                           Padding(
                             padding: EdgeInsets.all(rSize * 0.005),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                    width: rSize * 0.27,
-                                    margin: EdgeInsets.only(top: rSize * 0.005),
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      model.title ?? '',
-                                      maxLines: 2,
-                                      style: FlutterFlowTheme.of(context).titleMedium.override(
-                                        fontFamily: 'Roboto',
-                                        color: FlutterFlowTheme.of(context).customColor4,
-                                        fontSize: rSize * 0.014,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
-                                        lineHeight: 1.2,
-                                      ),
-                                    )),
-                                SizedBox(
-                                  height: rSize * 0.01,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context).customColor1,
-                                    borderRadius: BorderRadius.circular(rSize * 0.024),
-                                  ),
-                                  child: Align(
-                                    alignment: const AlignmentDirectional(0.0, 0.0),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(rSize * 0.010, rSize * 0.005, rSize * 0.010, rSize * 0.005),
+                            child: Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                      width: rSize * 0.27,
+                                      margin: EdgeInsets.only(top: rSize * 0.005),
+                                      alignment: Alignment.centerLeft,
                                       child: Text(
-                                        DateFormat('yyyy-MM-dd').format(model.date ?? DateTime.now()),
-                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                              fontFamily: 'Roboto',
-                                              color: FlutterFlowTheme.of(context).info,
-                                              fontSize: rSize * 0.012,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w600,
-                                              lineHeight: 1.0,
-                                            ),
+                                        model.title ?? '',
+                                        maxLines: 2,
+                                        style: FlutterFlowTheme.of(context).titleMedium.override(
+                                          fontFamily: 'Roboto',
+                                          color: FlutterFlowTheme.of(context).customColor4,
+                                          fontSize: rSize * 0.014,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                          lineHeight: 1.2,
+                                        ),
+                                      )),
+                                  SizedBox(
+                                    height: rSize * 0.005,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context).customColor1,
+                                      borderRadius: BorderRadius.circular(rSize * 0.024),
+                                    ),
+                                    child: Align(
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(rSize * 0.010, rSize * 0.005, rSize * 0.010, rSize * 0.005),
+                                        child: Text(
+                                          DateFormat('yyyy-MM-dd').format(model.date ?? DateTime.now()),
+                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                fontFamily: 'Roboto',
+                                                color: FlutterFlowTheme.of(context).info,
+                                                fontSize: rSize * 0.012,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                                lineHeight: 1.0,
+                                              ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             ),
                           )
                         ],
@@ -183,7 +185,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Roboto',
                         color: FlutterFlowTheme.of(context).customColor4,
-                        fontSize: rSize * 0.024,
+                        fontSize: rSize * 0.022,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
                       ),
