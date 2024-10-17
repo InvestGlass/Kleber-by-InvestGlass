@@ -63,7 +63,7 @@ class _LoginState extends State<Login> {
                         'gs8awxej' /* Sign into */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
+
                             color: FlutterFlowTheme.of(context).secondaryText,
                             fontSize: rSize*0.03,
                             letterSpacing: 0.0,
@@ -78,7 +78,7 @@ class _LoginState extends State<Login> {
                             'zlksaikw' /* your */,
                           )} ',
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
+
                             color: FlutterFlowTheme.of(context).secondaryText,
                             fontSize: rSize*0.03,
                             letterSpacing: 0.0,lineHeight: 0,
@@ -96,7 +96,7 @@ class _LoginState extends State<Login> {
                                   color: FlutterFlowTheme.of(context).primary,
                                   fontSize: rSize*0.030,height: 0,
                                   fontWeight: FontWeight.w600,
-                                  fontFamily: 'Roboto',),
+                                  ),
                             ),
                             Container(
                               color: FlutterFlowTheme.of(context).primary,
@@ -123,7 +123,7 @@ class _LoginState extends State<Login> {
                       TextFormField(
                         controller: _controller.userNameController,
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              fontFamily: 'Roboto',
+
                               letterSpacing: 0.0,
                             ),
                         validator: (value) {
@@ -139,7 +139,7 @@ class _LoginState extends State<Login> {
                             ),
                             fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                             labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                                  fontFamily: 'Roboto',
+
                                   letterSpacing: 0.0,
                                 ),
                             suffix: Padding(
@@ -157,7 +157,7 @@ class _LoginState extends State<Login> {
                       TextFormField(
                         controller: _controller.pwdController,
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              fontFamily: 'Roboto',
+
                               letterSpacing: 0.0,
                             ),
                         validator: (value) {
@@ -175,7 +175,7 @@ class _LoginState extends State<Login> {
                             ),
                             fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                             labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                                  fontFamily: 'Roboto',
+
                                   letterSpacing: 0.0,
                                 ),
                             suffix: GestureDetector(
@@ -226,7 +226,7 @@ class _LoginState extends State<Login> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                      fontFamily: 'Roboto',
+
                                       color: FlutterFlowTheme.of(context)
                                           .customColor4,
                                       fontWeight: FontWeight.w400,
@@ -245,7 +245,7 @@ class _LoginState extends State<Login> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                  fontFamily: 'Roboto',
+
                                   fontWeight: FontWeight.w500,
                                   fontSize: rSize*0.016
                               ),

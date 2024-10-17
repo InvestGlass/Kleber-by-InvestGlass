@@ -163,7 +163,7 @@ class _ViewDocumentState extends State<ViewDocument> {
               FFLocalizations.of(context).languageCode,
             ).format(widget.item!.approvedAt!)}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor2,
                   fontSize: rSize*0.016,
                   letterSpacing: 0.0,
@@ -181,7 +181,7 @@ class _ViewDocumentState extends State<ViewDocument> {
               FFLocalizations.of(context).languageCode,
             ).format(widget.item!.disapprovedAt!)}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor3,
                   fontSize: rSize*0.016,
                   letterSpacing: 0.0,

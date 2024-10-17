@@ -159,7 +159,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Roboto',
+
                                     color: FlutterFlowTheme.of(context).info,
                                     letterSpacing: 0.0,
                                   ),
@@ -185,7 +185,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                     child: Text(
                       widget.data!.name!,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Roboto',
+
                         color:FlutterFlowTheme.of(context).customColor4,
                         fontSize: rSize*0.018,
                         letterSpacing: 0.0,
@@ -199,7 +199,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                       style: FlutterFlowTheme.of(context)
                           .bodyMedium
                           .override(
-                        fontFamily: 'Roboto',
+
                         color:FlutterFlowTheme.of(context).customColor4,
                         fontSize: rSize*0.018,
                         letterSpacing: 0.0,
@@ -214,7 +214,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                         style: FlutterFlowTheme.of(context)
                             .bodyMedium
                             .override(
-                          fontFamily: 'Roboto',
+
                           color:FlutterFlowTheme.of(context).customColor4,
                           fontSize: rSize*0.018,
                           letterSpacing: 0.0,
@@ -232,7 +232,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
-                            fontFamily: 'Roboto',
+
                             color:FlutterFlowTheme.of(context).customColor4,
                             fontSize: rSize*0.018,
                             letterSpacing: 0.0,

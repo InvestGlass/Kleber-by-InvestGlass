@@ -110,7 +110,7 @@ class _TransactionsState extends State<Transactions> {
                                             child: Text(
                                           item.id.toString(),
                                           style: FlutterFlowTheme.of(context).displaySmall.override(
-                                                fontFamily: 'Roboto',
+
                                                 color: FlutterFlowTheme.of(context).primaryText,
                                                 fontSize: rSize * 0.016,
                                                 letterSpacing: 0.0,
@@ -135,7 +135,7 @@ class _TransactionsState extends State<Transactions> {
                                         Expanded(child: Text(
                                           item.portfolioSecurity?.securityName ?? '',
                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                            fontFamily: 'Roboto',
+
                                             fontSize: rSize*0.016,
                                             color: FlutterFlowTheme.of(context).customColor4,
                                             letterSpacing: 0.0,

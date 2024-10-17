@@ -85,7 +85,7 @@ class _PositionsState extends State<Positions> {
                             child: Text(
                               item,
                               style: FlutterFlowTheme.of(context).bodySmall.override(
-                                    fontFamily: 'Roboto',
+
                                     color: FlutterFlowTheme.of(context).customColor4,
                                     fontSize: rSize * 0.014,
                                     letterSpacing: 0.0,
@@ -108,7 +108,7 @@ class _PositionsState extends State<Positions> {
                             SizedBox(width: rSize * 0.008),
                             Text(item,
                                 style: FlutterFlowTheme.of(context).bodySmall.override(
-                                      fontFamily: 'Roboto',
+
                                       color: FlutterFlowTheme.of(context).customColor4,
                                       fontSize: rSize * 0.016,
                                       fontWeight: FontWeight.w500,
@@ -160,7 +160,7 @@ class _PositionsState extends State<Positions> {
                                         child: Text(
                                       item.securityName ?? '-',
                                       style: FlutterFlowTheme.of(context).displaySmall.override(
-                                            fontFamily: 'Roboto',
+
                                             color: FlutterFlowTheme.of(context).primaryText,
                                             fontSize: rSize * 0.016,
                                             letterSpacing: 0.0,

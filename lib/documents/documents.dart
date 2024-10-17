@@ -189,7 +189,7 @@ class _DocumentsState extends State<Documents> {
                                   item.folderName ?? '',
                                   maxLines: 2,
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'Roboto',
+
                                         color: item.freezed! ? FlutterFlowTheme.of(context).secondaryText : FlutterFlowTheme.of(context).customColor4,
                                         fontSize: rSize * 0.016,
                                         letterSpacing: 0.0,
@@ -199,7 +199,7 @@ class _DocumentsState extends State<Documents> {
                                 Text(
                                   DateFormat('yyyy-MM-dd HH:mm').format(item.updatedAt!),
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'Roboto',
+
                                         color: FlutterFlowTheme.of(context).secondaryText,
                                         fontSize: rSize * 0.014,
                                         letterSpacing: 0.0,
@@ -222,7 +222,7 @@ class _DocumentsState extends State<Documents> {
                                           FFLocalizations.of(context).languageCode,
                                         ).format(item.approvedAt!)}',
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                              fontFamily: 'Roboto',
+
                                               color: FlutterFlowTheme.of(context).customColor2,
                                               fontSize: rSize * 0.016,
                                               letterSpacing: 0.0,
@@ -247,7 +247,7 @@ class _DocumentsState extends State<Documents> {
                                           FFLocalizations.of(context).languageCode,
                                         ).format(item.disapprovedAt!)}',
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                              fontFamily: 'Roboto',
+
                                               color: FlutterFlowTheme.of(context).customColor3,
                                               fontSize: rSize * 0.016,
                                               letterSpacing: 0.0,
@@ -307,7 +307,7 @@ class _DocumentsState extends State<Documents> {
             Text(
               label,
               style: FlutterFlowTheme.of(context).displaySmall.override(
-                    fontFamily: 'Roboto',
+
                     color: Colors.white,
                     fontSize: rSize * 0.014,
                     letterSpacing: 0.0,
@@ -360,18 +360,10 @@ class _DocumentsState extends State<Documents> {
                               Row(
                                 children: [
                                   Expanded(
-                                      child: Text(
+                                      child: AppWidgets.title(context,
                                     FFLocalizations.of(context).getText(
                                       'filter' /* Filter */,
-                                    ),
-                                    style: FlutterFlowTheme.of(context).headlineMedium.override(
-                                          fontFamily: 'Roboto',
-                                          color: FlutterFlowTheme.of(context).customColor4,
-                                          fontSize: rSize * 0.026,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                  )),
+                                    ))),
                                   GestureDetector(
                                     onTap: () {
                                       Navigator.pop(context);
@@ -406,7 +398,7 @@ class _DocumentsState extends State<Documents> {
                                           child: Text(
                                             item.name!,
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                  fontFamily: 'Roboto',
+
                                                   color: FlutterFlowTheme.of(context).customColor4,
                                                   fontSize: rSize * 0.014,
                                                   letterSpacing: 0.0,
@@ -436,7 +428,7 @@ class _DocumentsState extends State<Documents> {
                               TextFormField(
                                 controller: TextEditingController(text: searchedFileName),
                                 style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Roboto',
+
                                     color:FlutterFlowTheme.of(context).customColor4
                                     ),
                                 onChanged: (value) {
@@ -448,7 +440,7 @@ class _DocumentsState extends State<Documents> {
                                   focusColor: FlutterFlowTheme.of(context).alternate,
                                   contentPadding: EdgeInsets.all(rSize * 0.015),
                                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                                        fontFamily: 'Roboto',
+
                                       color:FlutterFlowTheme.of(context).customColor4
                                       ),
                                 ),
@@ -478,7 +470,7 @@ class _DocumentsState extends State<Documents> {
                                           child: Text(
                                             item,
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                  fontFamily: 'Roboto',
+
                                                   color: FlutterFlowTheme.of(context).customColor4,
                                                   fontSize: rSize * 0.014,
                                                   letterSpacing: 0.0,
@@ -506,7 +498,7 @@ class _DocumentsState extends State<Documents> {
                                 readOnly: true,
                                 controller: TextEditingController(text: range),
                                 style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Roboto',
+
                                     color:FlutterFlowTheme.of(context).customColor4
                                     ),
                                 onTap: () {
@@ -534,7 +526,7 @@ class _DocumentsState extends State<Documents> {
                                   focusColor: FlutterFlowTheme.of(context).alternate,
                                   contentPadding: EdgeInsets.all(rSize * 0.015),
                                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                                        fontFamily: 'Roboto',
+
                                         letterSpacing: 0.0,
                                       ),
                                 ),
@@ -636,18 +628,10 @@ class _DocumentsState extends State<Documents> {
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.020), topRight: Radius.circular(rSize * 0.020))),
                   child: Column(
                     children: [
-                      Text(
+                      AppWidgets.title(context,
                         FFLocalizations.of(context).getText(
                           'sort' /* sort */,
-                        ),
-                        style: FlutterFlowTheme.of(context).headlineMedium.override(
-                              fontFamily: 'Roboto',
-                              color: FlutterFlowTheme.of(context).customColor4,
-                              fontSize: rSize * 0.026,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
+                        )),
                       Container(
                         height: 0.5,
                         margin: EdgeInsets.symmetric(vertical: rSize * 0.0075),
@@ -729,7 +713,7 @@ class _DocumentsState extends State<Documents> {
         popupMenuItem(
             1,
         item.documentType == 'form'?FFLocalizations.of(context).getText(
-          'edit',
+          'fill_in',
         ):FFLocalizations.of(context).getText(
               'preview',
             ),
@@ -813,7 +797,7 @@ class _DocumentsState extends State<Documents> {
           Text(
             label,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize * 0.016,
                   letterSpacing: 0,

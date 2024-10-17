@@ -136,7 +136,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                           getdate(item),
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                fontFamily: 'Roboto',
+
                                 fontSize: rSize * 0.016,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -176,7 +176,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                       item.comment!,
                       textAlign: TextAlign.start,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
+
                         color: FlutterFlowTheme.of(context).customColor4,
                         fontWeight: FontWeight.w500,
                             fontSize: rSize * 0.016,
@@ -194,7 +194,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                     ),
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Roboto',
+
                       color: isMe(item)?FlutterFlowTheme.of(context).primaryText:FlutterFlowTheme.of(context).secondaryText,
                       fontSize: rSize * 0.012,
                       letterSpacing: 0.0,
@@ -226,7 +226,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                     borderRadius: BorderRadius.circular(rSize * 0.01)),
                 child: TextFormField(
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Roboto',
+
                         fontSize: rSize * 0.018,
                         color: FlutterFlowTheme.of(context).customColor4,
                         fontWeight: FontWeight.w500,

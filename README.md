@@ -13,3 +13,8 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+[//]: # (versions)
+Flutter 3.22.2
+Dart 3.4.3
+Flutter SDK 3.16.0

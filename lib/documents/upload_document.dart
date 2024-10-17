@@ -81,7 +81,7 @@ class _UploadDocumentState extends State<UploadDocument> {
               Text(
                 _notifier.errorMsg,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Roboto',
+
                       color: FlutterFlowTheme.of(context).customColor3,
                       fontSize: rSize * 0.016,
                       letterSpacing: 0.0,
@@ -96,7 +96,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                 'mw4a4y0a' /* Description */,
               ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Roboto',
+
                     fontSize: rSize * 0.02,
                     color: FlutterFlowTheme.of(context).customColor4,
                     fontWeight: FontWeight.w500,
@@ -163,7 +163,7 @@ class _UploadDocumentState extends State<UploadDocument> {
               Text(
                 title,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Roboto',
+
                       fontSize: rSize * 0.02,
                       color: FlutterFlowTheme.of(context).customColor4,
                       fontWeight: FontWeight.w500,
@@ -173,7 +173,7 @@ class _UploadDocumentState extends State<UploadDocument> {
               Text(
                 content,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Roboto',
+
                       color: FlutterFlowTheme.of(context).grayLight,
                       fontSize: rSize * 0.016,
                       letterSpacing: 0.0,

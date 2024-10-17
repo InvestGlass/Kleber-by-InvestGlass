@@ -92,7 +92,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                 child: Text(
                               item.title ?? '',
                               style: FlutterFlowTheme.of(context).displaySmall.override(
-                                    fontFamily: 'Roboto',
+
                                     color: FlutterFlowTheme.of(context).customColor4,
                                     fontSize: rSize * 0.016,
                                     letterSpacing: 0,
@@ -109,7 +109,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                           '83o1ghax' /* Net Value */,
                                         ),
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'Roboto',
+
                                         color: FlutterFlowTheme.of(context).customColor4,
                                         fontSize: rSize * 0.014,
                                         letterSpacing: 0,
@@ -210,7 +210,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                                 'zomhasya' /* Performance */,
                                               ),
                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                fontFamily: 'Roboto',
+
                                                 color: FlutterFlowTheme.of(context).secondaryText,
                                                 fontSize: rSize * 0.016,
                                                 letterSpacing: 0,
@@ -314,7 +314,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                     'position',
                                   ),
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        fontFamily: 'Roboto',
+
                                         fontSize: rSize * 0.016,
                                         color: FlutterFlowTheme.of(context).primaryText,
                                         fontWeight: FontWeight.w400,
@@ -341,7 +341,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                       'eg1yw963' /* Transactions */,
                                     ),
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                          fontFamily: 'Roboto',
+
                                           fontSize: rSize * 0.016,
                                           color: FlutterFlowTheme.of(context).primaryText,
                                           fontWeight: FontWeight.w400,
@@ -435,7 +435,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                           return '$length${length <= 10 ? '' : '+'}';
                                         }(item.appropriateness!.listDetails?.length ?? 0),
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                              fontFamily: 'Roboto',
+
                                               color: FlutterFlowTheme.of(context).info,
                                               fontSize: rSize * 0.016,
                                               letterSpacing: 0,
@@ -453,7 +453,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                               'kc4yx2mm' /* MINOR ISSUES */,
                             ),
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Roboto',
+
                                   fontSize: rSize * 0.016,
                                   letterSpacing: 0,
                                   color: FlutterFlowTheme.of(context).customColor4,
@@ -523,7 +523,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                             return '$length${length <= 10 ? '' : '+'}';
                                           }(item.suitability!.listDetails?.length ?? 0),
                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                fontFamily: 'Roboto',
+
                                                 color: FlutterFlowTheme.of(context).info,
                                                 fontSize: rSize * 0.016,
                                                 fontWeight: FontWeight.w500,
@@ -541,7 +541,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                               'ko88t7mf' /* MAJOR ISSUES */,
                             ),
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Roboto',
+
                                   fontSize: rSize * 0.016,
                                   color: FlutterFlowTheme.of(context).customColor4,
                                   fontWeight: FontWeight.w500,
@@ -644,7 +644,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
         child: Text(
           label,
           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                fontFamily: 'Roboto',
+
                 color: FlutterFlowTheme.of(context).customColor4,
                 fontSize: rSize * 0.016,
                 letterSpacing: 0,

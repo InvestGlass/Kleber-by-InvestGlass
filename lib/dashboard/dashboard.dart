@@ -177,7 +177,7 @@ class _DashboardState extends State<Dashboard> {
                         Text(
                           e,
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
+
                             color:AppConst.titleList[_controller.selectedIndex] == e ? FlutterFlowTheme.of(context).primary : FlutterFlowTheme.of(context).customColor5,
                             fontSize: rSize*0.012,
                             letterSpacing: 0.0,
@@ -212,14 +212,14 @@ class _DashboardState extends State<Dashboard> {
           fontSize: rSize * 0.016,
           height: 0,
           fontWeight: FontWeight.w600,
-          fontFamily: 'Roboto',
+
         ),
         unselectedLabelStyle: TextStyle(
           color: FlutterFlowTheme.of(context).customColor4,
           fontSize: rSize * 0.016,
           height: 0,
           fontWeight: FontWeight.w600,
-          fontFamily: 'Roboto',
+
         ),
         elevation: 3,
         selectedItemColor: FlutterFlowTheme.of(context).primary,
@@ -395,7 +395,7 @@ class _DashboardState extends State<Dashboard> {
             label,
             maxLines: 1,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor5,
                   fontSize: rSize * 0.014,
                   letterSpacing: 0.0,
@@ -522,7 +522,7 @@ class _DashboardState extends State<Dashboard> {
             label,
             maxLines: 1,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize * 0.014,
                   letterSpacing: 0.0,

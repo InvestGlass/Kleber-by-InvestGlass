@@ -67,17 +67,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           children: [
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 0.0, 0.0, rSize*0.010),
-              child: Text(
+              child: AppWidgets.title(context,
                 FFLocalizations.of(context).getText(
                   'ran9xdwl' /* Popular */,
                 ),
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Roboto',
-                      color: FlutterFlowTheme.of(context).customColor4,
-                      fontSize: rSize * 0.022,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
-                    ),
               ),
             ),
             SizedBox(
@@ -131,7 +124,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                         model.title ?? '',
                                         maxLines: 2,
                                         style: FlutterFlowTheme.of(context).titleMedium.override(
-                                          fontFamily: 'Roboto',
+
                                           color: FlutterFlowTheme.of(context).customColor4,
                                           fontSize: rSize * 0.014,
                                           letterSpacing: 0.0,
@@ -154,7 +147,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                         child: Text(
                                           DateFormat('yyyy-MM-dd').format(model.date ?? DateTime.now()),
                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                fontFamily: 'Roboto',
+
                                                 color: FlutterFlowTheme.of(context).info,
                                                 fontSize: rSize * 0.012,
                                                 letterSpacing: 0.0,
@@ -178,18 +171,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
             ),
             Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize*0.010, 0.0, rSize*0.010),
-                child: Text(
+                child: AppWidgets.title(context,
                   FFLocalizations.of(context).getText(
                     'gln3vyrv' /* Recomended */,
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Roboto',
-                        color: FlutterFlowTheme.of(context).customColor4,
-                        fontSize: rSize * 0.022,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.w500,
-                      ),
-                )),
+                  ))),
             if (!_notifier.refresh) ...{
               Image.asset('assets/home_placeholder.png'),
               Visibility(
@@ -205,7 +190,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                         'g2rxi1c1' /* Favourite selection */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
-                        fontFamily: 'Roboto',
+
                         color: FlutterFlowTheme.of(context).customColor4,
                         fontSize: rSize * 0.02,
                         letterSpacing: 0.0,
@@ -344,7 +329,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                       'yj6g8w9q' /* Swipe left */,
                                     ),
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      fontFamily: 'Roboto',
+
                                       color: FlutterFlowTheme.of(context).customColor4,
                                       fontSize: rSize * 0.016,
                                       letterSpacing: 0.0,
@@ -395,7 +380,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                       '35ozpi3w' /* Swipe right */,
                                     ),
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      fontFamily: 'Roboto',
+
                                       color: FlutterFlowTheme.of(context).customColor4,
                                       fontSize: rSize * 0.016,
                                       letterSpacing: 0.0,

@@ -111,7 +111,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               Text(
                 '$valueToShowStr%',
                 style: FlutterFlowTheme.of(context).displaySmall.override(
-                      fontFamily: 'Roboto',
+
                       color: FlutterFlowTheme.of(context).primaryText,
                       fontSize: rSize * 0.016,
                       letterSpacing: 0,
@@ -193,7 +193,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               axisLine: AxisLine(color: FlutterFlowTheme.of(context).primaryText, width: 0.5),
               labelRotation: 45,
               labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
-                    fontFamily: 'Roboto',
+
                     color: FlutterFlowTheme.of(context).primaryText,
                     fontSize: rSize * 0.014,
                     letterSpacing: 0,
@@ -213,7 +213,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               ),
               opposedPosition: isAr,
               labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
-                    fontFamily: 'Roboto',
+
                     color: FlutterFlowTheme.of(context).primaryText,
                     fontSize: rSize * 0.014,
                     letterSpacing: 0,
@@ -307,7 +307,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                           Text(
                             legendText,maxLines: 1,overflow: TextOverflow.ellipsis,
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Roboto',
+
                                   fontSize: rSize * 0.014,
                                   color: FlutterFlowTheme.of(context).customColor4,
                                   fontWeight: FontWeight.w500,
@@ -316,7 +316,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                           Text(
                             '(${list[seriesIndex].percentage}%)',
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Roboto',
+
                                   fontSize: rSize * 0.012,
                                   color: FlutterFlowTheme.of(context).primaryText,
                                   fontWeight: FontWeight.normal,
@@ -346,7 +346,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                 // pointColorMapper: (datum, index) => FlutterFlowTheme.of(context).primary.withOpacity(),
                 dataLabelSettings: DataLabelSettings(
                   textStyle: FlutterFlowTheme.of(context).displaySmall.override(
-                        fontFamily: 'Roboto',
+
                         fontSize: rSize * 0.014,
                         fontWeight: FontWeight.normal,
                       ),
@@ -362,7 +362,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     return Text(
       s,
       style: FlutterFlowTheme.of(context).bodyMedium.override(
-        fontFamily: 'Roboto',
+
         fontSize: rSize*0.012,
         color: FlutterFlowTheme.of(context).customColor4,
         fontWeight: FontWeight.w500,

@@ -95,7 +95,7 @@ class _NewsFeedSwipeCardWidgetState extends State<NewsFeedSwipeCardWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Roboto',
+
                                     color: FlutterFlowTheme.of(context).info,
                                     fontSize: rSize*0.016,
                                     letterSpacing: 0.0,
@@ -112,7 +112,7 @@ class _NewsFeedSwipeCardWidgetState extends State<NewsFeedSwipeCardWidget> {
                   widget.title!,
                   maxLines: 2,
                   style: FlutterFlowTheme.of(context).titleMedium.override(
-                        fontFamily: 'Roboto',
+
                         fontSize: rSize*0.025,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w600,
@@ -154,7 +154,7 @@ class _NewsFeedSwipeCardWidgetState extends State<NewsFeedSwipeCardWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).customColor1,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Roboto',
+
                           color: Colors.white,
                           letterSpacing: 0.0,
                         ),

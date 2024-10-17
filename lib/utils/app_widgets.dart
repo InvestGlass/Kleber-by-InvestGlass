@@ -61,7 +61,7 @@ class AppWidgets {
             Text(
               label,
               style: FlutterFlowTheme.of(context).displaySmall.override(
-                    fontFamily: 'Roboto',
+
                     color: FlutterFlowTheme.of(context).primaryText,
                     fontSize: rSize*0.016,
                     letterSpacing: 0.0,
@@ -71,7 +71,7 @@ class AppWidgets {
             Text(
               getStatus(model.status),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Roboto',
+
                     color: FlutterFlowTheme.of(context).secondaryText,
                     fontSize: rSize*0.016,
                     letterSpacing: 0.0,
@@ -101,7 +101,7 @@ class AppWidgets {
                           child: Text(
                             model.listDetails![index],
                             style: FlutterFlowTheme.of(context).displaySmall.override(
-                                  fontFamily: 'Roboto',
+
                                   color: FlutterFlowTheme.of(context).primaryText,
                                   fontSize: rSize*0.016,
                                   letterSpacing: 0.0,
@@ -160,7 +160,7 @@ class AppWidgets {
         Text(
           label,
           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                fontFamily: 'Roboto',
+
                 fontSize: rSize*0.016,
                 color: FlutterFlowTheme.of(context).customColor4,
                 letterSpacing: 0.0,
@@ -173,7 +173,7 @@ class AppWidgets {
           Text(
             middleValue,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   fontSize: rSize*0.016,
                   letterSpacing: 0.0,
                 ),
@@ -192,7 +192,7 @@ class AppWidgets {
                 value,
                 textAlign: TextAlign.end,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).primaryText,
                   fontSize: rSize*0.016,
                   letterSpacing: 0.0,
@@ -211,7 +211,7 @@ class AppWidgets {
           Text(
             value,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).primaryText,
                   fontSize: rSize*0.016,
                   letterSpacing: 0.0,
@@ -237,7 +237,7 @@ class AppWidgets {
         Text(
           msg,
           style: FlutterFlowTheme.of(context).bodyLarge.override(
-                fontFamily: 'Roboto',
+
                 color: FlutterFlowTheme.of(context).secondaryText,
                 fontSize: rSize*0.02,
                 letterSpacing: 0.0,
@@ -266,12 +266,13 @@ class AppWidgets {
             label,
             style: borderOnly
                 ? FlutterFlowTheme.of(context).titleSmall.override(
-                      fontFamily: 'Roboto',
+
+              fontSize: rSize*0.014,
                       color: FlutterFlowTheme.of(context).primary,
                       letterSpacing: 0.0,
                     )
                 : FlutterFlowTheme.of(context).bodySmall.override(
-                      fontFamily: 'Roboto',
+
                       color: textColor ?? Colors.white,
                       fontSize: rSize*0.014,
                       letterSpacing: 0.0,
@@ -298,7 +299,7 @@ class AppWidgets {
       child: Text(
             label,
             style: FlutterFlowTheme.of(context).bodySmall.override(
-                      fontFamily: 'Roboto',
+
                       color: Colors.white,
                       fontSize: rSize*0.014,
                       letterSpacing: 0.0,
@@ -312,10 +313,23 @@ class AppWidgets {
     return Text(
       text,
       style: FlutterFlowTheme.of(context).bodyMedium.override(
-        fontFamily: 'Roboto',
+
         fontSize: rSize*0.016,
         color: FlutterFlowTheme.of(context).customColor4,
         fontWeight: FontWeight.w500,
+      ),
+    );
+  }
+  static title(BuildContext context, String text){
+    return Text(
+      text,
+      maxLines: 1,
+      style: FlutterFlowTheme.of(context).bodyMedium.override(
+
+        color: FlutterFlowTheme.of(context).customColor4,
+        fontSize: rSize*0.025,
+        letterSpacing: 0.0,
+        fontWeight: FontWeight.w600,
       ),
     );
   }
@@ -334,7 +348,7 @@ class AppWidgets {
           Text(
             label,
             style: FlutterFlowTheme.of(context).titleSmall.override(
-                  fontFamily: 'Roboto',
+
                   color: Colors.white,
                   letterSpacing: 0.0,
                 ),
@@ -389,7 +403,7 @@ class AppWidgets {
             Text(
               label,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontFamily: 'Roboto',
+
                     color: FlutterFlowTheme.of(context).primaryText,
                     fontSize: rSize*0.016,
                     letterSpacing: 0.0,
@@ -476,25 +490,14 @@ class AppWidgets {
     );
   }
 
-  static AppBar appbar_(BuildContext context, String title, {Widget? leading, List<Widget>? actions, bool centerTitle = false}){
+  static AppBar appbar_(BuildContext context, String txt, {Widget? leading, List<Widget>? actions, bool centerTitle = false}){
     return AppBar(
       elevation: 0,
       actions: actions,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       surfaceTintColor: Colors.transparent,
       leading: leading,
-      title: Text(
-        title,
-        textAlign: TextAlign.center,
-        maxLines: 1,
-        style: FlutterFlowTheme.of(context).bodyMedium.override(
-          fontFamily: 'Roboto',
-          color: FlutterFlowTheme.of(context).customColor4,
-          fontSize: rSize*0.025,
-          letterSpacing: 0.0,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+      title: title(context, txt),
       centerTitle: true,
     );
   }
@@ -506,7 +509,7 @@ class AppWidgets {
           TextSpan(
             text: (value.split(' ')[1]).split('.')[0],
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-              fontFamily: 'Roboto',
+
               color: FlutterFlowTheme.of(context).primaryText,
               fontSize: rSize * 0.016,
               letterSpacing: 0,
@@ -516,7 +519,7 @@ class AppWidgets {
           TextSpan(
             text: '.${(value.split(' ')[1]).split('.')[1]}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-              fontFamily: 'Roboto',
+
               color: FlutterFlowTheme.of(context).customColor4,
               fontSize: rSize * 0.016,
               letterSpacing: 0,
@@ -526,7 +529,7 @@ class AppWidgets {
           TextSpan(
             text: ' ${value.split(' ')[0]}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-              fontFamily: 'Roboto',
+
               color: FlutterFlowTheme.of(context).customColor4,
               fontSize: rSize * 0.016,
               letterSpacing: 0,
@@ -537,7 +540,7 @@ class AppWidgets {
             TextSpan(
               text: ' ${value.split(' ')[2]}',
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                fontFamily: 'Roboto',
+
                 color: FlutterFlowTheme.of(context).primaryText,
                 fontSize: rSize * 0.016,
                 letterSpacing: 0,
@@ -549,7 +552,7 @@ class AppWidgets {
             TextSpan(
               text: value.split(' ')[3],
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                fontFamily: 'Roboto',
+
                 color: FlutterFlowTheme.of(context).primaryText,
                 fontSize: rSize * 0.016,
                 letterSpacing: 0,
@@ -576,7 +579,7 @@ class AppWidgets {
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: FlutterFlowTheme.of(context).displaySmall.override(
-            fontFamily: 'Roboto',
+
             color: FlutterFlowTheme.of(context).primaryText,
             fontSize: rSize*0.016,
             letterSpacing: 0.0,
@@ -607,7 +610,7 @@ class AppWidgets {
                         Text(
                           msg,
                           style: FlutterFlowTheme.of(context).headlineMedium.override(
-                                fontFamily: 'Roboto',
+
                                 color: FlutterFlowTheme.of(context).primary,
                                 fontSize: rSize*0.026,
                                 letterSpacing: 0.0,
@@ -659,13 +662,13 @@ class AppWidgets {
                 backgroundColor: Colors.transparent,
                 onSubmit: onSubmit,
                 rangeTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Roboto',
+
                   color:FlutterFlowTheme.of(context).customColor4,
                       fontSize: rSize*0.016,
                       fontWeight: FontWeight.normal,
                     ),
                 selectionTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Roboto',
+
                   color:FlutterFlowTheme.of(context).customColor4,
                       fontSize: rSize*0.016,
                       fontWeight: FontWeight.normal,
@@ -681,7 +684,7 @@ class AppWidgets {
                     child: Text(
                       cellDetails.date.day.toString(),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
+
                         color:FlutterFlowTheme.of(context).customColor4,
                             fontSize: rSize*0.016,
                             letterSpacing: 0.0,
@@ -698,7 +701,7 @@ class AppWidgets {
                 headerStyle: DateRangePickerHeaderStyle(
                   backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Roboto',
+
                         color: FlutterFlowTheme.of(context).primaryText,
                         fontSize: rSize*0.016,
                         fontWeight: FontWeight.normal,

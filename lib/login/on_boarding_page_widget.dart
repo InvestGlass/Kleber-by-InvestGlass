@@ -94,7 +94,7 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                                     
                                     color: FlutterFlowTheme.of(context).primary,
                                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                          fontFamily: 'Roboto',
+
                                           color: Colors.white,
                                           letterSpacing: 0.0,
                                         ),

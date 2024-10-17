@@ -39,7 +39,7 @@ class HealthCheck extends StatelessWidget {
                         ),
                         appropriateness!,
                         FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Roboto',
+
                           color: FlutterFlowTheme.of(context).warning,
                           fontSize: rSize*0.016,
                           letterSpacing: 0.0,
@@ -59,7 +59,7 @@ class HealthCheck extends StatelessWidget {
                         ),
                         suitability!,
                         FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
+
                               color: FlutterFlowTheme.of(context).error,
                               fontSize: rSize*0.016,
                               letterSpacing: 0.0,

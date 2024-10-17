@@ -61,7 +61,7 @@ class _ProfileState extends State<Profile> {
           Text(
             SharedPrefUtils.instance.getUserData().user!.username!.toString(),
             style: FlutterFlowTheme.of(context).headlineSmall.override(
-                  fontFamily: 'Roboto',
+
                   fontSize: rSize*0.02,
                   letterSpacing: 0.0,
                 ),
@@ -69,7 +69,7 @@ class _ProfileState extends State<Profile> {
           /*Text(
             SharedPrefUtils.instance.getUserData().user!.email!,
             style: FlutterFlowTheme.of(context).bodySmall.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).primary,
                   fontSize: rSize*0.016,
                   letterSpacing: 0.0,
@@ -84,7 +84,7 @@ class _ProfileState extends State<Profile> {
               'wl1ownor' /* Account Settings */,
             ),
             style: FlutterFlowTheme.of(context).labelMedium.override(
-                  fontFamily: 'Roboto',
+
                   letterSpacing: 0.0,
                 ),
           ),
@@ -111,16 +111,14 @@ class _ProfileState extends State<Profile> {
           ),
           Row(
             children: [
-              SizedBox(
-                width: rSize * 0.02,
-              ),
+
               Expanded(
                 child: Text(
                   FFLocalizations.of(context).getText(
                     'znd2aszb' /* Switch to Dark Mode */,
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Roboto',
+
                         color: FlutterFlowTheme.of(context).secondaryText,
                         letterSpacing: 0.0,
                       ),
@@ -136,9 +134,6 @@ class _ProfileState extends State<Profile> {
                   activeColor: FlutterFlowTheme.of(context).primary,
                 ),
               ),
-              SizedBox(
-                width: rSize * 0.015,
-              ),
             ],
           ),
           SizedBox(
@@ -147,7 +142,7 @@ class _ProfileState extends State<Profile> {
           Text(
             'Authorization code 721864 to communicate to support',
             style: FlutterFlowTheme.of(context).headlineSmall.override(
-              fontFamily: 'Roboto',
+
               fontSize: rSize*0.016,
               color:FlutterFlowTheme.of(context).customColor4
             ),
@@ -178,18 +173,10 @@ class _ProfileState extends State<Profile> {
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
                   child: Column(
                     children: [
-                      Text(
+                      AppWidgets.title(context,
                         FFLocalizations.of(context).getText(
                           'cnc2a7kn' /* Change Language */,
-                        ),
-                        style: FlutterFlowTheme.of(context).headlineMedium.override(
-                              fontFamily: 'Roboto',
-                              color: FlutterFlowTheme.of(context).customColor4,
-                              fontSize: rSize*0.026,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
+                        )),
                       Container(
                         height: 0.5,
                         margin: EdgeInsets.symmetric(vertical: rSize * 0.0075),
@@ -260,7 +247,7 @@ class _ProfileState extends State<Profile> {
               child: Text(
             label,
             style: FlutterFlowTheme.of(context).displaySmall.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.016,
                   letterSpacing: 0.0,
@@ -289,7 +276,7 @@ class _ProfileState extends State<Profile> {
                   child: Text(
                 title,
                 style: FlutterFlowTheme.of(context).labelMedium.override(
-                      fontFamily: 'Roboto',
+
                       letterSpacing: 0.0,
                   color: FlutterFlowTheme.of(context).customColor4,
                     ),

@@ -97,7 +97,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                           'hello',
                         ),
                         style: FlutterFlowTheme.of(context).displaySmall.override(
-                              fontFamily: 'Roboto',
+
                               color: FlutterFlowTheme.of(context).primaryText,
                               fontSize: rSize * 0.018,
                               fontWeight: FontWeight.w500,
@@ -178,7 +178,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                       child: Text(
                                     item.name!,
                                     style: FlutterFlowTheme.of(context).displaySmall.override(
-                                          fontFamily: 'Roboto',
+
                                           color: FlutterFlowTheme.of(context).customColor4,
                                           fontSize: rSize * 0.016,
                                           letterSpacing: 0.0,
@@ -219,7 +219,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                         item.advisor?.name ?? '',
                                         textAlign: TextAlign.end,
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                              fontFamily: 'Roboto',
+
                                               color: FlutterFlowTheme.of(context).primaryText,
                                               fontSize: rSize * 0.016,
                                               letterSpacing: 0.0,
@@ -282,7 +282,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                   'prtogarh' /* I read the documents and agree... */,
                                                 ),
                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                      fontFamily: 'Roboto',
+
                                                       color: FlutterFlowTheme.of(context).customColor4,
                                                       fontSize: rSize * 0.016,
                                                       letterSpacing: 0.0,
@@ -311,7 +311,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                 'rejected',
                                               )}',
                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                    fontFamily: 'Roboto',
+
                                                     color: FlutterFlowTheme.of(context).customColor3,
                                                     fontSize: rSize * 0.016,
                                                     letterSpacing: 0.0,
@@ -333,7 +333,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                 'c64nnx2a' /* Accepted at  */,
                                               )} ${DateFormat('yyyy-MM-dd HH:mm').format(item.acceptedDate!)}',
                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                    fontFamily: 'Roboto',
+
                                                     color: FlutterFlowTheme.of(context).customColor2,
                                                     fontSize: rSize * 0.016,
                                                     letterSpacing: 0.0,
@@ -527,18 +527,10 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                               Row(
                                 children: [
                                   Expanded(
-                                      child: Text(
+                                      child: AppWidgets.title(context,
                                     FFLocalizations.of(context).getText(
                                       'filter' /* Filter */,
-                                    ),
-                                    style: FlutterFlowTheme.of(context).headlineMedium.override(
-                                          fontFamily: 'Roboto',
-                                          color: FlutterFlowTheme.of(context).customColor4,
-                                          fontSize: rSize * 0.026,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                  )),
+                                    ))),
                                   GestureDetector(
                                     onTap: () {
                                       Navigator.pop(context);
@@ -565,7 +557,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                               TextFormField(
                                 controller: advisorController,
                                 style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Roboto',
+
                                       letterSpacing: 0.0,
                                     ),
                                 decoration: AppStyles.inputDecoration(
@@ -574,7 +566,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                                   contentPadding: EdgeInsets.all(rSize * 0.015),
                                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                                        fontFamily: 'Roboto',
+
                                         letterSpacing: 0.0,
                                       ),
                                 ),
@@ -593,7 +585,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                               TextFormField(
                                 controller: proposalNameController,
                                 style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                      fontFamily: 'Roboto',
+
                                       letterSpacing: 0.0,
                                     ),
                                 decoration: AppStyles.inputDecoration(
@@ -602,7 +594,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                   focusColor: FlutterFlowTheme.of(context).alternate,
                                   contentPadding: EdgeInsets.all(rSize * 0.015),
                                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                                        fontFamily: 'Roboto',
+
                                         letterSpacing: 0.0,
                                       ),
                                 ),
@@ -632,7 +624,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                             child: Text(
                                               item,
                                               style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                    fontFamily: 'Roboto',
+
                                                     color: FlutterFlowTheme.of(context).customColor4,
                                                     fontSize: rSize * 0.014,
                                                     letterSpacing: 0.0,
@@ -726,18 +718,10 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.020), topRight: Radius.circular(rSize * 0.020))),
                   child: Column(
                     children: [
-                      Text(
+                      AppWidgets.title(context,
                         FFLocalizations.of(context).getText(
                           'sort' /* sort */,
-                        ),
-                        style: FlutterFlowTheme.of(context).headlineMedium.override(
-                              fontFamily: 'Roboto',
-                              color: FlutterFlowTheme.of(context).customColor4,
-                              fontSize: rSize * 0.026,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
+                        )),
                       Container(
                         height: 0.5,
                         margin: EdgeInsets.symmetric(vertical: rSize * 0.0075),
@@ -815,7 +799,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
               child: Text(
             label,
             style: FlutterFlowTheme.of(context).displaySmall.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize * 0.016,
                   letterSpacing: 0.0,
@@ -841,7 +825,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
               child: Text(
             title,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize * 0.016,
                   letterSpacing: 0.0,
@@ -879,7 +863,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
             Text(
               label,
               style: FlutterFlowTheme.of(context).displaySmall.override(
-                    fontFamily: 'Roboto',
+
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     fontSize: rSize * 0.014,
                     letterSpacing: 0.0,

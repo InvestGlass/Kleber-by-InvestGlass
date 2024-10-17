@@ -51,7 +51,7 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy>  with TickerProviderS
                   indicatorWeight: 0.1,
                   indicatorSize: TabBarIndicatorSize.label,
                   labelStyle: FlutterFlowTheme.of(context).titleMedium.override(
-                    fontFamily: 'Roboto',
+
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.w500,
                   ),
@@ -188,7 +188,7 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy>  with TickerProviderS
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                  fontFamily: 'Roboto',
+
                                   color: FlutterFlowTheme.of(context)
                                       .primaryText,
                                   letterSpacing: 0.0,
@@ -228,7 +228,7 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy>  with TickerProviderS
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                              fontFamily: 'Roboto',
+
                               letterSpacing: 0.0,
                             ),
                           ),

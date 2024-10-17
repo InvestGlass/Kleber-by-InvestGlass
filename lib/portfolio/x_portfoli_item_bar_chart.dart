@@ -66,7 +66,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
           tooltipSettings: InteractiveTooltip(
               format: 'point.x : point.y',
               textStyle: FlutterFlowTheme.of(context).displaySmall.override(
-                    fontFamily: 'Roboto',
+
                     color: Colors.black,
                     fontSize: rSize * 0.012,
                     letterSpacing: 0.0,
@@ -118,7 +118,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
           Text(
             '${point?.x?.toString() ?? ''} : ',
             style: FlutterFlowTheme.of(context).displaySmall.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).primaryText,
                   fontSize: rSize * 0.012,
                   letterSpacing: 0.0,
@@ -128,7 +128,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
           Text(
             amountString,
             style: FlutterFlowTheme.of(context).displaySmall.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).primaryText,
                   fontSize: rSize * 0.012,
                   letterSpacing: 0.0,
@@ -156,7 +156,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
               majorGridLines: const MajorGridLines(width: 0),
               labelRotation: 45,
               labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
-                    fontFamily: 'Roboto',
+
                     color: FlutterFlowTheme.of(context).customColor4,
                     fontSize: rSize * 0.014,
                     letterSpacing: 0.0,
@@ -175,7 +175,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
               labelFormat: '{value}%',
               isVisible: true,
               labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
-                    fontFamily: 'Roboto',
+
                     color: FlutterFlowTheme.of(context).customColor4,
                     fontSize: rSize * 0.014,
                     letterSpacing: 0.0,
@@ -218,7 +218,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
           Text(
             '$valueStr%',
             style: FlutterFlowTheme.of(context).displaySmall.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).primaryText,
                   fontSize: rSize * 0.012,
                   letterSpacing: 0.0,

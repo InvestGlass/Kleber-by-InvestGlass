@@ -345,7 +345,7 @@ class DarkModeTheme extends FlutterFlowTheme {
 
 extension TextStyleHelper on TextStyle {
   TextStyle override({
-    String? fontFamily,
+    String? fontFamily='Roboto',
     Color? color,
     double? fontSize,
     FontWeight? fontWeight,

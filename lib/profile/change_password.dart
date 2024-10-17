@@ -56,7 +56,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             TextFormField(
               controller: _notifier.currentPwdController,
               style: FlutterFlowTheme.of(context).bodyLarge.override(
-                    fontFamily: 'Roboto',
+
                     letterSpacing: 0.0,
                   ),
               obscureText: !_notifier.showCurrentPwd,
@@ -78,7 +78,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                 contentPadding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.018),
                 labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                      fontFamily: 'Roboto',
+
                       letterSpacing: 0.0,
                     ),
               ),
@@ -103,7 +103,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 }
               },
               style: FlutterFlowTheme.of(context).bodyLarge.override(
-                    fontFamily: 'Roboto',
+
                     letterSpacing: 0.0,
                   ),
               obscureText: !_notifier.showNewPwd,
@@ -120,7 +120,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     child: Icon(_notifier.showNewPwd ? Icons.visibility : Icons.visibility_off, color: FlutterFlowTheme.of(context).primaryText)),
                 fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                 labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                      fontFamily: 'Roboto',
+
                       letterSpacing: 0.0,
                     ),
               ),
@@ -136,7 +136,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             TextFormField(
               controller: _notifier.confirmNewPwdController,
               style: FlutterFlowTheme.of(context).bodyLarge.override(
-                    fontFamily: 'Roboto',
+
                     letterSpacing: 0.0,
                   ),
               validator: (value) {

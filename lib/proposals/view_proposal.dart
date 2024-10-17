@@ -216,7 +216,7 @@ class _ViewProposalState extends State<ViewProposal> {
               'ktrsz8sp' /* Accepted at */,
             )} ${DateFormat('yyyy-MM-dd HH:mm').format(widget.item!.updatedAt!)}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor2,
                   fontSize: rSize*0.016,
                   letterSpacing: 0.0,
@@ -231,7 +231,7 @@ class _ViewProposalState extends State<ViewProposal> {
               '5tjloy3c' /* Rejected at */,
             )} ${DateFormat('yyyy-MM-dd HH:mm').format(widget.item!.updatedAt!)}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor3,
                   fontSize: rSize*0.016,
                   letterSpacing: 0.0,

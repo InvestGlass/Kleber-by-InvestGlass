@@ -78,7 +78,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
               ),
             ),
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   letterSpacing: 0.0,
                 ),
             items: widget.items,
@@ -131,7 +131,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                       child: TextFormField(
                         maxLines: 1,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
+
                               letterSpacing: 0.0,
                             ),
                         controller: textEditingController,

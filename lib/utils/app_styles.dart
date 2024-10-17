@@ -55,7 +55,7 @@ class AppStyles {
         borderRadius: BorderRadius.circular(12.0),
       ),
       labelStyle: FlutterFlowTheme.of(context).displaySmall.override(
-            fontFamily: 'Roboto',
+
             color: FlutterFlowTheme.of(context).primaryText,
             fontSize: rSize*0.016,
             letterSpacing: 0.0,
@@ -178,7 +178,7 @@ class AppStyles {
       labelText: label,
       labelStyle: labelStyle,hintText: hint,
       hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-            fontFamily: 'Roboto',
+
             fontWeight: FontWeight.w200,
         color: FlutterFlowTheme.of(context).customColor4
           ),

@@ -76,7 +76,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             '2gjb3gie' /* Login Verification */,
                           ),
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                fontFamily: 'Roboto',
+
                                 color: FlutterFlowTheme.of(context).customColor4,
                                 fontSize: rSize * 0.026,
                                 fontWeight: FontWeight.w600,
@@ -90,7 +90,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             'An OTP code is sent to the ${widget.map!['location']}',
                             textAlign: TextAlign.start,
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Roboto',
+
                                   fontSize: rSize * 0.016,
                               color: FlutterFlowTheme.of(context).customColor4,
                                 ),
@@ -108,7 +108,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 ),
                                 textAlign: TextAlign.start,
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      fontFamily: 'Roboto',
+
                                       fontSize: rSize * 0.016,
                                   color: FlutterFlowTheme.of(context).customColor4,
                                     ),
@@ -122,7 +122,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             ),
                             textAlign: TextAlign.start,
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Roboto',
+
                                   fontSize: rSize * 0.016,
                               fontWeight: FontWeight.w300,
                               color: FlutterFlowTheme.of(context).customColor4,
@@ -138,7 +138,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             appContext: context,
                             length: 6,
                             textStyle: FlutterFlowTheme.of(context).bodyLarge.override(
-                                  fontFamily: 'Roboto',
+
                                   letterSpacing: 0.0,
                                 ),
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -193,7 +193,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                   'v5jx3zzx' /* Didn't receive any code? */,
                                 ),
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      fontFamily: 'Roboto',
+
                                       color: FlutterFlowTheme.of(context).customColor4,
                                       fontSize: rSize * 0.016,
                                       letterSpacing: 0.0,
@@ -208,7 +208,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                       'dumdc5yp' /* Resend */,
                                     )}',
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                          fontFamily: 'Roboto',
+
                                           color: FlutterFlowTheme.of(context).primary,
                                           fontSize: rSize * 0.016,
                                           letterSpacing: 0.0,
@@ -244,7 +244,7 @@ class _OTPScreenState extends State<OTPScreen> {
         onChanged: onChanged,
         cursorColor: FlutterFlowTheme.of(context).primary,
         style: FlutterFlowTheme.of(context).bodyLarge.override(
-              fontFamily: 'Roboto',
+
               letterSpacing: 0,
             ),
         validator: (value) {
@@ -291,7 +291,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 ),
                                 textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.of(context).headlineMedium.override(
-                                      fontFamily: 'Roboto',
+
                                       color: FlutterFlowTheme.of(context).primary,
                                       fontSize: rSize * 0.026,
                                       letterSpacing: 0.0,
@@ -326,7 +326,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             '7gd5sfox' /* If you cannot scan, please ent... */,
                           ),
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                fontFamily: 'Roboto',
+
                                 color: FlutterFlowTheme.of(context).grayLight,
                                 fontSize: rSize * 0.016,
                                 letterSpacing: 0.0,
@@ -347,7 +347,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                   child: Text(
                                     key,
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                          fontFamily: 'Roboto',
+
                                           color: FlutterFlowTheme.of(context).secondaryText,
                                           fontSize: rSize * 0.016,
                                           letterSpacing: 0.0,
@@ -391,7 +391,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             padding: EdgeInsetsDirectional.fromSTEB(rSize * 0.024, 0.0, rSize * 0.024, 0.0),
                             color: FlutterFlowTheme.of(context).primary,
                             textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Roboto',
+
                                   color: Colors.white,
                                   letterSpacing: 0.0,
                                 ),

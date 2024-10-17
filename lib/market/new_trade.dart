@@ -69,7 +69,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           child: Text(
                             item.title!,
                             style: FlutterFlowTheme.of(context).bodySmall.override(
-                                  fontFamily: 'Roboto',
+
                                   color: FlutterFlowTheme.of(context).customColor4,
                                   fontSize: rSize*0.014,
                               fontWeight: FontWeight.w500
@@ -87,7 +87,7 @@ class _AddTransactionState extends State<AddTransaction> {
               label(context, 'rumkikc1' /* Name, ISIN, FIGI or Ticket */),
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
                   letterSpacing: 0.0,
@@ -134,7 +134,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           child: Text(
                             item.name!.replaceAll('_', ' '),
                             style: FlutterFlowTheme.of(context).bodySmall.override(
-                                  fontFamily: 'Roboto',
+
                                   color: FlutterFlowTheme.of(context).customColor4,
                                   fontSize: rSize*0.014,
                                 fontWeight: FontWeight.w500
@@ -152,7 +152,7 @@ class _AddTransactionState extends State<AddTransaction> {
               label(context, '7fx237xy' /* Time In Force */),
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
                     fontWeight: FontWeight.w500
@@ -174,7 +174,7 @@ class _AddTransactionState extends State<AddTransaction> {
               label(context, '2mpa9jiq' /* Notes */),
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
                     fontWeight: FontWeight.w500
@@ -191,7 +191,7 @@ class _AddTransactionState extends State<AddTransaction> {
               label(context, 'u7hyldvt' /* Order Type */),
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
                     fontWeight: FontWeight.w500
@@ -207,7 +207,7 @@ class _AddTransactionState extends State<AddTransaction> {
               label(context, '2odrp5sn' /* Quantity */),
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
                     fontWeight: FontWeight.w500
@@ -228,7 +228,7 @@ class _AddTransactionState extends State<AddTransaction> {
               label(context, 'lz424u11' /* Current Price */),
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
                     fontWeight: FontWeight.w500
@@ -253,7 +253,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           'bhxqgsuw' /* USD $ */,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
+
                               letterSpacing: 0,
                             ),
                       ),
@@ -265,7 +265,7 @@ class _AddTransactionState extends State<AddTransaction> {
               label(context, 'q9p7fv0r' /* Limit Price */),
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
                     fontWeight: FontWeight.w500
@@ -292,7 +292,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           'bhxqgsuw' /* USD $ */,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
+
                               letterSpacing: 0,
                             ),
                       ),
@@ -305,7 +305,7 @@ class _AddTransactionState extends State<AddTransaction> {
               label(context, '4noemhfd' /* Amount */),
               TextFormField(
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontFamily: 'Roboto',
+
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize*0.018,
                     fontWeight: FontWeight.w500
@@ -331,7 +331,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           'bhxqgsuw' /* USD $ */,
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Roboto',
+
                               letterSpacing: 0,
                             ),
                       ),
@@ -372,7 +372,7 @@ class _AddTransactionState extends State<AddTransaction> {
           text,
         ),
         style: FlutterFlowTheme.of(context).bodyMedium.override(
-              fontFamily: 'Roboto',
+
               fontSize: rSize*0.016,
               color: FlutterFlowTheme.of(context).customColor4,
             ),

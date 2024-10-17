@@ -133,7 +133,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                       child: TextField(
                         controller: _notifier.searchController,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Roboto',
+
                             fontWeight: FontWeight.w500,
                             color: FlutterFlowTheme.of(context).customColor4
                         ),
@@ -248,18 +248,10 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                               Row(
                                 children: [
                                   Expanded(
-                                      child: Text(
+                                      child: AppWidgets.title(context,
                                         FFLocalizations.of(context).getText(
                                           'filter' /* Filter */,
-                                        ),
-                                    style: FlutterFlowTheme.of(context).headlineMedium.override(
-                                      fontFamily: 'Roboto',
-                                      color: FlutterFlowTheme.of(context).customColor4,
-                                      fontSize: rSize*0.026,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  )),
+                                        ))),
                                   GestureDetector(
                                     onTap: () {
                                       Navigator.pop(context);
@@ -296,7 +288,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                           child: Text(
                                             item.name!,
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                  fontFamily: 'Roboto',
+
                                                   fontSize: rSize*0.014,
                                               color: FlutterFlowTheme.of(context).customColor4,
                                               fontWeight: FontWeight.w500,
@@ -332,7 +324,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                           child: Text(
                                             item.name!,
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                  fontFamily: 'Roboto',
+
                                                   fontSize: rSize*0.014,
                                               color: FlutterFlowTheme.of(context).customColor4,
                                               fontWeight: FontWeight.w500,
@@ -368,7 +360,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                           child: Text(
                                             item.name!,
                                             style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                  fontFamily: 'Roboto',
+
                                                   fontSize: rSize*0.014,
                                               color: FlutterFlowTheme.of(context).customColor4,
                                               fontWeight: FontWeight.w500,
