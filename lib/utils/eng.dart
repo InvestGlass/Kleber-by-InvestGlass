@@ -157,6 +157,8 @@ var engMap={
   "n25ml3i7": "USD \$",
   "h2vfcolj": "TRANSMIT",
   "7orhqoys": "Home",
+  "want_to_logout": "Are you sure you want to logout?",
+  "communication_support": 'Authorization code 721864 to communicate to support',
   "dlgf18jl": "Document",
   "mg8sso38": "Sign",
   "5tjloy3c": "Rejected at",

@@ -139,9 +139,10 @@ class _ProfileState extends State<Profile> {
             height: rSize * 0.015,
           ),
           Text(
-            'Authorization code 721864 to communicate to support',
+            FFLocalizations.of(context).getText(
+              'communication_support',
+            ),
             style: FlutterFlowTheme.of(context).headlineSmall.override(
-
               fontSize: rSize*0.016,
               color:FlutterFlowTheme.of(context).customColor4
             ),
@@ -291,7 +292,9 @@ class _ProfileState extends State<Profile> {
   void openConfirmationDialog() {
     AppWidgets.showAlert(
         context,
-        'Are you sure you want to logout?',
+        FFLocalizations.of(context).getText(
+          'want_to_logout',
+        ),
         FFLocalizations.of(context).getText(
           's1jcpzx6' /*cancel*/,
         ),
