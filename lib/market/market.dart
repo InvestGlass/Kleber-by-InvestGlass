@@ -433,7 +433,7 @@ class _MarketState extends State<Market> {
                                         child: AppWidgets.btn(
                                             context,
                                             FFLocalizations.of(context).getText(
-                                              'zw535eku' /* CLEAR */,
+                                              'g7rr5vmv' /* CLEAR */,
                                             ),
                                             borderOnly: true)),
                                   ),
@@ -453,7 +453,7 @@ class _MarketState extends State<Market> {
                                         child: AppWidgets.btn(
                                             context,
                                             FFLocalizations.of(context).getText(
-                                              'r8wu2qe3' /* Apply */,
+                                              'lmndaaco' /* Apply */,
                                             ),
                                             bgColor: FlutterFlowTheme.of(context).primary)),
                                   ),

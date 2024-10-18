@@ -371,7 +371,6 @@ var viMap={
   "ng4uvnyc": "Tìm kiếm tiền tệ",
   "jc3m5lbr": "Từ",
   "ww0vqchu": "Đến",
-  "h9jg8nf9": "Xóa",
   "lafovd94": "Áp dụng",
   "fiha8uf5": "Trang chủ",
   "p38uhcf6": "Trang chủ",

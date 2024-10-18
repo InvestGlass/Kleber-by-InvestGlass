@@ -553,7 +553,7 @@ class _DocumentsState extends State<Documents> {
                                         child: AppWidgets.btn(
                                             context,
                                             FFLocalizations.of(context).getText(
-                                              'zw535eku' /* CLEAR */,
+                                              'g7rr5vmv' /* CLEAR */,
                                             ),
                                             borderOnly: true)),
                                   ),
@@ -585,7 +585,7 @@ class _DocumentsState extends State<Documents> {
                                             context,
                                             textColor: Colors.white,
                                             FFLocalizations.of(context).getText(
-                                              'r8wu2qe3' /* Apply */,
+                                              'lmndaaco' /* Apply */,
                                             ),
                                             bgColor: FlutterFlowTheme.of(context).primary)),
                                   ),
