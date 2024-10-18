@@ -37,8 +37,7 @@ class _ProfileState extends State<Profile> {
         children: [
           GestureDetector(
             onTap: () async {
-              await SharedPrefUtils.instance.logout();
-              CommonFunctions.navigate(context, const OnBoardingPageWidget(), removeAllScreensFromStack: true);
+              openConfirmationDialog();
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -287,5 +286,24 @@ class _ProfileState extends State<Profile> {
         ),
       ),
     );
+  }
+
+  void openConfirmationDialog() {
+    AppWidgets.showAlert(
+        context,
+        'Are you sure you want to logout?',
+        FFLocalizations.of(context).getText(
+          's1jcpzx6' /*cancel*/,
+        ),
+        FFLocalizations.of(context).getText(
+          'c0xbwwci' /* Logout */,
+        ), () {
+      Navigator.pop(context);
+    }, () async {
+      await SharedPrefUtils.instance.logout();
+      CommonFunctions.navigate(context, const OnBoardingPageWidget(), removeAllScreensFromStack: true);
+    },
+        btn1BgColor: FlutterFlowTheme.of(context).customColor2,
+        btn2BgColor: FlutterFlowTheme.of(context).customColor3);
   }
 }

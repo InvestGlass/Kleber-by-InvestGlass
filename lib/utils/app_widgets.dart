@@ -602,38 +602,41 @@ class AppWidgets {
                   borderRadius: BorderRadius.circular(rSize*0.01),
                   child: Material(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: rSize * 0.02,
-                        ),
-                        Text(
-                          msg,
-                          style: FlutterFlowTheme.of(context).headlineMedium.override(
-
-                                color: FlutterFlowTheme.of(context).primary,
-                                fontSize: rSize*0.026,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: rSize*0.015),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: rSize * 0.02,
+                          ),
+                          Text(
+                            msg,
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  fontSize: rSize*0.026,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                          ),
+                          SizedBox(
+                            height: rSize * 0.02,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(onTap: onTap1, child: btnWithoutGradiant(context, label1,btn1BgColor!, horizontalPadding: rSize * 0.02, )),
+                              SizedBox(
+                                width: rSize * 0.02,
                               ),
-                        ),
-                        SizedBox(
-                          height: rSize * 0.02,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(onTap: onTap1, child: btnWithoutGradiant(context, label1,btn1BgColor!, horizontalPadding: rSize * 0.02, )),
-                            SizedBox(
-                              width: rSize * 0.02,
-                            ),
-                            GestureDetector(onTap: onTap2, child: btnWithoutGradiant(context, label2,btn2BgColor!, horizontalPadding: rSize * 0.02, )),
-                          ],
-                        ),
-                        SizedBox(
-                          height: rSize * 0.02,
-                        )
-                      ],
+                              GestureDetector(onTap: onTap2, child: btnWithoutGradiant(context, label2,btn2BgColor!, horizontalPadding: rSize * 0.02, )),
+                            ],
+                          ),
+                          SizedBox(
+                            height: rSize * 0.02,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

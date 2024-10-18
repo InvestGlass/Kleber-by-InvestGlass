@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:kleber_bank/main.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -16,146 +17,83 @@ class TermsAndPrivacy extends StatefulWidget {
   State<TermsAndPrivacy> createState() => _TermsAndPrivacyState();
 }
 
-class _TermsAndPrivacyState extends State<TermsAndPrivacy>  with TickerProviderStateMixin{
+class _TermsAndPrivacyState extends State<TermsAndPrivacy> with TickerProviderStateMixin {
   late LoginController _controller;
-  late TabController _tabController;
+  late PageController _pageController;
+  int _selectedIndex=0;
+  String txt = '<!DOCTYPE html><html><head><title>Page Title</title></head><body><h1>My First Heading</h1><p>My New Zealand is an island country in the southwestern Pacific Ocean. It consists of two main landmasses—the North Island and the South Island —and over 700 smaller islands.</p></body></html>';
+  String txt2 = '<!DOCTYPE html><html><head><title>Page Title</title></head><body><h1>My Second Heading</h1><p>My New Zealand is an island country in the southwestern Pacific Ocean. It consists of two main landmasses—the North Island and the South Island —and over 700 smaller islands.</p></body></html>';
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<LoginController>(context,listen: false).termOfService(context);
-    },);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        Provider.of<LoginController>(context, listen: false).termOfService(context);
+      },
+    );
 
     super.initState();
   }
 
   @override
+  void dispose() {
+    _controller.accepted=false;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     _controller = Provider.of<LoginController>(context);
-    _tabController = TabController(
-      length: _controller.tabLabelList.length,
-      vsync: this,
-    );
+    _pageController = PageController();
     return Scaffold(
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      appBar: AppWidgets.appBar(context, '', leading: AppWidgets.backArrow(context)),
       body: Container(
         decoration: AppStyles.commonBg(context),
         child: Column(
-
           children: [
-            AppBar(backgroundColor: Colors.transparent,),
-            Material(
-              color: Colors.transparent,
-              child: TabBar(
-                  onTap: (value) {},
-                  indicatorWeight: 0.1,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  labelStyle: FlutterFlowTheme.of(context).titleMedium.override(
-
-                    letterSpacing: 0.0,
-                    fontWeight: FontWeight.w500,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(rSize * 0.03), color: FlutterFlowTheme.of(context).customColor4,boxShadow: AppStyles.shadow()),
+                  margin: EdgeInsets.only(bottom: rSize*0.005),
+                  padding: const EdgeInsets.all(2),
+                  child: Row(
+                    children: [
+                      tabCell(
+                          context,
+                          FFLocalizations.of(context).getText(
+                            'ovw4ksp4' /* terms... */,
+                          ),
+                        _selectedIndex==0,() {
+                            _pageController.animateToPage(0,duration: const Duration(milliseconds: 100), curve: Curves.easeIn);
+                            setState(() {
+                              _selectedIndex=0;
+                            });
+                          },),
+                      tabCell(
+                          context,
+                          FFLocalizations.of(context).getText(
+                            'sb815feb' /* privacy... */,
+                          ),
+                        _selectedIndex==1,() {
+                        _pageController.animateToPage(1,duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
+                        setState(() {
+                          _selectedIndex=1;
+                        });
+                          },),
+                    ],
                   ),
-                  // labelPadding: labelPadding,
-                  unselectedLabelStyle: const TextStyle(),
-                  labelColor: FlutterFlowTheme.of(context).info,
-                  unselectedLabelColor:
-                  FlutterFlowTheme.of(context).secondaryText,
-                  indicatorColor: FlutterFlowTheme.of(context).info,
-                  tabs: List.generate(
-                    _controller.tabLabelList.length,
-                        (index) {
-                      return Tab(text: FFLocalizations.of(context).getText(
-                        _controller.tabLabelList[index],
-                      ));
-                    },
-                  ),
-                  controller: _tabController,tabAlignment: TabAlignment.center,
-                  physics: const BouncingScrollPhysics(),
-                  isScrollable: true),
+                ),
+              ],
             ),
             Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                physics: NeverScrollableScrollPhysics(),
-                children: List.generate(_controller.tabLabelList.length, (index) {
-                  if (index==0) {
-                    return Page(_controller.termOfServiceContent['term_of_service']);
-                  }
-                  return Page(_controller.termOfServiceContent['privacy_policy']);
-                  /*return SingleChildScrollView(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 16, vertical: rSize*0.02),
-                          child: Column(
-                            children: [
-                              CommonShadowWidget(
-                                child: Padding(
-                                  padding: EdgeInsets.all(16),
-                                  child: Column(
-                                    children: [
-                                      ListTile(
-                                        dense: true,
-                                        contentPadding: EdgeInsets.zero,
-                                        title: Text(
-                                          'Unrealized P&L',
-                                          style: TextStyle(
-                                            fontSize: SizeConfig.normalfontSize,
-                                            color: ColorResources.darkGreyColor,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        trailing: Text(
-                                          '₹ ${index == 0 ? _getTotalUnrealizedTradeData(_finalTradesList) : _getTotalUnrealizedTradeData(_finalPositionsList)}',
-                                          style: TextStyle(
-                                            fontSize: SizeConfig.extraSmallfontSize,
-                                            color: ColorResources.darkGreyColor,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ),
-                                      Divider(),
-                                      ListTile(
-                                        dense: true,
-                                        contentPadding: EdgeInsets.zero,
-                                        title: Text(
-                                          'Net P&L',
-                                          style: TextStyle(
-                                            fontSize: SizeConfig.normalfontSize,
-                                            color: ColorResources.darkGreyColor,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        trailing: Text(
-                                          '₹ ${index == 0 ?
-                                          setDecimals(((double.tryParse(_getTotalUnrealizedTradeData(_finalTradesList)) ?? 0) + (double.tryParse(_getTotalRealizedTradeData(_finalTradesList)) ?? 0)).toString(), '2')
-                                              : setDecimals(((double.tryParse(_getTotalUnrealizedTradeData(_finalPositionsList)) ?? 0) + (double.tryParse(_getTotalRealizedTradeData(_finalPositionsList)) ?? 0)).toString(), '2')}',
-                                          style: TextStyle(
-                                            fontSize: SizeConfig.extraSmallfontSize,
-                                            color: ColorResources.darkGreyColor,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              heightBox(20),
-                              CommonShadowWidget(
-                                child: SearchTextFieldWidget(
-                                  controller: _searchController,
-                                  hintText: "Search Positions",
-                                ),
-                              ),
-                              heightBox(20),
-                              if (index == 0)...{
-                                TodayTradeView()
-                              }else...{
-                                PositionTradeView()}
-                              // _buildPositionListWidget(),
-                            ],
-                          ),
-                        );*/
-                }),
+              child: PageView(controller: _pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  Page(_controller.termOfServiceContent['term_of_service']),
+                  Page(_controller.termOfServiceContent['privacy_policy'])
+                ],
               ),
             ),
             Card(
@@ -171,11 +109,12 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy>  with TickerProviderS
                           width: 2,
                           color: FlutterFlowTheme.of(context).secondaryText,
                         ),
-                        checkColor: !_controller.accepted?FlutterFlowTheme.of(context).secondaryBackground
-                            : FlutterFlowTheme.of(context).info,
-                        value: _controller.accepted, onChanged: (value) {
-                        _controller.changeAcceptance(context);
-                      },),
+                        checkColor: !_controller.accepted ? FlutterFlowTheme.of(context).secondaryBackground : FlutterFlowTheme.of(context).info,
+                        value: _controller.accepted,
+                        onChanged: (value) {
+                          _controller.changeAcceptance(context);
+                        },
+                      ),
                       Expanded(
                         child: RichText(
                           textScaler: MediaQuery.of(context).textScaler,
@@ -185,24 +124,20 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy>  with TickerProviderS
                                 text: FFLocalizations.of(context).getText(
                                   'l6rxib8x' /* I've read and agree to the  */,
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryText,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.normal,
-                                ),
+                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      color: FlutterFlowTheme.of(context).primaryText,
+                                      fontSize: rSize * 0.014,
+                                      fontWeight: FontWeight.normal,
+                                    ),
                               ),
                               TextSpan(
                                 text: FFLocalizations.of(context).getText(
                                   'zfszy2xl' /* Term of Service */,
                                 ),
                                 style: TextStyle(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryText,
+                                  color: FlutterFlowTheme.of(context).primaryText,
                                   fontWeight: FontWeight.w600,
+                                  fontSize: rSize * 0.014,
                                 ),
                               ),
                               TextSpan(
@@ -210,8 +145,8 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy>  with TickerProviderS
                                   'x0c3ht3x' /*  and  */,
                                 ),
                                 style: TextStyle(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryText,
+                                  color: FlutterFlowTheme.of(context).primaryText,
+                                  fontSize: rSize * 0.014,
                                 ),
                               ),
                               TextSpan(
@@ -219,34 +154,34 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy>  with TickerProviderS
                                   'lnywo5pe' /* Privacy Policy */,
                                 ),
                                 style: TextStyle(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryText,
+                                  color: FlutterFlowTheme.of(context).primaryText,
                                   fontWeight: FontWeight.w600,
+                                  fontSize: rSize * 0.014,
                                 ),
                               )
                             ],
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-
-                              letterSpacing: 0.0,
-                            ),
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  fontSize: rSize * 0.014,
+                                ),
                           ),
                         ),
                       ),
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 40,right: 40,bottom: 10),
+                    padding: EdgeInsets.only(left: rSize * 0.04, right: rSize * 0.04, bottom: rSize * 0.01),
                     child: GestureDetector(
                       onTap: () {
                         if (_controller.accepted) {
                           _controller.accept(context);
                         }
                       },
-                      child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
-                        '3esw1ind' /* Accept */,
-                      ),bgColor: _controller.accepted?FlutterFlowTheme.of(context).primary:AppColors.kHint),
+                      child: AppWidgets.btn(
+                          context,
+                          FFLocalizations.of(context).getText(
+                            '3esw1ind' /* Accept */,
+                          ),
+                          bgColor: _controller.accepted ? FlutterFlowTheme.of(context).primary : AppColors.kHint),
                     ),
                   )
                 ],
@@ -257,11 +192,32 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy>  with TickerProviderS
       ),
     );
   }
+
+  Widget tabCell(BuildContext context, String text, bool isSelected,void Function()? onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: rSize*0.02,vertical: rSize*0.01),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(rSize * 0.03), color: isSelected ? FlutterFlowTheme.of(context).info : Colors.transparent),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: isSelected ? FlutterFlowTheme.of(context).customColor4 : FlutterFlowTheme.of(context).primaryText,
+            fontSize: rSize * 0.016,
+            height: 0,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class Page extends StatelessWidget {
   final String htmlData;
-  const Page(this.htmlData,{super.key});
+
+  const Page(this.htmlData, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -269,10 +225,8 @@ class Page extends StatelessWidget {
       child: SingleChildScrollView(
         child: Html(
           data: htmlData,
-
         ),
       ),
     );
   }
 }
-

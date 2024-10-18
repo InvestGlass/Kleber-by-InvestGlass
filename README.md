@@ -18,3 +18,8 @@ samples, guidance on mobile development, and a full API reference.
 Flutter 3.22.2
 Dart 3.4.3
 Flutter SDK 3.16.0
+
+To change server to production:-
+1. open file located at \lib\utils\end_points.dart
+2. comment the line containing "https://staging.investglass.com/client_portal_api/"
+3. uncomment the line containing "https://app.investglass.com/client_portal_api/"

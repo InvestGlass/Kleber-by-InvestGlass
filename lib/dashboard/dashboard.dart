@@ -250,118 +250,17 @@ class _DashboardState extends State<Dashboard> {
               label: FFLocalizations.of(context).getText('w5wtcpj4' /* Profile */)),
         ],
       ),
-      body: Container(
-        decoration: AppStyles.commonBg(context),
-        child: Stack(
-          children: [
-            PageView(
-              controller: pagingController,
-              physics: const NeverScrollableScrollPhysics(),
-              children: const [
-                Home(),
-                Portfolio(),
-                Documents(),
-                Proposals(),
-                Profile(),
-              ],
-              onPageChanged: (page) {},
-            ),
-            /*Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                color: Colors.transparent,
-                height: rSize * 0.12,
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      child: Image.asset(
-                        Theme.of(context).brightness == Brightness.dark ? 'assets/bgBottomNavDark.png' : 'assets/bgBottomNavLight.png',
-                        fit: BoxFit.cover,
-                        // width: 200,
-                      ),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        bottombarCell(
-                            context,
-                            0,
-                            Icons.home_rounded,
-                            FFLocalizations.of(context).getText(
-                              'fiha8uf5' */ /* Home */ /*,
-                            )),
-                        bottombarCell(
-                            context,
-                            1,
-                            Icons.bar_chart,
-                            FFLocalizations.of(context).getText(
-                              'xn2nrgyp' */ /* Portfolio */ /*,
-                            ),
-                            widget: _controller.selectedIndex == 1
-                                ? SvgPicture.asset(
-                                    Theme.of(context).brightness == Brightness.dark ? 'assets/bar-chart-dark-theme.svg' : 'assets/bar_chart.svg',
-                                    fit: BoxFit.contain,
-                                  )
-                                : null),
-                        SizedBox(
-                          width: rSize * 0.05,
-                        ),
-                        bottombarCell(
-                            context,
-                            2,
-                            Icons.home_rounded,
-                            FFLocalizations.of(context).getText(
-                              'nkifu7jq' */ /* Proposal */ /*,
-                            ),
-                            widget: _controller.selectedIndex == 2
-                                ? SvgPicture.asset(
-                                    Theme.of(context).brightness == Brightness.dark
-                                        ? 'assets/proposal-icon-new-dark-theme.svg'
-                                        : 'assets/proposal-icon-new.svg',
-                                    fit: BoxFit.contain,
-                                  )
-                                : SvgPicture.asset(
-                                    Theme.of(context).brightness == Brightness.dark
-                                        ? 'assets/proposal-icon-new-unselected-dark-theme.svg'
-                                        : 'assets/proposal-icon-new-unselected.svg',
-                                    fit: BoxFit.contain,
-                                  )),
-                        bottombarCell(
-                            context,
-                            3,
-                            Icons.account_circle_rounded,
-                            FFLocalizations.of(context).getText(
-                              'w5wtcpj4' */ /* Profile */ /*,
-                            )),
-                      ],
-                    ),
-                    Positioned(
-                      // width: MediaQuery.of(context).size.width,
-                      bottom: isTablet?rSize * 0.038:rSize * 0.03,
-                      child: Align(
-                          alignment: Alignment.center,
-                          child: GestureDetector(
-                            onTap: () => showOptions(),
-                            child: Image.asset(
-                              'assets/app_launcher_icon.png',
-                              scale: isTablet?0.7:1.7,
-                              // height: rSize * 0.1,
-                              // width: rSize * 0.1,
-                            ),
-                          )),
-                    ),
-                  ],
-                ),
-              ),
-            )*/
-          ],
-        ),
+      body: PageView(
+        controller: pagingController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: const [
+          Home(),
+          Portfolio(),
+          Documents(),
+          Proposals(),
+          Profile(),
+        ],
+        onPageChanged: (page) {},
       ),
     );
   }

@@ -175,7 +175,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   }
 
   Widget buildSFLineChart() {
-    final isAr = false; /*true ie current language is arebic*/
+    final isAr = (SharedPrefUtils.instance.getString(SELECTED_LANGUAGE) == 'ar');
     final overIntialVisible = widget.xLabels.length > (initialVisibleMaximum.floor() + 1);
     return Row(
       children: [
@@ -257,7 +257,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
       // width: widget.customWidth,
       height: widget.height,
       child: widget.xLabels.isEmpty
-          ? null
+          ? Image.asset('assets/empty_chart.png')
           : !isPerformance(context)
               ? circularChart()
               : buildSFLineChart(),

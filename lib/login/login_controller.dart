@@ -134,7 +134,11 @@ class LoginController extends ChangeNotifier {
           CommonFunctions.dismissLoader(context);
           if (value != null) {
             if(value['success']){
-              await reSend(context,removeStack: true);
+              if (AppConst.userModel?.verification!=null) {
+                await reSend(context,removeStack: true);
+              }else{
+                CommonFunctions.navigate(context, Dashboard());
+              }
             }
             notifyListeners();
           }

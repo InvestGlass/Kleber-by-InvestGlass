@@ -223,7 +223,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                     ],
                                   ),
                                   SizedBox(
-                                    height: rSize * 0.035,
+                                    height: rSize * 0.01,
                                   ),
                                   Visibility(
                                     visible: pagingController.itemList![index].sectionName == null ||
