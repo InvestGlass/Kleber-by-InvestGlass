@@ -828,6 +828,7 @@ class _DocumentsState extends State<Documents> {
       return SvgPicture.asset(
         Theme.of(context).brightness == Brightness.dark ? 'assets/form-svgrepo-com-dark-theme.svg' : 'assets/form-svgrepo-com.svg',
         color: FlutterFlowTheme.of(context).customColor4,
+        height: rSize * 0.035,
       );
     } else if (documentType == 'document' || documentType == 'package') {
       return FaIcon(

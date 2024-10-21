@@ -55,10 +55,11 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: rSize*0.056,
+      height: rSize * 0.056,
+      width: double.infinity,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(rSize*0.010),
+          borderRadius: BorderRadius.circular(rSize * 0.010),
           border: Border.all(
             color: FlutterFlowTheme.of(context).alternate,
             width: 2,
@@ -68,21 +69,31 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton2<dynamic>(
             isExpanded: true,
+            iconStyleData: IconStyleData(
+                icon: Icon(
+              Icons.arrow_drop_down_outlined,
+              size: rSize * 0.025,
+              color: FlutterFlowTheme.of(context).customColor4,
+            )),
             selectedItemBuilder: widget.selectedItemBuilder,
             focusNode: widget.focusNode,
             hint: Text(
               widget.hint,
               style: TextStyle(
-                fontSize: rSize*0.014,
+                fontSize: rSize * 0.014,
                 color: Theme.of(context).hintColor,
               ),
             ),
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                   letterSpacing: 0.0,
                 ),
             items: widget.items,
-            value: List<dynamic>.generate((widget.items??[]).length,(index) =>widget.items![index].value,).contains(selectedValue)?selectedValue:null,
+            value: List<dynamic>.generate(
+              (widget.items ?? []).length,
+              (index) => widget.items![index].value,
+            ).contains(selectedValue)
+                ? selectedValue
+                : null,
             onChanged: (value) {
               widget.onChanged(value);
               setState(() {
@@ -90,24 +101,26 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
               });
             },
             buttonStyleData: ButtonStyleData(
-              padding: EdgeInsets.symmetric(horizontal: rSize*0.016),
-              height: rSize*0.040,
-              width: rSize*0.200,decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-              borderRadius: BorderRadius.circular(rSize*0.010),
-              border: Border.all(
-                color: FlutterFlowTheme.of(context).alternate,
-                width: 2,
-              ), // Set the dropdown corner radius here
-            ),
-            ),
-            dropdownStyleData: DropdownStyleData(
-              maxHeight: rSize*0.200,scrollbarTheme: ScrollbarThemeData(
-              thumbColor: WidgetStateProperty.all(Colors.transparent), // Change the scrollbar color here
-            ),
+              padding: EdgeInsets.symmetric(horizontal: rSize * 0.016),
+              height: rSize * 0.040,
+              width: rSize * 0.200,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
-                borderRadius: BorderRadius.circular(rSize*0.010),
+                borderRadius: BorderRadius.circular(rSize * 0.010),
+                border: Border.all(
+                  color: FlutterFlowTheme.of(context).alternate,
+                  width: 2,
+                ), // Set the dropdown corner radius here
+              ),
+            ),
+            dropdownStyleData: DropdownStyleData(
+              maxHeight: rSize * 0.200,
+              scrollbarTheme: ScrollbarThemeData(
+                thumbColor: WidgetStateProperty.all(Colors.transparent), // Change the scrollbar color here
+              ),
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+                borderRadius: BorderRadius.circular(rSize * 0.010),
                 border: Border.all(
                   color: FlutterFlowTheme.of(context).alternate,
                   width: 2,
@@ -115,23 +128,22 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
               ),
             ),
             menuItemStyleData: MenuItemStyleData(
-              height: rSize*0.040,
+              height: rSize * 0.040,
             ),
             dropdownSearchData: !widget.isSearchable
                 ? null
                 : DropdownSearchData(
                     searchController: textEditingController,
-                    searchInnerWidgetHeight: rSize*0.050,
+                    searchInnerWidgetHeight: rSize * 0.050,
                     searchInnerWidget: Container(
                       decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).secondaryBackground,
                           boxShadow: AppStyles.shadow(),
                           borderRadius: BorderRadius.circular(rSize * 0.01)),
-                      margin: EdgeInsets.only(top: rSize*0.010, left: rSize*0.010, right: rSize*0.010),
+                      margin: EdgeInsets.only(top: rSize * 0.010, left: rSize * 0.010, right: rSize * 0.010),
                       child: TextFormField(
                         maxLines: 1,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                               letterSpacing: 0.0,
                             ),
                         controller: textEditingController,
@@ -142,7 +154,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                             fillColor: Colors.transparent,
                             borderWidth: 0.2,
                             focusColor: FlutterFlowTheme.of(context).customColor4,
-                            contentPadding:EdgeInsets.symmetric(vertical: rSize*0.01, horizontal: rSize*0.01)),
+                            contentPadding: EdgeInsets.symmetric(vertical: rSize * 0.01, horizontal: rSize * 0.01)),
                       ),
                     ),
                     searchMatchFn: widget.searchMatchFn,

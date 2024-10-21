@@ -55,9 +55,9 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy> with TickerProviderSt
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(rSize * 0.03), color: FlutterFlowTheme.of(context).customColor4,boxShadow: AppStyles.shadow()),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(rSize * 0.03), color: FlutterFlowTheme.of(context).customColor4.withOpacity(0.3)),
                   margin: EdgeInsets.only(bottom: rSize*0.005),
-                  padding: const EdgeInsets.all(2),
+                  padding: EdgeInsets.all(rSize * 0.002),
                   child: Row(
                     children: [
                       tabCell(
@@ -91,8 +91,8 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy> with TickerProviderSt
               child: PageView(controller: _pageController,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  Page(_controller.termOfServiceContent['term_of_service']),
-                  Page(_controller.termOfServiceContent['privacy_policy'])
+                  Page(/*_controller.termOfServiceContent['term_of_service']*/txt),
+                  Page(/*_controller.termOfServiceContent['privacy_policy']*/txt2)
                 ],
               ),
             ),
@@ -176,12 +176,9 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy> with TickerProviderSt
                           _controller.accept(context);
                         }
                       },
-                      child: AppWidgets.btn(
-                          context,
-                          FFLocalizations.of(context).getText(
-                            '3esw1ind' /* Accept */,
-                          ),
-                          bgColor: _controller.accepted ? FlutterFlowTheme.of(context).primary : AppColors.kHint),
+                      child: getBtn(FFLocalizations.of(context).getText(
+                        '3esw1ind' /* Accept */,
+                      )),
                     ),
                   )
                 ],
@@ -212,6 +209,14 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy> with TickerProviderSt
       ),
     );
   }
+
+  getBtn(String s) {
+    if(_controller.accepted){
+      return AppWidgets.btn(context, s);
+    }else{
+      return AppWidgets.btnWithoutGradiant(context, s, FlutterFlowTheme.of(context).customColor4);
+    }
+  }
 }
 
 class Page extends StatelessWidget {
@@ -222,6 +227,7 @@ class Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: SingleChildScrollView(
         child: Html(
           data: htmlData,

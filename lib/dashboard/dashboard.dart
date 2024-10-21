@@ -212,14 +212,12 @@ class _DashboardState extends State<Dashboard> {
           fontSize: rSize * 0.016,
           height: 0,
           fontWeight: FontWeight.w600,
-
         ),
         unselectedLabelStyle: TextStyle(
           color: FlutterFlowTheme.of(context).customColor4,
           fontSize: rSize * 0.016,
           height: 0,
           fontWeight: FontWeight.w600,
-
         ),
         elevation: 3,
         selectedItemColor: FlutterFlowTheme.of(context).primary,
@@ -239,7 +237,7 @@ class _DashboardState extends State<Dashboard> {
                   data: Icons.home,
                   size: rSize * 0.020,
                   padding: EdgeInsets.all(rSize * 0.015),
-                  customIcon: Image.asset('assets/more.png',color: getColor(2),)),
+                  customIcon: Image.asset('assets/more.png', scale: 0.5,color: getColor(2),)),
               label: FFLocalizations.of(context).getText('more'),),
           BottomNavigationBarItem(
               icon:

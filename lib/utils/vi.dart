@@ -432,6 +432,8 @@ var viMap={
   "neadxzz8": "VẤN ĐỀ NHỎ",
   "0plh6q0q": "VẤN ĐỀ LỚN",
   "d8zszkbn": "VỊ TRÍ",
+  "select_file": 'Chọn tệp',
+  'capture_image': 'chụp ảnh',
   "position": "Vị trí",
   "u192lk22": "GIAO DỊCH",
   "5tqbxl7s": "Đọc",

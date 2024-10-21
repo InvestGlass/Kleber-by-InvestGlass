@@ -819,7 +819,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
           Icon(
             iconData,
             color: FlutterFlowTheme.of(context).customColor4,
-            size: 20,
+            size: rSize * 0.02,
           ),
           Expanded(
               child: Text(

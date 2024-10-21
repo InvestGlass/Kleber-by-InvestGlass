@@ -47,8 +47,8 @@ class _ProfileState extends State<Profile> {
                     FFLocalizations.of(context).getText(
                       'c0xbwwci' /* Logout */,
                     ),
-                    margin: EdgeInsets.only(bottom: rSize*0.015),
-                    horizontalPadding: rSize*0.040),
+                    margin: EdgeInsets.only(bottom: rSize * 0.015),
+                    horizontalPadding: rSize * 0.040),
               ],
             ),
           ),
@@ -60,8 +60,7 @@ class _ProfileState extends State<Profile> {
           Text(
             SharedPrefUtils.instance.getUserData().user!.username!.toString(),
             style: FlutterFlowTheme.of(context).headlineSmall.override(
-
-                  fontSize: rSize*0.02,
+                  fontSize: rSize * 0.02,
                   letterSpacing: 0.0,
                 ),
           ),
@@ -83,7 +82,6 @@ class _ProfileState extends State<Profile> {
               'wl1ownor' /* Account Settings */,
             ),
             style: FlutterFlowTheme.of(context).labelMedium.override(
-
                   letterSpacing: 0.0,
                 ),
           ),
@@ -110,14 +108,12 @@ class _ProfileState extends State<Profile> {
           ),
           Row(
             children: [
-
               Expanded(
                 child: Text(
                   FFLocalizations.of(context).getText(
                     'znd2aszb' /* Switch to Dark Mode */,
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                         color: FlutterFlowTheme.of(context).secondaryText,
                         letterSpacing: 0.0,
                       ),
@@ -125,13 +121,20 @@ class _ProfileState extends State<Profile> {
               ),
               Theme(
                 data: ThemeData(unselectedWidgetColor: FlutterFlowTheme.of(context).primary),
-                child: Switch(
-                  value: _mainNotifier.isDarkModel(),
-                  onChanged: (value) {
-                    _mainNotifier.changeTheme(value);
-                  },
-                  activeColor: FlutterFlowTheme.of(context).primary,
+                child: Transform.scale(
+                  scale: isTablet?2:0.8,
+                  child: Switch(
+                    value: _mainNotifier.isDarkModel(),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    onChanged: (value) {
+                      _mainNotifier.changeTheme(value);
+                    },
+                    activeColor: FlutterFlowTheme.of(context).primary,
+                  ),
                 ),
+              ),
+              SizedBox(
+                width: isTablet?rSize * 0.015:0,
               ),
             ],
           ),
@@ -142,12 +145,8 @@ class _ProfileState extends State<Profile> {
             FFLocalizations.of(context).getText(
               'communication_support',
             ),
-            style: FlutterFlowTheme.of(context).headlineSmall.override(
-              fontSize: rSize*0.016,
-              color:FlutterFlowTheme.of(context).customColor4
-            ),
+            style: FlutterFlowTheme.of(context).headlineSmall.override(fontSize: rSize * 0.016, color: FlutterFlowTheme.of(context).customColor4),
           ),
-
         ],
       ),
     );
@@ -162,7 +161,8 @@ class _ProfileState extends State<Profile> {
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setState) {
-            _notifier.selectedLanguage=AppConst.languageCodes.indexOf(SharedPrefUtils.instance.getString(SELECTED_LANGUAGE).isEmpty?'en':SharedPrefUtils.instance.getString(SELECTED_LANGUAGE));
+            _notifier.selectedLanguage = AppConst.languageCodes.indexOf(
+                SharedPrefUtils.instance.getString(SELECTED_LANGUAGE).isEmpty ? 'en' : SharedPrefUtils.instance.getString(SELECTED_LANGUAGE));
             return Wrap(
               children: [
                 Container(
@@ -170,13 +170,14 @@ class _ProfileState extends State<Profile> {
                   padding: EdgeInsets.only(top: rSize * 0.015),
                   decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.02), topRight: Radius.circular(rSize * 0.02))),
                   child: Column(
                     children: [
-                      AppWidgets.title(context,
-                        FFLocalizations.of(context).getText(
-                          'cnc2a7kn' /* Change Language */,
-                        )),
+                      AppWidgets.title(
+                          context,
+                          FFLocalizations.of(context).getText(
+                            'cnc2a7kn' /* Change Language */,
+                          )),
                       Container(
                         height: 0.5,
                         margin: EdgeInsets.symmetric(vertical: rSize * 0.0075),
@@ -218,7 +219,9 @@ class _ProfileState extends State<Profile> {
             width: isTablet ? rSize * 0.015 : 0,
           ),
           Theme(
-            data: ThemeData(unselectedWidgetColor: FlutterFlowTheme.of(context).customColor4,),
+            data: ThemeData(
+              unselectedWidgetColor: FlutterFlowTheme.of(context).customColor4,
+            ),
             child: Transform.scale(
               scale: rSize * 0.0012,
               child: Radio(
@@ -230,7 +233,6 @@ class _ProfileState extends State<Profile> {
                   }
                   return FlutterFlowTheme.of(context).customColor4;
                 }),
-
                 groupValue: _notifier.selectedLanguage,
                 onChanged: (p0) {
                   _notifier.changeLanguage(p0!);
@@ -247,9 +249,8 @@ class _ProfileState extends State<Profile> {
               child: Text(
             label,
             style: FlutterFlowTheme.of(context).displaySmall.override(
-
                   color: FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize*0.016,
+                  fontSize: rSize * 0.016,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.w500,
                 ),
@@ -266,19 +267,17 @@ class _ProfileState extends State<Profile> {
         decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).secondaryBackground,
             boxShadow: AppStyles.shadow(),
-            borderRadius: BorderRadius.circular(rSize*0.01)
-        ),
+            borderRadius: BorderRadius.circular(rSize * 0.01)),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: rSize*0.015, vertical: rSize*0.02),
+          padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.02),
           child: Row(
             children: [
               Expanded(
                   child: Text(
                 title,
                 style: FlutterFlowTheme.of(context).labelMedium.override(
-
                       letterSpacing: 0.0,
-                  color: FlutterFlowTheme.of(context).customColor4,
+                      color: FlutterFlowTheme.of(context).customColor4,
                     ),
               )),
               AppWidgets.doubleBack(context)
@@ -305,8 +304,6 @@ class _ProfileState extends State<Profile> {
     }, () async {
       await SharedPrefUtils.instance.logout();
       CommonFunctions.navigate(context, const OnBoardingPageWidget(), removeAllScreensFromStack: true);
-    },
-        btn1BgColor: FlutterFlowTheme.of(context).customColor2,
-        btn2BgColor: FlutterFlowTheme.of(context).customColor3);
+    }, btn1BgColor: FlutterFlowTheme.of(context).customColor4, btn2BgColor: FlutterFlowTheme.of(context).primary);
   }
 }

@@ -73,7 +73,7 @@ class _ChatHistoryState extends State<ChatHistory> {
         ),
         AppStyles.iconBg(
           context,
-          padding: EdgeInsets.symmetric(horizontal: rSize * 0.008),
+          padding: EdgeInsets.symmetric(horizontal: rSize * 0.008,vertical: rSize * 0.01),
           margin: EdgeInsets.only(
             top: rSize * 0.008,
             bottom: rSize * 0.008,

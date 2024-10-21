@@ -31,7 +31,7 @@ class AppWidgets {
   static Container healthAlertElement(
       BuildContext context, String title, Color bgColor, IconData iconData, String label, Appropriateness model, TextStyle textStyle) {
     return Container(
-      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(rSize*0.010),boxShadow: AppStyles.shadow()),
+      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(rSize * 0.010), boxShadow: AppStyles.shadow()),
       padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.015),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +41,7 @@ class AppWidgets {
               Icon(
                 iconData,
                 color: textStyle.color,
-                size: rSize*0.020,
+                size: rSize * 0.020,
               ),
               Expanded(
                   child: Text(
@@ -61,9 +61,8 @@ class AppWidgets {
             Text(
               label,
               style: FlutterFlowTheme.of(context).displaySmall.override(
-
                     color: FlutterFlowTheme.of(context).primaryText,
-                    fontSize: rSize*0.016,
+                    fontSize: rSize * 0.016,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.w500,
                   ),
@@ -71,9 +70,8 @@ class AppWidgets {
             Text(
               getStatus(model.status),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                     color: FlutterFlowTheme.of(context).secondaryText,
-                    fontSize: rSize*0.016,
+                    fontSize: rSize * 0.016,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.normal,
                   ),
@@ -83,7 +81,7 @@ class AppWidgets {
             ),
             ListView.separated(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Row(
                       children: [
                         Container(
@@ -91,8 +89,8 @@ class AppWidgets {
                             shape: BoxShape.circle,
                             color: FlutterFlowTheme.of(context).primaryText,
                           ),
-                          height: rSize*0.008,
-                          width: rSize*0.008,
+                          height: rSize * 0.008,
+                          width: rSize * 0.008,
                         ),
                         SizedBox(
                           width: rSize * 0.015,
@@ -101,9 +99,8 @@ class AppWidgets {
                           child: Text(
                             model.listDetails![index],
                             style: FlutterFlowTheme.of(context).displaySmall.override(
-
                                   color: FlutterFlowTheme.of(context).primaryText,
-                                  fontSize: rSize*0.016,
+                                  fontSize: rSize * 0.016,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -153,56 +150,56 @@ class AppWidgets {
     );
   }
 
-  static Widget portfolioListElement(BuildContext context, String label, String value, {String middleValue = '', Widget? icon,Widget? richText}) {
+  static Widget portfolioListElement(BuildContext context, String label, String value, {String middleValue = '', Widget? icon, Widget? richText}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           label,
           style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                fontSize: rSize*0.016,
+                fontSize: rSize * 0.016,
                 color: FlutterFlowTheme.of(context).customColor4,
                 letterSpacing: 0.0,
               ),
         ),
         if (middleValue.isNotEmpty) ...{
-          if(isAmount(middleValue))...{
+          if (isAmount(middleValue)) ...{
             buildRichText(context, middleValue)
-          }else...{
-          Text(
-            middleValue,
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                  fontSize: rSize*0.016,
-                  letterSpacing: 0.0,
-                ),
-          )}
+          } else ...{
+            Text(
+              middleValue,
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontSize: rSize * 0.016,
+                    letterSpacing: 0.0,
+                  ),
+            )
+          }
         },
         if (middleValue.isEmpty) ...{
           SizedBox(
             width: rSize * 0.015,
           ),
-          if(richText!=null)...{
-            Expanded(child: SizedBox(),),
+          if (richText != null) ...{
+            const Expanded(
+              child: SizedBox(),
+            ),
             richText
-          }else...{
+          } else ...{
             Expanded(
               child: Text(
                 value,
                 textAlign: TextAlign.end,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  fontSize: rSize*0.016,
-                  letterSpacing: 0.0,
-                  fontWeight: FontWeight.normal,
-                ),
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      fontSize: rSize * 0.016,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.normal,
+                    ),
               ),
             )
           },
           if (icon != null) ...{
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             icon
@@ -211,9 +208,8 @@ class AppWidgets {
           Text(
             value,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                   color: FlutterFlowTheme.of(context).primaryText,
-                  fontSize: rSize*0.016,
+                  fontSize: rSize * 0.016,
                   letterSpacing: 0.0,
                   fontWeight: FontWeight.normal,
                 ),
@@ -237,9 +233,8 @@ class AppWidgets {
         Text(
           msg,
           style: FlutterFlowTheme.of(context).bodyLarge.override(
-
                 color: FlutterFlowTheme.of(context).secondaryText,
-                fontSize: rSize*0.02,
+                fontSize: rSize * 0.02,
                 letterSpacing: 0.0,
               ),
         ),
@@ -253,7 +248,7 @@ class AppWidgets {
       Widget? widget,
       bool borderOnly = false,
       Color? bgColor,
-        EdgeInsetsGeometry? margin,
+      EdgeInsetsGeometry? margin,
       Color? textColor}) {
     return Container(
       width: width,
@@ -266,80 +261,68 @@ class AppWidgets {
             label,
             style: borderOnly
                 ? FlutterFlowTheme.of(context).titleSmall.override(
-
-              fontSize: rSize*0.014,
+                      fontSize: rSize * 0.014,
                       color: FlutterFlowTheme.of(context).primary,
                       letterSpacing: 0.0,
                     )
                 : FlutterFlowTheme.of(context).bodySmall.override(
-
                       color: textColor ?? Colors.white,
-                      fontSize: rSize*0.014,
+                      fontSize: rSize * 0.014,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.normal,
                     ),
           ),
     );
   }
-  static Widget btnWithoutGradiant(BuildContext context, String label,
-      Color bgColor,
-      {double? width,
-      double horizontalPadding = 0,
-        EdgeInsetsGeometry? margin,
-      Color? textColor}) {
+
+  static Widget btnWithoutGradiant(BuildContext context, String label, Color bgColor,
+      {double? width, double horizontalPadding = 0, EdgeInsetsGeometry? margin, Color? textColor}) {
     return Container(
       width: width,
       alignment: Alignment.center,
       margin: margin,
-      decoration: BoxDecoration(
-          color: bgColor,
-          border: Border.all(color: bgColor , width: 1),
-          borderRadius: BorderRadius.circular(rSize*0.010)),
+      decoration: BoxDecoration(color: bgColor, border: Border.all(color: bgColor, width: 1), borderRadius: BorderRadius.circular(rSize * 0.010)),
       padding: EdgeInsets.symmetric(vertical: rSize * 0.017, horizontal: horizontalPadding),
       child: Text(
-            label,
-            style: FlutterFlowTheme.of(context).bodySmall.override(
+        label,
+        style: FlutterFlowTheme.of(context).bodySmall.override(
+              color: Colors.white,
+              fontSize: rSize * 0.014,
+              letterSpacing: 0.0,
+              fontWeight: FontWeight.normal,
+            ),
+      ),
+    );
+  }
 
-                      color: Colors.white,
-                      fontSize: rSize*0.014,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.normal,
-                    ),
+  static label(BuildContext context, String text) {
+    return Text(
+      text,
+      style: FlutterFlowTheme.of(context).bodyMedium.override(
+            fontSize: rSize * 0.016,
+            color: FlutterFlowTheme.of(context).customColor4,
+            fontWeight: FontWeight.w500,
           ),
     );
   }
 
-  static label(BuildContext context, String text){
-    return Text(
-      text,
-      style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-        fontSize: rSize*0.016,
-        color: FlutterFlowTheme.of(context).customColor4,
-        fontWeight: FontWeight.w500,
-      ),
-    );
-  }
-  static title(BuildContext context, String text){
+  static title(BuildContext context, String text) {
     return Text(
       text,
       maxLines: 1,
       style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-        color: FlutterFlowTheme.of(context).customColor4,
-        fontSize: rSize*0.025,
-        letterSpacing: 0.0,
-        fontWeight: FontWeight.w600,
-      ),
+            color: FlutterFlowTheme.of(context).customColor4,
+            fontSize: rSize * 0.025,
+            letterSpacing: 0.0,
+            fontWeight: FontWeight.w600,
+          ),
     );
   }
 
   static Widget btnWithIcon(BuildContext context, String label, Color bgColor, Widget icon) {
     return Container(
       alignment: Alignment.center,
-      decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(rSize*0.010)),
+      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(rSize * 0.010)),
       padding: EdgeInsets.symmetric(vertical: rSize * 0.005),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -348,7 +331,6 @@ class AppWidgets {
           Text(
             label,
             style: FlutterFlowTheme.of(context).titleSmall.override(
-
                   color: Colors.white,
                   letterSpacing: 0.0,
                 ),
@@ -359,24 +341,26 @@ class AppWidgets {
   }
 
   static BoxDecoration gradiantDecoration(BuildContext context, {bool borderOnly = false, Color? color}) {
-    if(borderOnly){
+    if (borderOnly) {
       return BoxDecoration(
-        color: Colors.transparent,
-        border: Border.all(color: color ?? FlutterFlowTheme.of(context).primary, width: 1),
-        borderRadius: BorderRadius.circular(rSize*0.010));
+          color: Colors.transparent,
+          border: Border.all(color: color ?? FlutterFlowTheme.of(context).primary, width: 1),
+          borderRadius: BorderRadius.circular(rSize * 0.010));
     }
     return BoxDecoration(
         gradient: LinearGradient(
             colors: [
               FlutterFlowTheme.of(context).customColor1,
-              color??FlutterFlowTheme.of(context).primary,
+              color ?? FlutterFlowTheme.of(context).primary,
             ],
-            begin: Alignment.centerLeft, // Gradient starts from the left
-            end: Alignment.centerRight, // Gradient ends on the right
+            begin: Alignment.centerLeft,
+            // Gradient starts from the left
+            end: Alignment.centerRight,
+            // Gradient ends on the right
             stops: [0.0, 1.0],
-            tileMode: TileMode.clamp),boxShadow: AppStyles.shadow(),
-        borderRadius: BorderRadius.circular(rSize*0.008));
-
+            tileMode: TileMode.clamp),
+        boxShadow: AppStyles.shadow(),
+        borderRadius: BorderRadius.circular(rSize * 0.008));
   }
 
   static Expanded sheetElement(String img, String label, void Function()? onTap, BuildContext context) {
@@ -389,12 +373,12 @@ class AppWidgets {
             Container(
                 padding: EdgeInsets.all(rSize * 0.01),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(rSize*0.020)),
+                    borderRadius: BorderRadius.all(Radius.circular(rSize * 0.020)),
                     border: Border.all(color: FlutterFlowTheme.of(context).primaryText, width: 1)),
                 child: Image.asset(
                   'assets/$img',
-                  height: rSize*0.025,
-                  width: rSize*0.025,
+                  height: rSize * 0.025,
+                  width: rSize * 0.025,
                   color: FlutterFlowTheme.of(context).primaryText,
                 )),
             SizedBox(
@@ -403,9 +387,8 @@ class AppWidgets {
             Text(
               label,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                     color: FlutterFlowTheme.of(context).primaryText,
-                    fontSize: rSize*0.016,
+                    fontSize: rSize * 0.016,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.w500,
                   ),
@@ -426,13 +409,25 @@ class AppWidgets {
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize*0.020), topRight: Radius.circular(rSize*0.020))),
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.020), topRight: Radius.circular(rSize * 0.020))),
           height: rSize * 0.15,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              AppWidgets.sheetElement('media.png', 'Select File', onFileClick, context),
-              AppWidgets.sheetElement('camera.png', 'Capture Image', onCameraClick, context),
+              AppWidgets.sheetElement(
+                  'media.png',
+                  FFLocalizations.of(context).getText(
+                    "select_file",
+                  ),
+                  onFileClick,
+                  context),
+              AppWidgets.sheetElement(
+                  'camera.png',
+                  FFLocalizations.of(context).getText(
+                    "capture_image",
+                  ),
+                  onCameraClick,
+                  context),
             ],
           ),
         );
@@ -440,63 +435,52 @@ class AppWidgets {
     );
   }
 
-
-  static doubleBack(BuildContext context){
+  static doubleBack(BuildContext context) {
     return Image.asset(
       'assets/double_arrow.png',
       height: rSize * 0.02,
       color: FlutterFlowTheme.of(context).customColor4,
     );
   }
-  static backArrow(BuildContext context,{void Function()? onTap,EdgeInsetsGeometry? padding}){
-    return InkWell(
-        onTap: () {
-          if(onTap!=null){
-            onTap();
-          }else{
-            Navigator.pop(context);
-          }
-        },
-        child: Container(
-          margin: EdgeInsets.all(rSize*0.010),
-          padding: padding??EdgeInsets.zero,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(rSize*0.008),
-            color: FlutterFlowTheme.of(context).secondaryBackground,
-            boxShadow: AppStyles.shadow()
-          ),alignment: Alignment.center,
-          child: Icon(
-            Icons.arrow_back,
-            size: rSize*0.025,
-            color: FlutterFlowTheme.of(context).customColor4,
-          ),
-        ));
+
+  static backArrow(BuildContext context, {void Function()? onTap}) {
+    return AppStyles.iconBg(context, data: Icons.arrow_back, size: rSize * 0.025,color:FlutterFlowTheme.of(context).customColor4,onTap: () {
+      if (onTap != null) {
+        onTap();
+      } else {
+        Navigator.pop(context);
+      }
+    },);
   }
 
   static PreferredSize appBar(BuildContext context, String title, {Widget? leading, List<Widget>? actions, bool centerTitle = false}) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(rSize*0.06),
-      child: isTablet?Container(
-        color: FlutterFlowTheme.of(context).primaryBackground,
-        padding: EdgeInsets.symmetric(horizontal: rSize*0.015),
-        child: Column(
-          children: [
-            Expanded(child: SizedBox()),
-            appbar_(context, title,leading: leading,actions: actions,centerTitle: centerTitle),
-            Expanded(child: SizedBox()),
-          ],
-        ),
-      ):appbar_(context, title,leading: leading,actions: actions,centerTitle: centerTitle),
+      preferredSize: Size.fromHeight(rSize * 0.06),
+      child: /*!isTablet
+          ? Container(
+              color: FlutterFlowTheme.of(context).primaryBackground,
+              padding: EdgeInsets.symmetric(horizontal: rSize * 0.015),
+              child: Column(
+                children: [
+                  const Expanded(child: SizedBox()),
+                  appbar_(context, title, leading: leading, actions: actions, centerTitle: centerTitle),
+                  const Expanded(child: SizedBox()),
+                ],
+              ),
+            )
+          : */appbar_(context, title, leading: leading, actions: actions, centerTitle: centerTitle),
     );
   }
 
-  static AppBar appbar_(BuildContext context, String txt, {Widget? leading, List<Widget>? actions, bool centerTitle = false}){
+  static AppBar appbar_(BuildContext context, String txt, {Widget? leading, List<Widget>? actions, bool centerTitle = false}) {
     return AppBar(
       elevation: 0,
       actions: actions,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      toolbarHeight: rSize * 0.08,
       surfaceTintColor: Colors.transparent,
       leading: leading,
+      leadingWidth: rSize*0.06,
       title: title(context, txt),
       centerTitle: true,
     );
@@ -509,55 +493,50 @@ class AppWidgets {
           TextSpan(
             text: (value.split(' ')[1]).split('.')[0],
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-              color: FlutterFlowTheme.of(context).primaryText,
-              fontSize: rSize * 0.016,
-              letterSpacing: 0,
-              fontWeight: FontWeight.w800,
-            ),
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontSize: rSize * 0.016,
+                  letterSpacing: 0,
+                  fontWeight: FontWeight.w800,
+                ),
           ),
           TextSpan(
             text: '.${(value.split(' ')[1]).split('.')[1]}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-              color: FlutterFlowTheme.of(context).customColor4,
-              fontSize: rSize * 0.016,
-              letterSpacing: 0,
-              fontWeight: FontWeight.w800,
-            ),
+                  color: FlutterFlowTheme.of(context).customColor4,
+                  fontSize: rSize * 0.016,
+                  letterSpacing: 0,
+                  fontWeight: FontWeight.w800,
+                ),
           ),
           TextSpan(
             text: ' ${value.split(' ')[0]}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-              color: FlutterFlowTheme.of(context).customColor4,
-              fontSize: rSize * 0.016,
-              letterSpacing: 0,
-              fontWeight: FontWeight.normal,
-            ),
+                  color: FlutterFlowTheme.of(context).customColor4,
+                  fontSize: rSize * 0.016,
+                  letterSpacing: 0,
+                  fontWeight: FontWeight.normal,
+                ),
           ),
           if (value.split(' ').length > 2) ...{
             TextSpan(
               text: ' ${value.split(' ')[2]}',
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                color: FlutterFlowTheme.of(context).primaryText,
-                fontSize: rSize * 0.016,
-                letterSpacing: 0,
-                fontWeight: FontWeight.w800,
-              ),
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    fontSize: rSize * 0.016,
+                    letterSpacing: 0,
+                    fontWeight: FontWeight.w800,
+                  ),
             ),
           },
           if (value.split(' ').length > 3) ...{
             TextSpan(
               text: value.split(' ')[3],
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                color: FlutterFlowTheme.of(context).primaryText,
-                fontSize: rSize * 0.016,
-                letterSpacing: 0,
-                fontWeight: FontWeight.w800,
-              ),
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    fontSize: rSize * 0.016,
+                    letterSpacing: 0,
+                    fontWeight: FontWeight.w800,
+                  ),
             ),
           }
         ],
@@ -579,9 +558,8 @@ class AppWidgets {
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: FlutterFlowTheme.of(context).displaySmall.override(
-
             color: FlutterFlowTheme.of(context).primaryText,
-            fontSize: rSize*0.016,
+            fontSize: rSize * 0.016,
             letterSpacing: 0.0,
             fontWeight: FontWeight.w500,
           ),
@@ -599,11 +577,11 @@ class AppWidgets {
             child: Wrap(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(rSize*0.01),
+                  borderRadius: BorderRadius.circular(rSize * 0.01),
                   child: Material(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: rSize*0.015),
+                      padding: EdgeInsets.symmetric(horizontal: rSize * 0.015),
                       child: Column(
                         children: [
                           SizedBox(
@@ -614,7 +592,7 @@ class AppWidgets {
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context).headlineMedium.override(
                                   color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: rSize*0.026,
+                                  fontSize: rSize * 0.026,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -625,11 +603,25 @@ class AppWidgets {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              GestureDetector(onTap: onTap1, child: btnWithoutGradiant(context, label1,btn1BgColor!, horizontalPadding: rSize * 0.02, )),
+                              GestureDetector(
+                                  onTap: onTap1,
+                                  child: btnWithoutGradiant(
+                                    context,
+                                    label1,
+                                    btn1BgColor!,
+                                    horizontalPadding: rSize * 0.02,
+                                  )),
                               SizedBox(
                                 width: rSize * 0.02,
                               ),
-                              GestureDetector(onTap: onTap2, child: btnWithoutGradiant(context, label2,btn2BgColor!, horizontalPadding: rSize * 0.02, )),
+                              GestureDetector(
+                                  onTap: onTap2,
+                                  child: btnWithoutGradiant(
+                                    context,
+                                    label2,
+                                    btn2BgColor!,
+                                    horizontalPadding: rSize * 0.02,
+                                  )),
                             ],
                           ),
                           SizedBox(
@@ -656,40 +648,36 @@ class AppWidgets {
         child: Wrap(
           children: [
             Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(rSize*0.015),
-              color: FlutterFlowTheme.of(context).secondaryBackground),
-              padding: EdgeInsets.all(rSize*0.010),
-              margin: EdgeInsets.all(rSize*0.015),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(rSize * 0.015), color: FlutterFlowTheme.of(context).secondaryBackground),
+              padding: EdgeInsets.all(rSize * 0.010),
+              margin: EdgeInsets.all(rSize * 0.015),
               child: SfDateRangePicker(
                 view: DateRangePickerView.month,
                 backgroundColor: Colors.transparent,
                 onSubmit: onSubmit,
                 rangeTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                  color:FlutterFlowTheme.of(context).customColor4,
-                      fontSize: rSize*0.016,
+                      color: FlutterFlowTheme.of(context).customColor4,
+                      fontSize: rSize * 0.016,
                       fontWeight: FontWeight.normal,
                     ),
                 selectionTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                  color:FlutterFlowTheme.of(context).customColor4,
-                      fontSize: rSize*0.016,
+                      color: FlutterFlowTheme.of(context).customColor4,
+                      fontSize: rSize * 0.016,
                       fontWeight: FontWeight.normal,
                     ),
                 cellBuilder: (context, cellDetails) {
                   return Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                     ),
-                    height: rSize*0.010,
-                    width: rSize*0.010,
+                    height: rSize * 0.010,
+                    width: rSize * 0.010,
                     alignment: Alignment.center,
                     child: Text(
                       cellDetails.date.day.toString(),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                        color:FlutterFlowTheme.of(context).customColor4,
-                            fontSize: rSize*0.016,
+                            color: FlutterFlowTheme.of(context).customColor4,
+                            fontSize: rSize * 0.016,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.normal,
                           ),
@@ -704,13 +692,12 @@ class AppWidgets {
                 headerStyle: DateRangePickerHeaderStyle(
                   backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-
                         color: FlutterFlowTheme.of(context).primaryText,
-                        fontSize: rSize*0.016,
+                        fontSize: rSize * 0.016,
                         fontWeight: FontWeight.normal,
                       ),
                 ),
-                monthViewSettings: DateRangePickerMonthViewSettings(
+                monthViewSettings: const DateRangePickerMonthViewSettings(
                   firstDayOfWeek: 1,
                 ),
                 showActionButtons: true,

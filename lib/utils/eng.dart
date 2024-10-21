@@ -332,6 +332,8 @@ var engMap={
   "52i8slyz": "",
   "58gmka4m": "",
   "rvrrcr87": "Proposal name",
+  "select_file": 'Select File',
+  'capture_image': 'Capture Image',
   "3lusoo7q": "",
   "48bz3ofm": "",
   "tl67wc2i": "Types",

@@ -181,7 +181,11 @@ class AppStyles {
 
             fontWeight: FontWeight.w200,
         color: FlutterFlowTheme.of(context).customColor4
-          ),
+          ),errorStyle: FlutterFlowTheme.of(context).labelMedium.override(
+
+        fontWeight: FontWeight.w200,
+        color: FlutterFlowTheme.of(context).error
+    ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: focusColor??FlutterFlowTheme.of(context).alternate,
