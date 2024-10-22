@@ -75,7 +75,6 @@ class _TransactionsState extends State<Transactions> {
                   context);
             }, itemBuilder: (context, item, index) {
               String currency = item.portfolioSecurity!.referenceCurrency!;
-              print('open price :: $currency ${CommonFunctions.formatDoubleWithThousandSeperator('${item.openPrice!}', item.openPrice == 0, 2)}');
               return Container(
                 decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,

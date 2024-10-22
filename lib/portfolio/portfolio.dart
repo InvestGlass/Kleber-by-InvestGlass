@@ -316,8 +316,8 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
 
                                         fontSize: rSize * 0.016,
-                                        color: FlutterFlowTheme.of(context).primaryText,
-                                        fontWeight: FontWeight.w400,
+                                        color: FlutterFlowTheme.of(context).customColor4,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                 )
                               ],
@@ -341,10 +341,9 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                       'eg1yw963' /* Transactions */,
                                     ),
                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                                           fontSize: rSize * 0.016,
-                                          color: FlutterFlowTheme.of(context).primaryText,
-                                          fontWeight: FontWeight.w400,
+                                          color: FlutterFlowTheme.of(context).customColor4,
+                                          fontWeight: FontWeight.w600,
                                         ))
                               ],
                             )),

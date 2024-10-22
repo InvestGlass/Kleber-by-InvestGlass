@@ -103,17 +103,20 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy> with TickerProviderSt
                 children: [
                   Row(
                     children: [
-                      Checkbox(
-                        activeColor: FlutterFlowTheme.of(context).primary,
-                        side: BorderSide(
-                          width: 2,
-                          color: FlutterFlowTheme.of(context).secondaryText,
+                      Transform.scale(
+                        scale: isTablet?2:0.8,
+                        child: Checkbox(
+                          activeColor: FlutterFlowTheme.of(context).primary,
+                          side: BorderSide(
+                            width: 2,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                          ),
+                          checkColor: !_controller.accepted ? FlutterFlowTheme.of(context).secondaryBackground : FlutterFlowTheme.of(context).info,
+                          value: _controller.accepted,
+                          onChanged: (value) {
+                            _controller.changeAcceptance(context);
+                          },
                         ),
-                        checkColor: !_controller.accepted ? FlutterFlowTheme.of(context).secondaryBackground : FlutterFlowTheme.of(context).info,
-                        value: _controller.accepted,
-                        onChanged: (value) {
-                          _controller.changeAcceptance(context);
-                        },
                       ),
                       Expanded(
                         child: RichText(

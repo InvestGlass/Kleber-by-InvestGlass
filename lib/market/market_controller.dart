@@ -5,6 +5,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:kleber_bank/market/transaction_type_model.dart';
 import 'package:kleber_bank/portfolio/portfolio_model.dart';
+import 'package:kleber_bank/proposals/proposal_controller.dart';
 import 'package:kleber_bank/utils/api_calls.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/end_points.dart';
@@ -76,18 +77,13 @@ class MarketController extends ChangeNotifier {
   }
 
   /*____________________________ADD TRANSACTION___________________________________*/
-  MarketListModel? selectedSecurity;
   TransactionTypeModel? selectedSecurityType;
   TextEditingController limitPriceController = TextEditingController();
   TextEditingController qtyController = TextEditingController();
   TextEditingController descController = TextEditingController();
+  TextEditingController orderType = TextEditingController();
   double amount = 0;
   List<TransactionTypeModel> transactionTypeList = [];
-
-  void selectSecurity(MarketListModel? result) {
-    selectedSecurity = result;
-    notifyListeners();
-  }
 
   void getTransactionTypes(BuildContext context) async {
     if (transactionTypeList.isEmpty) {
@@ -125,7 +121,7 @@ class MarketController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> transmit(MarketListModel model, PortfolioModel? selectedPortfolio, BuildContext context) async {
+  Future<void> transmit(MarketListModel model, PortfolioModel? selectedPortfolio, BuildContext context, ProposalController proposalController, MarketListModel marketModel) async {
     Map<String, dynamic> map = {};
     Map<String, dynamic> map2 = {};
     map['security'] = model.toJson();
@@ -145,20 +141,35 @@ class MarketController extends ChangeNotifier {
 
     map2['transaction']=map;
 
+    String msg ='${getText(context,'xn2nrgyp' /* Portfolio */)} : ${selectedPortfolio.title}\n'
+        '${getText(context,'rumkikc1' /* Name, ISIN, FIGI or Ticket */)} : ${marketModel.name}\n'
+        '${getText(context,'whkrwls1' /* Type */)} : ${selectedSecurityType?.name}\n'
+        '${getText(context,'7fx237xy' /* Time In Force */)} : $selectedDateTime\n'
+        '${getText(context,'2mpa9jiq' /* Notes */)} : ${descController.text.isEmpty?'--':descController.text}\n'
+        '${getText(context,'u7hyldvt' /* Order Type */)} : ${orderType.text.isEmpty?'--':orderType.text}\n'
+        '${getText(context,'2odrp5sn' /* Quantity */)} : ${qtyController.text.isEmpty?'--':qtyController.text}\n'
+        '${getText(context,'lz424u11' /* Current Price */)} : ${marketModel.price}\n'
+        '${getText(context,'q9p7fv0r' /* Limit Price */)} : ${limitPriceController.text.isEmpty?'--':limitPriceController.text}\n'
+        '${getText(context,'4noemhfd' /* Amount */)} : ${amount.toString()}\n'
+    ;
+
     CommonFunctions.showLoader(context);
     await ApiCalls.transmit(context,map2).then(
       (value) {
         CommonFunctions.dismissLoader(context);
         if((value??{}).containsKey('id')){
-          CommonFunctions.showToast(FFLocalizations.of(context).getVariableText(
-            enText: 'Transaction created successfully.',
-            arText: 'تم إنشاء المعاملة بنجاح.',
-            viText: 'Giao dịch được tạo thành công.',
-          ));
+          proposalController.sendMsg(context,msg: msg);
+          CommonFunctions.showToast(FFLocalizations.of(context).getText('transaction_created'),success: true);
           Navigator.pop(context);
         }
         print('add transaction response $value');
       },
+    );
+  }
+
+  getText(BuildContext context,String s) {
+    return FFLocalizations.of(context).getText(
+      s,
     );
   }
 }

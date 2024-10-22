@@ -186,10 +186,9 @@ class _DocumentsState extends State<Documents> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  item.folderName ?? '',
+                                  (item.documentType != null?'${item.id!} ~ ':'')+item.folderName!,
                                   maxLines: 2,
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                                         color: item.freezed! ? FlutterFlowTheme.of(context).secondaryText : FlutterFlowTheme.of(context).customColor4,
                                         fontSize: rSize * 0.016,
                                         letterSpacing: 0.0,
@@ -428,7 +427,6 @@ class _DocumentsState extends State<Documents> {
                               TextFormField(
                                 controller: TextEditingController(text: searchedFileName),
                                 style: FlutterFlowTheme.of(context).bodyLarge.override(
-
                                     color:FlutterFlowTheme.of(context).customColor4
                                     ),
                                 onChanged: (value) {

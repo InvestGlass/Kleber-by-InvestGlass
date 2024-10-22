@@ -7,6 +7,7 @@ import 'package:kleber_bank/securitySelection/security_selection.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../proposals/proposal_controller.dart';
 import '../utils/app_styles.dart';
 import '../utils/common_functions.dart';
 import '../utils/flutter_flow_theme.dart';
@@ -25,6 +26,7 @@ class AddTransaction extends StatefulWidget {
 class _AddTransactionState extends State<AddTransaction> {
   late PortfolioController _portfolioNotifier;
   late MarketController _marketNotifier;
+  late ProposalController _proposalController;
 
   @override
   void initState() {
@@ -40,13 +42,14 @@ class _AddTransactionState extends State<AddTransaction> {
   @override
   Widget build(BuildContext context) {
     _portfolioNotifier = Provider.of<PortfolioController>(context);
+    _proposalController = Provider.of<ProposalController>(context);
     _marketNotifier = Provider.of<MarketController>(context);
     return Container(
       decoration: AppStyles.commonBg(context),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppWidgets.appBar(context, FFLocalizations.of(context).getText(
-          'new_order' /* new order */,
+          '7v8svtoq' /* new trnasaction */,
         ), centerTitle: true,leading:AppWidgets.backArrow(context)),
         body: Form(
           child: ListView(
@@ -68,12 +71,9 @@ class _AddTransactionState extends State<AddTransaction> {
                           value: item,
                           child: Text(
                             item.title!,
-                            style: FlutterFlowTheme.of(context).bodySmall.override(
-
-                                  color: FlutterFlowTheme.of(context).customColor4,
-                                  fontSize: rSize*0.014,
-                              fontWeight: FontWeight.w500
-                                ),
+                            style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                color:FlutterFlowTheme.of(context).customColor4
+                            ),
                           ),
                         ))
                     .toList(),
@@ -86,23 +86,17 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               label(context, 'rumkikc1' /* Name, ISIN, FIGI or Ticket */),
               TextFormField(
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                  color: FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize*0.018,
-                  letterSpacing: 0.0,
+                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                    color:FlutterFlowTheme.of(context).customColor4
                 ),
                 readOnly: true,
-                controller: TextEditingController(text: _marketNotifier.selectedSecurity?.name),
-                onTap: () => CommonFunctions.navigate(context, SecuritySelection(), onBack: (result) {
-                  _marketNotifier.selectSecurity(result);
-                }),
+                controller: TextEditingController(text: widget.model.name),
                 decoration: AppStyles.inputDecoration(context,
                     contentPadding: EdgeInsets.symmetric(vertical: rSize*0.015, horizontal: rSize*0.015),
                     suffix: Container(
                       height: rSize*0.056,
                       width: rSize*0.050,
-                      decoration: BoxDecoration(
+                      /*decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(rSize*0.010),
                             bottomRight: Radius.circular(rSize*0.010),
@@ -112,7 +106,7 @@ class _AddTransactionState extends State<AddTransaction> {
                         Icons.search_rounded,
                         color: FlutterFlowTheme.of(context).secondaryText,
                         size: rSize*0.024,
-                      ),
+                      ),*/
                     ),
                     focusColor: FlutterFlowTheme.of(context).alternate),
               ),
@@ -133,12 +127,9 @@ class _AddTransactionState extends State<AddTransaction> {
                           value: item,
                           child: Text(
                             item.name!.replaceAll('_', ' '),
-                            style: FlutterFlowTheme.of(context).bodySmall.override(
-
-                                  color: FlutterFlowTheme.of(context).customColor4,
-                                  fontSize: rSize*0.014,
-                                fontWeight: FontWeight.w500
-                                ),
+                            style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                color:FlutterFlowTheme.of(context).customColor4
+                            ),
                           ),
                         ))
                     .toList(),
@@ -151,11 +142,8 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               label(context, '7fx237xy' /* Time In Force */),
               TextFormField(
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                  color: FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize*0.018,
-                    fontWeight: FontWeight.w500
+                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                    color:FlutterFlowTheme.of(context).customColor4
                 ),
                 readOnly: true,
                 controller: TextEditingController(
@@ -173,11 +161,8 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               label(context, '2mpa9jiq' /* Notes */),
               TextFormField(
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                  color: FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize*0.018,
-                    fontWeight: FontWeight.w500
+                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                    color:FlutterFlowTheme.of(context).customColor4
                 ),
                 controller: _marketNotifier.descController,
                 decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015),suffix: Container(
@@ -190,12 +175,9 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               label(context, 'u7hyldvt' /* Order Type */),
               TextFormField(
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                  color: FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize*0.018,
-                    fontWeight: FontWeight.w500
-                ),
+                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                    color:FlutterFlowTheme.of(context).customColor4
+                ),controller: _marketNotifier.orderType,
                 decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015),suffix: Container(
                   height: rSize*0.056,
                   width: rSize*0.050,
@@ -206,11 +188,8 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               label(context, '2odrp5sn' /* Quantity */),
               TextFormField(
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                  color: FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize*0.018,
-                    fontWeight: FontWeight.w500
+                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                    color:FlutterFlowTheme.of(context).customColor4
                 ),
                 keyboardType: TextInputType.number,
                 controller: _marketNotifier.qtyController,
@@ -227,11 +206,8 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               label(context, 'lz424u11' /* Current Price */),
               TextFormField(
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                  color: FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize*0.018,
-                    fontWeight: FontWeight.w500
+                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                    color:FlutterFlowTheme.of(context).customColor4
                 ),
                 readOnly: true,controller: TextEditingController(text: widget.model.price ?? ''),
                 decoration: AppStyles.inputDecoration(context,
@@ -264,11 +240,8 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               label(context, 'q9p7fv0r' /* Limit Price */),
               TextFormField(
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                  color: FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize*0.018,
-                    fontWeight: FontWeight.w500
+                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                    color:FlutterFlowTheme.of(context).customColor4
                 ),
                 keyboardType: TextInputType.number,
                 controller: _marketNotifier.limitPriceController,
@@ -304,11 +277,8 @@ class _AddTransactionState extends State<AddTransaction> {
               ),
               label(context, '4noemhfd' /* Amount */),
               TextFormField(
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                  color: FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize*0.018,
-                    fontWeight: FontWeight.w500
+                style: FlutterFlowTheme.of(context).bodyLarge.override(
+                    color:FlutterFlowTheme.of(context).customColor4
                 ),
                 readOnly: true,
                 controller: TextEditingController(text: _marketNotifier.amount.toString()),
@@ -345,7 +315,7 @@ class _AddTransactionState extends State<AddTransaction> {
                 children: [
                   GestureDetector(
                     onTap: (){
-                      _marketNotifier.transmit(widget.model,_portfolioNotifier.selectedPortfolio,context);
+                      _marketNotifier.transmit(widget.model,_portfolioNotifier.selectedPortfolio,context,_proposalController,widget.model);
                     },
                     child: AppWidgets.btn(
                         context,

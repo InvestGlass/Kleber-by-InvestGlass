@@ -259,23 +259,27 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                         Row(
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
-                                            Checkbox(
-                                              value: item.state != 'Pending' || item.isChecked,
-                                              activeColor: FlutterFlowTheme.of(context).primary,
-                                              side: BorderSide(
-                                                width: 2,
-                                                color: FlutterFlowTheme.of(context).secondaryText,
+                                            Transform.scale(
+                                              scale: isTablet?2:0.8,
+                                              child: Checkbox(
+                                                value: item.state != 'Pending' || item.isChecked,
+                                                activeColor: FlutterFlowTheme.of(context).primary,
+                                                side: BorderSide(
+                                                  width: 2,
+                                                  color: FlutterFlowTheme.of(context).customColor4,
+                                                ),
+                                                checkColor: !((item.state != 'Rejected') && (item.state != 'Accepted'))
+                                                    ? FlutterFlowTheme.of(context).secondaryBackground
+                                                    : FlutterFlowTheme.of(context).customColor4,
+                                                onChanged: (value) {
+                                                  if (item.state == 'Pending') {
+                                                    item.isChecked = !item.isChecked;
+                                                    setState(() {});
+                                                  }
+                                                },
                                               ),
-                                              checkColor: !((item.state != 'Rejected') && (item.state != 'Accepted'))
-                                                  ? FlutterFlowTheme.of(context).secondaryBackground
-                                                  : FlutterFlowTheme.of(context).info,
-                                              onChanged: (value) {
-                                                if (item.state == 'Pending') {
-                                                  item.isChecked = !item.isChecked;
-                                                  setState(() {});
-                                                }
-                                              },
                                             ),
+                                            SizedBox(width: isTablet?rSize*0.01:0,),
                                             Expanded(
                                               child: Text(
                                                 FFLocalizations.of(context).getText(
@@ -349,37 +353,47 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                             ),
                                             Expanded(
                                                 child: GestureDetector(
-                                              onTap: () => AppWidgets.showAlert(
-                                                  context,
-                                                  FFLocalizations.of(context).getText(
-                                                    'decline_proposal' /* Decline Proposal*/,
-                                                  ),
-                                                  FFLocalizations.of(context).getText(
-                                                    's1jcpzx6' /*cancel*/,
-                                                  ),
-                                                  FFLocalizations.of(context).getText(
-                                                    'bdc48oru' /*confirm*/,
-                                                  ), () {
-                                                Navigator.pop(context);
-                                              }, () {
-                                                _notifier.updateState(
-                                                  'rejected',
-                                                  item.id,
-                                                  index,
-                                                  context,
-                                                );
+                                              onTap: ()
+                                              {
+                                                if(!item.isChecked){
+                                                  CommonFunctions.showToast(FFLocalizations.of(context).getText(
+                                                    'agree_checkbox',
+                                                  ));
+                                                  return;
+                                                }
+                                                AppWidgets.showAlert(
+                                                    context,
+                                                    FFLocalizations.of(context).getText(
+                                                      'decline_proposal' /* Decline Proposal*/,
+                                                    ),
+                                                    FFLocalizations.of(context).getText(
+                                                      's1jcpzx6' /*cancel*/,
+                                                    ),
+                                                    FFLocalizations.of(context).getText(
+                                                      'bdc48oru' /*confirm*/,
+                                                    ), () {
+                                                  Navigator.pop(context);
+                                                }, () {
+                                                  _notifier.updateState(
+                                                    'rejected',
+                                                    item.id,
+                                                    index,
+                                                    context,
+                                                  );
+                                                },
+                                                    btn1BgColor: FlutterFlowTheme.of(context).customColor3,
+                                                    btn2BgColor: FlutterFlowTheme.of(context).customColor2);
                                               },
-                                                  btn1BgColor: FlutterFlowTheme.of(context).customColor3,
-                                                  btn2BgColor: FlutterFlowTheme.of(context).customColor2),
                                               child: AppWidgets.btnWithIcon(
                                                   context,
                                                   '  ${FFLocalizations.of(context).getText(
                                                     'j0hr735r' /* Decline*/,
                                                   )}',
                                                   FlutterFlowTheme.of(context).customColor3,
-                                                  const Icon(
+                                                  Icon(
                                                     Icons.close,
                                                     color: Colors.white,
+                                                    size: rSize * 0.024,
                                                   )),
                                             )),
                                             SizedBox(
@@ -387,32 +401,42 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                             ),
                                             Expanded(
                                                 child: GestureDetector(
-                                              onTap: () => AppWidgets.showAlert(
-                                                  context,
-                                                  FFLocalizations.of(context).getText(
-                                                    'accept_proposal' /* accept Proposal*/,
-                                                  ),
-                                                  FFLocalizations.of(context).getText(
-                                                    's1jcpzx6' /*cancel*/,
-                                                  ),
-                                                  FFLocalizations.of(context).getText(
-                                                    'bdc48oru' /*confirm*/,
-                                                  ), () {
-                                                Navigator.pop(context);
-                                              }, () {
-                                                _notifier.updateState('accepted', item.id, index, context);
+                                              onTap: ()
+                                              {
+                                                if(!item.isChecked){
+                                                  CommonFunctions.showToast(FFLocalizations.of(context).getText(
+                                                    'agree_checkbox',
+                                                  ));
+                                                  return;
+                                                }
+                                                AppWidgets.showAlert(
+                                                    context,
+                                                    FFLocalizations.of(context).getText(
+                                                      'accept_proposal' /* accept Proposal*/,
+                                                    ),
+                                                    FFLocalizations.of(context).getText(
+                                                      's1jcpzx6' /*cancel*/,
+                                                    ),
+                                                    FFLocalizations.of(context).getText(
+                                                      'bdc48oru' /*confirm*/,
+                                                    ), () {
+                                                  Navigator.pop(context);
+                                                }, () {
+                                                  _notifier.updateState('accepted', item.id, index, context);
+                                                },
+                                                    btn1BgColor: FlutterFlowTheme.of(context).customColor3,
+                                                    btn2BgColor: FlutterFlowTheme.of(context).customColor2);
                                               },
-                                                  btn1BgColor: FlutterFlowTheme.of(context).customColor3,
-                                                  btn2BgColor: FlutterFlowTheme.of(context).customColor2),
                                               child: AppWidgets.btnWithIcon(
                                                   context,
                                                   '  ${FFLocalizations.of(context).getText(
                                                     '3esw1ind' /* Accept */,
                                                   )}',
                                                   FlutterFlowTheme.of(context).customColor2,
-                                                  const Icon(
+                                                  Icon(
                                                     Icons.done,
                                                     color: Colors.white,
+                                                    size: rSize * 0.024,
                                                   )),
                                             )),
                                             SizedBox(
@@ -425,22 +449,25 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                       SizedBox(
                                         height: rSize * 0.025,
                                       ),
-                                      proposalElement(
-                                        '   ${FFLocalizations.of(context).getText(
-                                          'fbk0uba7' /* Call your advisor */,
-                                        )}',
-                                        Icons.call,
-                                        () async {
-                                          await launchUrl(Uri(
-                                            scheme: 'tel',
-                                            path: item.advisor?.phoneOffice,
-                                          ));
-                                        },
-                                      ),
-                                      SizedBox(
-                                        height: rSize * 0.01,
-                                      ),
-                                      AppWidgets.divider(context),
+                                      if((item.advisor?.phoneOffice??'').isNotEmpty)...{
+                                        proposalElement(
+                                          '   ${FFLocalizations.of(context).getText(
+                                            'fbk0uba7' /* Call your advisor */,
+                                          )}',
+                                          Icons.call,
+                                              () async {
+                                            await launchUrl(Uri(
+                                              scheme: 'tel',
+                                              path: item.advisor?.phoneOffice,
+                                            ));
+                                          },
+                                        ),
+                                        SizedBox(
+                                          height: rSize * 0.01,
+                                        ),
+                                        AppWidgets.divider(context)
+                                      }
+                                      ,
                                       SizedBox(
                                         height: rSize * 0.01,
                                       ),
@@ -507,7 +534,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
               Material(
                 color: Colors.transparent,
                 child: Container(
-                  decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primaryBackground, borderRadius: BorderRadius.circular(10)),
+                  decoration: BoxDecoration(color: FlutterFlowTheme.of(context).primaryBackground, borderRadius: BorderRadius.circular(rSize*0.01)),
                   margin: EdgeInsets.symmetric(horizontal: rSize * 0.015),
                   child: StatefulBuilder(
                     builder: (context, setState) {

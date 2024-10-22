@@ -24,7 +24,7 @@ import 'login/on_boarding_page_widget.dart';
 import 'main_controller.dart';
 import 'market/market_controller.dart';
 
-double rSize = 0;
+double rSize = 0,btnHeight=0;
 bool isTablet=false;
 late BuildContext globalContext;
 
@@ -104,6 +104,7 @@ class _MyAppState extends State<MyApp> {
     globalContext=context;
     Size ksize = MediaQuery.of(context).size;
     rSize = pow((ksize.height * ksize.height) + (ksize.width * ksize.width), 1 / 2) as double;
+    btnHeight=rSize*0.045;
     return MaterialApp(
       title: 'Flutter Demo',
       themeMode: _notifier.isDarkModel()?ThemeMode.dark:ThemeMode.light,

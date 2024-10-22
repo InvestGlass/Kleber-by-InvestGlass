@@ -101,7 +101,9 @@ class DocumentsController extends ChangeNotifier {
         CommonFunctions.dismissLoader(context);
         if (value != null) {
           if (value.containsKey('error') && value.containsKey('message')) {
-            errorMsg=value['error']+' :- '+value['message'];
+            errorMsg=FFLocalizations.of(context).getText(
+              'acceptable_formats',
+            )+' :- '+value['message'];
             CommonFunctions.showToast('Invalid format');
           }
           if(value.containsKey('company_id')){

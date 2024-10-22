@@ -32,12 +32,7 @@ class ProposalController extends ChangeNotifier {
     int index,
     BuildContext context,
       {Function? onUpdateStatus}) {
-    if(!pagingController.itemList![index].isChecked){
-      CommonFunctions.showToast(FFLocalizations.of(context).getText(
-        'agree_checkbox',
-      ));
-      return;
-    }
+
     CommonFunctions.showLoader(context);
     ApiCalls.updateProposalState(context,id!, state).then(
       (value) {
@@ -75,9 +70,9 @@ class ProposalController extends ChangeNotifier {
   final PagingController<int, ChatHistoryModel> chatHistoryPagingController = PagingController(firstPageKey: 1);
   TextEditingController msgController=TextEditingController();
 
-  void sendMsg(BuildContext context) {
+  void sendMsg(BuildContext context,{String? msg}) {
     Map<String,dynamic> map={},map2={};
-    map['comment']=msgController.text;
+    map['comment']=msg??msgController.text;
     map2['message']=map;
     CommonFunctions.showLoader(context);
     ApiCalls.sendMsg(context, map2).then((value) {

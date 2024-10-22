@@ -178,13 +178,12 @@ class AppStyles {
       labelText: label,
       labelStyle: labelStyle,hintText: hint,
       hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-
             fontWeight: FontWeight.w200,
         color: FlutterFlowTheme.of(context).customColor4
-          ),errorStyle: FlutterFlowTheme.of(context).labelMedium.override(
-
-        fontWeight: FontWeight.w200,
-        color: FlutterFlowTheme.of(context).error
+          ),
+      errorStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+      color: FlutterFlowTheme.of(context).customColor3,
+      fontSize: rSize * 0.016,
     ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(

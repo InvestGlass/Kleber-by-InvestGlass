@@ -166,6 +166,7 @@ class _ViewProposalState extends State<ViewProposal> {
                 Icon(
                   Icons.close,
                   color: Colors.white,
+                  size: rSize * 0.024,
                 )),
           )),
           SizedBox(
@@ -201,6 +202,7 @@ class _ViewProposalState extends State<ViewProposal> {
                 Icon(
                   Icons.done,
                   color: Colors.white,
+                  size: rSize * 0.024,
                 )),
           )),
           SizedBox(

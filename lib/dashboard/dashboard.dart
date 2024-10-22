@@ -263,48 +263,6 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget bottombarCell(BuildContext context, int index, IconData iconData, String label, {Widget? widget}) {
-    return GestureDetector(
-      onTap: () {
-        _controller.changeIndex(index);
-        pagingController.animateToPage(index, duration: const Duration(milliseconds: 100), curve: Curves.easeInOut);
-      },
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: rSize * 0.01,
-          ),
-          Container(
-            margin: EdgeInsets.only(top: rSize * 0.010, bottom: 5),
-            width: rSize * 0.04,
-            height: rSize * 0.04,
-            decoration: const BoxDecoration(),
-            child: widget ??
-                Icon(
-                  iconData,
-                  color: _controller.selectedIndex != index ? FlutterFlowTheme.of(context).customColor5 : FlutterFlowTheme.of(context).primary,
-                  size: rSize * 0.04,
-                ),
-          ),
-          Text(
-            label,
-            maxLines: 1,
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                  color: FlutterFlowTheme.of(context).customColor5,
-                  fontSize: rSize * 0.014,
-                  letterSpacing: 0.0,
-                  lineHeight: 1.0,
-                ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // bool isPortfolio(int index) => _controller.selectedIndex==1 && index==1;
 
   void showOptions() {
     showDialog(
@@ -419,11 +377,9 @@ class _DashboardState extends State<Dashboard> {
             label,
             maxLines: 1,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                   color: FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize * 0.014,
-                  letterSpacing: 0.0,
-                  lineHeight: 1.0,
+                  fontSize: rSize * 0.016,
+                  fontWeight: FontWeight.w600,
                 ),
           )
         ],

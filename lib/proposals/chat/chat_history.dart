@@ -62,7 +62,6 @@ class _ChatHistoryState extends State<ChatHistory> {
         AppStyles.iconBg(
           context,
           color: FlutterFlowTheme.of(context).customColor4,
-          padding: EdgeInsets.symmetric(horizontal: rSize * 0.008),
           margin: EdgeInsets.symmetric(vertical: rSize * 0.008),
           data: Icons.refresh_rounded,
           onTap: () async {
@@ -73,7 +72,6 @@ class _ChatHistoryState extends State<ChatHistory> {
         ),
         AppStyles.iconBg(
           context,
-          padding: EdgeInsets.symmetric(horizontal: rSize * 0.008,vertical: rSize * 0.01),
           margin: EdgeInsets.only(
             top: rSize * 0.008,
             bottom: rSize * 0.008,
@@ -136,7 +134,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                           getdate(item),
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
-
+                                color: FlutterFlowTheme.of(context).customColor4,
                                 fontSize: rSize * 0.016,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -195,7 +193,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
 
-                      color: isMe(item)?FlutterFlowTheme.of(context).primaryText:FlutterFlowTheme.of(context).secondaryText,
+                      color: isMe(item)?FlutterFlowTheme.of(context).customColor4:FlutterFlowTheme.of(context).secondaryText,
                       fontSize: rSize * 0.012,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.w400,
@@ -234,7 +232,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                   controller: _notifier.msgController,
                   decoration: AppStyles.inputDecoration(context,
                       focusColor: Colors.transparent,
-                      contentPadding: EdgeInsets.symmetric(vertical: rSize * 0.012, horizontal: rSize * 0.020),
+                      contentPadding: EdgeInsets.symmetric(vertical: rSize * 0.015, horizontal: rSize * 0.020),
                       hint: FFLocalizations.of(context).getText(
                         '0lw6g9ud' /* Type new message */,
                       )),
@@ -251,7 +249,6 @@ class _ChatHistoryState extends State<ChatHistory> {
                         data: Icons.send_rounded,
                         color: FlutterFlowTheme.of(context).customColor4,
                         size: rSize * 0.024,
-                        padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.015),
                         margin: EdgeInsets.only(left: rSize * 0.01))
                   ],
                 )),

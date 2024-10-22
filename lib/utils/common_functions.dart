@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kleber_bank/main.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
 import 'dart:math' as math;
@@ -82,6 +83,7 @@ class CommonFunctions{
       msg: msg,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
+      fontSize: rSize*0.016,
       backgroundColor: success?Colors.green:Colors.redAccent,
       textColor: Colors.white,
     );

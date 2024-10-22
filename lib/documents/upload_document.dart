@@ -23,6 +23,7 @@ class _UploadDocumentState extends State<UploadDocument> {
   @override
   void dispose() {
     _notifier.image = null;
+    _notifier.errorMsg='';
     super.dispose();
   }
 
@@ -81,10 +82,8 @@ class _UploadDocumentState extends State<UploadDocument> {
               Text(
                 _notifier.errorMsg,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                       color: FlutterFlowTheme.of(context).customColor3,
                       fontSize: rSize * 0.016,
-                      letterSpacing: 0.0,
                     ),
               ),
             },
@@ -96,7 +95,6 @@ class _UploadDocumentState extends State<UploadDocument> {
                 'mw4a4y0a' /* Description */,
               ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                     fontSize: rSize * 0.02,
                     color: FlutterFlowTheme.of(context).customColor4,
                     fontWeight: FontWeight.w500,
@@ -108,9 +106,12 @@ class _UploadDocumentState extends State<UploadDocument> {
             TextFormField(
               minLines: 3,
               maxLines: 3,
+              style: FlutterFlowTheme.of(context).bodyLarge.override(
+                  color:FlutterFlowTheme.of(context).customColor4
+              ),
               controller: _notifier.descController,
               textAlign: TextAlign.start,
-              decoration: AppStyles.inputDecoration(context,),
+              decoration: AppStyles.inputDecoration(context),
             ),
             SizedBox(
               height: rSize * 0.02,
@@ -197,10 +198,10 @@ class _UploadDocumentState extends State<UploadDocument> {
       child: Container(
         height: rSize * 0.05,
         width: rSize * 0.05,
-        decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: AppColors.kTextFieldInput, width: 0.5)),
+        decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: FlutterFlowTheme.of(context).grayLight, width: 0.5)),
         child: Icon(
           Icons.close,
-          color: AppColors.kTextFieldInput,
+          color: FlutterFlowTheme.of(context).grayLight,
         ),
       ),
     );

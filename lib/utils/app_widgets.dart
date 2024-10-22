@@ -159,7 +159,6 @@ class AppWidgets {
           style: FlutterFlowTheme.of(context).bodyMedium.override(
                 fontSize: rSize * 0.016,
                 color: FlutterFlowTheme.of(context).customColor4,
-                letterSpacing: 0.0,
               ),
         ),
         if (middleValue.isNotEmpty) ...{
@@ -170,7 +169,6 @@ class AppWidgets {
               middleValue,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontSize: rSize * 0.016,
-                    letterSpacing: 0.0,
                   ),
             )
           }
@@ -190,9 +188,8 @@ class AppWidgets {
                 value,
                 textAlign: TextAlign.end,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      color: FlutterFlowTheme.of(context).primaryText,
+                      color: FlutterFlowTheme.of(context).customColor4,
                       fontSize: rSize * 0.016,
-                      letterSpacing: 0.0,
                       fontWeight: FontWeight.normal,
                     ),
               ),
@@ -252,10 +249,11 @@ class AppWidgets {
       Color? textColor}) {
     return Container(
       width: width,
+      height: btnHeight,
       alignment: Alignment.center,
       margin: margin,
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       decoration: gradiantDecoration(context, borderOnly: borderOnly, color: bgColor),
-      padding: EdgeInsets.symmetric(vertical: rSize * 0.017, horizontal: horizontalPadding),
       child: widget ??
           Text(
             label,
@@ -263,13 +261,10 @@ class AppWidgets {
                 ? FlutterFlowTheme.of(context).titleSmall.override(
                       fontSize: rSize * 0.014,
                       color: FlutterFlowTheme.of(context).primary,
-                      letterSpacing: 0.0,
                     )
-                : FlutterFlowTheme.of(context).bodySmall.override(
+                : FlutterFlowTheme.of(context).titleSmall.override(
                       color: textColor ?? Colors.white,
                       fontSize: rSize * 0.014,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.normal,
                     ),
           ),
     );
@@ -279,17 +274,16 @@ class AppWidgets {
       {double? width, double horizontalPadding = 0, EdgeInsetsGeometry? margin, Color? textColor}) {
     return Container(
       width: width,
+      height: btnHeight,
       alignment: Alignment.center,
       margin: margin,
       decoration: BoxDecoration(color: bgColor, border: Border.all(color: bgColor, width: 1), borderRadius: BorderRadius.circular(rSize * 0.010)),
-      padding: EdgeInsets.symmetric(vertical: rSize * 0.017, horizontal: horizontalPadding),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: Text(
         label,
-        style: FlutterFlowTheme.of(context).bodySmall.override(
+        style: FlutterFlowTheme.of(context).titleSmall.override(
               color: Colors.white,
               fontSize: rSize * 0.014,
-              letterSpacing: 0.0,
-              fontWeight: FontWeight.normal,
             ),
       ),
     );
@@ -323,7 +317,7 @@ class AppWidgets {
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(rSize * 0.010)),
-      padding: EdgeInsets.symmetric(vertical: rSize * 0.005),
+      height: btnHeight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -332,7 +326,6 @@ class AppWidgets {
             label,
             style: FlutterFlowTheme.of(context).titleSmall.override(
                   color: Colors.white,
-                  letterSpacing: 0.0,
                 ),
           ),
         ],
@@ -495,7 +488,6 @@ class AppWidgets {
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   color: FlutterFlowTheme.of(context).primaryText,
                   fontSize: rSize * 0.016,
-                  letterSpacing: 0,
                   fontWeight: FontWeight.w800,
                 ),
           ),
@@ -504,7 +496,6 @@ class AppWidgets {
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize * 0.016,
-                  letterSpacing: 0,
                   fontWeight: FontWeight.w800,
                 ),
           ),
@@ -513,7 +504,6 @@ class AppWidgets {
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize * 0.016,
-                  letterSpacing: 0,
                   fontWeight: FontWeight.normal,
                 ),
           ),
@@ -523,7 +513,6 @@ class AppWidgets {
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     color: FlutterFlowTheme.of(context).primaryText,
                     fontSize: rSize * 0.016,
-                    letterSpacing: 0,
                     fontWeight: FontWeight.w800,
                   ),
             ),
@@ -534,7 +523,6 @@ class AppWidgets {
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     color: FlutterFlowTheme.of(context).primaryText,
                     fontSize: rSize * 0.016,
-                    letterSpacing: 0,
                     fontWeight: FontWeight.w800,
                   ),
             ),
@@ -591,7 +579,7 @@ class AppWidgets {
                             msg,
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  color: FlutterFlowTheme.of(context).customColor4,
                                   fontSize: rSize * 0.026,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,

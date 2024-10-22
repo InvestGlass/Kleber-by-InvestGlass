@@ -86,7 +86,7 @@ class Document {
 
   factory Document.fromJson(Map<String, dynamic> json) => Document(
     id: json["id"],
-    folderName: json["folder_name"]??((json["description"]??'').toString().isNotEmpty?json["description"]:json["original_filename"]),
+    folderName: json["folder_name"]??((json["original_filename"]??json["description"]??'').toString()),
     companyId: json["company_id"],
     originalFilename: json["original_filename"],
     description: json["description"],

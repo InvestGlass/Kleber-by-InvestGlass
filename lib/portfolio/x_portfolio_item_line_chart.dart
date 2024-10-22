@@ -65,7 +65,13 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   void initState() {
     touchedValue = -1;
     super.initState();
-    _tooltip = TooltipBehavior(enable: true);
+    _tooltip = TooltipBehavior(enable: true,builder: (data, point, series, pointIndex, seriesIndex) {
+      return Container(
+        padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.002),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: FlutterFlowTheme.of(context).primary),
+        child: label(context, '${widget.xLabels[pointIndex]} : ${widget.listY[pointIndex]}%'),
+      );
+    },);
     _trackballBehavior = TrackballBehavior(
       enable: true,
       builder: (context, trackballDetails) {
@@ -313,7 +319,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                               ),
                         ),
                         Text(
-                          '(${list[seriesIndex].percentage}%)',
+                          '${list[seriesIndex].percentage}%',
                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                 fontSize: rSize * 0.012,
                                 color: FlutterFlowTheme.of(context).primaryText,
