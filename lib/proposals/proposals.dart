@@ -620,7 +620,6 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                   focusColor: FlutterFlowTheme.of(context).alternate,
                                   contentPadding: EdgeInsets.all(rSize * 0.015),
                                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-
                                         letterSpacing: 0.0,
                                       ),
                                 ),
@@ -650,10 +649,8 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                             child: Text(
                                               item,
                                               style: FlutterFlowTheme.of(context).bodySmall.override(
-
                                                     color: FlutterFlowTheme.of(context).customColor4,
                                                     fontSize: rSize * 0.014,
-                                                    letterSpacing: 0.0,
                                                     fontWeight: FontWeight.normal,
                                                   ),
                                             ),

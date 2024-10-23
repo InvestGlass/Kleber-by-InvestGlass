@@ -34,7 +34,8 @@ class _ChatHistoryState extends State<ChatHistory> {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {},
     );
-    ProposalController notifier = Provider.of<ProposalController>(context, listen: false);
+    ProposalController notifier =
+        Provider.of<ProposalController>(context, listen: false);
     notifier.chatHistoryPagingController.addPageRequestListener((pageKey) {
       _fetchPageActivity(notifier);
     });
@@ -43,7 +44,8 @@ class _ChatHistoryState extends State<ChatHistory> {
 
   Future<void> _fetchPageActivity(ProposalController notifier) async {
     notifier.getProposalTypes(context);
-    List<ChatHistoryModel> list = await ApiCalls.getChatHistory(context, _pageKey);
+    List<ChatHistoryModel> list =
+        await ApiCalls.getChatHistory(context, _pageKey);
     final isLastPage = list.length < 10;
     if (isLastPage) {
       notifier.chatHistoryPagingController.appendLastPage(list);
@@ -58,67 +60,80 @@ class _ChatHistoryState extends State<ChatHistory> {
     _notifier = Provider.of<ProposalController>(context);
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      appBar: AppWidgets.appBar(context, widget.model.advisor?.name ?? '', leading: AppWidgets.backArrow(context), actions: [
-        AppStyles.iconBg(
-          context,
-          color: FlutterFlowTheme.of(context).customColor4,
-          margin: EdgeInsets.symmetric(vertical: rSize * 0.008),
-          data: Icons.refresh_rounded,
-          onTap: () async {
-            _pageKey = 1;
-            _notifier.chatHistoryPagingController.refresh();
-          },
-          size: rSize * 0.030,
-        ),
-        AppStyles.iconBg(
-          context,
-          margin: EdgeInsets.only(
-            top: rSize * 0.008,
-            bottom: rSize * 0.008,
-            left: rSize * 0.008,
-          ),
-          data: Icons.call_outlined,
-          color: FlutterFlowTheme.of(context).customColor4,
-          onTap: () async {
-            await launchUrl(Uri(
-              scheme: 'tel',
-              path: widget.model.advisor?.phoneOffice,
-            ));
-          },
-          size: rSize * 0.030,
-        ),
-        /*
+      appBar: AppWidgets.appBar(context, widget.model.advisor?.name ?? '',
+          leading: AppWidgets.backArrow(context),
+          actions: [
+            AppStyles.iconBg(
+              context,
+              margin: EdgeInsets.only(
+                top: rSize * 0.008,
+                bottom: rSize * 0.008,
+              ),
+              color: FlutterFlowTheme.of(context).customColor4,
+              data: Icons.refresh_rounded,
+              onTap: () async {
+                _pageKey = 1;
+                _notifier.chatHistoryPagingController.refresh();
+              },
+              size: rSize * 0.025,
+            ),
+            AppStyles.iconBg(
+              context,
+              margin: EdgeInsets.only(
+                top: rSize * 0.008,
+                bottom: rSize * 0.008,
+                left: rSize * 0.01,
+              ),
+              data: Icons.call_outlined,
+              color: FlutterFlowTheme.of(context).customColor4,
+              onTap: () async {
+                await launchUrl(Uri(
+                  scheme: 'tel',
+                  path: widget.model.advisor?.phoneOffice,
+                ));
+              },
+              size: rSize * 0.025,
+            ),
+            /*
         Icon(
           Icons.calendar_today_outlined,
           color: FlutterFlowTheme.of(context).primary,
           size: 30.0,
         ),*/
-        SizedBox(
-          width: rSize * 0.01,
-        )
-      ]),
+            SizedBox(
+              width: rSize * 0.01,
+            )
+          ]),
       body: Container(
         height: double.infinity,
         decoration: const BoxDecoration(border: Border()),
         child: PagedListView<int, ChatHistoryModel>.separated(
           pagingController: _notifier.chatHistoryPagingController,
           reverse: true,
-          builderDelegate: PagedChildBuilderDelegate<ChatHistoryModel>(itemBuilder: (BuildContext context, ChatHistoryModel item, int index) {
-            bool isLast = (item == _notifier.chatHistoryPagingController.itemList!.last);
+          padding: EdgeInsets.only(bottom: rSize*0.01),
+          builderDelegate: PagedChildBuilderDelegate<ChatHistoryModel>(
+              itemBuilder:
+                  (BuildContext context, ChatHistoryModel item, int index) {
+            bool isLast =
+                (item == _notifier.chatHistoryPagingController.itemList!.last);
             return Column(
-              crossAxisAlignment:
-                  isMe(item) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              crossAxisAlignment: isMe(item)
+                  ? CrossAxisAlignment.end
+                  : CrossAxisAlignment.start,
               children: [
-                if (isLast || (!isLast && getdate(item) != getdate(_notifier.chatHistoryPagingController.itemList![index + 1]))) ...{
+                if (isLast ||
+                    (!isLast &&
+                        getdate(item) !=
+                            getdate(_notifier.chatHistoryPagingController
+                                .itemList![index + 1]))) ...{
                   Row(
                     children: [
                       Expanded(
                         child: Container(
                           height: 1.0,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).customColor4,
-                            boxShadow: AppStyles.shadow()
-                          ),
+                              color: FlutterFlowTheme.of(context).customColor4,
+                              boxShadow: AppStyles.shadow()),
                         ),
                       ),
                       Container(
@@ -133,8 +148,11 @@ class _ChatHistoryState extends State<ChatHistory> {
                         child: Text(
                           getdate(item),
                           textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                color: FlutterFlowTheme.of(context).customColor4,
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                color:
+                                    FlutterFlowTheme.of(context).customColor4,
                                 fontSize: rSize * 0.016,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -158,9 +176,13 @@ class _ChatHistoryState extends State<ChatHistory> {
                   constraints: BoxConstraints(
                     maxWidth: MediaQuery.sizeOf(context).width * 0.9,
                   ),
-                  margin: EdgeInsets.symmetric(horizontal: rSize*0.01),
+                  margin: EdgeInsets.symmetric(horizontal: rSize * 0.01),
                   decoration: BoxDecoration(
-                    color: isMe(item)?FlutterFlowTheme.of(context).info:FlutterFlowTheme.of(context).secondary.withOpacity(0.2),
+                    color: isMe(item)
+                        ? FlutterFlowTheme.of(context).info
+                        : FlutterFlowTheme.of(context)
+                            .secondary
+                            .withOpacity(0.2),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(rSize * 0.008),
                       bottomRight: Radius.circular(rSize * 0.008),
@@ -174,37 +196,41 @@ class _ChatHistoryState extends State<ChatHistory> {
                       item.comment!,
                       textAlign: TextAlign.start,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                        color: FlutterFlowTheme.of(context).customColor4,
-                        fontWeight: FontWeight.w500,
+                            color: FlutterFlowTheme.of(context).customColor4,
+                            fontWeight: FontWeight.w500,
                             fontSize: rSize * 0.016,
                           ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(rSize*0.01, rSize * 0.005, rSize*0.01, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(
+                      rSize * 0.01, rSize * 0.005, rSize * 0.01, 0.0),
                   child: Text(
                     CommonFunctions.dateTimeFormat(
                       'HH:mm',
-                      DateTime.fromMillisecondsSinceEpoch(item.createdAt!.millisecondsSinceEpoch, isUtc: true),
+                      DateTime.fromMillisecondsSinceEpoch(
+                          item.createdAt!.millisecondsSinceEpoch,
+                          isUtc: true),
                       locale: FFLocalizations.of(context).languageCode,
                     ),
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                      color: isMe(item)?FlutterFlowTheme.of(context).customColor4:FlutterFlowTheme.of(context).secondaryText,
-                      fontSize: rSize * 0.012,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.w400,
-                    ),
+                          color: isMe(item)
+                              ? FlutterFlowTheme.of(context).customColor4
+                              : FlutterFlowTheme.of(context).secondaryText,
+                          fontSize: rSize * 0.012,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w400,
+                        ),
                   ),
                 ),
               ],
             );
           }),
           separatorBuilder: (BuildContext context, int index) {
-            ChatHistoryModel item = _notifier.chatHistoryPagingController.itemList![index];
+            ChatHistoryModel item =
+                _notifier.chatHistoryPagingController.itemList![index];
 
             return const SizedBox();
           },
@@ -212,8 +238,10 @@ class _ChatHistoryState extends State<ChatHistory> {
       ),
       bottomNavigationBar: Container(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.01),
-        margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(
+            left: rSize * 0.015, right: rSize * 0.015,top: rSize*0.01,bottom: MediaQuery.of(context).padding.bottom),
+        margin:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Row(
           children: [
             Expanded(
@@ -224,7 +252,6 @@ class _ChatHistoryState extends State<ChatHistory> {
                     borderRadius: BorderRadius.circular(rSize * 0.01)),
                 child: TextFormField(
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                         fontSize: rSize * 0.018,
                         color: FlutterFlowTheme.of(context).customColor4,
                         fontWeight: FontWeight.w500,
@@ -232,7 +259,8 @@ class _ChatHistoryState extends State<ChatHistory> {
                   controller: _notifier.msgController,
                   decoration: AppStyles.inputDecoration(context,
                       focusColor: Colors.transparent,
-                      contentPadding: EdgeInsets.symmetric(vertical: rSize * 0.015, horizontal: rSize * 0.020),
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: rSize * 0.015, horizontal: rSize * 0.020),
                       hint: FFLocalizations.of(context).getText(
                         '0lw6g9ud' /* Type new message */,
                       )),
@@ -245,11 +273,17 @@ class _ChatHistoryState extends State<ChatHistory> {
                 },
                 child: Wrap(
                   children: [
-                    AppStyles.iconBg(context,
-                        data: Icons.send_rounded,
-                        color: FlutterFlowTheme.of(context).customColor4,
-                        size: rSize * 0.024,
-                        margin: EdgeInsets.only(left: rSize * 0.01))
+                    AppStyles.iconBg(
+                      context,
+                      data: Icons.send_rounded,
+                      color: FlutterFlowTheme.of(context).customColor4,
+                      size: rSize * 0.024,
+                      margin: EdgeInsets.only(
+                        top: rSize * 0.009,
+                        bottom: rSize * 0.009,
+                        left: rSize * 0.01,
+                      ),
+                    )
                   ],
                 )),
           ],
@@ -258,7 +292,9 @@ class _ChatHistoryState extends State<ChatHistory> {
     );
   }
 
-  bool isMe(ChatHistoryModel item) => item.sender?.id == SharedPrefUtils.instance.getUserData().user?.id;
+  bool isMe(ChatHistoryModel item) =>
+      item.sender?.id == SharedPrefUtils.instance.getUserData().user?.id;
 
-  String getdate(ChatHistoryModel item) => DateFormat('dd MMM yyyy').format(item.createdAt!);
+  String getdate(ChatHistoryModel item) =>
+      DateFormat('dd MMM yyyy').format(item.createdAt!);
 }

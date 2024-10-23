@@ -160,12 +160,12 @@ class MarketController extends ChangeNotifier {
         '${getText(context,'rumkikc1' /* Name, ISIN, FIGI or Ticket */)} : ${marketModel.name}\n'
         '${getText(context,'whkrwls1' /* Type */)} : ${selectedSecurityType?.name}\n'
         '${getText(context,'7fx237xy' /* Time In Force */)} : $selectedDateTime\n'
-        '${getText(context,'2mpa9jiq' /* Notes */)} : ${descController.text.isEmpty?'--':descController.text}\n'
-        '${getText(context,'u7hyldvt' /* Order Type */)} : ${orderType.text.isEmpty?'--':orderType.text}\n'
-        '${getText(context,'2odrp5sn' /* Quantity */)} : ${qtyController.text.isEmpty?'--':qtyController.text}\n'
+        '${getText(context,'2mpa9jiq' /* Notes */)} : ${descController.text.isEmpty?'':descController.text}\n'
+        '${getText(context,'u7hyldvt' /* Order Type */)} : ${orderType.text.isEmpty?'':orderType.text}\n'
+        '${getText(context,'2odrp5sn' /* Quantity */)} : ${qtyController.text.isEmpty?'':qtyController.text}\n'
         '${getText(context,'lz424u11' /* Current Price */)} : ${marketModel.price}\n'
-        '${getText(context,'q9p7fv0r' /* Limit Price */)} : ${limitPriceController.text.isEmpty?'--':limitPriceController.text}\n'
-        '${getText(context,'4noemhfd' /* Amount */)} : ${amount.toString()}\n'
+        '${getText(context,'q9p7fv0r' /* Limit Price */)} : ${limitPriceController.text.isEmpty?'':limitPriceController.text}\n'
+        '${getText(context,'4noemhfd' /* Amount */)} : ${amount==0?'':amount.toString()}\n'
     ;
 
     CommonFunctions.showLoader(context);

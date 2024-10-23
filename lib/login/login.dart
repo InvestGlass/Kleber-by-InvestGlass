@@ -38,227 +38,217 @@ class _LoginState extends State<Login> {
       resizeToAvoidBottomInset: false,
       body: Container(
         decoration: AppStyles.commonBg(context),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: rSize * 0.02),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 10 + MediaQuery.of(context).padding.top,
-              ),
-              Image.asset(
+        padding: EdgeInsets.only(left: rSize * 0.02,right: rSize * 0.02,bottom: rSize * 0.01),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 10 + MediaQuery.of(context).padding.top,
+            ),
+            Center(
+              child: Image.asset(
                 Theme.of(context).brightness == Brightness.dark ? 'assets/white-investglass.png' : 'assets/logo.png',
                 width: rSize * 0.17,
                 height: rSize * 0.05,
                 fit: BoxFit.contain,
               ),
-              const Expanded(child: SizedBox()),
-              Container(
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(vertical: rSize * 0.02),
-                child: ListView(
-                  shrinkWrap: true,
+            ),
+            const Expanded(child: SizedBox()),
+            Text(
+              FFLocalizations.of(context).getText(
+                'gs8awxej' /* Sign into */,
+              ),
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                    fontSize: rSize*0.03,
+                    fontWeight: FontWeight.w500,
+                  ),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${FFLocalizations.of(context).getText(
+                    'zlksaikw' /* your */,
+                  )} ',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    color: FlutterFlowTheme.of(context).secondaryText,
+                    fontSize: rSize*0.03,
+                    letterSpacing: 0.0,lineHeight: 0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       FFLocalizations.of(context).getText(
-                        'gs8awxej' /* Sign into */,
+                        'e9zrlew0' /* account */,
                       ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            fontSize: rSize*0.03,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w500,
+                      style: TextStyle(
+                          color: FlutterFlowTheme.of(context).primary,
+                          fontSize: rSize*0.030,height: 0,
+                          fontWeight: FontWeight.w600,
                           ),
+                    ),
+                    Container(
+                      color: FlutterFlowTheme.of(context).primary,
+                      height: rSize*0.005,
+                      width: rSize*0.110,
+                    )
+                  ],
+                )
+              ],
+            ),
+            SizedBox(height: rSize*0.01,),
+            Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Image.asset('assets/logo.png',scale: 2,),
+                    SizedBox(
+                      height: rSize * 0.02,
+                    ),
+                    TextFormField(
+                      controller: _controller.userNameController,
+                      style: FlutterFlowTheme.of(context).bodyLarge.override(
+
+                            letterSpacing: 0.0,
+                          ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required';
+                        }
+                      },
+                      decoration: AppStyles.inputDecoration(context,
+                          label: FFLocalizations.of(context).getText(
+                            'cais5tw0' /* Email or password */,
+                          ),hint: FFLocalizations.of(context).getText(
+                            'cais5tw0' /* Email or password */,
+                          ),
+                          fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                          labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
+
+                                letterSpacing: 0.0,
+                              ),
+                          suffix: Padding(
+                            padding: EdgeInsets.all(rSize*0.01),
+                            child: Icon(
+                              Icons.account_circle_outlined,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: rSize*0.025,
+                            ),
+                          )),
+                    ),
+                    SizedBox(
+                      height: rSize * 0.02,
+                    ),
+                    TextFormField(
+                      controller: _controller.pwdController,
+                      style: FlutterFlowTheme.of(context).bodyLarge.override(
+
+                            letterSpacing: 0.0,
+                          ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required';
+                        }
+                      },
+                      obscureText: _controller.hidePwd,
+                      decoration: AppStyles.inputDecoration(context,
+                          label: FFLocalizations.of(context).getText(
+                            'g143uz7d' /* Password */,
+                          ),
+                          hint: FFLocalizations.of(context).getText(
+                            'g143uz7d' /* Password */,
+                          ),
+                          fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                          labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
+
+                                letterSpacing: 0.0,
+                              ),
+                          suffix: GestureDetector(
+                              onTap: () {
+                                _controller.changeVisibility();
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: rSize*0.01),
+                                child: Icon(
+                                  _controller.hidePwd ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                                  color: FlutterFlowTheme.of(context).primaryText,
+                                  size: rSize*0.025,
+                                ),
+                              ))),
+                    ),
+                    SizedBox(
+                      height: rSize * 0.02,
                     ),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          '${FFLocalizations.of(context).getText(
-                            'zlksaikw' /* your */,
-                          )} ',
-                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            fontSize: rSize*0.03,
-                            letterSpacing: 0.0,lineHeight: 0,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        GestureDetector(
+                          onTap: () {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                            if (_formKey.currentState!.validate()) {
+                              _controller.doLogin(context);
+                            }
+                          },
+                          child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
+                            'rf7r2nk0' /* login */,
+                          ),horizontalPadding: rSize*0.08),
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              FFLocalizations.of(context).getText(
-                                'e9zrlew0' /* account */,
-                              ),
-                              style: TextStyle(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: rSize*0.030,height: 0,
-                                  fontWeight: FontWeight.w600,
-                                  ),
-                            ),
-                            Container(
-                              color: FlutterFlowTheme.of(context).primary,
-                              height: rSize*0.005,
-                              width: rSize*0.110,
-                            )
-                          ],
-                        )
                       ],
                     ),
-                  ],
-                ),
-              ),
-              Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Image.asset('assets/logo.png',scale: 2,),
-                      SizedBox(
-                        height: rSize * 0.02,
-                      ),
-                      TextFormField(
-                        controller: _controller.userNameController,
-                        style: FlutterFlowTheme.of(context).bodyLarge.override(
+                    SizedBox(
+                      height: MediaQuery.of(context).viewInsets.bottom + rSize * 0.025,
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: GestureDetector(
+                        onTap: () => CommonFunctions.navigate(context,Signup()),
+                        child: RichText(
+                          textScaler: MediaQuery.of(context).textScaler,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Click here to',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
 
-                              letterSpacing: 0.0,
-                            ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Required';
-                          }
-                        },
-                        decoration: AppStyles.inputDecoration(context,
-                            label: FFLocalizations.of(context).getText(
-                              'cais5tw0' /* Email or password */,
-                            ),hint: FFLocalizations.of(context).getText(
-                              'cais5tw0' /* Email or password */,
-                            ),
-                            fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                            labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-
-                                  letterSpacing: 0.0,
-                                ),
-                            suffix: Padding(
-                              padding: EdgeInsets.all(rSize*0.01),
-                              child: Icon(
-                                Icons.account_circle_outlined,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: rSize*0.025,
-                              ),
-                            )),
-                      ),
-                      SizedBox(
-                        height: rSize * 0.02,
-                      ),
-                      TextFormField(
-                        controller: _controller.pwdController,
-                        style: FlutterFlowTheme.of(context).bodyLarge.override(
-
-                              letterSpacing: 0.0,
-                            ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Required';
-                          }
-                        },
-                        obscureText: _controller.hidePwd,
-                        decoration: AppStyles.inputDecoration(context,
-                            label: FFLocalizations.of(context).getText(
-                              'g143uz7d' /* Password */,
-                            ),
-                            hint: FFLocalizations.of(context).getText(
-                              'g143uz7d' /* Password */,
-                            ),
-                            fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                            labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-
-                                  letterSpacing: 0.0,
-                                ),
-                            suffix: GestureDetector(
-                                onTap: () {
-                                  _controller.changeVisibility();
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: rSize*0.01),
-                                  child: Icon(
-                                    _controller.hidePwd ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                                    color: FlutterFlowTheme.of(context).primaryText,
-                                    size: rSize*0.025,
-                                  ),
-                                ))),
-                      ),
-                      SizedBox(
-                        height: rSize * 0.02,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              FocusManager.instance.primaryFocus?.unfocus();
-                              if (_formKey.currentState!.validate()) {
-                                _controller.doLogin(context);
-                              }
-                            },
-                            child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
-                              'rf7r2nk0' /* login */,
-                            ),horizontalPadding: rSize*0.08),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).viewInsets.bottom + rSize * 0.025,
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: GestureDetector(
-                          onTap: () => CommonFunctions.navigate(context,Signup()),
-                          child: RichText(
-                            textScaler: MediaQuery.of(context).textScaler,
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Click here to',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-
-                                      color: FlutterFlowTheme.of(context)
-                                          .customColor4,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: rSize*0.016
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: ' Signup',
-                                  style: TextStyle(
                                     color: FlutterFlowTheme.of(context)
-                                        .primary,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                        .customColor4,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: rSize*0.016
                                 ),
-                              ],
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: rSize*0.016
                               ),
+                              TextSpan(
+                                text: ' Signup',
+                                style: TextStyle(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+
+                                fontWeight: FontWeight.w500,
+                                fontSize: rSize*0.016
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: rSize * 0.01,
-                      ),
-                    ],
-                  ))
-            ],
-          ),
+                    ),
+                    SizedBox(
+                      height: rSize * 0.01,
+                    ),
+                  ],
+                ))
+          ],
         ),
       ),
     );

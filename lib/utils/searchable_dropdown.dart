@@ -136,10 +136,6 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                     searchController: textEditingController,
                     searchInnerWidgetHeight: rSize * 0.050,
                     searchInnerWidget: Container(
-                      decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondaryBackground,
-                          boxShadow: AppStyles.shadow(),
-                          borderRadius: BorderRadius.circular(rSize * 0.01)),
                       margin: EdgeInsets.only(top: rSize * 0.010, left: rSize * 0.010, right: rSize * 0.010),
                       child: TextFormField(
                         maxLines: 1,
@@ -149,13 +145,16 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                         controller: textEditingController,
                         // cursorColor: widget.searchCursorColor,
                         // style: widget.searchTextStyle,
-                        decoration: AppStyles.inputDecoration(context,
+                          decoration: AppStyles.inputDecoration(
+                            context,
                             hint: widget.searchHint,
-                            fillColor: Colors.transparent,
-                            borderWidth: 0.2,
-                            focusColor: FlutterFlowTheme.of(context).customColor4,
-                            contentPadding: EdgeInsets.symmetric(vertical: rSize * 0.01, horizontal: rSize * 0.01)),
-                      ),
+                            fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                            focusColor: FlutterFlowTheme.of(context).alternate,
+                            contentPadding: EdgeInsets.all(rSize * 0.015),
+                            labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
+                              letterSpacing: 0.0,
+                            ),
+                          )),
                     ),
                     searchMatchFn: widget.searchMatchFn,
                   ),
