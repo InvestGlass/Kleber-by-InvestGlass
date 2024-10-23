@@ -14,6 +14,7 @@ import 'package:kleber_bank/utils/app_colors.dart';
 import 'package:kleber_bank/utils/flutter_flow_theme.dart';
 import 'package:kleber_bank/utils/internationalization.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -27,6 +28,7 @@ import 'market/market_controller.dart';
 double rSize = 0,btnHeight=0;
 bool isTablet=false;
 late BuildContext globalContext;
+late PackageInfo packageInfo;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -96,6 +98,16 @@ class _MyAppState extends State<MyApp> {
     _themeMode = mode;
     FlutterFlowTheme.saveThemeMode(mode);
   });
+
+  @override
+  void initState() {
+    getPackageInfo();
+    super.initState();
+  }
+
+  Future<void> getPackageInfo() async {
+    packageInfo = await PackageInfo.fromPlatform();
+  }
 
   @override
   Widget build(BuildContext context) {

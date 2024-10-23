@@ -91,8 +91,8 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy> with TickerProviderSt
               child: PageView(controller: _pageController,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  Page(/*_controller.termOfServiceContent['term_of_service']*/txt),
-                  Page(/*_controller.termOfServiceContent['privacy_policy']*/txt2)
+                  Page(_controller.termOfServiceContent['term_of_service']),
+                  Page(_controller.termOfServiceContent['privacy_policy'])
                 ],
               ),
             ),

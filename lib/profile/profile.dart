@@ -34,7 +34,14 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       bottomNavigationBar: Wrap(
+        alignment: WrapAlignment.center,
         children: [
+          Text('V ${packageInfo.version}',
+              style: FlutterFlowTheme.of(context).titleSmall.override(
+                    fontSize: rSize * 0.016,
+                    color: FlutterFlowTheme.of(context).customColor4,
+                  )),
+          SizedBox(height: rSize*0.03),
           GestureDetector(
             onTap: () async {
               openConfirmationDialog();
@@ -122,7 +129,7 @@ class _ProfileState extends State<Profile> {
               Theme(
                 data: ThemeData(unselectedWidgetColor: FlutterFlowTheme.of(context).primary),
                 child: Transform.scale(
-                  scale: isTablet?2:0.8,
+                  scale: isTablet ? 2 : 0.8,
                   child: Switch(
                     value: _mainNotifier.isDarkModel(),
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -134,7 +141,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               SizedBox(
-                width: isTablet?rSize * 0.015:0,
+                width: isTablet ? rSize * 0.015 : 0,
               ),
             ],
           ),
@@ -300,7 +307,7 @@ class _ProfileState extends State<Profile> {
                 color: Colors.transparent,
                 child: Container(
                   decoration:
-                  BoxDecoration(color: FlutterFlowTheme.of(context).primaryBackground, borderRadius: BorderRadius.circular(rSize * 0.010)),
+                      BoxDecoration(color: FlutterFlowTheme.of(context).primaryBackground, borderRadius: BorderRadius.circular(rSize * 0.010)),
                   margin: EdgeInsets.symmetric(horizontal: rSize * 0.04),
                   child: StatefulBuilder(
                     builder: (context, setState) {
@@ -315,7 +322,8 @@ class _ProfileState extends State<Profile> {
                                 top: rSize * 0.03,
                                 bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
                             children: [
-                              AppWidgets.title(context,
+                              AppWidgets.title(
+                                  context,
                                   FFLocalizations.of(context).getText(
                                     'want_to_logout',
                                   )),
@@ -343,7 +351,7 @@ class _ProfileState extends State<Profile> {
                                     child: InkWell(
                                         onTap: () {
                                           SharedPrefUtils.instance.logout();
-                                          CommonFunctions.navigate(context, OnBoardingPageWidget(),removeAllScreensFromStack: true);
+                                          CommonFunctions.navigate(context, OnBoardingPageWidget(), removeAllScreensFromStack: true);
                                         },
                                         child: AppWidgets.btn(
                                             context,
