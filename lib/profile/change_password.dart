@@ -56,8 +56,8 @@ class _ChangePasswordState extends State<ChangePassword> {
             TextFormField(
               controller: _notifier.currentPwdController,
               style: FlutterFlowTheme.of(context).bodyLarge.override(
-                    letterSpacing: 0.0,
-                  ),
+                  color:FlutterFlowTheme.of(context).customColor4
+              ),
               obscureText: !_notifier.showCurrentPwd,
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -69,6 +69,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 hint: FFLocalizations.of(context).getText(
                   '729kp7ui' /* Your current password */,
                 ),
+                focusColor: FlutterFlowTheme.of(context).customColor4,
                 suffix: eyeIcon(context,_notifier.showCurrentPwd,(){
                   _notifier.changeCurrentPwdVisibilityStatus();
                 }),
@@ -99,8 +100,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                 }
               },
               style: FlutterFlowTheme.of(context).bodyLarge.override(
-                    letterSpacing: 0.0,
-                  ),
+                  color:FlutterFlowTheme.of(context).customColor4
+              ),
               obscureText: !_notifier.showNewPwd,
               decoration: AppStyles.inputDecoration(
                 context,
@@ -110,7 +111,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 contentPadding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.018),
                 suffix: eyeIcon(context, _notifier.showNewPwd,(){
                   _notifier.changeNewPwdVisibilityStatus();
-                }),
+                }),focusColor: FlutterFlowTheme.of(context).customColor4,
                 fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                 labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                       letterSpacing: 0.0,
@@ -128,8 +129,8 @@ class _ChangePasswordState extends State<ChangePassword> {
             TextFormField(
               controller: _notifier.confirmNewPwdController,
               style: FlutterFlowTheme.of(context).bodyLarge.override(
-                    letterSpacing: 0.0,
-                  ),
+                  color:FlutterFlowTheme.of(context).customColor4
+              ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Required';
@@ -145,6 +146,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   hint: FFLocalizations.of(context).getText(
                     'lz5cj3qp' /* Confirm new password */,
                   ),
+                  focusColor: FlutterFlowTheme.of(context).customColor4,
                   suffix: eyeIcon(context, _notifier.showConfirmNewPwd,(){
                     _notifier.changeConfirmNewPwdVisibilityStatus();
                   })),

@@ -209,13 +209,12 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                               FFLocalizations.of(context).getText(
                                                 'zomhasya' /* Performance */,
                                               ),
-                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                                                color: FlutterFlowTheme.of(context).secondaryText,
-                                                fontSize: rSize * 0.016,
-                                                letterSpacing: 0,
-                                                fontWeight: FontWeight.w500,
-                                              )),
+                                        style: FlutterFlowTheme.of(context).displaySmall.override(
+                                          color: FlutterFlowTheme.of(context).customColor4,
+                                          fontSize: rSize * 0.016,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),),
                                       popupMenu(ontap: (i) {
                                         pagingController.itemList![index].sectionName = getName(context, i);
                                         setState(() {});

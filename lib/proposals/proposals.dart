@@ -178,7 +178,6 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                       child: Text(
                                     item.name!,
                                     style: FlutterFlowTheme.of(context).displaySmall.override(
-
                                           color: FlutterFlowTheme.of(context).customColor4,
                                           fontSize: rSize * 0.016,
                                           letterSpacing: 0.0,

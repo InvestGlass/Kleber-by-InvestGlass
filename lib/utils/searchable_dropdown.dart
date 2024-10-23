@@ -143,9 +143,9 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                       margin: EdgeInsets.only(top: rSize * 0.010, left: rSize * 0.010, right: rSize * 0.010),
                       child: TextFormField(
                         maxLines: 1,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              letterSpacing: 0.0,
-                            ),
+                        style: FlutterFlowTheme.of(context).bodyLarge.override(
+                            color:FlutterFlowTheme.of(context).customColor4
+                        ),
                         controller: textEditingController,
                         // cursorColor: widget.searchCursorColor,
                         // style: widget.searchTextStyle,

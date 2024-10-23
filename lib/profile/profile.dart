@@ -88,9 +88,12 @@ class _ProfileState extends State<Profile> {
             FFLocalizations.of(context).getText(
               'wl1ownor' /* Account Settings */,
             ),
-            style: FlutterFlowTheme.of(context).labelMedium.override(
-                  letterSpacing: 0.0,
-                ),
+            style: FlutterFlowTheme.of(context).displaySmall.override(
+              color: FlutterFlowTheme.of(context).customColor4,
+              fontSize: rSize * 0.016,
+              letterSpacing: 0.0,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           SizedBox(
             height: rSize * 0.02,
@@ -120,10 +123,12 @@ class _ProfileState extends State<Profile> {
                   FFLocalizations.of(context).getText(
                     'znd2aszb' /* Switch to Dark Mode */,
                   ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        letterSpacing: 0.0,
-                      ),
+                  style: FlutterFlowTheme.of(context).displaySmall.override(
+                    color: FlutterFlowTheme.of(context).customColor4,
+                    fontSize: rSize * 0.016,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
               Theme(

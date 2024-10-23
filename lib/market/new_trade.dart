@@ -40,6 +40,12 @@ class _AddTransactionState extends State<AddTransaction> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     _portfolioNotifier = Provider.of<PortfolioController>(context);
     _proposalController = Provider.of<ProposalController>(context);
@@ -337,16 +343,9 @@ class _AddTransactionState extends State<AddTransaction> {
   Padding label(BuildContext context, String text) {
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, rSize*0.005),
-      child: Text(
-        FFLocalizations.of(context).getText(
-          text,
-        ),
-        style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-              fontSize: rSize*0.016,
-              color: FlutterFlowTheme.of(context).customColor4,
-            ),
-      ),
+      child: AppWidgets.label(context, FFLocalizations.of(context).getText(
+        text,
+      )),
     );
   }
 

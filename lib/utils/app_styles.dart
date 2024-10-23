@@ -177,8 +177,7 @@ class AppStyles {
     return InputDecoration(
       labelText: label,
       labelStyle: labelStyle,hintText: hint,
-      hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-            fontWeight: FontWeight.w200,
+      hintStyle: FlutterFlowTheme.of(context).labelSmall.override(
         color: FlutterFlowTheme.of(context).customColor4
           ),
       errorStyle: FlutterFlowTheme.of(context).bodyMedium.override(

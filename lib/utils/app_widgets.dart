@@ -260,7 +260,7 @@ class AppWidgets {
             style: borderOnly
                 ? FlutterFlowTheme.of(context).titleSmall.override(
                       fontSize: rSize * 0.014,
-                      color: FlutterFlowTheme.of(context).primary,
+                      color: borderOnly?FlutterFlowTheme.of(context).customColor4:FlutterFlowTheme.of(context).primary,
                     )
                 : FlutterFlowTheme.of(context).titleSmall.override(
                       color: textColor ?? Colors.white,
@@ -337,7 +337,7 @@ class AppWidgets {
     if (borderOnly) {
       return BoxDecoration(
           color: Colors.transparent,
-          border: Border.all(color: color ?? FlutterFlowTheme.of(context).primary, width: 1),
+          border: Border.all(color: color ?? FlutterFlowTheme.of(context).customColor4, width: 1),
           borderRadius: BorderRadius.circular(rSize * 0.010));
     }
     return BoxDecoration(
