@@ -300,10 +300,10 @@ class AppWidgets {
     );
   }
 
-  static title(BuildContext context, String text) {
+  static title(BuildContext context, String text,{bool center=false}) {
     return Text(
       text,
-      maxLines: 1,
+      textAlign: center?TextAlign.center:null,
       style: FlutterFlowTheme.of(context).bodyMedium.override(
             color: FlutterFlowTheme.of(context).customColor4,
             fontSize: rSize * 0.025,

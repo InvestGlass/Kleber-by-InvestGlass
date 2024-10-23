@@ -153,6 +153,9 @@ class _DocumentsState extends State<Documents> {
                   }, itemBuilder: (context, item, index) {
                     return GestureDetector(
                       onTap: () {
+                        if(item.freezed!){
+                          return;
+                        }
                         if (item.documentType == null) {
                           // _notifier.selectedFilterList.add(FilterModel(item.id.toString(), FilterTypes.ANCESTRY_FOLDER.name));
                           _notifier.openFolder(item);

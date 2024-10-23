@@ -119,30 +119,34 @@ class AppStyles {
     ];
   }
 
-  static iconBg(BuildContext context,{EdgeInsetsGeometry? margin,required IconData data,required double size,EdgeInsetsGeometry? padding,void Function()? onTap,Widget? customIcon,Color? color}){
+  static iconBg(BuildContext context,
+      {EdgeInsetsGeometry? margin,
+      required IconData data,
+      required double size,
+      EdgeInsetsGeometry? padding,
+      void Function()? onTap,
+      Widget? customIcon,
+      Color? color}) {
     return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: margin??EdgeInsets.all(rSize*0.010),
-        padding: padding,
-        height: rSize*0.05,
-        width: rSize*0.05,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(rSize*0.008),
-          color: FlutterFlowTheme.of(context).secondaryBackground,
-          gradient:LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0.0, 0.5, 1.0],
-            colors: [
-              FlutterFlowTheme
-                  .of(context).customColor6,
-              FlutterFlowTheme.of(context).secondaryBackground,
-              FlutterFlowTheme
-                  .of(context)
-              .customColor6,
-            ],
-          ),
+        onTap: onTap,
+        child: Container(
+          margin: margin ?? EdgeInsets.all(rSize * 0.010),
+          padding: padding,
+          height: rSize * 0.048,
+          width: rSize * 0.048,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(rSize * 0.008),
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [0.0, 0.5, 1.0],
+              colors: [
+                FlutterFlowTheme.of(context).customColor6,
+                FlutterFlowTheme.of(context).secondaryBackground,
+                FlutterFlowTheme.of(context).customColor6,
+              ],
+            ),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.25),
@@ -151,13 +155,14 @@ class AppStyles {
                 offset: Offset(0, 0),
               ),
             ],
-        ),
-        child: customIcon??Icon(
-          data,
-          size: size,
-          color: color??FlutterFlowTheme.of(context).primary,
-        ),
-    ));
+          ),
+          child: customIcon ??
+              Icon(
+                data,
+                size: size,
+                color: color ?? FlutterFlowTheme.of(context).primary,
+              ),
+        ));
   }
 
   static InputDecoration inputDecoration(BuildContext context,
@@ -168,53 +173,59 @@ class AppStyles {
       Widget? suffix,
       String? preffixText,
       // TextStyle? hintStyle,
-        double borderWidth=2,
-        double? borderRadius,
+      double borderWidth = 2,
+      double? borderRadius,
       TextStyle? labelStyle,
       Color? fillColor,
       EdgeInsetsGeometry? contentPadding,
       Color? focusColor}) {
     return InputDecoration(
       labelText: label,
-      labelStyle: labelStyle,hintText: hint,
-      hintStyle: FlutterFlowTheme.of(context).labelSmall.override(
-        color: FlutterFlowTheme.of(context).customColor4
-          ),
+      labelStyle: labelStyle,
+      hintText: hint,
+      hintStyle: FlutterFlowTheme.of(context)
+          .labelSmall
+          .override(color: FlutterFlowTheme.of(context).customColor4),
       errorStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-      color: FlutterFlowTheme.of(context).customColor3,
-      fontSize: rSize * 0.016,
-    ),
+            color: FlutterFlowTheme.of(context).customColor3,
+            fontSize: rSize * 0.016,
+          ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: focusColor??FlutterFlowTheme.of(context).alternate,
+          color: focusColor ?? FlutterFlowTheme.of(context).alternate,
           width: borderWidth,
         ),
-        borderRadius: BorderRadius.circular(borderRadius??rSize*0.012),
+        borderRadius: BorderRadius.circular(borderRadius ?? rSize * 0.012),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: focusColor??focusColor??FlutterFlowTheme.of(context).primary,
+          color:
+              focusColor ?? focusColor ?? FlutterFlowTheme.of(context).primary,
           width: borderWidth,
         ),
-        borderRadius: BorderRadius.circular(borderRadius??rSize*0.012),
+        borderRadius: BorderRadius.circular(borderRadius ?? rSize * 0.012),
       ),
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: FlutterFlowTheme.of(context).alternate,
           width: borderWidth,
         ),
-        borderRadius: BorderRadius.circular(borderRadius??rSize*0.012),
+        borderRadius: BorderRadius.circular(borderRadius ?? rSize * 0.012),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: focusColor??FlutterFlowTheme.of(context).alternate,
+          color: focusColor ?? FlutterFlowTheme.of(context).alternate,
           width: borderWidth,
         ),
-        borderRadius: BorderRadius.circular(borderRadius??rSize*0.012),
+        borderRadius: BorderRadius.circular(borderRadius ?? rSize * 0.012),
       ),
-      filled: true,prefixIcon: prefix,
-      fillColor: fillColor?? FlutterFlowTheme.of(context).secondaryBackground,counterText: counterText,
-      contentPadding: contentPadding ?? EdgeInsetsDirectional.fromSTEB(rSize*0.024, rSize*0.024, 0.0, rSize*0.024),
+      filled: true,
+      prefixIcon: prefix,
+      fillColor: fillColor ?? FlutterFlowTheme.of(context).secondaryBackground,
+      counterText: counterText,
+      contentPadding: contentPadding ??
+          EdgeInsetsDirectional.fromSTEB(
+              rSize * 0.024, rSize * 0.024, 0.0, rSize * 0.024),
       suffixIcon: suffix,
     );
   }

@@ -328,7 +328,7 @@ class _ProfileState extends State<Profile> {
                                 bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
                             children: [
                               AppWidgets.title(
-                                  context,
+                                  context,center: true,
                                   FFLocalizations.of(context).getText(
                                     'want_to_logout',
                                   )),

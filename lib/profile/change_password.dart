@@ -181,7 +181,7 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   Widget eyeIcon(BuildContext context,bool showPwd,void Function() onTap) {
     return GestureDetector(
-      onTap: () => onTap,
+      onTap: onTap,
       child: Padding(
                       padding: EdgeInsets.only(right: rSize*0.008),
                       child: Icon(
