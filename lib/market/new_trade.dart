@@ -41,7 +41,14 @@ class _AddTransactionState extends State<AddTransaction> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    _portfolioNotifier.selectedPortfolio=null;
+    _marketNotifier.selectedSecurityType=null;
+    _marketNotifier.selectedDateTime=null;
+    _marketNotifier.descController.clear();
+    _marketNotifier.orderType.clear();
+    _marketNotifier.qtyController.clear();
+    _marketNotifier.limitPriceController.clear();
+    _marketNotifier.amount=0;
     super.dispose();
   }
 

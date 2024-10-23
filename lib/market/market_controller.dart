@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -122,11 +124,22 @@ class MarketController extends ChangeNotifier {
   }
 
   Future<void> transmit(MarketListModel model, PortfolioModel? selectedPortfolio, BuildContext context, ProposalController proposalController, MarketListModel marketModel) async {
+    if(selectedPortfolio==null){
+      CommonFunctions.showToast(FFLocalizations.of(context).getText(
+        'portfolio_msg',
+      ));
+      return;
+    }else if(limitPriceController.text.isEmpty){
+      CommonFunctions.showToast(FFLocalizations.of(context).getText(
+        'limit_price_msg',
+      ));
+      return;
+    }
     Map<String, dynamic> map = {};
     Map<String, dynamic> map2 = {};
     map['security'] = model.toJson();
     map['create_transaction_type'] = 'Security';
-    map['portfolio_id'] = selectedPortfolio!.id!.toString();
+    map['portfolio_id'] = selectedPortfolio.id!.toString();
     map['state'] = '0';
     map['transaction_type'] = selectedSecurityType?.id??'';
     map['destination_portfolio_id'] = '';
@@ -140,6 +153,8 @@ class MarketController extends ChangeNotifier {
     map['amount'] = amount;
 
     map2['transaction']=map;
+
+    print(jsonEncode(map2));
 
     String msg ='${getText(context,'xn2nrgyp' /* Portfolio */)} : ${selectedPortfolio.title}\n'
         '${getText(context,'rumkikc1' /* Name, ISIN, FIGI or Ticket */)} : ${marketModel.name}\n'
