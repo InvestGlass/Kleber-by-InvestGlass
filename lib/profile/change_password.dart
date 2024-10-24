@@ -55,9 +55,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             ),
             TextFormField(
               controller: _notifier.currentPwdController,
-              style: FlutterFlowTheme.of(context).bodyLarge.override(
-                  color:FlutterFlowTheme.of(context).customColor4
-              ),
+              style: FlutterFlowTheme.of(context).bodyLarge.override(color: FlutterFlowTheme.of(context).customColor4),
               obscureText: !_notifier.showCurrentPwd,
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -70,10 +68,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                   '729kp7ui' /* Your current password */,
                 ),
                 focusColor: FlutterFlowTheme.of(context).customColor4,
-                suffix: eyeIcon(context,_notifier.showCurrentPwd,(){
+                suffix: eyeIcon(context, _notifier.showCurrentPwd, () {
                   _notifier.changeCurrentPwdVisibilityStatus();
                 }),
-                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                 contentPadding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.018),
                 labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                       letterSpacing: 0.0,
@@ -99,9 +96,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   );
                 }
               },
-              style: FlutterFlowTheme.of(context).bodyLarge.override(
-                  color:FlutterFlowTheme.of(context).customColor4
-              ),
+              style: FlutterFlowTheme.of(context).bodyLarge.override(color: FlutterFlowTheme.of(context).customColor4),
               obscureText: !_notifier.showNewPwd,
               decoration: AppStyles.inputDecoration(
                 context,
@@ -109,10 +104,10 @@ class _ChangePasswordState extends State<ChangePassword> {
                   '2l6qayo4' /* New password */,
                 ),
                 contentPadding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.018),
-                suffix: eyeIcon(context, _notifier.showNewPwd,(){
+                suffix: eyeIcon(context, _notifier.showNewPwd, () {
                   _notifier.changeNewPwdVisibilityStatus();
-                }),focusColor: FlutterFlowTheme.of(context).customColor4,
-                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                }),
+                focusColor: FlutterFlowTheme.of(context).customColor4,
                 labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                       letterSpacing: 0.0,
                     ),
@@ -128,9 +123,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             ),
             TextFormField(
               controller: _notifier.confirmNewPwdController,
-              style: FlutterFlowTheme.of(context).bodyLarge.override(
-                  color:FlutterFlowTheme.of(context).customColor4
-              ),
+              style: FlutterFlowTheme.of(context).bodyLarge.override(color: FlutterFlowTheme.of(context).customColor4),
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Required';
@@ -147,7 +140,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     'lz5cj3qp' /* Confirm new password */,
                   ),
                   focusColor: FlutterFlowTheme.of(context).customColor4,
-                  suffix: eyeIcon(context, _notifier.showConfirmNewPwd,(){
+                  suffix: eyeIcon(context, _notifier.showConfirmNewPwd, () {
                     _notifier.changeConfirmNewPwdVisibilityStatus();
                   })),
             ),
@@ -179,17 +172,17 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
-  Widget eyeIcon(BuildContext context,bool showPwd,void Function() onTap) {
+  Widget eyeIcon(BuildContext context, bool showPwd, void Function() onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-                      padding: EdgeInsets.only(right: rSize*0.008),
-                      child: Icon(
-                        showPwd ? Icons.visibility : Icons.visibility_off,
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        size: rSize * 0.025,
-                      ),
-                    ),
+        padding: EdgeInsets.only(right: rSize * 0.008),
+        child: Icon(
+          showPwd ? Icons.visibility : Icons.visibility_off,
+          color: FlutterFlowTheme.of(context).primaryText,
+          size: rSize * 0.025,
+        ),
+      ),
     );
   }
 }

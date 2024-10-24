@@ -60,7 +60,7 @@ class _ChatHistoryState extends State<ChatHistory> {
     _notifier = Provider.of<ProposalController>(context);
     return Scaffold(
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      appBar: AppWidgets.appBar(context, widget.model.advisor?.name ?? '',
+      /*appBar: AppWidgets.appBar(context, widget.model.advisor?.name ?? '',
           leading: AppWidgets.backArrow(context),
           actions: [
             AppStyles.iconBg(
@@ -94,146 +94,194 @@ class _ChatHistoryState extends State<ChatHistory> {
               },
               size: rSize * 0.025,
             ),
-            /*
-        Icon(
-          Icons.calendar_today_outlined,
-          color: FlutterFlowTheme.of(context).primary,
-          size: 30.0,
-        ),*/
-            SizedBox(
-              width: rSize * 0.01,
-            )
-          ]),
+          ]),*/
       body: Container(
         height: double.infinity,
         decoration: const BoxDecoration(border: Border()),
-        child: PagedListView<int, ChatHistoryModel>.separated(
-          pagingController: _notifier.chatHistoryPagingController,
-          reverse: true,
-          padding: EdgeInsets.only(bottom: rSize*0.01),
-          builderDelegate: PagedChildBuilderDelegate<ChatHistoryModel>(
-              itemBuilder:
-                  (BuildContext context, ChatHistoryModel item, int index) {
-            bool isLast =
-                (item == _notifier.chatHistoryPagingController.itemList!.last);
-            return Column(
-              crossAxisAlignment: isMe(item)
-                  ? CrossAxisAlignment.end
-                  : CrossAxisAlignment.start,
+        child: Column(
+          children: [
+            SizedBox(height: MediaQuery.of(context).padding.top),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if (isLast ||
-                    (!isLast &&
-                        getdate(item) !=
-                            getdate(_notifier.chatHistoryPagingController
-                                .itemList![index + 1]))) ...{
-                  Row(
+                Row(
+                  children: [
+                    AppWidgets.backArrow(context,),
+                    SizedBox(
+                      height: rSize * 0.048,
+                      width: rSize * 0.048,
+                    )
+                  ],
+                ),
+                AppWidgets.title(context, widget.model.advisor?.name ?? ''),
+                Row(
+                  children: [
+                    AppStyles.iconBg(
+                      context,
+                      margin: EdgeInsets.only(
+                        top: rSize * 0.008,
+                        bottom: rSize * 0.008,
+                      ),
+                      color: FlutterFlowTheme.of(context).customColor4,
+                      data: Icons.refresh_rounded,
+                      onTap: () async {
+                        _pageKey = 1;
+                        _notifier.chatHistoryPagingController.refresh();
+                      },
+                      size: rSize * 0.025,
+                    ),
+                    AppStyles.iconBg(
+                      context,
+                      margin: EdgeInsets.only(
+                        top: rSize * 0.008,
+                        bottom: rSize * 0.008,
+                        left: rSize * 0.01,
+                      ),
+                      data: Icons.call_outlined,
+                      color: FlutterFlowTheme.of(context).customColor4,
+                      onTap: () async {
+                        await launchUrl(Uri(
+                          scheme: 'tel',
+                          path: widget.model.advisor?.phoneOffice,
+                        ));
+                      },
+                      size: rSize * 0.025,
+                    ),
+                  ],
+                )
+              ],
+            ),
+            Expanded(
+              child: PagedListView<int, ChatHistoryModel>.separated(
+                pagingController: _notifier.chatHistoryPagingController,
+                reverse: true,
+                padding: EdgeInsets.only(bottom: rSize*0.01),
+                builderDelegate: PagedChildBuilderDelegate<ChatHistoryModel>(
+                    itemBuilder:
+                        (BuildContext context, ChatHistoryModel item, int index) {
+                  bool isLast =
+                      (item == _notifier.chatHistoryPagingController.itemList!.last);
+                  return Column(
+                    crossAxisAlignment: isMe(item)
+                        ? CrossAxisAlignment.end
+                        : CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Container(
-                          height: 1.0,
-                          decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).customColor4,
-                              boxShadow: AppStyles.shadow()),
-                        ),
+                      if (isLast ||
+                          (!isLast &&
+                              getdate(item) !=
+                                  getdate(_notifier.chatHistoryPagingController
+                                      .itemList![index + 1]))) ...{
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                height: 1.0,
+                                decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context).customColor4,
+                                    boxShadow: AppStyles.shadow()),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsetsDirectional.all(rSize * 0.010),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(rSize * 0.020),
+                                border: Border.all(
+                                  color: FlutterFlowTheme.of(context).customColor4,
+                                  width: 1.5,
+                                ),
+                              ),
+                              child: Text(
+                                getdate(item),
+                                textAlign: TextAlign.center,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      color:
+                                          FlutterFlowTheme.of(context).customColor4,
+                                      fontSize: rSize * 0.016,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 1.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).customColor4,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      },
+                      SizedBox(
+                        height: rSize * 0.015,
                       ),
                       Container(
-                        padding: EdgeInsetsDirectional.all(rSize * 0.010),
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.sizeOf(context).width * 0.9,
+                        ),
+                        margin: EdgeInsets.symmetric(horizontal: rSize * 0.01),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(rSize * 0.020),
-                          border: Border.all(
-                            color: FlutterFlowTheme.of(context).customColor4,
-                            width: 1.5,
+                          color: isMe(item)
+                              ? FlutterFlowTheme.of(context).info
+                              : FlutterFlowTheme.of(context)
+                                  .secondary
+                                  .withOpacity(0.2),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(rSize * 0.008),
+                            bottomRight: Radius.circular(rSize * 0.008),
+                            topLeft: const Radius.circular(0.0),
+                            topRight: Radius.circular(rSize * 0.008),
                           ),
                         ),
+                        child: Padding(
+                          padding: EdgeInsets.all(rSize * 0.012),
+                          child: Text(
+                            item.comment!,
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  color: FlutterFlowTheme.of(context).customColor4,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: rSize * 0.016,
+                                ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            rSize * 0.01, rSize * 0.005, rSize * 0.01, 0.0),
                         child: Text(
-                          getdate(item),
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                color:
-                                    FlutterFlowTheme.of(context).customColor4,
-                                fontSize: rSize * 0.016,
-                                fontWeight: FontWeight.w500,
+                          CommonFunctions.dateTimeFormat(
+                            'HH:mm',
+                            DateTime.fromMillisecondsSinceEpoch(
+                                item.createdAt!.millisecondsSinceEpoch,
+                                isUtc: true),
+                            locale: FFLocalizations.of(context).languageCode,
+                          ),
+                          textAlign: TextAlign.start,
+                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                color: isMe(item)
+                                    ? FlutterFlowTheme.of(context).customColor4
+                                    : FlutterFlowTheme.of(context).secondaryText,
+                                fontSize: rSize * 0.012,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w400,
                               ),
                         ),
                       ),
-                      Expanded(
-                        child: Container(
-                          height: 1.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).customColor4,
-                          ),
-                        ),
-                      ),
                     ],
-                  )
-                },
-                SizedBox(
-                  height: rSize * 0.015,
-                ),
-                Container(
-                  constraints: BoxConstraints(
-                    maxWidth: MediaQuery.sizeOf(context).width * 0.9,
-                  ),
-                  margin: EdgeInsets.symmetric(horizontal: rSize * 0.01),
-                  decoration: BoxDecoration(
-                    color: isMe(item)
-                        ? FlutterFlowTheme.of(context).info
-                        : FlutterFlowTheme.of(context)
-                            .secondary
-                            .withOpacity(0.2),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(rSize * 0.008),
-                      bottomRight: Radius.circular(rSize * 0.008),
-                      topLeft: const Radius.circular(0.0),
-                      topRight: Radius.circular(rSize * 0.008),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(rSize * 0.012),
-                    child: Text(
-                      item.comment!,
-                      textAlign: TextAlign.start,
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            color: FlutterFlowTheme.of(context).customColor4,
-                            fontWeight: FontWeight.w500,
-                            fontSize: rSize * 0.016,
-                          ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(
-                      rSize * 0.01, rSize * 0.005, rSize * 0.01, 0.0),
-                  child: Text(
-                    CommonFunctions.dateTimeFormat(
-                      'HH:mm',
-                      DateTime.fromMillisecondsSinceEpoch(
-                          item.createdAt!.millisecondsSinceEpoch,
-                          isUtc: true),
-                      locale: FFLocalizations.of(context).languageCode,
-                    ),
-                    textAlign: TextAlign.start,
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          color: isMe(item)
-                              ? FlutterFlowTheme.of(context).customColor4
-                              : FlutterFlowTheme.of(context).secondaryText,
-                          fontSize: rSize * 0.012,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w400,
-                        ),
-                  ),
-                ),
-              ],
-            );
-          }),
-          separatorBuilder: (BuildContext context, int index) {
-            ChatHistoryModel item =
-                _notifier.chatHistoryPagingController.itemList![index];
+                  );
+                }),
+                separatorBuilder: (BuildContext context, int index) {
+                  ChatHistoryModel item =
+                      _notifier.chatHistoryPagingController.itemList![index];
 
-            return const SizedBox();
-          },
+                  return const SizedBox();
+                },
+              ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: Container(
