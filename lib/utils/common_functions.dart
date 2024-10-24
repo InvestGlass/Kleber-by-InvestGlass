@@ -83,7 +83,7 @@ class CommonFunctions{
       msg: msg,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
-      fontSize: rSize*0.016,
+      fontSize: rSize*0.016,timeInSecForIosWeb: 5,
       backgroundColor: success?Colors.green:Colors.redAccent,
       textColor: Colors.white,
     );

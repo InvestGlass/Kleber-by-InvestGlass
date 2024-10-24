@@ -68,7 +68,7 @@ class AppWidgets {
                   ),
             ),
             Text(
-              getStatus(model.status),
+              getStatus(model.status,context),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     color: FlutterFlowTheme.of(context).secondaryText,
                     fontSize: rSize * 0.016,
@@ -698,13 +698,13 @@ class AppWidgets {
     );
   }
 
-  static String getStatus(String? status) {
+  static String getStatus(String? status, BuildContext context) {
     if (status == '-') {
-      return 'Not checked';
+      return FFLocalizations.of(context).getText('834hxg71'/*not checked*/);
     } else if (status == 'true') {
-      return 'No issues have been detected';
+      return FFLocalizations.of(context).getText('zz2ivcgu' /* No issues have been detected */);
     } else if (status == 'false') {
-      return 'The following investment are not in line with your financial knowledge';
+      return FFLocalizations.of(context).getText('bwcpcgd0' /* The following investment are no.. */);
     }
     return '';
   }

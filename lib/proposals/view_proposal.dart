@@ -138,25 +138,34 @@ class _ViewProposalState extends State<ViewProposal> {
           ),
           Expanded(
               child: GestureDetector(
-            onTap: () => AppWidgets.showAlert(
-                context,
-                FFLocalizations.of(context).getText(
-                  'decline_proposal' /* Decline Proposal*/,
-                ),
-                FFLocalizations.of(context).getText(
-                  's1jcpzx6' /*cancel*/,
-                ),
-                FFLocalizations.of(context).getText(
-                  'bdc48oru' /*confirm*/,
-                ), () {
-              Navigator.pop(context);
-            }, () {
-              _notifier.updateState('rejected', widget.item!.id!, widget.index!, context, onUpdateStatus: (item) {
-                setState(() {
-                  widget.item = item;
+            onTap: () {
+              if(!widget.item!.isChecked){
+                CommonFunctions.showToast(FFLocalizations.of(context).getText(
+                  'agree_checkbox',
+                ));
+                Navigator.pop(context);
+                return;
+              }
+              AppWidgets.showAlert(
+                  context,
+                  FFLocalizations.of(context).getText(
+                    'decline_proposal' /* Decline Proposal*/,
+                  ),
+                  FFLocalizations.of(context).getText(
+                    's1jcpzx6' /*cancel*/,
+                  ),
+                  FFLocalizations.of(context).getText(
+                    'bdc48oru' /*confirm*/,
+                  ), () {
+                Navigator.pop(context);
+              }, () {
+                _notifier.updateState('rejected', widget.item!.id!, widget.index!, context, onUpdateStatus: (item) {
+                  setState(() {
+                    widget.item = item;
+                  });
                 });
-              });
-            }, btn1BgColor: FlutterFlowTheme.of(context).customColor3, btn2BgColor: FlutterFlowTheme.of(context).customColor2),
+              }, btn1BgColor: FlutterFlowTheme.of(context).customColor3, btn2BgColor: FlutterFlowTheme.of(context).customColor2);
+            },
             child: AppWidgets.btnWithIcon(
                 context,
                 '  ${FFLocalizations.of(context).getText(
@@ -174,25 +183,40 @@ class _ViewProposalState extends State<ViewProposal> {
           ),
           Expanded(
               child: GestureDetector(
-            onTap: () => AppWidgets.showAlert(
-                context,
-                FFLocalizations.of(context).getText(
-                  'accept_proposal' /* accept Proposal*/,
-                ),
-                FFLocalizations.of(context).getText(
-                  's1jcpzx6' /*cancel*/,
-                ),
-                FFLocalizations.of(context).getText(
-                  'bdc48oru' /*confirm*/,
-                ), () {
-              Navigator.pop(context);
-            }, () {
-              _notifier.updateState('accepted', widget.item!.id, widget.index!, context, onUpdateStatus: (item) {
-                setState(() {
-                  widget.item = item;
+            onTap: () {
+              if(!widget.item!.isChecked){
+                CommonFunctions.showToast(FFLocalizations.of(context).getText(
+                  'agree_checkbox',
+                ));
+                Navigator.pop(context);
+                return;
+              }
+              AppWidgets.showAlert(
+                  context,
+                  FFLocalizations.of(context).getText(
+                    'accept_proposal' /* accept Proposal*/,
+                  ),
+                  FFLocalizations.of(context).getText(
+                    's1jcpzx6' /*cancel*/,
+                  ),
+                  FFLocalizations.of(context).getText(
+                    'bdc48oru' /*confirm*/,
+                  ), () {
+                Navigator.pop(context);
+              }, () {
+                if(!widget.item!.isChecked){
+                  CommonFunctions.showToast(FFLocalizations.of(context).getText(
+                    'agree_checkbox',
+                  ));
+                  return;
+                }
+                _notifier.updateState('accepted', widget.item!.id, widget.index!, context, onUpdateStatus: (item) {
+                  setState(() {
+                    widget.item = item;
+                  });
                 });
-              });
-            }, btn1BgColor: FlutterFlowTheme.of(context).customColor3, btn2BgColor: FlutterFlowTheme.of(context).customColor2),
+              }, btn1BgColor: FlutterFlowTheme.of(context).customColor3, btn2BgColor: FlutterFlowTheme.of(context).customColor2);
+            },
             child: AppWidgets.btnWithIcon(
                 context,
                 '  ${FFLocalizations.of(context).getText(

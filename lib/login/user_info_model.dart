@@ -449,7 +449,7 @@ class User {
     contractInitRecords: json["contract_init_records"],
     marketInitRecords: json["market_init_records"],
     notificationInitRecords: json["notification_init_records"],
-    widgetData: AccountFilterState.fromJson(json["widget_data"]),
+    // widgetData: AccountFilterState.fromJson(json["widget_data"]),
     // approvalColState: List<dynamic>.from(json["approval_col_state"].map((x) => x)),
     // approvalSortState: List<dynamic>.from(json["approval_sort_state"].map((x) => x)),
     // approvalDynamicCol: List<dynamic>.from(json["approval_dynamic_col"].map((x) => x)),

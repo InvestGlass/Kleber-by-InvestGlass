@@ -313,7 +313,6 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                     'position',
                                   ),
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                                         fontSize: rSize * 0.016,
                                         color: FlutterFlowTheme.of(context).customColor4,
                                         fontWeight: FontWeight.w600,

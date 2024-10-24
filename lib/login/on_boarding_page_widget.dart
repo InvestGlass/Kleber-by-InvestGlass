@@ -1,5 +1,6 @@
 import 'package:kleber_bank/login/login.dart';
 import 'package:kleber_bank/utils/app_styles.dart';
+import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 
 import '../main.dart';
@@ -80,32 +81,20 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                FFButtonWidget(
-                                  onPressed: () async {
-                                    CommonFunctions.navigate(context, Login(), removeCurrentScreenFromStack: true);
-                                  },
-                                  text: FFLocalizations.of(context).getText(
-                                    '3h41wkxj' /* Sign in */,
-                                  ),
-                                  options: FFButtonOptions(
-                                    width: MediaQuery.sizeOf(context).width * 0.5,
-                                    height: rSize*0.050,
-                                    padding: EdgeInsetsDirectional.fromSTEB(rSize*0.024, 0.0, rSize*0.024, 0.0),
-                                    
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-
-                                          color: Colors.white,
-                                          letterSpacing: 0.0,
-                                        ),
-                                    elevation: 3.0,
-                                    borderSide: const BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
+                                Row(
+                                  children: [
+                                    const Expanded(child: SizedBox(),),
+                                    Expanded(
+                                      flex: 2,
+                                      child: GestureDetector(
+                                        onTap: () => CommonFunctions.navigate(context, const Login(), removeCurrentScreenFromStack: true),
+                                        child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
+                                          '3h41wkxj' /* Sign in */,
+                                        )),
+                                      ),
                                     ),
-                                    borderRadius: BorderRadius.circular(rSize*0.008),
-                                  ),
-                                  showLoadingIndicator: false,
+                                    const Expanded(child: SizedBox(),),
+                                  ],
                                 ),
                               ],
                             ),

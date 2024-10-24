@@ -106,7 +106,9 @@ class _ChatHistoryState extends State<ChatHistory> {
               children: [
                 Row(
                   children: [
-                    AppWidgets.backArrow(context,),
+                    AppWidgets.backArrow(
+                      context,
+                    ),
                     SizedBox(
                       height: rSize * 0.048,
                       width: rSize * 0.048,
@@ -147,6 +149,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                       },
                       size: rSize * 0.025,
                     ),
+                    SizedBox(width: rSize*0.011,)
                   ],
                 )
               ],
@@ -155,12 +158,12 @@ class _ChatHistoryState extends State<ChatHistory> {
               child: PagedListView<int, ChatHistoryModel>.separated(
                 pagingController: _notifier.chatHistoryPagingController,
                 reverse: true,
-                padding: EdgeInsets.only(bottom: rSize*0.01),
+                padding: EdgeInsets.only(bottom: rSize * 0.01),
                 builderDelegate: PagedChildBuilderDelegate<ChatHistoryModel>(
-                    itemBuilder:
-                        (BuildContext context, ChatHistoryModel item, int index) {
-                  bool isLast =
-                      (item == _notifier.chatHistoryPagingController.itemList!.last);
+                    itemBuilder: (BuildContext context, ChatHistoryModel item,
+                        int index) {
+                  bool isLast = (item ==
+                      _notifier.chatHistoryPagingController.itemList!.last);
                   return Column(
                     crossAxisAlignment: isMe(item)
                         ? CrossAxisAlignment.end
@@ -177,16 +180,19 @@ class _ChatHistoryState extends State<ChatHistory> {
                               child: Container(
                                 height: 1.0,
                                 decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context).customColor4,
+                                    color: FlutterFlowTheme.of(context)
+                                        .customColor4,
                                     boxShadow: AppStyles.shadow()),
                               ),
                             ),
                             Container(
                               padding: EdgeInsetsDirectional.all(rSize * 0.010),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(rSize * 0.020),
+                                borderRadius:
+                                    BorderRadius.circular(rSize * 0.020),
                                 border: Border.all(
-                                  color: FlutterFlowTheme.of(context).customColor4,
+                                  color:
+                                      FlutterFlowTheme.of(context).customColor4,
                                   width: 1.5,
                                 ),
                               ),
@@ -196,8 +202,8 @@ class _ChatHistoryState extends State<ChatHistory> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      color:
-                                          FlutterFlowTheme.of(context).customColor4,
+                                      color: FlutterFlowTheme.of(context)
+                                          .customColor4,
                                       fontSize: rSize * 0.016,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -207,7 +213,8 @@ class _ChatHistoryState extends State<ChatHistory> {
                               child: Container(
                                 height: 1.0,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).customColor4,
+                                  color:
+                                      FlutterFlowTheme.of(context).customColor4,
                                 ),
                               ),
                             ),
@@ -240,8 +247,11 @@ class _ChatHistoryState extends State<ChatHistory> {
                           child: Text(
                             item.comment!,
                             textAlign: TextAlign.start,
-                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  color: FlutterFlowTheme.of(context).customColor4,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  color:
+                                      FlutterFlowTheme.of(context).customColor4,
                                   fontWeight: FontWeight.w500,
                                   fontSize: rSize * 0.016,
                                 ),
@@ -260,10 +270,10 @@ class _ChatHistoryState extends State<ChatHistory> {
                             locale: FFLocalizations.of(context).languageCode,
                           ),
                           textAlign: TextAlign.start,
-                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                color: isMe(item)
-                                    ? FlutterFlowTheme.of(context).customColor4
-                                    : FlutterFlowTheme.of(context).secondaryText,
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                color: FlutterFlowTheme.of(context).customColor4,
                                 fontSize: rSize * 0.012,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w400,
@@ -287,7 +297,10 @@ class _ChatHistoryState extends State<ChatHistory> {
       bottomNavigationBar: Container(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         padding: EdgeInsets.only(
-            left: rSize * 0.015, right: rSize * 0.015,top: rSize*0.01,bottom: MediaQuery.of(context).padding.bottom),
+            left: rSize * 0.015,
+            right: rSize * 0.015,
+            top: rSize * 0.01,
+            bottom: MediaQuery.of(context).padding.bottom),
         margin:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Row(

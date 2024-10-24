@@ -57,146 +57,89 @@ class _DashboardState extends State<Dashboard> {
     _controller = Provider.of<DashboardController>(context);
     return Scaffold(
       key: _scaffoldkey,
-      /*bottomNavigationBar: Container(
-        color: Colors.transparent,
-        height: rSize * 0.12,
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Image.asset(
-              Theme.of(context).brightness == Brightness.dark
-                  ? 'assets/bgBottomNavDark.png'
-                  : 'assets/bgBottomNavLight.png',
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      bottomNavigationBar: Wrap(
+        children: [
+          Container(
+            margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+            child: Row(
               children: [
-                bottombarCell(
-                    context,
-                    0,
-                    Icons.home_rounded,
-                    FFLocalizations.of(context).getText(
-                      'fiha8uf5' */ /* Home */ /*,
-                    )),
-                bottombarCell(
-                    context,
-                    1,
-                    Icons.bar_chart,
-                    FFLocalizations.of(context).getText(
-                      'xn2nrgyp' */ /* Portfolio */ /*,
-                    ),
-                    widget: _controller.selectedIndex == 1
-                        ? SvgPicture.asset(
-                            Theme.of(context).brightness == Brightness.dark ? 'assets/bar-chart-dark-theme.svg' : 'assets/bar_chart.svg',
-                            fit: BoxFit.contain,
-                          )
-                        : null),
-                SizedBox(
-                  width: rSize * 0.05,
+                actionMenuItem(
+                  context,
+                  AppStyles.iconBg(context,
+                      data: Icons.home,
+                      size: rSize * 0.020,
+                      padding: EdgeInsets.all(rSize * 0.015),
+                      color: getColor(0)),
+                  FFLocalizations.of(context).getText(
+                      'fiha8uf5' /* Home */,
+                  ),
+                  onTap: () {
+                    changeTab(0);
+                  },i: 0
                 ),
-                bottombarCell(
-                    context,
-                    2,
-                    Icons.home_rounded,
-                    FFLocalizations.of(context).getText(
-                      'nkifu7jq' */ /* Proposal */ /*,
-                    ),
-                    widget: _controller.selectedIndex == 2
-                        ? SvgPicture.asset(
-                            Theme.of(context).brightness == Brightness.dark
-                                ? 'assets/proposal-icon-new-dark-theme.svg'
-                                : 'assets/proposal-icon-new.svg',
-                            fit: BoxFit.contain,
-                          )
-                        : SvgPicture.asset(
-                            Theme.of(context).brightness == Brightness.dark
-                                ? 'assets/proposal-icon-new-unselected-dark-theme.svg'
-                                : 'assets/proposal-icon-new-unselected.svg',
-                            fit: BoxFit.contain,
-                          )),
-                bottombarCell(
-                    context,
-                    3,
-                    Icons.account_circle_rounded,
-                    FFLocalizations.of(context).getText(
-                      'w5wtcpj4' */ /* Profile */ /*,
-                    )),
+                actionMenuItem(
+                  context,
+                  AppStyles.iconBg(context,
+                      data: Icons.add_chart_outlined,
+                      size: rSize * 0.020,
+                      padding: EdgeInsets.all(rSize * 0.015),
+                      color: getColor(1)),
+                  FFLocalizations.of(context).getText(
+                      'xn2nrgyp' /* Portfolio */,
+                  ),
+                  onTap: () {
+                    changeTab(1);
+                  },i: 1
+                ),
+                actionMenuItem(
+                  context,
+                  AppStyles.iconBg(context,
+                      data: Icons.file_copy,
+                      size: rSize * 0.020,
+                      padding: EdgeInsets.all(rSize * 0.015),
+                      customIcon: Image.asset('assets/more.png', scale: 0.5,color: getColor(2),),
+                      color: FlutterFlowTheme.of(context).customColor4),
+                  FFLocalizations.of(context).getText(
+                    'more',
+                  ),
+                  onTap: () {
+                    showOptions();
+                  },
+                ),
+                actionMenuItem(
+                  context,
+                  AppStyles.iconBg(context,
+                      data: Icons.auto_graph,
+                      size: rSize * 0.020,
+                      padding: EdgeInsets.all(rSize * 0.015),
+                      color: getColor(3)),
+                  FFLocalizations.of(context).getText(
+                      'nkifu7jq' /* Proposal */,
+                  ),
+                  onTap: () {
+                    changeTab(3);
+                  },i: 3
+                ),
+                actionMenuItem(
+                  context,
+                  AppStyles.iconBg(context,
+                      data: Icons.face,
+                      size: rSize * 0.020,
+                      padding: EdgeInsets.all(rSize * 0.015),
+                      color: getColor(4)),
+                  FFLocalizations.of(context).getText(
+                      'w5wtcpj4' /* Profile */,
+                  ),
+                  onTap: () {
+                    changeTab(4);
+                  },i: 4
+                ),
               ],
             ),
-            Positioned(
-              // width: MediaQuery.of(context).size.width,
-              bottom: 30,
-              child: Align(
-                  alignment: Alignment.center,
-                  child: GestureDetector(
-                    onTap: () => showOptions(),
-                    child: Image.asset(
-                      'assets/app_launcher_icon.png',
-                      scale: 1.7,
-                    ),
-                  )),
-            ),
-          ],
-        ),
-      ),*/
-      /*bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).secondaryBackground,
-            borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
-            boxShadow: [
-              BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-            ],
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              topRight: Radius.circular(30.0),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: AppConst.titleList.map<Widget>(
-                (e) {
-                  return GestureDetector(
-                    onTap: () {
-                      _controller.changeIndex(AppConst.titleList.indexOf(e));
-                      controller.animateToPage(AppConst.titleList.indexOf(e), duration: Duration(milliseconds: 100), curve: Curves.easeInOut);
-                    },
-                    child: Wrap(
-                      direction: Axis.vertical, alignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      // mainAxisSize: MainAxisSize.max,
-                      children: [
-                        SizedBox(
-                          height: rSize * 0.008,
-                        ),
-                        Image.asset(
-                          'assets/${e.toLowerCase()}.png',
-                          scale: 25,
-                          color: AppConst.titleList[_controller.selectedIndex] == e ? AppColors.kViolate : AppColors.kTextFieldInput,
-                        ),
-                        Text(
-                          e,
-                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                            color:AppConst.titleList[_controller.selectedIndex] == e ? FlutterFlowTheme.of(context).primary : FlutterFlowTheme.of(context).customColor5,
-                            fontSize: rSize*0.012,
-                            letterSpacing: 0.0,
-                            ),
-                          ),
-                      ],
-                    ),
-                  );
-                },
-              ).toList(),
-            ),
-          )),
-      drawer: AppWidgets.drawer((i) {
-        _scaffoldkey.currentState!.closeDrawer();
-        _controller.changeIndex(i);
-        controller.animateToPage(i, duration: Duration(milliseconds: 100), curve: Curves.easeInOut);
-        // controller=PageController(initialPage: value);
-      }),*/
-      bottomNavigationBar: BottomNavigationBar(
+        ],
+      ),
+      /*bottomNavigationBar: BottomNavigationBar(
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         currentIndex: _controller.selectedIndex,
         onTap: (value) {
@@ -227,11 +170,11 @@ class _DashboardState extends State<Dashboard> {
         items: [
           BottomNavigationBarItem(
               icon: AppStyles.iconBg(context, data: Icons.home, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015), color: getColor(0)),
-              label: FFLocalizations.of(context).getText('fiha8uf5' /* Home */)),
+              label: FFLocalizations.of(context).getText('fiha8uf5' *//* Home *//*)),
           BottomNavigationBarItem(
               icon: AppStyles.iconBg(context,
                   data: Icons.add_chart_outlined, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015), color: getColor(1)),
-              label: FFLocalizations.of(context).getText('xn2nrgyp' /* Portfolio */)),
+              label: FFLocalizations.of(context).getText('xn2nrgyp' *//* Portfolio *//*)),
           BottomNavigationBarItem(
               icon: AppStyles.iconBg(context,
                   data: Icons.home,
@@ -242,12 +185,12 @@ class _DashboardState extends State<Dashboard> {
           BottomNavigationBarItem(
               icon:
                   AppStyles.iconBg(context, data: Icons.auto_graph, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015), color: getColor(3)),
-              label: FFLocalizations.of(context).getText('nkifu7jq' /* Proposal */)),
+              label: FFLocalizations.of(context).getText('nkifu7jq' *//* Proposal *//*)),
           BottomNavigationBarItem(
               icon: AppStyles.iconBg(context, data: Icons.face, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015), color: getColor(4)),
-              label: FFLocalizations.of(context).getText('w5wtcpj4' /* Profile */)),
+              label: FFLocalizations.of(context).getText('w5wtcpj4' *//* Profile *//*)),
         ],
-      ),
+      ),*/
       body: PageView(
         controller: pagingController,
         physics: const NeverScrollableScrollPhysics(),
@@ -261,6 +204,11 @@ class _DashboardState extends State<Dashboard> {
         onPageChanged: (page) {},
       ),
     );
+  }
+
+  void changeTab(int i) {
+    _controller.changeIndex(i);
+    pagingController.animateToPage(i, duration: Duration(microseconds: 500), curve: Curves.bounceInOut);
   }
 
 
@@ -278,12 +226,11 @@ class _DashboardState extends State<Dashboard> {
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     boxShadow: AppStyles.shadow(),
                     borderRadius: BorderRadius.circular(rSize * 0.01)),
-                margin: EdgeInsets.only(bottom: rSize * 0.11, left: rSize * 0.030, right: rSize * 0.030),
+                margin: EdgeInsets.only(bottom: rSize * 0.11, left: rSize * 0.015, right: rSize * 0.015),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: rSize * 0.010, horizontal: rSize * 0.020),
+                  padding: EdgeInsets.symmetric(vertical: rSize * 0.010),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       actionMenuItem(
                         context,
@@ -367,22 +314,24 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget actionMenuItem(BuildContext context, Widget image, String label, {required void Function() onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          image,
-          Text(
-            label,
-            maxLines: 1,
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  color: FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize * 0.016,
-                  fontWeight: FontWeight.w600,
-                ),
-          )
-        ],
+  Widget actionMenuItem(BuildContext context, Widget image, String label, {required void Function() onTap, int i=-1}) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Column(
+          children: [
+            image,
+            Text(
+              label,
+              maxLines: 1,
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    color: i==_controller.selectedIndex?FlutterFlowTheme.of(context).primary:FlutterFlowTheme.of(context).customColor4,
+                    fontSize: rSize * 0.016,
+                    fontWeight: FontWeight.w600,
+                  ),
+            )
+          ],
+        ),
       ),
     );
   }
