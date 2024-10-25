@@ -201,7 +201,7 @@ class _LoginState extends State<Login> {
                       ],
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).viewInsets.bottom + rSize * 0.025,
+                      height: rSize * 0.025,
                     ),
                     Align(
                       alignment: Alignment.center,
@@ -244,7 +244,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     SizedBox(
-                      height: rSize * 0.01,
+                      height: MediaQuery.of(context).viewInsets.bottom + rSize * 0.01,
                     ),
                   ],
                 ))
