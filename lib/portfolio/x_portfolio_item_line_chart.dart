@@ -1,4 +1,5 @@
 // Automatic FlutterFlow imports
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
@@ -48,7 +49,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   final barsSpace = rSize * 0.010;
   final groupsSpace = rSize * 0.100;
   final leftTitleReservedSize = rSize * 0.046;
-  final columnStart = rSize * 0.099;
+  final columnStart = 99;
 
   late double touchedValue;
   final color = Color(0xFF3D51A2);
@@ -109,6 +110,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
       final additionPercent = widget.additionPercents[i];
       final valueToShow = double.tryParse('${additionPercent}') ?? 0;
       final valueToShowStr = valueToShow == valueToShow.roundToDouble() ? '${valueToShow.round()}' : '$additionPercent';
+      print('y values :: ${columnStart + additionPercent + (additionPercent > 0 ? additionalValue : -additionalValue)}');
       annotations.add(
         CartesianChartAnnotation(
           region: AnnotationRegion.plotArea,
@@ -210,7 +212,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
             ),
             primaryYAxis: NumericAxis(
               labelFormat: '{value}%',
-              axisLine: AxisLine(color: FlutterFlowTheme.of(context).primaryText, width: 0.5),
+              axisLine: AxisLine(color: FlutterFlowTheme.of(context).primaryText, width: 0.5,),
               interval: getYAxisInterval(),
               majorGridLines: MajorGridLines(
                 color: Colors.grey.withOpacity(0.5), // Color of horizontal grid lines
@@ -274,6 +276,27 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               'zomhasya' /* Performance */,
             ) ||
         widget.sectionName == null;
+  }
+
+  lineChart(){
+    List<ChartModel> list = List<ChartModel>.generate(
+      widget.listY.length,
+          (index) => ChartModel(
+          widget.listY[index] <= 0 ? 0 : widget.listY[index], widget.xLabels[index], widget.listAmount.isEmpty ? 0 : widget.listAmount[index]),
+    );
+    return SfCartesianChart(
+        primaryXAxis: CategoryAxis(isVisible: true,),
+        primaryYAxis: NumericAxis(isVisible: true,),
+        tooltipBehavior: _tooltip,
+        series: <CartesianSeries<ChartModel, String>>[
+          BoxAndWhiskerSeries<ChartModel, String>(
+              dataSource: list,boxPlotMode: BoxPlotMode.exclusive,
+              xValueMapper: (ChartModel data, _) => data.label,
+              yValueMapper: (ChartModel data, _) => [data.percentage],
+
+              name: 'Gold',dataLabelSettings: DataLabelSettings(angle: 45, isVisible: true),
+              color: Color.fromRGBO(8, 142, 255, 1))
+        ]);
   }
 
   circularChart() {

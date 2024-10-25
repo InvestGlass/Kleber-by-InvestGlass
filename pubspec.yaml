@@ -43,10 +43,10 @@ dependencies:
   google_fonts: ^6.2.1
   shared_preferences: ^2.2.3
   fl_chart: ^0.68.0
-  syncfusion_flutter_charts: ^26.2.7
+  syncfusion_flutter_charts: ^27.1.56
   swipe_cards: ^2.0.0+1
   dropdown_search: ^5.0.6
-  syncfusion_flutter_datepicker: ^26.2.5
+  syncfusion_flutter_datepicker: ^27.1.56
   image_picker: ^1.1.2
   infinite_scroll_pagination: ^4.0.0
   video_player: ^2.9.1
@@ -54,7 +54,7 @@ dependencies:
   webview_flutter_plus:
   flutter_html:
   qr_flutter:
-  syncfusion_flutter_pdfviewer: ^26.2.7
+  syncfusion_flutter_pdfviewer: ^27.1.56
   path_provider:
   auto_size_text:
   font_awesome_flutter:

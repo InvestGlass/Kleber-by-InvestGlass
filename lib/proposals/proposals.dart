@@ -218,10 +218,8 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                         item.advisor?.name ?? '',
                                         textAlign: TextAlign.end,
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                                               color: FlutterFlowTheme.of(context).primaryText,
                                               fontSize: rSize * 0.016,
-                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                             ),
                                       ),
@@ -285,10 +283,8 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                   'prtogarh' /* I read the documents and agree... */,
                                                 ),
                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                                                       color: FlutterFlowTheme.of(context).customColor4,
                                                       fontSize: rSize * 0.016,
-                                                      letterSpacing: 0.0,
                                                       fontWeight: FontWeight.normal,
                                                     ),
                                               ),
