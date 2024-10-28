@@ -231,16 +231,17 @@ class _ChatHistoryState extends State<ChatHistory> {
                         margin: EdgeInsets.symmetric(horizontal: rSize * 0.01),
                         decoration: BoxDecoration(
                           color: isMe(item)
-                              ? FlutterFlowTheme.of(context).info
-                              : FlutterFlowTheme.of(context)
-                                  .secondary
-                                  .withOpacity(0.2),
+                              ? Color(0XFF1b88fb)
+                              : Colors.transparent,
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(rSize * 0.008),
-                            bottomRight: Radius.circular(rSize * 0.008),
-                            topLeft: const Radius.circular(0.0),
+                            bottomRight: Radius.circular(isMe(item)?0.0:rSize * 0.008),
+                            topLeft: Radius.circular(!isMe(item)?0.0:rSize * 0.008),
                             topRight: Radius.circular(rSize * 0.008),
                           ),
+                          border: Border.all(color: isMe(item)
+                              ? Colors.transparent
+                              : FlutterFlowTheme.of(context).customColor4,width: 0.5)
                         ),
                         child: Padding(
                           padding: EdgeInsets.all(rSize * 0.012),
@@ -251,7 +252,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                                 .bodyMedium
                                 .override(
                                   color:
-                                      FlutterFlowTheme.of(context).customColor4,
+                      isMe(item)?FlutterFlowTheme.of(context).info:Color(0XFF747474),
                                   fontWeight: FontWeight.w500,
                                   fontSize: rSize * 0.016,
                                 ),

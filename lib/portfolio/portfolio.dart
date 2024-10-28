@@ -87,6 +87,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                       child: Padding(
                         padding: EdgeInsets.only(top: rSize * 0.015),
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
                                 child: Text(
@@ -204,17 +205,29 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                          item.sectionName ??
-                                              FFLocalizations.of(context).getText(
-                                                'zomhasya' /* Performance */,
-                                              ),
-                                        style: FlutterFlowTheme.of(context).displaySmall.override(
-                                          color: FlutterFlowTheme.of(context).customColor4,
-                                          fontSize: rSize * 0.016,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),),
+                                      Row(
+                                        children: [
+                                          Text(
+                                              FFLocalizations.of(context).getText('group_By',),
+                                            style: FlutterFlowTheme.of(context).displaySmall.override(
+                                              color: FlutterFlowTheme.of(context).customColor4,
+                                              fontSize: rSize * 0.016,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),),
+                                          Text(
+                                              ' ${item.sectionName ??
+                                                  FFLocalizations.of(context).getText(
+                                                    'zomhasya' /* Performance */,
+                                                  )}',
+                                            style: FlutterFlowTheme.of(context).displaySmall.override(
+                                              color: FlutterFlowTheme.of(context).primaryText,
+                                              fontSize: rSize * 0.016,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),),
+                                        ],
+                                      ),
                                       popupMenu(ontap: (i) {
                                         pagingController.itemList![index].sectionName = getName(context, i);
                                         setState(() {});
@@ -230,17 +243,42 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                             FFLocalizations.of(context).getText(
                                               'zomhasya' /* Performance */,
                                             ),
-                                    child: XPortfolioItemLineChart(
-                                      width: MediaQuery.sizeOf(context).width * 1,
-                                      height: rSize * 0.300,
-                                      xLabels: item.performanceChart!.map((e) => e.date.toString().split(' ')[0]).toList(),
-                                      listY: item.performanceChart!.map((e) => e.amount!).toList(),
-                                      customWidth: item.performanceChart!.map((e) => e.amount).toList().length * 100,
-                                      additionPercents: item.performanceChart!.map((e) => e.twrPercentage ?? 0.0).toList(),
-                                      sectionName: item.sectionName ??
-                                          FFLocalizations.of(context).getText(
-                                            'zomhasya' /* Performance */,
-                                          ),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              '${FFLocalizations.of(context).getText(
+                                                'hdgv1exn' /* Date */,
+                                              )} :- ',
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                fontSize: rSize * 0.016,
+                                                color: FlutterFlowTheme.of(context).customColor4,
+                                              ),
+                                            ),
+                                            Text(
+                                              DateFormat('MMM dd yyyy').format(DateTime.now()),
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                fontSize: rSize * 0.016,
+                                                color: FlutterFlowTheme.of(context).primary,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: rSize*0.01,),
+                                        XPortfolioItemLineChart(
+                                          width: MediaQuery.sizeOf(context).width * 1,
+                                          height: rSize * 0.300,
+                                          xLabels: item.performanceChart!.map((e) => e.date.toString().split(' ')[0]).toList(),
+                                          listY: item.performanceChart!.map((e) => e.amount!).toList(),
+                                          customWidth: item.performanceChart!.map((e) => e.amount).toList().length * 100,
+                                          additionPercents: item.performanceChart!.map((e) => e.twrPercentage ?? 0.0).toList(),
+                                          sectionName: item.sectionName ??
+                                              FFLocalizations.of(context).getText(
+                                                'zomhasya' /* Performance */,
+                                              ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   Visibility(
@@ -251,6 +289,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                     child: XPortfolioItemLineChart(
                                       width: MediaQuery.sizeOf(context).width * 1,
                                       height: rSize * 0.300,
+                                      item: item,
                                       xLabels: item.assetClassChart!.map((e) => e.assetClass ?? '').toList(),
                                       listY: item.assetClassChart!.map((e) => e.amount1!).toList(),
                                       listAmount: item.assetClassChart!.map((e) => e.amount3!).toList(),
@@ -619,10 +658,11 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
       ],
       offset: const Offset(-5, 10),
       shadowColor: Colors.black,
-      elevation: 2,
+      elevation: 2,tooltip: '',
       constraints: BoxConstraints(maxWidth: rSize * 0.13),
       child: AppStyles.iconBg(
-        context,
+        context,customIcon: Image.asset('assets/360-degree.png',color:FlutterFlowTheme.of(context).customColor4 ,),
+        padding: EdgeInsets.all(rSize*0.008),
         data: FontAwesomeIcons.chartBar,
         color: FlutterFlowTheme.of(context).customColor4,
         size: rSize * 0.02,

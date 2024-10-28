@@ -432,6 +432,7 @@ var viMap={
   "want_to_logout": "Bạn có chắc chắn muốn đăng xuất không?",
   "portfolio_msg": "Vui lòng chọn danh mục đầu tư",
   "limit_price_msg": "Vui lòng nhập giá giới hạn",
+  "group_By": "Nhập tên bảo mật",
   "wl1ownor": "Cài đặt tài khoản",
   "afxtmzhw": "Đổi mật khẩu",
   "communication_support": 'Mã ủy quyền 721864 để liên lạc hỗ trợ',

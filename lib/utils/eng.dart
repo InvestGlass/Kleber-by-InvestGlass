@@ -406,6 +406,7 @@ var engMap={
   "57fz6g1m": "Amount Invested",
   "rpfp7xvs": "Cash Available",
   "zomhasya": "Performance",
+  "group_By": "Portfolio grouped by",
   "7h0zeqv0": "Asset Class",
   "o00oeypg": "Currency",
   "6u2u1x9z": "Health Alerts",

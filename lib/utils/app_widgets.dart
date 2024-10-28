@@ -479,7 +479,8 @@ class AppWidgets {
     );
   }
 
-  static RichText buildRichText(BuildContext context, String value) {
+  static RichText buildRichText(BuildContext context, String value,{double? fontSize}) {
+    double size=fontSize??rSize * 0.016;
     return RichText(
       text: TextSpan(
         children: [
@@ -487,7 +488,7 @@ class AppWidgets {
             text: (value.split(' ')[1]).split('.')[0],
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   color: FlutterFlowTheme.of(context).primaryText,
-                  fontSize: rSize * 0.016,
+                  fontSize: size,
                   fontWeight: FontWeight.w800,
                 ),
           ),
@@ -495,7 +496,7 @@ class AppWidgets {
             text: '.${(value.split(' ')[1]).split('.')[1]}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   color: FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize * 0.016,
+                  fontSize: size,
                   fontWeight: FontWeight.w800,
                 ),
           ),
@@ -503,7 +504,7 @@ class AppWidgets {
             text: ' ${value.split(' ')[0]}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   color: FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize * 0.016,
+                  fontSize: size,
                   fontWeight: FontWeight.normal,
                 ),
           ),
@@ -512,7 +513,7 @@ class AppWidgets {
               text: ' ${value.split(' ')[2]}',
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     color: FlutterFlowTheme.of(context).primaryText,
-                    fontSize: rSize * 0.016,
+                    fontSize: size,
                     fontWeight: FontWeight.w800,
                   ),
             ),
@@ -522,7 +523,7 @@ class AppWidgets {
               text: value.split(' ')[3],
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     color: FlutterFlowTheme.of(context).primaryText,
-                    fontSize: rSize * 0.016,
+                    fontSize: size,
                     fontWeight: FontWeight.w800,
                   ),
             ),
