@@ -306,6 +306,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                     child: XPortfolioItemLineChart(
                                       width: MediaQuery.sizeOf(context).width * 1,
                                       height: rSize * 0.300,
+                                      item: item,
                                       xLabels: item.currenciesChart!.map((e) => e.assetClass ?? '').toList(),
                                       listY: item.currenciesChart!.map((e) => e.amount1!).toList(),
                                       listAmount: item.currenciesChart!.map((e) => e.amount3!).toList(),

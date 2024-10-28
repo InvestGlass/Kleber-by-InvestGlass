@@ -10,8 +10,16 @@ import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
 import 'package:provider/provider.dart';
 
+import '../dashboard/dashboard_controller.dart';
+import '../documents/documents_controller.dart';
+import '../home/home_controller.dart';
+import '../login/login_controller.dart';
 import '../login/on_boarding_page_widget.dart';
 import '../main_controller.dart';
+import '../market/market_controller.dart';
+import '../portfolio/portfolio_controller.dart';
+import '../proposals/proposal_controller.dart';
+import '../securitySelection/security_selection_controller.dart';
 import '../utils/app_styles.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
@@ -356,7 +364,27 @@ class _ProfileState extends State<Profile> {
                                     child: InkWell(
                                         onTap: () {
                                           SharedPrefUtils.instance.logout();
-                                          CommonFunctions.navigate(context, OnBoardingPageWidget(), removeAllScreensFromStack: true);
+                                          Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => MultiProvider(
+                                                providers: [
+                                                  ChangeNotifierProvider(create: (_) => MainController()),
+                                                  ChangeNotifierProvider(create: (_) => LoginController()),
+                                                  ChangeNotifierProvider(create: (_) => DashboardController()),
+                                                  ChangeNotifierProvider(create: (_) => PortfolioController()),
+                                                  ChangeNotifierProvider(create: (_) => ProfileController()),
+                                                  ChangeNotifierProvider(create: (_) => ProposalController()),
+                                                  ChangeNotifierProvider(create: (_) => MarketController()),
+                                                  ChangeNotifierProvider(create: (_) => DocumentsController()),
+                                                  ChangeNotifierProvider(create: (_) => HomeController()),
+                                                  ChangeNotifierProvider(create: (_) => SecuritySelectionController()),
+                                                ],
+                                                child: OnBoardingPageWidget(),
+                                              ),
+                                            ),
+                                                (Route<dynamic> route) => false, // Clear backstack
+                                          );
                                         },
                                         child: AppWidgets.btn(
                                             context,
