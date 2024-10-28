@@ -67,7 +67,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 hint: FFLocalizations.of(context).getText(
                   '729kp7ui' /* Your current password */,
                 ),
-                focusColor: FlutterFlowTheme.of(context).customColor4,
+                focusColor: FlutterFlowTheme.of(context).alternate,
                 suffix: eyeIcon(context, _notifier.showCurrentPwd, () {
                   _notifier.changeCurrentPwdVisibilityStatus();
                 }),
@@ -107,7 +107,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 suffix: eyeIcon(context, _notifier.showNewPwd, () {
                   _notifier.changeNewPwdVisibilityStatus();
                 }),
-                focusColor: FlutterFlowTheme.of(context).customColor4,
+                focusColor: FlutterFlowTheme.of(context).alternate,
                 labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
                       letterSpacing: 0.0,
                     ),
@@ -139,7 +139,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   hint: FFLocalizations.of(context).getText(
                     'lz5cj3qp' /* Confirm new password */,
                   ),
-                  focusColor: FlutterFlowTheme.of(context).customColor4,
+                  focusColor: FlutterFlowTheme.of(context).alternate,
                   suffix: eyeIcon(context, _notifier.showConfirmNewPwd, () {
                     _notifier.changeConfirmNewPwdVisibilityStatus();
                   })),

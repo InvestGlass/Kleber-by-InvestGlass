@@ -74,7 +74,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
           boxShadow: AppStyles.shadow(),
           borderRadius: BorderRadius.circular(rSize*0.01)
       ),
-      margin: EdgeInsets.only(bottom: rSize*0.01),
+      margin: EdgeInsets.only(bottom: rSize*0.01,left: rSize * 0.015,right: rSize * 0.015),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

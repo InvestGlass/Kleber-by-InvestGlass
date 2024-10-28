@@ -37,112 +37,109 @@ class _UploadDocumentState extends State<UploadDocument> {
             't2nv4kvj' /* Upload*/,
           ),centerTitle: true,
           leading: AppWidgets.backArrow(context)),
-      body: Container(
-        decoration: AppStyles.commonBg(context),
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.02),
-          children: [
-            selectionCell(
-                title: FFLocalizations.of(context).getText(
-                  'him7gi6o' /* File */,
-                ),
-                content: _notifier.image != null
-                    ? _notifier.image!.name
-                    : FFLocalizations.of(context).getText(
-                        'jzvxxaxu' /* Click to upload your document */,
-                      ),
-                onSelectTap: () {
-                  AppWidgets.openMediaSelectionBottomSheet(
-                    context,
-                    onCameraClick: () async {
-                      final ImagePicker picker = ImagePicker();
-                      await picker.pickImage(source: ImageSource.camera).then(
-                        (value) {
-                          _notifier.selectImage(value);
-                          Navigator.pop(context);
-                        },
-                      );
-                    },
-                    onFileClick: () async {
-                      final ImagePicker picker = ImagePicker();
-                      final XFile? image = await picker.pickMedia();
-                      _notifier.selectImage(image);
-                      Navigator.pop(context);
-                    },
-                  );
-                },
-                onCloseTap: () {
-                  _notifier.removeSelectedImage();
-                },
-                isSelected: _notifier.image != null),
-            if (_notifier.errorMsg.isNotEmpty) ...{
-              SizedBox(
-                height: rSize * 0.01,
+      body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.02),
+        children: [
+          selectionCell(
+              title: FFLocalizations.of(context).getText(
+                'him7gi6o' /* File */,
               ),
-              Text(
-                _notifier.errorMsg,
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      color: FlutterFlowTheme.of(context).customColor3,
-                      fontSize: rSize * 0.016,
+              content: _notifier.image != null
+                  ? _notifier.image!.name
+                  : FFLocalizations.of(context).getText(
+                      'jzvxxaxu' /* Click to upload your document */,
                     ),
-              ),
-            },
-            SizedBox(
-              height: rSize * 0.02,
-            ),
-            Text(
-              FFLocalizations.of(context).getText(
-                'mw4a4y0a' /* Description */,
-              ),
-              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontSize: rSize * 0.02,
-                    color: FlutterFlowTheme.of(context).customColor4,
-                    fontWeight: FontWeight.w500,
-                  ),
-            ),
+              onSelectTap: () {
+                AppWidgets.openMediaSelectionBottomSheet(
+                  context,
+                  onCameraClick: () async {
+                    final ImagePicker picker = ImagePicker();
+                    await picker.pickImage(source: ImageSource.camera).then(
+                      (value) {
+                        _notifier.selectImage(value);
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                  onFileClick: () async {
+                    final ImagePicker picker = ImagePicker();
+                    final XFile? image = await picker.pickMedia();
+                    _notifier.selectImage(image);
+                    Navigator.pop(context);
+                  },
+                );
+              },
+              onCloseTap: () {
+                _notifier.removeSelectedImage();
+              },
+              isSelected: _notifier.image != null),
+          if (_notifier.errorMsg.isNotEmpty) ...{
             SizedBox(
               height: rSize * 0.01,
             ),
-            TextFormField(
-              minLines: 3,
-              maxLines: 3,
-              style: FlutterFlowTheme.of(context).bodyLarge.override(
-                  color:FlutterFlowTheme.of(context).customColor4
-              ),
-              controller: _notifier.descController,
-              textAlign: TextAlign.start,
-              decoration: AppStyles.inputDecoration(context),
+            Text(
+              _notifier.errorMsg,
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    color: FlutterFlowTheme.of(context).customColor3,
+                    fontSize: rSize * 0.016,
+                  ),
             ),
-            SizedBox(
-              height: rSize * 0.02,
+          },
+          SizedBox(
+            height: rSize * 0.02,
+          ),
+          Text(
+            FFLocalizations.of(context).getText(
+              'mw4a4y0a' /* Description */,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    if (!isButtonDisabled()) {
-                      _notifier.uploadDoc(context);
-                    }
-                  },
-                  child: _notifier.image==null?AppWidgets.btnWithoutGradiant(
-                      context,
-                      FFLocalizations.of(context).getText(
-                        't2nv4kvj' /* Upload */,
-                      ),
-                    FlutterFlowTheme.of(context).customColor4,
-                      horizontalPadding: rSize * 0.03,):AppWidgets.btn(
-                      context,
-                      FFLocalizations.of(context).getText(
-                        't2nv4kvj' /* Upload */,
-                      ),
-                      textColor: Colors.white,
-                      horizontalPadding: rSize * 0.03,),
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontSize: rSize * 0.02,
+                  color: FlutterFlowTheme.of(context).customColor4,
+                  fontWeight: FontWeight.w500,
                 ),
-              ],
-            )
-          ],
-        ),
+          ),
+          SizedBox(
+            height: rSize * 0.01,
+          ),
+          TextFormField(
+            minLines: 3,
+            maxLines: 3,
+            style: FlutterFlowTheme.of(context).bodyLarge.override(
+                color:FlutterFlowTheme.of(context).customColor4
+            ),
+            controller: _notifier.descController,
+            textAlign: TextAlign.start,
+            decoration: AppStyles.inputDecoration(context),
+          ),
+          SizedBox(
+            height: rSize * 0.02,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  if (!isButtonDisabled()) {
+                    _notifier.uploadDoc(context);
+                  }
+                },
+                child: _notifier.image==null?AppWidgets.btnWithoutGradiant(
+                    context,
+                    FFLocalizations.of(context).getText(
+                      't2nv4kvj' /* Upload */,
+                    ),
+                  FlutterFlowTheme.of(context).customColor4,
+                    horizontalPadding: rSize * 0.03,):AppWidgets.btn(
+                    context,
+                    FFLocalizations.of(context).getText(
+                      't2nv4kvj' /* Upload */,
+                    ),
+                    textColor: Colors.white,
+                    horizontalPadding: rSize * 0.03,),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

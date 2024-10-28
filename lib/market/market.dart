@@ -62,162 +62,159 @@ class _MarketState extends State<Market> {
   @override
   Widget build(BuildContext context) {
     _notifier = Provider.of<MarketController>(context);
-    return Container(
-      decoration: AppStyles.commonBg(context),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppWidgets.appBar(
-            context,
-            centerTitle: true,
-            leading: AppWidgets.backArrow(context),
-            FFLocalizations.of(context).getText(
-              'o5wm04m6' /* Market */,
-            )),
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: rSize * 0.015,
-            vertical: rSize * 0.015,
-          ),
-          child: Column(
-            // padding: EdgeInsets.symmetric(horizontal: rSize*0.015,vertical: rSize*0.01),
-            // physics: const NeverScrollableScrollPhysics(),
-            children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => openFilterDialog(context),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondaryBackground,
-                          boxShadow: AppStyles.shadow(),
-                          borderRadius: BorderRadius.circular(rSize*0.01)
-                      ),
-                      height: rSize * 0.05,
-                      width: rSize * 0.05,
-                      child: Icon(
-                        Icons.filter_alt_outlined,
-                        size: rSize * 0.025,
-                        color: FlutterFlowTheme.of(context).customColor4,
-                      ),
+    return Scaffold(
+      appBar: AppWidgets.appBar(
+          context,
+          centerTitle: true,
+          leading: AppWidgets.backArrow(context),
+          FFLocalizations.of(context).getText(
+            'o5wm04m6' /* Market */,
+          )),
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: rSize * 0.015,
+        ),
+        child: Column(
+          // padding: EdgeInsets.symmetric(horizontal: rSize*0.015,vertical: rSize*0.01),
+          // physics: const NeverScrollableScrollPhysics(),
+          children: [
+            Row(
+              children: [
+                SizedBox(width: rSize * 0.015,),
+                GestureDetector(
+                  onTap: () => openFilterDialog(context),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        boxShadow: AppStyles.shadow(),
+                        borderRadius: BorderRadius.circular(rSize*0.01)
                     ),
-                  ),
-                  SizedBox(
-                    width: rSize * 0.010,
-                  ),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondaryBackground,
-                          boxShadow: AppStyles.shadow(),
-                          borderRadius: BorderRadius.circular(rSize*0.01)
-                      ),
-                      child: TextField(
-                        controller: _notifier.searchController,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                              fontWeight: FontWeight.w500,
-                          color: FlutterFlowTheme.of(context).customColor4
-                            ),
-                        decoration: AppStyles.inputDecoration(context,hint: FFLocalizations.of(context).getText(
-                          'wzls4zjf' /* Type security name */,
-                        ),prefix: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: rSize*0.015),
-                          child: Icon(Icons.search,size: rSize*0.025,color: FlutterFlowTheme.of(context).customColor4,),
-                        ),contentPadding: EdgeInsets.symmetric(vertical: rSize*0.017,horizontal: rSize*0.020),focusColor: Colors.transparent),
-                        onChanged: (value) {
-                          if (_debounce?.isActive ?? false) _debounce?.cancel();
-                          _debounce = Timer(const Duration(milliseconds: 500), () async {
-                            pageKey = 1;
-                            _notifier.refresh();
-                          });
-                        },
-                      ),
+                    height: rSize * 0.05,
+                    width: rSize * 0.05,
+                    child: Icon(
+                      Icons.filter_alt_outlined,
+                      size: rSize * 0.025,
+                      color: FlutterFlowTheme.of(context).customColor4,
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: rSize * 0.01,
-              ),
-              Flexible(
-                child: RefreshIndicator(
-                  onRefresh: () async {
-                    pageKey = 1;
-                    _notifier.pagingController.refresh();
-                  },
-                  child: PagedListView<int, MarketListModel>(
-                    pagingController: _notifier.pagingController,
-                    // shrinkWrap: true,
-                    builderDelegate: PagedChildBuilderDelegate<MarketListModel>(noItemsFoundIndicatorBuilder: (context) {
-                      return AppWidgets.emptyView(
-                          FFLocalizations.of(context).getText(
-                            'no_security_found' /* No security found */,
-                          ),
-                          context);
-                    }, itemBuilder: (context, item, index) {
-                      return MarketListItemWidget(
-                        // key: Key('Keyery_${index}_of_${realLength}'),
-                        data: item,
-                      );
-                      /*return GestureDetector(
-                        onTap: () {
-                          CommonFunctions.navigate(
-                              context,
-                              VideoPlayerItem(
-                                item.videoUrl ?? '',
-                                // onPlayStatusChanged: (bool) {},
-                              ));
-                        },
-                        child: Card(
-                          color: Colors.white,
-                          margin: EdgeInsets.all(5),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20), // Change this value for different corner radii
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                // width: double.infinity,
-                                height: rSize * 0.25,
-                                decoration: BoxDecoration(color: AppColors.kHint, borderRadius: BorderRadius.circular(15)),
-                                alignment: Alignment.center,
-                                child: displayFile(item, index),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(rSize * 0.015),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      item.assetClassName ?? '',
-                                      style: AppStyles.c3C496CW500S16,
-                                    ),
-                                    Text(
-                                      item.name ?? '',
-                                      style: AppStyles.c656262W200S14.copyWith(fontSize: AppStyles.px12),
-                                      // overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                    ),
-                                    SizedBox(
-                                      height: rSize * 0.015,
-                                    ),
-                                    GestureDetector(
-                                        onTap: () => CommonFunctions.navigate(context, AddTransaction()),
-                                        child: AppWidgets.btn(context, 'Add Transaction'))
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );*/
-                    }),
                   ),
                 ),
+                SizedBox(
+                  width: rSize * 0.010,
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        boxShadow: AppStyles.shadow(),
+                        borderRadius: BorderRadius.circular(rSize*0.01)
+                    ),
+                    child: TextField(
+                      controller: _notifier.searchController,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+
+                            fontWeight: FontWeight.w500,
+                        color: FlutterFlowTheme.of(context).customColor4
+                          ),
+                      decoration: AppStyles.inputDecoration(context,hint: FFLocalizations.of(context).getText(
+                        'wzls4zjf' /* Type security name */,
+                      ),prefix: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: rSize*0.015),
+                        child: Icon(Icons.search,size: rSize*0.025,color: FlutterFlowTheme.of(context).customColor4,),
+                      ),contentPadding: EdgeInsets.symmetric(vertical: rSize*0.017,horizontal: rSize*0.020),focusColor: Colors.transparent),
+                      onChanged: (value) {
+                        if (_debounce?.isActive ?? false) _debounce?.cancel();
+                        _debounce = Timer(const Duration(milliseconds: 500), () async {
+                          pageKey = 1;
+                          _notifier.refresh();
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(width: rSize * 0.015,)
+              ],
+            ),
+            SizedBox(
+              height: rSize * 0.01,
+            ),
+            Flexible(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  pageKey = 1;
+                  _notifier.pagingController.refresh();
+                },
+                child: PagedListView<int, MarketListModel>(
+                  pagingController: _notifier.pagingController,
+                  // shrinkWrap: true,
+                  builderDelegate: PagedChildBuilderDelegate<MarketListModel>(noItemsFoundIndicatorBuilder: (context) {
+                    return AppWidgets.emptyView(
+                        FFLocalizations.of(context).getText(
+                          'no_security_found' /* No security found */,
+                        ),
+                        context);
+                  }, itemBuilder: (context, item, index) {
+                    return MarketListItemWidget(
+                      // key: Key('Keyery_${index}_of_${realLength}'),
+                      data: item,
+                    );
+                    /*return GestureDetector(
+                      onTap: () {
+                        CommonFunctions.navigate(
+                            context,
+                            VideoPlayerItem(
+                              item.videoUrl ?? '',
+                              // onPlayStatusChanged: (bool) {},
+                            ));
+                      },
+                      child: Card(
+                        color: Colors.white,
+                        margin: EdgeInsets.all(5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20), // Change this value for different corner radii
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              // width: double.infinity,
+                              height: rSize * 0.25,
+                              decoration: BoxDecoration(color: AppColors.kHint, borderRadius: BorderRadius.circular(15)),
+                              alignment: Alignment.center,
+                              child: displayFile(item, index),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(rSize * 0.015),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    item.assetClassName ?? '',
+                                    style: AppStyles.c3C496CW500S16,
+                                  ),
+                                  Text(
+                                    item.name ?? '',
+                                    style: AppStyles.c656262W200S14.copyWith(fontSize: AppStyles.px12),
+                                    // overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ),
+                                  SizedBox(
+                                    height: rSize * 0.015,
+                                  ),
+                                  GestureDetector(
+                                      onTap: () => CommonFunctions.navigate(context, AddTransaction()),
+                                      child: AppWidgets.btn(context, 'Add Transaction'))
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );*/
+                  }),
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

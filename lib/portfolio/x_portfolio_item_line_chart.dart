@@ -1,4 +1,6 @@
 // Automatic FlutterFlow imports
+import 'dart:io';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -390,21 +392,23 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                   name: 'Gold')
             ]),
         Positioned(
-          left: rSize*0.09,
-          child: Column(
-            children: [
-              Text(
-                widget.item?.title??'',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  fontSize: rSize * 0.014,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  fontWeight: FontWeight.w500,
+          left: getPosition(),
+          child: Center(
+            child: Column(
+              children: [
+                Text(
+                  widget.item?.title??'',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontSize: isTablet?rSize * 0.014:rSize * 0.01,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              AppWidgets.buildRichText(context, widget.item?.amountInvested??'',fontSize: rSize * 0.012)
-            ],
+                AppWidgets.buildRichText(context, widget.item?.amountInvested??'',fontSize: isTablet?rSize * 0.014:rSize * 0.01)
+              ],
+            ),
           ),
         )
       ],
@@ -430,6 +434,22 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     int g = (darkBlue.green + (lightBlue.green - darkBlue.green) * ratio).round();
     int b = (darkBlue.blue + (lightBlue.blue - darkBlue.blue) * ratio).round();
     return Color.fromARGB(255, r, g, b);
+  }
+
+  getPosition() {
+    if (Platform.isAndroid) {
+      if (isTablet) {
+        return rSize*0.09;
+      }else{
+        return rSize*0.05;
+      }
+    }else{
+      if (isTablet) {
+        return rSize*0.13;
+      }else{
+        return rSize*0.05;
+      }
+    }
   }
 }
 

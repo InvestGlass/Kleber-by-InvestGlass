@@ -327,7 +327,6 @@ class _DashboardState extends State<Dashboard> {
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     color: i==_controller.selectedIndex?FlutterFlowTheme.of(context).primary:FlutterFlowTheme.of(context).customColor4,
                     fontSize: rSize * 0.016,
-                    fontWeight: FontWeight.w600,
                   ),
             )
           ],

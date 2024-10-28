@@ -40,7 +40,6 @@ class _ProfileState extends State<Profile> {
     _notifier = Provider.of<ProfileController>(context);
     _mainNotifier = Provider.of<MainController>(context);
     return Scaffold(
-      backgroundColor: Colors.transparent,
       bottomNavigationBar: Wrap(
         alignment: WrapAlignment.center,
         children: [
@@ -300,7 +299,7 @@ class _ProfileState extends State<Profile> {
                       color: FlutterFlowTheme.of(context).customColor4,
                     ),
               )),
-              AppWidgets.doubleBack(context)
+              RotatedBox(quarterTurns: 2, child: AppWidgets.doubleBack(context)),
             ],
           ),
         ),

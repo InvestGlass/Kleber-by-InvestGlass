@@ -54,7 +54,6 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
   Widget build(BuildContext context) {
     _notifier = Provider.of<PortfolioController>(context);
     return Scaffold(
-      backgroundColor: Colors.transparent,
       body: RefreshIndicator(
         onRefresh: () async {
           pageKey = 1;
@@ -126,7 +125,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                             SizedBox(
                               width: rSize * 0.015,
                             ),
-                            RotatedBox(quarterTurns: _notifier.selectedIndex == index ? 1 : 4, child: AppWidgets.doubleBack(context))
+                            RotatedBox(quarterTurns: _notifier.selectedIndex == index ? 3 : 2, child: AppWidgets.doubleBack(context))
                           ],
                         ),
                       ),
@@ -306,7 +305,6 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                     child: XPortfolioItemLineChart(
                                       width: MediaQuery.sizeOf(context).width * 1,
                                       height: rSize * 0.300,
-                                      item: item,
                                       xLabels: item.currenciesChart!.map((e) => e.assetClass ?? '').toList(),
                                       listY: item.currenciesChart!.map((e) => e.amount1!).toList(),
                                       listAmount: item.currenciesChart!.map((e) => e.amount3!).toList(),

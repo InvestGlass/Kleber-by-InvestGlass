@@ -428,11 +428,11 @@ class AppWidgets {
     );
   }
 
-  static doubleBack(BuildContext context) {
+  static doubleBack(BuildContext context,{int i=0}) {
     return Image.asset(
-      'assets/double_arrow.png',
-      height: rSize * 0.02,
-      color: FlutterFlowTheme.of(context).customColor4,
+      'assets/double_arrow2.png',
+      height: rSize * 0.025,
+      color: Colors.blue,
     );
   }
 
@@ -469,7 +469,6 @@ class AppWidgets {
     return AppBar(
       elevation: 0,
       actions: actions,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       toolbarHeight: rSize * 0.08,
       surfaceTintColor: Colors.transparent,
       leading: leading,

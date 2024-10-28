@@ -58,7 +58,6 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
   Widget build(BuildContext context) {
     _notifier = Provider.of<ProposalController>(context);
     return Scaffold(
-      backgroundColor: Colors.transparent,
       body: Column(
         children: [
           SizedBox(
@@ -201,7 +200,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                   SizedBox(
                                     width: rSize * 0.015,
                                   ),
-                                  RotatedBox(quarterTurns: _notifier.selectedIndex == index ? 1 : 4, child: AppWidgets.doubleBack(context)),
+                                  RotatedBox(quarterTurns: _notifier.selectedIndex == index ? 3 : 2, child: AppWidgets.doubleBack(context)),
                                 ],
                               ),
                             ),

@@ -65,64 +65,20 @@ abstract class FlutterFlowTheme {
   late Color customColor5;
   late Color bgTopGradient;
 
-  @Deprecated('Use displaySmallFamily instead')
-  String get title1Family => displaySmallFamily;
-  @Deprecated('Use displaySmall instead')
-  TextStyle get title1 => typography.displaySmall;
-  @Deprecated('Use headlineMediumFamily instead')
-  String get title2Family => typography.headlineMediumFamily;
-  @Deprecated('Use headlineMedium instead')
-  TextStyle get title2 => typography.headlineMedium;
-  @Deprecated('Use headlineSmallFamily instead')
-  String get title3Family => typography.headlineSmallFamily;
-  @Deprecated('Use headlineSmall instead')
-  TextStyle get title3 => typography.headlineSmall;
-  @Deprecated('Use titleMediumFamily instead')
-  String get subtitle1Family => typography.titleMediumFamily;
-  @Deprecated('Use titleMedium instead')
-  TextStyle get subtitle1 => typography.titleMedium;
-  @Deprecated('Use titleSmallFamily instead')
-  String get subtitle2Family => typography.titleSmallFamily;
-  @Deprecated('Use titleSmall instead')
-  TextStyle get subtitle2 => typography.titleSmall;
-  @Deprecated('Use bodyMediumFamily instead')
-  String get bodyText1Family => typography.bodyMediumFamily;
-  @Deprecated('Use bodyMedium instead')
-  TextStyle get bodyText1 => typography.bodyMedium;
-  @Deprecated('Use bodySmallFamily instead')
-  String get bodyText2Family => typography.bodySmallFamily;
-  @Deprecated('Use bodySmall instead')
-  TextStyle get bodyText2 => typography.bodySmall;
-
-  String get displayLargeFamily => typography.displayLargeFamily;
   TextStyle get displayLarge => typography.displayLarge;
-  String get displayMediumFamily => typography.displayMediumFamily;
   TextStyle get displayMedium => typography.displayMedium;
-  String get displaySmallFamily => typography.displaySmallFamily;
   TextStyle get displaySmall => typography.displaySmall;
-  String get headlineLargeFamily => typography.headlineLargeFamily;
   TextStyle get headlineLarge => typography.headlineLarge;
-  String get headlineMediumFamily => typography.headlineMediumFamily;
   TextStyle get headlineMedium => typography.headlineMedium;
-  String get headlineSmallFamily => typography.headlineSmallFamily;
   TextStyle get headlineSmall => typography.headlineSmall;
-  String get titleLargeFamily => typography.titleLargeFamily;
   TextStyle get titleLarge => typography.titleLarge;
-  String get titleMediumFamily => typography.titleMediumFamily;
   TextStyle get titleMedium => typography.titleMedium;
-  String get titleSmallFamily => typography.titleSmallFamily;
   TextStyle get titleSmall => typography.titleSmall;
-  String get labelLargeFamily => typography.labelLargeFamily;
   TextStyle get labelLarge => typography.labelLarge;
-  String get labelMediumFamily => typography.labelMediumFamily;
   TextStyle get labelMedium => typography.labelMedium;
-  String get labelSmallFamily => typography.labelSmallFamily;
   TextStyle get labelSmall => typography.labelSmall;
-  String get bodyLargeFamily => typography.bodyLargeFamily;
   TextStyle get bodyLarge => typography.bodyLarge;
-  String get bodyMediumFamily => typography.bodyMediumFamily;
   TextStyle get bodyMedium => typography.bodyMedium;
-  String get bodySmallFamily => typography.bodySmallFamily;
   TextStyle get bodySmall => typography.bodySmall;
 
   Typography get typography => ThemeTypography(this);

@@ -133,8 +133,9 @@ class _MyAppState extends State<MyApp> {
         Locale('vi'),
       ],
       theme: ThemeData(
-        brightness: Brightness.light,scaffoldBackgroundColor:FlutterFlowTheme.of(context).primaryBackground,
+        brightness: Brightness.light,scaffoldBackgroundColor:Colors.white,
         fontFamily: 'Roboto',
+        appBarTheme: AppBarTheme(color: Colors.white),
         scrollbarTheme: ScrollbarThemeData(
           thumbVisibility: WidgetStateProperty.all(false),
           trackVisibility: WidgetStateProperty.all(false),

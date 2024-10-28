@@ -184,7 +184,7 @@ class AppStyles {
       labelStyle: labelStyle,
       hintText: hint,
       hintStyle: FlutterFlowTheme.of(context)
-          .labelSmall
+          .bodyLarge
           .override(color: FlutterFlowTheme.of(context).customColor4),
       errorStyle: FlutterFlowTheme.of(context).bodyMedium.override(
             color: FlutterFlowTheme.of(context).customColor3,

@@ -59,7 +59,6 @@ class _ChatHistoryState extends State<ChatHistory> {
   Widget build(BuildContext context) {
     _notifier = Provider.of<ProposalController>(context);
     return Scaffold(
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       /*appBar: AppWidgets.appBar(context, widget.model.advisor?.name ?? '',
           leading: AppWidgets.backArrow(context),
           actions: [
