@@ -55,7 +55,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             ),
             TextFormField(
               controller: _notifier.currentPwdController,
-              style: FlutterFlowTheme.of(context).bodyLarge.override(color: FlutterFlowTheme.of(context).customColor4),
+              style: AppStyles.inputTextStyle(context),
               obscureText: !_notifier.showCurrentPwd,
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -96,7 +96,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   );
                 }
               },
-              style: FlutterFlowTheme.of(context).bodyLarge.override(color: FlutterFlowTheme.of(context).customColor4),
+              style: AppStyles.inputTextStyle(context),
               obscureText: !_notifier.showNewPwd,
               decoration: AppStyles.inputDecoration(
                 context,
@@ -123,8 +123,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             ),
             TextFormField(
               controller: _notifier.confirmNewPwdController,
-              style: FlutterFlowTheme.of(context).bodyLarge.override(color: FlutterFlowTheme.of(context).customColor4),
-              validator: (value) {
+              style: AppStyles.inputTextStyle(context),validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Required';
                 } else if (_notifier.newPwdController.text != value) {

@@ -151,7 +151,7 @@ class _DocumentsState extends State<Documents> {
                 }, itemBuilder: (context, item, index) {
                   return GestureDetector(
                     onTap: () {
-                      if(item.freezed!){
+                      if (item.freezed!) {
                         return;
                       }
                       if (item.documentType == null) {
@@ -159,7 +159,7 @@ class _DocumentsState extends State<Documents> {
                         _notifier.openFolder(item);
                         _pageKey = 1;
                         _notifier.pagingController.refresh();
-                      }else{
+                      } else {
                         CommonFunctions.navigate(
                             context,
                             ViewDocument(
@@ -187,7 +187,7 @@ class _DocumentsState extends State<Documents> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                (item.documentType != null?'${item.id!} ~ ':'')+item.folderName!,
+                                (item.documentType != null ? '${item.id!} ~ ' : '') + item.folderName!,
                                 maxLines: 2,
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                       color: item.freezed! ? FlutterFlowTheme.of(context).secondaryText : FlutterFlowTheme.of(context).customColor4,
@@ -199,7 +199,6 @@ class _DocumentsState extends State<Documents> {
                               Text(
                                 DateFormat('yyyy-MM-dd HH:mm').format(item.updatedAt!),
                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                                       color: FlutterFlowTheme.of(context).secondaryText,
                                       fontSize: rSize * 0.014,
                                       letterSpacing: 0.0,
@@ -222,7 +221,6 @@ class _DocumentsState extends State<Documents> {
                                         FFLocalizations.of(context).languageCode,
                                       ).format(item.approvedAt!)}',
                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                                             color: FlutterFlowTheme.of(context).customColor2,
                                             fontSize: rSize * 0.016,
                                             letterSpacing: 0.0,
@@ -247,7 +245,6 @@ class _DocumentsState extends State<Documents> {
                                         FFLocalizations.of(context).languageCode,
                                       ).format(item.disapprovedAt!)}',
                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                                             color: FlutterFlowTheme.of(context).customColor3,
                                             fontSize: rSize * 0.016,
                                             letterSpacing: 0.0,
@@ -306,7 +303,6 @@ class _DocumentsState extends State<Documents> {
             Text(
               label,
               style: FlutterFlowTheme.of(context).displaySmall.override(
-
                     color: Colors.white,
                     fontSize: rSize * 0.014,
                     letterSpacing: 0.0,
@@ -359,10 +355,11 @@ class _DocumentsState extends State<Documents> {
                               Row(
                                 children: [
                                   Expanded(
-                                      child: AppWidgets.title(context,
-                                    FFLocalizations.of(context).getText(
-                                      'filter' /* Filter */,
-                                    ))),
+                                      child: AppWidgets.title(
+                                          context,
+                                          FFLocalizations.of(context).getText(
+                                            'filter' /* Filter */,
+                                          ))),
                                   GestureDetector(
                                     onTap: () {
                                       Navigator.pop(context);
@@ -396,13 +393,7 @@ class _DocumentsState extends State<Documents> {
                                           value: item,
                                           child: Text(
                                             item.name!,
-                                            style: FlutterFlowTheme.of(context).bodySmall.override(
-
-                                                  color: FlutterFlowTheme.of(context).customColor4,
-                                                  fontSize: rSize * 0.014,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.normal,
-                                                ),
+                                            style: AppStyles.inputTextStyle(context),
                                           ),
                                         ))
                                     .toList(),
@@ -426,9 +417,7 @@ class _DocumentsState extends State<Documents> {
                               ),
                               TextFormField(
                                 controller: TextEditingController(text: searchedFileName),
-                                style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                    color:FlutterFlowTheme.of(context).customColor4
-                                    ),
+                                style: AppStyles.inputTextStyle(context),
                                 onChanged: (value) {
                                   searchedFileName = value;
                                 },
@@ -437,10 +426,6 @@ class _DocumentsState extends State<Documents> {
                                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                                   focusColor: FlutterFlowTheme.of(context).alternate,
                                   contentPadding: EdgeInsets.all(rSize * 0.015),
-                                  labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-
-                                      color:FlutterFlowTheme.of(context).customColor4
-                                      ),
                                 ),
                               ),
                               SizedBox(
@@ -467,13 +452,7 @@ class _DocumentsState extends State<Documents> {
                                           value: item,
                                           child: Text(
                                             item,
-                                            style: FlutterFlowTheme.of(context).bodySmall.override(
-
-                                                  color: FlutterFlowTheme.of(context).customColor4,
-                                                  fontSize: rSize * 0.014,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.normal,
-                                                ),
+                                            style: AppStyles.inputTextStyle(context),
                                           ),
                                         ))
                                     .toList(),
@@ -495,10 +474,7 @@ class _DocumentsState extends State<Documents> {
                               TextFormField(
                                 readOnly: true,
                                 controller: TextEditingController(text: range),
-                                style: FlutterFlowTheme.of(context).bodyLarge.override(
-
-                                    color:FlutterFlowTheme.of(context).customColor4
-                                    ),
+                                style: AppStyles.inputTextStyle(context),
                                 onTap: () {
                                   AppWidgets.openDatePicker(
                                     context,
@@ -524,7 +500,6 @@ class _DocumentsState extends State<Documents> {
                                   focusColor: FlutterFlowTheme.of(context).alternate,
                                   contentPadding: EdgeInsets.all(rSize * 0.015),
                                   labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
-
                                         letterSpacing: 0.0,
                                       ),
                                 ),
@@ -626,10 +601,11 @@ class _DocumentsState extends State<Documents> {
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.020), topRight: Radius.circular(rSize * 0.020))),
                   child: Column(
                     children: [
-                      AppWidgets.title(context,
-                        FFLocalizations.of(context).getText(
-                          'sort' /* sort */,
-                        )),
+                      AppWidgets.title(
+                          context,
+                          FFLocalizations.of(context).getText(
+                            'sort' /* sort */,
+                          )),
                       Container(
                         height: 0.5,
                         margin: EdgeInsets.symmetric(vertical: rSize * 0.0075),
@@ -692,10 +668,11 @@ class _DocumentsState extends State<Documents> {
             width: isTablet ? rSize * 0.01 : 0,
           ),
           Expanded(
-              child: AppWidgets.label(context,FFLocalizations.of(context).getText(
-              label,
-            )
-                )),
+              child: AppWidgets.label(
+                  context,
+                  FFLocalizations.of(context).getText(
+                    label,
+                  ))),
         ],
       ),
     );
@@ -710,13 +687,15 @@ class _DocumentsState extends State<Documents> {
       itemBuilder: (context) => [
         popupMenuItem(
             1,
-        item.documentType == 'form'?FFLocalizations.of(context).getText(
-          'fill_in',
-        ):FFLocalizations.of(context).getText(
-              'preview',
-            ),
+            item.documentType == 'form'
+                ? FFLocalizations.of(context).getText(
+                    'fill_in',
+                  )
+                : FFLocalizations.of(context).getText(
+                    'preview',
+                  ),
             Icon(
-              item.documentType == 'form'?Icons.edit:Icons.remove_red_eye,
+              item.documentType == 'form' ? Icons.edit : Icons.remove_red_eye,
               size: rSize * 0.025,
               color: FlutterFlowTheme.of(context).customColor4,
             ), () {
@@ -741,7 +720,7 @@ class _DocumentsState extends State<Documents> {
               ), () {
             downloadDoc(item);
           }),
-        if (index==4 && item.requestProposalApproval! && item.documentStatus == null)
+        if (index == 4 && item.requestProposalApproval! && item.documentStatus == null)
           popupMenuItem(
               3,
               FFLocalizations.of(context).getText(
@@ -765,7 +744,8 @@ class _DocumentsState extends State<Documents> {
           }),
       ],
       offset: const Offset(0, 0),
-      elevation: 2,tooltip: '',
+      elevation: 2,
+      tooltip: '',
       child: Icon(
         Icons.more_vert,
         size: rSize * 0.025,
@@ -795,7 +775,6 @@ class _DocumentsState extends State<Documents> {
           Text(
             label,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: rSize * 0.016,
                   letterSpacing: 0,

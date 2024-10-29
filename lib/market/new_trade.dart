@@ -7,6 +7,7 @@ import 'package:kleber_bank/securitySelection/security_selection.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../portfolio/portfolio_model.dart';
 import '../proposals/proposal_controller.dart';
 import '../utils/app_styles.dart';
 import '../utils/common_functions.dart';
@@ -15,9 +16,10 @@ import '../utils/internationalization.dart';
 import '../utils/searchable_dropdown.dart';
 
 class AddTransaction extends StatefulWidget {
-  final MarketListModel model;
+  final MarketListModel? selectedSecurity;
+  final PortfolioModel? selectedPortfolio;
 
-  const AddTransaction(this.model, {super.key});
+  const AddTransaction(this.selectedSecurity,this.selectedPortfolio, {super.key});
 
   @override
   State<AddTransaction> createState() => _AddTransactionState();
@@ -32,8 +34,13 @@ class _AddTransactionState extends State<AddTransaction> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        Provider.of<MarketController>(context, listen: false).getTransactionTypes(context);
-        Provider.of<PortfolioController>(context, listen: false).getPortfolioList(context,0, notify: true);
+        MarketController marketController=Provider.of<MarketController>(context, listen: false);
+        PortfolioController portfolioController=Provider.of<PortfolioController>(context, listen: false);
+        marketController.getTransactionTypes(context);
+        portfolioController.getPortfolioList(context, 0, notify: true);
+        portfolioController.selectedPortfolio=widget.selectedPortfolio;
+        portfolioController.notify();
+        marketController.selectSecurity(widget.selectedSecurity);
       },
     );
     super.initState();
@@ -41,14 +48,15 @@ class _AddTransactionState extends State<AddTransaction> {
 
   @override
   void dispose() {
-    _portfolioNotifier.selectedPortfolio=null;
-    _marketNotifier.selectedSecurityType=null;
-    _marketNotifier.selectedDateTime=null;
+    _portfolioNotifier.selectedPortfolio = null;
+    _marketNotifier.selectedSecurityType = null;
+    _marketNotifier.selectedDateTime = null;
+    _marketNotifier.selectedSecurity = null;
     _marketNotifier.descController.clear();
     _marketNotifier.orderType.clear();
     _marketNotifier.qtyController.clear();
     _marketNotifier.limitPriceController.clear();
-    _marketNotifier.amount=0;
+    _marketNotifier.amount = 0;
     super.dispose();
   }
 
@@ -58,9 +66,13 @@ class _AddTransactionState extends State<AddTransaction> {
     _proposalController = Provider.of<ProposalController>(context);
     _marketNotifier = Provider.of<MarketController>(context);
     return Scaffold(
-      appBar: AppWidgets.appBar(context, FFLocalizations.of(context).getText(
-        '7v8svtoq' /* new trnasaction */,
-      ), centerTitle: true,leading:AppWidgets.backArrow(context)),
+      appBar: AppWidgets.appBar(
+          context,
+          FFLocalizations.of(context).getText(
+            '7v8svtoq' /* new trnasaction */,
+          ),
+          centerTitle: true,
+          leading: AppWidgets.backArrow(context)),
       body: Form(
         child: ListView(
           shrinkWrap: true,
@@ -71,19 +83,17 @@ class _AddTransactionState extends State<AddTransaction> {
               selectedValue: _portfolioNotifier.selectedPortfolio,
               searchHint: FFLocalizations.of(context).getText(
                 'm7418olr' /* Search for transaction type */,
-              ),
+              ),hint:_portfolioNotifier.selectedPortfolio?.title??'' ,
               onChanged: (p0) {
                 _portfolioNotifier.selectedPortfolio = p0;
                 _portfolioNotifier.notify();
               },
-              items: _portfolioNotifier.portfolioList
+              items: (widget.selectedPortfolio!=null?[]:_portfolioNotifier.portfolioList)
                   .map((item) => DropdownMenuItem(
                         value: item,
                         child: Text(
                           item.title!,
-                          style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              color:FlutterFlowTheme.of(context).customColor4
-                          ),
+                          style: AppStyles.inputTextStyle(context),
                         ),
                       ))
                   .toList(),
@@ -96,28 +106,38 @@ class _AddTransactionState extends State<AddTransaction> {
             ),
             label(context, 'rumkikc1' /* Name, ISIN, FIGI or Ticket */),
             TextFormField(
-              style: FlutterFlowTheme.of(context).bodyLarge.override(
-                  color:FlutterFlowTheme.of(context).customColor4
-              ),
+              style: AppStyles.inputTextStyle(context),
               readOnly: true,
-              controller: TextEditingController(text: widget.model.name),
+              onTap: () {
+                if (widget.selectedSecurity == null) {
+                  CommonFunctions.navigate(context, SecuritySelection(), onBack: (result) {
+                    _marketNotifier.selectSecurity(result);
+                  });
+                }
+              },
+              controller: TextEditingController(text: _marketNotifier.selectedSecurity?.name),
               decoration: AppStyles.inputDecoration(context,
-                  contentPadding: EdgeInsets.symmetric(vertical: rSize*0.015, horizontal: rSize*0.015),
-                  suffix: Container(
-                    height: rSize*0.056,
-                    width: rSize*0.050,
-                    /*decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(rSize*0.010),
-                          bottomRight: Radius.circular(rSize*0.010),
+                  contentPadding: EdgeInsets.symmetric(vertical: rSize * 0.015, horizontal: rSize * 0.015),
+                  suffix: widget.selectedSecurity != null
+                      ? SizedBox(
+                          height: rSize * 0.056,
+                          width: rSize * 0.050,
+                        )
+                      : Container(
+                          height: rSize * 0.056,
+                          width: rSize * 0.050,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(rSize * 0.010),
+                                bottomRight: Radius.circular(rSize * 0.010),
+                              ),
+                              color: FlutterFlowTheme.of(context).alternate),
+                          child: Icon(
+                            Icons.search_rounded,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: rSize * 0.024,
+                          ),
                         ),
-                        color: FlutterFlowTheme.of(context).alternate),
-                    child: Icon(
-                      Icons.search_rounded,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      size: rSize*0.024,
-                    ),*/
-                  ),
                   focusColor: FlutterFlowTheme.of(context).alternate),
             ),
             SizedBox(
@@ -137,9 +157,7 @@ class _AddTransactionState extends State<AddTransaction> {
                         value: item,
                         child: Text(
                           item.name!.replaceAll('_', ' '),
-                          style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              color:FlutterFlowTheme.of(context).customColor4
-                          ),
+                          style: AppStyles.inputTextStyle(context),
                         ),
                       ))
                   .toList(),
@@ -152,86 +170,97 @@ class _AddTransactionState extends State<AddTransaction> {
             ),
             label(context, '7fx237xy' /* Time In Force */),
             TextFormField(
-              style: FlutterFlowTheme.of(context).bodyLarge.override(
-                  color:FlutterFlowTheme.of(context).customColor4
-              ),
+              style: AppStyles.inputTextStyle(context),
               readOnly: true,
-              controller: TextEditingController(
-                  text: _marketNotifier.selectedDateTime),
+              controller: TextEditingController(text: _marketNotifier.selectedDateTime),
               onTap: () {
                 openDateTimePicker();
               },
-              decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015),suffix: Container(
-                height: rSize*0.056,
-                width: rSize*0.050,
-              ),),
+              decoration: AppStyles.inputDecoration(
+                context,
+                focusColor: FlutterFlowTheme.of(context).alternate,
+                contentPadding: EdgeInsets.all(rSize * 0.015),
+                suffix: Container(
+                  height: rSize * 0.056,
+                  width: rSize * 0.050,
+                ),
+              ),
             ),
             SizedBox(
               height: rSize * 0.015,
             ),
             label(context, '2mpa9jiq' /* Notes */),
             TextFormField(
-              style: FlutterFlowTheme.of(context).bodyLarge.override(
-                  color:FlutterFlowTheme.of(context).customColor4
-              ),
+              style: AppStyles.inputTextStyle(context),
               controller: _marketNotifier.descController,
-              decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015),suffix: Container(
-                height: rSize*0.056,
-                width: rSize*0.050,
-              ),),
+              decoration: AppStyles.inputDecoration(
+                context,
+                focusColor: FlutterFlowTheme.of(context).alternate,
+                contentPadding: EdgeInsets.all(rSize * 0.015),
+                suffix: Container(
+                  height: rSize * 0.056,
+                  width: rSize * 0.050,
+                ),
+              ),
             ),
             SizedBox(
               height: rSize * 0.015,
             ),
             label(context, 'u7hyldvt' /* Order Type */),
             TextFormField(
-              style: FlutterFlowTheme.of(context).bodyLarge.override(
-                  color:FlutterFlowTheme.of(context).customColor4
-              ),controller: _marketNotifier.orderType,
-              decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015),suffix: Container(
-                height: rSize*0.056,
-                width: rSize*0.050,
-              ),),
+              style: AppStyles.inputTextStyle(context),
+              controller: _marketNotifier.orderType,
+              decoration: AppStyles.inputDecoration(
+                context,
+                focusColor: FlutterFlowTheme.of(context).alternate,
+                contentPadding: EdgeInsets.all(rSize * 0.015),
+                suffix: Container(
+                  height: rSize * 0.056,
+                  width: rSize * 0.050,
+                ),
+              ),
             ),
             SizedBox(
               height: rSize * 0.015,
             ),
             label(context, '2odrp5sn' /* Quantity */),
             TextFormField(
-              style: FlutterFlowTheme.of(context).bodyLarge.override(
-                  color:FlutterFlowTheme.of(context).customColor4
-              ),
+              style: AppStyles.inputTextStyle(context),
               keyboardType: TextInputType.number,
               controller: _marketNotifier.qtyController,
               onChanged: (value) {
-                _marketNotifier.updateAmount(widget.model.price!);
+                _marketNotifier.updateAmount(_marketNotifier.selectedSecurity?.price ?? '');
               },
-              decoration: AppStyles.inputDecoration(context, focusColor: FlutterFlowTheme.of(context).alternate, contentPadding: EdgeInsets.all(rSize*0.015),suffix: Container(
-                height: rSize*0.056,
-                width: rSize*0.050,
-              ),),
+              decoration: AppStyles.inputDecoration(
+                context,
+                focusColor: FlutterFlowTheme.of(context).alternate,
+                contentPadding: EdgeInsets.all(rSize * 0.015),
+                suffix: Container(
+                  height: rSize * 0.056,
+                  width: rSize * 0.050,
+                ),
+              ),
             ),
             SizedBox(
               height: rSize * 0.015,
             ),
             label(context, 'lz424u11' /* Current Price */),
             TextFormField(
-              style: FlutterFlowTheme.of(context).bodyLarge.override(
-                  color:FlutterFlowTheme.of(context).customColor4
-              ),
-              readOnly: true,controller: TextEditingController(text: widget.model.price ?? ''),
+              style: AppStyles.inputTextStyle(context),
+              readOnly: true,
+              controller: TextEditingController(text: _marketNotifier.selectedSecurity?.price ?? ''),
               decoration: AppStyles.inputDecoration(context,
                   focusColor: FlutterFlowTheme.of(context).customColor4,
-                  contentPadding: EdgeInsets.all(rSize*0.015),
+                  contentPadding: EdgeInsets.all(rSize * 0.015),
                   prefix: Container(
-                    height: rSize*0.056,
-                    width: rSize*0.060,
-                    margin: EdgeInsets.only(right: rSize*0.010),
+                    height: rSize * 0.056,
+                    width: rSize * 0.060,
+                    margin: EdgeInsets.only(right: rSize * 0.010),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(rSize*0.010),
-                          bottomLeft: Radius.circular(rSize*0.010),
+                          topLeft: Radius.circular(rSize * 0.010),
+                          bottomLeft: Radius.circular(rSize * 0.010),
                         ),
                         color: FlutterFlowTheme.of(context).customColor4),
                     child: Text(
@@ -239,7 +268,6 @@ class _AddTransactionState extends State<AddTransaction> {
                         'bhxqgsuw' /* USD $ */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                             letterSpacing: 0,
                           ),
                     ),
@@ -250,24 +278,22 @@ class _AddTransactionState extends State<AddTransaction> {
             ),
             label(context, 'q9p7fv0r' /* Limit Price */),
             TextFormField(
-              style: FlutterFlowTheme.of(context).bodyLarge.override(
-                  color:FlutterFlowTheme.of(context).customColor4
-              ),
+              style: AppStyles.inputTextStyle(context),
               keyboardType: TextInputType.number,
               controller: _marketNotifier.limitPriceController,
               onChanged: (value) {
-                _marketNotifier.updateAmount(widget.model.price!);
+                _marketNotifier.updateAmount(_marketNotifier.selectedSecurity?.price ?? '');
               },
               decoration: AppStyles.inputDecoration(context,
                   prefix: Container(
-                    height: rSize*0.056,
-                    width: rSize*0.060,
-                    margin: EdgeInsets.only(right: rSize*0.010),
+                    height: rSize * 0.056,
+                    width: rSize * 0.060,
+                    margin: EdgeInsets.only(right: rSize * 0.010),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(rSize*0.010),
-                          bottomLeft: Radius.circular(rSize*0.010),
+                          topLeft: Radius.circular(rSize * 0.010),
+                          bottomLeft: Radius.circular(rSize * 0.010),
                         ),
                         color: FlutterFlowTheme.of(context).alternate),
                     child: Text(
@@ -275,35 +301,32 @@ class _AddTransactionState extends State<AddTransaction> {
                         'bhxqgsuw' /* USD $ */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                             letterSpacing: 0,
                           ),
                     ),
                   ),
-                  contentPadding: EdgeInsets.all(rSize*0.015)),
+                  contentPadding: EdgeInsets.all(rSize * 0.015)),
             ),
             SizedBox(
               height: rSize * 0.015,
             ),
             label(context, '4noemhfd' /* Amount */),
             TextFormField(
-              style: FlutterFlowTheme.of(context).bodyLarge.override(
-                  color:FlutterFlowTheme.of(context).customColor4
-              ),
+              style: AppStyles.inputTextStyle(context),
               readOnly: true,
               controller: TextEditingController(text: _marketNotifier.amount.toString()),
               decoration: AppStyles.inputDecoration(context,
                   focusColor: FlutterFlowTheme.of(context).customColor4,
-                  contentPadding: EdgeInsets.all(rSize*0.015),
+                  contentPadding: EdgeInsets.all(rSize * 0.015),
                   prefix: Container(
-                    height: rSize*0.056,
-                    width: rSize*0.060,
-                    margin: EdgeInsets.only(right: rSize*0.010),
+                    height: rSize * 0.056,
+                    width: rSize * 0.060,
+                    margin: EdgeInsets.only(right: rSize * 0.010),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(rSize*0.010),
-                          bottomLeft: Radius.circular(rSize*0.010),
+                          topLeft: Radius.circular(rSize * 0.010),
+                          bottomLeft: Radius.circular(rSize * 0.010),
                         ),
                         color: FlutterFlowTheme.of(context).customColor4),
                     child: Text(
@@ -311,7 +334,6 @@ class _AddTransactionState extends State<AddTransaction> {
                         'bhxqgsuw' /* USD $ */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                             letterSpacing: 0,
                           ),
                     ),
@@ -324,8 +346,8 @@ class _AddTransactionState extends State<AddTransaction> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: (){
-                    _marketNotifier.transmit(widget.model,_portfolioNotifier.selectedPortfolio,context,_proposalController,widget.model);
+                  onTap: () {
+                    _marketNotifier.transmit(_portfolioNotifier.selectedPortfolio, context, _proposalController, widget.selectedSecurity);
                   },
                   child: AppWidgets.btn(
                       context,
@@ -345,10 +367,12 @@ class _AddTransactionState extends State<AddTransaction> {
 
   Padding label(BuildContext context, String text) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, rSize*0.005),
-      child: AppWidgets.label(context, FFLocalizations.of(context).getText(
-        text,
-      )),
+      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, rSize * 0.005),
+      child: AppWidgets.label(
+          context,
+          FFLocalizations.of(context).getText(
+            text,
+          )),
     );
   }
 
@@ -361,9 +385,10 @@ class _AddTransactionState extends State<AddTransaction> {
       lastDate: DateTime(now.year + 5),
     );
 
-    if (_marketNotifier.selectedDate!=null) {
-      _marketNotifier.selectedTime = await showTimePicker(context: context,
-        initialTime:_marketNotifier.selectedTime??TimeOfDay.now(),
+    if (_marketNotifier.selectedDate != null) {
+      _marketNotifier.selectedTime = await showTimePicker(
+        context: context,
+        initialTime: _marketNotifier.selectedTime ?? TimeOfDay.now(),
       );
       _marketNotifier.selectTime(context);
     }

@@ -287,12 +287,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                           value: item,
                                           child: Text(
                                             item.name!,
-                                            style: FlutterFlowTheme.of(context).bodySmall.override(
-
-                                                  fontSize: rSize*0.014,
-                                              color: FlutterFlowTheme.of(context).customColor4,
-                                              fontWeight: FontWeight.w500,
-                                                ),
+                                            style: AppStyles.inputTextStyle(context),
                                           ),
                                         ))
                                     .toList(),
@@ -323,12 +318,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                           value: item,
                                           child: Text(
                                             item.name!,
-                                            style: FlutterFlowTheme.of(context).bodySmall.override(
-
-                                                  fontSize: rSize*0.014,
-                                              color: FlutterFlowTheme.of(context).customColor4,
-                                              fontWeight: FontWeight.w500,
-                                                ),
+                                            style: AppStyles.inputTextStyle(context),
                                           ),
                                         ))
                                     .toList(),
@@ -359,12 +349,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                           value: item,
                                           child: Text(
                                             item.name!,
-                                            style: FlutterFlowTheme.of(context).bodySmall.override(
-
-                                                  fontSize: rSize*0.014,
-                                              color: FlutterFlowTheme.of(context).customColor4,
-                                              fontWeight: FontWeight.w500,
-                                                ),
+                                            style: AppStyles.inputTextStyle(context),
                                           ),
                                         ))
                                     .toList(),

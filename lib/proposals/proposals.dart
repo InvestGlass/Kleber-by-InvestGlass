@@ -577,10 +577,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                               ),
                               TextFormField(
                                 controller: advisorController,
-                                style: FlutterFlowTheme.of(context).bodyLarge.override(
-
-                                      letterSpacing: 0.0,
-                                    ),
+                                style: AppStyles.inputTextStyle(context),
                                 decoration: AppStyles.inputDecoration(
                                   context,
                                   focusColor: FlutterFlowTheme.of(context).alternate,
@@ -605,10 +602,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                               ),
                               TextFormField(
                                 controller: proposalNameController,
-                                style: FlutterFlowTheme.of(context).bodyLarge.override(
-
-                                      letterSpacing: 0.0,
-                                    ),
+                                style: AppStyles.inputTextStyle(context),
                                 decoration: AppStyles.inputDecoration(
                                   context,
                                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -643,11 +637,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                             value: item,
                                             child: Text(
                                               item,
-                                              style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                    color: FlutterFlowTheme.of(context).customColor4,
-                                                    fontSize: rSize * 0.014,
-                                                    fontWeight: FontWeight.normal,
-                                                  ),
+                                              style: AppStyles.inputTextStyle(context),
                                             ),
                                           ))
                                       .toList(),
@@ -814,16 +804,10 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
             width: isTablet ? rSize * 0.01 : 0,
           ),
           Expanded(
-              child: Text(
-            label,
-            style: FlutterFlowTheme.of(context).displaySmall.override(
-
-                  color: FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize * 0.016,
-                  letterSpacing: 0.0,
-                  fontWeight: FontWeight.w500,
-                ),
-          )),
+              child: AppWidgets.label(
+                  context,
+                  label,
+                  )),
         ],
       ),
     );

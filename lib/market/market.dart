@@ -322,12 +322,7 @@ class _MarketState extends State<Market> {
                                           value: item,
                                           child: Text(
                                             item.name!,
-                                            style: FlutterFlowTheme.of(context).bodySmall.override(
-
-                                                  fontSize: rSize * 0.014,
-                                                  color: FlutterFlowTheme.of(context).customColor4,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
+                                            style: AppStyles.inputTextStyle(context),
                                           ),
                                         ))
                                     .toList(),
@@ -358,13 +353,7 @@ class _MarketState extends State<Market> {
                                           value: item,
                                           child: Text(
                                             item.name!,
-                                            style: FlutterFlowTheme.of(context).bodySmall.override(
-
-                                                  color: FlutterFlowTheme.of(context).customColor4,
-                                                  fontSize: rSize * 0.014,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
+                                            style: AppStyles.inputTextStyle(context),
                                           ),
                                         ))
                                     .toList(),
@@ -395,13 +384,7 @@ class _MarketState extends State<Market> {
                                           value: item,
                                           child: Text(
                                             item.name!,
-                                            style: FlutterFlowTheme.of(context).bodySmall.override(
-
-                                                  color: FlutterFlowTheme.of(context).customColor4,
-                                                  fontSize: rSize * 0.014,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
+                                            style: AppStyles.inputTextStyle(context),
                                           ),
                                         ))
                                     .toList(),

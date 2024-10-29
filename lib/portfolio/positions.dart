@@ -84,13 +84,7 @@ class _PositionsState extends State<Positions> {
                             value: item,
                             child: Text(
                               item,
-                              style: FlutterFlowTheme.of(context).bodySmall.override(
-
-                                    color: FlutterFlowTheme.of(context).customColor4,
-                                    fontSize: rSize * 0.014,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                              style: AppStyles.inputTextStyle(context),
                             ),
                           ),
                         )
@@ -170,7 +164,7 @@ class _PositionsState extends State<Positions> {
                                     SizedBox(
                                       width: rSize * 0.015,
                                     ),
-                                    RotatedBox(quarterTurns: _notifier.selectedPositionIndex == index ? 1 : 4, child: AppWidgets.doubleBack(context)),
+                                    RotatedBox(quarterTurns: _notifier.selectedPositionIndex == index ? 3 : 2, child: AppWidgets.doubleBack(context)),
                                   ],
                                 ),
                                 if (_notifier.selectedPositionIndex != index) ...{

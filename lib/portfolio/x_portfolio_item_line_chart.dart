@@ -84,7 +84,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.002),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: FlutterFlowTheme.of(context).primary),
-          child: label(context, '${widget.xLabels[trackballDetails.pointIndex!]} : ${widget.listY[trackballDetails.pointIndex!]}'),
+          child: label(context, '${widget.xLabels[trackballDetails.pointIndex!]} : ${widget.additionPercents[trackballDetails.pointIndex!]}%'),
         );
       },
       activationMode: ActivationMode.singleTap,
@@ -394,21 +394,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
         Positioned(
           left: getPosition(),
           child: Center(
-            child: Column(
-              children: [
-                Text(
-                  widget.item?.title??'',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontSize: isTablet?rSize * 0.014:rSize * 0.01,
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                AppWidgets.buildRichText(context, widget.item?.amountInvested??'',fontSize: isTablet?rSize * 0.014:rSize * 0.01)
-              ],
-            ),
+            child: AppWidgets.buildRichText(context, widget.item?.amountInvested??'',fontSize: isTablet?rSize * 0.014:rSize * 0.01),
           ),
         )
       ],

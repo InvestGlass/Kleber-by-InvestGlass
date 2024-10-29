@@ -192,7 +192,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     GestureDetector(
-                      onTap: () => CommonFunctions.navigate(context, AddTransaction(widget.data!)),
+                      onTap: () => CommonFunctions.navigate(context, AddTransaction(widget.data!,null)),
                       child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
                         '7v8svtoq' /* New Transaction */,
                       ),horizontalPadding: rSize*0.02),

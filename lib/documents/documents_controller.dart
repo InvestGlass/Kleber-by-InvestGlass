@@ -103,7 +103,7 @@ class DocumentsController extends ChangeNotifier {
           if (value.containsKey('error') && value.containsKey('message')) {
             errorMsg=FFLocalizations.of(context).getText(
               'acceptable_formats',
-            )+' :- '+value['message'];
+            )+' --> '+value['message'];
             CommonFunctions.showToast('Invalid format');
           }
           if(value.containsKey('company_id')){

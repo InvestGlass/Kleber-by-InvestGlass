@@ -165,6 +165,12 @@ class AppStyles {
         ));
   }
 
+  static TextStyle inputTextStyle(BuildContext context){
+    return FlutterFlowTheme.of(context).bodyLarge.override(
+        color:FlutterFlowTheme.of(context).customColor4
+    );
+  }
+
   static InputDecoration inputDecoration(BuildContext context,
       {String? hint,
       String? label,

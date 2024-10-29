@@ -121,7 +121,7 @@ class _TransactionsState extends State<Transactions> {
                                         SizedBox(
                                           width: rSize * 0.015,
                                         ),
-                                        RotatedBox(quarterTurns: _notifier.selectedTransactionIndex == index ? 1 : 4, child: AppWidgets.doubleBack(context)),
+                                        RotatedBox(quarterTurns: _notifier.selectedTransactionIndex == index ? 3 : 2, child: AppWidgets.doubleBack(context)),
                                       ],
                                     ),
                                     if (_notifier.selectedTransactionIndex != index) ...{

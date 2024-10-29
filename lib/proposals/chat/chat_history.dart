@@ -270,14 +270,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                             locale: FFLocalizations.of(context).languageCode,
                           ),
                           textAlign: TextAlign.start,
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                color: FlutterFlowTheme.of(context).customColor4,
-                                fontSize: rSize * 0.012,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w400,
-                              ),
+                          style: AppStyles.inputTextStyle(context),
                         ),
                       ),
                     ],

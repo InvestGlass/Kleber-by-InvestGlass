@@ -79,10 +79,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
             focusNode: widget.focusNode,
             hint: Text(
               widget.hint,
-              style: TextStyle(
-                fontSize: rSize * 0.014,
-                color: Theme.of(context).hintColor,
-              ),
+              style: AppStyles.inputTextStyle(context),
             ),
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   letterSpacing: 0.0,
@@ -139,9 +136,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
                       margin: EdgeInsets.only(top: rSize * 0.010, left: rSize * 0.010, right: rSize * 0.010),
                       child: TextFormField(
                         maxLines: 1,
-                        style: FlutterFlowTheme.of(context).bodyLarge.override(
-                            color:FlutterFlowTheme.of(context).customColor4
-                        ),
+                          style: AppStyles.inputTextStyle(context),
                         controller: textEditingController,
                         // cursorColor: widget.searchCursorColor,
                         // style: widget.searchTextStyle,

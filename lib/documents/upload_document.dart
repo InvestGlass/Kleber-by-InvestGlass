@@ -104,9 +104,7 @@ class _UploadDocumentState extends State<UploadDocument> {
           TextFormField(
             minLines: 3,
             maxLines: 3,
-            style: FlutterFlowTheme.of(context).bodyLarge.override(
-                color:FlutterFlowTheme.of(context).customColor4
-            ),
+            style: AppStyles.inputTextStyle(context),
             controller: _notifier.descController,
             textAlign: TextAlign.start,
             decoration: AppStyles.inputDecoration(context),

@@ -13,6 +13,7 @@ import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:provider/provider.dart';
 
+import '../market/new_trade.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
 import 'x_portfoli_item_bar_chart.dart';
@@ -92,7 +93,6 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                 child: Text(
                               item.title ?? '',
                               style: FlutterFlowTheme.of(context).displaySmall.override(
-
                                     color: FlutterFlowTheme.of(context).customColor4,
                                     fontSize: rSize * 0.016,
                                     letterSpacing: 0,
@@ -109,7 +109,6 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                           '83o1ghax' /* Net Value */,
                                         ),
                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                                         color: FlutterFlowTheme.of(context).customColor4,
                                         fontSize: rSize * 0.014,
                                         letterSpacing: 0,
@@ -207,24 +206,27 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                       Row(
                                         children: [
                                           Text(
-                                              FFLocalizations.of(context).getText('group_By',),
+                                            FFLocalizations.of(context).getText(
+                                              'group_By',
+                                            ),
                                             style: FlutterFlowTheme.of(context).displaySmall.override(
-                                              color: FlutterFlowTheme.of(context).customColor4,
-                                              fontSize: rSize * 0.016,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),),
+                                                  color: FlutterFlowTheme.of(context).customColor4,
+                                                  fontSize: rSize * 0.016,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
                                           Text(
-                                              ' ${item.sectionName ??
-                                                  FFLocalizations.of(context).getText(
-                                                    'zomhasya' /* Performance */,
-                                                  )}',
+                                            ' ${item.sectionName ?? FFLocalizations.of(context).getText(
+                                                  'zomhasya' /* Performance */,
+                                                )}',
                                             style: FlutterFlowTheme.of(context).displaySmall.override(
-                                              color: FlutterFlowTheme.of(context).primaryText,
-                                              fontSize: rSize * 0.016,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),),
+                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                  fontSize: rSize * 0.016,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
                                         ],
                                       ),
                                       popupMenu(ontap: (i) {
@@ -249,26 +251,28 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                             Text(
                                               '${FFLocalizations.of(context).getText(
                                                 'hdgv1exn' /* Date */,
-                                              )} :- ',
+                                              )} : ',
                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                fontSize: rSize * 0.016,
-                                                color: FlutterFlowTheme.of(context).customColor4,
-                                              ),
+                                                    fontSize: rSize * 0.016,
+                                                    color: FlutterFlowTheme.of(context).customColor4,
+                                                  ),
                                             ),
                                             Text(
                                               DateFormat('MMM dd yyyy').format(DateTime.now()),
                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                fontSize: rSize * 0.016,
-                                                color: FlutterFlowTheme.of(context).primary,
-                                              ),
+                                                    fontSize: rSize * 0.016,
+                                                    color: FlutterFlowTheme.of(context).primary,
+                                                  ),
                                             ),
                                           ],
                                         ),
-                                        SizedBox(height: rSize*0.01,),
+                                        SizedBox(
+                                          height: rSize * 0.01,
+                                        ),
                                         XPortfolioItemLineChart(
                                           width: MediaQuery.sizeOf(context).width * 1,
                                           height: rSize * 0.300,
-                                          xLabels: item.performanceChart!.map((e) => e.date.toString().split(' ')[0]).toList(),
+                                          xLabels: item.performanceChart!.map((e) => DateFormat('MMM dd, yyyy').format(e.date!)).toList(),
                                           listY: item.performanceChart!.map((e) => e.amount!).toList(),
                                           customWidth: item.performanceChart!.map((e) => e.amount).toList().length * 100,
                                           additionPercents: item.performanceChart!.map((e) => e.twrPercentage ?? 0.0).toList(),
@@ -331,8 +335,9 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                       height: rSize * 0.005,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        SizedBox(),
                         GestureDetector(
                             onTap: () {
                               CommonFunctions.navigate(context, Positions(item.id!));
@@ -383,19 +388,26 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                         ))
                               ],
                             )),
-                        /*SizedBox(
+                        SizedBox(
                           width: rSize * 0.01,
                         ),
                         GestureDetector(
-                            onTap: () => CommonFunctions.navigate(context, Transactions(item.title!)),
+                            onTap: () => CommonFunctions.navigate(context, AddTransaction(null,item)),
                             child: Column(
                               children: [
-                                AppStyles.iconBg(context, data: FontAwesomeIcons.dollarSign, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015)),
+                                AppStyles.iconBg(context,
+                                    color: FlutterFlowTheme.of(context).customColor4,
+                                    data: FontAwesomeIcons.dollarSign, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015)),
                                 Text(FFLocalizations.of(context).getText(
-                                  'new_order' */ /* New Order */ /*,
+                                  'new_transaction',
+                                ),style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  fontSize: rSize * 0.016,
+                                  color: FlutterFlowTheme.of(context).customColor4,
+                                  fontWeight: FontWeight.w600,
                                 ))
                               ],
-                            )),*/
+                            )),
+                        SizedBox(),
                       ],
                     )
                   ],
@@ -470,7 +482,6 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                           return '$length${length <= 10 ? '' : '+'}';
                                         }(item.appropriateness!.listDetails?.length ?? 0),
                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                                               color: FlutterFlowTheme.of(context).info,
                                               fontSize: rSize * 0.016,
                                               letterSpacing: 0,
@@ -488,7 +499,6 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                               'kc4yx2mm' /* MINOR ISSUES */,
                             ),
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                                   fontSize: rSize * 0.016,
                                   letterSpacing: 0,
                                   color: FlutterFlowTheme.of(context).customColor4,
@@ -558,7 +568,6 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                             return '$length${length <= 10 ? '' : '+'}';
                                           }(item.suitability!.listDetails?.length ?? 0),
                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                                                 color: FlutterFlowTheme.of(context).info,
                                                 fontSize: rSize * 0.016,
                                                 fontWeight: FontWeight.w500,
@@ -576,7 +585,6 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                               'ko88t7mf' /* MAJOR ISSUES */,
                             ),
                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                                   fontSize: rSize * 0.016,
                                   color: FlutterFlowTheme.of(context).customColor4,
                                   fontWeight: FontWeight.w500,
@@ -657,11 +665,16 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
       ],
       offset: const Offset(-5, 10),
       shadowColor: Colors.black,
-      elevation: 2,tooltip: '',
+      elevation: 2,
+      tooltip: '',
       constraints: BoxConstraints(maxWidth: rSize * 0.13),
       child: AppStyles.iconBg(
-        context,customIcon: Image.asset('assets/360-degree.png',color:FlutterFlowTheme.of(context).customColor4 ,),
-        padding: EdgeInsets.all(rSize*0.008),
+        context,
+        customIcon: Image.asset(
+          'assets/360-degree.png',
+          color: FlutterFlowTheme.of(context).customColor4,
+        ),
+        padding: EdgeInsets.all(rSize * 0.008),
         data: FontAwesomeIcons.chartBar,
         color: FlutterFlowTheme.of(context).customColor4,
         size: rSize * 0.02,
@@ -680,7 +693,6 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
         child: Text(
           label,
           style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                 color: FlutterFlowTheme.of(context).customColor4,
                 fontSize: rSize * 0.016,
                 letterSpacing: 0,

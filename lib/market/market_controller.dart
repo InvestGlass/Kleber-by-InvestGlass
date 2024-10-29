@@ -24,6 +24,7 @@ class MarketController extends ChangeNotifier {
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
   String? selectedDateTime;
+  MarketListModel? selectedSecurity;
 
   Future<void> getList(BuildContext context,int pageKey) async {
     marketList.clear();
@@ -112,6 +113,9 @@ class MarketController extends ChangeNotifier {
   }
 
   void updateAmount(String price) {
+    if (price.isEmpty) {
+      return;
+    }
     double limitPrice = double.tryParse(limitPriceController.text) ?? 0;
     double qty = double.tryParse(qtyController.text) ?? 0;
     double currentPrice = double.tryParse(price) ?? 0;
@@ -123,10 +127,15 @@ class MarketController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> transmit(MarketListModel model, PortfolioModel? selectedPortfolio, BuildContext context, ProposalController proposalController, MarketListModel marketModel) async {
+  Future<void> transmit(PortfolioModel? selectedPortfolio, BuildContext context, ProposalController proposalController, MarketListModel? marketModel) async {
     if(selectedPortfolio==null){
       CommonFunctions.showToast(FFLocalizations.of(context).getText(
         'portfolio_msg',
+      ));
+      return;
+    }else if(marketModel==null){
+      CommonFunctions.showToast(FFLocalizations.of(context).getText(
+        'name_isin',
       ));
       return;
     }else if(limitPriceController.text.isEmpty){
@@ -137,7 +146,7 @@ class MarketController extends ChangeNotifier {
     }
     Map<String, dynamic> map = {};
     Map<String, dynamic> map2 = {};
-    map['security'] = model.toJson();
+    map['security'] = selectedSecurity?.toJson();
     map['create_transaction_type'] = 'Security';
     map['portfolio_id'] = selectedPortfolio.id!.toString();
     map['state'] = '0';
@@ -186,5 +195,10 @@ class MarketController extends ChangeNotifier {
     return FFLocalizations.of(context).getText(
       s,
     );
+  }
+
+  void selectSecurity(MarketListModel? model) {
+    selectedSecurity=model;
+    notifyListeners();
   }
 }

@@ -1,6 +1,6 @@
 class EndPoints{
-  // static String baseUrl='https://staging.investglass.com/client_portal_api/';
-  static String baseUrl='https://app.investglass.com/client_portal_api/';
+  static String baseUrl='https://staging.investglass.com/client_portal_api/';
+  // static String baseUrl='https://app.investglass.com/client_portal_api/';
 
   // AUTH
   static String login='${baseUrl}portal_auth/login';
