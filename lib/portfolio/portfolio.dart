@@ -337,7 +337,6 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(),
                         GestureDetector(
                             onTap: () {
                               CommonFunctions.navigate(context, Positions(item.id!));
@@ -363,34 +362,33 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                 )
                               ],
                             )),
-                        SizedBox(
-                          width: rSize * 0.01,
-                        ),
                         GestureDetector(
                             onTap: () => CommonFunctions.navigate(context, Transactions(item.title!)),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
+                            child: Row(
                               children: [
-                                AppStyles.iconBg(context,
-                                    color: FlutterFlowTheme.of(context).customColor4,
-                                    data: FontAwesomeIcons.dollarSign,
-                                    size: rSize * 0.020,
-                                    padding: EdgeInsets.all(rSize * 0.015)),
-                                Text(
-                                    FFLocalizations.of(context).getText(
-                                      'eg1yw963' /* Transactions */,
-                                    ),
-                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                          fontSize: rSize * 0.016,
-                                          color: FlutterFlowTheme.of(context).customColor4,
-                                          fontWeight: FontWeight.w600,
-                                        ))
+                                SizedBox(width: rSize*0.02),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    AppStyles.iconBg(context,
+                                        color: FlutterFlowTheme.of(context).customColor4,
+                                        data: FontAwesomeIcons.dollarSign,
+                                        size: rSize * 0.020,
+                                        padding: EdgeInsets.all(rSize * 0.015)),
+                                    Text(
+                                        FFLocalizations.of(context).getText(
+                                          'eg1yw963' /* Transactions */,
+                                        ),
+                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                              fontSize: rSize * 0.016,
+                                              color: FlutterFlowTheme.of(context).customColor4,
+                                              fontWeight: FontWeight.w600,
+                                            ))
+                                  ],
+                                ),
                               ],
                             )),
-                        SizedBox(
-                          width: rSize * 0.01,
-                        ),
                         GestureDetector(
                             onTap: () => CommonFunctions.navigate(context, AddTransaction(null,item)),
                             child: Column(
@@ -407,7 +405,6 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                 ))
                               ],
                             )),
-                        SizedBox(),
                       ],
                     )
                   ],

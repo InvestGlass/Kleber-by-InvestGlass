@@ -75,12 +75,9 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                     Navigator.pop(context, _notifier.selectedSecurity);
                   }
                 },
-                child: AppWidgets.btn(
-                    context,
-                    FFLocalizations.of(context).getText(
-                      'ogcb9xww' /* Select */,
-                    ),
-                    bgColor: _notifier.selectedSecurity != null ? FlutterFlowTheme.of(context).primary : FlutterFlowTheme.of(context).customColor4),
+                child: getBtn(FFLocalizations.of(context).getText(
+                  'ogcb9xww' /* Select */,
+                )),
               ),
             ),
           ],
@@ -187,6 +184,14 @@ class _SecuritySelectionState extends State<SecuritySelection> {
         ),
       ),
     );
+  }
+
+  getBtn(String s) {
+    if(_notifier.selectedSecurity != null){
+      return AppWidgets.btn(context, s);
+    }else{
+      return AppWidgets.btnWithoutGradiant(context, s, FlutterFlowTheme.of(context).customColor4);
+    }
   }
 
   Widget? displayFile(MarketListModel item, int index) {
