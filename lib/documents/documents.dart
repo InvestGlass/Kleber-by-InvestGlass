@@ -683,7 +683,9 @@ class _DocumentsState extends State<Documents> {
       padding: EdgeInsets.zero,
       // surfaceTintColor: Colors.white,
       position: PopupMenuPosition.under,
-      color: FlutterFlowTheme.of(context).alternate,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(rSize*0.015),
+      ),
       itemBuilder: (context) => [
         popupMenuItem(
             1,

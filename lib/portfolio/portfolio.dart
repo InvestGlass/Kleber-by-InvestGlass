@@ -210,11 +210,11 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                               'group_By',
                                             ),
                                             style: FlutterFlowTheme.of(context).displaySmall.override(
-                                                  color: FlutterFlowTheme.of(context).customColor4,
-                                                  fontSize: rSize * 0.016,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
+                                              color: FlutterFlowTheme.of(context).customColor4,
+                                              fontSize: rSize * 0.016,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
                                           Text(
                                             ' ${item.sectionName ?? FFLocalizations.of(context).getText(
@@ -630,6 +630,9 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
       padding: EdgeInsets.zero,
       // surfaceTintColor: Colors.white,
       position: PopupMenuPosition.under,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(rSize*0.015),
+      ),
       color: FlutterFlowTheme.of(context).primaryBackground,
       itemBuilder: (context) => [
         popupMenuItem(

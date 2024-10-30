@@ -112,7 +112,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     _notifier=Provider.of<MainController>(context);
-    isTablet = (MediaQuery.of(context).size.width > 600);
+    isTablet = _isTablet(context);
     globalContext=context;
     Size ksize = MediaQuery.of(context).size;
     rSize = pow((ksize.height * ksize.height) + (ksize.width * ksize.width), 1 / 2) as double;
@@ -159,5 +159,13 @@ class _MyAppState extends State<MyApp> {
           .getString(USER_DATA)
           .isEmpty ? const OnBoardingPageWidget() : const Dashboard(),
     );
+  }
+
+  bool _isTablet(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final double shortestSide = size.shortestSide;
+
+    // Check for tablet size based on shortest side and aspect ratio
+    return shortestSide >= 600 && (size.width / size.height < 1.6);
   }
 }

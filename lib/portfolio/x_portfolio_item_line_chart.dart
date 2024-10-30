@@ -63,21 +63,14 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   bool fitInsideLeftTitle = false;
 
   TrackballBehavior? _trackballBehavior;
+  late Orientation  orientation;
 
   // late List<String> data;
-  late TooltipBehavior _tooltip;
 
   @override
   void initState() {
     touchedValue = -1;
     super.initState();
-    _tooltip = TooltipBehavior(enable: true,builder: (data, point, series, pointIndex, seriesIndex) {
-      return Container(
-        padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.002),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: FlutterFlowTheme.of(context).primary),
-        child: label(context, '${widget.xLabels[pointIndex]} : ${widget.listAmount[pointIndex]}'),
-      );
-    },);
     _trackballBehavior = TrackballBehavior(
       enable: true,
       builder: (context, trackballDetails) {
@@ -264,6 +257,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
 
   @override
   Widget build(BuildContext context) {
+    orientation = MediaQuery.of(context).orientation;
     return SizedBox(
       // width: widget.customWidth,
       height: widget.xLabels.isNotEmpty?widget.height:rSize*0.2,
@@ -283,39 +277,24 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
         widget.sectionName == null;
   }
 
-  lineChart(){
-    List<ChartModel> list = List<ChartModel>.generate(
-      widget.listY.length,
-          (index) => ChartModel(
-          widget.listY[index] <= 0 ? 0 : widget.listY[index], widget.xLabels[index], widget.listAmount.isEmpty ? 0 : widget.listAmount[index]),
-    );
-    return SfCartesianChart(
-        primaryXAxis: CategoryAxis(isVisible: true,),
-        primaryYAxis: NumericAxis(isVisible: true,),
-        tooltipBehavior: _tooltip,
-        series: <CartesianSeries<ChartModel, String>>[
-          BoxAndWhiskerSeries<ChartModel, String>(
-              dataSource: list,boxPlotMode: BoxPlotMode.exclusive,
-              xValueMapper: (ChartModel data, _) => data.label,
-              yValueMapper: (ChartModel data, _) => [data.percentage],
-
-              name: 'Gold',dataLabelSettings: DataLabelSettings(angle: 45, isVisible: true),
-              color: Color.fromRGBO(8, 142, 255, 1))
-        ]);
-  }
-
   circularChart() {
     List<ChartModel> list = List<ChartModel>.generate(
       widget.listY.length,
       (index) => ChartModel(
-          widget.listY[index] <= 0 ? 0 : widget.listY[index], widget.xLabels[index], widget.listAmount.isEmpty ? 0 : widget.listAmount[index]),
+          widget.listY[index] <= 0 ? 0 : widget.listY[index], widget.xLabels[index], widget.listAmount.isEmpty ? 0 : widget.listAmount[index]<=0?0:widget.listAmount[index]),
     );
-    list.sort((a, b) => a.percentage.compareTo(b.percentage));
+    list.sort((a, b) => a.amount.compareTo(b.amount));
     return Stack(
       alignment: Alignment.center,
       children: [
         SfCircularChart(
-            tooltipBehavior: _tooltip,
+            tooltipBehavior: TooltipBehavior(enable: true,builder: (data, point, series, pointIndex, seriesIndex) {
+              return Container(
+                padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.002),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: FlutterFlowTheme.of(context).primary),
+                child: label(context, '${list[pointIndex].label} : ${list[pointIndex].amount}'),
+              );
+            },),
             legend: Legend(
               isVisible: true,
               overflowMode: LegendItemOverflowMode.scroll,
@@ -394,7 +373,9 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
         Positioned(
           left: getPosition(),
           child: Center(
-            child: AppWidgets.buildRichText(context, widget.item?.amountInvested??'',fontSize: isTablet?rSize * 0.014:rSize * 0.01),
+            child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: rSize*0.3),
+                child: AppWidgets.buildRichText(context, widget.item?.amountInvested??'',fontSize: isTablet?rSize * 0.014:rSize * 0.01)),
           ),
         )
       ],
@@ -423,19 +404,20 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   }
 
   getPosition() {
-    if (Platform.isAndroid) {
+    /*if (Platform.isAndroid) {
       if (isTablet) {
         return rSize*0.09;
       }else{
         return rSize*0.05;
       }
-    }else{
+    }else{*/
+      print('orientation :: $isTablet ${orientation == Orientation.portrait}');
       if (isTablet) {
-        return rSize*0.13;
+        return orientation == Orientation.portrait?rSize*0.14:rSize*0.24;
       }else{
-        return rSize*0.05;
+        return orientation == Orientation.portrait?rSize*0.06:rSize*0.3;
       }
-    }
+    // }
   }
 }
 
