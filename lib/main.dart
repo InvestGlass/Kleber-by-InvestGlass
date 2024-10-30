@@ -29,6 +29,7 @@ double rSize = 0,btnHeight=0;
 bool isTablet=false;
 late BuildContext globalContext;
 late PackageInfo packageInfo;
+late bool  isPortraitMode;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -113,6 +114,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     _notifier=Provider.of<MainController>(context);
     isTablet = _isTablet(context);
+    isPortraitMode = (MediaQuery.of(context).orientation==Orientation.portrait);
     globalContext=context;
     Size ksize = MediaQuery.of(context).size;
     rSize = pow((ksize.height * ksize.height) + (ksize.width * ksize.width), 1 / 2) as double;

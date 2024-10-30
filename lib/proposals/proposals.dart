@@ -61,7 +61,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
       body: Column(
         children: [
           SizedBox(
-            height: rSize * 0.35,
+            height: isPortraitMode?rSize * 0.35:rSize*0.25,
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -90,7 +90,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: rSize * 0.015, bottom: rSize * 0.015, top: rSize * 0.015),
+                      padding: EdgeInsets.only(left: rSize * 0.015),
                       child: Text(
                         FFLocalizations.of(context).getText(
                           'hello',
@@ -104,7 +104,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: rSize * 0.05, right: rSize * 0.05, bottom: rSize * 0.02),
+                      padding: EdgeInsets.only(left: rSize * 0.05, right: rSize * 0.05),
                       child: Row(
                         children: [
                           cell(
@@ -523,7 +523,8 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
       // backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       builder: (context) {
         return Center(
-          child: Wrap(
+          child: ListView(
+            shrinkWrap: true,
             children: [
               Material(
                 color: Colors.transparent,

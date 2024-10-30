@@ -331,7 +331,8 @@ class _DocumentsState extends State<Documents> {
           Provider.of<DocumentsController>(context, listen: false).getAccountList(context);
         });
         return Center(
-          child: Wrap(
+          child: ListView(
+            shrinkWrap: true,
             children: [
               Material(
                 color: Colors.transparent,

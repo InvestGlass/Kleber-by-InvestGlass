@@ -229,7 +229,8 @@ class _SecuritySelectionState extends State<SecuritySelection> {
       context: context,
       builder: (context) {
         return Center(
-          child: Wrap(
+          child: ListView(
+            shrinkWrap: true,
             children: [
               Material(
                 color: Colors.transparent,

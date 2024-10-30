@@ -255,7 +255,8 @@ class _MarketState extends State<Market> {
       context: context,
       builder: (context) {
         return Center(
-          child: Wrap(
+          child: ListView(
+            shrinkWrap: true,
             children: [
               Material(
                 color: Colors.transparent,

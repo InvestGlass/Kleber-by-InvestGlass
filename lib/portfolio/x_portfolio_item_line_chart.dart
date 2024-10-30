@@ -63,7 +63,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   bool fitInsideLeftTitle = false;
 
   TrackballBehavior? _trackballBehavior;
-  late Orientation  orientation;
+  
 
   // late List<String> data;
 
@@ -257,7 +257,6 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    orientation = MediaQuery.of(context).orientation;
     return SizedBox(
       // width: widget.customWidth,
       height: widget.xLabels.isNotEmpty?widget.height:rSize*0.2,
@@ -404,18 +403,17 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   }
 
   getPosition() {
-    print('orientation :: $isTablet ${orientation == Orientation.portrait}');
     if (Platform.isAndroid) {
       if (MediaQuery.of(context).size.width > 600) {
-        return orientation == Orientation.portrait?rSize*0.09:rSize*0.3;
+        return isPortraitMode?rSize*0.09:rSize*0.3;
       }else{
         return rSize*0.06;
       }
     }else{
       if (isTablet) {
-        return orientation == Orientation.portrait?rSize*0.14:rSize*0.24;
+        return isPortraitMode?rSize*0.14:rSize*0.24;
       }else{
-        return orientation == Orientation.portrait?rSize*0.06:rSize*0.3;
+        return isPortraitMode?rSize*0.06:rSize*0.3;
       }
     }
   }

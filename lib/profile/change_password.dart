@@ -43,7 +43,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: EdgeInsets.symmetric(vertical: rSize * 0.02, horizontal: rSize * 0.015),
+          padding: EdgeInsets.only(top: rSize * 0.02,bottom: rSize * 0.05, left: rSize * 0.015, right: rSize * 0.015),
           children: [
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize * 0.010),
