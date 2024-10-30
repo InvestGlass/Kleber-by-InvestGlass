@@ -404,20 +404,20 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   }
 
   getPosition() {
-    /*if (Platform.isAndroid) {
-      if (isTablet) {
-        return rSize*0.09;
+    print('orientation :: $isTablet ${orientation == Orientation.portrait}');
+    if (Platform.isAndroid) {
+      if (MediaQuery.of(context).size.width > 600) {
+        return orientation == Orientation.portrait?rSize*0.09:rSize*0.3;
       }else{
-        return rSize*0.05;
+        return rSize*0.06;
       }
-    }else{*/
-      print('orientation :: $isTablet ${orientation == Orientation.portrait}');
+    }else{
       if (isTablet) {
         return orientation == Orientation.portrait?rSize*0.14:rSize*0.24;
       }else{
         return orientation == Orientation.portrait?rSize*0.06:rSize*0.3;
       }
-    // }
+    }
   }
 }
 
