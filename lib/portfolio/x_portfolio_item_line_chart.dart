@@ -75,7 +75,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.002),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: FlutterFlowTheme.of(context).primary),
-        child: label(context, '${widget.xLabels[pointIndex]} : ${widget.listY[pointIndex]}%'),
+        child: label(context, '${widget.xLabels[pointIndex]} : ${widget.listAmount[pointIndex]}'),
       );
     },);
     _trackballBehavior = TrackballBehavior(
