@@ -26,6 +26,11 @@ class ProposalController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateCheckBox(int index){
+    pagingController.itemList![index].isChecked = !pagingController.itemList![index].isChecked;
+    notifyListeners();
+  }
+
   void updateState(
     String state,
     int? id,

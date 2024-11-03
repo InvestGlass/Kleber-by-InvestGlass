@@ -296,7 +296,7 @@ var engMap={
   "zjpj3rb3": "A-Z",
   "qdw51x3q": "Z-A",
   "rp3i5rcp": "Newest",
-  "agree_checkbox": "Please check the checkbox first",
+  "agree_checkbox": "Please check the checkbox first.",
   "5dpmi95h": "Oldest",
   "9j789sh8": "Search for an item...",
   "yfas6pma": "Filter options",

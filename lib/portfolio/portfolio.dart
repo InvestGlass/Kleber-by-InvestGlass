@@ -628,7 +628,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
   popupMenu({required Function ontap}) {
     return PopupMenuButton<int>(
       padding: EdgeInsets.zero,
-      // surfaceTintColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       position: PopupMenuPosition.under,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(rSize*0.015),
@@ -668,7 +668,6 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
       shadowColor: Colors.black,
       elevation: 2,
       tooltip: '',
-      constraints: BoxConstraints(maxWidth: rSize * 0.13),
       child: AppStyles.iconBg(
         context,
         customIcon: Image.asset(

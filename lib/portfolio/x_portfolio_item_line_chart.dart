@@ -17,23 +17,23 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:math';
 
 import '../main.dart';
+import '../utils/common_functions.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
 import '../utils/shared_pref_utils.dart';
 
 class XPortfolioItemLineChart extends StatefulWidget {
-  const XPortfolioItemLineChart({
-    super.key,
-    this.width,
-    this.height,
-    this.customWidth,
-    this.xLabels = const [],
-    this.listY = const [],
-    this.listAmount = const [],
-    this.additionPercents = const [],
-    this.sectionName = '',
-    this.item
-  });
+  const XPortfolioItemLineChart(
+      {super.key,
+      this.width,
+      this.height,
+      this.customWidth,
+      this.xLabels = const [],
+      this.listY = const [],
+      this.listAmount = const [],
+      this.additionPercents = const [],
+      this.sectionName = '',
+      this.item});
 
   final double? width;
   final double? height;
@@ -63,7 +63,6 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   bool fitInsideLeftTitle = false;
 
   TrackballBehavior? _trackballBehavior;
-  
 
   // late List<String> data;
 
@@ -210,7 +209,10 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
             ),
             primaryYAxis: NumericAxis(
               labelFormat: '{value}%',
-              axisLine: AxisLine(color: FlutterFlowTheme.of(context).primaryText, width: 0.5,),
+              axisLine: AxisLine(
+                color: FlutterFlowTheme.of(context).primaryText,
+                width: 0.5,
+              ),
               interval: getYAxisInterval(),
               majorGridLines: MajorGridLines(
                 color: Colors.grey.withOpacity(0.5), // Color of horizontal grid lines
@@ -259,7 +261,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   Widget build(BuildContext context) {
     return SizedBox(
       // width: widget.customWidth,
-      height: widget.xLabels.isNotEmpty?widget.height:rSize*0.2,
+      height: widget.xLabels.isNotEmpty ? widget.height : rSize * 0.2,
       child: widget.xLabels.isEmpty
           ? Center(child: Image.asset('assets/empty_chart.png'))
           : !isPerformance(context)
@@ -280,20 +282,30 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     List<ChartModel> list = List<ChartModel>.generate(
       widget.listY.length,
       (index) => ChartModel(
-          widget.listY[index] <= 0 ? 0 : widget.listY[index], widget.xLabels[index], widget.listAmount.isEmpty ? 0 : widget.listAmount[index]<=0?0:widget.listAmount[index]),
+          widget.listY[index] <= 0 ? 0 : widget.listY[index],
+          widget.xLabels[index],
+          widget.listAmount.isEmpty
+              ? 0
+              : widget.listAmount[index] <= 0
+                  ? 0
+                  : widget.listAmount[index]),
     );
     list.sort((a, b) => a.amount.compareTo(b.amount));
     return Stack(
       alignment: Alignment.center,
       children: [
         SfCircularChart(
-            tooltipBehavior: TooltipBehavior(enable: true,builder: (data, point, series, pointIndex, seriesIndex) {
-              return Container(
-                padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.002),
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: FlutterFlowTheme.of(context).primary),
-                child: label(context, '${list[pointIndex].label} : ${list[pointIndex].amount}'),
-              );
-            },),
+            tooltipBehavior: TooltipBehavior(
+              enable: true,
+              builder: (data, point, series, pointIndex, seriesIndex) {
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.002),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: FlutterFlowTheme.of(context).primary),
+                  child: label(context,
+                      '${list[pointIndex].label} : ${CommonFunctions.formatDoubleWithThousandSeperator('${list[pointIndex].amount}', list[pointIndex].amount == 0, 2)}'),
+                );
+              },
+            ),
             legend: Legend(
               isVisible: true,
               overflowMode: LegendItemOverflowMode.scroll,
@@ -373,8 +385,8 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
           left: getPosition(),
           child: Center(
             child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: rSize*0.3),
-                child: AppWidgets.buildRichText(context, widget.item?.amountInvested??'',fontSize: isTablet?rSize * 0.014:rSize * 0.01)),
+                constraints: BoxConstraints(maxWidth: rSize * 0.3),
+                child: AppWidgets.buildRichText(context, widget.item?.amountInvested ?? '', fontSize: isTablet ? rSize * 0.014 : rSize * 0.01)),
           ),
         )
       ],
@@ -405,15 +417,15 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   getPosition() {
     if (Platform.isAndroid) {
       if (MediaQuery.of(context).size.width > 600) {
-        return isPortraitMode?rSize*0.09:rSize*0.3;
-      }else{
-        return rSize*0.06;
+        return isPortraitMode ? rSize * 0.09 : rSize * 0.3;
+      } else {
+        return rSize * 0.06;
       }
-    }else{
+    } else {
       if (isTablet) {
-        return isPortraitMode?rSize*0.14:rSize*0.24;
-      }else{
-        return isPortraitMode?rSize*0.06:rSize*0.3;
+        return isPortraitMode ? rSize * 0.14 : rSize * 0.24;
+      } else {
+        return isPortraitMode ? rSize * 0.06 : rSize * 0.3;
       }
     }
   }

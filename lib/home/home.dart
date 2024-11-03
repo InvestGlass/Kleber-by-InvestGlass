@@ -79,79 +79,88 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
               itemCount: _notifier.popularNewsList.length,
               itemBuilder: (context, index) {
                 HomeNewsModel model = _notifier.popularNewsList[index];
-                return Container(
-                  decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: AppStyles.shadow(),
-                      borderRadius: BorderRadius.circular(rSize*0.01)
-                  ),
-                  margin: EdgeInsets.only(right: rSize * 0.01,bottom: rSize * 0.01,left: 2),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.010), topRight: Radius.circular(rSize * 0.010)),
-                        child: Image.network(
-                          model.imageUrl ?? '',
-                          height: rSize * 0.15,
-                          width: rSize * 0.28,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Image.asset('assets/items_default.jpg', height: rSize * 0.15, width: rSize * 0.28, fit: BoxFit.cover);
-                          },
+                return GestureDetector(
+                  onTap: () {
+                    try {
+                      launchUrl(Uri.parse(model.link??''));
+                    } catch (e) {
+                      print(e);
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        boxShadow: AppStyles.shadow(),
+                        borderRadius: BorderRadius.circular(rSize*0.01)
+                    ),
+                    margin: EdgeInsets.only(right: rSize * 0.01,bottom: rSize * 0.01,left: 2),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.010), topRight: Radius.circular(rSize * 0.010)),
+                          child: Image.network(
+                            model.imageUrl ?? '',
+                            height: rSize * 0.15,
+                            width: rSize * 0.28,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Image.asset('assets/items_default.jpg', height: rSize * 0.15, width: rSize * 0.28, fit: BoxFit.cover);
+                            },
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(rSize * 0.005),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                width: rSize * 0.27,
-                                margin: EdgeInsets.only(top: rSize * 0.005),
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  model.title ?? '',
-                                  maxLines: 2,
-                                  style: FlutterFlowTheme.of(context).titleMedium.override(
-
-                                    color: FlutterFlowTheme.of(context).customColor4,
-                                    fontSize: rSize * 0.014,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                    lineHeight: 1.2,
-                                  ),
-                                )),
-                            SizedBox(
-                              height: rSize * 0.005,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).customColor1,
-                                borderRadius: BorderRadius.circular(rSize * 0.024),
-                              ),
-                              child: Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(rSize * 0.010, rSize * 0.005, rSize * 0.010, rSize * 0.005),
+                        Padding(
+                          padding: EdgeInsets.all(rSize * 0.005),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                  width: rSize * 0.27,
+                                  margin: EdgeInsets.only(top: rSize * 0.005),
+                                  alignment: Alignment.centerLeft,
                                   child: Text(
-                                    DateFormat('yyyy-MM-dd').format(model.date ?? DateTime.now()),
-                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                    model.title ?? '',
+                                    maxLines: 2,
+                                    style: FlutterFlowTheme.of(context).titleMedium.override(
 
-                                          color: FlutterFlowTheme.of(context).info,
-                                          fontSize: rSize * 0.012,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w600,
-                                          lineHeight: 1.0,
-                                        ),
+                                      color: FlutterFlowTheme.of(context).customColor4,
+                                      fontSize: rSize * 0.014,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w500,
+                                      lineHeight: 1.2,
+                                    ),
+                                  )),
+                              SizedBox(
+                                height: rSize * 0.005,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).customColor1,
+                                  borderRadius: BorderRadius.circular(rSize * 0.024),
+                                ),
+                                child: Align(
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(rSize * 0.010, rSize * 0.005, rSize * 0.010, rSize * 0.005),
+                                    child: Text(
+                                      DateFormat('yyyy-MM-dd').format(model.date ?? DateTime.now()),
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+
+                                            color: FlutterFlowTheme.of(context).info,
+                                            fontSize: rSize * 0.012,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w600,
+                                            lineHeight: 1.0,
+                                          ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 );
               },
