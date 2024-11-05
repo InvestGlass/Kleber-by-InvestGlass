@@ -62,8 +62,14 @@ class _ViewProposalState extends State<ViewProposal> {
   ///Get the PDF document as bytes
   void getPdfBytes() async {
     if (widget.url.isEmpty) {
-      _documentBytes = await http.readBytes(Uri.parse('${EndPoints.baseUrl}documents/${widget.documentId}'),
-          headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
+      try {
+        _documentBytes = await http.readBytes(Uri.parse('${EndPoints.baseUrl}documents/${widget.documentId}'),
+                  headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
+      } catch (e) {
+        if(e.toString().contains(' 404')){
+          _documentBytes=Uint8List(0);
+        }
+      }
     }
     setState(() {});
   }
@@ -81,6 +87,9 @@ class _ViewProposalState extends State<ViewProposal> {
         child = Image.memory(
           _documentBytes!,
         );
+      }
+      if(_documentBytes!.isEmpty){
+        child=Center(child: AppWidgets.label(context, 'Docu'),);
       }
     }
     if (widget.url.isNotEmpty) {

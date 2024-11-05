@@ -192,7 +192,8 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                         'rpfp7xvs' /* Cash Available */,
                                       ),
                                       item.cashAvailable ?? '',
-                                      richText: AppWidgets.buildRichText(context, (item.cashAvailable ?? '').replaceAll('(', '').replaceAll(')', ''))),
+                                      richText:
+                                          AppWidgets.buildRichText(context, (item.cashAvailable ?? '').replaceAll('(', '').replaceAll(')', ''))),
                                   SizedBox(
                                     height: rSize * 0.015,
                                   ),
@@ -210,11 +211,11 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                               'group_By',
                                             ),
                                             style: FlutterFlowTheme.of(context).displaySmall.override(
-                                              color: FlutterFlowTheme.of(context).customColor4,
-                                              fontSize: rSize * 0.016,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
+                                                  color: FlutterFlowTheme.of(context).customColor4,
+                                                  fontSize: rSize * 0.016,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
                                           ),
                                           Text(
                                             ' ${item.sectionName ?? FFLocalizations.of(context).getText(
@@ -332,82 +333,89 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                         ),
                       ),
                     },
+                    if (_notifier.selectedIndex == index) ...{
                     SizedBox(
                       height: rSize * 0.005,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                            onTap: () {
-                              CommonFunctions.navigate(context, Positions(item.id!));
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                AppStyles.iconBg(context,
-                                    color: FlutterFlowTheme.of(context).customColor4,
-                                    data: FontAwesomeIcons.shoppingBasket,
-                                    size: rSize * 0.020,
-                                    padding: EdgeInsets.all(rSize * 0.015)),
-                                Text(
-                                  FFLocalizations.of(context).getText(
-                                    'position',
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                CommonFunctions.navigate(context, Positions(item.id!));
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  AppStyles.iconBg(context,
+                                      color: FlutterFlowTheme.of(context).customColor4,
+                                      data: FontAwesomeIcons.shoppingBasket,
+                                      size: rSize * 0.020,
+                                      padding: EdgeInsets.all(rSize * 0.015)),
+                                  Text(
+                                    FFLocalizations.of(context).getText(
+                                      'position',
+                                    ),
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                      fontSize: rSize * 0.016,
+                                      color: FlutterFlowTheme.of(context).customColor4,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  )
+                                ],
+                              )),
+                          GestureDetector(
+                              onTap: () => CommonFunctions.navigate(context, Transactions(item.title!)),
+                              child: Row(
+                                children: [
+                                  SizedBox(width: rSize * 0.02),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      AppStyles.iconBg(context,
+                                          color: FlutterFlowTheme.of(context).customColor4,
+                                          data: FontAwesomeIcons.dollarSign,
+                                          size: rSize * 0.020,
+                                          padding: EdgeInsets.all(rSize * 0.015)),
+                                      Text(
+                                          FFLocalizations.of(context).getText(
+                                            'eg1yw963' /* Transactions */,
+                                          ),
+                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                            fontSize: rSize * 0.016,
+                                            color: FlutterFlowTheme.of(context).customColor4,
+                                            fontWeight: FontWeight.w600,
+                                          ))
+                                    ],
                                   ),
-                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                ],
+                              )),
+                          GestureDetector(
+                              onTap: () => CommonFunctions.navigate(context, AddTransaction(null, item)),
+                              child: Column(
+                                children: [
+                                  AppStyles.iconBg(context,
+                                      color: FlutterFlowTheme.of(context).customColor4,
+                                      data: FontAwesomeIcons.dollarSign,
+                                      size: rSize * 0.020,
+                                      padding: EdgeInsets.all(rSize * 0.015)),
+                                  Text(
+                                      FFLocalizations.of(context).getText(
+                                        'new_transaction',
+                                      ),
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                         fontSize: rSize * 0.016,
                                         color: FlutterFlowTheme.of(context).customColor4,
                                         fontWeight: FontWeight.w600,
-                                      ),
-                                )
-                              ],
-                            )),
-                        GestureDetector(
-                            onTap: () => CommonFunctions.navigate(context, Transactions(item.title!)),
-                            child: Row(
-                              children: [
-                                SizedBox(width: rSize*0.02),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    AppStyles.iconBg(context,
-                                        color: FlutterFlowTheme.of(context).customColor4,
-                                        data: FontAwesomeIcons.dollarSign,
-                                        size: rSize * 0.020,
-                                        padding: EdgeInsets.all(rSize * 0.015)),
-                                    Text(
-                                        FFLocalizations.of(context).getText(
-                                          'eg1yw963' /* Transactions */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                              fontSize: rSize * 0.016,
-                                              color: FlutterFlowTheme.of(context).customColor4,
-                                              fontWeight: FontWeight.w600,
-                                            ))
-                                  ],
-                                ),
-                              ],
-                            )),
-                        GestureDetector(
-                            onTap: () => CommonFunctions.navigate(context, AddTransaction(null,item)),
-                            child: Column(
-                              children: [
-                                AppStyles.iconBg(context,
-                                    color: FlutterFlowTheme.of(context).customColor4,
-                                    data: FontAwesomeIcons.dollarSign, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015)),
-                                Text(FFLocalizations.of(context).getText(
-                                  'new_transaction',
-                                ),style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontSize: rSize * 0.016,
-                                  color: FlutterFlowTheme.of(context).customColor4,
-                                  fontWeight: FontWeight.w600,
-                                ))
-                              ],
-                            )),
-                      ],
-                    )
+                                      ))
+                                ],
+                              )),
+                        ],
+                      )
+                    }
+
                   ],
                 ),
               ),
@@ -630,10 +638,11 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
       padding: EdgeInsets.zero,
       surfaceTintColor: Colors.transparent,
       position: PopupMenuPosition.under,
-      constraints: BoxConstraints(maxWidth: rSize*0.15),
+      constraints: BoxConstraints(maxWidth: rSize * 0.14),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(rSize*0.01),
-      ),clipBehavior: Clip.hardEdge,
+        borderRadius: BorderRadius.circular(rSize * 0.01),
+      ),
+      clipBehavior: Clip.hardEdge,
       color: FlutterFlowTheme.of(context).primaryBackground,
       itemBuilder: (context) => [
         popupMenuItem(

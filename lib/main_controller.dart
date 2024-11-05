@@ -8,9 +8,9 @@ class MainController extends ChangeNotifier {
           .getString(USER_DATA)
           .isEmpty;
 
-  bool isDarkModel() =>
+  bool isDarkMode() =>
       SharedPrefUtils.instance
-          .getBool(IS_DARK_MODE,defaultValue: true);
+          .getBool(IS_DARK_MODE,defaultValue: false);
 
   void clearToken() {
     SharedPrefUtils.instance

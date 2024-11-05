@@ -143,7 +143,7 @@ class _ProfileState extends State<Profile> {
                 child: Transform.scale(
                   scale: isTablet ? 2 : 0.8,
                   child: Switch(
-                    value: _mainNotifier.isDarkModel(),
+                    value: _mainNotifier.isDarkMode(),
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     onChanged: (value) {
                       _mainNotifier.changeTheme(value);

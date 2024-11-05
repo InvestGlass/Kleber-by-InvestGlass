@@ -121,7 +121,7 @@ class _MyAppState extends State<MyApp> {
     btnHeight=rSize*0.045;
     return MaterialApp(
       title: 'Flutter Demo',
-      themeMode: _notifier.isDarkModel()?ThemeMode.dark:ThemeMode.light,
+      themeMode: _notifier.isDarkMode()?ThemeMode.dark:ThemeMode.light,
       localizationsDelegates: const [
         FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
