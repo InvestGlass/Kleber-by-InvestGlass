@@ -630,7 +630,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
       padding: EdgeInsets.zero,
       surfaceTintColor: Colors.transparent,
       position: PopupMenuPosition.under,
-      constraints: BoxConstraints(maxWidth: rSize*015),
+      constraints: BoxConstraints(maxWidth: rSize*0.15),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(rSize*0.01),
       ),clipBehavior: Clip.hardEdge,
