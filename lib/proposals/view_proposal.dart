@@ -89,7 +89,9 @@ class _ViewProposalState extends State<ViewProposal> {
         );
       }
       if(_documentBytes!.isEmpty){
-        child=Center(child: AppWidgets.label(context, 'Docu'),);
+        child=Center(child: AppWidgets.label(context,FFLocalizations.of(context).getText(
+          'doc_not_found',
+        ) ),);
       }
     }
     if (widget.url.isNotEmpty) {
@@ -147,23 +149,31 @@ class _ViewProposalState extends State<ViewProposal> {
             children: [
               Transform.scale(
                 scale: isTablet?2:0.8,
-                child: Checkbox(
-                  value: widget.item!.state != 'Pending' || widget.item!.isChecked,
-                  activeColor: FlutterFlowTheme.of(context).primary,
-                  side: BorderSide(
-                    width: 2,
-                    color: FlutterFlowTheme.of(context).customColor4,
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    checkboxTheme: CheckboxThemeData(
+                      splashRadius: 0, // Removes the splash effect
+                      overlayColor: MaterialStateProperty.all(Colors.transparent), // Removes overlay color
+                    ),
                   ),
-                  checkColor: !((widget.item!.state != 'Rejected') && (widget.item!.state != 'Accepted'))
-                      ? FlutterFlowTheme.of(context).secondaryBackground
-                      : FlutterFlowTheme.of(context).customColor4,
-                  onChanged: (value) {
-                    if (widget.item!.state == 'Pending') {
-                      // widget.item!.isChecked = !widget.item!.isChecked;
-                      _notifier.updateCheckBox(widget.index!);
-                      setState(() {});
-                    }
-                  },
+                  child: Checkbox(
+                    value: widget.item!.state != 'Pending' || widget.item!.isChecked,
+                    activeColor: FlutterFlowTheme.of(context).primary,
+                    side: BorderSide(
+                      width: 2,
+                      color: FlutterFlowTheme.of(context).customColor4,
+                    ),
+                    checkColor: !((widget.item!.state != 'Rejected') && (widget.item!.state != 'Accepted'))
+                        ? FlutterFlowTheme.of(context).secondaryBackground
+                        : FlutterFlowTheme.of(context).customColor4,
+                    onChanged: (value) {
+                      if (widget.item!.state == 'Pending') {
+                        // widget.item!.isChecked = !widget.item!.isChecked;
+                        _notifier.updateCheckBox(widget.index!);
+                        setState(() {});
+                      }
+                    },
+                  ),
                 ),
               ),
               SizedBox(width: isTablet?rSize*0.01:0,),

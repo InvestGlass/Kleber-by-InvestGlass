@@ -123,7 +123,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                         top: rSize * 0.008,
                         bottom: rSize * 0.008,
                       ),
-                      color: FlutterFlowTheme.of(context).customColor4,
+                      color: FlutterFlowTheme.of(context).primary,
                       data: Icons.refresh_rounded,
                       onTap: () async {
                         _pageKey = 1;
@@ -139,7 +139,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                         left: rSize * 0.01,
                       ),
                       data: Icons.call_outlined,
-                      color: FlutterFlowTheme.of(context).customColor4,
+                      color: FlutterFlowTheme.of(context).primary,
                       onTap: () async {
                         await launchUrl(Uri(
                           scheme: 'tel',
@@ -330,7 +330,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                     AppStyles.iconBg(
                       context,
                       data: Icons.send_rounded,
-                      color: FlutterFlowTheme.of(context).customColor4,
+                      color: FlutterFlowTheme.of(context).primary,
                       size: rSize * 0.024,
                       margin: EdgeInsets.only(
                         top: rSize * 0.009,

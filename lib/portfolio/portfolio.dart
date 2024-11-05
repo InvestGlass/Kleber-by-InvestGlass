@@ -349,7 +349,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   AppStyles.iconBg(context,
-                                      color: FlutterFlowTheme.of(context).customColor4,
+                                      color: FlutterFlowTheme.of(context).primary,
                                       data: FontAwesomeIcons.shoppingBasket,
                                       size: rSize * 0.020,
                                       padding: EdgeInsets.all(rSize * 0.015)),
@@ -375,7 +375,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       AppStyles.iconBg(context,
-                                          color: FlutterFlowTheme.of(context).customColor4,
+                                          color: FlutterFlowTheme.of(context).primary,
                                           data: FontAwesomeIcons.dollarSign,
                                           size: rSize * 0.020,
                                           padding: EdgeInsets.all(rSize * 0.015)),
@@ -397,7 +397,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                               child: Column(
                                 children: [
                                   AppStyles.iconBg(context,
-                                      color: FlutterFlowTheme.of(context).customColor4,
+                                      color: FlutterFlowTheme.of(context).primary,
                                       data: FontAwesomeIcons.dollarSign,
                                       size: rSize * 0.020,
                                       padding: EdgeInsets.all(rSize * 0.015)),
@@ -682,7 +682,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
         context,
         customIcon: Image.asset(
           'assets/360-degree.png',
-          color: FlutterFlowTheme.of(context).customColor4,
+          color: FlutterFlowTheme.of(context).primary,
         ),
         padding: EdgeInsets.all(rSize * 0.008),
         data: FontAwesomeIcons.chartBar,

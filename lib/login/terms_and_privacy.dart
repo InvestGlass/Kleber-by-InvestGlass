@@ -105,17 +105,25 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy> with TickerProviderSt
                     children: [
                       Transform.scale(
                         scale: isTablet?2:0.8,
-                        child: Checkbox(
-                          activeColor: FlutterFlowTheme.of(context).primary,
-                          side: BorderSide(
-                            width: 2,
-                            color: FlutterFlowTheme.of(context).secondaryText,
+                        child: Theme(
+                          data: Theme.of(context).copyWith(
+                            checkboxTheme: CheckboxThemeData(
+                              splashRadius: 0, // Removes the splash effect
+                              overlayColor: MaterialStateProperty.all(Colors.transparent), // Removes overlay color
+                            ),
                           ),
-                          checkColor: !_controller.accepted ? FlutterFlowTheme.of(context).secondaryBackground : FlutterFlowTheme.of(context).info,
-                          value: _controller.accepted,
-                          onChanged: (value) {
-                            _controller.changeAcceptance(context);
-                          },
+                          child: Checkbox(
+                            activeColor: FlutterFlowTheme.of(context).primary,
+                            side: BorderSide(
+                              width: 2,
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                            ),
+                            checkColor: !_controller.accepted ? FlutterFlowTheme.of(context).secondaryBackground : FlutterFlowTheme.of(context).info,
+                            value: _controller.accepted,
+                            onChanged: (value) {
+                              _controller.changeAcceptance(context);
+                            },
+                          ),
                         ),
                       ),
                       Expanded(

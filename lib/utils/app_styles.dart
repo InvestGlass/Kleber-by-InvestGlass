@@ -150,9 +150,9 @@ class AppStyles {
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.25),
-                spreadRadius: 3, // how wide the shadow is spread
-                blurRadius: 6, // how blurry the shadow is
-                offset: Offset(0, 0),
+                spreadRadius: 1, // how wide the shadow is spread
+                blurRadius: 10, // how blurry the shadow is
+                offset: Offset(0, 5),
               ),
             ],
           ),

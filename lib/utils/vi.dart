@@ -430,6 +430,7 @@ var viMap={
   "7gd5sfox": "Nếu bạn không thể quét, vui lòng nhập mã sau một cách thủ công",
   "smq78s7m": "Tiếp theo",
   "eus8wc7h": "Hồ sơ",
+  "doc_not_found": "Không tìm thấy tài nguyên tài liệu",
   "want_to_logout": "Bạn có chắc chắn muốn đăng xuất không?",
   "portfolio_msg": "Vui lòng chọn danh mục đầu tư",
   "limit_price_msg": "Vui lòng nhập giá giới hạn",

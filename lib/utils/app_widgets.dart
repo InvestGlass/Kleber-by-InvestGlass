@@ -305,10 +305,10 @@ class AppWidgets {
       text,
       textAlign: center?TextAlign.center:null,
       style: FlutterFlowTheme.of(context).bodyMedium.override(
-            color: FlutterFlowTheme.of(context).customColor4,
+            color: FlutterFlowTheme.of(context).primaryText,
             fontSize: rSize * 0.025,
-            letterSpacing: 0.0,
-            fontWeight: FontWeight.w600,
+            letterSpacing: 2.0,
+            fontWeight: FontWeight.w300,
           ),
     );
   }
@@ -437,7 +437,7 @@ class AppWidgets {
   }
 
   static backArrow(BuildContext context, {void Function()? onTap}) {
-    return AppStyles.iconBg(context, data: Icons.arrow_back, size: rSize * 0.025,color:FlutterFlowTheme.of(context).customColor4,onTap: () {
+    return AppStyles.iconBg(context, data: Icons.arrow_back, size: rSize * 0.025,color:FlutterFlowTheme.of(context).primary,onTap: () {
       if (onTap != null) {
         onTap();
       } else {

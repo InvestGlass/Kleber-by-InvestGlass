@@ -238,7 +238,7 @@ class _DashboardState extends State<Dashboard> {
                             data: Icons.file_copy,
                             size: rSize * 0.020,
                             padding: EdgeInsets.all(rSize * 0.015),
-                            color: FlutterFlowTheme.of(context).customColor4),
+                            color: FlutterFlowTheme.of(context).primary),
                         FFLocalizations.of(context).getText(
                           '13mzcnly' /* Document */,
                         ),
@@ -259,7 +259,7 @@ class _DashboardState extends State<Dashboard> {
                                   ? 'assets/money-bill-trend-up-solid-dark-theme.svg'
                                   : 'assets/money-bill-trend-up-solid.svg',
                               fit: BoxFit.contain,
-                              color: FlutterFlowTheme.of(context).customColor4,
+                              color: FlutterFlowTheme.of(context).primary,
                               height: rSize * 0.025,
                               width: rSize * 0.025,
                             )),
@@ -278,7 +278,7 @@ class _DashboardState extends State<Dashboard> {
                             data: FontAwesomeIcons.upload,
                             size: rSize * 0.020,
                             padding: EdgeInsets.all(rSize * 0.015),
-                            color: FlutterFlowTheme.of(context).customColor4),
+                            color: FlutterFlowTheme.of(context).primary),
                         FFLocalizations.of(context).getText(
                           '3hz1whes' /* Upload */,
                         ),
@@ -294,7 +294,7 @@ class _DashboardState extends State<Dashboard> {
                             data: FontAwesomeIcons.message,
                             size: rSize * 0.020,
                             padding: EdgeInsets.all(rSize * 0.015),
-                            color: FlutterFlowTheme.of(context).customColor4),
+                            color: FlutterFlowTheme.of(context).primary),
                         FFLocalizations.of(context).getText(
                           'chat',
                         ),

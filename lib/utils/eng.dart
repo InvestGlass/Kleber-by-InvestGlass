@@ -369,6 +369,7 @@ var engMap={
   "p38uhcf6": "Home",
   "xn2nrgyp": "Portfolio",
   "portfolio_msg": "Please select the portfolio",
+  "doc_not_found": "Document resource not found.",
   "name_isin": "Please select Name, ISIN, FIGI ot Ticket",
   "limit_price_msg": "Please enter the limit price",
   "new_order": "NEW ORDER",

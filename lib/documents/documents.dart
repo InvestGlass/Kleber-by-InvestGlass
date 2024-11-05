@@ -684,9 +684,11 @@ class _DocumentsState extends State<Documents> {
       padding: EdgeInsets.zero,
       // surfaceTintColor: Colors.white,
       position: PopupMenuPosition.under,
+      constraints: BoxConstraints(maxWidth: rSize * 0.14),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(rSize*0.015),
+        borderRadius: BorderRadius.circular(rSize * 0.01),
       ),
+      clipBehavior: Clip.hardEdge,
       itemBuilder: (context) => [
         popupMenuItem(
             1,

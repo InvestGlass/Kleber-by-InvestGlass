@@ -257,22 +257,30 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                           children: [
                                             Transform.scale(
                                               scale: isTablet?2:0.8,
-                                              child: Checkbox(
-                                                value: item.state != 'Pending' || item.isChecked,
-                                                activeColor: FlutterFlowTheme.of(context).primary,
-                                                side: BorderSide(
-                                                  width: 2,
-                                                  color: FlutterFlowTheme.of(context).customColor4,
+                                              child: Theme(
+                                                data: Theme.of(context).copyWith(
+                                                  checkboxTheme: CheckboxThemeData(
+                                                    splashRadius: 0, // Removes the splash effect
+                                                    overlayColor: MaterialStateProperty.all(Colors.transparent), // Removes overlay color
+                                                  ),
                                                 ),
-                                                checkColor: !((item.state != 'Rejected') && (item.state != 'Accepted'))
-                                                    ? FlutterFlowTheme.of(context).secondaryBackground
-                                                    : FlutterFlowTheme.of(context).customColor4,
-                                                onChanged: (value) {
-                                                  if (item.state == 'Pending') {
-                                                    item.isChecked = !item.isChecked;
-                                                    setState(() {});
-                                                  }
-                                                },
+                                                child: Checkbox(
+                                                  value: item.state != 'Pending' || item.isChecked,
+                                                  activeColor: FlutterFlowTheme.of(context).primary,
+                                                  side: BorderSide(
+                                                    width: 2,
+                                                    color: FlutterFlowTheme.of(context).customColor4,
+                                                  ),
+                                                  checkColor: !((item.state != 'Rejected') && (item.state != 'Accepted'))
+                                                      ? FlutterFlowTheme.of(context).secondaryBackground
+                                                      : FlutterFlowTheme.of(context).customColor4,
+                                                  onChanged: (value) {
+                                                    if (item.state == 'Pending') {
+                                                      item.isChecked = !item.isChecked;
+                                                      setState(() {});
+                                                    }
+                                                  },
+                                                ),
                                               ),
                                             ),
                                             SizedBox(width: isTablet?rSize*0.01:0,),
