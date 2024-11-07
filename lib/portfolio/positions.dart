@@ -164,7 +164,9 @@ class _PositionsState extends State<Positions> {
                                     SizedBox(
                                       width: rSize * 0.015,
                                     ),
-                                    RotatedBox(quarterTurns: _notifier.selectedPositionIndex == index ? 3 : 2, child: AppWidgets.doubleBack(context)),
+                                    AnimatedRotation(
+                                        turns: _notifier.selectedPositionIndex == index ? 0.75 : 0.5,
+                                        duration: Duration(milliseconds: 300), child: AppWidgets.doubleBack(context)),
                                   ],
                                 ),
                                 if (_notifier.selectedPositionIndex != index) ...{
