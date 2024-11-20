@@ -26,12 +26,12 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>${PRODUCT_NAME} would like to access the camera. It is used to add profile picture, post a picture on timeline, add classifieds, reviews etc.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>${PRODUCT_NAME} would like to access the Photo Library. It is used to add profile picture, post a picture on timeline, add classifieds, reviews etc.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>${PRODUCT_NAME} would like to access the Photo Library. It is used to add profile picture, post a picture on timeline, add classifieds, reviews etc.</string>
-	<key>NSCameraUsageDescription</key>
-    <string>${PRODUCT_NAME} would like to access the camera. It is used to add profile picture, post a picture on timeline, add classifieds, reviews etc.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

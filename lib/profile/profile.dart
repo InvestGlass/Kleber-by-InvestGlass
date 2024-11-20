@@ -49,23 +49,6 @@ class _ProfileState extends State<Profile> {
                     color: FlutterFlowTheme.of(context).customColor4,
                   )),
           SizedBox(height: rSize*0.03),
-          GestureDetector(
-            onTap: () async {
-              openConfirmationDialog();
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AppWidgets.btn(
-                    context,
-                    FFLocalizations.of(context).getText(
-                      'c0xbwwci' /* Logout */,
-                    ),
-                    margin: EdgeInsets.only(bottom: rSize * 0.015),
-                    horizontalPadding: rSize * 0.040),
-              ],
-            ),
-          ),
         ],
       ),
       body: ListView(
@@ -95,11 +78,9 @@ class _ProfileState extends State<Profile> {
             FFLocalizations.of(context).getText(
               'wl1ownor' /* Account Settings */,
             ),
-            style: FlutterFlowTheme.of(context).displaySmall.override(
+            style: FlutterFlowTheme.of(context).labelMedium.override(
               color: FlutterFlowTheme.of(context).customColor4,
               fontSize: rSize * 0.016,
-              letterSpacing: 0.0,
-              fontWeight: FontWeight.w500,
             ),
           ),
           SizedBox(
@@ -130,11 +111,9 @@ class _ProfileState extends State<Profile> {
                   FFLocalizations.of(context).getText(
                     'znd2aszb' /* Switch to Dark Mode */,
                   ),
-                  style: FlutterFlowTheme.of(context).displaySmall.override(
+                  style: FlutterFlowTheme.of(context).labelMedium.override(
                     color: FlutterFlowTheme.of(context).customColor4,
                     fontSize: rSize * 0.016,
-                    letterSpacing: 0.0,
-                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -164,7 +143,27 @@ class _ProfileState extends State<Profile> {
             FFLocalizations.of(context).getText(
               'communication_support',
             ),
-            style: FlutterFlowTheme.of(context).headlineSmall.override(fontSize: rSize * 0.016, color: FlutterFlowTheme.of(context).customColor4),
+            style: FlutterFlowTheme.of(context).labelMedium.override(
+              color: FlutterFlowTheme.of(context).customColor4,fontSize: rSize * 0.016,
+            ),
+          ),
+          SizedBox(height: rSize*0.13,),
+          GestureDetector(
+            onTap: () async {
+              openConfirmationDialog();
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppWidgets.btn(
+                    context,
+                    FFLocalizations.of(context).getText(
+                      'c0xbwwci' /* Logout */,
+                    ),
+                    margin: EdgeInsets.only(bottom: rSize * 0.015),
+                    horizontalPadding: rSize * 0.040),
+              ],
+            ),
           ),
         ],
       ),
@@ -295,7 +294,6 @@ class _ProfileState extends State<Profile> {
                   child: Text(
                 title,
                 style: FlutterFlowTheme.of(context).labelMedium.override(
-                      letterSpacing: 0.0,
                       color: FlutterFlowTheme.of(context).customColor4,
                     ),
               )),

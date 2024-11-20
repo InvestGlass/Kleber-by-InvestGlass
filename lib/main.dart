@@ -30,6 +30,7 @@ bool isTablet=false;
 late BuildContext globalContext;
 late PackageInfo packageInfo;
 late bool  isPortraitMode;
+late EdgeInsets padding;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -114,6 +115,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     _notifier=Provider.of<MainController>(context);
     isTablet = _isTablet(context);
+    padding=MediaQuery.of(context).padding;
     isPortraitMode = (MediaQuery.of(context).orientation==Orientation.portrait);
     globalContext=context;
     Size ksize = MediaQuery.of(context).size;
@@ -121,6 +123,7 @@ class _MyAppState extends State<MyApp> {
     btnHeight=rSize*0.045;
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       themeMode: _notifier.isDarkMode()?ThemeMode.dark:ThemeMode.light,
       localizationsDelegates: const [
         FFLocalizationsDelegate(),

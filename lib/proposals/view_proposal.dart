@@ -63,7 +63,7 @@ class _ViewProposalState extends State<ViewProposal> {
   void getPdfBytes() async {
     if (widget.url.isEmpty) {
       try {
-        _documentBytes = await http.readBytes(Uri.parse('${EndPoints.baseUrl}documents/${widget.documentId}'),
+        _documentBytes = await http.readBytes(Uri.parse('${EndPoints.apiBaseUrl}documents/${widget.documentId}'),
                   headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
       } catch (e) {
         if(e.toString().contains(' 404')){

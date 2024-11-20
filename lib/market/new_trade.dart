@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:kleber_bank/main.dart';
 import 'package:kleber_bank/market/market_controller.dart';
 import 'package:kleber_bank/market/market_list_model.dart';
@@ -6,6 +7,7 @@ import 'package:kleber_bank/portfolio/portfolio_controller.dart';
 import 'package:kleber_bank/securitySelection/security_selection.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../portfolio/portfolio_model.dart';
 import '../proposals/proposal_controller.dart';
@@ -146,9 +148,7 @@ class _AddTransactionState extends State<AddTransaction> {
             label(context, 'whkrwls1' /* Type */),
             SearchableDropdown(
               selectedValue: _marketNotifier.selectedSecurityType,
-              searchHint: FFLocalizations.of(context).getText(
-                'm7418olr' /* Search for transaction type */,
-              ),
+              searchHint: '',
               onChanged: (p0) {
                 _marketNotifier.selectSecurityType(p0);
               },
@@ -250,7 +250,7 @@ class _AddTransactionState extends State<AddTransaction> {
               readOnly: true,
               controller: TextEditingController(text: _marketNotifier.selectedSecurity?.price ?? ''),
               decoration: AppStyles.inputDecoration(context,
-                  focusColor: FlutterFlowTheme.of(context).customColor4,
+                  focusColor: FlutterFlowTheme.of(context).customColor4.withOpacity(0.2),
                   contentPadding: EdgeInsets.all(rSize * 0.015),
                   prefix: Container(
                     height: rSize * 0.056,
@@ -262,7 +262,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           topLeft: Radius.circular(rSize * 0.010),
                           bottomLeft: Radius.circular(rSize * 0.010),
                         ),
-                        color: FlutterFlowTheme.of(context).customColor4),
+                        color: FlutterFlowTheme.of(context).customColor4.withOpacity(0.2)),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         'bhxqgsuw' /* USD $ */,
@@ -316,7 +316,7 @@ class _AddTransactionState extends State<AddTransaction> {
               readOnly: true,
               controller: TextEditingController(text: _marketNotifier.amount.toString()),
               decoration: AppStyles.inputDecoration(context,
-                  focusColor: FlutterFlowTheme.of(context).customColor4,
+                  focusColor: FlutterFlowTheme.of(context).customColor4.withOpacity(0.2),
                   contentPadding: EdgeInsets.all(rSize * 0.015),
                   prefix: Container(
                     height: rSize * 0.056,
@@ -328,7 +328,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           topLeft: Radius.circular(rSize * 0.010),
                           bottomLeft: Radius.circular(rSize * 0.010),
                         ),
-                        color: FlutterFlowTheme.of(context).customColor4),
+                        color: FlutterFlowTheme.of(context).customColor4.withOpacity(0.2)),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         'bhxqgsuw' /* USD $ */,
@@ -377,20 +377,26 @@ class _AddTransactionState extends State<AddTransaction> {
   }
 
   Future<void> openDateTimePicker() async {
-    DateTime now = DateTime.now();
+    AppWidgets.openDatePicker(context, (p0) async {
+      _marketNotifier.selectedDate=DateFormat('yyyy-mm-dd').parse(p0.toString());
+      if (_marketNotifier.selectedDate != null) {
+        Navigator.pop(context);
+        _marketNotifier.selectedTime = await showTimePicker(
+          context: context,
+          initialTime: _marketNotifier.selectedTime ?? TimeOfDay.now(),
+        );
+        _marketNotifier.selectTime(context);
+      }
+    }, () {
+
+    },mode: DateRangePickerSelectionMode.single);
+    /*DateTime now = DateTime.now();
     _marketNotifier.selectedDate = await showDatePicker(
       context: context,
       initialDate: _marketNotifier.selectedDate ?? now,
       firstDate: DateTime(now.year - 5),
       lastDate: DateTime(now.year + 5),
     );
-
-    if (_marketNotifier.selectedDate != null) {
-      _marketNotifier.selectedTime = await showTimePicker(
-        context: context,
-        initialTime: _marketNotifier.selectedTime ?? TimeOfDay.now(),
-      );
-      _marketNotifier.selectTime(context);
-    }
+*/
   }
 }

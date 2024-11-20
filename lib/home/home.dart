@@ -1,14 +1,18 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:kleber_bank/documents/document_model.dart';
 import 'package:kleber_bank/home/home_controller.dart';
 import 'package:kleber_bank/home/home_news_model.dart';
 import 'package:kleber_bank/main.dart';
+import 'package:kleber_bank/proposals/view_document.dart';
 import 'package:kleber_bank/utils/app_colors.dart';
 import 'package:kleber_bank/utils/app_styles.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
+import 'package:kleber_bank/utils/end_points.dart';
 import 'package:provider/provider.dart';
 import 'package:swipe_cards/draggable_card.dart';
 import 'package:swipe_cards/swipe_cards.dart';
@@ -31,14 +35,23 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   late MatchEngine _matchEngine;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   List<String> _names = ["Red", "Blue", "Green", "Yellow", "Orange"];
-  List<Color> _colors = [Colors.red, Colors.blue, Colors.green, Colors.yellow, Colors.orange];
+  List<Color> _colors = [
+    Colors.red,
+    Colors.blue,
+    Colors.green,
+    Colors.yellow,
+    Colors.orange
+  ];
   late HomeController _notifier;
+
+  var formUrl = '${EndPoints.baseUrl}forms';
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        Provider.of<HomeController>(context, listen: false).getPopularNews(context);
+        Provider.of<HomeController>(context, listen: false)
+            .getPopularNews(context);
       },
     );
     for (int i = 0; i < _names.length; i++) {
@@ -61,11 +74,13 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     _notifier = Provider.of<HomeController>(context);
     return Scaffold(
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: MediaQuery.of(context).padding.top + 10),
+        padding: EdgeInsets.symmetric(
+            horizontal: rSize * 0.015, vertical: padding.top + rSize * 0.01),
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 0.0, 0.0, rSize*0.010),
-            child: AppWidgets.title(context,
+            padding: EdgeInsetsDirectional.fromSTEB(0, 0.0, 0.0, rSize * 0.010),
+            child: AppWidgets.title(
+              context,
               FFLocalizations.of(context).getText(
                 'ran9xdwl' /* Popular */,
               ),
@@ -82,7 +97,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                 return GestureDetector(
                   onTap: () {
                     try {
-                      launchUrl(Uri.parse(model.link??''));
+                      launchUrl(Uri.parse(model.link ?? ''));
                     } catch (e) {
                       print(e);
                     }
@@ -91,21 +106,26 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                     decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                         boxShadow: AppStyles.shadow(),
-                        borderRadius: BorderRadius.circular(rSize*0.01)
-                    ),
-                    margin: EdgeInsets.only(right: rSize * 0.01,bottom: rSize * 0.01,left: 2),
+                        borderRadius: BorderRadius.circular(rSize * 0.01)),
+                    margin: EdgeInsets.only(
+                        right: rSize * 0.01, bottom: rSize * 0.01, left: 2),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.010), topRight: Radius.circular(rSize * 0.010)),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(rSize * 0.010),
+                              topRight: Radius.circular(rSize * 0.010)),
                           child: Image.network(
                             model.imageUrl ?? '',
                             height: rSize * 0.15,
                             width: rSize * 0.28,
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) {
-                              return Image.asset('assets/items_default.jpg', height: rSize * 0.15, width: rSize * 0.28, fit: BoxFit.cover);
+                              return Image.asset('assets/items_default.jpg',
+                                  height: rSize * 0.15,
+                                  width: rSize * 0.28,
+                                  fit: BoxFit.cover);
                             },
                           ),
                         ),
@@ -121,32 +141,44 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                   child: Text(
                                     model.title ?? '',
                                     maxLines: 2,
-                                    style: FlutterFlowTheme.of(context).titleMedium.override(
-
-                                      color: FlutterFlowTheme.of(context).customColor4,
-                                      fontSize: rSize * 0.014,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                      lineHeight: 1.2,
-                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .override(
+                                          color: FlutterFlowTheme.of(context)
+                                              .customColor4,
+                                          fontSize: rSize * 0.014,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                          lineHeight: 1.2,
+                                        ),
                                   )),
                               SizedBox(
                                 height: rSize * 0.005,
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).customColor1,
-                                  borderRadius: BorderRadius.circular(rSize * 0.024),
+                                  color:
+                                      FlutterFlowTheme.of(context).customColor1,
+                                  borderRadius:
+                                      BorderRadius.circular(rSize * 0.024),
                                 ),
                                 child: Align(
-                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                  alignment:
+                                      const AlignmentDirectional(0.0, 0.0),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(rSize * 0.010, rSize * 0.005, rSize * 0.010, rSize * 0.005),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        rSize * 0.010,
+                                        rSize * 0.005,
+                                        rSize * 0.010,
+                                        rSize * 0.005),
                                     child: Text(
-                                      DateFormat('yyyy-MM-dd').format(model.date ?? DateTime.now()),
-                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                                            color: FlutterFlowTheme.of(context).info,
+                                      DateFormat('yyyy-MM-dd')
+                                          .format(model.date ?? DateTime.now()),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            color: FlutterFlowTheme.of(context)
+                                                .info,
                                             fontSize: rSize * 0.012,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w600,
@@ -167,61 +199,105 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
             ),
           ),
           Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize*0.010, 0.0, rSize*0.010),
-              child: AppWidgets.title(context,
-                FFLocalizations.of(context).getText(
-                  'gln3vyrv' /* Recomended */,
-                ))),
+              padding: EdgeInsetsDirectional.fromSTEB(
+                  0.0, rSize * 0.010, 0.0, rSize * 0.010),
+              child: AppWidgets.title(
+                  context,
+                  FFLocalizations.of(context).getText(
+                    'more_products',
+                  ))),
           if (!_notifier.refresh) ...{
-            Image.asset('assets/home_placeholder.png'),
+            productView(
+                Icon(
+                  FontAwesomeIcons.chartSimple,
+                  color: FlutterFlowTheme.of(context).customColor4,
+                  size: rSize * 0.02,
+                ),
+                FFLocalizations.of(context).getText(
+                  'vested_benefits',
+                ),
+                FFLocalizations.of(context).getText(
+                  'vested_benefits_desc',
+                ), () {
+              nevigate(context, "$formUrl/46634dec-0e81-446d-ae3a-0b5131fda7a6",
+                  'vested_benefits');
+            }),
+            productView(
+                Icon(FontAwesomeIcons.shieldHeart,
+                    color: FlutterFlowTheme.of(context).customColor4,
+                    size: rSize * 0.02),
+                FFLocalizations.of(context).getText(
+                  'life_plus',
+                ),
+                FFLocalizations.of(context).getText(
+                  'life_plus_desc',
+                ), () {
+              nevigate(context, "$formUrl/3c992c39-488d-4266-b4b7-2c8f79bc25f3",
+                  'life_plus');
+            }),
+            productView(
+                Icon(FontAwesomeIcons.home,
+                    color: FlutterFlowTheme.of(context).customColor4,
+                    size: rSize * 0.02),
+                FFLocalizations.of(context).getText(
+                  'mortgage',
+                ),
+                FFLocalizations.of(context).getText(
+                  'mortgage_desc',
+                ), () {
+              nevigate(context, "$formUrl/324c7a2e-ab90-4e32-a872-0f36ff5a73d8",
+                  'mortgage');
+            }),
+            Visibility(
+              visible: false,
+              child: Image.asset('assets/home_placeholder.png'),
+            ),
             Visibility(
                 visible: false,
                 child: SizedBox(
-              height: rSize * 0.350,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    FFLocalizations.of(context).getText(
-                      'g2rxi1c1' /* Favourite selection */,
-                    ),
-                    style: FlutterFlowTheme.of(context).bodyLarge.override(
-
-                      color: FlutterFlowTheme.of(context).customColor4,
-                      fontSize: rSize * 0.02,
-                      letterSpacing: 0.0,
-                    ),
-                  ),
-                  SizedBox(
-                    height: rSize * 0.01,
-                  ),
-                  Row(
+                  height: rSize * 0.350,
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      GestureDetector(
-                        onTap: () => _notifier.doRefresh(),
-                        child: AppWidgets.btn(
-                            context,
-                            textColor: Colors.white,
-                            FFLocalizations.of(context).getText(
-                              'yiyjkffh' /* Refresh */,
+                      Text(
+                        FFLocalizations.of(context).getText(
+                          'g2rxi1c1' /* Favourite selection */,
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyLarge.override(
+                              color: FlutterFlowTheme.of(context).customColor4,
+                              fontSize: rSize * 0.02,
+                              letterSpacing: 0.0,
                             ),
-                            horizontalPadding: rSize*0.015),
+                      ),
+                      SizedBox(
+                        height: rSize * 0.01,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () => _notifier.doRefresh(),
+                            child: AppWidgets.btn(
+                                context,
+                                textColor: Colors.white,
+                                FFLocalizations.of(context).getText(
+                                  'yiyjkffh' /* Refresh */,
+                                ),
+                                horizontalPadding: rSize * 0.015),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-            )),
+                )),
           } else ...{
-
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   width: double.infinity,
-                  height: rSize*0.45,
+                  height: rSize * 0.45,
                   margin: EdgeInsets.only(bottom: rSize * 0.01),
                   decoration: const BoxDecoration(),
                   child: Builder(
@@ -235,7 +311,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                           _notifier.increaseSwipeCount();
                         },
                         onLeftSwipe: (index) async {
-                          CommonFunctions.showToast(FFLocalizations.of(context).getVariableText(
+                          CommonFunctions.showToast(
+                              FFLocalizations.of(context).getVariableText(
                             enText: 'Investment idea disliked',
                             arText: 'فكرة الاستثمار لم تعجبك',
                             viText: 'Ý tưởng đầu tư không được ưa chuộng',
@@ -277,7 +354,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(rSize*0.020, 0.0, rSize*0.020, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(
+                      rSize * 0.020, 0.0, rSize * 0.020, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -286,21 +364,24 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize*0.005),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, rSize * 0.005),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                _notifier.swipeableStackController.swipe(CardSwiperDirection.left);
+                                _notifier.swipeableStackController
+                                    .swipe(CardSwiperDirection.left);
                               },
                               child: Container(
                                 width: _notifier.buttonSize,
                                 height: _notifier.buttonSize,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context).error,
-                                  borderRadius: BorderRadius.circular(rSize*0.070),
+                                  borderRadius:
+                                      BorderRadius.circular(rSize * 0.070),
                                 ),
                                 child: Icon(
                                   Icons.close_rounded,
@@ -316,21 +397,25 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                             children: [
                               Icon(
                                 Icons.swipe_left_rounded,
-                                color: FlutterFlowTheme.of(context).customColor4,
-                                size: rSize*0.024,
+                                color:
+                                    FlutterFlowTheme.of(context).customColor4,
+                                size: rSize * 0.024,
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(rSize*0.005, 0.0, 0.0, 0.0),
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    rSize * 0.005, 0.0, 0.0, 0.0),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
                                     'yj6g8w9q' /* Swipe left */,
                                   ),
-                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                                    color: FlutterFlowTheme.of(context).customColor4,
-                                    fontSize: rSize * 0.016,
-                                    letterSpacing: 0.0,
-                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        color: FlutterFlowTheme.of(context)
+                                            .customColor4,
+                                        fontSize: rSize * 0.016,
+                                        letterSpacing: 0.0,
+                                      ),
                                 ),
                               ),
                             ],
@@ -342,21 +427,24 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, rSize*0.005),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, rSize * 0.005),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                _notifier.swipeableStackController.swipe(CardSwiperDirection.right);
+                                _notifier.swipeableStackController
+                                    .swipe(CardSwiperDirection.right);
                               },
                               child: Container(
                                 width: _notifier.buttonSize,
                                 height: _notifier.buttonSize,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context).success,
-                                  borderRadius: BorderRadius.circular(rSize*0.070),
+                                  borderRadius:
+                                      BorderRadius.circular(rSize * 0.070),
                                 ),
                                 child: Icon(
                                   Icons.done_rounded,
@@ -371,23 +459,27 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, rSize*0.005, 0.0),
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, rSize * 0.005, 0.0),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
                                     '35ozpi3w' /* Swipe right */,
                                   ),
-                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-
-                                    color: FlutterFlowTheme.of(context).customColor4,
-                                    fontSize: rSize * 0.016,
-                                    letterSpacing: 0.0,
-                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        color: FlutterFlowTheme.of(context)
+                                            .customColor4,
+                                        fontSize: rSize * 0.016,
+                                        letterSpacing: 0.0,
+                                      ),
                                 ),
                               ),
                               Icon(
                                 Icons.swipe_right_rounded,
-                                color: FlutterFlowTheme.of(context).customColor4,
-                                size: rSize*0.024,
+                                color:
+                                    FlutterFlowTheme.of(context).customColor4,
+                                size: rSize * 0.024,
                               ),
                             ],
                           ),
@@ -396,7 +488,9 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                     ],
                   ),
                 ),
-                SizedBox(height: rSize*0.05,)
+                SizedBox(
+                  height: rSize * 0.05,
+                )
               ],
             ),
           },
@@ -408,13 +502,27 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     );
   }
 
+  void nevigate(BuildContext context, String url, String title) {
+    CommonFunctions.navigate(
+        context,
+        ViewDocument(
+          item: Document(url: url),
+          title: FFLocalizations.of(context).getText(
+            title,
+          ),
+        ));
+  }
+
   Widget swipeIcon(String img, String text) {
     return Column(
       children: [
         Container(
             height: rSize * 0.06,
-            decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: AppColors.kTextFieldInput, width: 1)),
-            child: Image.asset(img, scale: 15, color: AppColors.kTextFieldInput)),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: AppColors.kTextFieldInput, width: 1)),
+            child:
+                Image.asset(img, scale: 15, color: AppColors.kTextFieldInput)),
         Text(text),
       ],
     );
@@ -423,6 +531,55 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+
+  productView(Widget icon, String title, String desc, void Function()? onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            boxShadow: AppStyles.shadow(),
+            borderRadius: BorderRadius.circular(rSize * 0.01)),
+        padding: EdgeInsets.all(rSize * 0.015),
+        margin: EdgeInsets.only(bottom: rSize * 0.015),
+        child: Row(
+          children: [
+            icon,
+            SizedBox(
+              width: rSize * 0.01,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontSize: rSize * 0.016,
+                        color: FlutterFlowTheme.of(context).customColor4,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1),
+                  ),
+                  SizedBox(height: rSize * 0.005),
+                  Text(
+                    desc,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontSize: rSize * 0.014,
+                          color: FlutterFlowTheme.of(context).customColor4,
+                          fontWeight: FontWeight.w300,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(FontAwesomeIcons.plus,
+                color: FlutterFlowTheme.of(context).customColor4,
+                size: rSize * 0.02)
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class Content {

@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kleber_bank/documents/document_model.dart';
 import 'package:kleber_bank/login/signup.dart';
+import 'package:kleber_bank/proposals/view_document.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
+import 'package:kleber_bank/utils/end_points.dart';
 import 'package:provider/provider.dart';
 
 import '../main.dart';
@@ -206,7 +209,7 @@ class _LoginState extends State<Login> {
                     Align(
                       alignment: Alignment.center,
                       child: GestureDetector(
-                        onTap: () => CommonFunctions.navigate(context,Signup()),
+                        onTap: () => CommonFunctions.navigate(context,ViewDocument(item: Document(url: '${EndPoints.baseUrl}forms/a2178090-1962-44de-af4a-a0689da63696?from=kleber',),title: 'Signup',)),
                         child: RichText(
                           textScaler: MediaQuery.of(context).textScaler,
                           text: TextSpan(

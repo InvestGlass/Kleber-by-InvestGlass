@@ -101,12 +101,7 @@ class _PositionsState extends State<Positions> {
                             ),
                             SizedBox(width: rSize * 0.008),
                             Text(item,
-                                style: FlutterFlowTheme.of(context).bodySmall.override(
-
-                                      color: FlutterFlowTheme.of(context).customColor4,
-                                      fontSize: rSize * 0.016,
-                                      fontWeight: FontWeight.w500,
-                                    )),
+                                style: AppStyles.inputTextStyle(context)),
                           ],
                         );
                       }).toList();
@@ -183,9 +178,9 @@ class _PositionsState extends State<Positions> {
                                           '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('${item.amount}', (double.tryParse(item.amount!) ?? 0) == 0, 2)}'),
                                   AppWidgets.portfolioListElement(
                                       context,
-                                      FFLocalizations.of(context).getText(
-                                        'e0dy1vxx' /* ROI */,
-                                      ),
+                                      '${FFLocalizations.of(context).getText(
+                                      'e0dy1vxx' /* ROI */,
+                                      )} ($currency)',
                                       item.roi! + (item.roi != '-' ? '%' : ''),
                                       icon: getIcon(double.tryParse(item.roi!) ?? 0))
                                 },
@@ -256,9 +251,9 @@ class _PositionsState extends State<Positions> {
                                             ),
                                             AppWidgets.portfolioListElement(
                                                 context,
-                                                FFLocalizations.of(context).getText(
-                                                  'cdklrlbv' /* ROI */,
-                                                ),
+                                                '${FFLocalizations.of(context).getText(
+                                                  'e0dy1vxx' /* ROI */,
+                                                )} ($currency)',
                                                 item.roi! + (item.roi != '-' ? '%' : ''),
                                                 icon: getIcon(double.tryParse(item.roi!) ?? 0)),
                                             SizedBox(
@@ -284,7 +279,7 @@ class _PositionsState extends State<Positions> {
                                                 ),
                                                 '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('$currency ${item.amount}', (double.tryParse(item.amount!) ?? 0) == 0, 2)}',
                                                 richText: AppWidgets.buildRichText(context,
-                                                    '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('$currency ${item.amount}', (double.tryParse(item.amount!) ?? 0) == 0, 2)}')),
+                                                    '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('${item.amount}', (double.tryParse(item.amount!) ?? 0) == 0, 2)}')),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),

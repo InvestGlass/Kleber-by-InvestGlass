@@ -22,9 +22,10 @@ import '../utils/shared_pref_utils.dart';
 class ViewDocument extends StatefulWidget {
   final bool? showSignButton;
   Document? item;
+  String? title;
   final int? index;
 
-  ViewDocument( {this.showSignButton = false, this.item, this.index, super.key});
+  ViewDocument( {this.title,this.showSignButton = false, this.item, this.index, super.key});
 
   @override
   State<ViewDocument> createState() => _ViewDocumentState();
@@ -53,6 +54,9 @@ class _ViewDocumentState extends State<ViewDocument> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      CommonFunctions.showLoader(context);
+    },);
     getPdfBytes();
     super.initState();
   }
@@ -60,7 +64,7 @@ class _ViewDocumentState extends State<ViewDocument> {
   ///Get the PDF document as bytes
   void getPdfBytes() async {
     if ((widget.item?.url??'').isEmpty) {
-      _documentBytes = await http.readBytes(Uri.parse('${EndPoints.baseUrl}documents/${widget.item!.id}'),
+      _documentBytes = await http.readBytes(Uri.parse('${EndPoints.apiBaseUrl}documents/${widget.item!.id}'),
           headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
     }
     setState(() {});
@@ -91,7 +95,9 @@ class _ViewDocumentState extends State<ViewDocument> {
                   // Update loading bar.
                 },
                 onPageStarted: (String url) {},
-                onPageFinished: (String url) {},
+                onPageFinished: (String url) {
+                  CommonFunctions.dismissLoader(context);
+                },
                 onHttpError: (HttpResponseError error) {},
                 onWebResourceError: (WebResourceError error) {},
                 onNavigationRequest: (NavigationRequest request) {
@@ -107,7 +113,7 @@ class _ViewDocumentState extends State<ViewDocument> {
     return Scaffold(
       appBar: AppWidgets.appBar(
           context,
-          FFLocalizations.of(context).getText(
+          widget.title??FFLocalizations.of(context).getText(
             '1vddbh59' /* Document */,
           ),
           leading: AppWidgets.backArrow(context),

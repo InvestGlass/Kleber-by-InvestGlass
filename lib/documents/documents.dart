@@ -596,7 +596,7 @@ class _DocumentsState extends State<Documents> {
               children: [
                 Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.only(top: rSize * 0.015),
+                  padding: EdgeInsets.only(top: rSize * 0.015,bottom: padding.bottom),
                   decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).primaryBackground,
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.020), topRight: Radius.circular(rSize * 0.020))),

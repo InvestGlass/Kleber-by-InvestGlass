@@ -205,7 +205,7 @@ class ApiCalls {
         (key, value) => value == null || value.toString().isEmpty,
       );
       List<dynamic> json = await jsonResponse(context,
-          Uri.https(EndPoints.baseUrl.replaceAll('/client_portal_api/', '').replaceAll('https://', ''), '/client_portal_api/markets', params), 'get',
+          Uri.https(EndPoints.apiBaseUrl.replaceAll('/client_portal_api/', '').replaceAll('https://', ''), '/client_portal_api/markets', params), 'get',
           isList: true);
 
       return marketListModelFromJson(jsonEncode(json));
@@ -252,7 +252,7 @@ class ApiCalls {
       Map<String, dynamic> params = {'page': pageKey.toString(), 'order[column]': column, 'order[direction]': direction, 'limit': '10'};
       List<dynamic> json = (await jsonResponse(
           context,
-          Uri.https(EndPoints.baseUrl.replaceAll('/client_portal_api/', '').replaceAll('https://', ''),
+          Uri.https(EndPoints.apiBaseUrl.replaceAll('/client_portal_api/', '').replaceAll('https://', ''),
               '/client_portal_api/portfolios/$portfolioId/portfolio_securities', params),
           'get')) as List;
 
@@ -302,7 +302,7 @@ class ApiCalls {
       params.removeWhere(
         (key, value) => value == null || value.toString().isEmpty,
       );
-      var url = Uri.https(EndPoints.baseUrl.replaceAll('/client_portal_api/', '').replaceAll('https://', ''), '/client_portal_api/proposals', params);
+      var url = Uri.https(EndPoints.apiBaseUrl.replaceAll('/client_portal_api/', '').replaceAll('https://', ''), '/client_portal_api/proposals', params);
 
       List<dynamic> json = (await jsonResponse(context, url, 'get')) as List;
 

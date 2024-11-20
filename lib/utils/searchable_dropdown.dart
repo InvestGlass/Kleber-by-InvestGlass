@@ -81,9 +81,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
               widget.hint,
               style: AppStyles.inputTextStyle(context),
             ),
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  letterSpacing: 0.0,
-                ),
+            style: AppStyles.inputTextStyle(context),
             items: widget.items,
             value: List<dynamic>.generate(
               (widget.items ?? []).length,

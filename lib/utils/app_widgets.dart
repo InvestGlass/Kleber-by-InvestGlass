@@ -428,7 +428,7 @@ class AppWidgets {
     );
   }
 
-  static doubleBack(BuildContext context,{int i=0}) {
+  static doubleBack(BuildContext context) {
     return Image.asset(
       'assets/double_arrow2.png',
       height: rSize * 0.025,
@@ -644,34 +644,16 @@ class AppWidgets {
                 backgroundColor: Colors.transparent,
                 onSubmit: onSubmit,
                 rangeTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                      color: FlutterFlowTheme.of(context).customColor4,
+                      color: FlutterFlowTheme.of(context).info,
                       fontSize: rSize * 0.016,
                       fontWeight: FontWeight.normal,
                     ),
                 selectionTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                      color: FlutterFlowTheme.of(context).customColor4,
+                      color: FlutterFlowTheme.of(context).info,
                       fontSize: rSize * 0.016,
                       fontWeight: FontWeight.normal,
                     ),
-                cellBuilder: (context, cellDetails) {
-                  return Container(
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    height: rSize * 0.010,
-                    width: rSize * 0.010,
-                    alignment: Alignment.center,
-                    child: Text(
-                      cellDetails.date.day.toString(),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            color: FlutterFlowTheme.of(context).customColor4,
-                            fontSize: rSize * 0.016,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.normal,
-                          ),
-                    ),
-                  );
-                },
+
                 selectionShape: DateRangePickerSelectionShape.circle,
                 startRangeSelectionColor: FlutterFlowTheme.of(context).primary,
                 endRangeSelectionColor: FlutterFlowTheme.of(context).primary,

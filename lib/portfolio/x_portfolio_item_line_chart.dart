@@ -296,11 +296,11 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
       children: [
         SfCircularChart(
             tooltipBehavior: TooltipBehavior(
-              enable: true,
+              enable: true,color: Colors.transparent,
               builder: (data, point, series, pointIndex, seriesIndex) {
                 return Container(
                   padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.002),
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: FlutterFlowTheme.of(context).primary),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(rSize*0.020), color: FlutterFlowTheme.of(context).primary),
                   child: label(context,
                       '${list[pointIndex].label} : ${CommonFunctions.formatDoubleWithThousandSeperator('${list[pointIndex].amount}', list[pointIndex].amount == 0, 2)}'),
                 );
@@ -386,7 +386,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
           child: Center(
             child: ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: rSize * 0.3),
-                child: AppWidgets.buildRichText(context, widget.item?.amountInvested ?? '', fontSize: isTablet ? rSize * 0.014 : rSize * 0.01)),
+                child: AppWidgets.buildRichText(context, widget.item?.portfolioValue ?? '', fontSize: isTablet ? rSize * 0.014 : rSize * 0.01)),
           ),
         )
       ],
@@ -398,7 +398,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
       s,
       style: FlutterFlowTheme.of(context).bodyMedium.override(
             fontSize: rSize * 0.012,
-            color: FlutterFlowTheme.of(context).customColor4,
+            color: FlutterFlowTheme.of(context).info,
             fontWeight: FontWeight.w500,
           ),
     );
