@@ -53,6 +53,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _notifier = Provider.of<PortfolioController>(context);
     return Scaffold(
       body: RefreshIndicator(

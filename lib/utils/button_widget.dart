@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../main.dart';
+
 
 class FFButtonOptions {
   const FFButtonOptions({
@@ -80,6 +82,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     Widget textWidget = loading
         ? SizedBox(
       width: widget.options.width == null

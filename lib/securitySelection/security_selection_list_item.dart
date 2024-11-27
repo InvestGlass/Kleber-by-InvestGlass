@@ -67,6 +67,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
 
     return InkWell(
       splashColor: Colors.transparent,

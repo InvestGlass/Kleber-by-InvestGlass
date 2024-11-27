@@ -72,6 +72,7 @@ class _ViewDocumentState extends State<ViewDocument> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _notifier = Provider.of<DocumentsController>(context);
     Widget child = const Center(child: CircularProgressIndicator());
     if (_documentBytes != null) {

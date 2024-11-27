@@ -57,6 +57,7 @@ class _ChatHistoryState extends State<ChatHistory> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _notifier = Provider.of<ProposalController>(context);
     return Scaffold(
       /*appBar: AppWidgets.appBar(context, widget.model.advisor?.name ?? '',

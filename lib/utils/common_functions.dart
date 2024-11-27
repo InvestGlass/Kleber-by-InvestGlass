@@ -4,13 +4,27 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kleber_bank/main.dart';
+import 'package:kleber_bank/utils/shared_pref_utils.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
 import 'dart:math' as math;
 
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:timeago/timeago.dart' as timeago;
+
+import '../dashboard/dashboard_controller.dart';
+import '../documents/documents_controller.dart';
+import '../home/home_controller.dart';
+import '../login/login_controller.dart';
+import '../login/on_boarding_page_widget.dart';
+import '../main_controller.dart';
+import '../market/market_controller.dart';
+import '../portfolio/portfolio_controller.dart';
+import '../profile/profile_controller.dart';
+import '../proposals/proposal_controller.dart';
+import '../securitySelection/security_selection_controller.dart';
 
 enum EFontWeight {
   w100,
@@ -88,8 +102,7 @@ class CommonFunctions {
     );
   }
 
-  static Future<String> downloadAndSavePdf(
-      Uint8List bytes, String fileName, BuildContext context) async {
+  static Future<String> downloadAndSavePdf(Uint8List bytes, String fileName, BuildContext context) async {
     try {
       var status = await Permission.storage.status;
       if (!status.isGranted) {
@@ -106,8 +119,7 @@ class CommonFunctions {
       } else if (Platform.isIOS) {
         dir = (await getApplicationDocumentsDirectory()).path;
         final directory = await getTemporaryDirectory();
-        final newFile =
-            File("${directory.path}/${fileName.replaceAll(':', '')}");
+        final newFile = File("${directory.path}/${fileName.replaceAll(':', '')}");
 
         // if (await newFile.exists()) {
         //   await newFile.delete();
@@ -148,9 +160,7 @@ class CommonFunctions {
   }
 
   static navigate(BuildContext context, Widget screen,
-      {bool removeCurrentScreenFromStack = false,
-      bool removeAllScreensFromStack = false,
-      Function? onBack}) {
+      {bool removeCurrentScreenFromStack = false, bool removeAllScreensFromStack = false, Function? onBack}) {
     if (removeCurrentScreenFromStack) {
       Navigator.pushReplacement(
           context,
@@ -162,10 +172,7 @@ class CommonFunctions {
         }
       });
     } else if (removeAllScreensFromStack) {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => screen),
-          (Route<dynamic> route) => false);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => screen), (Route<dynamic> route) => false);
       // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => screen), (route) => false);
     } else {
       Navigator.push(
@@ -177,8 +184,7 @@ class CommonFunctions {
             var end = Offset.zero;
             var curve = Curves.ease;
 
-            var tween =
-                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
             return SlideTransition(
               position: animation.drive(tween),
@@ -194,11 +200,33 @@ class CommonFunctions {
     }
   }
 
+  static cleanAndLogout(BuildContext context) {
+    SharedPrefUtils.instance.logout();
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => MainController()),
+            ChangeNotifierProvider(create: (_) => LoginController()),
+            ChangeNotifierProvider(create: (_) => DashboardController()),
+            ChangeNotifierProvider(create: (_) => PortfolioController()),
+            ChangeNotifierProvider(create: (_) => ProfileController()),
+            ChangeNotifierProvider(create: (_) => ProposalController()),
+            ChangeNotifierProvider(create: (_) => MarketController()),
+            ChangeNotifierProvider(create: (_) => DocumentsController()),
+            ChangeNotifierProvider(create: (_) => HomeController()),
+            ChangeNotifierProvider(create: (_) => SecuritySelectionController()),
+          ],
+          child: OnBoardingPageWidget(),
+        ),
+      ),
+      (Route<dynamic> route) => false, // Clear backstack
+    );
+  }
+
   static bool compare(String searchedWord, String text) {
-    return text
-        .toLowerCase()
-        .replaceAll(' ', '')
-        .contains(searchedWord.toLowerCase().replaceAll(' ', ''));
+    return text.toLowerCase().replaceAll(' ', '').contains(searchedWord.toLowerCase().replaceAll(' ', ''));
   }
 
   static String getYYYYMMDD(DateTime date) {
@@ -223,8 +251,7 @@ class CommonFunctions {
     return formatter.format(value);
   }
 
-  static String dateTimeFormat(String format, DateTime? dateTime,
-      {String? locale}) {
+  static String dateTimeFormat(String format, DateTime? dateTime, {String? locale}) {
     if (dateTime == null) {
       return '';
     }
@@ -248,9 +275,7 @@ class CommonFunctions {
     String utcString,
     bool isUTC,
   ) {
-    final dateTime = DateTime.fromMillisecondsSinceEpoch(
-        DateTime.parse(utcString).millisecondsSinceEpoch,
-        isUtc: isUTC);
+    final dateTime = DateTime.fromMillisecondsSinceEpoch(DateTime.parse(utcString).millisecondsSinceEpoch, isUtc: isUTC);
 
     return dateTime;
   }

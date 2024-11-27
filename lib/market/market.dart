@@ -61,6 +61,7 @@ class _MarketState extends State<Market> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _notifier = Provider.of<MarketController>(context);
     return Scaffold(
       appBar: AppWidgets.appBar(

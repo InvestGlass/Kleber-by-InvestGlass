@@ -76,6 +76,7 @@ class _ViewProposalState extends State<ViewProposal> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _notifier = Provider.of<ProposalController>(context);
     Widget child = const Center(child: CircularProgressIndicator());
     if (_documentBytes != null) {

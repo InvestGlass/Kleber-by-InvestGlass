@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 
+import '../main.dart';
+
 
 class MainPage extends StatefulWidget {
   final String url;
@@ -45,6 +47,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     return Scaffold(
       appBar: AppBar(
         title: const Text('webview_flutter_plus Example'),

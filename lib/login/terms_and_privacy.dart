@@ -43,160 +43,159 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _controller = Provider.of<LoginController>(context);
     _pageController = PageController();
     return Scaffold(
       appBar: AppWidgets.appBar(context, '', leading: AppWidgets.backArrow(context)),
-      body: Container(
-        decoration: AppStyles.commonBg(context),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(rSize * 0.03), color: FlutterFlowTheme.of(context).customColor4.withOpacity(0.3)),
-                  margin: EdgeInsets.only(bottom: rSize*0.005),
-                  padding: EdgeInsets.all(rSize * 0.002),
-                  child: Row(
-                    children: [
-                      tabCell(
-                          context,
-                          FFLocalizations.of(context).getText(
-                            'ovw4ksp4' /* terms... */,
-                          ),
-                        _selectedIndex==0,() {
-                            _pageController.animateToPage(0,duration: const Duration(milliseconds: 100), curve: Curves.easeIn);
-                            setState(() {
-                              _selectedIndex=0;
-                            });
-                          },),
-                      tabCell(
-                          context,
-                          FFLocalizations.of(context).getText(
-                            'sb815feb' /* privacy... */,
-                          ),
-                        _selectedIndex==1,() {
-                        _pageController.animateToPage(1,duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
-                        setState(() {
-                          _selectedIndex=1;
-                        });
-                          },),
-                    ],
-                  ),
+      body: Column(
+        children: [
+          SizedBox(height: rSize*0.01),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(rSize * 0.03), color: FlutterFlowTheme.of(context).customColor4.withOpacity(0.3)),
+                margin: EdgeInsets.only(bottom: rSize*0.005),
+                padding: EdgeInsets.all(rSize * 0.002),
+                child: Row(
+                  children: [
+                    tabCell(
+                        context,
+                        FFLocalizations.of(context).getText(
+                          'ovw4ksp4' /* terms... */,
+                        ),
+                      _selectedIndex==0,() {
+                          _pageController.animateToPage(0,duration: const Duration(milliseconds: 100), curve: Curves.easeIn);
+                          setState(() {
+                            _selectedIndex=0;
+                          });
+                        },),
+                    tabCell(
+                        context,
+                        FFLocalizations.of(context).getText(
+                          'sb815feb' /* privacy... */,
+                        ),
+                      _selectedIndex==1,() {
+                      _pageController.animateToPage(1,duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
+                      setState(() {
+                        _selectedIndex=1;
+                      });
+                        },),
+                  ],
                 ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: PageView(controller: _pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                Page(_controller.termOfServiceContent['term_of_service']),
+                Page(_controller.termOfServiceContent['privacy_policy'])
               ],
             ),
-            Expanded(
-              child: PageView(controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  Page(_controller.termOfServiceContent['term_of_service']),
-                  Page(_controller.termOfServiceContent['privacy_policy'])
-                ],
-              ),
-            ),
-            Card(
-              elevation: 2,
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Transform.scale(
-                        scale: isTablet?2:0.8,
-                        child: Theme(
-                          data: Theme.of(context).copyWith(
-                            checkboxTheme: CheckboxThemeData(
-                              splashRadius: 0, // Removes the splash effect
-                              overlayColor: MaterialStateProperty.all(Colors.transparent), // Removes overlay color
-                            ),
-                          ),
-                          child: Checkbox(
-                            activeColor: FlutterFlowTheme.of(context).primary,
-                            side: BorderSide(
-                              width: 2,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                            ),
-                            checkColor: !_controller.accepted ? FlutterFlowTheme.of(context).secondaryBackground : FlutterFlowTheme.of(context).info,
-                            value: _controller.accepted,
-                            onChanged: (value) {
-                              _controller.changeAcceptance(context);
-                            },
+          ),
+          Card(
+            elevation: 2,
+            color: FlutterFlowTheme.of(context).secondaryBackground,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Transform.scale(
+                      scale: isTablet?2:0.8,
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                          checkboxTheme: CheckboxThemeData(
+                            splashRadius: 0, // Removes the splash effect
+                            overlayColor: MaterialStateProperty.all(Colors.transparent), // Removes overlay color
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: RichText(
-                          textScaler: MediaQuery.of(context).textScaler,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: FFLocalizations.of(context).getText(
-                                  'l6rxib8x' /* I've read and agree to the  */,
-                                ),
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      color: FlutterFlowTheme.of(context).primaryText,
-                                      fontSize: rSize * 0.014,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                              ),
-                              TextSpan(
-                                text: FFLocalizations.of(context).getText(
-                                  'zfszy2xl' /* Term of Service */,
-                                ),
-                                style: TextStyle(
-                                  color: FlutterFlowTheme.of(context).primaryText,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: rSize * 0.014,
-                                ),
-                              ),
-                              TextSpan(
-                                text: FFLocalizations.of(context).getText(
-                                  'x0c3ht3x' /*  and  */,
-                                ),
-                                style: TextStyle(
-                                  color: FlutterFlowTheme.of(context).primaryText,
-                                  fontSize: rSize * 0.014,
-                                ),
-                              ),
-                              TextSpan(
-                                text: FFLocalizations.of(context).getText(
-                                  'lnywo5pe' /* Privacy Policy */,
-                                ),
-                                style: TextStyle(
-                                  color: FlutterFlowTheme.of(context).primaryText,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: rSize * 0.014,
-                                ),
-                              )
-                            ],
-                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontSize: rSize * 0.014,
-                                ),
+                        child: Checkbox(
+                          activeColor: FlutterFlowTheme.of(context).primary,
+                          side: BorderSide(
+                            width: 2,
+                            color: FlutterFlowTheme.of(context).secondaryText,
                           ),
+                          checkColor: !_controller.accepted ? FlutterFlowTheme.of(context).secondaryBackground : FlutterFlowTheme.of(context).info,
+                          value: _controller.accepted,
+                          onChanged: (value) {
+                            _controller.changeAcceptance(context);
+                          },
                         ),
                       ),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: rSize * 0.04, right: rSize * 0.04, bottom: rSize * 0.01),
-                    child: GestureDetector(
-                      onTap: () {
-                        if (_controller.accepted) {
-                          _controller.accept(context);
-                        }
-                      },
-                      child: getBtn(FFLocalizations.of(context).getText(
-                        '3esw1ind' /* Accept */,
-                      )),
                     ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+                    Expanded(
+                      child: RichText(
+                        textScaler: MediaQuery.of(context).textScaler,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: FFLocalizations.of(context).getText(
+                                'l6rxib8x' /* I've read and agree to the  */,
+                              ),
+                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                    color: FlutterFlowTheme.of(context).primaryText,
+                                    fontSize: rSize * 0.014,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            ),
+                            TextSpan(
+                              text: FFLocalizations.of(context).getText(
+                                'zfszy2xl' /* Term of Service */,
+                              ),
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontWeight: FontWeight.w600,
+                                fontSize: rSize * 0.014,
+                              ),
+                            ),
+                            TextSpan(
+                              text: FFLocalizations.of(context).getText(
+                                'x0c3ht3x' /*  and  */,
+                              ),
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontSize: rSize * 0.014,
+                              ),
+                            ),
+                            TextSpan(
+                              text: FFLocalizations.of(context).getText(
+                                'lnywo5pe' /* Privacy Policy */,
+                              ),
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontWeight: FontWeight.w600,
+                                fontSize: rSize * 0.014,
+                              ),
+                            )
+                          ],
+                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                fontSize: rSize * 0.014,
+                              ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: rSize * 0.04, right: rSize * 0.04, bottom: rSize * 0.01),
+                  child: GestureDetector(
+                    onTap: () {
+                      if (_controller.accepted) {
+                        _controller.accept(context);
+                      }
+                    },
+                    child: getBtn(FFLocalizations.of(context).getText(
+                      '3esw1ind' /* Accept */,
+                    )),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
@@ -237,6 +236,7 @@ class Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     return Material(
       color: Colors.transparent,
       child: SingleChildScrollView(

@@ -74,6 +74,7 @@ class _DocumentsState extends State<Documents> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _notifier = Provider.of<DocumentsController>(context);
     return Scaffold(
       appBar: AppWidgets.appBar(

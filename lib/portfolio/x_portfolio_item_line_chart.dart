@@ -259,6 +259,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     return SizedBox(
       // width: widget.customWidth,
       height: widget.xLabels.isNotEmpty ? widget.height : rSize * 0.2,

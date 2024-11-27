@@ -50,6 +50,7 @@ class _TransactionsState extends State<Transactions> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _notifier = Provider.of<PortfolioController>(context);
     return Scaffold(
         appBar: AppWidgets.appBar(

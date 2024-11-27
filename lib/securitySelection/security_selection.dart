@@ -59,6 +59,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _notifier = Provider.of<SecuritySelectionController>(context);
     return Container(
       decoration: AppStyles.commonBg(context),

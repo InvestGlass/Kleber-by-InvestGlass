@@ -56,6 +56,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _notifier = Provider.of<ProposalController>(context);
     return Scaffold(
       body: Column(

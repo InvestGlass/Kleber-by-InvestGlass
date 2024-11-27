@@ -56,6 +56,7 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _controller = Provider.of<DashboardController>(context);
     return Scaffold(
       key: _scaffoldkey,

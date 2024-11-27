@@ -71,6 +71,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _notifier = Provider.of<HomeController>(context);
     return Scaffold(
       body: ListView(

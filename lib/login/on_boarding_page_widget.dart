@@ -31,6 +31,7 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     return Scaffold(
       key: scaffoldKey,
       body: Container(

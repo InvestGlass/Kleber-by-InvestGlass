@@ -44,6 +44,7 @@ class _NewsFeedSwipeCardWidgetState extends State<NewsFeedSwipeCardWidget> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     return SizedBox(
       width: double.infinity,
       height: rSize*0.5,

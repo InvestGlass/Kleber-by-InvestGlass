@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+import '../main.dart';
+
 class VideoPlayerItem extends StatefulWidget {
   final String videoUrl;
 
@@ -29,6 +31,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.0),
       child: Column(

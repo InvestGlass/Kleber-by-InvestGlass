@@ -36,6 +36,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _controller = Provider.of<LoginController>(context, listen: true);
     return Scaffold(
       resizeToAvoidBottomInset: false,

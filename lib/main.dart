@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:kleber_bank/profile/profile_controller.dart';
 import 'package:kleber_bank/proposals/proposal_controller.dart';
 import 'package:kleber_bank/securitySelection/security_selection_controller.dart';
 import 'package:kleber_bank/utils/app_colors.dart';
+import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/flutter_flow_theme.dart';
 import 'package:kleber_bank/utils/internationalization.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
@@ -31,6 +33,7 @@ late BuildContext globalContext;
 late PackageInfo packageInfo;
 late bool  isPortraitMode;
 late EdgeInsets padding;
+BuildContext? c;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -87,7 +90,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Locale? _locale = FFLocalizations.getStoredLocale();
   late MainController _notifier;
-
+  static const int _timeoutSeconds = 10*60;
+  Timer? _inactivityTimer;
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
   // This widget is the root of your application.
 
@@ -103,8 +107,22 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
+    _resetTimer();
     getPackageInfo();
     super.initState();
+  }
+
+  void _resetTimer() {
+    if (_inactivityTimer != null) {
+      _inactivityTimer!.cancel();
+    }
+    _inactivityTimer = Timer(Duration(seconds: _timeoutSeconds), _handleInactivity);
+  }
+
+  void _handleInactivity() {
+    if (c!=null) {
+      CommonFunctions.cleanAndLogout(c!);
+    }
   }
 
   Future<void> getPackageInfo() async {
@@ -113,6 +131,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _notifier=Provider.of<MainController>(context);
     isTablet = _isTablet(context);
     padding=MediaQuery.of(context).padding;
@@ -121,48 +140,53 @@ class _MyAppState extends State<MyApp> {
     Size ksize = MediaQuery.of(context).size;
     rSize = pow((ksize.height * ksize.height) + (ksize.width * ksize.width), 1 / 2) as double;
     btnHeight=rSize*0.045;
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      themeMode: _notifier.isDarkMode()?ThemeMode.dark:ThemeMode.light,
-      localizationsDelegates: const [
-        FFLocalizationsDelegate(),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      locale: Locale(SharedPrefUtils.instance.getString(SELECTED_LANGUAGE).isEmpty?'en':SharedPrefUtils.instance.getString(SELECTED_LANGUAGE)),
-      supportedLocales: const [
-        Locale('en'),
-        Locale('ar'),
-        Locale('vi'),
-      ],
-      theme: ThemeData(
-        brightness: Brightness.light,scaffoldBackgroundColor:Colors.white,
-        fontFamily: 'Roboto',
-        appBarTheme: AppBarTheme(color: Colors.white),
-        scrollbarTheme: ScrollbarThemeData(
-          thumbVisibility: WidgetStateProperty.all(false),
-          trackVisibility: WidgetStateProperty.all(false),
-          interactive: false,
-          thickness: WidgetStateProperty.all(0.0),
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: _resetTimer,
+      onPanDown: (_) => _resetTimer(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        themeMode: _notifier.isDarkMode()?ThemeMode.dark:ThemeMode.light,
+        localizationsDelegates: const [
+          FFLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        locale: Locale(SharedPrefUtils.instance.getString(SELECTED_LANGUAGE).isEmpty?'en':SharedPrefUtils.instance.getString(SELECTED_LANGUAGE)),
+        supportedLocales: const [
+          Locale('en'),
+          Locale('ar'),
+          Locale('vi'),
+        ],
+        theme: ThemeData(
+          brightness: Brightness.light,scaffoldBackgroundColor:Colors.white,
+          fontFamily: 'Roboto',
+          appBarTheme: AppBarTheme(color: Colors.white),
+          scrollbarTheme: ScrollbarThemeData(
+            thumbVisibility: WidgetStateProperty.all(false),
+            trackVisibility: WidgetStateProperty.all(false),
+            interactive: false,
+            thickness: WidgetStateProperty.all(0.0),
+          ),
+          useMaterial3: false,
         ),
-        useMaterial3: false,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        fontFamily: 'Roboto',
-        scrollbarTheme: ScrollbarThemeData(
-          thumbVisibility: WidgetStateProperty.all(false),
-          trackVisibility: WidgetStateProperty.all(false),
-          interactive: false,
-          thickness: WidgetStateProperty.all(0.0),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          fontFamily: 'Roboto',
+          scrollbarTheme: ScrollbarThemeData(
+            thumbVisibility: WidgetStateProperty.all(false),
+            trackVisibility: WidgetStateProperty.all(false),
+            interactive: false,
+            thickness: WidgetStateProperty.all(0.0),
+          ),
+          useMaterial3: false,
         ),
-        useMaterial3: false,
+        home: SharedPrefUtils.instance
+            .getString(USER_DATA)
+            .isEmpty ? const OnBoardingPageWidget() : const Dashboard(),
       ),
-      home: SharedPrefUtils.instance
-          .getString(USER_DATA)
-          .isEmpty ? const OnBoardingPageWidget() : const Dashboard(),
     );
   }
 

@@ -43,6 +43,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _controller = Provider.of<LoginController>(context, listen: true);
     print('model :: ${model.verification} ${widget.map != null && widget.map!.containsKey('location')}');
     return Scaffold(

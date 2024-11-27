@@ -64,6 +64,7 @@ class _AddTransactionState extends State<AddTransaction> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _portfolioNotifier = Provider.of<PortfolioController>(context);
     _proposalController = Provider.of<ProposalController>(context);
     _marketNotifier = Provider.of<MarketController>(context);

@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
+import '../main.dart';
+
 class FlutterFlowSwipeableStack extends StatefulWidget {
   const FlutterFlowSwipeableStack({
     super.key,
@@ -46,6 +48,7 @@ class FlutterFlowSwipeableStack extends StatefulWidget {
 class _FFSwipeableStackState extends State<FlutterFlowSwipeableStack> {
   @override
   Widget build(BuildContext context) {
+    c=context;
     return CardSwiper(
       controller: widget.controller,
       onSwipe: (previousIndex, currentIndex, direction) {

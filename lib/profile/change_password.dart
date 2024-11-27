@@ -32,6 +32,7 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _notifier = Provider.of<ProfileController>(context);
     return Scaffold(
       appBar: AppWidgets.appBar(

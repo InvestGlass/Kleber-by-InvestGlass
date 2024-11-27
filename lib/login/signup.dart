@@ -3,6 +3,7 @@ import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../main.dart';
 import '../utils/flutter_flow_theme.dart';
 
 class Signup extends StatefulWidget {
@@ -24,6 +25,7 @@ class _SignupState extends State<Signup> {
   }
   @override
   Widget build(BuildContext context) {
+    c=context;
     return Scaffold(
       backgroundColor:FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppWidgets.appBar(context, 'Sign up',leading: AppWidgets.backArrow(context)),

@@ -54,6 +54,7 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     return SizedBox(
       height: rSize * 0.056,
       width: double.infinity,

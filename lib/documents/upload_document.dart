@@ -29,6 +29,7 @@ class _UploadDocumentState extends State<UploadDocument> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     _notifier = Provider.of<DocumentsController>(context);
     return Scaffold(
       appBar: AppWidgets.appBar(

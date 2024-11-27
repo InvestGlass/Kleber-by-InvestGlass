@@ -13,6 +13,7 @@ class HealthCheck extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     return SafeArea(
       child: Scaffold(
         appBar: AppWidgets.appBar(context, FFLocalizations.of(context).getText(

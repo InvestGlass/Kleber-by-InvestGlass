@@ -81,6 +81,7 @@ class _XPortfoliItemBarChartState extends State<XPortfoliItemBarChart> {
 
   @override
   Widget build(BuildContext context) {
+    c=context;
     // final width = calculateWidth();
     // debugPrint('width of column chart: $width');
     return Container(
