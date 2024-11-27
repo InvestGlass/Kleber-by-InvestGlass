@@ -289,7 +289,7 @@ class _DocumentsState extends State<Documents> {
         child: GestureDetector(
       onTap: onTap,
       child: Container(
-        height: rSize * 0.038,
+        height: btnHeight,
         decoration: AppWidgets.gradiantDecoration(context),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

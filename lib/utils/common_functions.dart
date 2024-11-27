@@ -71,43 +71,43 @@ enum ParamType {
   FFPlace,
   FFUploadedFile,
   JSON,
-
   DataStruct,
   Enum,
 }
 
-class CommonFunctions{
-
-  static showToast(String msg,{bool success=false}){
+class CommonFunctions {
+  static showToast(String msg, {bool success = false}) {
     Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
-      fontSize: rSize*0.016,timeInSecForIosWeb: 5,
-      backgroundColor: success?Colors.green:Colors.redAccent,
+      fontSize: rSize * 0.016,
+      timeInSecForIosWeb: 5,
+      backgroundColor: success ? Colors.green : Colors.redAccent,
       textColor: Colors.white,
     );
   }
 
-  static Future<String> downloadAndSavePdf(Uint8List bytes,String fileName, BuildContext context) async {
-
+  static Future<String> downloadAndSavePdf(
+      Uint8List bytes, String fileName, BuildContext context) async {
     try {
       var status = await Permission.storage.status;
       if (!status.isGranted) {
         await Permission.storage.request();
       }
-      String dir='';
-      if(Platform.isAndroid) {
+      String dir = '';
+      if (Platform.isAndroid) {
         dir = '/storage/emulated/0/Download';
         final file = File('$dir/${fileName.replaceAll(':', '')}');
         print('path : $file');
 
         await file.writeAsBytes(bytes);
         return file.path;
-      } else if(Platform.isIOS) {
+      } else if (Platform.isIOS) {
         dir = (await getApplicationDocumentsDirectory()).path;
         final directory = await getTemporaryDirectory();
-        final newFile = File("${directory.path}/${fileName.replaceAll(':', '')}");
+        final newFile =
+            File("${directory.path}/${fileName.replaceAll(':', '')}");
 
         // if (await newFile.exists()) {
         //   await newFile.delete();
@@ -125,7 +125,6 @@ class CommonFunctions{
         // return newFile.path;
         await newFile.delete();
         return '';
-
       }
     } catch (e) {
       print(e);
@@ -150,8 +149,8 @@ class CommonFunctions{
 
   static navigate(BuildContext context, Widget screen,
       {bool removeCurrentScreenFromStack = false,
-        bool removeAllScreensFromStack = false,
-        Function? onBack}) {
+      bool removeAllScreensFromStack = false,
+      Function? onBack}) {
     if (removeCurrentScreenFromStack) {
       Navigator.pushReplacement(
           context,
@@ -166,7 +165,7 @@ class CommonFunctions{
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => screen),
-              (Route<dynamic> route) => false);
+          (Route<dynamic> route) => false);
       // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => screen), (route) => false);
     } else {
       Navigator.push(
@@ -179,7 +178,7 @@ class CommonFunctions{
             var curve = Curves.ease;
 
             var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
             return SlideTransition(
               position: animation.drive(tween),
@@ -195,20 +194,23 @@ class CommonFunctions{
     }
   }
 
-  static bool compare(String searchedWord,String text){
-    return text.toLowerCase().replaceAll(' ', '').contains(searchedWord.toLowerCase().replaceAll(' ', ''));
+  static bool compare(String searchedWord, String text) {
+    return text
+        .toLowerCase()
+        .replaceAll(' ', '')
+        .contains(searchedWord.toLowerCase().replaceAll(' ', ''));
   }
 
-  static String getYYYYMMDD(DateTime date){
+  static String getYYYYMMDD(DateTime date) {
     return DateFormat('yyyy-MM-dd').format(date);
   }
 
   static String formatDoubleWithThousandSeperator(
-      String doubleStr,
-      bool hideDecimalIfIs0,
-      int numberOfDecimal,
-      ) {
-    hideDecimalIfIs0=false;
+    String doubleStr,
+    bool hideDecimalIfIs0,
+    int numberOfDecimal,
+  ) {
+    hideDecimalIfIs0 = false;
     final value = double.tryParse(doubleStr.replaceAll(',', '')) ?? 0;
     if (value != 0 && value ~/ math.pow(10, 15) > 0) {
       return value.toStringAsPrecision(15);
@@ -221,7 +223,8 @@ class CommonFunctions{
     return formatter.format(value);
   }
 
-  static String dateTimeFormat(String format, DateTime? dateTime, {String? locale}) {
+  static String dateTimeFormat(String format, DateTime? dateTime,
+      {String? locale}) {
     if (dateTime == null) {
       return '';
     }
@@ -242,9 +245,9 @@ class CommonFunctions{
   }
 
   static DateTime convertUTCStringToDateTime(
-      String utcString,
-      bool isUTC,
-      ) {
+    String utcString,
+    bool isUTC,
+  ) {
     final dateTime = DateTime.fromMillisecondsSinceEpoch(
         DateTime.parse(utcString).millisecondsSinceEpoch,
         isUtc: isUTC);

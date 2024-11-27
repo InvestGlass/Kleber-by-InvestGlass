@@ -48,12 +48,18 @@ class _ProfileState extends State<Profile> {
                     fontSize: rSize * 0.016,
                     color: FlutterFlowTheme.of(context).customColor4,
                   )),
-          SizedBox(height: rSize*0.03),
+          SizedBox(height: rSize * 0.03),
         ],
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: MediaQuery.of(context).padding.top + 10),
+        padding: EdgeInsets.symmetric(
+            horizontal: rSize * 0.015,
+            vertical: MediaQuery.of(context).padding.top + 10),
         children: [
+          Text(
+            (SharedPrefUtils.instance.getUserData().user?.client?.id??0).toString(),
+            style: AppStyles.inputTextStyle(context),
+          ),
           Text(
             SharedPrefUtils.instance.getUserData().user!.username!.toString(),
             style: FlutterFlowTheme.of(context).headlineSmall.override(
@@ -79,9 +85,9 @@ class _ProfileState extends State<Profile> {
               'wl1ownor' /* Account Settings */,
             ),
             style: FlutterFlowTheme.of(context).labelMedium.override(
-              color: FlutterFlowTheme.of(context).customColor4,
-              fontSize: rSize * 0.016,
-            ),
+                  color: FlutterFlowTheme.of(context).customColor4,
+                  fontSize: rSize * 0.016,
+                ),
           ),
           SizedBox(
             height: rSize * 0.02,
@@ -112,13 +118,15 @@ class _ProfileState extends State<Profile> {
                     'znd2aszb' /* Switch to Dark Mode */,
                   ),
                   style: FlutterFlowTheme.of(context).labelMedium.override(
-                    color: FlutterFlowTheme.of(context).customColor4,
-                    fontSize: rSize * 0.016,
-                  ),
+                        color: FlutterFlowTheme.of(context).customColor4,
+                        fontSize: rSize * 0.016,
+                      ),
                 ),
               ),
               Theme(
-                data: ThemeData(unselectedWidgetColor: FlutterFlowTheme.of(context).primary),
+                data: ThemeData(
+                    unselectedWidgetColor:
+                        FlutterFlowTheme.of(context).primary),
                 child: Transform.scale(
                   scale: isTablet ? 2 : 0.8,
                   child: Switch(
@@ -144,10 +152,13 @@ class _ProfileState extends State<Profile> {
               'communication_support',
             ),
             style: FlutterFlowTheme.of(context).labelMedium.override(
-              color: FlutterFlowTheme.of(context).customColor4,fontSize: rSize * 0.016,
-            ),
+                  color: FlutterFlowTheme.of(context).customColor4,
+                  fontSize: rSize * 0.016,
+                ),
           ),
-          SizedBox(height: rSize*0.13,),
+          SizedBox(
+            height: rSize * 0.13,
+          ),
           GestureDetector(
             onTap: () async {
               openConfirmationDialog();
@@ -180,7 +191,9 @@ class _ProfileState extends State<Profile> {
         return StatefulBuilder(
           builder: (context, setState) {
             _notifier.selectedLanguage = AppConst.languageCodes.indexOf(
-                SharedPrefUtils.instance.getString(SELECTED_LANGUAGE).isEmpty ? 'en' : SharedPrefUtils.instance.getString(SELECTED_LANGUAGE));
+                SharedPrefUtils.instance.getString(SELECTED_LANGUAGE).isEmpty
+                    ? 'en'
+                    : SharedPrefUtils.instance.getString(SELECTED_LANGUAGE));
             return Wrap(
               children: [
                 Container(
@@ -188,7 +201,9 @@ class _ProfileState extends State<Profile> {
                   padding: EdgeInsets.only(top: rSize * 0.015),
                   decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.02), topRight: Radius.circular(rSize * 0.02))),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(rSize * 0.02),
+                          topRight: Radius.circular(rSize * 0.02))),
                   child: Column(
                     children: [
                       AppWidgets.title(
@@ -245,7 +260,8 @@ class _ProfileState extends State<Profile> {
               child: Radio(
                 value: value,
                 activeColor: FlutterFlowTheme.of(context).customColor4,
-                fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+                fillColor: MaterialStateProperty.resolveWith<Color?>(
+                    (Set<MaterialState> states) {
                   if (states.contains(MaterialState.selected)) {
                     return FlutterFlowTheme.of(context).customColor4;
                   }
@@ -287,7 +303,8 @@ class _ProfileState extends State<Profile> {
             boxShadow: AppStyles.shadow(),
             borderRadius: BorderRadius.circular(rSize * 0.01)),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.02),
+          padding: EdgeInsets.symmetric(
+              horizontal: rSize * 0.015, vertical: rSize * 0.02),
           child: Row(
             children: [
               Expanded(
@@ -297,7 +314,8 @@ class _ProfileState extends State<Profile> {
                       color: FlutterFlowTheme.of(context).customColor4,
                     ),
               )),
-              RotatedBox(quarterTurns: 2, child: AppWidgets.doubleBack(context)),
+              RotatedBox(
+                  quarterTurns: 2, child: AppWidgets.doubleBack(context)),
             ],
           ),
         ),
@@ -316,8 +334,9 @@ class _ProfileState extends State<Profile> {
               Material(
                 color: Colors.transparent,
                 child: Container(
-                  decoration:
-                      BoxDecoration(color: FlutterFlowTheme.of(context).primaryBackground, borderRadius: BorderRadius.circular(rSize * 0.010)),
+                  decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      borderRadius: BorderRadius.circular(rSize * 0.010)),
                   margin: EdgeInsets.symmetric(horizontal: rSize * 0.04),
                   child: StatefulBuilder(
                     builder: (context, setState) {
@@ -330,10 +349,13 @@ class _ProfileState extends State<Profile> {
                                 left: rSize * 0.02,
                                 right: rSize * 0.02,
                                 top: rSize * 0.03,
-                                bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
+                                bottom:
+                                    MediaQuery.of(context).viewInsets.bottom +
+                                        rSize * 0.03),
                             children: [
                               AppWidgets.title(
-                                  context,center: true,
+                                  context,
+                                  center: true,
                                   FFLocalizations.of(context).getText(
                                     'want_to_logout',
                                   )),
@@ -364,23 +386,45 @@ class _ProfileState extends State<Profile> {
                                           Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => MultiProvider(
+                                              builder: (context) =>
+                                                  MultiProvider(
                                                 providers: [
-                                                  ChangeNotifierProvider(create: (_) => MainController()),
-                                                  ChangeNotifierProvider(create: (_) => LoginController()),
-                                                  ChangeNotifierProvider(create: (_) => DashboardController()),
-                                                  ChangeNotifierProvider(create: (_) => PortfolioController()),
-                                                  ChangeNotifierProvider(create: (_) => ProfileController()),
-                                                  ChangeNotifierProvider(create: (_) => ProposalController()),
-                                                  ChangeNotifierProvider(create: (_) => MarketController()),
-                                                  ChangeNotifierProvider(create: (_) => DocumentsController()),
-                                                  ChangeNotifierProvider(create: (_) => HomeController()),
-                                                  ChangeNotifierProvider(create: (_) => SecuritySelectionController()),
+                                                  ChangeNotifierProvider(
+                                                      create: (_) =>
+                                                          MainController()),
+                                                  ChangeNotifierProvider(
+                                                      create: (_) =>
+                                                          LoginController()),
+                                                  ChangeNotifierProvider(
+                                                      create: (_) =>
+                                                          DashboardController()),
+                                                  ChangeNotifierProvider(
+                                                      create: (_) =>
+                                                          PortfolioController()),
+                                                  ChangeNotifierProvider(
+                                                      create: (_) =>
+                                                          ProfileController()),
+                                                  ChangeNotifierProvider(
+                                                      create: (_) =>
+                                                          ProposalController()),
+                                                  ChangeNotifierProvider(
+                                                      create: (_) =>
+                                                          MarketController()),
+                                                  ChangeNotifierProvider(
+                                                      create: (_) =>
+                                                          DocumentsController()),
+                                                  ChangeNotifierProvider(
+                                                      create: (_) =>
+                                                          HomeController()),
+                                                  ChangeNotifierProvider(
+                                                      create: (_) =>
+                                                          SecuritySelectionController()),
                                                 ],
                                                 child: OnBoardingPageWidget(),
                                               ),
                                             ),
-                                                (Route<dynamic> route) => false, // Clear backstack
+                                            (Route<dynamic> route) =>
+                                                false, // Clear backstack
                                           );
                                         },
                                         child: AppWidgets.btn(
@@ -389,7 +433,9 @@ class _ProfileState extends State<Profile> {
                                             FFLocalizations.of(context).getText(
                                               'c0xbwwci' /* logout */,
                                             ),
-                                            bgColor: FlutterFlowTheme.of(context).primary)),
+                                            bgColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary)),
                                   ),
                                 ],
                               ),

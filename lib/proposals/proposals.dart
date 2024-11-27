@@ -862,7 +862,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
         child: GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(rSize * 0.01),
+        height: btnHeight,
         decoration: AppWidgets.gradiantDecoration(context),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -305,11 +305,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                     boxShadow: AppStyles.shadow(),
                     borderRadius: BorderRadius.circular(rSize * 0.01)),
                 child: TextFormField(
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontSize: rSize * 0.018,
-                        color: FlutterFlowTheme.of(context).customColor4,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  style: AppStyles.inputTextStyle(context),
                   controller: _notifier.msgController,
                   decoration: AppStyles.inputDecoration(context,
                       focusColor: Colors.transparent,

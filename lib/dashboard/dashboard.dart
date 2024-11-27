@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,7 +42,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     if (AppConst.userModel != null) {
-      SharedPrefUtils.instance.putString(USER_DATA, AppConst.userModel!.toRawJson());
+      SharedPrefUtils.instance.putString(USER_DATA, jsonEncode(AppConst.userModel!.toJson()));
     }
     pagingController = PageController(initialPage: 0);
     super.initState();
@@ -300,7 +302,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         onTap: () {
                           Navigator.pop(context);
-                          CommonFunctions.navigate(context, ChatHistory(ProposalModel(advisor: Advisor(name: 'CHAT', phoneOffice: '+41763358815'))));
+                          CommonFunctions.navigate(context, ChatHistory(ProposalModel(advisor: Advisor(name: SharedPrefUtils.instance.getUserData().user!.advisor!.name.toString(), phoneOffice: '+41763358815'))));
                         },
                       ),
                     ],

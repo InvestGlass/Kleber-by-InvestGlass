@@ -181,6 +181,8 @@ class User {
   dynamic availabilityId;
   dynamic taskDynamicCol;
   dynamic otpBackupCodes;
+  Client? client;
+  Advisor? advisor;
 
   User({
     this.id,
@@ -339,6 +341,8 @@ class User {
     this.availabilityId,
     this.taskDynamicCol,
     this.otpBackupCodes,
+    this.client,
+    this.advisor,
   });
 
   factory User.fromRawJson(String str) => User.fromJson(json.decode(str));
@@ -470,6 +474,8 @@ class User {
     status: json["status"],
     workCapacity: json["Work_Capacity"],
     customFields: json["custom_fields"]==null?null:AccountFilterState.fromJson(json["custom_fields"]),
+    client: json["client"]==null?null:Client.fromJson(json["client"]),
+    advisor: json["advisor"]==null?null:Advisor.fromJson(json["advisor"]),
     companyId: json["company_id"],
     realAvailableCapacities: json["real_available_capacities"],
     recentWorkingDate: json["recent_working_date"],
@@ -661,6 +667,8 @@ class User {
     "availability_id": availabilityId,
     "task_dynamic_col": taskDynamicCol,
     "otp_backup_codes": otpBackupCodes,
+    "client": client?.toJson(),
+    "advisor": advisor?.toJson(),
   };
 }
 
@@ -708,4 +716,72 @@ class EncryptedOtpSecretForClient {
     // "sms_time": smsTime.toIso8601String(),
     // "email_time": emailTime.toIso8601String(),
   };
+}
+
+class Client {
+  int? id;
+
+  Client({
+    this.id,
+  });
+
+  factory Client.fromRawJson(String str) => Client.fromJson(json.decode(str));
+  String toRawJson() => json.encode(toJson());
+
+  factory Client.fromJson(Map<String, dynamic> json) => Client(
+    id: json["id"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+  };
+
+}
+
+class Advisor {
+  int? id;
+  String? name;
+  String? phoneMobile;
+  String? phoneHome;
+  String? phoneOffice;
+  String? email;
+  String? avatar;
+  String? publicAgenda;
+
+  factory Advisor.fromRawJson(String str) => Advisor.fromJson(json.decode(str));
+  String toRawJson() => json.encode(toJson());
+
+  factory Advisor.fromJson(Map<String, dynamic> json) => Advisor(
+    id: json["id"],
+    name: json["name"],
+    phoneMobile: json["phone_mobile"],
+    phoneHome: json["phone_home"],
+    phoneOffice: json["phone_office"],
+    email: json["email"],
+    avatar: json["avatar"],
+    publicAgenda: json["public_agenda"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "phone_mobile": phoneMobile,
+    "phone_home": phoneHome,
+    "phone_office": phoneOffice,
+    "email": email,
+    "avatar": avatar,
+    "public_agenda": publicAgenda,
+  };
+
+  Advisor({
+    this.id,
+    this.name,
+    this.phoneMobile,
+    this.phoneHome,
+    this.phoneOffice,
+    this.email,
+    this.avatar,
+    this.publicAgenda,
+  });
+
 }
