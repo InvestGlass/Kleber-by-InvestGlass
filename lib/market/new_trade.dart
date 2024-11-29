@@ -348,7 +348,7 @@ class _AddTransactionState extends State<AddTransaction> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    _marketNotifier.transmit(_portfolioNotifier.selectedPortfolio, context, _proposalController, widget.selectedSecurity);
+                    _marketNotifier.transmit(_portfolioNotifier.selectedPortfolio, context, _proposalController);
                   },
                   child: AppWidgets.btn(
                       context,

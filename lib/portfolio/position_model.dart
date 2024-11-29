@@ -64,7 +64,7 @@ class PositionModel {
     roi: json["roi"]?.toString()??'-',
     quantity: json["quantity"].toString(),
     amount: json["amount"].toString(),
-    allocation: json["allocation"],
+    allocation: json["allocation"].toString(),
     fxRate: json["fx_rate"],
     portfolioId: json["portfolio_id"],
   );

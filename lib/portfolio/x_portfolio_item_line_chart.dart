@@ -39,8 +39,8 @@ class XPortfolioItemLineChart extends StatefulWidget {
   final double? height;
   final double? customWidth;
   final List<String> xLabels;
-  final List<double> listY;
-  final List<double> listAmount;
+  final List<String> listY;
+  final List<String> listAmount;
   final List<double> additionPercents;
   final String? sectionName;
   final PortfolioModel? item;
@@ -87,7 +87,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   final initialVisibleMaximum = 2.5;
 
   double getMinY() {
-    var minY = widget.listY.reduce((a, b) => a < b ? a : b);
+    var minY = List<double>.generate(widget.listY.length,(index) => double.parse(widget.listY[index].split(' ')[1].replaceAll(',', '')),).reduce((a, b) => a < b ? a : b);
     // final numberOfLines = minY ~/ getYAxisInterval();
     // if (minY > numberOfLines * getYAxisInterval()) {
     //   minY = numberOfLines * getYAxisInterval();
@@ -141,6 +141,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   }
 
   List<CartesianSeries> _getSampleLineSeries() {
+    var listY=List<double>.generate(widget.listY.length,(index) => double.parse(widget.listY[index].split(' ')[1].replaceAll(',', '')),);
     return <CartesianSeries>[
       RangeColumnSeries<String, String>(
         dataSource: widget.xLabels,
@@ -170,7 +171,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
         dataSource: widget.xLabels,
         initialIsVisible: true,
         xValueMapper: (String label, _) => label,
-        yValueMapper: (String label, index) => widget.listY[index],
+        yValueMapper: (String label, index) => listY[index],
         width: 2,
         markerSettings: const MarkerSettings(isVisible: true),
         color: FlutterFlowTheme.of(context).customColor1,
@@ -280,16 +281,18 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   }
 
   circularChart() {
+    var listY=List<double>.generate(widget.listY.length,(index) => double.parse(widget.listY[index].split(' ')[1].replaceAll(',', '')),);
+    var listAmount=List<double>.generate(widget.listAmount.length,(index) => double.parse(widget.listAmount[index].split(' ')[1].replaceAll(',', '')),);
     List<ChartModel> list = List<ChartModel>.generate(
       widget.listY.length,
       (index) => ChartModel(
-          widget.listY[index] <= 0 ? 0 : widget.listY[index],
+          listY[index] <= 0 ? 0 : listY[index],
           widget.xLabels[index],
-          widget.listAmount.isEmpty
+          listAmount.isEmpty
               ? 0
-              : widget.listAmount[index] <= 0
+              : listAmount[index] <= 0
                   ? 0
-                  : widget.listAmount[index]),
+                  : listAmount[index]),
     );
     list.sort((a, b) => a.amount.compareTo(b.amount));
     return Stack(
@@ -303,7 +306,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                   padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.002),
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(rSize*0.020), color: FlutterFlowTheme.of(context).primary),
                   child: label(context,
-                      '${list[pointIndex].label} : ${CommonFunctions.formatDoubleWithThousandSeperator('${list[pointIndex].amount}', list[pointIndex].amount == 0, 2)}'),
+                      '${list[pointIndex].label} :  ${widget.listAmount[pointIndex].split(' ')[1]} ${widget.listAmount[pointIndex].split(' ')[0]}'),
                 );
               },
             ),

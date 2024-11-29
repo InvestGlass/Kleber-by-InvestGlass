@@ -227,7 +227,9 @@ class ApiCalls {
           'get')) as List;
 
       return json.map((jsonItem) => PortfolioModel.fromJson(jsonItem)).toList();
-    } catch (e) {}
+    } on Error catch (e) {
+      print('${e.toString()} ${e.stackTrace}');
+    }
     return [];
   }
 
@@ -257,7 +259,10 @@ class ApiCalls {
           'get')) as List;
 
       return json.map((jsonItem) => PositionModel.fromJson(jsonItem)).toList();
-    } catch (e) {}
+    } on Error catch (e) {
+      print('${e.toString()} ${e.stackTrace}');
+
+    }
     return [];
   }
 
@@ -271,7 +276,9 @@ class ApiCalls {
           'get')) as List;
 
       return json.map((jsonItem) => TransactionModel.fromJson(jsonItem)).toList();
-    } catch (e) {}
+    } on Error catch (e) {
+      print('${e.toString()} ${e.stackTrace}');
+    }
     return [];
   }
 

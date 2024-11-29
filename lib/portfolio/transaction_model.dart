@@ -136,7 +136,7 @@ class PortfolioSecurity {
     roi: json["roi"],
     quantity: json["quantity"].toString(),
     amount: json["amount"].toDouble(),
-    allocation: json["allocation"],
+    allocation: json["allocation"].toString(),
     fxRate: json["fx_rate"],
     portfolioId: json["portfolio_id"],
   );

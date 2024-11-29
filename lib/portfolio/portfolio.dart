@@ -196,7 +196,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                         'rpfp7xvs' /* Cash Available */,
                                       ),
                                       item.cashAvailable ?? '',
-                                      richText: AppWidgets.buildRichText(context, (item.cashAvailable ?? '').replaceAll('(', '').replaceAll(')', ''))),
+                                      richText: !item.cashAvailable!.contains(' ')?null:AppWidgets.buildRichText(context, (item.cashAvailable ?? '').replaceAll('(', '').replaceAll(')', ''))),
                                   SizedBox(
                                     height: rSize * 0.015,
                                   ),

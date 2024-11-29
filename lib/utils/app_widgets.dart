@@ -496,7 +496,7 @@ class AppWidgets {
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   color: FlutterFlowTheme.of(context).customColor4,
                   fontSize: size,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.normal,
                 ),
           ),
           TextSpan(

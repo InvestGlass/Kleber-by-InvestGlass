@@ -54,7 +54,7 @@ class PortfolioModel {
     netValue: json["net_value"]??'',
     portfolioValue: json["portfolio_value"],
     amountInvested: json["amount_invested"],
-    cashAvailable: json["cash_available"],
+    cashAvailable: json["cash_available"].toString(),
     performanceChart: List<PerformanceChart>.from(json["performance_chart"].map((x) => PerformanceChart.fromJson(x))),
     assetClassChart: List<SChart>.from(json["asset_class_chart"].map((x) => SChart.fromJson(x))),
     currenciesChart: List<SChart>.from(json["currencies_chart"].map((x) => SChart.fromJson(x))),
@@ -108,9 +108,9 @@ class Appropriateness {
 
 class SChart {
   String? assetClass;
-  double? amount1;
-  double? amount2;
-  double? amount3;
+  String? amount1;
+  String? amount2;
+  String? amount3;
 
   SChart({
     this.assetClass,
@@ -125,9 +125,9 @@ class SChart {
 
   factory SChart.fromJson(Map<String, dynamic> json) => SChart(
     assetClass: json["asset_class"],
-    amount1: json["amount_1"]?.toDouble()??0.0,
-    amount2: json["amount_2"]?.toDouble()??0.0,
-    amount3: json["amount_3"]?.toDouble()??0.0,
+    amount1: json["amount_1"],
+    amount2: json["amount_2"],
+    amount3: json["amount_3"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -384,7 +384,7 @@ class Security {
 
 class PerformanceChart {
   DateTime? date;
-  double? amount;
+  String? amount;
   double? twrPercentage;
 
   PerformanceChart({
@@ -399,7 +399,7 @@ class PerformanceChart {
 
   factory PerformanceChart.fromJson(Map<String, dynamic> json) => PerformanceChart(
     date: DateTime.parse(json["date"]),
-    amount: json["amount"].toDouble(),
+    amount: json["amount"].toString(),
     twrPercentage: json["twr_percentage"].toDouble(),
   );
 

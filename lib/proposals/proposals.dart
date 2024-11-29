@@ -259,7 +259,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             Transform.scale(
-                                              scale: isTablet?2:0.8,
+                                              scale: isTablet?1.5:0.8,
                                               child: Theme(
                                                 data: Theme.of(context).copyWith(
                                                   checkboxTheme: CheckboxThemeData(
@@ -276,7 +276,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                                   ),
                                                   checkColor: !((item.state != 'Rejected') && (item.state != 'Accepted'))
                                                       ? FlutterFlowTheme.of(context).secondaryBackground
-                                                      : FlutterFlowTheme.of(context).customColor4,
+                                                      : FlutterFlowTheme.of(context).info,
                                                   onChanged: (value) {
                                                     if (item.state == 'Pending') {
                                                       item.isChecked = !item.isChecked;
