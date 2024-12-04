@@ -8,6 +8,8 @@ import 'package:kleber_bank/portfolio/portfolio_controller.dart';
 import 'package:kleber_bank/portfolio/portfolio_model.dart';
 import 'package:kleber_bank/portfolio/positions.dart';
 import 'package:kleber_bank/portfolio/transactions.dart';
+import 'package:kleber_bank/portfolio/x_portfolio_item_line_chart2.dart';
+import 'package:kleber_bank/utils/api_calls.dart';
 import 'package:kleber_bank/utils/app_styles.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
@@ -26,9 +28,11 @@ class Portfolio extends StatefulWidget {
   State<Portfolio> createState() => _PortfolioState();
 }
 
-class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixin {
+class _PortfolioState extends State<Portfolio>
+    with AutomaticKeepAliveClientMixin {
   late PortfolioController _notifier;
-  final PagingController<int, PortfolioModel> pagingController = PagingController(firstPageKey: 1);
+  final PagingController<int, PortfolioModel> pagingController =
+      PagingController(firstPageKey: 1);
   int pageKey = 1;
 
   @override
@@ -40,8 +44,10 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
   }
 
   Future<void> _fetchPageActivity() async {
-    PortfolioController provider = Provider.of<PortfolioController>(context, listen: false);
-    List<PortfolioModel> list = await provider.getPortfolioList(context, pageKey);
+    PortfolioController provider =
+        Provider.of<PortfolioController>(context, listen: false);
+    List<PortfolioModel> list =
+        await provider.getPortfolioList(context, pageKey);
     final isLastPage = list.length < 10;
     if (isLastPage) {
       pagingController.appendLastPage(list);
@@ -53,7 +59,7 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
 
   @override
   Widget build(BuildContext context) {
-    c=context;
+    c = context;
     _notifier = Provider.of<PortfolioController>(context);
     return Scaffold(
       body: RefreshIndicator(
@@ -64,8 +70,10 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
         child: PagedListView<int, PortfolioModel>(
           pagingController: pagingController,
           // shrinkWrap: true,
-          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 10, bottom: 50),
-          builderDelegate: PagedChildBuilderDelegate<PortfolioModel>(noItemsFoundIndicatorBuilder: (context) {
+          padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top + 10, bottom: 50),
+          builderDelegate: PagedChildBuilderDelegate<PortfolioModel>(
+              noItemsFoundIndicatorBuilder: (context) {
             return AppWidgets.emptyView(
                 FFLocalizations.of(context).getText(
                   'l0x6h75l' /*No portfolio found*/,
@@ -77,14 +85,18 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                   boxShadow: AppStyles.shadow(),
                   borderRadius: BorderRadius.circular(rSize * 0.01)),
-              margin: EdgeInsets.symmetric(horizontal: rSize * 0.01, vertical: rSize * 0.005),
+              margin: EdgeInsets.symmetric(
+                  horizontal: rSize * 0.01, vertical: rSize * 0.005),
               child: Padding(
-                padding: EdgeInsets.only(left: rSize * 0.015, right: rSize * 0.015, bottom: rSize * 0.015),
+                padding: EdgeInsets.only(
+                    left: rSize * 0.015,
+                    right: rSize * 0.015,
+                    bottom: rSize * 0.015),
                 child: Column(
                   children: [
                     InkWell(
                       splashColor: Colors.transparent,
-                      onTap: () => _notifier.selectIndex(index),
+                      onTap: () => _notifier.selectIndex(index,item,context),
                       child: Padding(
                         padding: EdgeInsets.only(top: rSize * 0.015),
                         child: Row(
@@ -93,8 +105,11 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                             Expanded(
                                 child: Text(
                               item.title ?? '',
-                              style: FlutterFlowTheme.of(context).displaySmall.override(
-                                    color: FlutterFlowTheme.of(context).customColor4,
+                              style: FlutterFlowTheme.of(context)
+                                  .displaySmall
+                                  .override(
+                                    color: FlutterFlowTheme.of(context)
+                                        .customColor4,
                                     fontSize: rSize * 0.016,
                                     letterSpacing: 0,
                                     fontWeight: FontWeight.w500,
@@ -109,8 +124,11 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                       : FFLocalizations.of(context).getText(
                                           '83o1ghax' /* Net Value */,
                                         ),
-                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                        color: FlutterFlowTheme.of(context).customColor4,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        color: FlutterFlowTheme.of(context)
+                                            .customColor4,
                                         fontSize: rSize * 0.014,
                                         letterSpacing: 0,
                                         fontWeight: FontWeight.w500,
@@ -119,288 +137,409 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                 SizedBox(
                                   height: rSize * 0.005,
                                 ),
-                                if (_notifier.selectedIndex != index) ...{AppWidgets.buildRichText(context, item.netValue!)},
+                                if (_notifier.selectedIndex != index) ...{
+                                  AppWidgets.buildRichText(
+                                      context, item.netValue!)
+                                },
                               ],
                             ),
                             SizedBox(
                               width: rSize * 0.015,
                             ),
                             AnimatedRotation(
-                                turns: _notifier.selectedIndex == index ? 0.75 : 0.5,
-                                duration: Duration(milliseconds: 300), child: AppWidgets.doubleBack(context))
+                                turns: _notifier.selectedIndex == index
+                                    ? 0.75
+                                    : 0.5,
+                                duration: Duration(milliseconds: 300),
+                                child: AppWidgets.doubleBack(context))
                           ],
                         ),
                       ),
                     ),
                     if (_notifier.selectedIndex == index) ...{
-                      ConstrainedBox(
-                        constraints: BoxConstraints(
-                          maxHeight: rSize * 0.5,
-                        ),
-                        child: ListView(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          padding: EdgeInsets.zero,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                // color: AppColors.kViolate.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(rSize * 0.015),
-                              ),
-                              padding: EdgeInsets.symmetric(vertical: rSize * 0.015),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AppWidgets.portfolioListElement(
-                                      context,
-                                      FFLocalizations.of(context).getText(
-                                        'hdgv1exn' /* Date */,
-                                      ),
-                                      DateFormat('yyyy-MM-dd').format(DateTime.now())),
-                                  SizedBox(
-                                    height: rSize * 0.005,
+                      StreamBuilder<PortfolioModel?>(
+                        stream: _notifier.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return CircularProgressIndicator();
+                          }
+                          if (snapshot.data != null) {
+                            item = snapshot.data!;
+                            item.isExist = true;
+                            return ListView(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              padding: EdgeInsets.zero,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    // color: AppColors.kViolate.withOpacity(0.2),
+                                    borderRadius:
+                                        BorderRadius.circular(rSize * 0.015),
                                   ),
-                                  AppWidgets.portfolioListElement(
-                                      context,
-                                      FFLocalizations.of(context).getText(
-                                        'cm2ob3q4' /* Net Value */,
-                                      ),
-                                      item.netValue ?? '',
-                                      richText: AppWidgets.buildRichText(context, item.netValue ?? '')),
-                                  SizedBox(
-                                    height: rSize * 0.005,
-                                  ),
-                                  AppWidgets.portfolioListElement(
-                                      context,
-                                      FFLocalizations.of(context).getText(
-                                        'y6z0kvbz' /* Portfolio Value */,
-                                      ),
-                                      item.portfolioValue ?? '',
-                                      richText: AppWidgets.buildRichText(context, item.portfolioValue ?? '')),
-                                  SizedBox(
-                                    height: rSize * 0.005,
-                                  ),
-                                  AppWidgets.portfolioListElement(
-                                      context,
-                                      FFLocalizations.of(context).getText(
-                                        '57fz6g1m' /* Amount Invested */,
-                                      ),
-                                      item.amountInvested ?? '',
-                                      richText: AppWidgets.buildRichText(context, item.amountInvested ?? '')),
-                                  SizedBox(
-                                    height: rSize * 0.005,
-                                  ),
-                                  AppWidgets.portfolioListElement(
-                                      context,
-                                      FFLocalizations.of(context).getText(
-                                        'rpfp7xvs' /* Cash Available */,
-                                      ),
-                                      item.cashAvailable ?? '',
-                                      richText: !item.cashAvailable!.contains(' ')?null:AppWidgets.buildRichText(context, (item.cashAvailable ?? '').replaceAll('(', '').replaceAll(')', ''))),
-                                  SizedBox(
-                                    height: rSize * 0.015,
-                                  ),
-                                  AppWidgets.divider(context),
-                                  SizedBox(
-                                    height: rSize * 0.015,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: rSize * 0.015),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
+                                      AppWidgets.portfolioListElement(
+                                          context,
+                                          FFLocalizations.of(context).getText(
+                                            'hdgv1exn' /* Date */,
+                                          ),
+                                          DateFormat('yyyy-MM-dd')
+                                              .format(DateTime.now())),
+                                      SizedBox(
+                                        height: rSize * 0.005,
+                                      ),
+                                      AppWidgets.portfolioListElement(
+                                          context,
+                                          FFLocalizations.of(context).getText(
+                                            'cm2ob3q4' /* Net Value */,
+                                          ),
+                                          item.netValue ?? '',
+                                          richText: AppWidgets.buildRichText(
+                                              context, item.netValue ?? '')),
+                                      SizedBox(
+                                        height: rSize * 0.005,
+                                      ),
+                                      AppWidgets.portfolioListElement(
+                                          context,
+                                          FFLocalizations.of(context).getText(
+                                            'y6z0kvbz' /* Portfolio Value */,
+                                          ),
+                                          item.portfolioValue ?? '',
+                                          richText: AppWidgets.buildRichText(
+                                              context,
+                                              item.portfolioValue ?? '')),
+                                      SizedBox(
+                                        height: rSize * 0.005,
+                                      ),
+                                      AppWidgets.portfolioListElement(
+                                          context,
+                                          FFLocalizations.of(context).getText(
+                                            '57fz6g1m' /* Amount Invested */,
+                                          ),
+                                          item.amountInvested ?? '',
+                                          richText: AppWidgets.buildRichText(
+                                              context,
+                                              item.amountInvested ?? '')),
+                                      SizedBox(
+                                        height: rSize * 0.005,
+                                      ),
+                                      AppWidgets.portfolioListElement(
+                                          context,
+                                          FFLocalizations.of(context).getText(
+                                            'rpfp7xvs' /* Cash Available */,
+                                          ),
+                                          item.cashAvailable ?? '',
+                                          richText: !item.cashAvailable!
+                                                  .contains(' ')
+                                              ? null
+                                              : AppWidgets.buildRichText(
+                                                  context,
+                                                  (item.cashAvailable ?? '')
+                                                      .replaceAll('(', '')
+                                                      .replaceAll(')', ''))),
+                                      SizedBox(
+                                        height: rSize * 0.015,
+                                      ),
+                                      AppWidgets.divider(context),
+                                      SizedBox(
+                                        height: rSize * 0.015,
+                                      ),
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            FFLocalizations.of(context).getText(
-                                              'group_By',
-                                            ),
-                                            style: FlutterFlowTheme.of(context).displaySmall.override(
-                                              color: FlutterFlowTheme.of(context).customColor4,
-                                              fontSize: rSize * 0.016,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          Text(
-                                            ' ${item.sectionName ?? FFLocalizations.of(context).getText(
-                                                  'zomhasya' /* Performance */,
-                                                )}',
-                                            style: FlutterFlowTheme.of(context).displaySmall.override(
-                                                  color: FlutterFlowTheme.of(context).primaryText,
-                                                  fontSize: rSize * 0.016,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.w500,
+                                          Row(
+                                            children: [
+                                              Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'group_By',
                                                 ),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .displaySmall
+                                                    .override(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .customColor4,
+                                                      fontSize: rSize * 0.016,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                              ),
+                                              Text(
+                                                ' ${item.sectionName ?? FFLocalizations.of(context).getText(
+                                                      'zomhasya' /* Performance */,
+                                                    )}',
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .displaySmall
+                                                    .override(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      fontSize: rSize * 0.016,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                              ),
+                                            ],
                                           ),
+                                          popupMenu(ontap: (i) {
+                                            pagingController.itemList![index]
+                                                    .sectionName =
+                                                getName(context, i);
+                                            setState(() {});
+                                          })
                                         ],
                                       ),
-                                      popupMenu(ontap: (i) {
-                                        pagingController.itemList![index].sectionName = getName(context, i);
-                                        setState(() {});
-                                      })
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: rSize * 0.01,
-                                  ),
-                                  Visibility(
-                                    visible: pagingController.itemList![index].sectionName == null ||
-                                        pagingController.itemList![index].sectionName ==
-                                            FFLocalizations.of(context).getText(
-                                              'zomhasya' /* Performance */,
-                                            ),
-                                    child: Column(
-                                      children: [
-                                        Row(
+                                      SizedBox(
+                                        height: rSize * 0.01,
+                                      ),
+                                      Visibility(
+                                        visible: pagingController
+                                                    .itemList![index]
+                                                    .sectionName ==
+                                                null ||
+                                            pagingController.itemList![index]
+                                                    .sectionName ==
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'zomhasya' /* Performance */,
+                                                ),
+                                        child: Column(
                                           children: [
-                                            Text(
-                                              '${FFLocalizations.of(context).getText(
-                                                'hdgv1exn' /* Date */,
-                                              )} : ',
-                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                    fontSize: rSize * 0.016,
-                                                    color: FlutterFlowTheme.of(context).customColor4,
-                                                  ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '${FFLocalizations.of(context).getText(
+                                                    'hdgv1exn' /* Date */,
+                                                  )} : ',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontSize: rSize * 0.016,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .customColor4,
+                                                      ),
+                                                ),
+                                                Text(
+                                                  DateFormat('MMM dd yyyy')
+                                                      .format(DateTime.now()),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontSize: rSize * 0.016,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                      ),
+                                                ),
+                                              ],
                                             ),
-                                            Text(
-                                              DateFormat('MMM dd yyyy').format(DateTime.now()),
-                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                    fontSize: rSize * 0.016,
-                                                    color: FlutterFlowTheme.of(context).primary,
-                                                  ),
+                                            SizedBox(
+                                              height: rSize * 0.01,
                                             ),
+                                            XPortfolioItemLineChart(
+                                              width: MediaQuery.sizeOf(context)
+                                                      .width *
+                                                  1,
+                                              height: rSize * 0.300,
+                                              xLabels: item.performanceChart!
+                                                  .map((e) =>
+                                                      DateFormat('MMM dd, yyyy')
+                                                          .format(e.date!))
+                                                  .toList(),
+                                              listY: item.performanceChart!
+                                                  .map((e) => e.amount!)
+                                                  .toList(),
+                                              customWidth: item
+                                                      .performanceChart!
+                                                      .map((e) => e.amount)
+                                                      .toList()
+                                                      .length *
+                                                  100,
+                                              additionPercents: item
+                                                  .performanceChart!
+                                                  .map((e) =>
+                                                      e.twrPercentage ?? 0.0)
+                                                  .toList(),
+                                              sectionName: item.sectionName ??
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    'zomhasya' /* Performance */,
+                                                  ),
+                                            )
                                           ],
                                         ),
-                                        SizedBox(
-                                          height: rSize * 0.01,
-                                        ),
-                                        XPortfolioItemLineChart(
-                                          width: MediaQuery.sizeOf(context).width * 1,
+                                      ),
+                                      Visibility(
+                                        visible: pagingController
+                                                .itemList![index].sectionName ==
+                                            FFLocalizations.of(context).getText(
+                                              '7h0zeqv0' /* Asset Class */,
+                                            ),
+                                        child: XPortfolioItemLineChart(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  1,
                                           height: rSize * 0.300,
-                                          xLabels: item.performanceChart!.map((e) => DateFormat('MMM dd, yyyy').format(e.date!)).toList(),
-                                          listY: item.performanceChart!.map((e) => e.amount!).toList(),
-                                          customWidth: item.performanceChart!.map((e) => e.amount).toList().length * 100,
-                                          additionPercents: item.performanceChart!.map((e) => e.twrPercentage ?? 0.0).toList(),
-                                          sectionName: item.sectionName ??
-                                              FFLocalizations.of(context).getText(
-                                                'zomhasya' /* Performance */,
-                                              ),
+                                          item: item,
+                                          xLabels: item.assetClassChart!
+                                              .map((e) => e.assetClass ?? '')
+                                              .toList(),
+                                          listY: item.assetClassChart!
+                                              .map((e) => e.amount1!)
+                                              .toList(),
+                                          listAmount: item.assetClassChart!
+                                              .map((e) => e.amount3!)
+                                              .toList(),
+                                          sectionName:
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                            '7h0zeqv0' /* Asset Class */,
+                                          ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: pagingController.itemList![index].sectionName ==
-                                        FFLocalizations.of(context).getText(
-                                          '7h0zeqv0' /* Asset Class */,
-                                        ),
-                                    child: XPortfolioItemLineChart(
-                                      width: MediaQuery.sizeOf(context).width * 1,
-                                      height: rSize * 0.300,
-                                      item: item,
-                                      xLabels: item.assetClassChart!.map((e) => e.assetClass ?? '').toList(),
-                                      listY: item.assetClassChart!.map((e) => e.amount1!).toList(),
-                                      listAmount: item.assetClassChart!.map((e) => e.amount3!).toList(),
-                                      sectionName: FFLocalizations.of(context).getText(
-                                        '7h0zeqv0' /* Asset Class */,
                                       ),
-                                    ),
-                                  ),
-                                  Visibility(
-                                    visible: pagingController.itemList![index].sectionName ==
-                                        FFLocalizations.of(context).getText(
-                                          'o00oeypg' /* Currency */,
+                                      Visibility(
+                                        visible: pagingController
+                                                .itemList![index].sectionName ==
+                                            FFLocalizations.of(context).getText(
+                                              'o00oeypg' /* Currency */,
+                                            ),
+                                        child: XPortfolioItemLineChart(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  1,
+                                          height: rSize * 0.300,
+                                          item: item,
+                                          xLabels: item.currenciesChart!
+                                              .map((e) => e.assetClass ?? '')
+                                              .toList(),
+                                          listY: item.currenciesChart!
+                                              .map((e) => e.amount1!)
+                                              .toList(),
+                                          listAmount: item.currenciesChart!
+                                              .map((e) => e.amount3!)
+                                              .toList(),
+                                          sectionName:
+                                              FFLocalizations.of(context)
+                                                  .getText(
+                                            'o00oeypg' /* Currency */,
+                                          ),
                                         ),
-                                    child: XPortfolioItemLineChart(
-                                      width: MediaQuery.sizeOf(context).width * 1,
-                                      height: rSize * 0.300,
-                                      item: item,
-                                      xLabels: item.currenciesChart!.map((e) => e.assetClass ?? '').toList(),
-                                      listY: item.currenciesChart!.map((e) => e.amount1!).toList(),
-                                      listAmount: item.currenciesChart!.map((e) => e.amount3!).toList(),
-                                      sectionName: FFLocalizations.of(context).getText(
-                                        'o00oeypg' /* Currency */,
                                       ),
-                                    ),
+                                      Visibility(
+                                        visible: pagingController
+                                                .itemList![index].sectionName ==
+                                            FFLocalizations.of(context).getText(
+                                              '6u2u1x9z' /* Health Alerts */,
+                                            ),
+                                        child:
+                                            healthAlertSection(context, item),
+                                      ),
+                                    ],
                                   ),
-                                  Visibility(
-                                    visible: pagingController.itemList![index].sectionName ==
-                                        FFLocalizations.of(context).getText(
-                                          '6u2u1x9z' /* Health Alerts */,
-                                        ),
-                                    child: healthAlertSection(context, item),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    },
-                    if(_notifier.selectedIndex==index)...{
-                    SizedBox(
-                      height: rSize * 0.005,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                            onTap: () {
-                              CommonFunctions.navigate(context, Positions(item.id!));
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                AppStyles.iconBg(context,
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    data: FontAwesomeIcons.shoppingBasket,
-                                    size: rSize * 0.020,
-                                    padding: EdgeInsets.all(rSize * 0.015)),
-                                Text(
-                                  FFLocalizations.of(context).getText(
-                                    'position',
-                                  ),
-                                  style: AppStyles.inputTextStyle(context),
-                                )
-                              ],
-                            )),
-                        GestureDetector(
-                            onTap: () => CommonFunctions.navigate(context, Transactions(item.title!)),
-                            child: Row(
-                              children: [
-                                SizedBox(width: rSize*0.02),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    AppStyles.iconBg(context,
-                                        color: FlutterFlowTheme.of(context).primary,
-                                        data: FontAwesomeIcons.dollarSign,
-                                        size: rSize * 0.020,
-                                        padding: EdgeInsets.all(rSize * 0.015)),
-                                    Text(
-                                        FFLocalizations.of(context).getText(
-                                          'eg1yw963' /* Transactions */,
-                                        ),
-                                        style: AppStyles.inputTextStyle(context))
-                                  ],
                                 ),
                               ],
-                            )),
-                        GestureDetector(
-                            onTap: () => CommonFunctions.navigate(context, AddTransaction(null,item)),
-                            child: Column(
-                              children: [
-                                AppStyles.iconBg(context,
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    data: FontAwesomeIcons.dollarSign, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015)),
-                                Text(FFLocalizations.of(context).getText(
-                                  'new_transaction',
-                                ),style: AppStyles.inputTextStyle(context))
-                              ],
-                            )),
-                      ],
-                    )
+                            );
+                          }
+                          return SizedBox();
+                        },
+                      )
+                    },
+                    if (_notifier.selectedIndex == index) ...{
+                      SizedBox(
+                        height: rSize * 0.005,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                CommonFunctions.navigate(
+                                    context, Positions(item.id!));
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  AppStyles.iconBg(context,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      data: FontAwesomeIcons.shoppingBasket,
+                                      size: rSize * 0.020,
+                                      padding: EdgeInsets.all(rSize * 0.015)),
+                                  Text(
+                                    FFLocalizations.of(context).getText(
+                                      'position',
+                                    ),
+                                    style: AppStyles.inputTextStyle(context),
+                                  )
+                                ],
+                              )),
+                          GestureDetector(
+                              onTap: () => CommonFunctions.navigate(
+                                  context, Transactions(item.title!)),
+                              child: Row(
+                                children: [
+                                  SizedBox(width: rSize * 0.02),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      AppStyles.iconBg(context,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          data: FontAwesomeIcons.dollarSign,
+                                          size: rSize * 0.020,
+                                          padding:
+                                              EdgeInsets.all(rSize * 0.015)),
+                                      Text(
+                                          FFLocalizations.of(context).getText(
+                                            'eg1yw963' /* Transactions */,
+                                          ),
+                                          style:
+                                              AppStyles.inputTextStyle(context))
+                                    ],
+                                  ),
+                                ],
+                              )),
+                          GestureDetector(
+                              onTap: () => CommonFunctions.navigate(
+                                  context, AddTransaction(null, item)),
+                              child: Column(
+                                children: [
+                                  AppStyles.iconBg(context,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      data: FontAwesomeIcons.dollarSign,
+                                      size: rSize * 0.020,
+                                      padding: EdgeInsets.all(rSize * 0.015)),
+                                  Text(
+                                      FFLocalizations.of(context).getText(
+                                        'new_transaction',
+                                      ),
+                                      style: AppStyles.inputTextStyle(context))
+                                ],
+                              )),
+                        ],
+                      )
                     }
                   ],
                 ),
@@ -412,9 +551,11 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
     );
   }
 
-  GestureDetector healthAlertSection(BuildContext context, PortfolioModel item) {
+  GestureDetector healthAlertSection(
+      BuildContext context, PortfolioModel item) {
     return GestureDetector(
-      onTap: () => CommonFunctions.navigate(context, HealthCheck(item.appropriateness, item.suitability)),
+      onTap: () => CommonFunctions.navigate(
+          context, HealthCheck(item.appropriateness, item.suitability)),
       child: Column(
         children: [
           Container(
@@ -435,12 +576,14 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, rSize * 0.020, 0, rSize * 0.020),
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          0, rSize * 0.020, 0, rSize * 0.020),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, rSize * 0.020),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, rSize * 0.020),
                             child: SizedBox(
                               width: rSize * 0.140,
                               height: rSize * 0.115,
@@ -455,26 +598,36 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                     ),
                                     child: Icon(
                                       Icons.warning_amber_rounded,
-                                      color: FlutterFlowTheme.of(context).warning,
+                                      color:
+                                          FlutterFlowTheme.of(context).warning,
                                       size: rSize * 0.050,
                                     ),
                                   ),
                                   Align(
-                                    alignment: const AlignmentDirectional(1, -1.0),
+                                    alignment:
+                                        const AlignmentDirectional(1, -1.0),
                                     child: Container(
                                       width: rSize * 0.040,
                                       height: rSize * 0.030,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context).warning,
+                                        color: FlutterFlowTheme.of(context)
+                                            .warning,
                                         boxShadow: AppStyles.shadow(),
                                       ),
-                                      alignment: const AlignmentDirectional(0, 0.0),
+                                      alignment:
+                                          const AlignmentDirectional(0, 0.0),
                                       child: Text(
                                         (int length) {
                                           return '$length${length <= 10 ? '' : '+'}';
-                                        }(item.appropriateness!.listDetails?.length ?? 0),
-                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                              color: FlutterFlowTheme.of(context).info,
+                                        }(item.appropriateness!.listDetails
+                                                ?.length ??
+                                            0),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
                                               fontSize: rSize * 0.016,
                                               letterSpacing: 0,
                                               fontWeight: FontWeight.w500,
@@ -490,10 +643,13 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                             FFLocalizations.of(context).getText(
                               'kc4yx2mm' /* MINOR ISSUES */,
                             ),
-                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
                                   fontSize: rSize * 0.016,
                                   letterSpacing: 0,
-                                  color: FlutterFlowTheme.of(context).customColor4,
+                                  color:
+                                      FlutterFlowTheme.of(context).customColor4,
                                   fontWeight: FontWeight.w500,
                                 ),
                           ),
@@ -519,14 +675,16 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, rSize * 0.020, 0, rSize * 0.020),
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          0, rSize * 0.020, 0, rSize * 0.020),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Align(
                             alignment: const AlignmentDirectional(0, 1.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, rSize * 0.020),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 0, rSize * 0.020),
                               child: SizedBox(
                                 width: rSize * 0.140,
                                 height: rSize * 0.115,
@@ -541,26 +699,36 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                                       ),
                                       child: Icon(
                                         Icons.error_outline_rounded,
-                                        color: FlutterFlowTheme.of(context).error,
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
                                         size: rSize * 0.050,
                                       ),
                                     ),
                                     Align(
-                                      alignment: const AlignmentDirectional(1, -1.0),
+                                      alignment:
+                                          const AlignmentDirectional(1, -1.0),
                                       child: Container(
                                         width: rSize * 0.040,
                                         height: rSize * 0.030,
                                         decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context).error,
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
                                           boxShadow: AppStyles.shadow(),
                                         ),
-                                        alignment: const AlignmentDirectional(0, 0.0),
+                                        alignment:
+                                            const AlignmentDirectional(0, 0.0),
                                         child: Text(
                                           (int length) {
                                             return '$length${length <= 10 ? '' : '+'}';
-                                          }(item.suitability!.listDetails?.length ?? 0),
-                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                color: FlutterFlowTheme.of(context).info,
+                                          }(item.suitability!.listDetails
+                                                  ?.length ??
+                                              0),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .info,
                                                 fontSize: rSize * 0.016,
                                                 fontWeight: FontWeight.w500,
                                               ),
@@ -576,9 +744,12 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
                             FFLocalizations.of(context).getText(
                               'ko88t7mf' /* MAJOR ISSUES */,
                             ),
-                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
                                   fontSize: rSize * 0.016,
-                                  color: FlutterFlowTheme.of(context).customColor4,
+                                  color:
+                                      FlutterFlowTheme.of(context).customColor4,
                                   fontWeight: FontWeight.w500,
                                 ),
                           ),
@@ -624,10 +795,11 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
       padding: EdgeInsets.zero,
       surfaceTintColor: Colors.transparent,
       position: PopupMenuPosition.under,
-      constraints: BoxConstraints(maxWidth: rSize*0.14),
+      constraints: BoxConstraints(maxWidth: rSize * 0.14),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(rSize*0.01),
-      ),clipBehavior: Clip.hardEdge,
+        borderRadius: BorderRadius.circular(rSize * 0.01),
+      ),
+      clipBehavior: Clip.hardEdge,
       color: FlutterFlowTheme.of(context).primaryBackground,
       itemBuilder: (context) => [
         popupMenuItem(
@@ -678,7 +850,8 @@ class _PortfolioState extends State<Portfolio> with AutomaticKeepAliveClientMixi
     );
   }
 
-  PopupMenuItem<int> popupMenuItem(int value, String label, void Function()? onTap) {
+  PopupMenuItem<int> popupMenuItem(
+      int value, String label, void Function()? onTap) {
     return PopupMenuItem(
         value: value,
         onTap: onTap,

@@ -9,6 +9,7 @@ class PortfolioModel {
   Concentration? concentration;
   CashFlowDistribution? cashFlowDistribution;
   String? netValue;
+  bool? isExist;
   String? portfolioValue;
   String? amountInvested;
   String? cashAvailable;
@@ -28,6 +29,7 @@ class PortfolioModel {
     this.concentration,
     this.cashFlowDistribution,
     this.netValue,
+    this.isExist=false,
     this.portfolioValue,
     this.amountInvested,
     this.cashAvailable,
@@ -47,19 +49,19 @@ class PortfolioModel {
     id: json["id"],
     title: json["title"],
     userId: json["user_id"],
-    clientPreference: ClientPreference.fromJson(json["client_preference"]),
+    // clientPreference: ClientPreference.fromJson(json["client_preference"]),
     strategy: json["strategy"],
-    concentration: Concentration.fromJson(json["concentration"]),
-    cashFlowDistribution: CashFlowDistribution.fromJson(json["cash_flow_distribution"]),
-    netValue: json["net_value"]??'',
+    concentration: json["concentration"]==null?null:Concentration.fromJson(json["concentration"]),
+    // cashFlowDistribution: CashFlowDistribution.fromJson(json["cash_flow_distribution"]),
+    netValue: "${json["net_value"]??''}",
     portfolioValue: json["portfolio_value"],
     amountInvested: json["amount_invested"],
     cashAvailable: json["cash_available"].toString(),
-    performanceChart: List<PerformanceChart>.from(json["performance_chart"].map((x) => PerformanceChart.fromJson(x))),
-    assetClassChart: List<SChart>.from(json["asset_class_chart"].map((x) => SChart.fromJson(x))),
-    currenciesChart: List<SChart>.from(json["currencies_chart"].map((x) => SChart.fromJson(x))),
-    appropriateness: Appropriateness.fromJson(json["appropriateness"]),
-    suitability: Appropriateness.fromJson(json["suitability"]),
+    performanceChart: json["performance_chart"]==null?[]:List<PerformanceChart>.from(json["performance_chart"].map((x) => PerformanceChart.fromJson(x))),
+    assetClassChart: json["asset_class_chart"]==null?[]:List<SChart>.from(json["asset_class_chart"].map((x) => SChart.fromJson(x))),
+    currenciesChart: json["currencies_chart"]==null?[]:List<SChart>.from(json["currencies_chart"].map((x) => SChart.fromJson(x))),
+    appropriateness: json["appropriateness"]==null?null:Appropriateness.fromJson(json["appropriateness"]),
+    suitability: json["suitability"]==null?null:Appropriateness.fromJson(json["suitability"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -125,9 +127,9 @@ class SChart {
 
   factory SChart.fromJson(Map<String, dynamic> json) => SChart(
     assetClass: json["asset_class"],
-    amount1: json["amount_1"],
-    amount2: json["amount_2"],
-    amount3: json["amount_3"],
+    amount1: json["amount_1"].toString(),
+    amount2: json["amount_2"].toString(),
+    amount3: json["amount_3"].toString(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -399,7 +401,7 @@ class PerformanceChart {
 
   factory PerformanceChart.fromJson(Map<String, dynamic> json) => PerformanceChart(
     date: DateTime.parse(json["date"]),
-    amount: json["amount"].toString(),
+    amount: "USD "+json["amount"].toString(),
     twrPercentage: json["twr_percentage"].toDouble(),
   );
 

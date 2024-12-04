@@ -317,8 +317,8 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                                             ),
                                             Text(
                                               '  ${FFLocalizations.of(context).getText(
-                                                'rejected',
-                                              )}',
+                                                '0c3w378f' /* Rejected at  */,
+                                              )} ${DateFormat('yyyy-MM-dd HH:mm').format(item.rejectedDate!)}',
                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
 
                                                     color: FlutterFlowTheme.of(context).customColor3,

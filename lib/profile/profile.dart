@@ -119,7 +119,7 @@ class _ProfileState extends State<Profile> {
                     unselectedWidgetColor:
                         FlutterFlowTheme.of(context).primary),
                 child: Transform.scale(
-                  scale: isTablet ? 2 : 0.8,
+                  scale: isTablet ? 1.5 : 0.8,
                   child: Switch(
                     value: _mainNotifier.isDarkMode(),
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

@@ -1,19 +1,33 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:kleber_bank/portfolio/portfolio_model.dart';
 import 'package:kleber_bank/utils/api_calls.dart';
 
 class PortfolioController extends ChangeNotifier{
-  int selectedIndex=0;
+  int selectedIndex=-1;
   int selectedPositionIndex=-1;
   int selectedTransactionIndex=-1;
-  String selectedPositionFilter='Best Performance';
+  String selectedPositionFilter='Best Performance',selectedTransactionFilter='Highest Amount';
 
   var positionsFilterTypeList=['Best Performance','Worst Performance','A-Z','Z-A','Largest Weight','Smallest Weight',];
+  var transactionFilterTypeList=['Highest Amount','Lowest Amount','A-Z','Z-A'];
   String column='roi',direction='desc';
+  String tranColumn='amount',tranDirection='desc';
+  late Stream<PortfolioModel?> stream;
 
-  selectIndex(int index) {
+
+  Stream<PortfolioModel?> getPortfolioData(BuildContext context, PortfolioModel item) async* {
+    if (item.isExist??false) {
+      yield item;
+    }
+    yield await ApiCalls.getPortfolioData(context, item.id!);
+  }
+
+  selectIndex(int index, PortfolioModel item, BuildContext context) {
     if (selectedIndex!=index) {
       selectedIndex=index;
+      stream=getPortfolioData(context, item);
     }else{
       selectedIndex=-1;
     }
@@ -61,7 +75,25 @@ class PortfolioController extends ChangeNotifier{
       direction='asc';
     }
     notifyListeners();
+  }
 
+  void selectTransactionFilter(String value) {
+    selectedTransactionFilter=value;
+    int index=transactionFilterTypeList.indexOf(value);
+    if(index==0){
+      tranColumn='amount';
+      tranDirection='desc';
+    }else if(index==1){
+      tranColumn='amount';
+      tranDirection='asc';
+    }else if(index==2){
+      tranColumn='security_name';
+      tranDirection='asc';
+    }else if(index==3){
+      tranColumn='security_name';
+      tranDirection='desc';
+    }
+    notifyListeners();
   }
 
   Future<List<PortfolioModel>> getPortfolioList(BuildContext context,int pageKey,{bool notify=false, bool isCreateTransaction=false}) async {

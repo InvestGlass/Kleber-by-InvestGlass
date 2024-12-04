@@ -29,6 +29,7 @@ class ProposalModel {
   String? stage;
   DateTime? lastUpdated;
   DateTime? acceptedDate;
+  DateTime? rejectedDate;
 
   ProposalModel({
     this.id,
@@ -59,6 +60,7 @@ class ProposalModel {
     this.stage,
     this.lastUpdated,
     this.acceptedDate,
+    this.rejectedDate,
   });
 
   factory ProposalModel.fromRawJson(String str) => ProposalModel.fromJson(json.decode(str));
@@ -93,6 +95,7 @@ class ProposalModel {
     stage: json["stage"],
     lastUpdated: json["last_updated"] == null ? null : DateTime.parse(json["last_updated"]),
     acceptedDate: json["accepted_date"] == null ? null : DateTime.parse(json["accepted_date"]),
+    rejectedDate: json["rejected_date"] == null ? null : DateTime.parse(json["rejected_date"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -123,6 +126,7 @@ class ProposalModel {
     "stage": stage,
     "last_updated": lastUpdated?.toIso8601String(),
     "accepted_date": acceptedDate,
+    "rejected_date": rejectedDate,
   };
 }
 

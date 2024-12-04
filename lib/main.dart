@@ -90,7 +90,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Locale? _locale = FFLocalizations.getStoredLocale();
   late MainController _notifier;
-  static const int _timeoutSeconds = 10*60;
+  static const int _timeoutSeconds = 3*60;
   Timer? _inactivityTimer;
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
   // This widget is the root of your application.

@@ -49,6 +49,11 @@ class _PositionsState extends State<Positions> {
       _pageKey++;
       _pagingController.appendPage(list, _pageKey);
     }
+    if (notifier.column=='roi'&& notifier.direction=='asc') {
+      _pagingController.itemList!.sort((a, b) => double.parse(a.roi!).compareTo(double.parse(b.roi!)));
+    }else if (notifier.column=='roi'&& notifier.direction=='desc') {
+      _pagingController.itemList!.sort((a, b) => double.parse(b.roi!).compareTo(double.parse(a.roi!)));
+    }
   }
 
   @override

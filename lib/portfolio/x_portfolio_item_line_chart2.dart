@@ -24,8 +24,8 @@ import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
 import '../utils/shared_pref_utils.dart';
 
-class XPortfolioItemLineChart extends StatefulWidget {
-  const XPortfolioItemLineChart(
+class XPortfolioItemLineChart2 extends StatefulWidget {
+  const XPortfolioItemLineChart2(
       {super.key,
       this.width,
       this.height,
@@ -48,11 +48,11 @@ class XPortfolioItemLineChart extends StatefulWidget {
   final PortfolioModel? item;
 
   @override
-  State<XPortfolioItemLineChart> createState() =>
-      _XPortfolioItemLineChartState();
+  State<XPortfolioItemLineChart2> createState() =>
+      _XPortfolioItemLineChart2State();
 }
 
-class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
+class _XPortfolioItemLineChart2State extends State<XPortfolioItemLineChart2> {
   final barWidth = rSize * 0.030;
   final barsSpace = rSize * 0.010;
   final groupsSpace = rSize * 0.100;
@@ -64,7 +64,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
 
   bool fitInsideBottomTitle = true;
   bool fitInsideLeftTitle = false;
-  String selectedPeriod = '1 M';
+  String selectedPeriod='1 M';
 
   TrackballBehavior? _trackballBehavior;
 
@@ -161,25 +161,25 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     return annotations;
   }
 
-  List<CartesianSeries> _getSampleLineSeries(List<ChartModel> filteredList) {
+  List<CartesianSeries> _getSampleLineSeries() {
     var listY = List<double>.generate(
-        filteredList.length, (index) => filteredList[index].amount);
+      widget.listY.length,
+      (index) =>
+          double.parse(widget.listY[index].split(' ')[1].replaceAll(',', '')),
+    );
     return <CartesianSeries>[
       RangeColumnSeries<String, String>(
-        dataSource: List<String>.generate(
-          filteredList.length,
-          (index) => filteredList[index].label,
-        ),
+        dataSource: widget.xLabels,
         xValueMapper: (String label, _) => label,
         highValueMapper: (String label, int index) {
-          final additionPercent = filteredList[index].percentage;
+          final additionPercent = widget.additionPercents[index];
           if (additionPercent < 0) {
             return columnStart;
           }
           return columnStart + additionPercent;
         },
         lowValueMapper: (String label, int index) {
-          final additionPercent = filteredList[index].percentage;
+          final additionPercent = widget.additionPercents[index];
           if (additionPercent >= 0) {
             return columnStart;
           }
@@ -194,10 +194,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
         enableTooltip: false,
       ),
       LineSeries<String, String>(
-        dataSource: List<String>.generate(
-          filteredList.length,
-          (index) => filteredList[index].label,
-        ),
+        dataSource: widget.xLabels,
         initialIsVisible: true,
         xValueMapper: (String label, _) => label,
         yValueMapper: (String label, index) => listY[index],
@@ -221,7 +218,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
         startDate = DateTime(now.year, now.month - 1, now.day);
         break;
       case '6 M':
-        startDate = DateTime(now.year, now.month - 7, now.day);
+        startDate = DateTime(now.year, now.month-7, now.day);
         break;
       case '1 Y':
         startDate = DateTime(now.year - 1, now.month, now.day);
@@ -234,20 +231,10 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   }
 
   Widget buildSFLineChart() {
-    List<ChartModel> performanceChartList = List<ChartModel>.generate(
-      widget.xLabels.length,
-      (index) => ChartModel(
-          widget.additionPercents[index], widget.xLabels[index], double.parse(widget.listY[index].split(' ')[1]),
-          date: DateFormat('MMM dd, yyyy').parse(widget.xLabels[index])),
-    );
-    List<ChartModel> filteredList = performanceChartList
-        .where((data) => data.date!.isAfter(startDate(selectedPeriod)))
-        .toList();
-    print('filtered list :: ${filteredList.length}');
     final isAr =
         (SharedPrefUtils.instance.getString(SELECTED_LANGUAGE) == 'ar');
     final overIntialVisible =
-        filteredList.length > (initialVisibleMaximum.floor() + 1);
+        widget.xLabels.length > (initialVisibleMaximum.floor() + 1);
     return Row(
       children: [
         Expanded(
@@ -297,7 +284,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
             zoomPanBehavior: ZoomPanBehavior(
               enablePanning: true,
             ),
-            series: _getSampleLineSeries(filteredList),
+            series: _getSampleLineSeries(),
             // tooltipBehavior:
             //     TooltipBehavior(enable: true, header: '', canShowMarker: false),
             trackballBehavior: _trackballBehavior,
@@ -342,10 +329,10 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        periodCell('1 W'),
-                        periodCell('1 M'),
-                        periodCell('6 M'),
-                        periodCell('1 Y'),
+                        periodCell(true, '1 W'),
+                        periodCell(false, '1 M'),
+                        periodCell(false, '6 M'),
+                        periodCell(false, '1 Y'),
                       ],
                     )
                   ],
@@ -353,28 +340,21 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     );
   }
 
-  Widget periodCell(String label) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedPeriod = label;
-        });
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: rSize * 0.015, vertical: rSize * 0.005),
-        decoration: BoxDecoration(
-            color: label != selectedPeriod
-                ? Colors.transparent
-                : FlutterFlowTheme.of(context).primary,
-            borderRadius: BorderRadius.circular(20)),
-        child: Text(
-          label,
-          style: AppStyles.inputTextStyle(context).copyWith(
-              color: label == selectedPeriod
-                  ? Colors.white
-                  : FlutterFlowTheme.of(context).customColor4),
-        ),
+  Container periodCell(bool isSelected, String label) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+          horizontal: rSize * 0.015, vertical: rSize * 0.005),
+      decoration: BoxDecoration(
+          color: !isSelected
+              ? Colors.transparent
+              : FlutterFlowTheme.of(context).primary,
+          borderRadius: BorderRadius.circular(20)),
+      child: Text(
+        label,
+        style: AppStyles.inputTextStyle(context).copyWith(
+            color: isSelected
+                ? Colors.white
+                : FlutterFlowTheme.of(context).customColor4),
       ),
     );
   }
@@ -573,7 +553,7 @@ class ChartModel {
   double amount;
   DateTime? date;
 
-  ChartModel(this.percentage, this.label, this.amount, {this.date});
+  ChartModel(this.percentage, this.label, this.amount,{this.date});
 }
 
 const colorList = [
