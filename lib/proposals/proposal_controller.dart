@@ -14,6 +14,7 @@ class ProposalController extends ChangeNotifier {
   String? selectedProposalType, advisorName = '', proposalName = '';
   String direction = 'desc', column = 'created_at';
   List<String> sortList = ['Newest', 'Oldest', 'A-Z', 'Z-A'];
+  int tempSelectedSortIndex=0;
   List<FilterModel> selectedFilterList = [];
   final PagingController<int, ProposalModel> pagingController = PagingController(firstPageKey: 1);
 
@@ -88,6 +89,11 @@ class ProposalController extends ChangeNotifier {
         notifyListeners();
       }
     },);
+  }
+
+  void tempSelectSort(int value) {
+    tempSelectedSortIndex=value;
+    notifyListeners();
   }
 
 }

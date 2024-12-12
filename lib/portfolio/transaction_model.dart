@@ -4,8 +4,8 @@ class TransactionModel {
   int? id;
   double? openPrice;
   String? openRate;
-  String? quantity;
-  String? amount;
+  double? quantity;
+  double? amount;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? transactionDatetime;
@@ -41,8 +41,8 @@ class TransactionModel {
     id: json["id"],
     openPrice: double.tryParse(json["open_price"]?.toString()??'0.0')??0.0,
     openRate: json["open_rate"],
-    quantity: json["quantity"],
-    amount: json["amount"],
+    quantity: double.tryParse(json["quantity"])??0.0,
+    amount: double.tryParse(json["amount"])??0.0,
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
     transactionDatetime: json["transaction_datetime"],

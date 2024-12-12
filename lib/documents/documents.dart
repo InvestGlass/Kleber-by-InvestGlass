@@ -50,8 +50,17 @@ class _DocumentsState extends State<Documents> {
   Future<void> _fetchPageActivity(
     BuildContext context,
   ) async {
-    await ApiCalls.getDocumentList(context, _pageKey, _notifier.selectedAccount?.id?.toString() ?? '', _notifier.searchedFile, _notifier.selectedType,
-            _notifier.range, _notifier.ancestryFolderList, _notifier.folderPathList, _notifier.orderDirection, _notifier.orderColumn)
+    await ApiCalls.getDocumentList(
+            context,
+            _pageKey,
+            _notifier.selectedAccount?.id?.toString() ?? '',
+            _notifier.searchedFile,
+            _notifier.selectedType,
+            _notifier.range,
+            _notifier.ancestryFolderList,
+            _notifier.folderPathList,
+            _notifier.orderDirection,
+            _notifier.orderColumn)
         .then(
       (value) {
         List<Document> list = value?.folders ?? [];
@@ -74,7 +83,7 @@ class _DocumentsState extends State<Documents> {
 
   @override
   Widget build(BuildContext context) {
-    c=context;
+    c = context;
     _notifier = Provider.of<DocumentsController>(context);
     return Scaffold(
       appBar: AppWidgets.appBar(
@@ -100,7 +109,11 @@ class _DocumentsState extends State<Documents> {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: rSize * 0.03, right: rSize * 0.03, top: rSize * 0.01, bottom: rSize * 0.01),
+            padding: EdgeInsets.only(
+                left: rSize * 0.03,
+                right: rSize * 0.03,
+                top: rSize * 0.01,
+                bottom: rSize * 0.01),
             child: Row(
               children: [
                 cell(
@@ -143,7 +156,8 @@ class _DocumentsState extends State<Documents> {
                 pagingController: _notifier.pagingController,
                 // shrinkWrap: true,
                 padding: EdgeInsets.symmetric(horizontal: rSize * 0.015),
-                builderDelegate: PagedChildBuilderDelegate<Document>(noItemsFoundIndicatorBuilder: (context) {
+                builderDelegate: PagedChildBuilderDelegate<Document>(
+                    noItemsFoundIndicatorBuilder: (context) {
                   return AppWidgets.emptyView(
                       FFLocalizations.of(context).getText(
                         'no_doc_found',
@@ -164,7 +178,9 @@ class _DocumentsState extends State<Documents> {
                         CommonFunctions.navigate(
                             context,
                             ViewDocument(
-                              showSignButton: item.requestProposalApproval != null && item.requestProposalApproval!,
+                              showSignButton:
+                                  item.requestProposalApproval != null &&
+                                      item.requestProposalApproval!,
                               item: item,
                               index: index,
                             ));
@@ -172,12 +188,16 @@ class _DocumentsState extends State<Documents> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondaryBackground.withOpacity(item.freezed! ? 0.1 : 1),
+                          color: FlutterFlowTheme.of(context)
+                              .secondaryBackground
+                              .withOpacity(item.freezed! ? 0.1 : 1),
                           boxShadow: AppStyles.shadow(),
                           borderRadius: BorderRadius.circular(rSize * 0.01)),
-                      margin: EdgeInsetsDirectional.symmetric(vertical: rSize * 0.005),
+                      margin: EdgeInsetsDirectional.symmetric(
+                          vertical: rSize * 0.005),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: rSize * 0.01, horizontal: rSize * 0.015),
+                        padding: EdgeInsets.symmetric(
+                            vertical: rSize * 0.01, horizontal: rSize * 0.015),
                         child: Row(children: [
                           getTypeName(item.documentType),
                           SizedBox(
@@ -188,19 +208,32 @@ class _DocumentsState extends State<Documents> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                (item.documentType != null ? '${item.id!} ~ ' : '') + item.folderName!,
+                                (item.documentType != null
+                                        ? '${item.id!} ~ '
+                                        : '') +
+                                    item.folderName!,
                                 maxLines: 2,
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      color: item.freezed! ? FlutterFlowTheme.of(context).secondaryText : FlutterFlowTheme.of(context).customColor4,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      color: item.freezed!
+                                          ? FlutterFlowTheme.of(context)
+                                              .secondaryText
+                                          : FlutterFlowTheme.of(context)
+                                              .customColor4,
                                       fontSize: rSize * 0.016,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                     ),
                               ),
                               Text(
-                                DateFormat('yyyy-MM-dd HH:mm').format(item.updatedAt!),
-                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                DateFormat('yyyy-MM-dd HH:mm')
+                                    .format(item.updatedAt!),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
                                       fontSize: rSize * 0.014,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
@@ -211,7 +244,8 @@ class _DocumentsState extends State<Documents> {
                                   children: [
                                     Icon(
                                       Icons.done_rounded,
-                                      color: FlutterFlowTheme.of(context).customColor2,
+                                      color: FlutterFlowTheme.of(context)
+                                          .customColor2,
                                       size: rSize * 0.024,
                                     ),
                                     Text(
@@ -219,10 +253,14 @@ class _DocumentsState extends State<Documents> {
                                         'ktrsz8sp' /* Accepted at */,
                                       )} ${DateFormat(
                                         'yyyy-MM-dd HH:mm',
-                                        FFLocalizations.of(context).languageCode,
+                                        FFLocalizations.of(context)
+                                            .languageCode,
                                       ).format(item.approvedAt!)}',
-                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                            color: FlutterFlowTheme.of(context).customColor2,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            color: FlutterFlowTheme.of(context)
+                                                .customColor2,
                                             fontSize: rSize * 0.016,
                                             letterSpacing: 0.0,
                                           ),
@@ -235,7 +273,8 @@ class _DocumentsState extends State<Documents> {
                                   children: [
                                     Icon(
                                       Icons.close_rounded,
-                                      color: FlutterFlowTheme.of(context).customColor3,
+                                      color: FlutterFlowTheme.of(context)
+                                          .customColor3,
                                       size: rSize * 0.024,
                                     ),
                                     Text(
@@ -243,10 +282,14 @@ class _DocumentsState extends State<Documents> {
                                         '5tjloy3c' /* Rejected at */,
                                       )} ${DateFormat(
                                         'yyyy-MM-dd HH:mm',
-                                        FFLocalizations.of(context).languageCode,
+                                        FFLocalizations.of(context)
+                                            .languageCode,
                                       ).format(item.disapprovedAt!)}',
-                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                            color: FlutterFlowTheme.of(context).customColor3,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            color: FlutterFlowTheme.of(context)
+                                                .customColor3,
                                             fontSize: rSize * 0.016,
                                             letterSpacing: 0.0,
                                           ),
@@ -329,7 +372,8 @@ class _DocumentsState extends State<Documents> {
       builder: (context) {
         _notifier = Provider.of<DocumentsController>(context);
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          Provider.of<DocumentsController>(context, listen: false).getAccountList(context);
+          Provider.of<DocumentsController>(context, listen: false)
+              .getAccountList(context);
         });
         return Center(
           child: ListView(
@@ -338,8 +382,9 @@ class _DocumentsState extends State<Documents> {
               Material(
                 color: Colors.transparent,
                 child: Container(
-                  decoration:
-                      BoxDecoration(color: FlutterFlowTheme.of(context).primaryBackground, borderRadius: BorderRadius.circular(rSize * 0.010)),
+                  decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      borderRadius: BorderRadius.circular(rSize * 0.010)),
                   margin: EdgeInsets.symmetric(horizontal: rSize * 0.015),
                   child: StatefulBuilder(
                     builder: (context, setState) {
@@ -352,28 +397,10 @@ class _DocumentsState extends State<Documents> {
                                 left: rSize * 0.02,
                                 right: rSize * 0.02,
                                 top: rSize * 0.03,
-                                bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
+                                bottom:
+                                    MediaQuery.of(context).viewInsets.bottom +
+                                        rSize * 0.03),
                             children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: AppWidgets.title(
-                                          context,
-                                          FFLocalizations.of(context).getText(
-                                            'filter' /* Filter */,
-                                          ))),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Icon(
-                                      Icons.close,
-                                      size: rSize * 0.025,
-                                      color: FlutterFlowTheme.of(context).customColor4,
-                                    ),
-                                  )
-                                ],
-                              ),
                               SizedBox(
                                 height: rSize * 0.02,
                               ),
@@ -395,7 +422,8 @@ class _DocumentsState extends State<Documents> {
                                           value: item,
                                           child: Text(
                                             item.name!,
-                                            style: AppStyles.inputTextStyle(context),
+                                            style: AppStyles.inputTextStyle(
+                                                context),
                                           ),
                                         ))
                                     .toList(),
@@ -403,7 +431,8 @@ class _DocumentsState extends State<Documents> {
                                   selectedAccount = p0;
                                 },
                                 searchMatchFn: (item, searchValue) {
-                                  return CommonFunctions.compare(searchValue, item.value.name.toString());
+                                  return CommonFunctions.compare(
+                                      searchValue, item.value.name.toString());
                                 },
                               ),
                               SizedBox(
@@ -418,15 +447,18 @@ class _DocumentsState extends State<Documents> {
                                 height: rSize * 0.005,
                               ),
                               TextFormField(
-                                controller: TextEditingController(text: searchedFileName),
+                                controller: TextEditingController(
+                                    text: searchedFileName),
                                 style: AppStyles.inputTextStyle(context),
                                 onChanged: (value) {
                                   searchedFileName = value;
                                 },
                                 decoration: AppStyles.inputDecoration(
                                   context,
-                                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                  focusColor: FlutterFlowTheme.of(context).alternate,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  focusColor:
+                                      FlutterFlowTheme.of(context).alternate,
                                   contentPadding: EdgeInsets.all(rSize * 0.015),
                                 ),
                               ),
@@ -454,12 +486,14 @@ class _DocumentsState extends State<Documents> {
                                           value: item,
                                           child: Text(
                                             item,
-                                            style: AppStyles.inputTextStyle(context),
+                                            style: AppStyles.inputTextStyle(
+                                                context),
                                           ),
                                         ))
                                     .toList(),
                                 searchMatchFn: (item, searchValue) {
-                                  return CommonFunctions.compare(searchValue, item.value.toString());
+                                  return CommonFunctions.compare(
+                                      searchValue, item.value.toString());
                                 },
                               ),
                               SizedBox(
@@ -482,8 +516,12 @@ class _DocumentsState extends State<Documents> {
                                     context,
                                     (value) {
                                       if (value is PickerDateRange) {
-                                        final String startDate = CommonFunctions.getYYYYMMDD(value.startDate!);
-                                        final String endDate = CommonFunctions.getYYYYMMDD(value.endDate!);
+                                        final String startDate =
+                                            CommonFunctions.getYYYYMMDD(
+                                                value.startDate!);
+                                        final String endDate =
+                                            CommonFunctions.getYYYYMMDD(
+                                                value.endDate!);
                                         range = '$startDate  TO  $endDate';
                                         Navigator.pop(context);
                                         setState(() {});
@@ -498,10 +536,14 @@ class _DocumentsState extends State<Documents> {
                                 },
                                 decoration: AppStyles.inputDecoration(
                                   context,
-                                  fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                                  focusColor: FlutterFlowTheme.of(context).alternate,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  focusColor:
+                                      FlutterFlowTheme.of(context).alternate,
                                   contentPadding: EdgeInsets.all(rSize * 0.015),
-                                  labelStyle: FlutterFlowTheme.of(context).labelLarge.override(
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .override(
                                         letterSpacing: 0.0,
                                       ),
                                 ),
@@ -538,8 +580,10 @@ class _DocumentsState extends State<Documents> {
                                   Expanded(
                                     child: InkWell(
                                         onTap: () async {
-                                          _notifier.selectedAccount = selectedAccount;
-                                          _notifier.searchedFile = searchedFileName;
+                                          _notifier.selectedAccount =
+                                              selectedAccount;
+                                          _notifier.searchedFile =
+                                              searchedFileName;
                                           _notifier.selectedType = selectedType;
                                           _notifier.range = range;
                                           _pageKey = 1;
@@ -562,7 +606,9 @@ class _DocumentsState extends State<Documents> {
                                             FFLocalizations.of(context).getText(
                                               'lmndaaco' /* Apply */,
                                             ),
-                                            bgColor: FlutterFlowTheme.of(context).primary)),
+                                            bgColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary)),
                                   ),
                                 ],
                               ),
@@ -582,51 +628,89 @@ class _DocumentsState extends State<Documents> {
   }
 
   void openSortBottomSheet() {
-    showModalBottomSheet(
+    _notifier.tempSortRadioGroupValue=_notifier.sortRadioGroupValue;
+    showDialog(
       useRootNavigator: true,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
       context: context,
       builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return ListView(
-              shrinkWrap: true,
-              padding: EdgeInsets.zero,
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.only(top: rSize * 0.015,bottom: padding.bottom),
-                  decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.020), topRight: Radius.circular(rSize * 0.020))),
-                  child: Column(
-                    children: [
-                      AppWidgets.title(
-                          context,
-                          FFLocalizations.of(context).getText(
-                            'sort' /* sort */,
-                          )),
-                      Container(
-                        height: 0.5,
-                        margin: EdgeInsets.symmetric(vertical: rSize * 0.0075),
-                        width: double.infinity,
-                        color: AppColors.kHint,
-                      ),
-                      sortDialogElement(0, _notifier.sortList[0]),
-                      sortDialogElement(1, _notifier.sortList[1]),
-                      sortDialogElement(2, _notifier.sortList[2]),
-                      sortDialogElement(3, _notifier.sortList[3]),
-                      SizedBox(
-                        height: rSize * 0.005,
-                      )
-                    ],
-                  ),
+        _notifier = Provider.of<DocumentsController>(context);
+        return Center(
+          child: Wrap(
+            children: [
+              Material(
+                color: Colors.transparent,
+                child: StatefulBuilder(
+                  builder: (context, setState) {
+                    return ListView(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.all(rSize*0.015),
+                          padding: EdgeInsets.only(
+                              left: rSize * 0.02,
+                              right: rSize * 0.02,
+                              top: rSize * 0.03,
+                              bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
+                          decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              borderRadius: BorderRadius.circular(rSize * 0.015)),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: AppWidgets.title(
+                                          context,
+                                          FFLocalizations.of(context).getText(
+                                            'sort' /* sort */,
+                                          ))),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Icon(
+                                      Icons.close,
+                                      size: rSize * 0.025,
+                                      color: FlutterFlowTheme.of(context).customColor4,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: rSize * 0.01,
+                              ),
+                              sortDialogElement(0, _notifier.sortList[0]),
+                              sortDialogElement(1, _notifier.sortList[1]),
+                              sortDialogElement(2, _notifier.sortList[2]),
+                              sortDialogElement(3, _notifier.sortList[3]),
+                              SizedBox(
+                                height: rSize * 0.005,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  _pageKey = 1;
+                                  _notifier.setSortRadioGroupValue(_notifier.tempSortRadioGroupValue, _notifier.sortList[_notifier.tempSortRadioGroupValue]);
+                                  _notifier.pagingController.refresh();
+                                  Navigator.pop(context);
+                                },
+                                child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
+                                  'lmndaaco' /* Apply */,
+                                )),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
-              ],
-            );
-          },
+              ),
+            ],
+          ),
         );
       },
     );
@@ -649,19 +733,17 @@ class _DocumentsState extends State<Documents> {
               child: Radio(
                 activeColor: FlutterFlowTheme.of(context).primary,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                fillColor: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states) {
+                fillColor: MaterialStateProperty.resolveWith<Color?>(
+                    (Set<MaterialState> states) {
                   if (states.contains(MaterialState.selected)) {
                     return FlutterFlowTheme.of(context).customColor4;
                   }
                   return FlutterFlowTheme.of(context).customColor4;
                 }),
                 value: value,
-                groupValue: _notifier.sortRadioGroupValue,
+                groupValue: _notifier.tempSortRadioGroupValue,
                 onChanged: (p0) {
-                  _pageKey = 1;
-                  _notifier.setSortRadioGroupValue(value, label);
-                  _notifier.pagingController.refresh();
-                  Navigator.pop(context);
+                  _notifier.setTempSortRadioGroupValue(value);
                 },
               ),
             ),
@@ -708,7 +790,8 @@ class _DocumentsState extends State<Documents> {
           CommonFunctions.navigate(
               context,
               ViewDocument(
-                showSignButton: item.requestProposalApproval != null && item.requestProposalApproval!,
+                showSignButton: item.requestProposalApproval != null &&
+                    item.requestProposalApproval!,
                 item: item,
                 index: index,
               ));
@@ -726,7 +809,9 @@ class _DocumentsState extends State<Documents> {
               ), () {
             downloadDoc(item);
           }),
-        if (index == 4 && item.requestProposalApproval! && item.documentStatus == null)
+        if (index == 4 &&
+            item.requestProposalApproval! &&
+            item.documentStatus == null)
           popupMenuItem(
               3,
               FFLocalizations.of(context).getText(
@@ -760,11 +845,13 @@ class _DocumentsState extends State<Documents> {
     );
   }
 
-  void updateStatus(Document item, BuildContext context, String status, int index) {
+  void updateStatus(
+      Document item, BuildContext context, String status, int index) {
     _notifier.updateDocumentStatus(item, status, index, context);
   }
 
-  PopupMenuItem<int> popupMenuItem(int value, String label, Widget icon, void Function()? onTap) {
+  PopupMenuItem<int> popupMenuItem(
+      int value, String label, Widget icon, void Function()? onTap) {
     return PopupMenuItem(
       value: value,
       onTap: onTap,
@@ -795,12 +882,17 @@ class _DocumentsState extends State<Documents> {
   Future<void> downloadDoc(Document item) async {
     CommonFunctions.showLoader(context);
     Uint8List bytes = await http
-        .readBytes(Uri.parse('${EndPoints.documents}/${item.id}'), headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
-    await CommonFunctions.downloadAndSavePdf(bytes, item.originalFilename!, context).then(
+        .readBytes(Uri.parse('${EndPoints.documents}/${item.id}'), headers: {
+      'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'
+    });
+    await CommonFunctions.downloadAndSavePdf(
+            bytes, item.originalFilename!, context)
+        .then(
       (value) {
         CommonFunctions.dismissLoader(context);
         if (value.isNotEmpty) {
-          CommonFunctions.showToast('$value\nDownloaded successfully', success: true);
+          CommonFunctions.showToast('$value\nDownloaded successfully',
+              success: true);
         }
       },
     );
@@ -809,7 +901,9 @@ class _DocumentsState extends State<Documents> {
   getTypeName(String? documentType) {
     if (documentType == 'form') {
       return SvgPicture.asset(
-        Theme.of(context).brightness == Brightness.dark ? 'assets/form-svgrepo-com-dark-theme.svg' : 'assets/form-svgrepo-com.svg',
+        Theme.of(context).brightness == Brightness.dark
+            ? 'assets/form-svgrepo-com-dark-theme.svg'
+            : 'assets/form-svgrepo-com.svg',
         color: FlutterFlowTheme.of(context).customColor4,
         height: rSize * 0.035,
       );
@@ -821,6 +915,7 @@ class _DocumentsState extends State<Documents> {
       );
     }
 
-    return Icon(Icons.folder_outlined, color: FlutterFlowTheme.of(context).customColor4, size: rSize * 0.030);
+    return Icon(Icons.folder_outlined,
+        color: FlutterFlowTheme.of(context).customColor4, size: rSize * 0.030);
   }
 }

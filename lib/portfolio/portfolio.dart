@@ -43,6 +43,12 @@ class _PortfolioState extends State<Portfolio>
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _notifier.selectedIndex=0;
+    super.dispose();
+  }
+
   Future<void> _fetchPageActivity() async {
     PortfolioController provider =
         Provider.of<PortfolioController>(context, listen: false);
@@ -54,6 +60,11 @@ class _PortfolioState extends State<Portfolio>
     } else {
       pageKey++;
       pagingController.appendPage(list, pageKey);
+    }
+    if(pageKey==1 && (pagingController.itemList??[]).isNotEmpty){
+      provider.selectedIndex=0;
+      provider.stream=provider.getPortfolioData(context,pagingController.itemList![0]);
+      provider.stream.asBroadcastStream();
     }
   }
 
@@ -96,7 +107,7 @@ class _PortfolioState extends State<Portfolio>
                   children: [
                     InkWell(
                       splashColor: Colors.transparent,
-                      onTap: () => _notifier.selectIndex(index,item,context),
+                      onTap: () => _notifier.selectIndex(index, item, context),
                       child: Padding(
                         padding: EdgeInsets.only(top: rSize * 0.015),
                         child: Row(
@@ -260,7 +271,10 @@ class _PortfolioState extends State<Portfolio>
                                                 FFLocalizations.of(context)
                                                     .getText(
                                                   'group_By',
-                                                ),
+                                                )+' ${pagingController.itemList![index]
+                              .sectionName ?? FFLocalizations.of(context).getText(
+                          'zomhasya' /* Performance */,
+                          )}',
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .displaySmall
@@ -269,24 +283,6 @@ class _PortfolioState extends State<Portfolio>
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .customColor4,
-                                                      fontSize: rSize * 0.016,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                              ),
-                                              Text(
-                                                ' ${item.sectionName ?? FFLocalizations.of(context).getText(
-                                                      'zomhasya' /* Performance */,
-                                                    )}',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .displaySmall
-                                                    .override(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
                                                       fontSize: rSize * 0.016,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
@@ -319,42 +315,6 @@ class _PortfolioState extends State<Portfolio>
                                                 ),
                                         child: Column(
                                           children: [
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  '${FFLocalizations.of(context).getText(
-                                                    'hdgv1exn' /* Date */,
-                                                  )} : ',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontSize: rSize * 0.016,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .customColor4,
-                                                      ),
-                                                ),
-                                                Text(
-                                                  DateFormat('MMM dd yyyy')
-                                                      .format(DateTime.now()),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontSize: rSize * 0.016,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: rSize * 0.01,
-                                            ),
                                             XPortfolioItemLineChart(
                                               width: MediaQuery.sizeOf(context)
                                                       .width *

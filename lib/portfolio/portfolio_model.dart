@@ -126,7 +126,7 @@ class SChart {
   String toRawJson() => json.encode(toJson());
 
   factory SChart.fromJson(Map<String, dynamic> json) => SChart(
-    assetClass: json["asset_class"],
+    assetClass: json["asset_class"]??json["currency"],
     amount1: json["amount_1"].toString(),
     amount2: json["amount_2"].toString(),
     amount3: json["amount_3"].toString(),

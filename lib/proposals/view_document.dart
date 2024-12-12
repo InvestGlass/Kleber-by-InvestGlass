@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -24,8 +25,15 @@ class ViewDocument extends StatefulWidget {
   Document? item;
   String? title;
   final int? index;
+  final bool showInitialLoader;
 
-  ViewDocument( {this.title,this.showSignButton = false, this.item, this.index, super.key});
+  ViewDocument(
+      {this.title,
+      this.showSignButton = false,
+      this.item,
+      this.index,
+      this.showInitialLoader = false,
+      super.key});
 
   @override
   State<ViewDocument> createState() => _ViewDocumentState();
@@ -51,32 +59,44 @@ class _ViewDocumentState extends State<ViewDocument> {
   }*/
   Uint8List? _documentBytes;
   late DocumentsController _notifier;
+  bool is1stTime = true;
+  StreamController<double> _controller=StreamController();
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      CommonFunctions.showLoader(context);
-    },);
+    if (widget.showInitialLoader) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (timeStamp) {
+          CommonFunctions.showLoader(context);
+        },
+      );
+    }
     getPdfBytes();
     super.initState();
   }
 
   ///Get the PDF document as bytes
   void getPdfBytes() async {
-    if ((widget.item?.url??'').isEmpty) {
-      _documentBytes = await http.readBytes(Uri.parse('${EndPoints.apiBaseUrl}documents/${widget.item!.id}'),
-          headers: {'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'});
+    if ((widget.item?.url ?? '').isEmpty) {
+      _documentBytes = await http.readBytes(
+          Uri.parse('${EndPoints.apiBaseUrl}documents/${widget.item!.id}'),
+          headers: {
+            'Authorization':
+                'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'
+          });
     }
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    c=context;
+    c = context;
     _notifier = Provider.of<DocumentsController>(context);
     Widget child = const Center(child: CircularProgressIndicator());
     if (_documentBytes != null) {
-      if (widget.item!.originalFilename!.split('.').last.toLowerCase() == 'pdf' || widget.item!.originalFilename!.toLowerCase() == 'txt') {
+      if (widget.item!.originalFilename!.split('.').last.toLowerCase() ==
+              'pdf' ||
+          widget.item!.originalFilename!.toLowerCase() == 'txt') {
         child = SfPdfViewer.memory(
           _documentBytes!,
         );
@@ -86,18 +106,22 @@ class _ViewDocumentState extends State<ViewDocument> {
         );
       }
     }
-    if ((widget.item?.url??'').isNotEmpty) {
+    if ((widget.item?.url ?? '').isNotEmpty) {
       child = WebViewWidget(
           controller: WebViewController()
             ..setJavaScriptMode(JavaScriptMode.unrestricted)
             ..setNavigationDelegate(
               NavigationDelegate(
                 onProgress: (int progress) {
-                  // Update loading bar.
+                  print('progress $progress');
+                  _controller.add(progress.toDouble());
                 },
                 onPageStarted: (String url) {},
                 onPageFinished: (String url) {
-                  CommonFunctions.dismissLoader(context);
+                  if (is1stTime) {
+                    is1stTime = false;
+                    CommonFunctions.dismissLoader(context);
+                  }
                 },
                 onHttpError: (HttpResponseError error) {},
                 onWebResourceError: (WebResourceError error) {},
@@ -109,22 +133,36 @@ class _ViewDocumentState extends State<ViewDocument> {
                 },
               ),
             )
-            ..loadRequest(Uri.parse((widget.item?.url??''))));
+            ..loadRequest(Uri.parse((widget.item?.url ?? ''))));
     }
     return Scaffold(
       appBar: AppWidgets.appBar(
           context,
-          widget.title??FFLocalizations.of(context).getText(
-            '1vddbh59' /* Document */,
-          ),
+          widget.title ??
+              FFLocalizations.of(context).getText(
+                '1vddbh59' /* Document */,
+              ),
           leading: AppWidgets.backArrow(context),
           centerTitle: true),
-      body: child,
-      bottomNavigationBar: (widget.item?.requestProposalApproval??false)
+      body: Stack(
+        children: [
+          child,
+          StreamBuilder(stream: _controller.stream, builder: (context, snapshot) {
+            return LinearProgressIndicator(
+              value: snapshot.data??0.0,
+              backgroundColor: Colors.blue,
+              color: Colors.black,
+            );
+          },)
+
+        ],
+      ),
+      bottomNavigationBar: (widget.item?.requestProposalApproval ?? false)
           ? Wrap(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: rSize*0.02),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 40, vertical: rSize * 0.02),
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                   child: getWidget(context),
                 ),
@@ -139,13 +177,17 @@ class _ViewDocumentState extends State<ViewDocument> {
       return GestureDetector(
         onTap: () {
           AppWidgets.showSignDialog(context, onAccept: () {
-            _notifier.updateDocumentStatus(widget.item!, 'approve', widget.index!, context, onUpdateStatus: (item) {
+            _notifier.updateDocumentStatus(
+                widget.item!, 'approve', widget.index!, context,
+                onUpdateStatus: (item) {
               setState(() {
                 widget.item = item;
               });
             });
           }, onReject: () {
-            _notifier.updateDocumentStatus(widget.item!, 'reject', widget.index!, context, onUpdateStatus: (item) {
+            _notifier.updateDocumentStatus(
+                widget.item!, 'reject', widget.index!, context,
+                onUpdateStatus: (item) {
               setState(() {
                 widget.item = item;
               });
@@ -156,7 +198,8 @@ class _ViewDocumentState extends State<ViewDocument> {
             context,
             FFLocalizations.of(context).getText(
               'mg8sso38' /* Sign */,
-            ),textColor: Colors.white,
+            ),
+            textColor: Colors.white,
             bgColor: FlutterFlowTheme.of(context).primary),
       );
     } else {
@@ -170,9 +213,8 @@ class _ViewDocumentState extends State<ViewDocument> {
               FFLocalizations.of(context).languageCode,
             ).format(widget.item!.approvedAt!)}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                   color: FlutterFlowTheme.of(context).customColor2,
-                  fontSize: rSize*0.016,
+                  fontSize: rSize * 0.016,
                   letterSpacing: 0.0,
                 ),
           ),
@@ -188,9 +230,8 @@ class _ViewDocumentState extends State<ViewDocument> {
               FFLocalizations.of(context).languageCode,
             ).format(widget.item!.disapprovedAt!)}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
-
                   color: FlutterFlowTheme.of(context).customColor3,
-                  fontSize: rSize*0.016,
+                  fontSize: rSize * 0.016,
                   letterSpacing: 0.0,
                 ),
           ),

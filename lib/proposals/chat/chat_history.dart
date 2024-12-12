@@ -160,6 +160,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                 reverse: true,
                 padding: EdgeInsets.only(bottom: rSize * 0.01),
                 builderDelegate: PagedChildBuilderDelegate<ChatHistoryModel>(
+                  noItemsFoundIndicatorBuilder: (context) => SizedBox(),
                     itemBuilder: (BuildContext context, ChatHistoryModel item,
                         int index) {
                   bool isLast = (item ==

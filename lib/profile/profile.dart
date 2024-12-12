@@ -173,71 +173,102 @@ class _ProfileState extends State<Profile> {
   }
 
   void openLanguageSelectionBottomSheet() {
-    showModalBottomSheet(
+
+    _mainNotifier.tempSelectedLanguage=AppConst.languageCodes.indexOf(
+        SharedPrefUtils.instance.getString(SELECTED_LANGUAGE).isEmpty
+            ? 'en'
+            : SharedPrefUtils.instance.getString(SELECTED_LANGUAGE));
+    showDialog(
       useRootNavigator: true,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
       context: context,
       builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            _notifier.selectedLanguage = AppConst.languageCodes.indexOf(
-                SharedPrefUtils.instance.getString(SELECTED_LANGUAGE).isEmpty
-                    ? 'en'
-                    : SharedPrefUtils.instance.getString(SELECTED_LANGUAGE));
-            return Wrap(
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.only(top: rSize * 0.015),
-                  decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(rSize * 0.02),
-                          topRight: Radius.circular(rSize * 0.02))),
-                  child: Column(
+        _mainNotifier = Provider.of<MainController>(context);
+        return Center(
+          child: Wrap(
+            children: [
+              Container(
+                decoration:
+                BoxDecoration(color: FlutterFlowTheme.of(context).primaryBackground, borderRadius: BorderRadius.circular(rSize * 0.010)),
+                margin: EdgeInsets.symmetric(horizontal: rSize * 0.015),
+                child: Material(
+                  color: Colors.transparent,
+                  child: ListView(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.only(
+                        left: rSize * 0.02,
+                        right: rSize * 0.02,
+                        top: rSize * 0.03,
+                        bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
                     children: [
-                      AppWidgets.title(
-                          context,
-                          FFLocalizations.of(context).getText(
-                            'cnc2a7kn' /* Change Language */,
-                          )),
-                      Container(
-                        height: 0.5,
-                        margin: EdgeInsets.symmetric(vertical: rSize * 0.0075),
-                        width: double.infinity,
-                        color: AppColors.kHint,
+                      Row(
+                        children: [
+                          Expanded(
+                              child: AppWidgets.title(
+                                  context,
+                                  FFLocalizations.of(context).getText(
+                                    'cnc2a7kn' /* Change Language */,
+                                  ))),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.close,
+                              size: rSize * 0.025,
+                              color: FlutterFlowTheme.of(context).customColor4,
+                            ),
+                          )
+                        ],
                       ),
+                      SizedBox(height: rSize*0.015,),
                       languageSelectionElement(
                           0,
                           FFLocalizations.of(context).getText(
                             'english' /* english */,
-                          )),
+                          ),(p0) {
+                            _mainNotifier.tempLanguageSelection(p0!);
+                          },_mainNotifier.tempSelectedLanguage),
                       languageSelectionElement(
                           1,
                           FFLocalizations.of(context).getText(
                             'arabic' /* arabic */,
-                          )),
+                          ),(p0) {
+                        _mainNotifier.tempLanguageSelection(p0!);
+                          },_mainNotifier.tempSelectedLanguage),
                       languageSelectionElement(
                           2,
                           FFLocalizations.of(context).getText(
                             'vietnamese' /* vietnamese */,
-                          )),
+                          ),(p0) {
+                        _mainNotifier.tempLanguageSelection(p0!);
+                          },_mainNotifier.tempSelectedLanguage),
+                      SizedBox(height: rSize*0.015,),
+                      GestureDetector(
+                        onTap: () {
+                          _notifier.changeLanguage(_mainNotifier.tempSelectedLanguage);
+                          _mainNotifier.changeLanguage(_notifier.selectedLanguage);
+                          Navigator.pop(context);
+                        },
+                        child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
+                          'lmndaaco' /* Apply */,
+                        )),
+                      )
                     ],
                   ),
                 ),
-              ],
-            );
-          },
+              ),
+            ],
+          ),
         );
       },
     );
   }
 
-  Widget languageSelectionElement(int value, String label) {
+  Widget languageSelectionElement(int value, String label,void Function(int?)? onChanged,int groupValue) {
     return SizedBox(
       height: rSize * 0.050,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
             width: isTablet ? rSize * 0.015 : 0,
@@ -258,12 +289,8 @@ class _ProfileState extends State<Profile> {
                   }
                   return FlutterFlowTheme.of(context).customColor4;
                 }),
-                groupValue: _notifier.selectedLanguage,
-                onChanged: (p0) {
-                  _notifier.changeLanguage(p0!);
-                  _mainNotifier.changeLanguage(_notifier.selectedLanguage);
-                  Navigator.pop(context);
-                },
+                groupValue: groupValue,
+                onChanged: onChanged,
               ),
             ),
           ),
@@ -344,12 +371,10 @@ class _ProfileState extends State<Profile> {
                                     MediaQuery.of(context).viewInsets.bottom +
                                         rSize * 0.03),
                             children: [
-                              AppWidgets.title(
-                                  context,
-                                  center: true,
+                              Text(
                                   FFLocalizations.of(context).getText(
                                     'want_to_logout',
-                                  )),
+                                  ),style: AppStyles.inputTextStyle(context).copyWith(fontSize: rSize*0.02),),
                               SizedBox(
                                 height: rSize * 0.03,
                               ),

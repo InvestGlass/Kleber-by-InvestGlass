@@ -252,7 +252,7 @@ class _TransactionsState extends State<Transactions> {
                                                 ),
                                                 AppWidgets.buildRichText(
                                                     context,
-                                                    '$currency ${item.amount ?? ''}')
+                                                    '$currency ${getSeparatorFormat(item.amount!)}')
                                               ],
                                             ),
                                             AppWidgets.portfolioListElement(
@@ -327,7 +327,7 @@ class _TransactionsState extends State<Transactions> {
                                                     .getText(
                                                   '691qwpww' /* Quantity */,
                                                 ),
-                                                item.quantity ?? ''),
+                                                getSeparatorFormat(item.quantity!)),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
@@ -337,10 +337,10 @@ class _TransactionsState extends State<Transactions> {
                                                     .getText(
                                                   'xopvpm3o' /* Price */,
                                                 ),
-                                                '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('${item.openPrice!}', item.openPrice == 0, 2)}',
+                                                '$currency ${getSeparatorFormat(item.openPrice!)}',
                                                 richText: AppWidgets.buildRichText(
                                                     context,
-                                                    '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('${item.openPrice!}', item.openPrice == 0, 2)}')),
+                                                    '$currency ${getSeparatorFormat(item.openPrice!)}')),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
@@ -350,10 +350,10 @@ class _TransactionsState extends State<Transactions> {
                                                     .getText(
                                                   'pgdm3cxj' /* Amount */,
                                                 ),
-                                                '$currency ${item.amount ?? ''}',
+                                                '$currency ${getSeparatorFormat(item.amount!)}',
                                                 richText: AppWidgets.buildRichText(
                                                     context,
-                                                    '$currency ${item.amount ?? ''}')),
+                                                    '$currency ${getSeparatorFormat(item.amount!)}')),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
@@ -395,4 +395,6 @@ class _TransactionsState extends State<Transactions> {
           ],
         ));
   }
+
+  String getSeparatorFormat(double item) => CommonFunctions.formatDoubleWithThousandSeperator(item.toString(), item == 0, 2);
 }

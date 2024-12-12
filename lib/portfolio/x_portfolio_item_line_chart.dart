@@ -1,4 +1,5 @@
 // Automatic FlutterFlow imports
+import 'dart:async';
 import 'dart:io';
 
 import 'package:fl_chart/fl_chart.dart';
@@ -60,36 +61,25 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   final columnStart = 99;
 
   late double touchedValue;
-  final color = Color(0xFF3D51A2);
+  final color = const Color(0xFF3D51A2);
 
   bool fitInsideBottomTitle = true;
   bool fitInsideLeftTitle = false;
-  String selectedPeriod = '1 M';
-
-  TrackballBehavior? _trackballBehavior;
-
+  String selectedPeriod = '6 M';
+  final StreamController<String> _streamController=StreamController.broadcast();
+  var key= const ValueKey('1');
   // late List<String> data;
 
   @override
   void initState() {
     touchedValue = -1;
     super.initState();
-    _trackballBehavior = TrackballBehavior(
-      enable: true,
-      builder: (context, trackballDetails) {
-        return Container(
-          padding: EdgeInsets.symmetric(
-              horizontal: rSize * 0.02, vertical: rSize * 0.002),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: FlutterFlowTheme.of(context).primary),
-          child: label(context,
-              '${widget.xLabels[trackballDetails.pointIndex!]} : ${widget.additionPercents[trackballDetails.pointIndex!]}%'),
-        );
-      },
-      activationMode: ActivationMode.singleTap,
-      tooltipSettings: const InteractiveTooltip(format: 'point.x : point.y'),
-    );
+  }
+
+  @override
+  void dispose() {
+    _streamController.close();
+    super.dispose();
   }
 
   final initialVisibleMaximum = 2.5;
@@ -111,12 +101,12 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     return 1.0;
   }
 
-  List<CartesianChartAnnotation> getAnnotations() {
-    final length = widget.xLabels.length;
+  List<CartesianChartAnnotation> getAnnotations(List<ChartModel> filteredList) {
+    final length = filteredList.length;
     final additionalValue = getYAxisInterval() / 2;
     List<CartesianChartAnnotation> annotations = [];
     for (int i = 0; i < length; i++) {
-      final additionPercent = widget.additionPercents[i];
+      final additionPercent = filteredList[i].percentage;
       final valueToShow = double.tryParse('${additionPercent}') ?? 0;
       final valueToShowStr = valueToShow == valueToShow.roundToDouble()
           ? '${valueToShow.round()}'
@@ -151,7 +141,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
             ],
           ),
           coordinateUnit: CoordinateUnit.point,
-          x: widget.xLabels[i],
+          x: filteredList[i].label,
           y: columnStart +
               additionPercent +
               (additionPercent > 0 ? additionalValue : -additionalValue),
@@ -198,7 +188,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
           filteredList.length,
           (index) => filteredList[index].label,
         ),
-        initialIsVisible: true,
+        initialIsVisible: true,animationDuration: 0,
         xValueMapper: (String label, _) => label,
         yValueMapper: (String label, index) => listY[index],
         width: 2,
@@ -252,6 +242,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
       children: [
         Expanded(
           child: SfCartesianChart(
+            key: key,
             plotAreaBorderWidth: 0,
             // title: ChartTitle(
             //   text: 'syncfusion_flutter_charts\nline & spline',
@@ -300,8 +291,23 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
             series: _getSampleLineSeries(filteredList),
             // tooltipBehavior:
             //     TooltipBehavior(enable: true, header: '', canShowMarker: false),
-            trackballBehavior: _trackballBehavior,
-            annotations: getAnnotations(),
+            trackballBehavior: TrackballBehavior(
+              enable: true,
+              builder: (context, trackballDetails) {
+                return Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: rSize * 0.02, vertical: rSize * 0.002),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: FlutterFlowTheme.of(context).primary),
+                  child: label(context,
+                      '${filteredList[trackballDetails.pointIndex!].label} : ${filteredList[trackballDetails.pointIndex!].percentage}%'),
+                );
+              },
+              activationMode: ActivationMode.singleTap,
+              tooltipSettings: const InteractiveTooltip(format: 'point.x : point.y'),
+            ),
+            annotations: getAnnotations(filteredList),
             onTrackballPositionChanging: (TrackballArgs args) {
               // Storing series in a variable to access its elements.
               ChartSeriesRenderer<dynamic, dynamic> seriesRender =
@@ -336,29 +342,34 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
           ? Center(child: Image.asset('assets/empty_chart.png'))
           : !isPerformance(context)
               ? circularChart()
-              : Column(
-                  children: [
-                    Expanded(child: buildSFLineChart()),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              : StreamBuilder<String>(
+                stream: _streamController.stream,
+                builder: (context, snapshot) {
+                  return Column(
                       children: [
-                        periodCell('1 W'),
-                        periodCell('1 M'),
-                        periodCell('6 M'),
-                        periodCell('1 Y'),
+                        Expanded(child: buildSFLineChart()),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            // periodCell('1 W'),
+                            periodCell('1 M'),
+                            periodCell('6 M'),
+                            periodCell('1 Y'),
+                          ],
+                        )
                       ],
-                    )
-                  ],
-                ),
+                    );
+                }
+              ),
     );
   }
 
   Widget periodCell(String label) {
     return GestureDetector(
       onTap: () {
-        setState(() {
           selectedPeriod = label;
-        });
+          _streamController.add('');
+          key=ValueKey(selectedPeriod);
       },
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -410,6 +421,9 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                   : listAmount[index]),
     );
     list.sort((a, b) => a.amount.compareTo(b.amount));
+    list.forEach((element) {
+      print('${element.label}-----${element.percentage}-----${element.amount}');
+    },);
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -425,7 +439,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                       borderRadius: BorderRadius.circular(rSize * 0.020),
                       color: FlutterFlowTheme.of(context).primary),
                   child: label(context,
-                      '${list[pointIndex].label} :  ${widget.listAmount[pointIndex].split(' ')[1]} ${widget.listAmount[pointIndex].split(' ')[0]}'),
+                      '${list[pointIndex].label} :  ${list[pointIndex].amount}'),
                 );
               },
             ),
@@ -561,7 +575,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
       if (isTablet) {
         return isPortraitMode ? rSize * 0.14 : rSize * 0.24;
       } else {
-        return isPortraitMode ? rSize * 0.06 : rSize * 0.3;
+        return isPortraitMode ? rSize * 0.07 : rSize * 0.4;
       }
     }
   }

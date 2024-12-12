@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -100,6 +101,18 @@ class CommonFunctions {
       backgroundColor: success ? Colors.green : Colors.redAccent,
       textColor: Colors.white,
     );
+  }
+
+  static Map<String, dynamic> decodeJWT(String token) {
+    final parts = token.split('.');
+    if (parts.length != 3) {
+      return {};
+    }
+
+    final payload = base64Url.decode(base64Url.normalize(parts[1]));
+    final payloadMap = json.decode(utf8.decode(payload));
+
+    return payloadMap;
   }
 
   static Future<String> downloadAndSavePdf(Uint8List bytes, String fileName, BuildContext context) async {

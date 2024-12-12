@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:kleber_bank/dashboard/dashboard.dart';
 import 'package:kleber_bank/dashboard/dashboard_controller.dart';
 import 'package:kleber_bank/login/login.dart';
@@ -27,13 +30,14 @@ import 'login/on_boarding_page_widget.dart';
 import 'main_controller.dart';
 import 'market/market_controller.dart';
 
-double rSize = 0,btnHeight=0;
-bool isTablet=false;
+double rSize = 0, btnHeight = 0;
+bool isTablet = false;
 late BuildContext globalContext;
 late PackageInfo packageInfo;
-late bool  isPortraitMode;
+late bool isPortraitMode;
 late EdgeInsets padding;
 BuildContext? c;
+Timer? inactivityTimer;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -90,9 +94,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Locale? _locale = FFLocalizations.getStoredLocale();
   late MainController _notifier;
-  static const int _timeoutSeconds = 3*60;
-  Timer? _inactivityTimer;
+  static const int _timeoutSeconds = 3 * 60;
+
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
+
   // This widget is the root of your application.
 
   void setLocale(String language) {
@@ -101,28 +106,15 @@ class _MyAppState extends State<MyApp> {
   }
 
   void setThemeMode(ThemeMode mode) => setState(() {
-    _themeMode = mode;
-    FlutterFlowTheme.saveThemeMode(mode);
-  });
+        _themeMode = mode;
+        FlutterFlowTheme.saveThemeMode(mode);
+      });
 
   @override
   void initState() {
-    _resetTimer();
+    Provider.of<MainController>(context,listen: false).resetTimer();
     getPackageInfo();
     super.initState();
-  }
-
-  void _resetTimer() {
-    if (_inactivityTimer != null) {
-      _inactivityTimer!.cancel();
-    }
-    _inactivityTimer = Timer(Duration(seconds: _timeoutSeconds), _handleInactivity);
-  }
-
-  void _handleInactivity() {
-    if (c!=null) {
-      CommonFunctions.cleanAndLogout(c!);
-    }
   }
 
   Future<void> getPackageInfo() async {
@@ -131,37 +123,44 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    c=context;
-    _notifier=Provider.of<MainController>(context);
+    c = context;
+    _notifier = Provider.of<MainController>(context);
     isTablet = _isTablet(context);
-    padding=MediaQuery.of(context).padding;
-    isPortraitMode = (MediaQuery.of(context).orientation==Orientation.portrait);
-    globalContext=context;
+    padding = MediaQuery.of(context).padding;
+    isPortraitMode =
+        (MediaQuery.of(context).orientation == Orientation.portrait);
+    globalContext = context;
     Size ksize = MediaQuery.of(context).size;
-    rSize = pow((ksize.height * ksize.height) + (ksize.width * ksize.width), 1 / 2) as double;
-    btnHeight=rSize*0.045;
+    rSize =
+        pow((ksize.height * ksize.height) + (ksize.width * ksize.width), 1 / 2)
+            as double;
+    btnHeight = rSize * 0.045;
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: _resetTimer,
-      onPanDown: (_) => _resetTimer(),
+      onTap: _notifier.resetTimer,
+      onPanDown: (_) => _notifier.resetTimer(),
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        themeMode: _notifier.isDarkMode()?ThemeMode.dark:ThemeMode.light,
+        themeMode: _notifier.isDarkMode() ? ThemeMode.dark : ThemeMode.light,
         localizationsDelegates: const [
           FFLocalizationsDelegate(),
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        locale: Locale(SharedPrefUtils.instance.getString(SELECTED_LANGUAGE).isEmpty?'en':SharedPrefUtils.instance.getString(SELECTED_LANGUAGE)),
+        locale: Locale(
+            SharedPrefUtils.instance.getString(SELECTED_LANGUAGE).isEmpty
+                ? 'en'
+                : SharedPrefUtils.instance.getString(SELECTED_LANGUAGE)),
         supportedLocales: const [
           Locale('en'),
           Locale('ar'),
           Locale('vi'),
         ],
         theme: ThemeData(
-          brightness: Brightness.light,scaffoldBackgroundColor:Colors.white,
+          brightness: Brightness.light,
+          scaffoldBackgroundColor: Colors.white,
           fontFamily: 'Roboto',
           appBarTheme: AppBarTheme(color: Colors.white),
           scrollbarTheme: ScrollbarThemeData(
@@ -183,9 +182,9 @@ class _MyAppState extends State<MyApp> {
           ),
           useMaterial3: false,
         ),
-        home: SharedPrefUtils.instance
-            .getString(USER_DATA)
-            .isEmpty ? const OnBoardingPageWidget() : const Dashboard(),
+        home: SharedPrefUtils.instance.getString(USER_DATA).isEmpty
+            ? const OnBoardingPageWidget()
+            : const Dashboard(),
       ),
     );
   }

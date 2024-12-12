@@ -181,7 +181,7 @@ class _PositionsState extends State<Positions> {
                                       ),
                                       item.allocation?.toString().replaceAll(' ', '') ?? '-',
                                       middleValue:
-                                          '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('${item.amount}', (double.tryParse(item.amount!) ?? 0) == 0, 2)}'),
+                                          '$currency ${getSeparatorFormat(item.amount!)}'),
                                   AppWidgets.portfolioListElement(
                                       context,
                                       '${FFLocalizations.of(context).getText(
@@ -240,8 +240,8 @@ class _PositionsState extends State<Positions> {
                                                 FFLocalizations.of(context).getText(
                                                   'fbgy82bc' /* Last Price */,
                                                 ),
-                                                '$currency ${item.lastPrice ?? ' - '}',
-                                                richText: AppWidgets.buildRichText(context, '$currency ${item.lastPrice ?? ' - '}')),
+                                                '$currency ${getSeparatorFormat(item.lastPrice!,i: 3)}',
+                                                richText: AppWidgets.buildRichText(context, '$currency ${getSeparatorFormat(item.lastPrice!,i:3)}')),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
@@ -250,8 +250,8 @@ class _PositionsState extends State<Positions> {
                                                 FFLocalizations.of(context).getText(
                                                   'swv2ctiz' /* Cost Price */,
                                                 ),
-                                                '$currency ${item.costPrice ?? ' - '}',
-                                                richText: AppWidgets.buildRichText(context, '$currency ${item.costPrice ?? ' - '}')),
+                                                '$currency ${getSeparatorFormat(item.costPrice!,i:3)}',
+                                                richText: AppWidgets.buildRichText(context, '$currency ${getSeparatorFormat(item.costPrice!,i:3)}')),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
@@ -270,11 +270,11 @@ class _PositionsState extends State<Positions> {
                                                 FFLocalizations.of(context).getText(
                                                   'ox3fj6xq' /* Quantity */,
                                                 ),
-                                                item.quantity ?? '-'),
+                                                getSeparatorFormat(item.quantity!)),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
-                                            AppWidgets.portfolioListElement(context, 'FX Rate', item.fxRate ?? '-'),
+                                            AppWidgets.portfolioListElement(context, 'FX Rate', getSeparatorFormat(item.fxRate!,i:6)),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
@@ -283,9 +283,9 @@ class _PositionsState extends State<Positions> {
                                                 FFLocalizations.of(context).getText(
                                                   'juhk5a4f' /* Amount */,
                                                 ),
-                                                '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('$currency ${item.amount}', (double.tryParse(item.amount!) ?? 0) == 0, 2)}',
+                                                '$currency ${getSeparatorFormat(item.amount!)}',
                                                 richText: AppWidgets.buildRichText(context,
-                                                    '$currency ${CommonFunctions.formatDoubleWithThousandSeperator('${item.amount}', (double.tryParse(item.amount!) ?? 0) == 0, 2)}')),
+                                                    '$currency ${getSeparatorFormat(item.amount!)}')),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
@@ -294,7 +294,7 @@ class _PositionsState extends State<Positions> {
                                                 FFLocalizations.of(context).getText(
                                                   'xai3n31z' /* Allocation */,
                                                 ),
-                                                item.allocation?.toString().replaceAll(' ', '') ?? '-'),
+                                                '${item.allocation??'0.00'}%'),
                                           ],
                                         ),
                                       ),
@@ -316,6 +316,8 @@ class _PositionsState extends State<Positions> {
       ),
     );
   }
+
+  String getSeparatorFormat(double item, {int i=2}) => CommonFunctions.formatDoubleWithThousandSeperator(item.toString(), item == 0, i);
 
   getIcon(double d) {
     if (d == 0) {

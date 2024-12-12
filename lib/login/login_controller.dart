@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:kleber_bank/login/otp_screen.dart';
 import 'package:kleber_bank/login/terms_and_privacy.dart';
+import 'package:kleber_bank/login/user_info_model.dart';
 import 'package:kleber_bank/utils/app_const.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
+import 'package:provider/provider.dart';
 
 import '../dashboard/dashboard.dart';
+import '../main_controller.dart';
 import '../utils/api_calls.dart';
 import '../utils/common_functions.dart';
 
@@ -26,43 +29,59 @@ class LoginController extends ChangeNotifier {
 
   var tabLabelList = ['ovw4ksp4' /* Term of Service */, 'sb815feb' /* Privacy Policy */];
 
-  Future<void> doLogin(BuildContext context) async {
+  void doLogin(BuildContext context) async {
     CommonFunctions.showLoader(context);
-    await ApiCalls.login(context,userNameController.text, pwdController.text).then(
-      (value) async {
-        if (value) {
-          await ApiCalls.getUserInfo(context).then(
-            (value) async {
+    bool b=await ApiCalls.login(context,userNameController.text, pwdController.text);
+    CommonFunctions.dismissLoader(context);
+    if(b){
+      Provider.of<MainController>(context,listen: false).resetTimer();
+      CommonFunctions.showLoader(context);
+      UserInfotModel? model=await ApiCalls.getUserInfo(context);
+      CommonFunctions.dismissLoader(context);
+      if (model != null) {
+        userNameController.clear();
+        pwdController.clear();
+        if (!(model.user?.tosAccepted ?? false)) {
+          CommonFunctions.navigate(context, TermsAndPrivacy());
+        }else if ((model.verification ?? '').isEmpty) {
+          CommonFunctions.navigate(context, Dashboard());
+        } else if (model.verification == 'sms' || model.verification == 'email') {
+          CommonFunctions.showLoader(context);
+          await ApiCalls.sendOtp(context).then(
+                (value) {
               CommonFunctions.dismissLoader(context);
-              if (value != null) {
-                userNameController.clear();
-                pwdController.clear();
-                if (!(value.user?.tosAccepted ?? false)) {
-                  CommonFunctions.navigate(context, TermsAndPrivacy());
-                }else if ((value.verification ?? '').isEmpty) {
-                  CommonFunctions.navigate(context, Dashboard());
-                } else if (value.verification == 'sms' || value.verification == 'email') {
-                  CommonFunctions.showLoader(context);
-                  await ApiCalls.sendOtp(context).then(
-                    (value) {
-                      CommonFunctions.dismissLoader(context);
-                      if (value != null && value.containsKey('success')) {
-                        CommonFunctions.navigate(context, OTPScreen(value));
-                      }
-                    },
-                  );
-                }else if (value.verification == 'authentification') {
-                  CommonFunctions.navigate(context, OTPScreen(null));
-                }
+              if (value != null && value.containsKey('success')) {
+                CommonFunctions.navigate(context, OTPScreen(value));
               }
             },
           );
-        } else {
-          CommonFunctions.dismissLoader(context);
+        }else if (model.verification == 'authentification') {
+          CommonFunctions.navigate(context, OTPScreen(null));
         }
-      },
-    );
-    notifyListeners();
+      }
+    }
+
+  }
+
+  String? warning;
+  String? warning2;
+  void clearValidations(bool clear,int i){
+    if(clear){
+      if(i==0){
+        warning=null;
+      }else {
+        warning2 = null;
+      }
+      notifyListeners();
+    }else{
+      if(userNameController.text.isEmpty) {
+        warning = 'Required';
+      }
+      if(pwdController.text.isEmpty) {
+        warning2 = 'Required';
+      }
+      notifyListeners();
+    }
   }
 
   Future<void> reSend(BuildContext context,{bool removeStack=false}) async {

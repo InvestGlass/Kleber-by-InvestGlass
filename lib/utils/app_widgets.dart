@@ -153,6 +153,7 @@ class AppWidgets {
   static Widget portfolioListElement(BuildContext context, String label, String value, {String middleValue = '', Widget? icon, Widget? richText}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
@@ -326,6 +327,7 @@ class AppWidgets {
             label,
             style: FlutterFlowTheme.of(context).titleSmall.override(
                   color: Colors.white,
+              fontSize: rSize * 0.014,
                 ),
           ),
         ],
@@ -682,7 +684,7 @@ class AppWidgets {
 
   static String getStatus(String? status, BuildContext context) {
     if (status == '-') {
-      return FFLocalizations.of(context).getText('834hxg71'/*not checked*/);
+      return '-';
     } else if (status == 'true') {
       return FFLocalizations.of(context).getText('zz2ivcgu' /* No issues have been detected */);
     } else if (status == 'false') {

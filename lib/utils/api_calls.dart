@@ -80,8 +80,8 @@ class ApiCalls {
   static Future<bool> login(
       BuildContext context, String email, String pwd) async {
     try {
-      var json = await jsonResponse(context, Uri.parse(EndPoints.login), 'post',
-          body: {"email": email, "password": pwd});
+      var response = await http.post(Uri.parse(EndPoints.login),body: {"email": email, "password": pwd});
+      var json=jsonDecode(response.body);
       if (json.containsKey("token")) {
         SharedPrefUtils.instance.putString(TOKEN, json['token']!);
         return true;
@@ -98,17 +98,16 @@ class ApiCalls {
   static Future<UserInfotModel?> getUserInfo(
     BuildContext context,
   ) async {
-    Map<String, dynamic> json = await jsonResponse(
-      context,
-      Uri.parse(EndPoints.userInfo),
-      'get',
-    );
+    try {
+    var response = await http.get(Uri.parse(EndPoints.userInfo),headers : {
+      'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'
+    });
+    var json=jsonDecode(response.body);
     UserInfotModel model = UserInfotModel.fromJson(json);
     AppConst.userModel = model;
-    try {
       return model;
-    } catch (e) {
-      print(e);
+    }on Error catch (e) {
+      print('${e.toString()}  ${e.stackTrace}');
     }
     return null;
   }
@@ -326,7 +325,7 @@ class ApiCalls {
         'order[column]': column,
         'order[direction]': direction,
         'limit': '10',
-        'filter[portfolio_name]':'Portfolio 2'
+        'filter[portfolio_name]': name
       };
       List<dynamic> json = (await jsonResponse(
           context,

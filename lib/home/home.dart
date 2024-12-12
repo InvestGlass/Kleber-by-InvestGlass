@@ -98,7 +98,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                 return GestureDetector(
                   onTap: () {
                     try {
-                      launchUrl(Uri.parse(model.link ?? ''));
+                      nevigate(context, model.link ?? '', 'ran9xdwl');
+                      // launchUrl(Uri.parse(model.link ?? ''));
                     } catch (e) {
                       print(e);
                     }
@@ -511,6 +512,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           title: FFLocalizations.of(context).getText(
             title,
           ),
+          showInitialLoader: true,
         ));
   }
 

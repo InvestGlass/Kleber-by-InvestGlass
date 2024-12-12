@@ -12,13 +12,13 @@ class PositionModel {
   dynamic expirationDate;
   bool? featured;
   String? referenceCurrency;
-  String? lastPrice;
-  String? costPrice;
+  double? lastPrice;
+  double? costPrice;
   String? roi;
-  String? quantity;
-  String? amount;
+  double? quantity;
+  double? amount;
   String? allocation;
-  String? fxRate;
+  double? fxRate;
   int? portfolioId;
 
   PositionModel({
@@ -59,13 +59,13 @@ class PositionModel {
     expirationDate: json["expiration_date"],
     featured: json["featured"],
     referenceCurrency: json["reference_currency"],
-    lastPrice: json["last_price"].toString(),
-    costPrice: json["cost_price"].toString(),
+    lastPrice: double.tryParse(json["last_price"].toString())??0.00,
+    costPrice: double.tryParse(json["cost_price"].toString())??0.00,
     roi: json["roi"]?.toString()??'-',
-    quantity: json["quantity"].toString(),
-    amount: json["amount"].toString(),
+    quantity: double.tryParse(json["quantity"].toString())??0.00,
+    amount: double.tryParse(json["amount"].toString())??0.00,
     allocation: json["allocation"].toString(),
-    fxRate: json["fx_rate"],
+    fxRate: double.tryParse(json["fx_rate"])??0.00,
     portfolioId: json["portfolio_id"],
   );
 

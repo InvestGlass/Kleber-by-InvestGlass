@@ -721,43 +721,94 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
   }
 
   void openSortBottomSheet() {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
+    _notifier.tempSelectedSortIndex=_notifier.selectedSortIndex;
+    showDialog(
       context: context,
       builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return Wrap(
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.only(top: rSize * 0.015),
-                  decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.020), topRight: Radius.circular(rSize * 0.020))),
-                  child: Column(
-                    children: [
-                      AppWidgets.title(context,
-                        FFLocalizations.of(context).getText(
-                          'sort' /* sort */,
-                        )),
-                      Container(
-                        height: 0.5,
-                        margin: EdgeInsets.symmetric(vertical: rSize * 0.0075),
-                        width: double.infinity,
-                        color: AppColors.kHint,
+        _notifier = Provider.of<ProposalController>(context);
+        return Center(
+          child: Wrap(
+            children: [
+              Material(
+                color: Colors.transparent,
+                child: StatefulBuilder(
+                  builder: (context, setState) {
+                    return Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.all(rSize*0.015),
+                      decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primaryBackground,
+                          borderRadius: BorderRadius.circular(rSize * 0.015)),
+                      child: ListView(
+                        padding: EdgeInsets.only(
+                            left: rSize * 0.02,
+                            right: rSize * 0.02,
+                            top: rSize * 0.03,
+                            bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
+                        shrinkWrap: true,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: AppWidgets.title(
+                                      context,
+                                      FFLocalizations.of(context).getText(
+                                        'sort' /* sort */,
+                                      ))),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Icon(
+                                  Icons.close,
+                                  size: rSize * 0.025,
+                                  color: FlutterFlowTheme.of(context).customColor4,
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: rSize*0.015,),
+                          sortDialogElement(0, _notifier.sortList[0], context,),
+                          sortDialogElement(1, _notifier.sortList[1], context),
+                          sortDialogElement(2, _notifier.sortList[2], context),
+                          sortDialogElement(3, _notifier.sortList[3], context),
+                          SizedBox(height: rSize*0.015,),
+                          GestureDetector(
+                            onTap: () {
+                                if (_notifier.tempSelectedSortIndex == 0) {
+                                  _notifier.direction = 'desc';
+                                  _notifier.column = 'created_at';
+                                } else if (_notifier.tempSelectedSortIndex == 1) {
+                                  _notifier.direction = 'asc';
+                                  _notifier.column = 'created_at';
+                                } else if (_notifier.tempSelectedSortIndex == 2) {
+                                  _notifier.direction = 'asc';
+                                  _notifier.column = 'name';
+                                } else if (_notifier.tempSelectedSortIndex == 3) {
+                                  _notifier.direction = 'desc';
+                                  _notifier.column = 'name';
+                                }
+                                _notifier.selectedFilterList.removeWhere(
+                                      (element) => element.type == FilterTypes.SORT.name,
+                                );
+                                _notifier.selectedSortIndex=_notifier.tempSelectedSortIndex;
+                                _notifier.selectedFilterList.add(FilterModel(_notifier.sortList[_notifier.tempSelectedSortIndex], FilterTypes.SORT.name));
+                                _pageKey = 1;
+                                _notifier.pagingController.refresh();
+                                Navigator.pop(context);
+                            },
+                            child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
+                              'lmndaaco' /* Apply */,
+                            )),
+                          )
+                        ],
                       ),
-                      sortDialogElement(0, _notifier.sortList[0], context),
-                      sortDialogElement(1, _notifier.sortList[1], context),
-                      sortDialogElement(2, _notifier.sortList[2], context),
-                      sortDialogElement(3, _notifier.sortList[3], context),
-                    ],
-                  ),
+                    );
+                  },
                 ),
-              ],
-            );
-          },
+              ),
+            ],
+          ),
         );
       },
     );
@@ -785,29 +836,9 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                   }
                   return FlutterFlowTheme.of(context).customColor4;
                 }),
-                groupValue: _notifier.selectedSortIndex,
-                onChanged: (p0) {
-                  _notifier.selectedSortIndex = value;
-                  if (value == 0) {
-                    _notifier.direction = 'desc';
-                    _notifier.column = 'created_at';
-                  } else if (value == 1) {
-                    _notifier.direction = 'asc';
-                    _notifier.column = 'created_at';
-                  } else if (value == 2) {
-                    _notifier.direction = 'asc';
-                    _notifier.column = 'name';
-                  } else if (value == 3) {
-                    _notifier.direction = 'desc';
-                    _notifier.column = 'name';
-                  }
-                  _notifier.selectedFilterList.removeWhere(
-                    (element) => element.type == FilterTypes.SORT.name,
-                  );
-                  _notifier.selectedFilterList.add(FilterModel(_notifier.sortList[value], FilterTypes.SORT.name));
-                  _pageKey = 1;
-                  _notifier.pagingController.refresh();
-                  Navigator.pop(context);
+                groupValue: _notifier.tempSelectedSortIndex,
+                onChanged: (value) {
+                  _notifier.tempSelectSort(value!);
                 },
               ),
             ),

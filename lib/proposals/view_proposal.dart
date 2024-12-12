@@ -127,9 +127,7 @@ class _ViewProposalState extends State<ViewProposal> {
           leading: AppWidgets.backArrow(context),
           centerTitle: true),
       body: child,
-      bottomNavigationBar: !widget.item!.requestProposalApproval!
-          ? null
-          : Wrap(
+      bottomNavigationBar:Wrap(
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: rSize*0.02),
@@ -142,7 +140,7 @@ class _ViewProposalState extends State<ViewProposal> {
   }
 
   Widget getWidget(BuildContext context) {
-    if (widget.item!.state == 'Pending') {
+    if (widget.item!.state == 'Pending' && widget.item!.requestProposalApproval!) {
       return Column(
         children: [
           Row(
@@ -166,7 +164,7 @@ class _ViewProposalState extends State<ViewProposal> {
                     ),
                     checkColor: !((widget.item!.state != 'Rejected') && (widget.item!.state != 'Accepted'))
                         ? FlutterFlowTheme.of(context).secondaryBackground
-                        : FlutterFlowTheme.of(context).customColor4,
+                        : FlutterFlowTheme.of(context).info,
                     onChanged: (value) {
                       if (widget.item!.state == 'Pending') {
                         // widget.item!.isChecked = !widget.item!.isChecked;
@@ -249,7 +247,6 @@ class _ViewProposalState extends State<ViewProposal> {
                     CommonFunctions.showToast(FFLocalizations.of(context).getText(
                       'agree_checkbox',
                     ));
-                    Navigator.pop(context);
                     return;
                   }
                   AppWidgets.showAlert(
@@ -303,7 +300,7 @@ class _ViewProposalState extends State<ViewProposal> {
           child: Text(
             '${FFLocalizations.of(context).getText(
               'ktrsz8sp' /* Accepted at */,
-            )} ${DateFormat('yyyy-MM-dd HH:mm').format(widget.item!.updatedAt!)}',
+            )} ${DateFormat('yyyy-MM-dd HH:mm').format(widget.item!.acceptedDate!)}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
 
                   color: FlutterFlowTheme.of(context).customColor2,
@@ -318,7 +315,7 @@ class _ViewProposalState extends State<ViewProposal> {
           child: Text(
             '${FFLocalizations.of(context).getText(
               '5tjloy3c' /* Rejected at */,
-            )} ${DateFormat('yyyy-MM-dd HH:mm').format(widget.item!.updatedAt!)}',
+            )} ${DateFormat('yyyy-MM-dd HH:mm').format(widget.item!.rejectedDate!)}',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
 
                   color: FlutterFlowTheme.of(context).customColor3,

@@ -296,7 +296,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           topLeft: Radius.circular(rSize * 0.010),
                           bottomLeft: Radius.circular(rSize * 0.010),
                         ),
-                        color: FlutterFlowTheme.of(context).alternate),
+                        color: FlutterFlowTheme.of(context).customColor4.withOpacity(0.2)),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         'bhxqgsuw' /* USD $ */,

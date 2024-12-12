@@ -429,7 +429,7 @@ var viMap={
   "select_file": 'Chọn tệp',
   'capture_image': 'chụp ảnh',
   "position": "Vị trí",
-  "acceptable_formats": "Các định dạng được chấp nhận",
+  "acceptable_formats": "Formato no xe acetà",
   "transaction_created": "Giao dịch được tạo thành công.",
   "u192lk22": "GIAO DỊCH",
   "5tqbxl7s": "Đọc",

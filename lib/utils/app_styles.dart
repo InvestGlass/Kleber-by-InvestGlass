@@ -178,6 +178,7 @@ class AppStyles {
       Widget? prefix,
       Widget? suffix,
       String? preffixText,
+      String? errorText,
       // TextStyle? hintStyle,
       double borderWidth = 2,
       double? borderRadius,
@@ -187,6 +188,7 @@ class AppStyles {
       Color? focusColor}) {
     return InputDecoration(
       labelText: label,
+      errorText: errorText,
       labelStyle: labelStyle,
       hintText: hint,
       hintStyle: FlutterFlowTheme.of(context)

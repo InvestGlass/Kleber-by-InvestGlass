@@ -439,7 +439,7 @@ var arMap={
   'capture_image': 'التقاط الصورة',
   "afxtmzhw": "تغيير كلمة المرور",
   "7r8yq7mw": "حالة",
-  "acceptable_formats": "التنسيقات المقبولة",
+  "acceptable_formats": "التنسيق غير مقبول",
   "transaction_created": "تم إنشاء المعاملة بنجاح.",
   "wvo4yj9k": "تغيير اللغة",
   "znd2aszb": "التبديل إلى الوضع الداكن",

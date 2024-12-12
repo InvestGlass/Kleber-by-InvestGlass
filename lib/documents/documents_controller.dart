@@ -25,7 +25,7 @@ class DocumentsController extends ChangeNotifier {
   String? selectedType = 'All';
   AccountsModel? selectedAccount;
   List<String> ancestryFolderList=[],folderPathList=[];
-  int sortRadioGroupValue = -1;
+  int sortRadioGroupValue = -1,tempSortRadioGroupValue = -1;
   String selectedAncestryFolder = '', selectedPath = '', startDate = '', endDate = '', orderColumn = 'created_at', orderDirection = 'desc';
   // List<FilterModel> appliedFilters = [];
   String filterName = 'filterName', filterType = 'filterType', filterDate = 'filterDate', path = 'path', sortType = 'sortType';
@@ -51,6 +51,11 @@ class DocumentsController extends ChangeNotifier {
       (element) => element.type == sortType,
     );
     appliedFilters.insert(0, FilterModel(label, sortType));*/
+    notifyListeners();
+  }
+
+  void setTempSortRadioGroupValue(int value) {
+    tempSortRadioGroupValue = value;
     notifyListeners();
   }
 
@@ -103,7 +108,7 @@ class DocumentsController extends ChangeNotifier {
           if (value.containsKey('error') && value.containsKey('message')) {
             errorMsg=FFLocalizations.of(context).getText(
               'acceptable_formats',
-            )+' --> '+value['message'];
+            );
             CommonFunctions.showToast('Invalid format');
           }
           if(value.containsKey('company_id')){
