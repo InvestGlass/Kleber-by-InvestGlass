@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class ViewProposal extends StatefulWidget {
 
 class _ViewProposalState extends State<ViewProposal> {
   Uint8List? list;
+  StreamController<double> _controller=StreamController();
 
   /*@override
   void initState() {
@@ -55,7 +57,7 @@ class _ViewProposalState extends State<ViewProposal> {
 
   @override
   void initState() {
-    getPdfBytes();
+    fetchWebData();
     super.initState();
   }
 
@@ -74,11 +76,57 @@ class _ViewProposalState extends State<ViewProposal> {
     setState(() {});
   }
 
+  Future<void> fetchWebData() async {
+    if (widget.url.isEmpty) {
+      final request = http.Request('GET', Uri.parse('${EndPoints.apiBaseUrl}documents/${widget.documentId}'),);
+      request.headers.addAll({
+        'Authorization':
+        'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'
+      });
+      final client = http.Client();
+      final response = await client.send(request);
+
+      final contentLength = response.contentLength;
+      final List<int> bytes = [];
+      int downloadedBytes = 0;
+
+      final completer = Completer<void>();
+
+      response.stream.listen(
+            (chunk) {
+          bytes.addAll(chunk);
+          downloadedBytes += chunk.length;
+
+          // Update progress
+          _controller.add(downloadedBytes / contentLength!);
+          /*setState(() {
+          _progress = (downloadedBytes / contentLength!);
+        });*/
+        },
+        onDone: () {
+          setState(() {
+            _documentBytes = Uint8List.fromList(bytes);
+          });
+          completer.complete();
+        },
+        onError: (error) {
+          print("Error: $error");
+          _controller.add(1);
+          completer.completeError(error);
+        },
+        cancelOnError: true,
+      );
+
+      await completer.future;
+      client.close();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     c=context;
     _notifier = Provider.of<ProposalController>(context);
-    Widget child = const Center(child: CircularProgressIndicator());
+    Widget child = SizedBox();
     if (_documentBytes != null) {
       if (widget.ext.toLowerCase() == 'pdf' || widget.ext.toLowerCase() == 'txt') {
         child = SfPdfViewer.memory(
@@ -126,7 +174,43 @@ class _ViewProposalState extends State<ViewProposal> {
           ),
           leading: AppWidgets.backArrow(context),
           centerTitle: true),
-      body: child,
+      body: Stack(
+        children: [
+          child,
+          Center(
+              child:Padding(
+                padding: EdgeInsets.symmetric(horizontal: rSize*0.05),
+                child: StreamBuilder(stream: _controller.stream, builder: (context, snapshot) {
+                  print('cents : ${(snapshot.data??0)}');
+                  return Visibility(
+                    visible:  (snapshot.data??0)!=1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        LinearProgressIndicator(
+                          value: snapshot.data??0.0,
+                          backgroundColor: FlutterFlowTheme.of(context).customColor4,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          minHeight: 10,
+                          color: Colors.blue,
+                        ),
+                        SizedBox(height: rSize*0.01,),
+                        Text(
+                          'Loading...',
+                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontSize: rSize * 0.018,
+                            color: FlutterFlowTheme.of(context).customColor4,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },),
+              )
+          )
+        ],
+      ),
       bottomNavigationBar:Wrap(
               children: [
                 Container(
@@ -296,33 +380,51 @@ class _ViewProposalState extends State<ViewProposal> {
       );
     } else {
       if (widget.item?.state == 'Accepted') {
-        return Center(
-          child: Text(
-            '${FFLocalizations.of(context).getText(
-              'ktrsz8sp' /* Accepted at */,
-            )} ${DateFormat('yyyy-MM-dd HH:mm').format(widget.item!.acceptedDate!)}',
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.done_rounded,
+              color: FlutterFlowTheme.of(context)
+                  .customColor2,
+              size: rSize * 0.024,
+            ),
+            Text(
+              '${FFLocalizations.of(context).getText(
+                'ktrsz8sp' /* Accepted at */,
+              )} ${DateFormat('yyyy-MM-dd HH:mm').format(widget.item!.acceptedDate!)}',
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
 
-                  color: FlutterFlowTheme.of(context).customColor2,
-                  fontSize: rSize*0.016,
-                  letterSpacing: 0.0,
-                ),
-          ),
+                    color: FlutterFlowTheme.of(context).customColor2,
+                    fontSize: rSize*0.016,
+                    letterSpacing: 0.0,
+                  ),
+            ),
+          ],
         );
       }
       if (widget.item?.state == 'Rejected') {
-        return Center(
-          child: Text(
-            '${FFLocalizations.of(context).getText(
-              '5tjloy3c' /* Rejected at */,
-            )} ${DateFormat('yyyy-MM-dd HH:mm').format(widget.item!.rejectedDate!)}',
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.close_rounded,
+              color: FlutterFlowTheme.of(context)
+                  .customColor3,
+              size: rSize * 0.024,
+            ),
+            Text(
+              '${FFLocalizations.of(context).getText(
+                '5tjloy3c' /* Rejected at */,
+              )} ${DateFormat('yyyy-MM-dd HH:mm').format(widget.item!.rejectedDate!)}',
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
 
-                  color: FlutterFlowTheme.of(context).customColor3,
-                  fontSize: rSize*0.016,
-                  letterSpacing: 0.0,
-                ),
-          ),
+                    color: FlutterFlowTheme.of(context).customColor3,
+                    fontSize: rSize*0.016,
+                    letterSpacing: 0.0,
+                  ),
+            ),
+          ],
         );
       }
     }

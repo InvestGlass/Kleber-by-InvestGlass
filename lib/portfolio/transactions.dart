@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:kleber_bank/portfolio/portfolio_controller.dart';
 import 'package:kleber_bank/portfolio/transaction_model.dart';
@@ -6,6 +7,7 @@ import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../main.dart';
 import '../utils/api_calls.dart';
 import '../utils/app_colors.dart';
@@ -46,7 +48,8 @@ class _TransactionsState extends State<Transactions> {
         pageKey,
         widget.portfolioName,
         notifier.tranColumn,
-        notifier.tranDirection);
+        notifier.tranDirection,
+    notifier.selectedDate);
     final isLastPage = list.length < 10;
     if (isLastPage) {
       pagingController.appendLastPage(list);
@@ -114,6 +117,45 @@ class _TransactionsState extends State<Transactions> {
                     },
                   ),
                 ),
+                SizedBox(width: rSize*0.01,),
+                GestureDetector(
+                  onTap: () {
+                    AppWidgets.openDatePicker(
+                      context,
+                          (value) {
+                        if (value is DateTime) {
+                          /*  final String startDate =
+                         CommonFunctions.getYYYYMMDD(
+                              value.startDate!);
+                          final String endDate =
+                          CommonFunctions.getYYYYMMDD(
+                              value.endDate!);*/
+                          _notifier.setDate(CommonFunctions.getYYYYMMDD(
+                              value));
+                          pagingController.refresh();
+                          print(value);
+                          Navigator.pop(context);
+                          setState(() {});
+                        }
+                      },
+                          () {
+                        Navigator.pop(context);
+                      },mode: DateRangePickerSelectionMode.single
+                    );
+                  },
+                  child: Container(
+                    height: rSize*0.055,
+                    width: rSize*0.055,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(rSize * 0.010),
+                      border: Border.all(
+                        color: FlutterFlowTheme.of(context).alternate,
+                        width: 2,
+                      ),
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                    ),
+                      child: Icon(FontAwesomeIcons.calendar,color: FlutterFlowTheme.of(context).customColor4,)),
+                ),
                 SizedBox(
                   width: rSize * 0.015,
                 ),
@@ -122,6 +164,36 @@ class _TransactionsState extends State<Transactions> {
             SizedBox(
               height: rSize * 0.015,
             ),
+            if(_notifier.selectedDate.isNotEmpty)...{
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: rSize*0.015),
+                    padding: EdgeInsets.symmetric(horizontal: rSize*0.01,vertical: rSize*0.005),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(rSize * 0.007),
+                        border: Border.all(
+                          color: FlutterFlowTheme.of(context).alternate,
+                          width: 2,
+                        ),
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                      ),
+                      child: Row(
+                        children: [
+                          Text(_notifier.selectedDate,style: AppStyles.inputTextStyle(context),),
+                          SizedBox(width: rSize*0.005),
+                          GestureDetector(
+                              onTap: (){
+                                _notifier.setDate('');
+                                pagingController.refresh();
+                              },
+                              child: Icon(Icons.close,color: FlutterFlowTheme.of(context).customColor4,size: rSize*0.02,))
+                        ],
+                      ))
+                ],
+              )
+              ,
+            },
             Flexible(
               child: RefreshIndicator(
                 onRefresh: () async {
@@ -163,6 +235,7 @@ class _TransactionsState extends State<Transactions> {
                             child: Column(
                               children: [
                                 Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
                                         height: rSize * 0.06,
@@ -216,7 +289,7 @@ class _TransactionsState extends State<Transactions> {
                                                           index
                                                       ? 0.75
                                                       : 0.5,
-                                                  duration: Duration(
+                                                  duration: const Duration(
                                                       milliseconds: 300),
                                                   child: AppWidgets.doubleBack(
                                                       context)),
@@ -261,7 +334,7 @@ class _TransactionsState extends State<Transactions> {
                                                     .getText(
                                                   'xc0jtpk9' /* Status */,
                                                 ),
-                                                item.statusView ?? '')
+                                                item.transactionStatus ?? '')
                                           },
                                         ],
                                       ),
@@ -327,7 +400,8 @@ class _TransactionsState extends State<Transactions> {
                                                     .getText(
                                                   '691qwpww' /* Quantity */,
                                                 ),
-                                                getSeparatorFormat(item.quantity!)),
+                                                getSeparatorFormat(
+                                                    item.quantity!)),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
@@ -396,5 +470,7 @@ class _TransactionsState extends State<Transactions> {
         ));
   }
 
-  String getSeparatorFormat(double item) => CommonFunctions.formatDoubleWithThousandSeperator(item.toString(), item == 0, 2);
+  String getSeparatorFormat(double item) =>
+      CommonFunctions.formatDoubleWithThousandSeperator(
+          item.toString(), item == 0, 2);
 }

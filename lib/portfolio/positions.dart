@@ -179,7 +179,7 @@ class _PositionsState extends State<Positions> {
                                       FFLocalizations.of(context).getText(
                                         'tea2m5lq' /* Allocation */,
                                       ),
-                                      item.allocation?.toString().replaceAll(' ', '') ?? '-',
+                                      '${item.allocation??'0.00'}%',
                                       middleValue:
                                           '$currency ${getSeparatorFormat(item.amount!)}'),
                                   AppWidgets.portfolioListElement(
@@ -187,7 +187,7 @@ class _PositionsState extends State<Positions> {
                                       '${FFLocalizations.of(context).getText(
                                       'e0dy1vxx' /* ROI */,
                                       )} ($currency)',
-                                      item.roi! + (item.roi != '-' ? '%' : ''),
+                                      buildRoi(item)! + (item.roi != '-' ? '%' : ''),
                                       icon: getIcon(double.tryParse(item.roi!) ?? 0))
                                 },
                                 if (_notifier.selectedPositionIndex == index) ...{
@@ -260,7 +260,7 @@ class _PositionsState extends State<Positions> {
                                                 '${FFLocalizations.of(context).getText(
                                                   'e0dy1vxx' /* ROI */,
                                                 )} ($currency)',
-                                                item.roi! + (item.roi != '-' ? '%' : ''),
+                                                buildRoi(item)! + (item.roi != '-' ? '%' : ''),
                                                 icon: getIcon(double.tryParse(item.roi!) ?? 0)),
                                             SizedBox(
                                               height: rSize * 0.005,
@@ -315,6 +315,14 @@ class _PositionsState extends State<Positions> {
         ),
       ),
     );
+  }
+
+  String? buildRoi(PositionModel item)  {
+    print('roi value ${item.roi!}');
+    if(item.roi!='-'){
+      return getSeparatorFormat(double.parse(item.roi!));
+    }
+    return item.roi;
   }
 
   String getSeparatorFormat(double item, {int i=2}) => CommonFunctions.formatDoubleWithThousandSeperator(item.toString(), item == 0, i);

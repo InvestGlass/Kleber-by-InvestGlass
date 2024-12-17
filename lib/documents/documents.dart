@@ -228,7 +228,7 @@ class _DocumentsState extends State<Documents> {
                               ),
                               Text(
                                 DateFormat('yyyy-MM-dd HH:mm')
-                                    .format(item.updatedAt!),
+                                    .format(item.createdAt!),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

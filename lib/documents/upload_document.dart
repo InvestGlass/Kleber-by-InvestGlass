@@ -71,6 +71,7 @@ class _UploadDocumentState extends State<UploadDocument> {
                 );
               },
               onCloseTap: () {
+                _notifier.errorMsg='';
                 _notifier.removeSelectedImage();
               },
               isSelected: _notifier.image != null),

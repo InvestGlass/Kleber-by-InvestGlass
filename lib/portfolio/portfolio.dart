@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 import '../market/new_trade.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
+import 'bar_chart.dart';
 import 'x_portfoli_item_bar_chart.dart';
 import 'x_portfolio_item_line_chart.dart';
 
@@ -61,11 +62,7 @@ class _PortfolioState extends State<Portfolio>
       pageKey++;
       pagingController.appendPage(list, pageKey);
     }
-    if(pageKey==1 && (pagingController.itemList??[]).isNotEmpty){
-      provider.selectedIndex=0;
-      provider.stream=provider.getPortfolioData(context,pagingController.itemList![0]);
-      provider.stream.asBroadcastStream();
-    }
+
   }
 
   @override
@@ -246,14 +243,20 @@ class _PortfolioState extends State<Portfolio>
                                             'rpfp7xvs' /* Cash Available */,
                                           ),
                                           item.cashAvailable ?? '',
-                                          richText: !item.cashAvailable!
+                                          /*richText: !item.cashAvailable!
                                                   .contains(' ')
                                               ? null
                                               : AppWidgets.buildRichText(
                                                   context,
                                                   (item.cashAvailable ?? '')
                                                       .replaceAll('(', '')
-                                                      .replaceAll(')', ''))),
+                                                      .replaceAll(')', ''))*/
+                                          richText:AppWidgets.buildRichText(
+                                              context,
+                                              ( ' '+(CommonFunctions.formatDoubleWithThousandSeperator('${item.cashAvailable!}', double.parse(item.cashAvailable!) == 0, 2)))
+                                                  .replaceAll('(', '')
+                                                  .replaceAll(')', ''))
+                                      ),
                                       SizedBox(
                                         height: rSize * 0.015,
                                       ),
@@ -268,10 +271,10 @@ class _PortfolioState extends State<Portfolio>
                                           Row(
                                             children: [
                                               Text(
-                                                FFLocalizations.of(context)
+                                                '${FFLocalizations.of(context)
                                                     .getText(
                                                   'group_By',
-                                                )+' ${pagingController.itemList![index]
+                                                )} ${pagingController.itemList![index]
                               .sectionName ?? FFLocalizations.of(context).getText(
                           'zomhasya' /* Performance */,
                           )}',
@@ -358,7 +361,7 @@ class _PortfolioState extends State<Portfolio>
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   1,
-                                          height: rSize * 0.300,
+                                          height: rSize * 0.250,
                                           item: item,
                                           xLabels: item.assetClassChart!
                                               .map((e) => e.assetClass ?? '')
@@ -386,7 +389,7 @@ class _PortfolioState extends State<Portfolio>
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   1,
-                                          height: rSize * 0.300,
+                                          height: rSize * 0.250,
                                           item: item,
                                           xLabels: item.currenciesChart!
                                               .map((e) => e.assetClass ?? '')
@@ -441,7 +444,7 @@ class _PortfolioState extends State<Portfolio>
                                 children: [
                                   AppStyles.iconBg(context,
                                       color:
-                                          FlutterFlowTheme.of(context).primary,
+                                          FlutterFlowTheme.of(context).customColor4,
                                       data: FontAwesomeIcons.shoppingBasket,
                                       size: rSize * 0.020,
                                       padding: EdgeInsets.all(rSize * 0.015)),
@@ -465,7 +468,7 @@ class _PortfolioState extends State<Portfolio>
                                     children: [
                                       AppStyles.iconBg(context,
                                           color: FlutterFlowTheme.of(context)
-                                              .primary,
+                                              .customColor4,
                                           data: FontAwesomeIcons.dollarSign,
                                           size: rSize * 0.020,
                                           padding:
@@ -487,7 +490,7 @@ class _PortfolioState extends State<Portfolio>
                                 children: [
                                   AppStyles.iconBg(context,
                                       color:
-                                          FlutterFlowTheme.of(context).primary,
+                                          FlutterFlowTheme.of(context).customColor4,
                                       data: FontAwesomeIcons.dollarSign,
                                       size: rSize * 0.020,
                                       padding: EdgeInsets.all(rSize * 0.015)),
@@ -554,12 +557,11 @@ class _PortfolioState extends State<Portfolio>
                                     width: rSize * 0.100,
                                     height: rSize * 0.100,
                                     decoration: const BoxDecoration(
-                                      color: Color(0x3FF9CF58),
+                                      color: Color(0x3FF5A142),
                                     ),
                                     child: Icon(
                                       Icons.warning_amber_rounded,
-                                      color:
-                                          FlutterFlowTheme.of(context).warning,
+                                      color:Color(0xFFF5A142),
                                       size: rSize * 0.050,
                                     ),
                                   ),
@@ -570,8 +572,7 @@ class _PortfolioState extends State<Portfolio>
                                       width: rSize * 0.040,
                                       height: rSize * 0.030,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .warning,
+                                        color: Color(0xFFF5A142),
                                         boxShadow: AppStyles.shadow(),
                                       ),
                                       alignment:
@@ -655,12 +656,11 @@ class _PortfolioState extends State<Portfolio>
                                       width: rSize * 0.100,
                                       height: rSize * 0.100,
                                       decoration: const BoxDecoration(
-                                        color: Color(0x41FF5963),
+                                        color: Color(0x3FF54242),
                                       ),
                                       child: Icon(
                                         Icons.error_outline_rounded,
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
+                                        color:Color(0xFFF54242),
                                         size: rSize * 0.050,
                                       ),
                                     ),
@@ -671,8 +671,7 @@ class _PortfolioState extends State<Portfolio>
                                         width: rSize * 0.040,
                                         height: rSize * 0.030,
                                         decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
+                                          color: Color(0xFFF54242),
                                           boxShadow: AppStyles.shadow(),
                                         ),
                                         alignment:

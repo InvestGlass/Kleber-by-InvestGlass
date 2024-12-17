@@ -318,14 +318,15 @@ class ApiCalls {
   }
 
   static Future<List<TransactionModel>> getTransactionList(BuildContext context,
-      int pageKey, String name, String column, String direction) async {
+      int pageKey, String name, String column, String direction, String selectedDate) async {
     try {
       Map<String, dynamic> params = {
         'page': pageKey.toString(),
         'order[column]': column,
         'order[direction]': direction,
         'limit': '10',
-        'filter[portfolio_name]': name
+        'filter[portfolio_name]': name,
+        'filter[transaction_datetime]': selectedDate
       };
       List<dynamic> json = (await jsonResponse(
           context,

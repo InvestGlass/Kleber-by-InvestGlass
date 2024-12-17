@@ -126,6 +126,7 @@ class AppStyles {
       EdgeInsetsGeometry? padding,
       void Function()? onTap,
       Widget? customIcon,
+        List<BoxShadow>? boxShadow,
       Color? color}) {
     return GestureDetector(
         onTap: onTap,
@@ -147,7 +148,7 @@ class AppStyles {
                 FlutterFlowTheme.of(context).customColor6,
               ],
             ),
-            boxShadow: [
+            boxShadow:boxShadow?? [
               BoxShadow(
                 color: Colors.black.withOpacity(0.25),
                 spreadRadius: 1, // how wide the shadow is spread
@@ -167,7 +168,7 @@ class AppStyles {
 
   static TextStyle inputTextStyle(BuildContext context){
     return FlutterFlowTheme.of(context).bodyLarge.override(
-        color:FlutterFlowTheme.of(context).customColor4
+          color:FlutterFlowTheme.of(context).customColor4
     );
   }
 

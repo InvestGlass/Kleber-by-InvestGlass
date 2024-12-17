@@ -97,6 +97,13 @@ class PortfolioController extends ChangeNotifier{
     await ApiCalls.getPortfolioList(context,pageKey).then((value) {
 
       portfolioList=value;
+
+      if(pageKey==1 && value.isNotEmpty){
+        selectedIndex=0;
+        stream=getPortfolioData(context,value[0]);
+        stream.asBroadcastStream();
+      }
+
       if (notify) {
         notifyListeners();
       }
@@ -109,6 +116,12 @@ class PortfolioController extends ChangeNotifier{
   List<PortfolioModel> portfolioList=[];
 
   void notify() {
+    notifyListeners();
+  }
+
+  String selectedDate='';
+  void setDate(String date) {
+    selectedDate=date;
     notifyListeners();
   }
 

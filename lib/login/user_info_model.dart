@@ -720,9 +720,11 @@ class EncryptedOtpSecretForClient {
 
 class Client {
   int? id;
+  String? avatar;
 
   Client({
     this.id,
+    this.avatar,
   });
 
   factory Client.fromRawJson(String str) => Client.fromJson(json.decode(str));
@@ -730,10 +732,12 @@ class Client {
 
   factory Client.fromJson(Map<String, dynamic> json) => Client(
     id: json["id"],
+    avatar: json["avatar"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
+    "avatar": avatar,
   };
 
 }

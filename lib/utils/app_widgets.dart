@@ -33,6 +33,7 @@ class AppWidgets {
     return Container(
       decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(rSize * 0.010), boxShadow: AppStyles.shadow()),
       padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.015),
+      margin: EdgeInsets.only(left: rSize * 0.015,right: rSize * 0.015,top: rSize * 0.015 ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -60,18 +61,18 @@ class AppWidgets {
             ),
             Text(
               label,
-              style: FlutterFlowTheme.of(context).displaySmall.override(
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    fontSize: rSize * 0.016,
-                    letterSpacing: 0.0,
-                    fontWeight: FontWeight.w500,
-                  ),
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                color: FlutterFlowTheme.of(context).customColor4,
+                fontSize: rSize * 0.016,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.normal,
+              ),
             ),
             Text(
               getStatus(model.status,context),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    color: FlutterFlowTheme.of(context).secondaryText,
-                    fontSize: rSize * 0.016,
+                    color: FlutterFlowTheme.of(context).customColor4,
+                    fontSize: rSize * 0.012,
                     letterSpacing: 0.0,
                     fontWeight: FontWeight.normal,
                   ),
@@ -83,14 +84,16 @@ class AppWidgets {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                        Text(
+                          '${index+1}.',
+                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            color: FlutterFlowTheme.of(context).customColor4,
+                            fontSize: rSize * 0.016,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.normal,
                           ),
-                          height: rSize * 0.008,
-                          width: rSize * 0.008,
                         ),
                         SizedBox(
                           width: rSize * 0.015,
@@ -98,12 +101,12 @@ class AppWidgets {
                         Expanded(
                           child: Text(
                             model.listDetails![index],
-                            style: FlutterFlowTheme.of(context).displaySmall.override(
-                                  color: FlutterFlowTheme.of(context).primaryText,
-                                  fontSize: rSize * 0.016,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              color: FlutterFlowTheme.of(context).customColor4,
+                              fontSize: rSize * 0.016,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.normal,
+                            ),
                           ),
                         ),
                       ],
@@ -111,7 +114,7 @@ class AppWidgets {
                 separatorBuilder: (context, index) => Container(
                       height: 0.2,
                       margin: EdgeInsets.symmetric(vertical: rSize * 0.01),
-                      color: FlutterFlowTheme.of(context).customColor2,
+                      color: FlutterFlowTheme.of(context).customColor4,
                     ),
                 itemCount: model.listDetails!.length)
           }
@@ -445,7 +448,7 @@ class AppWidgets {
       } else {
         Navigator.pop(context);
       }
-    },);
+    },boxShadow: AppStyles.shadow());
   }
 
   static PreferredSize appBar(BuildContext context, String title, {Widget? leading, List<Widget>? actions, bool centerTitle = false}) {
@@ -580,12 +583,7 @@ class AppWidgets {
                           Text(
                             msg,
                             textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                                  color: FlutterFlowTheme.of(context).customColor4,
-                                  fontSize: rSize * 0.026,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                            style: AppStyles.inputTextStyle(context).copyWith(fontSize: rSize*0.02),
                           ),
                           SizedBox(
                             height: rSize * 0.02,

@@ -21,7 +21,7 @@ import '../utils/internationalization.dart';
 import '../utils/shared_pref_utils.dart';
 
 class ViewDocument extends StatefulWidget {
-  final bool? showSignButton;
+  bool? showSignButton;
   Document? item;
   String? title;
   final int? index;
@@ -64,14 +64,14 @@ class _ViewDocumentState extends State<ViewDocument> {
 
   @override
   void initState() {
-    if (widget.showInitialLoader) {
+    /*if (widget.showInitialLoader) {
       WidgetsBinding.instance.addPostFrameCallback(
         (timeStamp) {
           CommonFunctions.showLoader(context);
         },
       );
-    }
-    getPdfBytes();
+    }*/
+    fetchWebData();
     super.initState();
   }
 
@@ -88,11 +88,56 @@ class _ViewDocumentState extends State<ViewDocument> {
     setState(() {});
   }
 
+  Future<void> fetchWebData() async {
+    if ((widget.item?.url ?? '').isEmpty) {
+      final request = http.Request('GET', Uri.parse('${EndPoints.apiBaseUrl}documents/${widget.item!.id}'),);
+      request.headers.addAll({
+        'Authorization':
+        'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'
+      });
+      final client = http.Client();
+      final response = await client.send(request);
+
+      final contentLength = response.contentLength;
+      final List<int> bytes = [];
+      int downloadedBytes = 0;
+
+      final completer = Completer<void>();
+
+      response.stream.listen(
+            (chunk) {
+          bytes.addAll(chunk);
+          downloadedBytes += chunk.length;
+
+          // Update progress
+          _controller.add(downloadedBytes / contentLength!);
+          /*setState(() {
+          _progress = (downloadedBytes / contentLength!);
+        });*/
+        },
+        onDone: () {
+          setState(() {
+            _documentBytes = Uint8List.fromList(bytes);
+          });
+          completer.complete();
+        },
+        onError: (error) {
+          print("Error: $error");
+          completer.completeError(error);
+        },
+        cancelOnError: true,
+      );
+
+      await completer.future;
+      client.close();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     c = context;
     _notifier = Provider.of<DocumentsController>(context);
-    Widget child = const Center(child: CircularProgressIndicator());
+    Widget child = SizedBox();
     if (_documentBytes != null) {
       if (widget.item!.originalFilename!.split('.').last.toLowerCase() ==
               'pdf' ||
@@ -114,13 +159,13 @@ class _ViewDocumentState extends State<ViewDocument> {
               NavigationDelegate(
                 onProgress: (int progress) {
                   print('progress $progress');
-                  _controller.add(progress.toDouble());
+                  _controller.add(progress.toDouble()/100);
                 },
                 onPageStarted: (String url) {},
                 onPageFinished: (String url) {
                   if (is1stTime) {
                     is1stTime = false;
-                    CommonFunctions.dismissLoader(context);
+                    // CommonFunctions.dismissLoader(context);
                   }
                 },
                 onHttpError: (HttpResponseError error) {},
@@ -133,7 +178,7 @@ class _ViewDocumentState extends State<ViewDocument> {
                 },
               ),
             )
-            ..loadRequest(Uri.parse((widget.item?.url ?? ''))));
+            ..loadRequest(Uri.parse(widget.item?.url ?? '')));
     }
     return Scaffold(
       appBar: AppWidgets.appBar(
@@ -147,18 +192,43 @@ class _ViewDocumentState extends State<ViewDocument> {
       body: Stack(
         children: [
           child,
-          StreamBuilder(stream: _controller.stream, builder: (context, snapshot) {
-            return LinearProgressIndicator(
-              value: snapshot.data??0.0,
-              backgroundColor: Colors.blue,
-              color: Colors.black,
-            );
-          },)
+          Center(
+            child:Padding(
+              padding: EdgeInsets.symmetric(horizontal: rSize*0.05),
+              child: StreamBuilder(stream: _controller.stream, builder: (context, snapshot) {
+                print('cents : ${(snapshot.data??0)}');
+                return Visibility(
+                  visible:  (snapshot.data??0)!=1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      LinearProgressIndicator(
+                        value: snapshot.data??0.0,
+                        backgroundColor: FlutterFlowTheme.of(context).customColor4,
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        minHeight: 10,
+                        color: Colors.blue,
+                      ),
+                      SizedBox(height: rSize*0.01,),
+                      Text(
+                        'Loading...',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontSize: rSize * 0.018,
+                          color: FlutterFlowTheme.of(context).customColor4,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },),
+            )
+          )
+
 
         ],
       ),
-      bottomNavigationBar: (widget.item?.requestProposalApproval ?? false)
-          ? Wrap(
+      bottomNavigationBar:Wrap(
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(
@@ -167,13 +237,12 @@ class _ViewDocumentState extends State<ViewDocument> {
                   child: getWidget(context),
                 ),
               ],
-            )
-          : null,
+            ),
     );
   }
 
   Widget getWidget(BuildContext context) {
-    if (widget.item?.documentStatus == null) {
+    if (widget.showSignButton!) {
       return GestureDetector(
         onTap: () {
           AppWidgets.showSignDialog(context, onAccept: () {
@@ -182,6 +251,7 @@ class _ViewDocumentState extends State<ViewDocument> {
                 onUpdateStatus: (item) {
               setState(() {
                 widget.item = item;
+                widget.showSignButton = false;
               });
             });
           }, onReject: () {
@@ -190,6 +260,7 @@ class _ViewDocumentState extends State<ViewDocument> {
                 onUpdateStatus: (item) {
               setState(() {
                 widget.item = item;
+                widget.showSignButton = false;
               });
             });
           });
@@ -204,37 +275,55 @@ class _ViewDocumentState extends State<ViewDocument> {
       );
     } else {
       if (widget.item?.documentStatus == 'Approved') {
-        return Center(
-          child: Text(
-            '${FFLocalizations.of(context).getText(
-              'ktrsz8sp' /* Accepted at */,
-            )} ${DateFormat(
-              'yyyy-MM-dd HH:mm',
-              FFLocalizations.of(context).languageCode,
-            ).format(widget.item!.approvedAt!)}',
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  color: FlutterFlowTheme.of(context).customColor2,
-                  fontSize: rSize * 0.016,
-                  letterSpacing: 0.0,
-                ),
-          ),
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.done_rounded,
+              color: FlutterFlowTheme.of(context)
+                  .customColor2,
+              size: rSize * 0.024,
+            ),
+            Text(
+              '${FFLocalizations.of(context).getText(
+                'ktrsz8sp' /* Accepted at */,
+              )} ${DateFormat(
+                'yyyy-MM-dd HH:mm',
+                FFLocalizations.of(context).languageCode,
+              ).format(widget.item!.approvedAt!)}',
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    color: FlutterFlowTheme.of(context).customColor2,
+                    fontSize: rSize * 0.016,
+                    letterSpacing: 0.0,
+                  ),
+            ),
+          ],
         );
       }
       if (widget.item?.documentStatus == 'Rejected') {
-        return Center(
-          child: Text(
-            '${FFLocalizations.of(context).getText(
-              '5tjloy3c' /* Rejected at */,
-            )} ${DateFormat(
-              'yyyy-MM-dd HH:mm',
-              FFLocalizations.of(context).languageCode,
-            ).format(widget.item!.disapprovedAt!)}',
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  color: FlutterFlowTheme.of(context).customColor3,
-                  fontSize: rSize * 0.016,
-                  letterSpacing: 0.0,
-                ),
-          ),
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.close_rounded,
+              color: FlutterFlowTheme.of(context)
+                  .customColor3,
+              size: rSize * 0.024,
+            ),
+            Text(
+              '${FFLocalizations.of(context).getText(
+                '5tjloy3c' /* Rejected at */,
+              )} ${DateFormat(
+                'yyyy-MM-dd HH:mm',
+                FFLocalizations.of(context).languageCode,
+              ).format(widget.item!.disapprovedAt!)}',
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    color: FlutterFlowTheme.of(context).customColor3,
+                    fontSize: rSize * 0.016,
+                    letterSpacing: 0.0,
+                  ),
+            ),
+          ],
         );
       }
     }

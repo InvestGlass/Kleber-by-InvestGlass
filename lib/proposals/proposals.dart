@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
@@ -17,9 +19,11 @@ import '../utils/app_styles.dart';
 import '../utils/app_widgets.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
+import '../utils/shared_pref_utils.dart';
 
 class Proposals extends StatefulWidget {
-  const Proposals({super.key});
+  final StreamController<String> controller;
+  const Proposals(this.controller,{super.key});
 
   @override
   State<Proposals> createState() => _ProposalsState();
@@ -34,6 +38,11 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {},
     );
+    widget.controller.stream.listen((event) {
+      try{
+        _notifier.selectTransactionIndex(-1);
+      }catch(e){}
+    },);
     ProposalController notifier = Provider.of<ProposalController>(context, listen: false);
     notifier.pagingController.addPageRequestListener((pageKey) {
       _fetchPageActivity(notifier);
@@ -62,7 +71,7 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
       body: Column(
         children: [
           SizedBox(
-            height: isPortraitMode?rSize * 0.35:rSize*0.25,
+            height: isPortraitMode?rSize * 0.28:rSize*0.2,
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -76,32 +85,18 @@ class _ProposalsState extends State<Proposals> with AutomaticKeepAliveClientMixi
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).padding.top + rSize * 0.01,
+                      height: MediaQuery.of(context).padding.top,
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: rSize * 0.015),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(rSize * 0.01),
-                        child: Image.asset(
-                          'assets/advisor.png',
-                          height: rSize * 0.07,
-                          width: rSize * 0.07,
+                        child: Image.network(
+                          SharedPrefUtils.instance.getUserData().user?.advisor?.avatar??'',
+                          height: rSize * 0.09,
+                          width: rSize * 0.09,
                           fit: BoxFit.fitHeight,
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: rSize * 0.015),
-                      child: Text(
-                        FFLocalizations.of(context).getText(
-                          'hello',
-                        ),
-                        style: FlutterFlowTheme.of(context).displaySmall.override(
-
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              fontSize: rSize * 0.018,
-                              fontWeight: FontWeight.w500,
-                            ),
                       ),
                     ),
                     Padding(

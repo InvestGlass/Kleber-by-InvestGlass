@@ -153,7 +153,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
 
   List<CartesianSeries> _getSampleLineSeries(List<ChartModel> filteredList) {
     var listY = List<double>.generate(
-        filteredList.length, (index) => filteredList[index].amount);
+        filteredList.length, (index) => double.parse(filteredList[index].amount.split(' ')[1].replaceAll(',', '')));
     return <CartesianSeries>[
       RangeColumnSeries<String, String>(
         dataSource: List<String>.generate(
@@ -227,7 +227,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     List<ChartModel> performanceChartList = List<ChartModel>.generate(
       widget.xLabels.length,
       (index) => ChartModel(
-          widget.additionPercents[index], widget.xLabels[index], double.parse(widget.listY[index].split(' ')[1]),
+          widget.additionPercents[index], widget.xLabels[index], widget.listY[index],
           date: DateFormat('MMM dd, yyyy').parse(widget.xLabels[index])),
     );
     List<ChartModel> filteredList = performanceChartList
@@ -404,10 +404,9 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
       (index) =>
           double.parse(widget.listY[index].split(' ')[1].replaceAll(',', '')),
     );
-    var listAmount = List<double>.generate(
+    var listAmount = List<String>.generate(
       widget.listAmount.length,
-      (index) => double.parse(
-          widget.listAmount[index].split(' ')[1].replaceAll(',', '')),
+      (index) => widget.listAmount[index],
     );
     List<ChartModel> list = List<ChartModel>.generate(
       widget.listY.length,
@@ -415,15 +414,17 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
           listY[index] <= 0 ? 0 : listY[index],
           widget.xLabels[index],
           listAmount.isEmpty
-              ? 0
-              : listAmount[index] <= 0
-                  ? 0
+              ? '0'
+              : double.parse(listAmount[index].split(' ')[1].replaceAll(',', '')) < 0
+                  ? '0'
                   : listAmount[index]),
     );
-    list.sort((a, b) => a.amount.compareTo(b.amount));
-    list.forEach((element) {
-      print('${element.label}-----${element.percentage}-----${element.amount}');
-    },);
+    list.sort((a, b)  {
+      print('amount : ${a.label} ${a.amount}');
+         return double.parse(a.amount.split(' ')[1].replaceAll(',', '')).compareTo(
+              double.parse(b.amount.split(' ')[1].replaceAll(',', '')));
+        });
+
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -439,7 +440,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                       borderRadius: BorderRadius.circular(rSize * 0.020),
                       color: FlutterFlowTheme.of(context).primary),
                   child: label(context,
-                      '${list[pointIndex].label} :  ${list[pointIndex].amount}'),
+                      '${list[pointIndex].label} :  ${list[pointIndex].amount.split(' ')[1]} ${list[pointIndex].amount.split(' ')[0]}'),
                 );
               },
             ),
@@ -529,14 +530,11 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                   name: 'Gold')
             ]),
         Positioned(
-          left: getPosition(),
-          child: Center(
-            child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: rSize * 0.3),
-                child: AppWidgets.buildRichText(
-                    context, widget.item?.portfolioValue ?? '',
-                    fontSize: isTablet ? rSize * 0.014 : rSize * 0.01)),
-          ),
+          top: 0,
+          left: 0,
+          child: AppWidgets.buildRichText(
+              context, widget.item?.portfolioValue ?? '',
+              fontSize: rSize * 0.014),
         )
       ],
     );
@@ -584,7 +582,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
 class ChartModel {
   double percentage;
   String label;
-  double amount;
+  String amount;
   DateTime? date;
 
   ChartModel(this.percentage, this.label, this.amount, {this.date});

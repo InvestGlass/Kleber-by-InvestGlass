@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -38,6 +39,7 @@ class _DashboardState extends State<Dashboard> {
   late PageController pagingController;
 
   late DashboardController _controller;
+  StreamController<String> controller=StreamController.broadcast();
 
   @override
   void initState() {
@@ -121,6 +123,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   onTap: () {
                     changeTab(3);
+                    controller.add('');
                   },i: 3
                 ),
                 actionMenuItem(
@@ -197,11 +200,11 @@ class _DashboardState extends State<Dashboard> {
       body: PageView(
         controller: pagingController,
         physics: const NeverScrollableScrollPhysics(),
-        children: const [
+        children:  [
           Home(),
           Portfolio(),
           Documents(),
-          Proposals(),
+          Proposals(controller),
           Profile(),
         ],
         onPageChanged: (page) {},
@@ -241,7 +244,7 @@ class _DashboardState extends State<Dashboard> {
                             data: Icons.file_copy,
                             size: rSize * 0.020,
                             padding: EdgeInsets.all(rSize * 0.015),
-                            color: FlutterFlowTheme.of(context).primary),
+                            color: FlutterFlowTheme.of(context).customColor4),
                         FFLocalizations.of(context).getText(
                           '13mzcnly' /* Document */,
                         ),
@@ -262,7 +265,7 @@ class _DashboardState extends State<Dashboard> {
                                   ? 'assets/money-bill-trend-up-solid-dark-theme.svg'
                                   : 'assets/money-bill-trend-up-solid.svg',
                               fit: BoxFit.contain,
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: FlutterFlowTheme.of(context).customColor4,
                               height: rSize * 0.025,
                               width: rSize * 0.025,
                             )),
@@ -281,7 +284,7 @@ class _DashboardState extends State<Dashboard> {
                             data: FontAwesomeIcons.upload,
                             size: rSize * 0.020,
                             padding: EdgeInsets.all(rSize * 0.015),
-                            color: FlutterFlowTheme.of(context).primary),
+                            color: FlutterFlowTheme.of(context).customColor4),
                         FFLocalizations.of(context).getText(
                           '3hz1whes' /* Upload */,
                         ),
@@ -297,7 +300,7 @@ class _DashboardState extends State<Dashboard> {
                             data: FontAwesomeIcons.message,
                             size: rSize * 0.020,
                             padding: EdgeInsets.all(rSize * 0.015),
-                            color: FlutterFlowTheme.of(context).primary),
+                            color: FlutterFlowTheme.of(context).customColor4),
                         FFLocalizations.of(context).getText(
                           'chat',
                         ),
