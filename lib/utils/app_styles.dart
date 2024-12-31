@@ -92,6 +92,60 @@ class AppStyles {
     );
   }*/
 
+  static TextStyle labelStyle(BuildContext context){
+    return FlutterFlowTheme.of(context).bodyMedium.override(
+      fontSize: rSize * 0.016,
+      color: FlutterFlowTheme.of(context).customColor4,
+      fontWeight: FontWeight.w500,
+    );
+  }
+
+  static Widget timePickerStyle(BuildContext context, Widget? w){
+    return Theme(
+      data: ThemeData(
+        timePickerTheme: TimePickerThemeData(
+          hourMinuteTextStyle:
+          FlutterFlowTheme.of(context).bodyMedium.override(
+            color: FlutterFlowTheme.of(context).primaryText,
+            fontSize: rSize * 0.025,
+            letterSpacing: 2.0,
+            fontWeight: FontWeight.w300,
+          ),
+          dialTextStyle: AppStyles.inputTextStyle(context),
+          cancelButtonStyle: ButtonStyle(
+              textStyle: MaterialStateProperty.resolveWith((states) {
+                if (states.contains(MaterialState.selected)) {
+                  return AppStyles.labelStyle(
+                      context); // Selected state color
+                }
+                return AppStyles.labelStyle(
+                    context); // Default state color
+              })),
+          confirmButtonStyle: ButtonStyle(
+              textStyle: MaterialStateProperty.resolveWith((states) {
+                if (states.contains(MaterialState.selected)) {
+                  return AppStyles.labelStyle(
+                      context); // Selected state color
+                }
+                return AppStyles.labelStyle(
+                    context); // Default state color
+              })),
+          backgroundColor: FlutterFlowTheme.of(context).info,
+          dialBackgroundColor: FlutterFlowTheme.of(context).alternate,
+          hourMinuteColor: FlutterFlowTheme.of(context).alternate,
+          dayPeriodTextStyle: AppStyles.inputTextStyle(context),
+          dayPeriodColor:
+          FlutterFlowTheme.of(context).primaryBackground,
+          helpTextStyle: AppStyles.labelStyle(context),
+          dialTextColor: FlutterFlowTheme.of(context).customColor4,
+          entryModeIconColor:
+          FlutterFlowTheme.of(context).customColor4,
+        ),
+      ),
+      child: w!,
+    );
+  }
+
   static Decoration commonBg(BuildContext context) {
     return BoxDecoration(
       gradient: LinearGradient(

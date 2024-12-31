@@ -15,7 +15,12 @@ class PortfolioController extends ChangeNotifier{
   String column='roi',direction='desc';
   String tranColumn='amount',tranDirection='desc';
   late Stream<PortfolioModel?> stream;
-
+  List<String> currencyList=['USD','EUR','JPY','CHF'];
+  List<String> typeList=['Cash Deposit','Withdrawal','Buy to Open','Sell to Close'];
+  List<String> statusList=['Fulfilled'];
+  List<String> dateList=['Today','Tomorrow'];
+  List<String> amountList=['123456.4001 CHF','123456.4001 EUR','123456.4001 JPY','123456.4001 GBP'];
+  String selectedCurrency='USD',selectedAmount='123456.4001 CHF',selectedType='Cash Deposit',selectedStatus='Fulfilled',selectedExecutionDate='Today';
 
   Stream<PortfolioModel?> getPortfolioData(BuildContext context, PortfolioModel item) async* {
     yield await ApiCalls.getPortfolioData(context, item.id!);

@@ -10,7 +10,8 @@ import 'flutter_flow_theme.dart';
 import 'internationalization.dart';
 
 class AppWidgets {
-  static void showSignDialog(BuildContext context, {required Function onReject, required Function onAccept}) {
+  static void showSignDialog(BuildContext context,
+      {required Function onReject, required Function onAccept}) {
     AppWidgets.showAlert(
         context,
         FFLocalizations.of(context).getText(
@@ -25,15 +26,28 @@ class AppWidgets {
       onReject();
     }, () {
       onAccept();
-    }, btn1BgColor: FlutterFlowTheme.of(context).customColor3, btn2BgColor: FlutterFlowTheme.of(context).customColor2);
+    },
+        btn1BgColor: FlutterFlowTheme.of(context).customColor3,
+        btn2BgColor: FlutterFlowTheme.of(context).customColor2);
   }
 
   static Container healthAlertElement(
-      BuildContext context, String title, Color bgColor, IconData iconData, String label, Appropriateness model, TextStyle textStyle) {
+      BuildContext context,
+      String title,
+      Color bgColor,
+      IconData iconData,
+      String label,
+      Appropriateness model,
+      TextStyle textStyle) {
     return Container(
-      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(rSize * 0.010), boxShadow: AppStyles.shadow()),
-      padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.015),
-      margin: EdgeInsets.only(left: rSize * 0.015,right: rSize * 0.015,top: rSize * 0.015 ),
+      decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(rSize * 0.010),
+          boxShadow: AppStyles.shadow()),
+      padding: EdgeInsets.symmetric(
+          horizontal: rSize * 0.02, vertical: rSize * 0.015),
+      margin: EdgeInsets.only(
+          left: rSize * 0.015, right: rSize * 0.015, top: rSize * 0.015),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -62,14 +76,14 @@ class AppWidgets {
             Text(
               label,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                color: FlutterFlowTheme.of(context).customColor4,
-                fontSize: rSize * 0.016,
-                letterSpacing: 0.0,
-                fontWeight: FontWeight.normal,
-              ),
+                    color: FlutterFlowTheme.of(context).customColor4,
+                    fontSize: rSize * 0.016,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.normal,
+                  ),
             ),
             Text(
-              getStatus(model.status,context),
+              getStatus(model.status, context),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     color: FlutterFlowTheme.of(context).customColor4,
                     fontSize: rSize * 0.012,
@@ -84,16 +98,19 @@ class AppWidgets {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${index+1}.',
-                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            color: FlutterFlowTheme.of(context).customColor4,
-                            fontSize: rSize * 0.016,
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.normal,
-                          ),
+                          '${index + 1}.',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                color:
+                                    FlutterFlowTheme.of(context).customColor4,
+                                fontSize: rSize * 0.016,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.normal,
+                              ),
                         ),
                         SizedBox(
                           width: rSize * 0.015,
@@ -101,12 +118,15 @@ class AppWidgets {
                         Expanded(
                           child: Text(
                             model.listDetails![index],
-                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              color: FlutterFlowTheme.of(context).customColor4,
-                              fontSize: rSize * 0.016,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.normal,
-                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  color:
+                                      FlutterFlowTheme.of(context).customColor4,
+                                  fontSize: rSize * 0.016,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.normal,
+                                ),
                           ),
                         ),
                       ],
@@ -153,7 +173,9 @@ class AppWidgets {
     );
   }
 
-  static Widget portfolioListElement(BuildContext context, String label, String value, {String middleValue = '', Widget? icon, Widget? richText}) {
+  static Widget portfolioListElement(
+      BuildContext context, String label, String value,
+      {String middleValue = '', Widget? icon, Widget? richText}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,7 +242,8 @@ class AppWidgets {
     );
   }
 
-  static bool isAmount(String middleValue) => middleValue.contains(' ') && middleValue.contains('.');
+  static bool isAmount(String middleValue) =>
+      middleValue.contains(' ') && middleValue.contains('.');
 
   static emptyView(String msg, BuildContext context) {
     return Column(
@@ -257,14 +280,17 @@ class AppWidgets {
       alignment: Alignment.center,
       margin: margin,
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-      decoration: gradiantDecoration(context, borderOnly: borderOnly, color: bgColor),
+      decoration:
+          gradiantDecoration(context, borderOnly: borderOnly, color: bgColor),
       child: widget ??
           Text(
             label,
             style: borderOnly
                 ? FlutterFlowTheme.of(context).titleSmall.override(
                       fontSize: rSize * 0.014,
-                      color: borderOnly?FlutterFlowTheme.of(context).customColor4:FlutterFlowTheme.of(context).primary,
+                      color: borderOnly
+                          ? FlutterFlowTheme.of(context).customColor4
+                          : FlutterFlowTheme.of(context).primary,
                     )
                 : FlutterFlowTheme.of(context).titleSmall.override(
                       color: textColor ?? Colors.white,
@@ -274,14 +300,21 @@ class AppWidgets {
     );
   }
 
-  static Widget btnWithoutGradiant(BuildContext context, String label, Color bgColor,
-      {double? width, double horizontalPadding = 0, EdgeInsetsGeometry? margin, Color? textColor}) {
+  static Widget btnWithoutGradiant(
+      BuildContext context, String label, Color bgColor,
+      {double? width,
+      double horizontalPadding = 0,
+      EdgeInsetsGeometry? margin,
+      Color? textColor}) {
     return Container(
       width: width,
       height: btnHeight,
       alignment: Alignment.center,
       margin: margin,
-      decoration: BoxDecoration(color: bgColor, border: Border.all(color: bgColor, width: 1), borderRadius: BorderRadius.circular(rSize * 0.010)),
+      decoration: BoxDecoration(
+          color: bgColor,
+          border: Border.all(color: bgColor, width: 1),
+          borderRadius: BorderRadius.circular(rSize * 0.010)),
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: Text(
         label,
@@ -304,10 +337,10 @@ class AppWidgets {
     );
   }
 
-  static title(BuildContext context, String text,{bool center=false}) {
+  static title(BuildContext context, String text, {bool center = false}) {
     return Text(
       text,
-      textAlign: center?TextAlign.center:null,
+      textAlign: center ? TextAlign.center : null,
       style: FlutterFlowTheme.of(context).bodyMedium.override(
             color: FlutterFlowTheme.of(context).primaryText,
             fontSize: rSize * 0.025,
@@ -317,10 +350,12 @@ class AppWidgets {
     );
   }
 
-  static Widget btnWithIcon(BuildContext context, String label, Color bgColor, Widget icon) {
+  static Widget btnWithIcon(
+      BuildContext context, String label, Color bgColor, Widget icon) {
     return Container(
       alignment: Alignment.center,
-      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(rSize * 0.010)),
+      decoration: BoxDecoration(
+          color: bgColor, borderRadius: BorderRadius.circular(rSize * 0.010)),
       height: btnHeight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -330,7 +365,7 @@ class AppWidgets {
             label,
             style: FlutterFlowTheme.of(context).titleSmall.override(
                   color: Colors.white,
-              fontSize: rSize * 0.014,
+                  fontSize: rSize * 0.014,
                 ),
           ),
         ],
@@ -338,11 +373,14 @@ class AppWidgets {
     );
   }
 
-  static BoxDecoration gradiantDecoration(BuildContext context, {bool borderOnly = false, Color? color}) {
+  static BoxDecoration gradiantDecoration(BuildContext context,
+      {bool borderOnly = false, Color? color}) {
     if (borderOnly) {
       return BoxDecoration(
           color: Colors.transparent,
-          border: Border.all(color: color ?? FlutterFlowTheme.of(context).customColor4, width: 1),
+          border: Border.all(
+              color: color ?? FlutterFlowTheme.of(context).customColor4,
+              width: 1),
           borderRadius: BorderRadius.circular(rSize * 0.010));
     }
     return BoxDecoration(
@@ -361,7 +399,8 @@ class AppWidgets {
         borderRadius: BorderRadius.circular(rSize * 0.008));
   }
 
-  static Expanded sheetElement(String img, String label, void Function()? onTap, BuildContext context) {
+  static Expanded sheetElement(
+      String img, String label, void Function()? onTap, BuildContext context) {
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
@@ -371,8 +410,11 @@ class AppWidgets {
             Container(
                 padding: EdgeInsets.all(rSize * 0.01),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(rSize * 0.020)),
-                    border: Border.all(color: FlutterFlowTheme.of(context).primaryText, width: 1)),
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(rSize * 0.020)),
+                    border: Border.all(
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        width: 1)),
                 child: Image.asset(
                   'assets/$img',
                   height: rSize * 0.025,
@@ -397,7 +439,9 @@ class AppWidgets {
     );
   }
 
-  static void openMediaSelectionBottomSheet(BuildContext context, {required void Function()? onFileClick, required void Function()? onCameraClick}) {
+  static void openMediaSelectionBottomSheet(BuildContext context,
+      {required void Function()? onFileClick,
+      required void Function()? onCameraClick}) {
     showModalBottomSheet(
       useRootNavigator: true,
       backgroundColor: Colors.transparent,
@@ -407,7 +451,9 @@ class AppWidgets {
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.020), topRight: Radius.circular(rSize * 0.020))),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(rSize * 0.020),
+                  topRight: Radius.circular(rSize * 0.020))),
           height: rSize * 0.15,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -442,16 +488,20 @@ class AppWidgets {
   }
 
   static backArrow(BuildContext context, {void Function()? onTap}) {
-    return AppStyles.iconBg(context, data: Icons.arrow_back, size: rSize * 0.025,color:FlutterFlowTheme.of(context).primary,onTap: () {
+    return AppStyles.iconBg(context,
+        data: Icons.arrow_back,
+        size: rSize * 0.025,
+        color: FlutterFlowTheme.of(context).primary, onTap: () {
       if (onTap != null) {
         onTap();
       } else {
         Navigator.pop(context);
       }
-    },boxShadow: AppStyles.shadow());
+    }, boxShadow: AppStyles.shadow());
   }
 
-  static PreferredSize appBar(BuildContext context, String title, {Widget? leading, List<Widget>? actions, bool centerTitle = false}) {
+  static PreferredSize appBar(BuildContext context, String title,
+      {Widget? leading, List<Widget>? actions, bool centerTitle = false}) {
     return PreferredSize(
       preferredSize: Size.fromHeight(rSize * 0.06),
       child: /*!isTablet
@@ -466,25 +516,29 @@ class AppWidgets {
                 ],
               ),
             )
-          : */appbar_(context, title, leading: leading, actions: actions, centerTitle: centerTitle),
+          : */
+          appbar_(context, title.toUpperCase(),
+              leading: leading, actions: actions, centerTitle: centerTitle),
     );
   }
 
-  static AppBar appbar_(BuildContext context, String txt, {Widget? leading, List<Widget>? actions, bool centerTitle = false}) {
+  static AppBar appbar_(BuildContext context, String txt,
+      {Widget? leading, List<Widget>? actions, bool centerTitle = false}) {
     return AppBar(
       elevation: 0,
       actions: actions,
       toolbarHeight: rSize * 0.08,
       surfaceTintColor: Colors.transparent,
       leading: leading,
-      leadingWidth: rSize*0.06,
+      leadingWidth: rSize * 0.06,
       title: title(context, txt),
       centerTitle: true,
     );
   }
 
-  static RichText buildRichText(BuildContext context, String value,{double? fontSize}) {
-    double size=fontSize??rSize * 0.016;
+  static RichText buildRichText(BuildContext context, String value,
+      {double? fontSize}) {
+    double size = fontSize ?? rSize * 0.016;
     return RichText(
       text: TextSpan(
         children: [
@@ -559,7 +613,8 @@ class AppWidgets {
     );
   }
 
-  static showAlert(BuildContext context, String msg, String label1, String label2, void Function()? onTap1, void Function()? onTap2,
+  static showAlert(BuildContext context, String msg, String label1,
+      String label2, void Function()? onTap1, void Function()? onTap2,
       {Color? btn1BgColor, Color? btn2BgColor}) {
     showDialog(
       context: context,
@@ -583,7 +638,8 @@ class AppWidgets {
                           Text(
                             msg,
                             textAlign: TextAlign.center,
-                            style: AppStyles.inputTextStyle(context).copyWith(fontSize: rSize*0.02),
+                            style: AppStyles.inputTextStyle(context)
+                                .copyWith(fontSize: rSize * 0.02),
                           ),
                           SizedBox(
                             height: rSize * 0.02,
@@ -628,47 +684,56 @@ class AppWidgets {
     );
   }
 
-  static void openDatePicker(BuildContext context, dynamic Function(Object?)? onSubmit, void Function()? onCancel,
-      {DateRangePickerSelectionMode mode = DateRangePickerSelectionMode.range}) {
+  static void openDatePicker(BuildContext context,
+      dynamic Function(Object?)? onSubmit, void Function()? onCancel,
+      {DateRangePickerSelectionMode mode =
+          DateRangePickerSelectionMode.range}) {
     showDialog(
       context: context,
       builder: (context) => Center(
         child: Wrap(
           children: [
             Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(rSize * 0.015), color: FlutterFlowTheme.of(context).secondaryBackground),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(rSize * 0.015),
+                  color: FlutterFlowTheme.of(context).secondaryBackground),
               padding: EdgeInsets.all(rSize * 0.010),
               margin: EdgeInsets.all(rSize * 0.015),
               child: SfDateRangePicker(
                 view: DateRangePickerView.month,
                 backgroundColor: Colors.transparent,
                 onSubmit: onSubmit,
-                rangeTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                      color: FlutterFlowTheme.of(context).info,
-                      fontSize: rSize * 0.016,
-                      fontWeight: FontWeight.normal,
-                    ),
-                selectionTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                      color: FlutterFlowTheme.of(context).info,
-                      fontSize: rSize * 0.016,
-                      fontWeight: FontWeight.normal,
-                    ),
-
+                rangeTextStyle: FlutterFlowTheme.of(context).bodyLarge.override(
+                  color: FlutterFlowTheme.of(context).info,
+                  fontSize: rSize * 0.016,
+                  fontWeight: FontWeight.normal,
+                ),
+                selectionTextStyle:
+                FlutterFlowTheme.of(context).bodyLarge.override(
+                  color: FlutterFlowTheme.of(context).info,
+                  fontSize: rSize * 0.016,
+                  fontWeight: FontWeight.normal,
+                ),monthCellStyle: DateRangePickerMonthCellStyle(
+                  textStyle: AppStyles.inputTextStyle(context)
+              ),
                 selectionShape: DateRangePickerSelectionShape.circle,
                 startRangeSelectionColor: FlutterFlowTheme.of(context).primary,
                 endRangeSelectionColor: FlutterFlowTheme.of(context).primary,
                 rangeSelectionColor: FlutterFlowTheme.of(context).primary,
                 selectionMode: mode,
                 headerStyle: DateRangePickerHeaderStyle(
-                  backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+                  backgroundColor:
+                  FlutterFlowTheme.of(context).secondaryBackground,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        fontSize: rSize * 0.016,
-                        fontWeight: FontWeight.normal,
-                      ),
+                    fontSize:rSize * 0.016,
+                    color: FlutterFlowTheme.of(context).customColor4,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-                monthViewSettings: const DateRangePickerMonthViewSettings(
-                  firstDayOfWeek: 1,
+                monthViewSettings:  DateRangePickerMonthViewSettings(
+                  firstDayOfWeek: 1,viewHeaderStyle: DateRangePickerViewHeaderStyle(
+                  textStyle: AppStyles.labelStyle(context)
+                )
                 ),
                 showActionButtons: true,
                 onCancel: onCancel,
@@ -684,9 +749,11 @@ class AppWidgets {
     if (status == '-') {
       return '-';
     } else if (status == 'true') {
-      return FFLocalizations.of(context).getText('zz2ivcgu' /* No issues have been detected */);
+      return FFLocalizations.of(context)
+          .getText('zz2ivcgu' /* No issues have been detected */);
     } else if (status == 'false') {
-      return FFLocalizations.of(context).getText('bwcpcgd0' /* The following investment are no.. */);
+      return FFLocalizations.of(context)
+          .getText('bwcpcgd0' /* The following investment are no.. */);
     }
     return '';
   }

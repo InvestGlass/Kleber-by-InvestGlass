@@ -72,6 +72,9 @@ dependencies:
   timeago:
   wakelock_plus: 1.2.8
   jwt_decoder: 2.0.1
+  xml: ^6.5.0
+  freerasp: ^6.10.0
+  flutter_riverpod:
 
 dev_dependencies:
   flutter_test:

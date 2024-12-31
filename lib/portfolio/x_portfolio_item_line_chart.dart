@@ -439,7 +439,11 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(rSize * 0.020),
                       color: FlutterFlowTheme.of(context).primary),
-                  child: label(context,
+                  child: widget.sectionName==FFLocalizations.of(context)
+                      .getText(
+                    'o00oeypg' /* Currency */,
+                  )?label(context,
+                      '${list[pointIndex].amount.split(' ')[1]} ${list[pointIndex].amount.split(' ')[0]}'):label(context,
                       '${list[pointIndex].label} :  ${list[pointIndex].amount.split(' ')[1]} ${list[pointIndex].amount.split(' ')[0]}'),
                 );
               },

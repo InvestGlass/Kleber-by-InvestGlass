@@ -401,6 +401,25 @@ class _DocumentsState extends State<Documents> {
                                     MediaQuery.of(context).viewInsets.bottom +
                                         rSize * 0.03),
                             children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: AppWidgets.title(context,
+                                          FFLocalizations.of(context).getText(
+                                            'filter' /* Filter */,
+                                          ))),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Icon(
+                                      Icons.close,
+                                      size: rSize * 0.025,
+                                      color: FlutterFlowTheme.of(context).customColor4,
+                                    ),
+                                  )
+                                ],
+                              ),
                               SizedBox(
                                 height: rSize * 0.02,
                               ),

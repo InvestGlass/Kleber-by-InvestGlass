@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kleber_bank/documents/documents.dart';
 import 'package:kleber_bank/documents/upload_document.dart';
 import 'package:kleber_bank/main.dart';
+import 'package:kleber_bank/portfolio/bank_transfer.dart';
 import 'package:kleber_bank/portfolio/portfolio.dart';
 import 'package:kleber_bank/proposals/chat/chat_history.dart';
 import 'package:kleber_bank/utils/app_const.dart';
@@ -232,28 +233,13 @@ class _DashboardState extends State<Dashboard> {
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     boxShadow: AppStyles.shadow(),
                     borderRadius: BorderRadius.circular(rSize * 0.01)),
-                margin: EdgeInsets.only(bottom: rSize * 0.11, left: rSize * 0.015, right: rSize * 0.015),
+                margin: EdgeInsets.only(bottom: rSize * 0.11, left: rSize * 0.01, right: rSize * 0.01),
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: rSize * 0.010),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      actionMenuItem(
-                        context,
-                        AppStyles.iconBg(context,
-                            data: Icons.file_copy,
-                            size: rSize * 0.020,
-                            padding: EdgeInsets.all(rSize * 0.015),
-                            color: FlutterFlowTheme.of(context).customColor4),
-                        FFLocalizations.of(context).getText(
-                          '13mzcnly' /* Document */,
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                          CommonFunctions.navigate(context, const Documents());
-                        },
-                      ),
-
                       actionMenuItem(
                         context,
                         AppStyles.iconBg(context,
@@ -277,6 +263,37 @@ class _DashboardState extends State<Dashboard> {
                           CommonFunctions.navigate(context, const Market());
                         },
                       ),
+                      actionMenuItem(
+                        context,
+                        AppStyles.iconBg(context,
+                            data: Icons.file_copy,
+                            size: rSize * 0.020,
+                            padding: EdgeInsets.all(rSize * 0.015),
+                            color: FlutterFlowTheme.of(context).customColor4),
+                        FFLocalizations.of(context).getText(
+                          'bank_transfer',
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          CommonFunctions.navigate(context, const BankTransfer());
+                        },
+                      ),
+                      actionMenuItem(
+                        context,
+                        AppStyles.iconBg(context,
+                            data: Icons.file_copy,
+                            size: rSize * 0.020,
+                            padding: EdgeInsets.all(rSize * 0.015),
+                            color: FlutterFlowTheme.of(context).customColor4),
+                        FFLocalizations.of(context).getText(
+                          '1vddbh59' /* Document */,
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          CommonFunctions.navigate(context, const Documents());
+                        },
+                      ),
+
 
                       actionMenuItem(
                         context,

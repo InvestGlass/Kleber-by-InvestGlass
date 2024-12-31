@@ -21,7 +21,8 @@ class AddTransaction extends StatefulWidget {
   final MarketListModel? selectedSecurity;
   final PortfolioModel? selectedPortfolio;
 
-  const AddTransaction(this.selectedSecurity,this.selectedPortfolio, {super.key});
+  const AddTransaction(this.selectedSecurity, this.selectedPortfolio,
+      {super.key});
 
   @override
   State<AddTransaction> createState() => _AddTransactionState();
@@ -36,11 +37,13 @@ class _AddTransactionState extends State<AddTransaction> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        MarketController marketController=Provider.of<MarketController>(context, listen: false);
-        PortfolioController portfolioController=Provider.of<PortfolioController>(context, listen: false);
+        MarketController marketController =
+            Provider.of<MarketController>(context, listen: false);
+        PortfolioController portfolioController =
+            Provider.of<PortfolioController>(context, listen: false);
         marketController.getTransactionTypes(context);
         portfolioController.getPortfolioList(context, 0, notify: true);
-        portfolioController.selectedPortfolio=widget.selectedPortfolio;
+        portfolioController.selectedPortfolio = widget.selectedPortfolio;
         portfolioController.notify();
         marketController.selectSecurity(widget.selectedSecurity);
       },
@@ -64,7 +67,7 @@ class _AddTransactionState extends State<AddTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    c=context;
+    c = context;
     _portfolioNotifier = Provider.of<PortfolioController>(context);
     _proposalController = Provider.of<ProposalController>(context);
     _marketNotifier = Provider.of<MarketController>(context);
@@ -86,12 +89,15 @@ class _AddTransactionState extends State<AddTransaction> {
               selectedValue: _portfolioNotifier.selectedPortfolio,
               searchHint: FFLocalizations.of(context).getText(
                 'm7418olr' /* Search for transaction type */,
-              ),hint:_portfolioNotifier.selectedPortfolio?.title??'' ,
+              ),
+              hint: _portfolioNotifier.selectedPortfolio?.title ?? '',
               onChanged: (p0) {
                 _portfolioNotifier.selectedPortfolio = p0;
                 _portfolioNotifier.notify();
               },
-              items: (widget.selectedPortfolio!=null?[]:_portfolioNotifier.portfolioList)
+              items: (widget.selectedPortfolio != null
+                      ? []
+                      : _portfolioNotifier.portfolioList)
                   .map((item) => DropdownMenuItem(
                         value: item,
                         child: Text(
@@ -101,7 +107,8 @@ class _AddTransactionState extends State<AddTransaction> {
                       ))
                   .toList(),
               searchMatchFn: (item, searchValue) {
-                return CommonFunctions.compare(searchValue, item.value.title.toString());
+                return CommonFunctions.compare(
+                    searchValue, item.value.title.toString());
               },
             ),
             SizedBox(
@@ -113,14 +120,17 @@ class _AddTransactionState extends State<AddTransaction> {
               readOnly: true,
               onTap: () {
                 if (widget.selectedSecurity == null) {
-                  CommonFunctions.navigate(context, SecuritySelection(), onBack: (result) {
+                  CommonFunctions.navigate(context, SecuritySelection(),
+                      onBack: (result) {
                     _marketNotifier.selectSecurity(result);
                   });
                 }
               },
-              controller: TextEditingController(text: _marketNotifier.selectedSecurity?.name),
+              controller: TextEditingController(
+                  text: _marketNotifier.selectedSecurity?.name),
               decoration: AppStyles.inputDecoration(context,
-                  contentPadding: EdgeInsets.symmetric(vertical: rSize * 0.015, horizontal: rSize * 0.015),
+                  contentPadding: EdgeInsets.symmetric(
+                      vertical: rSize * 0.015, horizontal: rSize * 0.015),
                   suffix: widget.selectedSecurity != null
                       ? SizedBox(
                           height: rSize * 0.056,
@@ -163,7 +173,8 @@ class _AddTransactionState extends State<AddTransaction> {
                       ))
                   .toList(),
               searchMatchFn: (item, searchValue) {
-                return CommonFunctions.compare(searchValue, item.value.name.toString());
+                return CommonFunctions.compare(
+                    searchValue, item.value.name.toString());
               },
             ),
             SizedBox(
@@ -173,7 +184,8 @@ class _AddTransactionState extends State<AddTransaction> {
             TextFormField(
               style: AppStyles.inputTextStyle(context),
               readOnly: true,
-              controller: TextEditingController(text: _marketNotifier.selectedDateTime),
+              controller:
+                  TextEditingController(text: _marketNotifier.selectedDateTime),
               onTap: () {
                 openDateTimePicker();
               },
@@ -204,10 +216,10 @@ class _AddTransactionState extends State<AddTransaction> {
                 ),
               ),
             ),
-            SizedBox(
+            /*SizedBox(
               height: rSize * 0.015,
             ),
-            label(context, 'u7hyldvt' /* Order Type */),
+            label(context, 'u7hyldvt' */ /* Order Type */ /*),
             TextFormField(
               style: AppStyles.inputTextStyle(context),
               controller: _marketNotifier.orderType,
@@ -220,7 +232,7 @@ class _AddTransactionState extends State<AddTransaction> {
                   width: rSize * 0.050,
                 ),
               ),
-            ),
+            ),*/
             SizedBox(
               height: rSize * 0.015,
             ),
@@ -230,7 +242,8 @@ class _AddTransactionState extends State<AddTransaction> {
               keyboardType: TextInputType.number,
               controller: _marketNotifier.qtyController,
               onChanged: (value) {
-                _marketNotifier.updateAmount(_marketNotifier.selectedSecurity?.price ?? '');
+                _marketNotifier.updateAmount(
+                    _marketNotifier.selectedSecurity?.price ?? '');
               },
               decoration: AppStyles.inputDecoration(
                 context,
@@ -249,9 +262,12 @@ class _AddTransactionState extends State<AddTransaction> {
             TextFormField(
               style: AppStyles.inputTextStyle(context),
               readOnly: true,
-              controller: TextEditingController(text: _marketNotifier.selectedSecurity?.price ?? ''),
+              controller: TextEditingController(
+                  text: _marketNotifier.selectedSecurity?.price ?? ''),
               decoration: AppStyles.inputDecoration(context,
-                  focusColor: FlutterFlowTheme.of(context).customColor4.withOpacity(0.2),
+                  focusColor: FlutterFlowTheme.of(context)
+                      .customColor4
+                      .withOpacity(0.2),
                   contentPadding: EdgeInsets.all(rSize * 0.015),
                   prefix: Container(
                     height: rSize * 0.056,
@@ -263,7 +279,9 @@ class _AddTransactionState extends State<AddTransaction> {
                           topLeft: Radius.circular(rSize * 0.010),
                           bottomLeft: Radius.circular(rSize * 0.010),
                         ),
-                        color: FlutterFlowTheme.of(context).customColor4.withOpacity(0.2)),
+                        color: FlutterFlowTheme.of(context)
+                            .customColor4
+                            .withOpacity(0.2)),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         'bhxqgsuw' /* USD $ */,
@@ -283,7 +301,8 @@ class _AddTransactionState extends State<AddTransaction> {
               keyboardType: TextInputType.number,
               controller: _marketNotifier.limitPriceController,
               onChanged: (value) {
-                _marketNotifier.updateAmount(_marketNotifier.selectedSecurity?.price ?? '');
+                _marketNotifier.updateAmount(
+                    _marketNotifier.selectedSecurity?.price ?? '');
               },
               decoration: AppStyles.inputDecoration(context,
                   prefix: Container(
@@ -296,7 +315,9 @@ class _AddTransactionState extends State<AddTransaction> {
                           topLeft: Radius.circular(rSize * 0.010),
                           bottomLeft: Radius.circular(rSize * 0.010),
                         ),
-                        color: FlutterFlowTheme.of(context).customColor4.withOpacity(0.2)),
+                        color: FlutterFlowTheme.of(context)
+                            .customColor4
+                            .withOpacity(0.2)),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         'bhxqgsuw' /* USD $ */,
@@ -315,9 +336,12 @@ class _AddTransactionState extends State<AddTransaction> {
             TextFormField(
               style: AppStyles.inputTextStyle(context),
               readOnly: true,
-              controller: TextEditingController(text: _marketNotifier.amount.toString()),
+              controller: TextEditingController(
+                  text: _marketNotifier.amount.toString()),
               decoration: AppStyles.inputDecoration(context,
-                  focusColor: FlutterFlowTheme.of(context).customColor4.withOpacity(0.2),
+                  focusColor: FlutterFlowTheme.of(context)
+                      .customColor4
+                      .withOpacity(0.2),
                   contentPadding: EdgeInsets.all(rSize * 0.015),
                   prefix: Container(
                     height: rSize * 0.056,
@@ -329,7 +353,9 @@ class _AddTransactionState extends State<AddTransaction> {
                           topLeft: Radius.circular(rSize * 0.010),
                           bottomLeft: Radius.circular(rSize * 0.010),
                         ),
-                        color: FlutterFlowTheme.of(context).customColor4.withOpacity(0.2)),
+                        color: FlutterFlowTheme.of(context)
+                            .customColor4
+                            .withOpacity(0.2)),
                     child: Text(
                       FFLocalizations.of(context).getText(
                         'bhxqgsuw' /* USD $ */,
@@ -348,7 +374,10 @@ class _AddTransactionState extends State<AddTransaction> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    _marketNotifier.transmit(_portfolioNotifier.selectedPortfolio, context, _proposalController);
+                    _marketNotifier.transmit(
+                        _portfolioNotifier.selectedPortfolio,
+                        context,
+                        _proposalController);
                   },
                   child: AppWidgets.btn(
                       context,
@@ -379,18 +408,17 @@ class _AddTransactionState extends State<AddTransaction> {
 
   Future<void> openDateTimePicker() async {
     AppWidgets.openDatePicker(context, (p0) async {
-      _marketNotifier.selectedDate=DateFormat('yyyy-mm-dd').parse(p0.toString());
+      _marketNotifier.selectedDate =
+          DateFormat('yyyy-mm-dd').parse(p0.toString());
       if (_marketNotifier.selectedDate != null) {
         Navigator.pop(context);
         _marketNotifier.selectedTime = await showTimePicker(
-          context: context,
-          initialTime: _marketNotifier.selectedTime ?? TimeOfDay.now(),
-        );
+            context: context,
+            initialTime: _marketNotifier.selectedTime ?? TimeOfDay.now(),
+            builder: AppStyles.timePickerStyle);
         _marketNotifier.selectTime(context);
       }
-    }, () {
-
-    },mode: DateRangePickerSelectionMode.single);
+    }, () {}, mode: DateRangePickerSelectionMode.single);
     /*DateTime now = DateTime.now();
     _marketNotifier.selectedDate = await showDatePicker(
       context: context,

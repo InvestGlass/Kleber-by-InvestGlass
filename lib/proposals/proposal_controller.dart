@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart'; // For parsing HTML
+import 'package:html/dom.dart'; // For DOM manipulation
 import 'package:infinite_scroll_pagination/src/core/paging_controller.dart';
 import 'package:kleber_bank/proposals/chat/chat_history_model.dart';
 import 'package:kleber_bank/proposals/proposal_model.dart';
@@ -76,9 +78,19 @@ class ProposalController extends ChangeNotifier {
   final PagingController<int, ChatHistoryModel> chatHistoryPagingController = PagingController(firstPageKey: 1);
   TextEditingController msgController=TextEditingController();
 
+  String stripHtmlTags(String htmlString) {
+    final Document document = parse(htmlString);
+
+    // Remove unsafe elements like <script> and <style>
+    document.querySelectorAll('script, style').forEach((element) => element.remove());
+
+    return document.body?.innerHtml ?? '';
+  }
+
   void sendMsg(BuildContext context,{String? msg}) {
+
     Map<String,dynamic> map={},map2={};
-    map['comment']=msg??msgController.text;
+    map['comment']=msg??stripHtmlTags(msgController.text);
     map2['message']=map;
     CommonFunctions.showLoader(context);
     ApiCalls.sendMsg(context, map2).then((value) {

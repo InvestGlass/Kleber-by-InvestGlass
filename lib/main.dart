@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart' as riverpod;
+import 'package:freerasp/freerasp.dart';
 import 'package:intl/intl.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:kleber_bank/dashboard/dashboard.dart';
@@ -19,7 +21,7 @@ import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/flutter_flow_theme.dart';
 import 'package:kleber_bank/utils/internationalization.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+import 'package:package_info_plus/package_info_plus.dart' as info;
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -33,7 +35,7 @@ import 'market/market_controller.dart';
 double rSize = 0, btnHeight = 0;
 bool isTablet = false;
 late BuildContext globalContext;
-late PackageInfo packageInfo;
+late info.PackageInfo packageInfo;
 late bool isPortraitMode;
 late EdgeInsets padding;
 BuildContext? c;
@@ -47,6 +49,7 @@ void main() async {
 
   await FFLocalizations.initialize();
   WakelockPlus.enable();
+  await _initializeTalsec();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
@@ -84,31 +87,37 @@ void main() async {
   ));
 }
 
-class MyApp extends StatefulWidget {
+Future<void> _initializeTalsec() async {
+  info.PackageInfo packageInfo =await info.PackageInfo.fromPlatform();
+  final config = TalsecConfig(
+    androidConfig: AndroidConfig(
+      packageName: 'com.aheaditec.freeraspExample',
+      signingCertHashes: ['AKoRuyLMM91E7lX/Zqp3u4jMmd0A7hH/Iqozu0TMVd0='],
+      supportedStores: ['com.sec.android.app.samsungapps'],
+      malwareConfig: MalwareConfig(
+        blacklistedPackageNames: ['com.aheaditec.freeraspExample'],
+      ),
+    ),
+    iosConfig: IOSConfig(
+      bundleIds: [packageInfo.packageName],
+      teamId: '6YB8M77497',
+    ),
+    watcherMail: 'your_mail@example.com',
+    isProd: kReleaseMode,
+  );
+
+  await Talsec.instance.start(config);
+}
+
+class MyApp extends riverpod.ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  riverpod.ConsumerState<riverpod.ConsumerStatefulWidget> createState()=>_MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-  Locale? _locale = FFLocalizations.getStoredLocale();
+class _MyAppState extends riverpod.ConsumerState<MyApp> {
   late MainController _notifier;
-  static const int _timeoutSeconds = 3 * 60;
-
-  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
-
-  // This widget is the root of your application.
-
-  void setLocale(String language) {
-    setState(() => _locale = createLocale(language));
-    FFLocalizations.storeLocale(language);
-  }
-
-  void setThemeMode(ThemeMode mode) => setState(() {
-        _themeMode = mode;
-        FlutterFlowTheme.saveThemeMode(mode);
-      });
 
   @override
   void initState() {
@@ -118,7 +127,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> getPackageInfo() async {
-    packageInfo = await PackageInfo.fromPlatform();
+    packageInfo = await info.PackageInfo.fromPlatform();
   }
 
   @override

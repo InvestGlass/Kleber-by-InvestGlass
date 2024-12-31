@@ -617,8 +617,8 @@ class ApiCalls {
           body: jsonEncode(body),
           isJson: true);
       return ChatHistoryModel.fromJson(map);
-    } catch (e) {
-      print('chat error');
+    } on Error catch (e) {
+      print('chat error ${e.toString()} ${e.stackTrace}');
     }
     return null;
   }

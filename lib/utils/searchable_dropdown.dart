@@ -18,6 +18,9 @@ class SearchableDropdown extends StatefulWidget {
   final void Function(dynamic) onChanged;
   final FocusNode? focusNode;
   final List<DropdownMenuItem<dynamic>>? items;
+  final Color? broderColor;
+  final double? height;
+  final EdgeInsets? padding;
   final bool Function(DropdownMenuItem<dynamic>, String)? searchMatchFn;
 
   const SearchableDropdown(
@@ -29,6 +32,9 @@ class SearchableDropdown extends StatefulWidget {
       required this.searchMatchFn,
       this.hint = '',
       this.selectedItemBuilder,
+      this.broderColor,
+      this.height,
+      this.padding,
       this.focusNode,
       super.key});
 
@@ -56,13 +62,13 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
   Widget build(BuildContext context) {
     c=context;
     return SizedBox(
-      height: rSize * 0.056,
+      height: widget.height??(rSize * 0.056),
       width: double.infinity,
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(rSize * 0.010),
           border: Border.all(
-            color: FlutterFlowTheme.of(context).alternate,
+            color: widget.broderColor??FlutterFlowTheme.of(context).alternate,
             width: 2,
           ),
           color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -97,14 +103,14 @@ class _SearchableDropdownState extends State<SearchableDropdown> {
               });
             },
             buttonStyleData: ButtonStyleData(
-              padding: EdgeInsets.symmetric(horizontal: rSize * 0.016),
+              padding: widget.padding??EdgeInsets.symmetric(horizontal: rSize * 0.016),
               height: rSize * 0.040,
-              width: rSize * 0.200,
+              width: rSize * 0.250,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
                 borderRadius: BorderRadius.circular(rSize * 0.010),
                 border: Border.all(
-                  color: FlutterFlowTheme.of(context).alternate,
+                  color: widget.broderColor??FlutterFlowTheme.of(context).alternate,
                   width: 2,
                 ), // Set the dropdown corner radius here
               ),
