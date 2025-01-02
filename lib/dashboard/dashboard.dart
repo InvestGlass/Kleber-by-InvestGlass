@@ -266,7 +266,7 @@ class _DashboardState extends State<Dashboard> {
                       actionMenuItem(
                         context,
                         AppStyles.iconBg(context,
-                            data: Icons.file_copy,
+                            data: Icons.currency_exchange,
                             size: rSize * 0.020,
                             padding: EdgeInsets.all(rSize * 0.015),
                             color: FlutterFlowTheme.of(context).customColor4),

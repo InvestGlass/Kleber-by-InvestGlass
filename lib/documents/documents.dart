@@ -65,6 +65,9 @@ class _DocumentsState extends State<Documents> {
       (value) {
         List<Document> list = value?.folders ?? [];
         final isLastPage = list.length < 10;
+        if(_notifier.selectedType!='All'){
+          list.removeWhere((element) => element.documentType==null,);
+        }
         if (isLastPage) {
           _notifier2.pagingController.appendLastPage(list);
         } else {
@@ -146,6 +149,46 @@ class _DocumentsState extends State<Documents> {
               ],
             ),
           ),
+          /*SizedBox(
+            height: rSize*0.04,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: _notifier.selectedFilterList.length,
+              itemBuilder: (context, index) {
+            return Row(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: rSize*0.015,left: rSize*0.015),
+                  padding: EdgeInsets.symmetric(horizontal: rSize*0.01),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: FlutterFlowTheme.of(context).customColor4,width: 1),
+                    borderRadius: BorderRadius.circular(rSize*0.2)
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(_notifier.selectedFilterList[index].name!,style: AppStyles.inputTextStyle(context),),
+                        SizedBox(width: rSize*0.005,),
+                        if((_notifier.selectedFilterList[index].type=='type' && _notifier.selectedFilterList[index].name!='All') || _notifier.selectedFilterList[index].type!='type')...{
+                          GestureDetector(
+                              onTap: () {
+                                _notifier.selectedFilterList.removeAt(index);
+                                _notifier.update();
+                                _notifier.pagingController.refresh();
+                              },
+                              child: Icon(Icons.close,size: rSize*0.025,color: FlutterFlowTheme.of(context).customColor4,))
+                        }else...{
+                          SizedBox(height: rSize*0.05,)
+                        }
+
+
+                    ],
+                  ),
+                ),
+              ],
+            );
+            },),
+          ),*/
           Flexible(
             child: RefreshIndicator(
               onRefresh: () async {
@@ -404,7 +447,8 @@ class _DocumentsState extends State<Documents> {
                               Row(
                                 children: [
                                   Expanded(
-                                      child: AppWidgets.title(context,
+                                      child: AppWidgets.title(
+                                          context,
                                           FFLocalizations.of(context).getText(
                                             'filter' /* Filter */,
                                           ))),
@@ -415,7 +459,8 @@ class _DocumentsState extends State<Documents> {
                                     child: Icon(
                                       Icons.close,
                                       size: rSize * 0.025,
-                                      color: FlutterFlowTheme.of(context).customColor4,
+                                      color: FlutterFlowTheme.of(context)
+                                          .customColor4,
                                     ),
                                   )
                                 ],
@@ -546,7 +591,7 @@ class _DocumentsState extends State<Documents> {
                                         setState(() {});
                                       }
                                     },
-                                    () {
+                                    onCancel: () {
                                       _notifier.setDate('');
                                       Navigator.pop(context);
                                       setState(() {});
@@ -580,9 +625,10 @@ class _DocumentsState extends State<Documents> {
                                         onTap: () async {
                                           _notifier.selectedAccount = null;
                                           _notifier.searchedFile = '';
-                                          _notifier.selectedType = null;
+                                          _notifier.selectedType = 'All';
                                           _notifier.range = '';
                                           _pageKey = 1;
+                                          _notifier.selectedFilterList=[FilterModel(selectedType, 'type')];
                                           _notifier.pagingController.refresh();
                                           Navigator.pop(context);
                                         },
@@ -607,15 +653,13 @@ class _DocumentsState extends State<Documents> {
                                           _notifier.range = range;
                                           _pageKey = 1;
                                           _notifier.notify();
-                                          /*_notifier.selectedFilterList.removeWhere((element) =>
-                                              element.type == FilterTypes.ACCOUNT.name ||
-                                              element.type == FilterTypes.FILE_NAME.name ||
-                                              element.type == FilterTypes.DATE_RANGE.name ||
-                                              element.type == FilterTypes.TYPE.name);
-                                          _notifier.selectedFilterList.add(FilterModel(_notifier.selectedAccount, FilterTypes.ACCOUNT.name));
-                                          _notifier.selectedFilterList.add(FilterModel(_notifier.searchedFile, FilterTypes.FILE_NAME.name));
-                                          _notifier.selectedFilterList.add(FilterModel(_notifier.selectedType, FilterTypes.TYPE.name));
-                                          _notifier.selectedFilterList.add(FilterModel(_notifier.range, FilterTypes.DATE_RANGE.name));*/
+                                          _notifier.selectedFilterList.clear();
+                                          _notifier.selectedFilterList.add(FilterModel(selectedType, 'type'));
+                                          if(searchedFileName.isNotEmpty){
+                                            _notifier.selectedFilterList.add(FilterModel(searchedFileName, 'searched_name'));
+                                          }if(range.isNotEmpty){
+                                            _notifier.selectedFilterList.add(FilterModel(range, 'range'));
+                                          }
                                           _notifier.pagingController.refresh();
                                           Navigator.pop(context);
                                         },
@@ -647,7 +691,7 @@ class _DocumentsState extends State<Documents> {
   }
 
   void openSortBottomSheet() {
-    _notifier.tempSortRadioGroupValue=_notifier.sortRadioGroupValue;
+    _notifier.tempSortRadioGroupValue = _notifier.sortRadioGroupValue;
     showDialog(
       useRootNavigator: true,
       context: context,
@@ -667,16 +711,18 @@ class _DocumentsState extends State<Documents> {
                       children: [
                         Container(
                           alignment: Alignment.center,
-                          margin: EdgeInsets.all(rSize*0.015),
+                          margin: EdgeInsets.all(rSize * 0.015),
                           padding: EdgeInsets.only(
                               left: rSize * 0.02,
                               right: rSize * 0.02,
                               top: rSize * 0.03,
-                              bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
+                              bottom: MediaQuery.of(context).viewInsets.bottom +
+                                  rSize * 0.03),
                           decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .primaryBackground,
-                              borderRadius: BorderRadius.circular(rSize * 0.015)),
+                              borderRadius:
+                                  BorderRadius.circular(rSize * 0.015)),
                           child: Column(
                             children: [
                               Row(
@@ -694,7 +740,8 @@ class _DocumentsState extends State<Documents> {
                                     child: Icon(
                                       Icons.close,
                                       size: rSize * 0.025,
-                                      color: FlutterFlowTheme.of(context).customColor4,
+                                      color: FlutterFlowTheme.of(context)
+                                          .customColor4,
                                     ),
                                   )
                                 ],
@@ -712,13 +759,18 @@ class _DocumentsState extends State<Documents> {
                               GestureDetector(
                                 onTap: () {
                                   _pageKey = 1;
-                                  _notifier.setSortRadioGroupValue(_notifier.tempSortRadioGroupValue, _notifier.sortList[_notifier.tempSortRadioGroupValue]);
+                                  _notifier.setSortRadioGroupValue(
+                                      _notifier.tempSortRadioGroupValue,
+                                      _notifier.sortList[
+                                          _notifier.tempSortRadioGroupValue]);
                                   _notifier.pagingController.refresh();
                                   Navigator.pop(context);
                                 },
-                                child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
-                                  'lmndaaco' /* Apply */,
-                                )),
+                                child: AppWidgets.btn(
+                                    context,
+                                    FFLocalizations.of(context).getText(
+                                      'lmndaaco' /* Apply */,
+                                    )),
                               )
                             ],
                           ),

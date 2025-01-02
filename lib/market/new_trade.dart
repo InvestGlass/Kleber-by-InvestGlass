@@ -412,13 +412,12 @@ class _AddTransactionState extends State<AddTransaction> {
           DateFormat('yyyy-mm-dd').parse(p0.toString());
       if (_marketNotifier.selectedDate != null) {
         Navigator.pop(context);
-        _marketNotifier.selectedTime = await showTimePicker(
+        _marketNotifier.selectedTime = await AppWidgets.showTimePicker_(
             context: context,
-            initialTime: _marketNotifier.selectedTime ?? TimeOfDay.now(),
-            builder: AppStyles.timePickerStyle);
+            initialTime: _marketNotifier.selectedTime ?? TimeOfDay.now());
         _marketNotifier.selectTime(context);
       }
-    }, () {}, mode: DateRangePickerSelectionMode.single);
+    }, mode: DateRangePickerSelectionMode.single);
     /*DateTime now = DateTime.now();
     _marketNotifier.selectedDate = await showDatePicker(
       context: context,

@@ -684,10 +684,10 @@ class AppWidgets {
     );
   }
 
-  static void openDatePicker(BuildContext context,
-      dynamic Function(Object?)? onSubmit, void Function()? onCancel,
-      {DateRangePickerSelectionMode mode =
-          DateRangePickerSelectionMode.range}) {
+  static void openDatePicker(
+      BuildContext context, dynamic Function(Object?)? onSubmit,
+      {DateRangePickerSelectionMode mode = DateRangePickerSelectionMode.range,
+        void Function()? onCancel}) {
     showDialog(
       context: context,
       builder: (context) => Center(
@@ -713,36 +713,114 @@ class AppWidgets {
                   color: FlutterFlowTheme.of(context).info,
                   fontSize: rSize * 0.016,
                   fontWeight: FontWeight.normal,
-                ),monthCellStyle: DateRangePickerMonthCellStyle(
-                  textStyle: AppStyles.inputTextStyle(context)
-              ),
+                ),
+                monthCellStyle: DateRangePickerMonthCellStyle(
+                    textStyle: AppStyles.inputTextStyle(context)),
                 selectionShape: DateRangePickerSelectionShape.circle,
                 startRangeSelectionColor: FlutterFlowTheme.of(context).primary,
                 endRangeSelectionColor: FlutterFlowTheme.of(context).primary,
                 rangeSelectionColor: FlutterFlowTheme.of(context).primary,
+                confirmText: 'OK',
+                cancelText: 'CANCEL',
                 selectionMode: mode,
                 headerStyle: DateRangePickerHeaderStyle(
                   backgroundColor:
                   FlutterFlowTheme.of(context).secondaryBackground,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontSize:rSize * 0.016,
+                    fontSize: rSize * 0.016,
                     color: FlutterFlowTheme.of(context).customColor4,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                monthViewSettings:  DateRangePickerMonthViewSettings(
-                  firstDayOfWeek: 1,viewHeaderStyle: DateRangePickerViewHeaderStyle(
-                  textStyle: AppStyles.labelStyle(context)
-                )
+                monthViewSettings: const DateRangePickerMonthViewSettings(
+                  firstDayOfWeek: 1,
                 ),
                 showActionButtons: true,
-                onCancel: onCancel,
+                onCancel: () {
+                  if(onCancel==null) {
+                    Navigator.pop(context);
+                  }else{
+                    onCancel();
+                  }
+                },
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  static Future<TimeOfDay?> showTimePicker_(
+      {required BuildContext context, required TimeOfDay initialTime}) {
+    return showTimePicker(
+      context: context,
+      initialTime: initialTime,
+      cancelText: 'CANCEL',
+      confirmText: 'OK',
+      builder: (context, child) => Theme(
+        data: ThemeData(
+          timePickerTheme: TimePickerThemeData(
+            hourMinuteTextStyle:
+            FlutterFlowTheme.of(context).bodyMedium.override(
+              color: FlutterFlowTheme.of(context).primaryText,
+              fontSize: rSize * 0.03,
+              letterSpacing: 2.0,
+              fontWeight: FontWeight.w300,
+            ),
+            timeSelectorSeparatorTextStyle: WidgetStateProperty.resolveWith(
+                    (states) => FlutterFlowTheme.of(context).bodyMedium.override(
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontSize: rSize * 0.03,
+                  letterSpacing: 2.0,
+                  fontWeight: FontWeight.w300,
+                )),
+            dialTextStyle: AppStyles.inputTextStyle(context),
+            cancelButtonStyle: buttonStyle(context),
+            confirmButtonStyle: buttonStyle(context),
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            dialBackgroundColor: FlutterFlowTheme.of(context).alternate,
+            hourMinuteColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.selected)
+                ? FlutterFlowTheme.of(context).alternate
+                : FlutterFlowTheme.of(context).primaryBackground),
+            // Selected period color
+            hourMinuteTextColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.selected)
+                ? FlutterFlowTheme.of(context).primaryText
+                : FlutterFlowTheme.of(context).customColor4),
+            // Text color for AM/PM
+            dialHandColor: FlutterFlowTheme.of(context).info,
+            dayPeriodTextStyle: AppStyles.inputTextStyle(context),
+            dayPeriodColor: FlutterFlowTheme.of(context).primaryBackground,
+            helpTextStyle: AppStyles.labelStyle(context),
+            dayPeriodBorderSide:
+            BorderSide(color: FlutterFlowTheme.of(context).customColor4),
+            dayPeriodTextColor: WidgetStateColor.resolveWith((states) =>
+            states.contains(WidgetState.selected)
+                ? FlutterFlowTheme.of(context).primaryText
+                : FlutterFlowTheme.of(context).customColor4),
+            dialTextColor: FlutterFlowTheme.of(context).customColor4,
+            entryModeIconColor: FlutterFlowTheme.of(context).customColor4,
+          ),
+        ),
+        child: child!,
+      ),
+    );
+  }
+
+  static ButtonStyle buttonStyle(BuildContext context) {
+    return ButtonStyle(textStyle: MaterialStateProperty.resolveWith((states) {
+      if (states.contains(MaterialState.selected)) {
+        return AppStyles.labelStyle(context); // Selected state color
+      }
+      return AppStyles.labelStyle(context); // Default state color
+    }), foregroundColor: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
+        return FlutterFlowTheme.of(context).primary; // Selected state color
+      }
+      return FlutterFlowTheme.of(context).primary; // Default state color
+    }));
   }
 
   static String getStatus(String? status, BuildContext context) {

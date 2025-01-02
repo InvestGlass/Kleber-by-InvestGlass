@@ -29,7 +29,7 @@ class DocumentsController extends ChangeNotifier {
   String selectedAncestryFolder = '', selectedPath = '', startDate = '', endDate = '', orderColumn = 'created_at', orderDirection = 'desc';
   // List<FilterModel> appliedFilters = [];
   String filterName = 'filterName', filterType = 'filterType', filterDate = 'filterDate', path = 'path', sortType = 'sortType';
-  // List<FilterModel> selectedFilterList = [];
+  List<FilterModel> selectedFilterList = [FilterModel('All', 'type')];
   List<AccountsModel> accountList=[];
   List<AccountsModel> accountModelList=[];
   final PagingController<int, Document> pagingController = PagingController(firstPageKey: 1);
@@ -47,10 +47,10 @@ class DocumentsController extends ChangeNotifier {
     } else {
       orderDirection = 'asc';
     }
-    /*appliedFilters.removeWhere(
-      (element) => element.type == sortType,
-    );
-    appliedFilters.insert(0, FilterModel(label, sortType));*/
+    notifyListeners();
+  }
+
+  void update(){
     notifyListeners();
   }
 
@@ -165,19 +165,9 @@ class DocumentsController extends ChangeNotifier {
   }
 }
 
-/*enum FilterTypes{
-  ACCOUNT,
-  FILE_NAME,
-  TYPE,
-  DATE_RANGE,
-  ANCESTRY_FOLDER,
-  COLUMN,
-  DIRECTION,
-}
-
 class FilterModel {
   String? name;
   String type;
 
   FilterModel(this.name, this.type);
-}*/
+}

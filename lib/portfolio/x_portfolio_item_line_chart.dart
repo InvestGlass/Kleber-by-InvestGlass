@@ -35,6 +35,8 @@ class XPortfolioItemLineChart extends StatefulWidget {
       this.listY = const [],
       this.listAmount = const [],
       this.additionPercents = const [],
+      this.isUSDAmountAvailable = const [],
+      this.usdList = const [],
       this.sectionName = '',
       this.item});
 
@@ -44,6 +46,8 @@ class XPortfolioItemLineChart extends StatefulWidget {
   final List<String> xLabels;
   final List<String> listY;
   final List<String> listAmount;
+  final List<String> usdList;
+  final List<bool> isUSDAmountAvailable;
   final List<double> additionPercents;
   final String? sectionName;
   final PortfolioModel? item;
@@ -301,7 +305,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                       borderRadius: BorderRadius.circular(20),
                       color: FlutterFlowTheme.of(context).primary),
                   child: label(context,
-                      '${filteredList[trackballDetails.pointIndex!].label} : ${filteredList[trackballDetails.pointIndex!].percentage}%'),
+                      '${filteredList[trackballDetails.pointIndex!].isUSDAmountAvailable!?filteredList[trackballDetails.pointIndex!].usdValue:filteredList[trackballDetails.pointIndex!].label} : ${filteredList[trackballDetails.pointIndex!].percentage}%'),
                 );
               },
               activationMode: ActivationMode.singleTap,
@@ -417,10 +421,10 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               ? '0'
               : double.parse(listAmount[index].split(' ')[1].replaceAll(',', '')) < 0
                   ? '0'
-                  : listAmount[index]),
+                  : listAmount[index],isUSDAmountAvailable: widget.isUSDAmountAvailable[index],usdValue: widget.usdList[index]),
     );
     list.sort((a, b)  {
-      print('amount : ${a.label} ${a.amount}');
+      print('amount : ${a.label} ${a.amount} ${a.isUSDAmountAvailable}');
          return double.parse(a.amount.split(' ')[1].replaceAll(',', '')).compareTo(
               double.parse(b.amount.split(' ')[1].replaceAll(',', '')));
         });
@@ -443,7 +447,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                       .getText(
                     'o00oeypg' /* Currency */,
                   )?label(context,
-                      '${list[pointIndex].amount.split(' ')[1]} ${list[pointIndex].amount.split(' ')[0]}'):label(context,
+                      '${showUsdValue(list, pointIndex)?list[pointIndex].usdValue!.split(' ')[1]:list[pointIndex].amount.split(' ')[1]} ${showUsdValue(list, pointIndex)?'USD':list[pointIndex].label}'):label(context,
                       '${list[pointIndex].label} :  ${list[pointIndex].amount.split(' ')[1]} ${list[pointIndex].amount.split(' ')[0]}'),
                 );
               },
@@ -544,6 +548,8 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     );
   }
 
+  bool showUsdValue(List<ChartModel> list, int pointIndex) => list[pointIndex].isUSDAmountAvailable!;
+
   label(BuildContext context, String s) {
     return Text(
       s,
@@ -587,9 +593,11 @@ class ChartModel {
   double percentage;
   String label;
   String amount;
+  String? usdValue;
+  bool? isUSDAmountAvailable;
   DateTime? date;
 
-  ChartModel(this.percentage, this.label, this.amount, {this.date});
+  ChartModel(this.percentage, this.label, this.amount, {this.date,this.isUSDAmountAvailable=false,this.usdValue=''});
 }
 
 const colorList = [

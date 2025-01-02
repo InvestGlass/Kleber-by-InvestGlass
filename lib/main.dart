@@ -15,6 +15,8 @@ import 'package:kleber_bank/portfolio/positions.dart';
 import 'package:kleber_bank/portfolio/transactions.dart';
 import 'package:kleber_bank/profile/profile_controller.dart';
 import 'package:kleber_bank/proposals/proposal_controller.dart';
+import 'package:kleber_bank/rsap/threat_notifier.dart';
+import 'package:kleber_bank/rsap/threat_state.dart';
 import 'package:kleber_bank/securitySelection/security_selection_controller.dart';
 import 'package:kleber_bank/utils/app_colors.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
@@ -40,6 +42,11 @@ late bool isPortraitMode;
 late EdgeInsets padding;
 BuildContext? c;
 Timer? inactivityTimer;
+final threatProvider =
+riverpod.NotifierProvider.autoDispose<ThreatNotifier, ThreatState>(() {
+  return ThreatNotifier();
+});
+Set<Threat> detectedMalware=Set();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -83,7 +90,7 @@ void main() async {
         create: (context) => SecuritySelectionController(),
       ),
     ],
-    child: const MyApp(),
+    child: riverpod.ProviderScope(child: MyApp()),
   ));
 }
 
@@ -132,6 +139,15 @@ class _MyAppState extends riverpod.ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final threatState = ref.watch(threatProvider);
+    detectedMalware=threatState.detectedThreats;
+    // Listen for changes in the threatProvider and show the malware modal
+    /*ref.listen(threatProvider, (prev, next) {
+      print('malware list ${next.detectedMalware.length}');
+      if (prev?.detectedMalware != next.detectedMalware) {
+
+      }
+    });*/
     c = context;
     _notifier = Provider.of<MainController>(context);
     isTablet = _isTablet(context);

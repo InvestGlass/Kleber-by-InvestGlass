@@ -95,6 +95,7 @@ class MarketController extends ChangeNotifier {
         (value) {
           CommonFunctions.dismissLoader(context);
           transactionTypeList = value;
+          transactionTypeList.sort((a, b) => a.name!.compareTo(b.name!),);
           notifyListeners();
         },
       );

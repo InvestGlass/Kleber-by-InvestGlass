@@ -138,9 +138,7 @@ class _TransactionsState extends State<Transactions> {
                           setState(() {});
                         }
                       },
-                          () {
-                        Navigator.pop(context);
-                      },mode: DateRangePickerSelectionMode.single
+                          mode: DateRangePickerSelectionMode.single
                     );
                   },
                   child: Container(

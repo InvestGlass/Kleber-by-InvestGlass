@@ -400,11 +400,17 @@ class _PortfolioState extends State<Portfolio>
                                           listAmount: item.currenciesChart!
                                               .map((e) => e.amount3!)
                                               .toList(),
+                                          usdList: item.currenciesChart!
+                                              .map((e) => e.amount2!)
+                                              .toList(),
                                           sectionName:
                                               FFLocalizations.of(context)
                                                   .getText(
                                             'o00oeypg' /* Currency */,
                                           ),
+                                          isUSDAmountAvailable: item.currenciesChart!
+                                              .map((e) => e.isUSDAmountAvailable!)
+                                              .toList(),
                                         ),
                                       ),
                                       Visibility(
