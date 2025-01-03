@@ -79,6 +79,7 @@ class PortfolioSecurity {
   String? status;
   Security? security;
   String? securityName;
+  String? securityImageUrl;
   String? securityIsin;
   String? assetClass;
   dynamic expirationDate;
@@ -100,6 +101,7 @@ class PortfolioSecurity {
     this.status,
     this.security,
     this.securityName,
+    this.securityImageUrl,
     this.securityIsin,
     this.assetClass,
     this.expirationDate,
@@ -126,6 +128,7 @@ class PortfolioSecurity {
     status: json["status"],
     security: Security.fromJson(json["security"]),
     securityName: json["security_name"],
+    securityImageUrl: json["security_image_url"],
     securityIsin: json["security_isin"],
     assetClass: json["asset_class"],
     expirationDate: json["expiration_date"],
@@ -149,6 +152,7 @@ class PortfolioSecurity {
     "security": security?.toJson(),
     "security_name": securityName,
     "security_isin": securityIsin,
+    "security_image_url": securityImageUrl,
     "asset_class": assetClass,
     "expiration_date": expirationDate,
     "featured": featured,

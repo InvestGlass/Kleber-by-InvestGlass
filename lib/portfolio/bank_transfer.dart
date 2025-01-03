@@ -6,6 +6,7 @@ import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/searchable_dropdown.dart';
 import 'package:provider/provider.dart';
 
+import '../utils/common_functions.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
 
@@ -21,7 +22,6 @@ class _BankTransferState extends State<BankTransfer> {
 
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -30,77 +30,154 @@ class _BankTransferState extends State<BankTransfer> {
 
     // Code for parsing XML data.
   }
+
   @override
   Widget build(BuildContext context) {
     _notifier = Provider.of<PortfolioController>(context);
     return Scaffold(
-      appBar: AppWidgets.appBar(context, FFLocalizations.of(context).getText(
-        "bank_transfer",
-      ).toUpperCase(),leading: AppWidgets.backArrow(context)),
+      appBar: AppWidgets.appBar(
+          context,
+          FFLocalizations.of(context)
+              .getText(
+                "bank_transfer",
+              )
+              .toUpperCase(),
+          leading: AppWidgets.backArrow(context)),
       body: ListView(
         shrinkWrap: true,
-        padding: EdgeInsets.all(rSize*0.015),
+        padding: EdgeInsets.all(rSize * 0.015),
         children: [
-          AppWidgets.label(context, FFLocalizations.of(context).getText(
-            'lvtq8f1d' /* trans type */,
-          )),
-          SizedBox(height: rSize*0.005,),
-          SearchableDropdown(selectedValue: _notifier.selectedType, searchHint: '', onChanged: (p0) {
-
-          }, items: _notifier.typeList
-              .map((item) => DropdownMenuItem(
-            value: item,
-            child: Text(
-              item,
-              style: AppStyles.inputTextStyle(context),
+          AppWidgets.label(
+              context,
+              FFLocalizations.of(context).getText(
+                'xn2nrgyp' /* Portfolio */,
+              )),
+          SearchableDropdown(
+            selectedValue: _notifier.selectedPortfolio,
+            searchHint: FFLocalizations.of(context).getText(
+              'm7418olr' /* Search for transaction type */,
             ),
-          ))
-              .toList(), searchMatchFn: null,isSearchable: false,),
-          SizedBox(height: rSize*0.015,),
-          AppWidgets.label(context, FFLocalizations.of(context).getText(
-            'z3seosat' /* transaction status */,
-          )),
-          SizedBox(height: rSize*0.005,),
-          SearchableDropdown(selectedValue: _notifier.selectedStatus, searchHint: '', onChanged: (p0) {
-
-          }, items: _notifier.statusList
-              .map((item) => DropdownMenuItem(
-            value: item,
-            child: Text(
-              item,
-              style: AppStyles.inputTextStyle(context),
-            ),
-          ))
-              .toList(), searchMatchFn: null,isSearchable: false,),
-          SizedBox(height: rSize*0.015,),
-          AppWidgets.label(context, FFLocalizations.of(context).getText(
-            '4noemhfd' /* amount */,
-          )),
+            hint: _notifier.selectedPortfolio?.title ?? '',
+            onChanged: (p0) {
+              _notifier.selectPortfolio(p0);
+            },
+            items: (_notifier.portfolioList)
+                .map((item) => DropdownMenuItem(
+                      value: item,
+                      child: Text(
+                        item.title!,
+                        style: AppStyles.inputTextStyle(context),
+                      ),
+                    ))
+                .toList(),
+            searchMatchFn: (item, searchValue) {
+              return CommonFunctions.compare(
+                  searchValue, item.value.title.toString());
+            },
+          ),
+          SizedBox(
+            height: rSize * 0.015,
+          ),
+          AppWidgets.label(
+              context,
+              FFLocalizations.of(context).getText(
+                'lvtq8f1d' /* trans type */,
+              )),
+          SizedBox(
+            height: rSize * 0.005,
+          ),
+          SearchableDropdown(
+            selectedValue: _notifier.selectedType,
+            searchHint: '',
+            onChanged: (p0) {},
+            items: _notifier.typeList
+                .map((item) => DropdownMenuItem(
+                      value: item,
+                      child: Text(
+                        item,
+                        style: AppStyles.inputTextStyle(context),
+                      ),
+                    ))
+                .toList(),
+            searchMatchFn: null,
+            isSearchable: false,
+          ),
+          SizedBox(
+            height: rSize * 0.015,
+          ),
+          AppWidgets.label(
+              context,
+              FFLocalizations.of(context).getText(
+                'z3seosat' /* transaction status */,
+              )),
+          SizedBox(
+            height: rSize * 0.005,
+          ),
+          SearchableDropdown(
+            selectedValue: _notifier.selectedStatus,
+            searchHint: '',
+            onChanged: (p0) {},
+            items: _notifier.statusList
+                .map((item) => DropdownMenuItem(
+                      value: item,
+                      child: Text(
+                        item.name??'',
+                        style: AppStyles.inputTextStyle(context),
+                      ),
+                    ))
+                .toList(),
+            searchMatchFn: null,
+            isSearchable: false,
+          ),
+          SizedBox(
+            height: rSize * 0.015,
+          ),
+          AppWidgets.label(
+              context,
+              FFLocalizations.of(context).getText(
+                '4noemhfd' /* amount */,
+              )),
           Container(
-            margin: EdgeInsets.only(top: rSize*0.005,bottom: rSize*0.02),
-            padding: EdgeInsets.only(top: rSize*0.01,left: rSize*0.01,right: rSize*0.01),
+            margin: EdgeInsets.only(top: rSize * 0.005, bottom: rSize * 0.02),
+            padding: EdgeInsets.only(
+                top: rSize * 0.01, left: rSize * 0.01, right: rSize * 0.01),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(rSize * 0.012),
-              border: Border.all(color: FlutterFlowTheme.of(context).alternate,width: 2)
-            ),
+                borderRadius: BorderRadius.circular(rSize * 0.012),
+                border: Border.all(
+                    color: FlutterFlowTheme.of(context).alternate, width: 2)),
             child: Row(
               children: [
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Currency',style: AppStyles.inputTextStyle(context,).copyWith(fontSize: rSize*0.014),),
-                      SearchableDropdown(selectedValue: _notifier.selectedCurrency, searchHint:'' , onChanged: (p0) {
-
-                      }, items: _notifier.currencyList
-                          .map((item) => DropdownMenuItem(
-                        value: item,
-                        child: Text(
-                          item,
-                          style: AppStyles.inputTextStyle(context),
-                        ),
-                      ))
-                          .toList(), searchMatchFn: null,broderColor: Colors.transparent,height: rSize*0.04,padding: EdgeInsets.zero,isSearchable: false,)
+                      Text(
+                        'Currency',
+                        style: AppStyles.inputTextStyle(
+                          context,
+                        ).copyWith(fontSize: rSize * 0.014),
+                      ),
+                      SearchableDropdown(
+                        selectedValue: _notifier.selectedCurrency,
+                        searchHint: '',
+                        onChanged: (p0) {
+                          _notifier.selectCurrency(context,p0);
+                        },
+                        items: _notifier.currencyList
+                            .map((item) => DropdownMenuItem(
+                                  value: item,
+                                  child: Text(
+                                    item.name??'',
+                                    style: AppStyles.inputTextStyle(context),
+                                  ),
+                                ))
+                            .toList(),
+                        searchMatchFn: null,
+                        broderColor: Colors.transparent,
+                        height: rSize * 0.04,
+                        padding: EdgeInsets.zero,
+                        isSearchable: false,
+                      )
                     ],
                   ),
                 ),
@@ -108,10 +185,23 @@ class _BankTransferState extends State<BankTransfer> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('Amount',style: AppStyles.inputTextStyle(context).copyWith(fontSize: rSize*0.014),),
+                      Text(
+                        'Amount',
+                        style: AppStyles.inputTextStyle(context)
+                            .copyWith(fontSize: rSize * 0.014),
+                      ),
                       TextFormField(
-                        style: AppStyles.inputTextStyle(context),textAlign: TextAlign.end,
-                        decoration: AppStyles.inputDecoration(context,focusColor: Colors.transparent,contentPadding: EdgeInsets.symmetric(vertical: rSize*0.005),hint: 'Enter Amount'),
+                        controller: _notifier.amountController,
+                        style: AppStyles.inputTextStyle(context),
+                        textAlign: TextAlign.end,
+                        onChanged: (value) {
+                          _notifier.calculate(value);
+                        },
+                        decoration: AppStyles.inputDecoration(context,
+                            focusColor: Colors.transparent,
+                            contentPadding:
+                                EdgeInsets.symmetric(vertical: rSize * 0.005),
+                            hint: 'Enter Amount'),
                       )
                     ],
                   ),
@@ -119,17 +209,14 @@ class _BankTransferState extends State<BankTransfer> {
               ],
             ),
           ),
-          AppWidgets.label(context, FFLocalizations.of(context).getText(
-            'wbwyrgib' /* open rate */,
-          )),
-          SizedBox(height: rSize*0.005,),
           TextFormField(
-
+            controller: _notifier.usdController,
             style: AppStyles.inputTextStyle(context),
             keyboardType: TextInputType.number,
-            onChanged: (value) {
-            },
-            decoration: AppStyles.inputDecoration(context,fillColor: FlutterFlowTheme.of(context).customColor4.withOpacity(0.2),
+            onChanged: (value) {},
+            decoration: AppStyles.inputDecoration(context,
+                fillColor:
+                    FlutterFlowTheme.of(context).customColor4.withOpacity(0.2),
                 prefix: Container(
                   height: rSize * 0.056,
                   width: rSize * 0.060,
@@ -140,23 +227,34 @@ class _BankTransferState extends State<BankTransfer> {
                         topLeft: Radius.circular(rSize * 0.010),
                         bottomLeft: Radius.circular(rSize * 0.010),
                       ),
-                      color: FlutterFlowTheme.of(context).customColor4.withOpacity(0.2)),
+                      color: FlutterFlowTheme.of(context)
+                          .customColor4
+                          .withOpacity(0.2)),
                   child: Text(
-                      "USD",
+                    "USD",
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      letterSpacing: 0,
-                    ),
+                          letterSpacing: 0,
+                        ),
                   ),
                 ),
                 contentPadding: EdgeInsets.all(rSize * 0.015)),
           ),
-          SizedBox(height: rSize*0.015,),
+          SizedBox(
+            height: rSize * 0.015,
+          ),
+          AppWidgets.label(
+              context,
+              FFLocalizations.of(context).getText(
+                'wbwyrgib' /* open rate */,
+              )),
+          SizedBox(
+            height: rSize * 0.005,
+          ),
           TextFormField(
-
+            controller: _notifier.openRateController,
             style: AppStyles.inputTextStyle(context),
             keyboardType: TextInputType.number,
-            onChanged: (value) {
-            },
+            onChanged: (value) {},
             decoration: AppStyles.inputDecoration(context,
                 prefix: Container(
                   height: rSize * 0.056,
@@ -168,20 +266,26 @@ class _BankTransferState extends State<BankTransfer> {
                         topLeft: Radius.circular(rSize * 0.010),
                         bottomLeft: Radius.circular(rSize * 0.010),
                       ),
-                      color: FlutterFlowTheme.of(context).customColor4.withOpacity(0.2)),
+                      color: FlutterFlowTheme.of(context)
+                          .customColor4
+                          .withOpacity(0.2)),
                   child: Text(
-                    "INR/USD",
+                    "${_notifier.selectedCurrency?.name??''}/USD",
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      letterSpacing: 0,
-                    ),
+                          letterSpacing: 0,
+                        ),
                   ),
                 ),
                 contentPadding: EdgeInsets.all(rSize * 0.015)),
           ),
-          SizedBox(height: rSize*0.015,),
-          AppWidgets.label(context, FFLocalizations.of(context).getText(
-            'e0lclrlh' /* trans date */,
-          )),
+          SizedBox(
+            height: rSize * 0.015,
+          ),
+          AppWidgets.label(
+              context,
+              FFLocalizations.of(context).getText(
+                'e0lclrlh' /* trans date */,
+              )),
           TextFormField(
             style: AppStyles.inputTextStyle(context),
             readOnly: true,
@@ -199,10 +303,14 @@ class _BankTransferState extends State<BankTransfer> {
               ),
             ),
           ),
-          SizedBox(height: rSize*0.015,),
-          AppWidgets.label(context, FFLocalizations.of(context).getText(
-            'l33tyaq2' /* accounting date */,
-          )),
+          SizedBox(
+            height: rSize * 0.015,
+          ),
+          AppWidgets.label(
+              context,
+              FFLocalizations.of(context).getText(
+                'l33tyaq2' /* accounting date */,
+              )),
           TextFormField(
             style: AppStyles.inputTextStyle(context),
             readOnly: true,
@@ -220,10 +328,14 @@ class _BankTransferState extends State<BankTransfer> {
               ),
             ),
           ),
-          SizedBox(height: rSize*0.015,),
-          AppWidgets.label(context, FFLocalizations.of(context).getText(
-            '580q4cpd' /* value date */,
-          )),
+          SizedBox(
+            height: rSize * 0.015,
+          ),
+          AppWidgets.label(
+              context,
+              FFLocalizations.of(context).getText(
+                '580q4cpd' /* value date */,
+              )),
           TextFormField(
             style: AppStyles.inputTextStyle(context),
             readOnly: true,
@@ -241,13 +353,18 @@ class _BankTransferState extends State<BankTransfer> {
               ),
             ),
           ),
-          SizedBox(height: rSize*0.015,),
+          SizedBox(
+            height: rSize * 0.015,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AppWidgets.btn(context, FFLocalizations.of(context).getText(
-                'save',
-              ),horizontalPadding: rSize*0.03),
+              AppWidgets.btn(
+                  context,
+                  FFLocalizations.of(context).getText(
+                    'save',
+                  ),
+                  horizontalPadding: rSize * 0.03),
             ],
           )
         ],

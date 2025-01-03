@@ -19,6 +19,7 @@ import 'package:provider/provider.dart';
 import '../documents/document_model.dart';
 import '../home/home_news_model.dart';
 import '../login/on_boarding_page_widget.dart';
+import '../portfolio/data_model.dart';
 import '../proposals/chat/chat_history_model.dart';
 import '../proposals/proposal_model.dart';
 import 'app_const.dart';
@@ -80,8 +81,9 @@ class ApiCalls {
   static Future<bool> login(
       BuildContext context, String email, String pwd) async {
     try {
-      var response = await http.post(Uri.parse(EndPoints.login),body: {"email": email, "password": pwd});
-      var json=jsonDecode(response.body);
+      var response = await http.post(Uri.parse(EndPoints.login),
+          body: {"email": email, "password": pwd});
+      var json = jsonDecode(response.body);
       if (json.containsKey("token")) {
         SharedPrefUtils.instance.putString(TOKEN, json['token']!);
         return true;
@@ -99,14 +101,14 @@ class ApiCalls {
     BuildContext context,
   ) async {
     try {
-    var response = await http.get(Uri.parse(EndPoints.userInfo),headers : {
-      'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'
-    });
-    var json=jsonDecode(response.body);
-    UserInfotModel model = UserInfotModel.fromJson(json);
-    AppConst.userModel = model;
+      var response = await http.get(Uri.parse(EndPoints.userInfo), headers: {
+        'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'
+      });
+      var json = jsonDecode(response.body);
+      UserInfotModel model = UserInfotModel.fromJson(json);
+      AppConst.userModel = model;
       return model;
-    }on Error catch (e) {
+    } on Error catch (e) {
       print('${e.toString()}  ${e.stackTrace}');
     }
     return null;
@@ -260,7 +262,6 @@ class ApiCalls {
   static Future<PortfolioModel?> getPortfolioData(
       BuildContext context, int id) async {
     try {
-
       return PortfolioModel.fromJson(await jsonResponse(
           context,
           Uri.parse(
@@ -291,6 +292,55 @@ class ApiCalls {
     return [];
   }
 
+  static Future<List<Datum>> fetchCashTransactionDropDowns(
+      BuildContext context, String type) async {
+    try {
+      var json = (await jsonResponse(
+          context,
+          Uri.parse(
+            '${EndPoints.transactions}/dropdown_list?type=$type',
+          ),
+          'get'));
+
+      if (type == 'transaction_status') {
+        Map j = json;
+        List<Datum> list = [];
+        j.forEach(
+          (key, value) {
+            value.forEach(
+              (value) {
+                list.add(Datum(id: value[1], name: value[0]));
+              },
+            );
+          },
+        );
+        return list;
+      }
+
+      return DataModel.fromJson(json).data!;
+    } on Error catch (e) {
+      print('${e.toString()} ${e.stackTrace}');
+    }
+    return [];
+  }
+  static Future<String> calculateOpenRate(
+      BuildContext context, int portfolioId,String targetCurrency) async {
+    try {
+      var json = (await jsonResponse(
+          context,
+          Uri.parse(
+            '${EndPoints.transactions}/dropdown_list?type=open_rate&portfolio_id=$portfolioId&target_currency=$targetCurrency',
+          ),
+          'get'));
+
+    print('open rate :: '+json['data']);
+      return json['data'];
+    } on Error catch (e) {
+      print('${e.toString()} ${e.stackTrace}');
+    }
+    return '1';
+  }
+
   static Future<List<PositionModel>> getPositionList(BuildContext context,
       int pageKey, int portfolioId, String column, String direction) async {
     try {
@@ -317,8 +367,13 @@ class ApiCalls {
     return [];
   }
 
-  static Future<List<TransactionModel>> getTransactionList(BuildContext context,
-      int pageKey, String name, String column, String direction, String selectedDate) async {
+  static Future<List<TransactionModel>> getTransactionList(
+      BuildContext context,
+      int pageKey,
+      String name,
+      String column,
+      String direction,
+      String selectedDate) async {
     try {
       Map<String, dynamic> params = {
         'page': pageKey.toString(),

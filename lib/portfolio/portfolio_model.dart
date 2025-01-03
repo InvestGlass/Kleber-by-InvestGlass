@@ -3,6 +3,7 @@ import 'dart:convert';
 class PortfolioModel {
   int? id;
   String? title;
+  String? referenceCurrency;
   dynamic? userId;
   ClientPreference? clientPreference;
   dynamic? strategy;
@@ -23,6 +24,7 @@ class PortfolioModel {
   PortfolioModel({
     this.id,
     this.title,
+    this.referenceCurrency,
     this.userId,
     this.clientPreference,
     this.strategy,
@@ -72,6 +74,7 @@ class PortfolioModel {
       id: json["id"],
       title: json["title"],
       userId: json["user_id"],
+      referenceCurrency: json["reference_currency"],
       // clientPreference: ClientPreference.fromJson(json["client_preference"]),
       strategy: json["strategy"],
       concentration: json["concentration"] == null
@@ -103,6 +106,7 @@ class PortfolioModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
+        "reference_currency": referenceCurrency,
         "user_id": userId,
         "client_preference": clientPreference?.toJson(),
         "strategy": strategy,

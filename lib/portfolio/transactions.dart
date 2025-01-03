@@ -247,13 +247,12 @@ class _TransactionsState extends State<Transactions> {
                                                       .customColor4,
                                               width: 1.5,
                                             ),
+                                            image: DecorationImage(image:Image.network(
+                                              'https://'+(item.portfolioSecurity?.securityImageUrl??''),
+                                              fit: BoxFit.fitHeight,
+                                            ).image),
                                             borderRadius: BorderRadius.circular(
-                                                rSize * 0.01)),
-                                        // padding: EdgeInsets.all(rSize*0.001),
-                                        child: Image.asset(
-                                          'assets/app_launcher_icon.png',
-                                          height: rSize * 0.08,
-                                        )),
+                                                rSize * 0.01)), ),
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:

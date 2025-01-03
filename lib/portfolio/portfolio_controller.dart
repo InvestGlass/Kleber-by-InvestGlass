@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:kleber_bank/portfolio/portfolio_model.dart';
 import 'package:kleber_bank/utils/api_calls.dart';
+import 'package:kleber_bank/utils/common_functions.dart';
+
+import 'data_model.dart';
 
 class PortfolioController extends ChangeNotifier{
   int selectedIndex=-1;
@@ -15,12 +18,10 @@ class PortfolioController extends ChangeNotifier{
   String column='roi',direction='desc';
   String tranColumn='amount',tranDirection='desc';
   late Stream<PortfolioModel?> stream;
-  List<String> currencyList=['USD','EUR','JPY','CHF'];
   List<String> typeList=['Cash Deposit','Withdrawal','Buy to Open','Sell to Close'];
-  List<String> statusList=['Fulfilled'];
   List<String> dateList=['Today','Tomorrow'];
   List<String> amountList=['123456.4001 CHF','123456.4001 EUR','123456.4001 JPY','123456.4001 GBP'];
-  String selectedCurrency='USD',selectedAmount='123456.4001 CHF',selectedType='Cash Deposit',selectedStatus='Fulfilled',selectedExecutionDate='Today';
+  String selectedAmount='123456.4001 CHF',selectedType='Cash Deposit',selectedStatus='Fulfilled',selectedExecutionDate='Today';
 
   Stream<PortfolioModel?> getPortfolioData(BuildContext context, PortfolioModel item) async* {
     yield await ApiCalls.getPortfolioData(context, item.id!);
@@ -116,7 +117,7 @@ class PortfolioController extends ChangeNotifier{
     return portfolioList;
   }
 
-  /*_______________________NEW TRADE_______________________________*/
+  /*_______________________Security TRANSACTION_______________________________*/
   PortfolioModel? selectedPortfolio;
   List<PortfolioModel> portfolioList=[];
 
@@ -127,6 +128,47 @@ class PortfolioController extends ChangeNotifier{
   String selectedDate='';
   void setDate(String date) {
     selectedDate=date;
+    notifyListeners();
+  }
+
+/*_______________________CASH TRANSACTION_______________________________*/
+
+  List<Datum> cashTransactionTypeList=[],currencyList=[],statusList=[];
+  Datum? selectedCurrency;
+  TextEditingController openRateController=TextEditingController(),amountController=TextEditingController(),usdController=TextEditingController();
+
+  Future<void> fetchDropDownData(BuildContext context,String type) async {
+    await ApiCalls.fetchCashTransactionDropDowns(context, type).then((value) {
+      if(type=='transaction_type'){
+        cashTransactionTypeList=value;
+      }else if(type=='currency'){
+        currencyList=value;
+      }else if(type=='transaction_status'){
+        statusList=value;
+      }
+      notifyListeners();
+    },);
+  }
+
+  void selectPortfolio(p0) {
+    selectedPortfolio = p0;
+    selectedCurrency=currencyList.singleWhere((element) => element.name==selectedPortfolio?.referenceCurrency,);
+    notifyListeners();
+  }
+  void selectCurrency(BuildContext context,p0) {
+    selectedCurrency=p0;
+    CommonFunctions.showLoader(context);
+    ApiCalls.calculateOpenRate(context, selectedPortfolio!.id!, selectedCurrency?.name??'').then((value) {
+      CommonFunctions.dismissLoader(context);
+      openRateController.text=value;
+      notifyListeners();
+    },);
+
+
+  }
+
+  void calculate(String value) {
+    usdController.text=((double.tryParse(value)??0)*(double.tryParse(openRateController.text)??0)).toStringAsFixed(2);
     notifyListeners();
   }
 

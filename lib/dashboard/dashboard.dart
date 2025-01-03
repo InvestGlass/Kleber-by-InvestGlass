@@ -19,6 +19,7 @@ import 'package:provider/provider.dart';
 
 import '../home/home.dart';
 import '../market/market.dart';
+import '../portfolio/portfolio_controller.dart';
 import '../profile/profile.dart';
 import '../proposals/proposal_model.dart';
 import '../proposals/proposals.dart';
@@ -273,9 +274,20 @@ class _DashboardState extends State<Dashboard> {
                         FFLocalizations.of(context).getText(
                           'bank_transfer',
                         ),
-                        onTap: () {
-                          Navigator.pop(context);
-                          CommonFunctions.navigate(context, const BankTransfer());
+                        onTap: () async {
+                          // Navigator.pop(context);
+                          PortfolioController n = Provider.of<PortfolioController>(context,listen: false);
+                          CommonFunctions.showLoader(context);
+                          await Future.wait([
+                            n.fetchDropDownData(context, 'transaction_type'),
+                            n.fetchDropDownData(context, 'currency'),
+                            n.fetchDropDownData(context, 'transaction_status'),
+                            n.getPortfolioList(context, 0, notify: true)
+                          ]).then((value) {
+                            CommonFunctions.dismissLoader(context);
+                            CommonFunctions.navigate(context, const BankTransfer());
+                          },);
+
                         },
                       ),
                       actionMenuItem(
