@@ -182,7 +182,7 @@ class AppStyles {
       Widget? customIcon,
         List<BoxShadow>? boxShadow,
       Color? color}) {
-    return GestureDetector(
+    return AppWidgets.click(
         onTap: onTap,
         child: Container(
           margin: margin ?? EdgeInsets.all(rSize * 0.010),

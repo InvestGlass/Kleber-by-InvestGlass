@@ -7,6 +7,7 @@ import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../main.dart';
 import '../utils/api_calls.dart';
@@ -49,7 +50,7 @@ class _TransactionsState extends State<Transactions> {
         widget.portfolioName,
         notifier.tranColumn,
         notifier.tranDirection,
-    notifier.selectedDate);
+        notifier.selectedDate);
     final isLastPage = list.length < 10;
     if (isLastPage) {
       pagingController.appendLastPage(list);
@@ -117,42 +118,42 @@ class _TransactionsState extends State<Transactions> {
                     },
                   ),
                 ),
-                SizedBox(width: rSize*0.01,),
-                GestureDetector(
+                SizedBox(
+                  width: rSize * 0.01,
+                ),
+                AppWidgets.click(
                   onTap: () {
-                    AppWidgets.openDatePicker(
-                      context,
-                          (value) {
-                        if (value is DateTime) {
-                          /*  final String startDate =
+                    AppWidgets.openDatePicker(context, (value) {
+                      if (value is DateTime) {
+                        /*  final String startDate =
                          CommonFunctions.getYYYYMMDD(
                               value.startDate!);
                           final String endDate =
                           CommonFunctions.getYYYYMMDD(
                               value.endDate!);*/
-                          _notifier.setDate(CommonFunctions.getYYYYMMDD(
-                              value));
-                          pagingController.refresh();
-                          print(value);
-                          Navigator.pop(context);
-                          setState(() {});
-                        }
-                      },
-                          mode: DateRangePickerSelectionMode.single
-                    );
+                        _notifier.setDate(CommonFunctions.getYYYYMMDD(value));
+                        pagingController.refresh();
+                        print(value);
+                        Navigator.pop(context);
+                        setState(() {});
+                      }
+                    }, mode: DateRangePickerSelectionMode.single);
                   },
                   child: Container(
-                    height: rSize*0.055,
-                    width: rSize*0.055,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(rSize * 0.010),
-                      border: Border.all(
-                        color: FlutterFlowTheme.of(context).alternate,
-                        width: 2,
+                      height: rSize * 0.055,
+                      width: rSize * 0.055,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(rSize * 0.010),
+                        border: Border.all(
+                          color: FlutterFlowTheme.of(context).alternate,
+                          width: 2,
+                        ),
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
-                      child: Icon(FontAwesomeIcons.calendar,color: FlutterFlowTheme.of(context).customColor4,)),
+                      child: Icon(
+                        FontAwesomeIcons.calendar,
+                        color: FlutterFlowTheme.of(context).customColor4,
+                      )),
                 ),
                 SizedBox(
                   width: rSize * 0.015,
@@ -162,12 +163,13 @@ class _TransactionsState extends State<Transactions> {
             SizedBox(
               height: rSize * 0.015,
             ),
-            if(_notifier.selectedDate.isNotEmpty)...{
+            if (_notifier.selectedDate.isNotEmpty) ...{
               Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: rSize*0.015),
-                    padding: EdgeInsets.symmetric(horizontal: rSize*0.01,vertical: rSize*0.005),
+                      margin: EdgeInsets.only(left: rSize * 0.015),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: rSize * 0.01, vertical: rSize * 0.005),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(rSize * 0.007),
                         border: Border.all(
@@ -178,19 +180,26 @@ class _TransactionsState extends State<Transactions> {
                       ),
                       child: Row(
                         children: [
-                          Text(_notifier.selectedDate,style: AppStyles.inputTextStyle(context),),
-                          SizedBox(width: rSize*0.005),
-                          GestureDetector(
-                              onTap: (){
+                          Text(
+                            _notifier.selectedDate,
+                            style: AppStyles.inputTextStyle(context),
+                          ),
+                          SizedBox(width: rSize * 0.005),
+                          AppWidgets.click(
+                              onTap: () {
                                 _notifier.setDate('');
                                 pagingController.refresh();
                               },
-                              child: Icon(Icons.close,color: FlutterFlowTheme.of(context).customColor4,size: rSize*0.02,))
+                              child: Icon(
+                                Icons.close,
+                                color:
+                                    FlutterFlowTheme.of(context).customColor4,
+                                size: rSize * 0.02,
+                              ))
                         ],
                       ))
                 ],
-              )
-              ,
+              ),
             },
             Flexible(
               child: RefreshIndicator(
@@ -212,6 +221,8 @@ class _TransactionsState extends State<Transactions> {
                           'u52470kh' /* No Transactions Found */,
                         ),
                         context);
+                  }, firstPageProgressIndicatorBuilder: (context) {
+                    return skeleton();
                   }, itemBuilder: (context, item, index) {
                     String currency =
                         item.portfolioSecurity!.referenceCurrency!;
@@ -227,7 +238,7 @@ class _TransactionsState extends State<Transactions> {
                         physics: NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.all(rSize * 0.015),
                         children: [
-                          GestureDetector(
+                          AppWidgets.click(
                             onTap: () =>
                                 _notifier.selectTransactionIndex(index),
                             child: Column(
@@ -236,23 +247,24 @@ class _TransactionsState extends State<Transactions> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                        height: rSize * 0.06,
-                                        width: rSize * 0.06,
-                                        margin: EdgeInsets.only(
-                                            right: rSize * 0.01),
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .customColor4,
-                                              width: 1.5,
-                                            ),
-                                            image: DecorationImage(image:Image.network(
-                                              'https://'+(item.portfolioSecurity?.securityImageUrl??''),
-                                              fit: BoxFit.fitHeight,
-                                            ).image),
-                                            borderRadius: BorderRadius.circular(
-                                                rSize * 0.01)), ),
+                                      height: rSize * 0.06,
+                                      width: rSize * 0.06,
+                                      margin:
+                                          EdgeInsets.only(right: rSize * 0.01),
+                                      clipBehavior: Clip.hardEdge,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context)
+                                                .customColor4,
+                                            width: 0.5,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                              rSize * 0.01)),
+                                      child: Image.network(
+                                        'https://${item.portfolioSecurity?.securityImageUrl ?? ''}',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
@@ -470,4 +482,96 @@ class _TransactionsState extends State<Transactions> {
   String getSeparatorFormat(double item) =>
       CommonFunctions.formatDoubleWithThousandSeperator(
           item.toString(), item == 0, 2);
+
+  Widget skeleton() {
+    return Skeletonizer(
+      enabled: true,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            container(),
+            container(),
+            container(),
+            container(),
+            container(),
+            container(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container container() {
+    return Container(
+      padding: EdgeInsets.all(rSize*0.015),
+      decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(context).secondaryBackground,
+          boxShadow: AppStyles.shadow(),
+          borderRadius: BorderRadius.circular(rSize * 0.01)),
+      margin: EdgeInsets.symmetric(vertical: rSize * 0.005,horizontal: rSize*0.005),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+              height: rSize * 0.06,
+              width: rSize * 0.06,
+            child: Icon(FontAwesomeIcons.user,size: rSize*0.05,),
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                        child: Text(
+                      '11111',
+                      style: FlutterFlowTheme.of(context).displaySmall.override(
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            fontSize: rSize * 0.016,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    )),
+                    SizedBox(
+                      width: rSize * 0.015,
+                    ),
+                    AnimatedRotation(
+                        turns: 0.5,
+                        duration: const Duration(milliseconds: 300),
+                        child: AppWidgets.doubleBack(context)),
+                  ],
+                ),
+                SizedBox(
+                  height: rSize * 0.005,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Partners Group UK Status',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontSize: rSize * 0.016,
+                              color: FlutterFlowTheme.of(context).customColor4,
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ),
+                    AppWidgets.buildRichText(context, 'USD 1,638,290.00')
+                  ],
+                ),
+                AppWidgets.portfolioListElement(
+                    context,
+                    FFLocalizations.of(context).getText(
+                      'xc0jtpk9' /* Status */,
+                    ),
+                    'Executed')
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

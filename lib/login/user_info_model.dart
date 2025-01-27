@@ -30,6 +30,7 @@ class User {
   dynamic website;
   dynamic memberId;
   dynamic memberType;
+  String? avatar;
   dynamic lastLoginAt;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -208,6 +209,7 @@ class User {
     this.address1CountryId,
     this.address2Street,
     this.address2Zipcode,
+    this.avatar,
     this.address2CountryId,
     this.addressOfficeStreet,
     this.addressOfficeZipcode,
@@ -356,6 +358,7 @@ class User {
     memberId: json["member_id"],
     memberType: json["member_type"],
     lastLoginAt: json["last_login_at"],
+    avatar: json["avatar"],
     // createdAt: DateTime.parse(json["created_at"]),
     // updatedAt: DateTime.parse(json["updated_at"]),
     creationProcessState: json["creation_process_state"],
@@ -517,6 +520,7 @@ class User {
     "member_id": memberId,
     "member_type": memberType,
     "last_login_at": lastLoginAt,
+    "avatar": avatar,
     // "created_at": createdAt.toIso8601String(),
     // "updated_at": updatedAt.toIso8601String(),
     "creation_process_state": creationProcessState,
@@ -721,10 +725,12 @@ class EncryptedOtpSecretForClient {
 class Client {
   int? id;
   String? avatar;
+  String? pseudonym;
 
   Client({
     this.id,
     this.avatar,
+    this.pseudonym,
   });
 
   factory Client.fromRawJson(String str) => Client.fromJson(json.decode(str));
@@ -733,11 +739,13 @@ class Client {
   factory Client.fromJson(Map<String, dynamic> json) => Client(
     id: json["id"],
     avatar: json["avatar"],
+    pseudonym: json["pseudonym"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "avatar": avatar,
+    "pseudonym": pseudonym,
   };
 
 }

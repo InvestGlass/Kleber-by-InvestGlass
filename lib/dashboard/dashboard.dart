@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kleber_bank/documents/documents.dart';
+import 'package:kleber_bank/documents/documents2.dart';
 import 'package:kleber_bank/documents/upload_document.dart';
 import 'package:kleber_bank/main.dart';
 import 'package:kleber_bank/portfolio/bank_transfer.dart';
@@ -41,12 +42,13 @@ class _DashboardState extends State<Dashboard> {
   late PageController pagingController;
 
   late DashboardController _controller;
-  StreamController<String> controller=StreamController.broadcast();
+  StreamController<String> controller = StreamController.broadcast();
 
   @override
   void initState() {
     if (AppConst.userModel != null) {
-      SharedPrefUtils.instance.putString(USER_DATA, jsonEncode(AppConst.userModel!.toJson()));
+      SharedPrefUtils.instance
+          .putString(USER_DATA, jsonEncode(AppConst.userModel!.toJson()));
     }
     pagingController = PageController(initialPage: 0);
     super.initState();
@@ -60,88 +62,86 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    c=context;
+    c = context;
     _controller = Provider.of<DashboardController>(context);
     return Scaffold(
       key: _scaffoldkey,
+      appBar: AppWidgets.appBar(context, getTitle(),leading: Image.asset('assets/app_launcher_icon.png')),
       bottomNavigationBar: Wrap(
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+            margin:
+                EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
             child: Row(
               children: [
                 actionMenuItem(
-                  context,
-                  AppStyles.iconBg(context,
-                      data: Icons.home,
-                      size: rSize * 0.020,
-                      padding: EdgeInsets.all(rSize * 0.015),
-                      color: getColor(0)),
-                  FFLocalizations.of(context).getText(
-                      'fiha8uf5' /* Home */,
-                  ),
-                  onTap: () {
-                    changeTab(0);
-                  },i: 0
-                ),
+                    context,
+                    AppStyles.iconBg(context,
+                        data: Icons.home,
+                        size: rSize * 0.020, onTap: () {
+                          changeTab(0);
+                        },
+                        padding: EdgeInsets.all(rSize * 0.015),
+                        color: getColor(0)),
+                    FFLocalizations.of(context).getText(
+                      'fiha8uf5' /* Overview */,
+                    ), i: 0),
                 actionMenuItem(
-                  context,
-                  AppStyles.iconBg(context,
-                      data: Icons.add_chart_outlined,
-                      size: rSize * 0.020,
-                      padding: EdgeInsets.all(rSize * 0.015),
-                      color: getColor(1)),
-                  FFLocalizations.of(context).getText(
+                    context,
+                    AppStyles.iconBg(context,
+                        data: Icons.add_chart_outlined,
+                        size: rSize * 0.020,onTap: () {
+                          changeTab(1);
+                        },
+                        padding: EdgeInsets.all(rSize * 0.015),
+                        color: getColor(1)),
+                    FFLocalizations.of(context).getText(
                       'xn2nrgyp' /* Portfolio */,
-                  ),
-                  onTap: () {
-                    changeTab(1);
-                  },i: 1
-                ),
+                    ),  i: 1),
                 actionMenuItem(
                   context,
                   AppStyles.iconBg(context,
                       data: Icons.file_copy,
                       size: rSize * 0.020,
+                      onTap: () {
+                        showOptions();
+                      },
                       padding: EdgeInsets.all(rSize * 0.015),
-                      customIcon: Image.asset('assets/more.png', scale: 0.5,color: getColor(2),),
+                      customIcon: Image.asset(
+                        'assets/more.png',
+                        scale: 0.5,
+                        color: getColor(2),
+                      ),
                       color: FlutterFlowTheme.of(context).customColor4),
                   FFLocalizations.of(context).getText(
                     'more',
                   ),
-                  onTap: () {
-                    showOptions();
-                  },
                 ),
                 actionMenuItem(
-                  context,
-                  AppStyles.iconBg(context,
-                      data: Icons.auto_graph,
-                      size: rSize * 0.020,
-                      padding: EdgeInsets.all(rSize * 0.015),
-                      color: getColor(3)),
-                  FFLocalizations.of(context).getText(
+                    context,
+                    AppStyles.iconBg(context,
+                        data: Icons.auto_graph,
+                        size: rSize * 0.020,onTap: () {
+                          changeTab(3);
+                          controller.add('');
+                        },
+                        padding: EdgeInsets.all(rSize * 0.015),
+                        color: getColor(3)),
+                    FFLocalizations.of(context).getText(
                       'nkifu7jq' /* Proposal */,
-                  ),
-                  onTap: () {
-                    changeTab(3);
-                    controller.add('');
-                  },i: 3
-                ),
+                    ),  i: 3),
                 actionMenuItem(
-                  context,
-                  AppStyles.iconBg(context,
-                      data: Icons.face,
-                      size: rSize * 0.020,
-                      padding: EdgeInsets.all(rSize * 0.015),
-                      color: getColor(4)),
-                  FFLocalizations.of(context).getText(
+                    context,
+                    AppStyles.iconBg(context,
+                        data: FontAwesomeIcons.user,
+                        size: rSize * 0.020,onTap: () {
+                          changeTab(4);
+                        },
+                        padding: EdgeInsets.all(rSize * 0.015),
+                        color: getColor(4)),
+                    FFLocalizations.of(context).getText(
                       'w5wtcpj4' /* Profile */,
-                  ),
-                  onTap: () {
-                    changeTab(4);
-                  },i: 4
-                ),
+                    ),  i: 4),
               ],
             ),
           ),
@@ -178,11 +178,11 @@ class _DashboardState extends State<Dashboard> {
         items: [
           BottomNavigationBarItem(
               icon: AppStyles.iconBg(context, data: Icons.home, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015), color: getColor(0)),
-              label: FFLocalizations.of(context).getText('fiha8uf5' *//* Home *//*)),
+              label: FFLocalizations.of(context).getText('fiha8uf5' */ /* Home */ /*)),
           BottomNavigationBarItem(
               icon: AppStyles.iconBg(context,
                   data: Icons.add_chart_outlined, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015), color: getColor(1)),
-              label: FFLocalizations.of(context).getText('xn2nrgyp' *//* Portfolio *//*)),
+              label: FFLocalizations.of(context).getText('xn2nrgyp' */ /* Portfolio */ /*)),
           BottomNavigationBarItem(
               icon: AppStyles.iconBg(context,
                   data: Icons.home,
@@ -193,21 +193,21 @@ class _DashboardState extends State<Dashboard> {
           BottomNavigationBarItem(
               icon:
                   AppStyles.iconBg(context, data: Icons.auto_graph, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015), color: getColor(3)),
-              label: FFLocalizations.of(context).getText('nkifu7jq' *//* Proposal *//*)),
+              label: FFLocalizations.of(context).getText('nkifu7jq' */ /* Proposal */ /*)),
           BottomNavigationBarItem(
               icon: AppStyles.iconBg(context, data: Icons.face, size: rSize * 0.020, padding: EdgeInsets.all(rSize * 0.015), color: getColor(4)),
-              label: FFLocalizations.of(context).getText('w5wtcpj4' *//* Profile *//*)),
+              label: FFLocalizations.of(context).getText('w5wtcpj4' */ /* Profile */ /*)),
         ],
       ),*/
       body: PageView(
         controller: pagingController,
         physics: const NeverScrollableScrollPhysics(),
-        children:  [
-          Home(),
-          Portfolio(),
-          Documents(),
+        children: [
+          const Home(),
+          const Portfolio(),
+          const Documents(),
           Proposals(controller),
-          Profile(),
+          const Profile(),
         ],
         onPageChanged: (page) {},
       ),
@@ -216,9 +216,9 @@ class _DashboardState extends State<Dashboard> {
 
   void changeTab(int i) {
     _controller.changeIndex(i);
-    pagingController.animateToPage(i, duration: Duration(microseconds: 500), curve: Curves.bounceInOut);
+    pagingController.animateToPage(i,
+        duration: const Duration(microseconds: 500), curve: Curves.bounceInOut);
   }
-
 
   void showOptions() {
     showDialog(
@@ -234,7 +234,10 @@ class _DashboardState extends State<Dashboard> {
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     boxShadow: AppStyles.shadow(),
                     borderRadius: BorderRadius.circular(rSize * 0.01)),
-                margin: EdgeInsets.only(bottom: rSize * 0.11, left: rSize * 0.01, right: rSize * 0.01),
+                margin: EdgeInsets.only(
+                    bottom: rSize * 0.11,
+                    left: rSize * 0.01,
+                    right: rSize * 0.01),
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: rSize * 0.010),
                   child: Row(
@@ -246,6 +249,10 @@ class _DashboardState extends State<Dashboard> {
                         AppStyles.iconBg(context,
                             data: Icons.home,
                             size: rSize * 0.020,
+                            onTap: () {
+                              Navigator.pop(context);
+                              CommonFunctions.navigate(context, const Market());
+                            },
                             padding: EdgeInsets.all(rSize * 0.015),
                             customIcon: SvgPicture.asset(
                               Theme.of(context).brightness == Brightness.dark
@@ -259,84 +266,96 @@ class _DashboardState extends State<Dashboard> {
                         FFLocalizations.of(context).getText(
                           'd33p2mgm' /* Market */,
                         ),
-                        onTap: () {
-                          Navigator.pop(context);
-                          CommonFunctions.navigate(context, const Market());
-                        },
                       ),
                       actionMenuItem(
                         context,
                         AppStyles.iconBg(context,
                             data: Icons.currency_exchange,
                             size: rSize * 0.020,
+                            onTap: () async {
+                              // Navigator.pop(context);
+                              PortfolioController n =
+                              Provider.of<PortfolioController>(context,
+                                  listen: false);
+                              CommonFunctions.showLoader(context);
+                              await Future.wait([
+                                n.getPortfolioList(context, 0, notify: true),
+                                n.fetchDropDownData(context, 'transaction_type'),
+                                n.fetchDropDownData(context, 'currency'),
+                                n.fetchDropDownData(context, 'transaction_status'),
+                              ]).then(
+                                    (value) async {
+                                  if (n.currencyList.isNotEmpty) {
+                                    await n.selectCurrency(
+                                        context, n.currencyList[0]);
+                                  }
+                                  CommonFunctions.dismissLoader(context);
+                                  CommonFunctions.navigate(
+                                      context, const BankTransfer());
+                                },
+                              );
+                            },
                             padding: EdgeInsets.all(rSize * 0.015),
                             color: FlutterFlowTheme.of(context).customColor4),
                         FFLocalizations.of(context).getText(
                           'bank_transfer',
                         ),
-                        onTap: () async {
-                          // Navigator.pop(context);
-                          PortfolioController n = Provider.of<PortfolioController>(context,listen: false);
-                          CommonFunctions.showLoader(context);
-                          await Future.wait([
-                            n.fetchDropDownData(context, 'transaction_type'),
-                            n.fetchDropDownData(context, 'currency'),
-                            n.fetchDropDownData(context, 'transaction_status'),
-                            n.getPortfolioList(context, 0, notify: true)
-                          ]).then((value) {
-                            CommonFunctions.dismissLoader(context);
-                            CommonFunctions.navigate(context, const BankTransfer());
-                          },);
-
-                        },
                       ),
                       actionMenuItem(
                         context,
                         AppStyles.iconBg(context,
                             data: Icons.file_copy,
                             size: rSize * 0.020,
+                            onTap: () {
+                              Navigator.pop(context);
+                              CommonFunctions.navigate(context, const Documents2());
+                            },
                             padding: EdgeInsets.all(rSize * 0.015),
                             color: FlutterFlowTheme.of(context).customColor4),
                         FFLocalizations.of(context).getText(
                           '1vddbh59' /* Document */,
                         ),
-                        onTap: () {
-                          Navigator.pop(context);
-                          CommonFunctions.navigate(context, const Documents());
-                        },
                       ),
-
-
                       actionMenuItem(
                         context,
                         AppStyles.iconBg(context,
                             data: FontAwesomeIcons.upload,
                             size: rSize * 0.020,
+                            onTap: () {
+                              Navigator.pop(context);
+                              CommonFunctions.navigate(
+                                  context, const UploadDocument());
+                            },
                             padding: EdgeInsets.all(rSize * 0.015),
                             color: FlutterFlowTheme.of(context).customColor4),
                         FFLocalizations.of(context).getText(
                           '3hz1whes' /* Upload */,
                         ),
-                        onTap: () {
-                          Navigator.pop(context);
-                          CommonFunctions.navigate(context, const UploadDocument());
-                        },
                       ),
-
                       actionMenuItem(
                         context,
                         AppStyles.iconBg(context,
                             data: FontAwesomeIcons.message,
                             size: rSize * 0.020,
+                            onTap: () {
+                              Navigator.pop(context);
+                              CommonFunctions.navigate(
+                                  context,
+                                  ChatHistory(ProposalModel(
+                                      advisor: Advisor(
+                                          name: SharedPrefUtils.instance
+                                              .getUserData()
+                                              .user!
+                                              .advisor!
+                                              .name
+                                              .toString(),
+                                          phoneOffice: '+41763358815'))));
+                            },
                             padding: EdgeInsets.all(rSize * 0.015),
                             color: FlutterFlowTheme.of(context).customColor4),
                         FFLocalizations.of(context).getText(
                           'chat',
                         ),
-                        onTap: () {
-                          Navigator.pop(context);
-                          CommonFunctions.navigate(context, ChatHistory(ProposalModel(advisor: Advisor(name: SharedPrefUtils.instance.getUserData().user!.advisor!.name.toString(), phoneOffice: '+41763358815'))));
-                        },
                       ),
                     ],
                   ),
@@ -349,23 +368,23 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget actionMenuItem(BuildContext context, Widget image, String label, {required void Function() onTap, int i=-1}) {
+  Widget actionMenuItem(BuildContext context, Widget image, String label,
+      {int i = -1}) {
     return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        child: Column(
-          children: [
-            image,
-            Text(
-              label,
-              maxLines: 1,
-              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    color: i==_controller.selectedIndex?FlutterFlowTheme.of(context).primary:FlutterFlowTheme.of(context).customColor4,
-                    fontSize: rSize * 0.016,
-                  ),
-            )
-          ],
-        ),
+      child: Column(
+        children: [
+          image,
+          Text(
+            label,
+            maxLines: 1,
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+              color: i == _controller.selectedIndex
+                  ? FlutterFlowTheme.of(context).primary
+                  : FlutterFlowTheme.of(context).customColor4,
+              fontSize: rSize * 0.016,
+            ),
+          )
+        ],
       ),
     );
   }
@@ -375,5 +394,26 @@ class _DashboardState extends State<Dashboard> {
       return FlutterFlowTheme.of(context).primary;
     }
     return FlutterFlowTheme.of(context).customColor4;
+  }
+
+  String getTitle() {
+    if(_controller.selectedIndex==0){
+      return FFLocalizations.of(context).getText(
+        'fiha8uf5' /* Overview */,
+      );
+    }else if(_controller.selectedIndex==1){
+      return FFLocalizations.of(context).getText(
+        'xn2nrgyp' /* Portfolio */,
+      );
+    }else if(_controller.selectedIndex==3){
+      return FFLocalizations.of(context).getText(
+        'nkifu7jq' /* Proposal */,
+      );
+    }else if(_controller.selectedIndex==4){
+      return FFLocalizations.of(context).getText(
+        'w5wtcpj4' /* Profile */,
+      );
+    }
+    return '';
   }
 }

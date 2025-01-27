@@ -134,9 +134,6 @@ class _LoginState extends State<Login> {
                           label: FFLocalizations.of(context).getText(
                             'cais5tw0' /* Email or password */,
                           ),
-                          hint: FFLocalizations.of(context).getText(
-                            'cais5tw0' /* Email or password */,
-                          ),
                           fillColor:
                               FlutterFlowTheme.of(context).secondaryBackground,
                           labelStyle:
@@ -180,16 +177,13 @@ class _LoginState extends State<Login> {
                           label: FFLocalizations.of(context).getText(
                             'g143uz7d' /* Password */,
                           ),
-                          hint: FFLocalizations.of(context).getText(
-                            'g143uz7d' /* Password */,
-                          ),
                           fillColor:
                               FlutterFlowTheme.of(context).secondaryBackground,
                           labelStyle:
                               FlutterFlowTheme.of(context).labelLarge.override(
                                     letterSpacing: 0.0,
                                   ),
-                          suffix: GestureDetector(
+                          suffix: AppWidgets.click(
                               onTap: () {
                                 _controller.changeVisibility();
                               },
@@ -224,7 +218,7 @@ class _LoginState extends State<Login> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        GestureDetector(
+                        AppWidgets.click(
                           onTap: () {
                             FocusManager.instance.primaryFocus?.unfocus();
                             if (_controller
@@ -249,7 +243,7 @@ class _LoginState extends State<Login> {
                     ),
                     Align(
                       alignment: Alignment.center,
-                      child: GestureDetector(
+                      child: AppWidgets.click(
                         onTap: () => CommonFunctions.navigate(
                             context,
                             ViewDocument(

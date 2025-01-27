@@ -144,7 +144,9 @@ class _AddTransactionState extends State<AddTransaction> {
                                 topRight: Radius.circular(rSize * 0.010),
                                 bottomRight: Radius.circular(rSize * 0.010),
                               ),
-                              color: FlutterFlowTheme.of(context).alternate),
+                              color: FlutterFlowTheme.of(context)
+                                  .alternate
+                                  .withOpacity(0.2)),
                           child: Icon(
                             Icons.search_rounded,
                             color: FlutterFlowTheme.of(context).secondaryText,
@@ -167,7 +169,7 @@ class _AddTransactionState extends State<AddTransaction> {
                   .map((item) => DropdownMenuItem(
                         value: item,
                         child: Text(
-                          item.name!.replaceAll('_', ' '),
+                          _portfolioNotifier.capitalizeFirstLetter(item.name??'').replaceAll('_', ' '),
                           style: AppStyles.inputTextStyle(context),
                         ),
                       ))
@@ -269,28 +271,7 @@ class _AddTransactionState extends State<AddTransaction> {
                       .customColor4
                       .withOpacity(0.2),
                   contentPadding: EdgeInsets.all(rSize * 0.015),
-                  prefix: Container(
-                    height: rSize * 0.056,
-                    width: rSize * 0.060,
-                    margin: EdgeInsets.only(right: rSize * 0.010),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(rSize * 0.010),
-                          bottomLeft: Radius.circular(rSize * 0.010),
-                        ),
-                        color: FlutterFlowTheme.of(context)
-                            .customColor4
-                            .withOpacity(0.2)),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'bhxqgsuw' /* USD $ */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            letterSpacing: 0,
-                          ),
-                    ),
-                  )),
+                  prefix: prefix(context)),
             ),
             SizedBox(
               height: rSize * 0.015,
@@ -305,28 +286,8 @@ class _AddTransactionState extends State<AddTransaction> {
                     _marketNotifier.selectedSecurity?.price ?? '');
               },
               decoration: AppStyles.inputDecoration(context,
-                  prefix: Container(
-                    height: rSize * 0.056,
-                    width: rSize * 0.060,
-                    margin: EdgeInsets.only(right: rSize * 0.010),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(rSize * 0.010),
-                          bottomLeft: Radius.circular(rSize * 0.010),
-                        ),
-                        color: FlutterFlowTheme.of(context)
-                            .customColor4
-                            .withOpacity(0.2)),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'bhxqgsuw' /* USD $ */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            letterSpacing: 0,
-                          ),
-                    ),
-                  ),
+                focusColor: FlutterFlowTheme.of(context).alternate,
+                  prefix: prefix(context),
                   contentPadding: EdgeInsets.all(rSize * 0.015)),
             ),
             SizedBox(
@@ -343,28 +304,7 @@ class _AddTransactionState extends State<AddTransaction> {
                       .customColor4
                       .withOpacity(0.2),
                   contentPadding: EdgeInsets.all(rSize * 0.015),
-                  prefix: Container(
-                    height: rSize * 0.056,
-                    width: rSize * 0.060,
-                    margin: EdgeInsets.only(right: rSize * 0.010),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(rSize * 0.010),
-                          bottomLeft: Radius.circular(rSize * 0.010),
-                        ),
-                        color: FlutterFlowTheme.of(context)
-                            .customColor4
-                            .withOpacity(0.2)),
-                    child: Text(
-                      FFLocalizations.of(context).getText(
-                        'bhxqgsuw' /* USD $ */,
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            letterSpacing: 0,
-                          ),
-                    ),
-                  )),
+                  prefix: prefix(context)),
             ),
             SizedBox(
               height: rSize * 0.03,
@@ -372,7 +312,7 @@ class _AddTransactionState extends State<AddTransaction> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
+                AppWidgets.click(
                   onTap: () {
                     _marketNotifier.transmit(
                         _portfolioNotifier.selectedPortfolio,
@@ -393,6 +333,31 @@ class _AddTransactionState extends State<AddTransaction> {
         ),
       ),
     );
+  }
+
+  Container prefix(BuildContext context) {
+    return Container(
+                  height: rSize * 0.056,
+                  width: rSize * 0.060,
+                  margin: EdgeInsets.only(right: rSize * 0.010),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(rSize * 0.010),
+                        bottomLeft: Radius.circular(rSize * 0.010),
+                      ),
+                      color: FlutterFlowTheme.of(context)
+                          .alternate
+                          .withOpacity(0.2)),
+                  child: Text(
+                    FFLocalizations.of(context).getText(
+                      'bhxqgsuw' /* USD $ */,
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          letterSpacing: 0,
+                        ),
+                  ),
+                );
   }
 
   Padding label(BuildContext context, String text) {

@@ -65,8 +65,10 @@ class _DocumentsState extends State<Documents> {
       (value) {
         List<Document> list = value?.folders ?? [];
         final isLastPage = list.length < 10;
-        if(_notifier.selectedType!='All'){
-          list.removeWhere((element) => element.documentType==null,);
+        if (_notifier.selectedType != 'All') {
+          list.removeWhere(
+            (element) => element.documentType == null,
+          );
         }
         if (isLastPage) {
           _notifier2.pagingController.appendLastPage(list);
@@ -113,12 +115,31 @@ class _DocumentsState extends State<Documents> {
         children: [
           Padding(
             padding: EdgeInsets.only(
-                left: rSize * 0.03,
-                right: rSize * 0.03,
+                left: rSize * 0.015,
+                right: rSize * 0.015,
                 top: rSize * 0.01,
                 bottom: rSize * 0.01),
             child: Row(
               children: [
+                Expanded(
+                  flex: 1,
+                  child: AppWidgets.click(
+                    onTap: () {
+                      _notifier.changeMode();
+                    },
+                    child: Container(
+                      height: btnHeight,
+                      decoration: AppWidgets.gradiantDecoration(context),
+                      child: Icon(
+                        _notifier.isGridMode?Icons.grid_view:Icons.list,
+                        color: FlutterFlowTheme.of(context).info,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: rSize * 0.015,
+                ),
                 cell(
                     'filter.png',
                     '  ${FFLocalizations.of(context).getText(
@@ -170,7 +191,7 @@ class _DocumentsState extends State<Documents> {
                       Text(_notifier.selectedFilterList[index].name!,style: AppStyles.inputTextStyle(context),),
                         SizedBox(width: rSize*0.005,),
                         if((_notifier.selectedFilterList[index].type=='type' && _notifier.selectedFilterList[index].name!='All') || _notifier.selectedFilterList[index].type!='type')...{
-                          GestureDetector(
+                          AppWidgets.click(
                               onTap: () {
                                 _notifier.selectedFilterList.removeAt(index);
                                 _notifier.update();
@@ -195,175 +216,7 @@ class _DocumentsState extends State<Documents> {
                 _pageKey = 1;
                 _notifier.pagingController.refresh();
               },
-              child: PagedListView<int, Document>(
-                pagingController: _notifier.pagingController,
-                // shrinkWrap: true,
-                padding: EdgeInsets.symmetric(horizontal: rSize * 0.015),
-                builderDelegate: PagedChildBuilderDelegate<Document>(
-                    noItemsFoundIndicatorBuilder: (context) {
-                  return AppWidgets.emptyView(
-                      FFLocalizations.of(context).getText(
-                        'no_doc_found',
-                      ),
-                      context);
-                }, itemBuilder: (context, item, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      if (item.freezed!) {
-                        return;
-                      }
-                      if (item.documentType == null) {
-                        // _notifier.selectedFilterList.add(FilterModel(item.id.toString(), FilterTypes.ANCESTRY_FOLDER.name));
-                        _notifier.openFolder(item);
-                        _pageKey = 1;
-                        _notifier.pagingController.refresh();
-                      } else {
-                        CommonFunctions.navigate(
-                            context,
-                            ViewDocument(
-                              showSignButton:
-                                  item.requestProposalApproval != null &&
-                                      item.requestProposalApproval!,
-                              item: item,
-                              index: index,
-                            ));
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context)
-                              .secondaryBackground
-                              .withOpacity(item.freezed! ? 0.1 : 1),
-                          boxShadow: AppStyles.shadow(),
-                          borderRadius: BorderRadius.circular(rSize * 0.01)),
-                      margin: EdgeInsetsDirectional.symmetric(
-                          vertical: rSize * 0.005),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: rSize * 0.01, horizontal: rSize * 0.015),
-                        child: Row(children: [
-                          getTypeName(item.documentType),
-                          SizedBox(
-                            width: rSize * 0.01,
-                          ),
-                          Expanded(
-                              child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                (item.documentType != null
-                                        ? '${item.id!} ~ '
-                                        : '') +
-                                    item.folderName!,
-                                maxLines: 2,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      color: item.freezed!
-                                          ? FlutterFlowTheme.of(context)
-                                              .secondaryText
-                                          : FlutterFlowTheme.of(context)
-                                              .customColor4,
-                                      fontSize: rSize * 0.016,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                              Text(
-                                DateFormat('yyyy-MM-dd HH:mm')
-                                    .format(item.createdAt!),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      fontSize: rSize * 0.014,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                              if (item.documentStatus == 'Approved') ...{
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.done_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .customColor2,
-                                      size: rSize * 0.024,
-                                    ),
-                                    Text(
-                                      '${FFLocalizations.of(context).getText(
-                                        'ktrsz8sp' /* Accepted at */,
-                                      )} ${DateFormat(
-                                        'yyyy-MM-dd HH:mm',
-                                        FFLocalizations.of(context)
-                                            .languageCode,
-                                      ).format(item.approvedAt!)}',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            color: FlutterFlowTheme.of(context)
-                                                .customColor2,
-                                            fontSize: rSize * 0.016,
-                                            letterSpacing: 0.0,
-                                          ),
-                                    )
-                                  ],
-                                )
-                              },
-                              if (item.documentStatus == 'Rejected') ...{
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.close_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .customColor3,
-                                      size: rSize * 0.024,
-                                    ),
-                                    Text(
-                                      '${FFLocalizations.of(context).getText(
-                                        '5tjloy3c' /* Rejected at */,
-                                      )} ${DateFormat(
-                                        'yyyy-MM-dd HH:mm',
-                                        FFLocalizations.of(context)
-                                            .languageCode,
-                                      ).format(item.disapprovedAt!)}',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            color: FlutterFlowTheme.of(context)
-                                                .customColor3,
-                                            fontSize: rSize * 0.016,
-                                            letterSpacing: 0.0,
-                                          ),
-                                    )
-                                  ],
-                                )
-                              },
-                            ],
-                          )),
-                          if (item.documentType != null && !item.freezed!) ...{
-                            popupMenu(item, index),
-                          } else if (item.freezed!) ...{
-                            Icon(
-                              Icons.lock,
-                              size: rSize * 0.025,
-                              color: FlutterFlowTheme.of(context).customColor4,
-                            )
-                          },
-                          /*const RotatedBox(
-                            quarterTurns: 2,
-                            child: Icon(
-                              Icons.arrow_back_ios,
-                              color: AppColors.kTextFieldInput,
-                              size: 15,
-                            ))*/
-                        ]),
-                      ),
-                    ),
-                  );
-                }),
-              ),
+              child: _notifier.isGridMode?buildPagedGridView():buildPagedListView(),
             ),
           )
         ],
@@ -371,36 +224,365 @@ class _DocumentsState extends State<Documents> {
     );
   }
 
-  Expanded cell(String img, String label, void Function()? onTap, double size) {
-    return Expanded(
-        child: GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: btnHeight,
-        decoration: AppWidgets.gradiantDecoration(context),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/$img',
-              color: Colors.white,
-              height: size,
-              width: size,
+  PagedListView<int, Document> buildPagedListView() {
+    return PagedListView<int, Document>(
+      pagingController: _notifier.pagingController,
+      // shrinkWrap: true,
+      padding: EdgeInsets.symmetric(horizontal: rSize * 0.015),
+      builderDelegate: PagedChildBuilderDelegate<Document>(
+          noItemsFoundIndicatorBuilder: (context) {
+        return AppWidgets.emptyView(
+            FFLocalizations.of(context).getText(
+              'no_doc_found',
             ),
-            Text(
-              label,
-              style: FlutterFlowTheme.of(context).displaySmall.override(
-                    color: Colors.white,
-                    fontSize: rSize * 0.014,
-                    letterSpacing: 0.0,
-                    fontWeight: FontWeight.normal,
-                  ),
-              textAlign: TextAlign.center,
+            context);
+      }, itemBuilder: (context, item, index) {
+        return Column(
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if(index==0 || CommonFunctions.getYYYYMMDD(_notifier.pagingController.itemList![index].createdAt!)!=CommonFunctions.getYYYYMMDD(_notifier.pagingController.itemList![index-1].createdAt!))...{
+              Padding(
+                padding: EdgeInsets.only(top: rSize*0.015,bottom: rSize*0.005),
+                child: AppWidgets.label(context, CommonFunctions.getYYYYMMDD(item.createdAt!)),
+              )
+            },
+            AppWidgets.click(
+              onTap: () {
+                if (item.freezed!) {
+                  return;
+                }
+                if (item.documentType == null) {
+                  // _notifier.selectedFilterList.add(FilterModel(item.id.toString(), FilterTypes.ANCESTRY_FOLDER.name));
+                  _notifier.openFolder(item);
+                  _pageKey = 1;
+                  _notifier.pagingController.refresh();
+                } else {
+                  CommonFunctions.navigate(
+                      context,
+                      ViewDocument(
+                        showSignButton: item.requestProposalApproval != null &&
+                            item.requestProposalApproval!,
+                        item: item,
+                        index: index,
+                      ));
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context)
+                        .secondaryBackground
+                        .withOpacity(item.freezed! ? 0.1 : 1),
+                    boxShadow: AppStyles.shadow(),
+                    borderRadius: BorderRadius.circular(rSize * 0.01)),
+                margin: EdgeInsetsDirectional.symmetric(vertical: rSize * 0.005),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: rSize * 0.01, horizontal: rSize * 0.015),
+                  child: Row(children: [
+                    getTypeName(item.documentType),
+                    SizedBox(
+                      width: rSize * 0.01,
+                    ),
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          (item.documentType != null ? '${item.id!} ~ ' : '') +
+                              item.folderName!,
+                          maxLines: 2,
+                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                color: item.freezed!
+                                    ? FlutterFlowTheme.of(context).secondaryText
+                                    : FlutterFlowTheme.of(context).customColor4,
+                                fontSize: rSize * 0.016,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                        Text(
+                          DateFormat('yyyy-MM-dd HH:mm').format(item.createdAt!),
+                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                color: FlutterFlowTheme.of(context).secondaryText,
+                                fontSize: rSize * 0.014,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                        if (item.documentStatus == 'Approved') ...{
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.done_rounded,
+                                color: FlutterFlowTheme.of(context).customColor2,
+                                size: rSize * 0.024,
+                              ),
+                              Text(
+                                '${FFLocalizations.of(context).getText(
+                                  'ktrsz8sp' /* Accepted at */,
+                                )} ${DateFormat(
+                                  'yyyy-MM-dd HH:mm',
+                                  FFLocalizations.of(context).languageCode,
+                                ).format(item.approvedAt!)}',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      color:
+                                          FlutterFlowTheme.of(context).customColor2,
+                                      fontSize: rSize * 0.016,
+                                      letterSpacing: 0.0,
+                                    ),
+                              )
+                            ],
+                          )
+                        },
+                        if (item.documentStatus == 'Rejected') ...{
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.close_rounded,
+                                color: FlutterFlowTheme.of(context).customColor3,
+                                size: rSize * 0.024,
+                              ),
+                              Text(
+                                '${FFLocalizations.of(context).getText(
+                                  '5tjloy3c' /* Rejected at */,
+                                )} ${DateFormat(
+                                  'yyyy-MM-dd HH:mm',
+                                  FFLocalizations.of(context).languageCode,
+                                ).format(item.disapprovedAt!)}',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      color:
+                                          FlutterFlowTheme.of(context).customColor3,
+                                      fontSize: rSize * 0.016,
+                                      letterSpacing: 0.0,
+                                    ),
+                              )
+                            ],
+                          )
+                        },
+                      ],
+                    )),
+                    if (item.documentType != null && !item.freezed!) ...{
+                      popupMenu(item, index),
+                    } else if (item.freezed!) ...{
+                      Icon(
+                        Icons.lock,
+                        size: rSize * 0.025,
+                        color: FlutterFlowTheme.of(context).customColor4,
+                      )
+                    },
+                    /*const RotatedBox(
+                              quarterTurns: 2,
+                              child: Icon(
+                                Icons.arrow_back_ios,
+                                color: AppColors.kTextFieldInput,
+                                size: 15,
+                              ))*/
+                  ]),
+                ),
+              ),
             ),
           ],
-        ),
-      ),
-    ));
+        );
+      }),
+    );
+  }
+
+  PagedGridView<int, Document> buildPagedGridView() {
+    return PagedGridView<int, Document>(
+      pagingController: _notifier.pagingController,
+      // shrinkWrap: true,
+      padding: EdgeInsets.symmetric(horizontal: rSize * 0.015),
+      builderDelegate: PagedChildBuilderDelegate<Document>(
+          noItemsFoundIndicatorBuilder: (context) {
+        return AppWidgets.emptyView(
+            FFLocalizations.of(context).getText(
+              'no_doc_found',
+            ),
+            context);
+      }, itemBuilder: (context, item, index) {
+        return AppWidgets.click(
+          onTap: () {
+            if (item.freezed!) {
+              return;
+            }
+            if (item.documentType == null) {
+              // _notifier.selectedFilterList.add(FilterModel(item.id.toString(), FilterTypes.ANCESTRY_FOLDER.name));
+              _notifier.openFolder(item);
+              _pageKey = 1;
+              _notifier.pagingController.refresh();
+            } else {
+              CommonFunctions.navigate(
+                  context,
+                  ViewDocument(
+                    showSignButton: item.requestProposalApproval != null &&
+                        item.requestProposalApproval!,
+                    item: item,
+                    index: index,
+                  ));
+            }
+          },
+          child: Container(
+            decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context)
+                    .secondaryBackground
+                    .withOpacity(item.freezed! ? 0.1 : 1),
+                boxShadow: AppStyles.shadow(),
+                borderRadius: BorderRadius.circular(rSize * 0.01)),
+            margin: EdgeInsetsDirectional.symmetric(vertical: rSize * 0.005),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: rSize * 0.01, horizontal: rSize * 0.015),
+              child: Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 2,
+                    ),
+                    getTypeName(item.documentType,multiplier: 1.5),
+                    if (item.documentType != null && !item.freezed!) ...{
+                      popupMenu(item, index),
+                    } else if (item.freezed!) ...{
+                      Icon(
+                        Icons.lock,
+                        size: rSize * 0.025,
+                        color: FlutterFlowTheme.of(context).customColor4,
+                      )
+                    } else ...{
+                      SizedBox(
+                        width: 2,
+                      )
+                    },
+                  ],
+                ),
+                SizedBox(height: rSize*0.01,),
+                Text(
+                  (item.documentType != null ? '${item.id!} ~ ' : '') +
+                      item.folderName!,
+                  maxLines: 2,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        color: item.freezed!
+                            ? FlutterFlowTheme.of(context).secondaryText
+                            : FlutterFlowTheme.of(context).customColor4,
+                        fontSize: rSize * 0.016,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+                SizedBox(height: rSize*0.005),
+                Text(
+                  DateFormat('yyyy-MM-dd HH:mm').format(item.createdAt!),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        fontSize: rSize * 0.014,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+                SizedBox(height: rSize*0.005),
+                if (item.documentStatus == 'Approved') ...{
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.done_rounded,
+                        color: FlutterFlowTheme.of(context).customColor2,
+                        size: rSize * 0.024,
+                      ),
+                      SizedBox(width: rSize*0.01,),
+                      Expanded(
+                        child: Text(
+                          '${FFLocalizations.of(context).getText(
+                            'ktrsz8sp' /* Accepted at */,
+                          )} ${DateFormat(
+                            'yyyy-MM-dd HH:mm',
+                            FFLocalizations.of(context).languageCode,
+                          ).format(item.approvedAt!)}',
+                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                color: FlutterFlowTheme.of(context).customColor2,
+                                fontSize: rSize * 0.016,
+                                letterSpacing: 0.0,
+                              ),
+                        ),
+                      )
+                    ],
+                  )
+                },
+                if (item.documentStatus == 'Rejected') ...{
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.close_rounded,
+                        color: FlutterFlowTheme.of(context).customColor3,
+                        size: rSize * 0.024,
+                      ),
+                      Text(
+                        '${FFLocalizations.of(context).getText(
+                          '5tjloy3c' /* Rejected at */,
+                        )} ${DateFormat(
+                          'yyyy-MM-dd HH:mm',
+                          FFLocalizations.of(context).languageCode,
+                        ).format(item.disapprovedAt!)}',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              color: FlutterFlowTheme.of(context).customColor3,
+                              fontSize: rSize * 0.016,
+                              letterSpacing: 0.0,
+                            ),
+                      )
+                    ],
+                  )
+                },
+                /*const RotatedBox(
+                          quarterTurns: 2,
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: AppColors.kTextFieldInput,
+                            size: 15,
+                          ))*/
+              ]),
+            ),
+          ),
+        );
+      },),
+      gridDelegate:
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: rSize*0.01,childAspectRatio: 0.9),
+    );
+  }
+
+  Expanded cell(String img, String label, void Function()? onTap, double size) {
+    return Expanded(
+        flex: 2,
+        child: AppWidgets.click(
+          onTap: onTap,
+          child: Container(
+            height: btnHeight,
+            decoration: AppWidgets.gradiantDecoration(context),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/$img',
+                  color: Colors.white,
+                  height: size,
+                  width: size,
+                ),
+                Text(
+                  label,
+                  style: FlutterFlowTheme.of(context).displaySmall.override(
+                        color: Colors.white,
+                        fontSize: rSize * 0.014,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.normal,
+                      ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 
   void openFilterDialog() {
@@ -452,7 +634,7 @@ class _DocumentsState extends State<Documents> {
                                           FFLocalizations.of(context).getText(
                                             'filter' /* Filter */,
                                           ))),
-                                  GestureDetector(
+                                  AppWidgets.click(
                                     onTap: () {
                                       Navigator.pop(context);
                                     },
@@ -628,7 +810,9 @@ class _DocumentsState extends State<Documents> {
                                           _notifier.selectedType = 'All';
                                           _notifier.range = '';
                                           _pageKey = 1;
-                                          _notifier.selectedFilterList=[FilterModel(selectedType, 'type')];
+                                          _notifier.selectedFilterList = [
+                                            FilterModel(selectedType, 'type')
+                                          ];
                                           _notifier.pagingController.refresh();
                                           Navigator.pop(context);
                                         },
@@ -654,11 +838,17 @@ class _DocumentsState extends State<Documents> {
                                           _pageKey = 1;
                                           _notifier.notify();
                                           _notifier.selectedFilterList.clear();
-                                          _notifier.selectedFilterList.add(FilterModel(selectedType, 'type'));
-                                          if(searchedFileName.isNotEmpty){
-                                            _notifier.selectedFilterList.add(FilterModel(searchedFileName, 'searched_name'));
-                                          }if(range.isNotEmpty){
-                                            _notifier.selectedFilterList.add(FilterModel(range, 'range'));
+                                          _notifier.selectedFilterList.add(
+                                              FilterModel(
+                                                  selectedType, 'type'));
+                                          if (searchedFileName.isNotEmpty) {
+                                            _notifier.selectedFilterList.add(
+                                                FilterModel(searchedFileName,
+                                                    'searched_name'));
+                                          }
+                                          if (range.isNotEmpty) {
+                                            _notifier.selectedFilterList.add(
+                                                FilterModel(range, 'range'));
                                           }
                                           _notifier.pagingController.refresh();
                                           Navigator.pop(context);
@@ -733,7 +923,7 @@ class _DocumentsState extends State<Documents> {
                                           FFLocalizations.of(context).getText(
                                             'sort' /* sort */,
                                           ))),
-                                  GestureDetector(
+                                  AppWidgets.click(
                                     onTap: () {
                                       Navigator.pop(context);
                                     },
@@ -753,10 +943,12 @@ class _DocumentsState extends State<Documents> {
                               sortDialogElement(1, _notifier.sortList[1]),
                               sortDialogElement(2, _notifier.sortList[2]),
                               sortDialogElement(3, _notifier.sortList[3]),
+                              sortDialogElement(4, _notifier.sortList[4]),
+                              sortDialogElement(5, _notifier.sortList[5]),
                               SizedBox(
                                 height: rSize * 0.005,
                               ),
-                              GestureDetector(
+                              AppWidgets.click(
                                 onTap: () {
                                   _pageKey = 1;
                                   _notifier.setSortRadioGroupValue(
@@ -969,24 +1161,24 @@ class _DocumentsState extends State<Documents> {
     );
   }
 
-  getTypeName(String? documentType) {
+  getTypeName(String? documentType, {double multiplier=1}) {
     if (documentType == 'form') {
       return SvgPicture.asset(
         Theme.of(context).brightness == Brightness.dark
             ? 'assets/form-svgrepo-com-dark-theme.svg'
             : 'assets/form-svgrepo-com.svg',
         color: FlutterFlowTheme.of(context).customColor4,
-        height: rSize * 0.035,
+        height: rSize * 0.035*multiplier,
       );
     } else if (documentType == 'document' || documentType == 'package') {
       return FaIcon(
         FontAwesomeIcons.file,
         color: FlutterFlowTheme.of(context).customColor4,
-        size: rSize * 0.030,
+        size: rSize * 0.030*multiplier,
       );
     }
 
     return Icon(Icons.folder_outlined,
-        color: FlutterFlowTheme.of(context).customColor4, size: rSize * 0.030);
+        color: FlutterFlowTheme.of(context).customColor4, size: rSize * 0.030*multiplier);
   }
 }

@@ -5,10 +5,12 @@ import 'package:kleber_bank/utils/app_styles.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/searchable_dropdown.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../utils/common_functions.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
+import 'data_model.dart';
 
 class BankTransfer extends StatefulWidget {
   const BankTransfer({super.key});
@@ -25,10 +27,18 @@ class _BankTransferState extends State<BankTransfer> {
     super.initState();
   }
 
-  void _loadData() async {
-    final temporaryList = [];
-
-    // Code for parsing XML data.
+  @override
+  void dispose() {
+    _notifier.selectedType='';
+    _notifier.selectedStatus='';
+    _notifier.amountController.clear();
+    _notifier.selectedCurrency=null;
+    _notifier.usdController.clear();
+    _notifier.openRateController.clear();
+    _notifier.selectedTransactionDate='';
+    _notifier.selectedAccountingDate='';
+    _notifier.selectedValueDate='';
+    super.dispose();
   }
 
   @override
@@ -52,6 +62,9 @@ class _BankTransferState extends State<BankTransfer> {
               FFLocalizations.of(context).getText(
                 'xn2nrgyp' /* Portfolio */,
               )),
+          SizedBox(
+            height: rSize * 0.005,
+          ),
           SearchableDropdown(
             selectedValue: _notifier.selectedPortfolio,
             searchHint: FFLocalizations.of(context).getText(
@@ -90,17 +103,18 @@ class _BankTransferState extends State<BankTransfer> {
             selectedValue: _notifier.selectedType,
             searchHint: '',
             onChanged: (p0) {},
-            items: _notifier.typeList
+            items: _notifier.cashTransactionTypeList
                 .map((item) => DropdownMenuItem(
                       value: item,
                       child: Text(
-                        item,
+                        _notifier.capitalizeFirstLetter(item.name??'').replaceAll('_', ' '),
                         style: AppStyles.inputTextStyle(context),
                       ),
                     ))
                 .toList(),
-            searchMatchFn: null,
-            isSearchable: false,
+            searchMatchFn: (item, searchValue) =>  CommonFunctions.compare(
+              searchValue, item.value.name.toString()),
+            isSearchable: true,
           ),
           SizedBox(
             height: rSize * 0.015,
@@ -126,8 +140,9 @@ class _BankTransferState extends State<BankTransfer> {
                       ),
                     ))
                 .toList(),
-            searchMatchFn: null,
-            isSearchable: false,
+            searchMatchFn: (item, searchValue) =>  CommonFunctions.compare(
+                searchValue, item.value.name.toString()),
+            isSearchable: true,
           ),
           SizedBox(
             height: rSize * 0.015,
@@ -172,11 +187,13 @@ class _BankTransferState extends State<BankTransfer> {
                                   ),
                                 ))
                             .toList(),
-                        searchMatchFn: null,
+                        searchMatchFn: (item, searchValue) {
+                          return CommonFunctions.compare(searchValue, item.value.name.toString());
+                        },
                         broderColor: Colors.transparent,
                         height: rSize * 0.04,
                         padding: EdgeInsets.zero,
-                        isSearchable: false,
+                        isSearchable: true,
                       )
                     ],
                   ),
@@ -213,10 +230,10 @@ class _BankTransferState extends State<BankTransfer> {
             controller: _notifier.usdController,
             style: AppStyles.inputTextStyle(context),
             keyboardType: TextInputType.number,
+            readOnly: true,
             onChanged: (value) {},
             decoration: AppStyles.inputDecoration(context,
-                fillColor:
-                    FlutterFlowTheme.of(context).customColor4.withOpacity(0.2),
+              focusColor: FlutterFlowTheme.of(context).alternate,
                 prefix: Container(
                   height: rSize * 0.056,
                   width: rSize * 0.060,
@@ -228,10 +245,10 @@ class _BankTransferState extends State<BankTransfer> {
                         bottomLeft: Radius.circular(rSize * 0.010),
                       ),
                       color: FlutterFlowTheme.of(context)
-                          .customColor4
+                          .alternate
                           .withOpacity(0.2)),
                   child: Text(
-                    "USD",
+                    _notifier.selectedPortfolio?.referenceCurrency??'',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           letterSpacing: 0,
                         ),
@@ -256,9 +273,10 @@ class _BankTransferState extends State<BankTransfer> {
             keyboardType: TextInputType.number,
             onChanged: (value) {},
             decoration: AppStyles.inputDecoration(context,
+              focusColor: FlutterFlowTheme.of(context).alternate,
                 prefix: Container(
                   height: rSize * 0.056,
-                  width: rSize * 0.065,
+                  width: ("${_notifier.selectedCurrency?.name??''}/USD").length*rSize*0.011,
                   margin: EdgeInsets.only(right: rSize * 0.010),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
@@ -267,7 +285,7 @@ class _BankTransferState extends State<BankTransfer> {
                         bottomLeft: Radius.circular(rSize * 0.010),
                       ),
                       color: FlutterFlowTheme.of(context)
-                          .customColor4
+                          .alternate
                           .withOpacity(0.2)),
                   child: Text(
                     "${_notifier.selectedCurrency?.name??''}/USD",
@@ -289,15 +307,18 @@ class _BankTransferState extends State<BankTransfer> {
           TextFormField(
             style: AppStyles.inputTextStyle(context),
             readOnly: true,
-            // controller: TextEditingController(text: _marketNotifier.selectedDateTime),
+            controller: TextEditingController(text:_notifier.selectedTransactionDate ),
             onTap: () {
-              // openDateTimePicker();
+              AppWidgets.openDatePicker(context, (p0) {
+                _notifier.selectTransactionDate(p0 as DateTime);
+                Navigator.pop(context);
+              },mode: DateRangePickerSelectionMode.single);
             },
             decoration: AppStyles.inputDecoration(
               context,
               focusColor: FlutterFlowTheme.of(context).alternate,
               contentPadding: EdgeInsets.all(rSize * 0.015),
-              suffix: Container(
+              suffix: SizedBox(
                 height: rSize * 0.056,
                 width: rSize * 0.050,
               ),
@@ -314,9 +335,12 @@ class _BankTransferState extends State<BankTransfer> {
           TextFormField(
             style: AppStyles.inputTextStyle(context),
             readOnly: true,
-            // controller: TextEditingController(text: _marketNotifier.selectedDateTime),
+            controller: TextEditingController(text:_notifier.selectedAccountingDate ),
             onTap: () {
-              // openDateTimePicker();
+              AppWidgets.openDatePicker(context, (p0) {
+                _notifier.selectAccountingDate(p0 as DateTime);
+                Navigator.pop(context);
+              },mode: DateRangePickerSelectionMode.single);
             },
             decoration: AppStyles.inputDecoration(
               context,
@@ -339,9 +363,12 @@ class _BankTransferState extends State<BankTransfer> {
           TextFormField(
             style: AppStyles.inputTextStyle(context),
             readOnly: true,
-            // controller: TextEditingController(text: _marketNotifier.selectedDateTime),
+            controller: TextEditingController(text:_notifier.selectedValueDate ),
             onTap: () {
-              // openDateTimePicker();
+              AppWidgets.openDatePicker(context, (p0) {
+                _notifier.selectValueDate(p0 as DateTime);
+                Navigator.pop(context);
+              },mode: DateRangePickerSelectionMode.single);
             },
             decoration: AppStyles.inputDecoration(
               context,
@@ -361,8 +388,9 @@ class _BankTransferState extends State<BankTransfer> {
             children: [
               AppWidgets.btn(
                   context,
+                  margin: EdgeInsets.only(bottom: padding.bottom),
                   FFLocalizations.of(context).getText(
-                    'save',
+                    'h2vfcolj',
                   ),
                   horizontalPadding: rSize * 0.03),
             ],

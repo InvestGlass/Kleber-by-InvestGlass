@@ -281,7 +281,7 @@ class _ViewProposalState extends State<ViewProposal> {
                 width: rSize * 0.02,
               ),
               Expanded(
-                  child: GestureDetector(
+                  child: AppWidgets.click(
                 onTap: () {
                   if(!widget.item!.isChecked){
                     CommonFunctions.showToast(FFLocalizations.of(context).getText(
@@ -325,7 +325,7 @@ class _ViewProposalState extends State<ViewProposal> {
                 width: rSize * 0.02,
               ),
               Expanded(
-                  child: GestureDetector(
+                  child: AppWidgets.click(
                 onTap: () {
                   if(!widget.item!.isChecked){
                     CommonFunctions.showToast(FFLocalizations.of(context).getText(

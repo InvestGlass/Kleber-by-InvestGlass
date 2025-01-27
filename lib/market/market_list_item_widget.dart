@@ -70,6 +70,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
     c=context;
 
     return Container(
+      clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           boxShadow: AppStyles.shadow(),
@@ -192,7 +193,7 @@ class _MarketListItemWidgetState extends State<MarketListItemWidget> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    GestureDetector(
+                    AppWidgets.click(
                       onTap: () => CommonFunctions.navigate(context, AddTransaction(widget.data!,null)),
                       child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
                         '7v8svtoq' /* New Transaction */,

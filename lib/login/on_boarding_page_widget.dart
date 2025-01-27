@@ -87,11 +87,11 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                                     const Expanded(child: SizedBox(),),
                                     Expanded(
                                       flex: 2,
-                                      child: GestureDetector(
+                                      child: AppWidgets.click(
                                         onTap: () => CommonFunctions.navigate(context, const Login(), removeCurrentScreenFromStack: true),
                                         child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
                                           '3h41wkxj' /* Sign in */,
-                                        )),
+                                        ).toUpperCase()),
                                       ),
                                     ),
                                     const Expanded(child: SizedBox(),),

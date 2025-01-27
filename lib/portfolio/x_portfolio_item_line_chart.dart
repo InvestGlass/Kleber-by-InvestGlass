@@ -237,17 +237,24 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     List<ChartModel> filteredList = performanceChartList
         .where((data) => data.date!.isAfter(startDate(selectedPeriod)))
         .toList();
-    print('filtered list :: ${filteredList.length}');
     final isAr =
         (SharedPrefUtils.instance.getString(SELECTED_LANGUAGE) == 'ar');
     final overIntialVisible =
         filteredList.length > (initialVisibleMaximum.floor() + 1);
+
+    print('filtered list :: ${filteredList.length} $overIntialVisible');
+    /*if(filteredList.isEmpty){
+      return Center(child: Text('No data available.',style: AppStyles.inputTextStyle(context),));
+    }*/
     return Row(
       children: [
         Expanded(
           child: SfCartesianChart(
             key: key,
             plotAreaBorderWidth: 0,
+            onActualRangeChanged: (args) {
+              print('onActualRangeChanged ${args.axis} ${args.visibleMin}');
+            },
             // title: ChartTitle(
             //   text: 'syncfusion_flutter_charts\nline & spline',
             //   textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
@@ -267,7 +274,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                   ),
               initialVisibleMaximum: initialVisibleMaximum,
               labelIntersectAction: AxisLabelIntersectAction.none,
-              isInversed: isAr,
+              isInversed: isAr,isVisible: false,
             ),
             primaryYAxis: NumericAxis(
               labelFormat: '{value}%',
@@ -290,8 +297,8 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                   ),
             ),
             zoomPanBehavior: ZoomPanBehavior(
-              enablePanning: true,
-            ),
+      enablePanning: true,
+    ),
             series: _getSampleLineSeries(filteredList),
             // tooltipBehavior:
             //     TooltipBehavior(enable: true, header: '', canShowMarker: false),
@@ -369,11 +376,11 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   }
 
   Widget periodCell(String label) {
-    return GestureDetector(
+    return AppWidgets.click(
       onTap: () {
           selectedPeriod = label;
-          _streamController.add('');
           key=ValueKey(selectedPeriod);
+          _streamController.add('');
       },
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -421,10 +428,11 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
               ? '0'
               : double.parse(listAmount[index].split(' ')[1].replaceAll(',', '')) < 0
                   ? '0'
-                  : listAmount[index],isUSDAmountAvailable: widget.isUSDAmountAvailable[index],usdValue: widget.usdList[index]),
+                  : listAmount[index],isUSDAmountAvailable: !isCurrencyChart()?false:widget.isUSDAmountAvailable[index],usdValue: !isCurrencyChart()?'':widget.usdList[index]),
     );
+    list.removeWhere((element) => element.amount=='0',);
     list.sort((a, b)  {
-      print('amount : ${a.label} ${a.amount} ${a.isUSDAmountAvailable}');
+      print('amount : ${a.label} ${b.amount} ${a.isUSDAmountAvailable}');
          return double.parse(a.amount.split(' ')[1].replaceAll(',', '')).compareTo(
               double.parse(b.amount.split(' ')[1].replaceAll(',', '')));
         });
@@ -586,6 +594,13 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
         return isPortraitMode ? rSize * 0.07 : rSize * 0.4;
       }
     }
+  }
+
+  isCurrencyChart() {
+    return widget.sectionName==FFLocalizations.of(context)
+        .getText(
+      'o00oeypg' /* Currency */,
+    );
   }
 }
 

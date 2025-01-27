@@ -70,7 +70,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: rSize*0.040, vertical: rSize*0.02),
               color: FlutterFlowTheme.of(context).secondaryBackground,
-              child: GestureDetector(
+              child: AppWidgets.click(
                 onTap: () {
                   if (_notifier.selectedSecurity != null) {
                     Navigator.pop(context, _notifier.selectedSecurity);
@@ -101,7 +101,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
             children: [
               Row(
                 children: [
-                  GestureDetector(
+                  AppWidgets.click(
                     onTap: () => openFilterDialog(context),
                     child: Container(
                       decoration: BoxDecoration(
@@ -259,7 +259,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                                         FFLocalizations.of(context).getText(
                                           'filter' /* Filter */,
                                         ))),
-                                  GestureDetector(
+                                  AppWidgets.click(
                                     onTap: () {
                                       Navigator.pop(context);
                                     },

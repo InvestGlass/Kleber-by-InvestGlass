@@ -243,7 +243,7 @@ class _ViewDocumentState extends State<ViewDocument> {
 
   Widget getWidget(BuildContext context) {
     if (widget.showSignButton!) {
-      return GestureDetector(
+      return AppWidgets.click(
         onTap: () {
           AppWidgets.showSignDialog(context, onAccept: () {
             _notifier.updateDocumentStatus(

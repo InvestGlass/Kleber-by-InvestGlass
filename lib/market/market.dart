@@ -7,6 +7,7 @@ import 'package:kleber_bank/market/video_player_widget.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/searchable_dropdown.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../main.dart';
 import '../utils/app_styles.dart';
@@ -81,27 +82,7 @@ class _MarketState extends State<Market> {
           children: [
             Row(
               children: [
-                SizedBox(width: rSize * 0.015,),
-                GestureDetector(
-                  onTap: () => openFilterDialog(context),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        boxShadow: AppStyles.shadow(),
-                        borderRadius: BorderRadius.circular(rSize*0.01)
-                    ),
-                    height: rSize * 0.05,
-                    width: rSize * 0.05,
-                    child: Icon(
-                      Icons.filter_alt_outlined,
-                      size: rSize * 0.025,
-                      color: FlutterFlowTheme.of(context).customColor4,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: rSize * 0.010,
-                ),
+                SizedBox(width: rSize * 0.015),
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
@@ -132,7 +113,27 @@ class _MarketState extends State<Market> {
                     ),
                   ),
                 ),
-                SizedBox(width: rSize * 0.015,)
+                SizedBox(
+                  width: rSize * 0.010,
+                ),
+                AppWidgets.click(
+                  onTap: () => openFilterDialog(context),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        boxShadow: AppStyles.shadow(),
+                        borderRadius: BorderRadius.circular(rSize*0.01)
+                    ),
+                    height: rSize * 0.05,
+                    width: rSize * 0.05,
+                    child: Icon(
+                      Icons.filter_alt_outlined,
+                      size: rSize * 0.025,
+                      color: FlutterFlowTheme.of(context).customColor4,
+                    ),
+                  ),
+                ),
+                SizedBox(width: rSize * 0.015),
               ],
             ),
             SizedBox(
@@ -153,12 +154,16 @@ class _MarketState extends State<Market> {
                           'no_security_found' /* No security found */,
                         ),
                         context);
-                  }, itemBuilder: (context, item, index) {
+                  },
+                      firstPageProgressIndicatorBuilder: (context) {
+                        return skeleton();
+                      },
+                      itemBuilder: (context, item, index) {
                     return MarketListItemWidget(
                       // key: Key('Keyery_${index}_of_${realLength}'),
                       data: item,
                     );
-                    /*return GestureDetector(
+                    /*return AppWidgets.click(
                       onTap: () {
                         CommonFunctions.navigate(
                             context,
@@ -201,7 +206,7 @@ class _MarketState extends State<Market> {
                                   SizedBox(
                                     height: rSize * 0.015,
                                   ),
-                                  GestureDetector(
+                                  AppWidgets.click(
                                       onTap: () => CommonFunctions.navigate(context, AddTransaction()),
                                       child: AppWidgets.btn(context, 'Add Transaction'))
                                 ],
@@ -289,7 +294,7 @@ class _MarketState extends State<Market> {
                                     FFLocalizations.of(context).getText(
                                       'filter' /* Filter */,
                                     ))),
-                                  GestureDetector(
+                                  AppWidgets.click(
                                     onTap: () {
                                       Navigator.pop(context);
                                     },
@@ -453,6 +458,30 @@ class _MarketState extends State<Market> {
           ),
         );
       },
+    );
+  }
+
+  Widget skeleton() {
+    return Skeletonizer(
+      enabled: true,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            MarketListItemWidget(
+              // key: Key('Keyery_${index}_of_${realLength}'),
+              data: MarketListModel(assetClassName: 'assetClass',name: 'iShares Edge MSCI USA Value Factor UCITS'),
+            ),
+            MarketListItemWidget(
+              // key: Key('Keyery_${index}_of_${realLength}'),
+              data: MarketListModel(assetClassName: 'assetClass',name: 'iShares Edge MSCI USA Value Factor UCITS'),
+            ),
+            MarketListItemWidget(
+              // key: Key('Keyery_${index}_of_${realLength}'),
+              data: MarketListModel(assetClassName: 'assetClass',name: 'iShares Edge MSCI USA Value Factor UCITS'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

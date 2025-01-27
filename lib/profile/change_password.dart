@@ -150,7 +150,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
+                AppWidgets.click(
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
                         _notifier.changePassword(context);
@@ -173,7 +173,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   }
 
   Widget eyeIcon(BuildContext context, bool showPwd, void Function() onTap) {
-    return GestureDetector(
+    return AppWidgets.click(
       onTap: onTap,
       child: Padding(
         padding: EdgeInsets.only(right: rSize * 0.008),

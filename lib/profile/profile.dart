@@ -74,7 +74,7 @@ class _ProfileState extends State<Profile> {
           ),
           Text(
             FFLocalizations.of(context).getText(
-              'wl1ownor' /* Account Settings */,
+              'wl1ownor' /* Profile Settings */,
             ),
             style: FlutterFlowTheme.of(context).labelMedium.override(
                   color: FlutterFlowTheme.of(context).customColor4,
@@ -86,7 +86,7 @@ class _ProfileState extends State<Profile> {
           ),
           cell(
             FFLocalizations.of(context).getText(
-              'afxtmzhw' /* Change Password */,
+              'yot02jf2' /* Change Password */,
             ),
             () => CommonFunctions.navigate(context, ChangePassword()),
           ),
@@ -95,7 +95,7 @@ class _ProfileState extends State<Profile> {
           ),
           cell(
             FFLocalizations.of(context).getText(
-              'cnc2a7kn' /* Change Language*/,
+              'wvo4yj9k' /* Change Language*/,
             ),
             () => openLanguageSelectionBottomSheet(),
           ),
@@ -151,7 +151,7 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: rSize * 0.13,
           ),
-          GestureDetector(
+          AppWidgets.click(
             onTap: () async {
               openConfirmationDialog();
             },
@@ -209,7 +209,7 @@ class _ProfileState extends State<Profile> {
                                   FFLocalizations.of(context).getText(
                                     'cnc2a7kn' /* Change Language */,
                                   ))),
-                          GestureDetector(
+                          AppWidgets.click(
                             onTap: () {
                               Navigator.pop(context);
                             },
@@ -244,7 +244,7 @@ class _ProfileState extends State<Profile> {
                         _mainNotifier.tempLanguageSelection(p0!);
                           },_mainNotifier.tempSelectedLanguage),
                       SizedBox(height: rSize*0.015,),
-                      GestureDetector(
+                      AppWidgets.click(
                         onTap: () {
                           _notifier.changeLanguage(_mainNotifier.tempSelectedLanguage);
                           _mainNotifier.changeLanguage(_notifier.selectedLanguage);
@@ -314,7 +314,7 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget cell(String title, void Function()? onTap) {
-    return GestureDetector(
+    return AppWidgets.click(
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(

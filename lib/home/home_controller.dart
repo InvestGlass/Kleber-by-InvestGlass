@@ -12,6 +12,7 @@ class HomeController extends ChangeNotifier{
   List<HomeNewsModel> popularNewsList=[];
   bool refresh=false;
   int swipeCount=0;
+  bool isLoading=true;
   var swipeData=[
     {'image':
           'https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iZzEbn3d5iqk/v1/1200x799.jpg',
@@ -37,9 +38,10 @@ class HomeController extends ChangeNotifier{
   ];
 
   void getPopularNews(BuildContext context){
-    CommonFunctions.showLoader(context);
+    isLoading=true;
+    notifyListeners();
     ApiCalls.getHomeNews(context).then((value) {
-      CommonFunctions.dismissLoader(context);
+      isLoading=false;
       popularNewsList=value;
       notifyListeners();
     },);

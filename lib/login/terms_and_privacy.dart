@@ -181,7 +181,7 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy> with TickerProviderSt
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: rSize * 0.04, right: rSize * 0.04, bottom: rSize * 0.01),
-                  child: GestureDetector(
+                  child: AppWidgets.click(
                     onTap: () {
                       if (_controller.accepted) {
                         _controller.accept(context);
@@ -201,7 +201,7 @@ class _TermsAndPrivacyState extends State<TermsAndPrivacy> with TickerProviderSt
   }
 
   Widget tabCell(BuildContext context, String text, bool isSelected,void Function()? onTap) {
-    return GestureDetector(
+    return AppWidgets.click(
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: rSize*0.02,vertical: rSize*0.01),

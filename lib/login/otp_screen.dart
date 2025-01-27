@@ -8,6 +8,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 import '../main.dart';
 import '../utils/app_styles.dart';
+import '../utils/app_widgets.dart';
 import '../utils/button_widget.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
@@ -201,7 +202,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                       letterSpacing: 0.0,
                                     ),
                               ),
-                              GestureDetector(
+                              AppWidgets.click(
                                   onTap: () {
                                     _controller.reSend(context);
                                   },

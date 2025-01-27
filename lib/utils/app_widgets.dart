@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kleber_bank/utils/app_styles.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -85,10 +86,10 @@ class AppWidgets {
             Text(
               getStatus(model.status, context),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                    color: FlutterFlowTheme.of(context).customColor4,
-                    fontSize: rSize * 0.012,
-                    letterSpacing: 0.0,
-                    fontWeight: FontWeight.normal,
+                color: FlutterFlowTheme.of(context).customColor4,
+                fontSize: rSize * 0.016,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.normal,
                   ),
             ),
             SizedBox(
@@ -265,6 +266,25 @@ class AppWidgets {
       ],
     );
   }
+  
+  static Widget click(
+      {void Function()? onTap, required Widget child, void Function(TapDownDetails)? onTapDown
+        , void Function(TapUpDetails)? onTapUp,
+        void Function()? onTapCancel
+      }) {
+    return GestureDetector(
+      onTap: () {
+        if (onTap != null) {
+          HapticFeedback.lightImpact();
+          onTap();
+        }
+      },
+      onTapDown:onTapDown,
+      onTapUp:onTapUp,
+      onTapCancel:onTapCancel,
+      child: child,
+    );
+  }
 
   static Widget btn(BuildContext context, String label,
       {double? width,
@@ -402,7 +422,7 @@ class AppWidgets {
   static Expanded sheetElement(
       String img, String label, void Function()? onTap, BuildContext context) {
     return Expanded(
-      child: GestureDetector(
+      child: AppWidgets.click(
         onTap: onTap,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -501,7 +521,7 @@ class AppWidgets {
   }
 
   static PreferredSize appBar(BuildContext context, String title,
-      {Widget? leading, List<Widget>? actions, bool centerTitle = false}) {
+      {Widget? leading, List<Widget>? actions, bool centerTitle = false,String subTitle = '',double elevation=0}) {
     return PreferredSize(
       preferredSize: Size.fromHeight(rSize * 0.06),
       child: /*!isTablet
@@ -518,20 +538,34 @@ class AppWidgets {
             )
           : */
           appbar_(context, title.toUpperCase(),
-              leading: leading, actions: actions, centerTitle: centerTitle),
+              leading: leading, actions: actions, centerTitle: centerTitle,subTitle_: subTitle,elevation: elevation),
     );
   }
 
   static AppBar appbar_(BuildContext context, String txt,
-      {Widget? leading, List<Widget>? actions, bool centerTitle = false}) {
+      {Widget? leading, List<Widget>? actions, bool centerTitle = false,String subTitle_ = '',double elevation =0}) {
     return AppBar(
-      elevation: 0,
+      elevation: elevation,
       actions: actions,
       toolbarHeight: rSize * 0.08,
       surfaceTintColor: Colors.transparent,
       leading: leading,
       leadingWidth: rSize * 0.06,
-      title: title(context, txt),
+      title: Column(
+        children: [
+          title(context, txt),
+          if (subTitle_.isNotEmpty) ...{
+            Text(
+              subTitle_,
+              textAlign: centerTitle ? TextAlign.center : null,
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                color: FlutterFlowTheme.of(context).customColor4,
+                fontSize: rSize * 0.014,
+              ),
+            )
+          }
+        ],
+      ),
       centerTitle: true,
     );
   }
@@ -647,7 +681,7 @@ class AppWidgets {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              GestureDetector(
+                              AppWidgets.click(
                                   onTap: onTap1,
                                   child: btnWithoutGradiant(
                                     context,
@@ -658,7 +692,7 @@ class AppWidgets {
                               SizedBox(
                                 width: rSize * 0.02,
                               ),
-                              GestureDetector(
+                              AppWidgets.click(
                                   onTap: onTap2,
                                   child: btnWithoutGradiant(
                                     context,

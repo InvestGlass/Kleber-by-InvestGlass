@@ -64,7 +64,7 @@ class PortfolioModel {
             assetClass: key.split(' - ')[0],
             amount3: '${key.split(' - ')[0]} ${value[1]}',
             amount2: 'USD ${value[2]}',
-            amount1: '${key.split(' - ')[0]} ${(100*value[1])/total}',
+            amount1: '${key.split(' - ')[0]} ${((100*value[1])/total).toStringAsFixed(2)}',
             isUSDAmountAvailable: value[0]));
         print('chart data ${map.length}');
       },

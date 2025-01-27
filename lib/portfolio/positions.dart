@@ -8,6 +8,7 @@ import 'package:kleber_bank/utils/api_calls.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/searchable_dropdown.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../main.dart';
 import '../utils/app_styles.dart';
@@ -26,7 +27,8 @@ class Positions extends StatefulWidget {
 
 class _PositionsState extends State<Positions> {
   late PortfolioController _notifier;
-  final PagingController<int, PositionModel> _pagingController = PagingController(firstPageKey: 1);
+  final PagingController<int, PositionModel> _pagingController =
+      PagingController(firstPageKey: 1);
   int _pageKey = 1;
 
   @override
@@ -41,7 +43,8 @@ class _PositionsState extends State<Positions> {
     BuildContext context,
   ) async {
     var notifier = Provider.of<PortfolioController>(context, listen: false);
-    List<PositionModel> list = await ApiCalls.getPositionList(context, _pageKey, widget.id, notifier.column, notifier.direction);
+    List<PositionModel> list = await ApiCalls.getPositionList(
+        context, _pageKey, widget.id, notifier.column, notifier.direction);
     final isLastPage = list.length < 10;
     if (isLastPage) {
       _pagingController.appendLastPage(list);
@@ -49,16 +52,18 @@ class _PositionsState extends State<Positions> {
       _pageKey++;
       _pagingController.appendPage(list, _pageKey);
     }
-    if (notifier.column=='roi'&& notifier.direction=='asc') {
-      _pagingController.itemList!.sort((a, b) => double.parse(a.roi!).compareTo(double.parse(b.roi!)));
-    }else if (notifier.column=='roi'&& notifier.direction=='desc') {
-      _pagingController.itemList!.sort((a, b) => double.parse(b.roi!).compareTo(double.parse(a.roi!)));
+    if (notifier.column == 'roi' && notifier.direction == 'asc') {
+      _pagingController.itemList!
+          .sort((a, b) => double.parse(a.roi!).compareTo(double.parse(b.roi!)));
+    } else if (notifier.column == 'roi' && notifier.direction == 'desc') {
+      _pagingController.itemList!
+          .sort((a, b) => double.parse(b.roi!).compareTo(double.parse(a.roi!)));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    c=context;
+    c = context;
     _notifier = Provider.of<PortfolioController>(context);
     return Scaffold(
       appBar: AppWidgets.appBar(
@@ -73,7 +78,9 @@ class _PositionsState extends State<Positions> {
           children: [
             Row(
               children: [
-                SizedBox(width: rSize*0.015,),
+                SizedBox(
+                  width: rSize * 0.015,
+                ),
                 Expanded(
                   child: SearchableDropdown(
                     selectedValue: _notifier.selectedPositionFilter,
@@ -114,7 +121,9 @@ class _PositionsState extends State<Positions> {
                     },
                   ),
                 ),
-                SizedBox(width: rSize*0.015,),
+                SizedBox(
+                  width: rSize * 0.015,
+                ),
               ],
             ),
             SizedBox(
@@ -130,22 +139,27 @@ class _PositionsState extends State<Positions> {
                   pagingController: _pagingController,
                   // shrinkWrap: true,
                   padding: EdgeInsets.zero,
-                  builderDelegate: PagedChildBuilderDelegate<PositionModel>(noItemsFoundIndicatorBuilder: (context) {
+                  builderDelegate: PagedChildBuilderDelegate<PositionModel>(
+                      noItemsFoundIndicatorBuilder: (context) {
                     return AppWidgets.emptyView('No Positions Found', context);
+                  }, firstPageProgressIndicatorBuilder: (context) {
+                    return skaleton();
                   }, itemBuilder: (context, item, index) {
                     String currency = item.referenceCurrency ?? '-';
                     return Container(
                       decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                           boxShadow: AppStyles.shadow(),
                           borderRadius: BorderRadius.circular(rSize * 0.01)),
-                      margin: EdgeInsets.symmetric(vertical: rSize * 0.005,horizontal: rSize*0.015),
+                      margin: EdgeInsets.symmetric(
+                          vertical: rSize * 0.005, horizontal: rSize * 0.015),
                       child: ListView(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.all(rSize * 0.015),
                         children: [
-                          GestureDetector(
+                          AppWidgets.click(
                             onTap: () => _notifier.selectPositionIndex(index),
                             child: Column(
                               children: [
@@ -154,9 +168,11 @@ class _PositionsState extends State<Positions> {
                                     Expanded(
                                         child: Text(
                                       item.securityName ?? '-',
-                                      style: FlutterFlowTheme.of(context).displaySmall.override(
-
-                                            color: FlutterFlowTheme.of(context).primaryText,
+                                      style: FlutterFlowTheme.of(context)
+                                          .displaySmall
+                                          .override(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
                                             fontSize: rSize * 0.016,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
@@ -166,11 +182,17 @@ class _PositionsState extends State<Positions> {
                                       width: rSize * 0.015,
                                     ),
                                     AnimatedRotation(
-                                        turns: _notifier.selectedPositionIndex == index ? 0.75 : 0.5,
-                                        duration: Duration(milliseconds: 300), child: AppWidgets.doubleBack(context)),
+                                        turns:
+                                            _notifier.selectedPositionIndex ==
+                                                    index
+                                                ? 0.75
+                                                : 0.5,
+                                        duration: Duration(milliseconds: 300),
+                                        child: AppWidgets.doubleBack(context)),
                                   ],
                                 ),
-                                if (_notifier.selectedPositionIndex != index) ...{
+                                if (_notifier.selectedPositionIndex !=
+                                    index) ...{
                                   SizedBox(
                                     height: rSize * 0.005,
                                   ),
@@ -179,18 +201,21 @@ class _PositionsState extends State<Positions> {
                                       FFLocalizations.of(context).getText(
                                         'tea2m5lq' /* Allocation */,
                                       ),
-                                      '${item.allocation??'0.00'}%',
+                                      '${item.allocation ?? '0.00'}%',
                                       middleValue:
                                           '$currency ${getSeparatorFormat(item.amount!)}'),
                                   AppWidgets.portfolioListElement(
                                       context,
                                       '${FFLocalizations.of(context).getText(
-                                      'e0dy1vxx' /* ROI */,
+                                        'e0dy1vxx' /* ROI */,
                                       )} ($currency)',
-                                      buildRoi(item)! + (item.roi != '-' ? '%' : ''),
-                                      icon: getIcon(double.tryParse(item.roi!) ?? 0))
+                                      buildRoi(item)! +
+                                          (item.roi != '-' ? '%' : ''),
+                                      icon: getIcon(
+                                          double.tryParse(item.roi!) ?? 0))
                                 },
-                                if (_notifier.selectedPositionIndex == index) ...{
+                                if (_notifier.selectedPositionIndex ==
+                                    index) ...{
                                   ListView(
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
@@ -202,15 +227,18 @@ class _PositionsState extends State<Positions> {
                                       Container(
                                         decoration: BoxDecoration(
                                           // color: AppColors.kViolate.withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(rSize * 0.015),
+                                          borderRadius: BorderRadius.circular(
+                                              rSize * 0.015),
                                         ),
                                         // padding: EdgeInsets.all(rSize * 0.015),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             AppWidgets.portfolioListElement(
                                                 context,
-                                                FFLocalizations.of(context).getText(
+                                                FFLocalizations.of(context)
+                                                    .getText(
                                                   '4kttzprb' /* Name */,
                                                 ),
                                                 item.securityName ?? '-'),
@@ -219,7 +247,8 @@ class _PositionsState extends State<Positions> {
                                             ),
                                             AppWidgets.portfolioListElement(
                                                 context,
-                                                FFLocalizations.of(context).getText(
+                                                FFLocalizations.of(context)
+                                                    .getText(
                                                   '6thwwafn' /* ISIN */,
                                                 ),
                                                 item.securityIsin ?? '-'),
@@ -228,7 +257,8 @@ class _PositionsState extends State<Positions> {
                                             ),
                                             AppWidgets.portfolioListElement(
                                                 context,
-                                                FFLocalizations.of(context).getText(
+                                                FFLocalizations.of(context)
+                                                    .getText(
                                                   'ivu9tdzj' /* Currency */,
                                                 ),
                                                 currency),
@@ -237,21 +267,27 @@ class _PositionsState extends State<Positions> {
                                             ),
                                             AppWidgets.portfolioListElement(
                                                 context,
-                                                FFLocalizations.of(context).getText(
+                                                FFLocalizations.of(context)
+                                                    .getText(
                                                   'fbgy82bc' /* Last Price */,
                                                 ),
-                                                '$currency ${getSeparatorFormat(item.lastPrice!,i: 3)}',
-                                                richText: AppWidgets.buildRichText(context, '$currency ${getSeparatorFormat(item.lastPrice!,i:3)}')),
+                                                '$currency ${getSeparatorFormat(item.lastPrice!, i: 3)}',
+                                                richText: AppWidgets.buildRichText(
+                                                    context,
+                                                    '$currency ${getSeparatorFormat(item.lastPrice!, i: 3)}')),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
                                             AppWidgets.portfolioListElement(
                                                 context,
-                                                FFLocalizations.of(context).getText(
+                                                FFLocalizations.of(context)
+                                                    .getText(
                                                   'swv2ctiz' /* Cost Price */,
                                                 ),
-                                                '$currency ${getSeparatorFormat(item.costPrice!,i:3)}',
-                                                richText: AppWidgets.buildRichText(context, '$currency ${getSeparatorFormat(item.costPrice!,i:3)}')),
+                                                '$currency ${getSeparatorFormat(item.costPrice!, i: 3)}',
+                                                richText: AppWidgets.buildRichText(
+                                                    context,
+                                                    '$currency ${getSeparatorFormat(item.costPrice!, i: 3)}')),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
@@ -260,41 +296,55 @@ class _PositionsState extends State<Positions> {
                                                 '${FFLocalizations.of(context).getText(
                                                   'e0dy1vxx' /* ROI */,
                                                 )} ($currency)',
-                                                buildRoi(item)! + (item.roi != '-' ? '%' : ''),
-                                                icon: getIcon(double.tryParse(item.roi!) ?? 0)),
+                                                buildRoi(item)! +
+                                                    (item.roi != '-'
+                                                        ? '%'
+                                                        : ''),
+                                                icon: getIcon(double.tryParse(
+                                                        item.roi!) ??
+                                                    0)),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
                                             AppWidgets.portfolioListElement(
                                                 context,
-                                                FFLocalizations.of(context).getText(
+                                                FFLocalizations.of(context)
+                                                    .getText(
                                                   'ox3fj6xq' /* Quantity */,
                                                 ),
-                                                getSeparatorFormat(item.quantity!)),
-                                            SizedBox(
-                                              height: rSize * 0.005,
-                                            ),
-                                            AppWidgets.portfolioListElement(context, 'FX Rate', getSeparatorFormat(item.fxRate!,i:6)),
+                                                getSeparatorFormat(
+                                                    item.quantity!)),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
                                             AppWidgets.portfolioListElement(
                                                 context,
-                                                FFLocalizations.of(context).getText(
+                                                'FX Rate',
+                                                getSeparatorFormat(item.fxRate!,
+                                                    i: 6)),
+                                            SizedBox(
+                                              height: rSize * 0.005,
+                                            ),
+                                            AppWidgets.portfolioListElement(
+                                                context,
+                                                FFLocalizations.of(context)
+                                                    .getText(
                                                   'juhk5a4f' /* Amount */,
                                                 ),
                                                 '$currency ${getSeparatorFormat(item.amount!)}',
-                                                richText: AppWidgets.buildRichText(context,
+                                                richText: AppWidgets.buildRichText(
+                                                    context,
                                                     '$currency ${getSeparatorFormat(item.amount!)}')),
                                             SizedBox(
                                               height: rSize * 0.005,
                                             ),
                                             AppWidgets.portfolioListElement(
                                                 context,
-                                                FFLocalizations.of(context).getText(
+                                                FFLocalizations.of(context)
+                                                    .getText(
                                                   'xai3n31z' /* Allocation */,
                                                 ),
-                                                '${item.allocation??'0.00'}%'),
+                                                '${item.allocation ?? '0.00'}%'),
                                           ],
                                         ),
                                       ),
@@ -317,15 +367,17 @@ class _PositionsState extends State<Positions> {
     );
   }
 
-  String? buildRoi(PositionModel item)  {
+  String? buildRoi(PositionModel item) {
     print('roi value ${item.roi!}');
-    if(item.roi!='-'){
+    if (item.roi != '-') {
       return getSeparatorFormat(double.parse(item.roi!));
     }
     return item.roi;
   }
 
-  String getSeparatorFormat(double item, {int i=2}) => CommonFunctions.formatDoubleWithThousandSeperator(item.toString(), item == 0, i);
+  String getSeparatorFormat(double item, {int i = 2}) =>
+      CommonFunctions.formatDoubleWithThousandSeperator(
+          item.toString(), item == 0, i);
 
   getIcon(double d) {
     if (d == 0) {
@@ -343,5 +395,84 @@ class _PositionsState extends State<Positions> {
         size: rSize * 0.024,
       );
     }
+  }
+
+  Widget skaleton() {
+    return Expanded(
+      child: Skeletonizer(
+        enabled: true,
+        child: Column(
+          children: [
+            container(),
+            container(),
+            container(),
+            container(),
+            container(),
+            container(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container container() {
+    return Container(
+      padding: EdgeInsets.all(rSize*0.015),
+      margin: EdgeInsets.only(bottom: rSize*0.015,left: rSize*0.015,right: rSize*0.015,),
+            decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+                boxShadow: AppStyles.shadow(),
+                borderRadius: BorderRadius.circular(rSize * 0.01)),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                        child: Text(
+                          'Cert XBT Provider 2017-open end on Ethereum (38627714)',
+                          style: FlutterFlowTheme.of(context).displaySmall.override(
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            fontSize: rSize * 0.016,
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )),
+                    SizedBox(
+                      width: rSize * 0.015,
+                    ),
+                    AnimatedRotation(
+                        turns:  0.5,
+                        duration: const Duration(milliseconds: 300),
+                        child: AppWidgets.doubleBack(context)),
+                  ],
+                ),
+                AppWidgets.portfolioListElement(
+                    context,
+                    FFLocalizations.of(context).getText(
+                      'tea2m5lq' /* Allocation */,
+                    ),
+                    '102%',
+                    middleValue:"3333,126 USD",),
+                SizedBox(
+                  height: rSize * 0.005,
+                ),
+                AppWidgets.portfolioListElement(
+                    context,
+                    FFLocalizations.of(context).getText(
+                      'tea2m5lq' /* Allocation */,
+                    ),
+                    '2.00%',
+                    middleValue:
+                    "3333,126 USD"),
+                AppWidgets.portfolioListElement(
+                    context,
+                    '${FFLocalizations.of(context).getText(
+                      'e0dy1vxx' /* ROI */,
+                    )} (USD)',
+                    '15.00',
+                    icon: getIcon(-1))
+              ],
+            ),
+          );
   }
 }

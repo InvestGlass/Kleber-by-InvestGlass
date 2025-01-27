@@ -109,7 +109,7 @@ class MarketController extends ChangeNotifier {
 
   void selectTime(BuildContext context) {
     // DateTime formatedTime=DateFormat('HH:mm a').parse(selectedTime!.hour.toString()+':'+selectedTime!.minute.toString());
-    selectedDateTime = DateFormat('yyyy-MM-dd').format(selectedDate!) + ' ' + selectedTime!.hour.toString() + ':' + selectedTime!.minute.toString();
+    selectedDateTime = '${CommonFunctions.getYYYYMMDD(selectedDate!)} ${selectedTime!.hour}:${selectedTime!.minute}';
     notifyListeners();
   }
 

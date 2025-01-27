@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:kleber_bank/proposals/chat/chat_history_model.dart';
@@ -10,8 +11,10 @@ import 'package:kleber_bank/utils/shared_pref_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../login/user_info_model.dart';
 import '../../main.dart';
 import '../../utils/api_calls.dart';
+import '../../utils/app_colors.dart';
 import '../../utils/flutter_flow_theme.dart';
 import '../../utils/internationalization.dart';
 import '../proposal_controller.dart';
@@ -28,12 +31,15 @@ class ChatHistory extends StatefulWidget {
 class _ChatHistoryState extends State<ChatHistory> {
   int _pageKey = 1;
   late ProposalController _notifier;
+  User? user;
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {},
+      (timeStamp) {
+      },
     );
+    user=SharedPrefUtils.instance.getUserData().user!;
     ProposalController notifier =
         Provider.of<ProposalController>(context, listen: false);
     notifier.chatHistoryPagingController.addPageRequestListener((pageKey) {
@@ -60,99 +66,62 @@ class _ChatHistoryState extends State<ChatHistory> {
     c=context;
     _notifier = Provider.of<ProposalController>(context);
     return Scaffold(
-      /*appBar: AppWidgets.appBar(context, widget.model.advisor?.name ?? '',
+      appBar: AppWidgets.appBar(context, widget.model.advisor?.name ?? '',
           leading: AppWidgets.backArrow(context),
+          subTitle: "Relationship manager",
           actions: [
-            AppStyles.iconBg(
-              context,
-              margin: EdgeInsets.only(
-                top: rSize * 0.008,
-                bottom: rSize * 0.008,
-              ),
-              color: FlutterFlowTheme.of(context).customColor4,
-              data: Icons.refresh_rounded,
-              onTap: () async {
-                _pageKey = 1;
-                _notifier.chatHistoryPagingController.refresh();
-              },
-              size: rSize * 0.025,
-            ),
-            AppStyles.iconBg(
-              context,
-              margin: EdgeInsets.only(
-                top: rSize * 0.008,
-                bottom: rSize * 0.008,
-                left: rSize * 0.01,
-              ),
-              data: Icons.call_outlined,
-              color: FlutterFlowTheme.of(context).customColor4,
-              onTap: () async {
-                await launchUrl(Uri(
-                  scheme: 'tel',
-                  path: widget.model.advisor?.phoneOffice,
-                ));
-              },
-              size: rSize * 0.025,
-            ),
-          ]),*/
+            AppWidgets.click(
+                onTap: () {
+                },
+                child: Icon(
+                  FontAwesomeIcons.user,
+                  size: rSize * 0.02,
+                  color: FlutterFlowTheme.of(context).customColor4,
+                )),
+            SizedBox(
+              width: rSize * 0.015,
+            )
+          ]),
       body: Container(
         height: double.infinity,
         decoration: const BoxDecoration(border: Border()),
         child: Column(
           children: [
-            SizedBox(height: MediaQuery.of(context).padding.top),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
+            AppWidgets.click(
+              onTap: () {
+                showLanguageDialog(context);
+              },
+              child: Container(
+                margin: EdgeInsets.only(top: rSize * 0.01, bottom: rSize * 0.01),
+                padding: EdgeInsets.all(rSize * 0.007),
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).alternate,
+                  borderRadius: BorderRadius.circular(rSize * 0.02),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    AppWidgets.backArrow(
-                      context,
+                    Container(
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      height: rSize * 0.02,
+                      width: rSize * 0.02,
+                      clipBehavior: Clip.hardEdge,
+                      child: Image.asset(
+                        'icons/flags/png100px/${getLanguageList()[_notifier.selectedCountryIndex]['code']}.png',
+                        package: 'country_icons',
+                        fit: BoxFit.cover,
+
+                      ),
                     ),
-                    SizedBox(
-                      height: rSize * 0.048,
-                      width: rSize * 0.048,
+                    Text(
+                      ' ${getLanguageList()[_notifier.selectedCountryIndex]['name']}',
+                      style: AppStyles.inputTextStyle(context),
                     )
                   ],
                 ),
-                AppWidgets.title(context, widget.model.advisor?.name ?? ''),
-                Row(
-                  children: [
-                    AppStyles.iconBg(
-                      context,
-                      margin: EdgeInsets.only(
-                        top: rSize * 0.008,
-                        bottom: rSize * 0.008,
-                      ),
-                      color: FlutterFlowTheme.of(context).primary,
-                      data: Icons.refresh_rounded,
-                      onTap: () async {
-                        _pageKey = 1;
-                        _notifier.chatHistoryPagingController.refresh();
-                      },
-                      size: rSize * 0.025,
-                    ),
-                    AppStyles.iconBg(
-                      context,
-                      margin: EdgeInsets.only(
-                        top: rSize * 0.008,
-                        bottom: rSize * 0.008,
-                        left: rSize * 0.01,
-                      ),
-                      data: Icons.call_outlined,
-                      color: FlutterFlowTheme.of(context).primary,
-                      onTap: () async {
-                        await launchUrl(Uri(
-                          scheme: 'tel',
-                          path: widget.model.advisor?.phoneOffice,
-                        ));
-                      },
-                      size: rSize * 0.025,
-                    ),
-                    SizedBox(width: rSize*0.011,)
-                  ],
-                )
-              ],
+              ),
             ),
             Expanded(
               child: PagedListView<int, ChatHistoryModel>.separated(
@@ -225,56 +194,68 @@ class _ChatHistoryState extends State<ChatHistory> {
                       SizedBox(
                         height: rSize * 0.015,
                       ),
-                      Container(
-                        constraints: BoxConstraints(
-                          maxWidth: MediaQuery.sizeOf(context).width * 0.9,
-                        ),
-                        margin: EdgeInsets.symmetric(horizontal: rSize * 0.01),
-                        decoration: BoxDecoration(
-                          color: isMe(item)
-                              ? Color(0XFF1b88fb)
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(rSize * 0.008),
-                            bottomRight: Radius.circular(isMe(item)?0.0:rSize * 0.008),
-                            topLeft: Radius.circular(!isMe(item)?0.0:rSize * 0.008),
-                            topRight: Radius.circular(rSize * 0.008),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (!isMe(item)) ...{
+                            SizedBox(width: rSize*0.005),
+                            photo(item),
+                          },
+                          if (!isMe(item)) ...{
+                            SizedBox(width: rSize*0.005),
+                          }else...{
+                            SizedBox(width: rSize*0.015),
+                          },
+
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: isMe(item)
+                                  ? CrossAxisAlignment.end
+                                  : CrossAxisAlignment.start,
+                              children: [
+                                Text(isMe(item) ? user!.client!.pseudonym! : widget.model.advisor?.name ?? '',
+                                    style: AppStyles.inputTextStyle(context)),
+                                Container(
+                                  padding: EdgeInsets.all(rSize * 0.005),
+                                  decoration: BoxDecoration(
+                                      color: isMe(item)
+                                          ? FlutterFlowTheme.of(context).alternate
+                                          : Color(0XFF1b88fb),
+                                      borderRadius:
+                                      BorderRadius.circular(rSize * 0.008)),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        item.comment!,
+                                        textAlign: TextAlign.start,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                          color: isMe(item)
+                                              ? FlutterFlowTheme.of(context)
+                                              .customColor4
+                                              : FlutterFlowTheme.of(context).info,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: rSize * 0.016,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                          border: Border.all(color: isMe(item)
-                              ? Colors.transparent
-                              : FlutterFlowTheme.of(context).customColor4,width: 0.5)
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(rSize * 0.012),
-                          child: Text(
-                            item.comment!,
-                            textAlign: TextAlign.start,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  color:
-                      isMe(item)?FlutterFlowTheme.of(context).info:Color(0XFF747474),
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: rSize * 0.016,
-                                ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            rSize * 0.01, rSize * 0.005, rSize * 0.01, 0.0),
-                        child: Text(
-                          CommonFunctions.dateTimeFormat(
-                            'HH:mm',
-                            DateTime.fromMillisecondsSinceEpoch(
-                                item.createdAt!.millisecondsSinceEpoch,
-                                isUtc: true),
-                            locale: FFLocalizations.of(context).languageCode,
-                          ),
-                          textAlign: TextAlign.start,
-                          style: AppStyles.inputTextStyle(context),
-                        ),
-                      ),
+                          if (!isMe(item)) ...{
+                            SizedBox(width: rSize*0.015),
+                          }else...{
+                            SizedBox(width: rSize*0.005),
+                          },
+                          if (isMe(item)) ...{
+                            photo(item),
+                          },
+                        ],
+                      )
+
                     ],
                   );
                 }),
@@ -286,60 +267,158 @@ class _ChatHistoryState extends State<ChatHistory> {
                 },
               ),
             ),
+            Container(
+              padding: EdgeInsets.only(
+                  left: rSize * 0.01, right: rSize * 0.01, top: rSize * 0.01),
+              decoration: BoxDecoration(
+                  color: _notifier.isDialogOpen()
+                      ? FlutterFlowTheme.of(context).primaryBackground
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(rSize * 0.010)),
+              child: Column(
+                children: [
+                  if (_notifier.isAttachmentClicked) ...{
+                    cell(context, FontAwesomeIcons.paperclip, 'Take photo', () {
+                      _notifier.takePhoto();
+                    }),
+                    divider(context),
+                    cell(context, FontAwesomeIcons.paperclip, 'Select photo', () {
+                      _notifier.selectPhoto();
+                    }),
+                    divider(context),
+                    cell(context, FontAwesomeIcons.paperclip, 'Select file', () {
+                      _notifier.selectFile();
+                    }),
+                  } else if (_notifier.isAddClicked) ...{
+                    cell(context, FontAwesomeIcons.reply, 'Reply', () {}),
+                    divider(context),
+                    cell(context, FontAwesomeIcons.pencil, 'Edit last message',
+                            () {}),
+                    divider(context),
+                    cell(context, FontAwesomeIcons.microphone,
+                        'Tap & hold to send an audio message', () {}),
+                    divider(context),
+                    cell(context, FontAwesomeIcons.noteSticky, 'New contact report',
+                            () {}),
+                    divider(context),
+                    cell(context, FontAwesomeIcons.tasks, 'New task', () {}),
+                    divider(context),
+                    cell(context, FontAwesomeIcons.desktop,
+                        'Look up for an helpdesk article', () {}),
+                  },
+                  SizedBox(
+                    height: rSize * 0.01,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      buildContainer(
+                        context,
+                        FontAwesomeIcons.plus,
+                            () {
+                          _notifier.openPlusOptions();
+                        },
+                      ),
+                      buildContainer(
+                        context,
+                        FontAwesomeIcons.paperclip,
+                            () {
+                          _notifier.openAttachmentOptions();
+                        },
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: rSize * 0.04,
+                          margin: EdgeInsets.only(bottom: padding.bottom),
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              boxShadow: AppStyles.shadow(),
+                              borderRadius: BorderRadius.circular(rSize * 0.025)),
+                          child: TextField(
+                            controller: _notifier.msgController,
+                            style: AppStyles.inputTextStyle(context),
+                            decoration: AppStyles.inputDecoration(context,
+                                hint: 'Write something...',
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: rSize * 0.01,
+                                    horizontal: rSize * 0.020),
+                                focusColor: Colors.transparent),
+                            onChanged: (value) {},
+                          ),
+                        ),
+                      ),
+                      AppWidgets.click(
+                        onTap: () => _notifier.sendMsg(context),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              bottom: padding.bottom, left: rSize * 0.01),
+                          child: Icon(Icons.send_rounded,
+                              color: FlutterFlowTheme.of(context).customColor4),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
-        padding: EdgeInsets.only(
-            left: rSize * 0.015,
-            right: rSize * 0.015,
-            top: rSize * 0.01,
-            bottom: MediaQuery.of(context).padding.bottom),
-        margin:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: Row(
-          children: [
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                    boxShadow: AppStyles.shadow(),
-                    borderRadius: BorderRadius.circular(rSize * 0.01)),
-                child: TextFormField(
-                  style: AppStyles.inputTextStyle(context),
-                  controller: _notifier.msgController,
-                  decoration: AppStyles.inputDecoration(context,
-                      focusColor: Colors.transparent,
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: rSize * 0.015, horizontal: rSize * 0.020),
-                      hint: FFLocalizations.of(context).getText(
-                        '0lw6g9ud' /* Type new message */,
-                      )),
-                ),
-              ),
-            ),
-            GestureDetector(
-                onTap: () {
-                  _notifier.sendMsg(context);
-                },
-                child: Wrap(
-                  children: [
-                    AppStyles.iconBg(
-                      context,
-                      data: Icons.send_rounded,
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: rSize * 0.024,
-                      margin: EdgeInsets.only(
-                        top: rSize * 0.009,
-                        bottom: rSize * 0.009,
-                        left: rSize * 0.01,
-                      ),
-                    )
-                  ],
-                )),
-          ],
+    );
+  }
+
+  List<Map<String, String>> getLanguageList() => _notifier.filteredCountryNames.isNotEmpty?_notifier.filteredCountryNames:_notifier.countryNames;
+
+  Container divider(BuildContext context) {
+    return Container(
+      height: 0.3,
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(vertical: rSize * 0.007),
+      color: FlutterFlowTheme.of(context).customColor4,
+    );
+  }
+
+  Widget buildContainer(
+      BuildContext context, IconData iconData, void Function() onTap) {
+    return AppWidgets.click(
+      onTap: onTap,
+      child: Container(
+        height: rSize * 0.04,
+        padding: EdgeInsets.all(rSize * 0.01),
+        margin: EdgeInsets.only(bottom: padding.bottom, right: rSize * 0.01),
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: AppStyles.shadow(),
+            color: FlutterFlowTheme.of(context).info),
+        child: Icon(
+          iconData,
+          color: FlutterFlowTheme.of(context).customColor4,
+          size: rSize * 0.015,
         ),
+      ),
+    );
+  }
+
+  cell(BuildContext context, IconData iconData, String label,
+      void Function() onTap) {
+    return AppWidgets.click(
+      onTap: onTap,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(
+            iconData,
+            color: FlutterFlowTheme.of(context).customColor4,
+            size: rSize * 0.015,
+          ),
+          Expanded(
+              child: AppWidgets.label(context, '   $label')),
+          SizedBox(
+            height: rSize * 0.035,
+          )
+        ],
       ),
     );
   }
@@ -349,4 +428,135 @@ class _ChatHistoryState extends State<ChatHistory> {
 
   String getdate(ChatHistoryModel item) =>
       DateFormat('dd MMM yyyy').format(item.createdAt!);
+
+    Container photo(ChatHistoryModel item) {
+      return Container(
+        height: rSize * 0.04,
+        width: rSize * 0.04,
+        margin: EdgeInsets.only(
+            left: !isMe(item) ? rSize * 0.005 : 0,
+            right: !isMe(item) ? rSize * 0 : rSize * 0.005),
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.kHint, width: 0.5),
+          image: DecorationImage(
+            image: NetworkImage(isMe(item)?(user?.avatar??''):(widget.model.advisor?.avatar ?? '')),
+            fit: BoxFit.fitHeight,
+          ),
+          shape: BoxShape.circle,
+        ),
+      );
+    }
+
+  Future<void> showLanguageDialog(BuildContext context) async {
+    _notifier.filteredCountryNames = [];
+    _notifier.filteredCountryNames.addAll(_notifier.countryNames);
+    await showModalBottomSheet(
+      isScrollControlled: true,
+      clipBehavior: Clip.hardEdge,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) {
+        _notifier = Provider.of<ProposalController>(context);
+        return Container(
+          margin: EdgeInsets.only(top: padding.top),
+          padding: EdgeInsets.only(
+            left: rSize * 0.015,
+            right: rSize * 0.015,
+            top: rSize * 0.02,
+          ),
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).primaryBackground,
+              borderRadius: BorderRadius.circular(rSize * 0.010)),
+          child: Material(
+            color: Colors.transparent,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(child: AppWidgets.title(context, 'LANGUAGES')),
+                    AppWidgets.click(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.close,
+                        size: rSize * 0.025,
+                        color: FlutterFlowTheme.of(context).customColor4,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: rSize * 0.02,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      boxShadow: AppStyles.shadow(),
+                      borderRadius: BorderRadius.circular(rSize * 0.01)),
+                  child: TextField(
+                    style: AppStyles.inputTextStyle(context),
+                    decoration: AppStyles.inputDecoration(context,
+                        hint: 'Search...',
+                        prefix: Padding(
+                          padding:
+                          EdgeInsets.symmetric(horizontal: rSize * 0.015),
+                          child: Icon(
+                            Icons.search,
+                            size: rSize * 0.025,
+                            color: FlutterFlowTheme.of(context).customColor4,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: rSize * 0.017, horizontal: rSize * 0.020),
+                        focusColor: Colors.transparent),
+                    onChanged: (value) {
+                      _notifier.search(value);
+                    },
+                  ),
+                ),
+                Flexible(
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.only(top: rSize * 0.01),
+                    separatorBuilder: (BuildContext context, int index) =>
+                        Container(
+                          height: rSize * 0.01,
+                        ),
+                    itemBuilder: (context, index) {
+                      return AppWidgets.click(
+                        onTap: () => _notifier.selectCountry(index,context),
+                        child: Row(
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                              height: rSize * 0.02,
+                              width: rSize * 0.02,
+                              clipBehavior: Clip.hardEdge,
+                              child: Image.asset(
+                                'icons/flags/png100px/${_notifier.filteredCountryNames[index]['code']}.png',
+                                package: 'country_icons',
+                                fit: BoxFit.cover,
+
+                              ),
+                            ),
+                            AppWidgets.label(context,
+                                '  ${_notifier.filteredCountryNames[index]['name']}')
+                          ],
+                        ),
+                      );
+                    },
+                    itemCount: _notifier.filteredCountryNames.length,
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

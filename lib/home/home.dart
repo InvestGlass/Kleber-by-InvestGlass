@@ -14,6 +14,7 @@ import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/end_points.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:swipe_cards/draggable_card.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -76,7 +77,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.symmetric(
-            horizontal: rSize * 0.015, vertical: padding.top + rSize * 0.01),
+            horizontal: rSize * 0.015, vertical: rSize * 0.01),
         children: [
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0, 0.0, 0.0, rSize * 0.010),
@@ -89,115 +90,28 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           ),
           SizedBox(
             height: rSize * 0.24,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.zero,
-              itemCount: _notifier.popularNewsList.length,
-              itemBuilder: (context, index) {
-                HomeNewsModel model = _notifier.popularNewsList[index];
-                return GestureDetector(
-                  onTap: () {
-                    try {
-                      nevigate(context, model.link ?? '', 'ran9xdwl');
-                      // launchUrl(Uri.parse(model.link ?? ''));
-                    } catch (e) {
-                      print(e);
-                    }
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        boxShadow: AppStyles.shadow(),
-                        borderRadius: BorderRadius.circular(rSize * 0.01)),
-                    margin: EdgeInsets.only(
-                        right: rSize * 0.01, bottom: rSize * 0.01, left: 2),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(rSize * 0.010),
-                              topRight: Radius.circular(rSize * 0.010)),
-                          child: Image.network(
-                            model.imageUrl ?? '',
-                            height: rSize * 0.15,
-                            width: rSize * 0.28,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Image.asset('assets/items_default.jpg',
-                                  height: rSize * 0.15,
-                                  width: rSize * 0.28,
-                                  fit: BoxFit.cover);
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(rSize * 0.005),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  width: rSize * 0.27,
-                                  margin: EdgeInsets.only(top: rSize * 0.005),
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    model.title ?? '',
-                                    maxLines: 2,
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleMedium
-                                        .override(
-                                          color: FlutterFlowTheme.of(context)
-                                              .customColor4,
-                                          fontSize: rSize * 0.014,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,
-                                          lineHeight: 1.2,
-                                        ),
-                                  )),
-                              SizedBox(
-                                height: rSize * 0.005,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color:
-                                      FlutterFlowTheme.of(context).customColor1,
-                                  borderRadius:
-                                      BorderRadius.circular(rSize * 0.024),
-                                ),
-                                child: Align(
-                                  alignment:
-                                      const AlignmentDirectional(0.0, 0.0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        rSize * 0.010,
-                                        rSize * 0.005,
-                                        rSize * 0.010,
-                                        rSize * 0.005),
-                                    child: Text(
-                                      DateFormat('yyyy-MM-dd')
-                                          .format(model.date ?? DateTime.now()),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            color: FlutterFlowTheme.of(context)
-                                                .info,
-                                            fontSize: rSize * 0.012,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
-                                            lineHeight: 1.0,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
+            child: Skeletonizer(
+              enabled: _notifier.isLoading,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.zero,
+                itemCount: _notifier.isLoading?5:_notifier.popularNewsList.length,
+                itemBuilder: (context, index) {
+                  HomeNewsModel model = _notifier.isLoading?HomeNewsModel():_notifier.popularNewsList[index];
+                  return AppWidgets.click(
+                    onTap: () {
+                      try {
+                        nevigate(context, model.link ?? '', 'ran9xdwl');
+                        // launchUrl(Uri.parse(model.link ?? ''));
+                      } catch (e) {
+                        print(e);
+                      }
+                    },
+                    child: listItem(context, url: model.imageUrl ?? '',title: model.title ?? '',date: DateFormat('yyyy-MM-dd')
+                        .format(model.date ?? DateTime.now())),
+                  );
+                },
+              ),
             ),
           ),
           Padding(
@@ -278,7 +192,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          GestureDetector(
+                          AppWidgets.click(
                             onTap: () => _notifier.doRefresh(),
                             child: AppWidgets.btn(
                                 context,
@@ -504,6 +418,104 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     );
   }
 
+  Container listItem(BuildContext context,{
+    required String url,
+    required String title,
+    required String date,
+  }) {
+    return Container(
+                  decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      boxShadow: AppStyles.shadow(),
+                      borderRadius: BorderRadius.circular(rSize * 0.01)),
+                  margin: EdgeInsets.only(
+                      right: rSize * 0.01, bottom: rSize * 0.01, left: 2),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(rSize * 0.010),
+                            topRight: Radius.circular(rSize * 0.010)),
+                        child: Image.network(
+                          url,
+                          height: rSize * 0.15,
+                          width: rSize * 0.28,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.asset('assets/items_default.jpg',
+                                height: rSize * 0.15,
+                                width: rSize * 0.28,
+                                fit: BoxFit.cover);
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(rSize * 0.005),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                                width: rSize * 0.27,
+                                margin: EdgeInsets.only(top: rSize * 0.005),
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  title,
+                                  maxLines: 2,
+                                  style: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .override(
+                                        color: FlutterFlowTheme.of(context)
+                                            .customColor4,
+                                        fontSize: rSize * 0.014,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w500,
+                                        lineHeight: 1.2,
+                                      ),
+                                )),
+                            SizedBox(
+                              height: rSize * 0.005,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color:
+                                    FlutterFlowTheme.of(context).customColor1,
+                                borderRadius:
+                                    BorderRadius.circular(rSize * 0.024),
+                              ),
+                              child: Align(
+                                alignment:
+                                    const AlignmentDirectional(0.0, 0.0),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      rSize * 0.010,
+                                      rSize * 0.005,
+                                      rSize * 0.010,
+                                      rSize * 0.005),
+                                  child: Text(
+                                    date,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          color: FlutterFlowTheme.of(context)
+                                              .info,
+                                          fontSize: rSize * 0.012,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w600,
+                                          lineHeight: 1.0,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                );
+  }
+
   void nevigate(BuildContext context, String url, String title) {
     CommonFunctions.navigate(
         context,
@@ -536,7 +548,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   bool get wantKeepAlive => true;
 
   productView(Widget icon, String title, String desc, void Function()? onTap) {
-    return GestureDetector(
+    return AppWidgets.click(
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(

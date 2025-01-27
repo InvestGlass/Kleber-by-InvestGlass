@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
@@ -14,6 +15,7 @@ import 'package:kleber_bank/utils/app_styles.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../market/new_trade.dart';
 import '../utils/flutter_flow_theme.dart';
@@ -46,7 +48,7 @@ class _PortfolioState extends State<Portfolio>
 
   @override
   void dispose() {
-    _notifier.selectedIndex=0;
+    _notifier.selectedIndex = 0;
     super.dispose();
   }
 
@@ -62,7 +64,6 @@ class _PortfolioState extends State<Portfolio>
       pageKey++;
       pagingController.appendPage(list, pageKey);
     }
-
   }
 
   @override
@@ -87,6 +88,8 @@ class _PortfolioState extends State<Portfolio>
                   'l0x6h75l' /*No portfolio found*/,
                 ),
                 context);
+          }, firstPageProgressIndicatorBuilder: (context) {
+            return skeleton();
           }, itemBuilder: (context, item, index) {
             return Container(
               decoration: BoxDecoration(
@@ -168,14 +171,29 @@ class _PortfolioState extends State<Portfolio>
                       StreamBuilder<PortfolioModel?>(
                         stream: _notifier.stream,
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
+                          /*if (snapshot.connectionState ==
                               ConnectionState.waiting) {
                             return CircularProgressIndicator();
+                          }*/
+
+                          item.isExist = true;
+                          if (snapshot.connectionState ==
+                                  ConnectionState.done &&
+                              snapshot.data == null) {
+                            return SizedBox();
+                          } else {
+                            if (snapshot.connectionState ==
+                                    ConnectionState.done &&
+                                snapshot.data != null) {
+                              item = snapshot.data!;
+                            }
                           }
-                          if (snapshot.data != null) {
-                            item = snapshot.data!;
-                            item.isExist = true;
-                            return ListView(
+                          bool isLoading = snapshot.connectionState ==
+                              ConnectionState.waiting;
+
+                          return Skeletonizer(
+                            enabled: isLoading,
+                            child: ListView(
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
                               padding: EdgeInsets.zero,
@@ -208,8 +226,11 @@ class _PortfolioState extends State<Portfolio>
                                             'cm2ob3q4' /* Net Value */,
                                           ),
                                           item.netValue ?? '',
-                                          richText: AppWidgets.buildRichText(
-                                              context, item.netValue ?? '')),
+                                          richText: isLoading
+                                              ? null
+                                              : AppWidgets.buildRichText(
+                                                  context,
+                                                  item.netValue ?? '')),
                                       SizedBox(
                                         height: rSize * 0.005,
                                       ),
@@ -219,9 +240,11 @@ class _PortfolioState extends State<Portfolio>
                                             'y6z0kvbz' /* Portfolio Value */,
                                           ),
                                           item.portfolioValue ?? '',
-                                          richText: AppWidgets.buildRichText(
-                                              context,
-                                              item.portfolioValue ?? '')),
+                                          richText: isLoading
+                                              ? null
+                                              : AppWidgets.buildRichText(
+                                                  context,
+                                                  item.portfolioValue ?? '')),
                                       SizedBox(
                                         height: rSize * 0.005,
                                       ),
@@ -231,9 +254,11 @@ class _PortfolioState extends State<Portfolio>
                                             '57fz6g1m' /* Amount Invested */,
                                           ),
                                           item.amountInvested ?? '',
-                                          richText: AppWidgets.buildRichText(
-                                              context,
-                                              item.amountInvested ?? '')),
+                                          richText: isLoading
+                                              ? null
+                                              : AppWidgets.buildRichText(
+                                                  context,
+                                                  item.amountInvested ?? '')),
                                       SizedBox(
                                         height: rSize * 0.005,
                                       ),
@@ -244,19 +269,27 @@ class _PortfolioState extends State<Portfolio>
                                           ),
                                           item.cashAvailable ?? '',
                                           /*richText: !item.cashAvailable!
-                                                  .contains(' ')
+                                                    .contains(' ')
+                                                ? null
+                                                : AppWidgets.buildRichText(
+                                                    context,
+                                                    (item.cashAvailable ?? '')
+                                                        .replaceAll('(', '')
+                                                        .replaceAll(')', ''))*/
+                                          richText: isLoading
                                               ? null
                                               : AppWidgets.buildRichText(
                                                   context,
-                                                  (item.cashAvailable ?? '')
+                                                  (' ' +
+                                                          (CommonFunctions
+                                                              .formatDoubleWithThousandSeperator(
+                                                                  '${item.cashAvailable!}',
+                                                                  double.parse(item
+                                                                          .cashAvailable!) ==
+                                                                      0,
+                                                                  2)))
                                                       .replaceAll('(', '')
-                                                      .replaceAll(')', ''))*/
-                                          richText:AppWidgets.buildRichText(
-                                              context,
-                                              ( ' '+(CommonFunctions.formatDoubleWithThousandSeperator('${item.cashAvailable!}', double.parse(item.cashAvailable!) == 0, 2)))
-                                                  .replaceAll('(', '')
-                                                  .replaceAll(')', ''))
-                                      ),
+                                                      .replaceAll(')', ''))),
                                       SizedBox(
                                         height: rSize * 0.015,
                                       ),
@@ -271,13 +304,11 @@ class _PortfolioState extends State<Portfolio>
                                           Row(
                                             children: [
                                               Text(
-                                                '${FFLocalizations.of(context)
-                                                    .getText(
+                                                '${FFLocalizations.of(context).getText(
                                                   'group_By',
-                                                )} ${pagingController.itemList![index]
-                              .sectionName ?? FFLocalizations.of(context).getText(
-                          'zomhasya' /* Performance */,
-                          )}',
+                                                )} ${pagingController.itemList![index].sectionName ?? FFLocalizations.of(context).getText(
+                                                      'zomhasya' /* Performance */,
+                                                    )}',
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .displaySmall
@@ -408,8 +439,10 @@ class _PortfolioState extends State<Portfolio>
                                                   .getText(
                                             'o00oeypg' /* Currency */,
                                           ),
-                                          isUSDAmountAvailable: item.currenciesChart!
-                                              .map((e) => e.isUSDAmountAvailable!)
+                                          isUSDAmountAvailable: item
+                                              .currenciesChart!
+                                              .map((e) =>
+                                                  e.isUSDAmountAvailable!)
                                               .toList(),
                                         ),
                                       ),
@@ -426,9 +459,8 @@ class _PortfolioState extends State<Portfolio>
                                   ),
                                 ),
                               ],
-                            );
-                          }
-                          return SizedBox();
+                            ),
+                          );
                         },
                       )
                     },
@@ -439,74 +471,67 @@ class _PortfolioState extends State<Portfolio>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          GestureDetector(
-                              onTap: () {
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              AppStyles.iconBg(context,
+                                  color:
+                                      FlutterFlowTheme.of(context).customColor4,
+                                  data: FontAwesomeIcons.shoppingBasket,
+                                  size: rSize * 0.020, onTap: () {
                                 CommonFunctions.navigate(
                                     context, Positions(item.id!));
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                              }, padding: EdgeInsets.all(rSize * 0.015)),
+                              Text(
+                                FFLocalizations.of(context).getText(
+                                  'position',
+                                ),
+                                style: AppStyles.inputTextStyle(context),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(width: rSize * 0.02),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   AppStyles.iconBg(context,
-                                      color:
-                                          FlutterFlowTheme.of(context).customColor4,
-                                      data: FontAwesomeIcons.shoppingBasket,
-                                      size: rSize * 0.020,
-                                      padding: EdgeInsets.all(rSize * 0.015)),
-                                  Text(
-                                    FFLocalizations.of(context).getText(
-                                      'position',
-                                    ),
-                                    style: AppStyles.inputTextStyle(context),
-                                  )
-                                ],
-                              )),
-                          GestureDetector(
-                              onTap: () => CommonFunctions.navigate(
-                                  context, Transactions(item.title!)),
-                              child: Row(
-                                children: [
-                                  SizedBox(width: rSize * 0.02),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      AppStyles.iconBg(context,
-                                          color: FlutterFlowTheme.of(context)
-                                              .customColor4,
-                                          data: FontAwesomeIcons.dollarSign,
-                                          size: rSize * 0.020,
-                                          padding:
-                                              EdgeInsets.all(rSize * 0.015)),
-                                      Text(
-                                          FFLocalizations.of(context).getText(
-                                            'eg1yw963' /* Transactions */,
-                                          ),
-                                          style:
-                                              AppStyles.inputTextStyle(context))
-                                    ],
-                                  ),
-                                ],
-                              )),
-                          GestureDetector(
-                              onTap: () => CommonFunctions.navigate(
-                                  context, AddTransaction(null, item)),
-                              child: Column(
-                                children: [
-                                  AppStyles.iconBg(context,
-                                      color:
-                                          FlutterFlowTheme.of(context).customColor4,
+                                      color: FlutterFlowTheme.of(context)
+                                          .customColor4,
+                                      onTap: () => CommonFunctions.navigate(
+                                          context, Transactions(item.title!)),
                                       data: FontAwesomeIcons.dollarSign,
                                       size: rSize * 0.020,
                                       padding: EdgeInsets.all(rSize * 0.015)),
                                   Text(
                                       FFLocalizations.of(context).getText(
-                                        'new_transaction',
+                                        'eg1yw963' /* Transactions */,
                                       ),
                                       style: AppStyles.inputTextStyle(context))
                                 ],
-                              )),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              AppStyles.iconBg(context,
+                                  color:
+                                      FlutterFlowTheme.of(context).customColor4,
+                                  data: FontAwesomeIcons.dollarSign,
+                                  size: rSize * 0.020,
+                                  onTap: () => CommonFunctions.navigate(
+                                      context, AddTransaction(null, item)),
+                                  padding: EdgeInsets.all(rSize * 0.015)),
+                              Text(
+                                  FFLocalizations.of(context).getText(
+                                    'new_transaction',
+                                  ),
+                                  style: AppStyles.inputTextStyle(context))
+                            ],
+                          ),
                         ],
                       )
                     }
@@ -520,9 +545,8 @@ class _PortfolioState extends State<Portfolio>
     );
   }
 
-  GestureDetector healthAlertSection(
-      BuildContext context, PortfolioModel item) {
-    return GestureDetector(
+  Widget healthAlertSection(BuildContext context, PortfolioModel item) {
+    return AppWidgets.click(
       onTap: () => CommonFunctions.navigate(
           context, HealthCheck(item.appropriateness, item.suitability)),
       child: Column(
@@ -567,7 +591,7 @@ class _PortfolioState extends State<Portfolio>
                                     ),
                                     child: Icon(
                                       Icons.warning_amber_rounded,
-                                      color:Color(0xFFF5A142),
+                                      color: Color(0xFFF5A142),
                                       size: rSize * 0.050,
                                     ),
                                   ),
@@ -586,7 +610,7 @@ class _PortfolioState extends State<Portfolio>
                                       child: Text(
                                         (int length) {
                                           return '$length${length <= 10 ? '' : '+'}';
-                                        }(item.appropriateness!.listDetails
+                                        }(item.appropriateness?.listDetails
                                                 ?.length ??
                                             0),
                                         style: FlutterFlowTheme.of(context)
@@ -666,7 +690,7 @@ class _PortfolioState extends State<Portfolio>
                                       ),
                                       child: Icon(
                                         Icons.error_outline_rounded,
-                                        color:Color(0xFFF54242),
+                                        color: Color(0xFFF54242),
                                         size: rSize * 0.050,
                                       ),
                                     ),
@@ -685,7 +709,7 @@ class _PortfolioState extends State<Portfolio>
                                         child: Text(
                                           (int length) {
                                             return '$length${length <= 10 ? '' : '+'}';
-                                          }(item.suitability!.listDetails
+                                          }(item.suitability?.listDetails
                                                   ?.length ??
                                               0),
                                           style: FlutterFlowTheme.of(context)
@@ -772,6 +796,7 @@ class _PortfolioState extends State<Portfolio>
             FFLocalizations.of(context).getText(
               'zomhasya' /* Performance */,
             ), () {
+          HapticFeedback.lightImpact();
           ontap(1);
         }),
         popupMenuItem(
@@ -779,6 +804,7 @@ class _PortfolioState extends State<Portfolio>
             FFLocalizations.of(context).getText(
               '7h0zeqv0' /* Asset Class */,
             ), () {
+          HapticFeedback.lightImpact();
           ontap(2);
         }),
         popupMenuItem(
@@ -786,6 +812,7 @@ class _PortfolioState extends State<Portfolio>
             FFLocalizations.of(context).getText(
               'nkjefkra' /* Currency */,
             ), () {
+          HapticFeedback.lightImpact();
           ontap(3);
         }),
         popupMenuItem(
@@ -793,25 +820,31 @@ class _PortfolioState extends State<Portfolio>
             FFLocalizations.of(context).getText(
               '6u2u1x9z' /* Health Alerts */,
             ), () {
+          HapticFeedback.lightImpact();
           ontap(4);
         }),
       ],
       offset: const Offset(-5, 10),
       shadowColor: Colors.black,
       elevation: 2,
+      onOpened: () {
+        HapticFeedback.lightImpact();
+      },
       tooltip: '',
-      child: AppStyles.iconBg(
+      child: IgnorePointer(
+          child: AppStyles.iconBg(
         context,
         customIcon: Image.asset(
           'assets/360-degree.png',
           color: FlutterFlowTheme.of(context).primary,
         ),
+        onTap: () {},
         padding: EdgeInsets.all(rSize * 0.008),
         data: FontAwesomeIcons.chartBar,
         color: FlutterFlowTheme.of(context).customColor4,
         size: rSize * 0.02,
         margin: EdgeInsets.symmetric(horizontal: rSize * 0.008),
-      ),
+      )),
     );
   }
 
@@ -832,5 +865,74 @@ class _PortfolioState extends State<Portfolio>
                 fontWeight: FontWeight.w500,
               ),
         ));
+  }
+
+  Widget skeleton() {
+    return Skeletonizer(
+      enabled: true,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            container(),
+            container(),
+            container(),
+            container(),
+            container(),
+            container(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container container() {
+    return Container(
+      padding: EdgeInsets.all(rSize * 0.015),
+      decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(context).secondaryBackground,
+          boxShadow: AppStyles.shadow(),
+          borderRadius: BorderRadius.circular(rSize * 0.01)),
+      margin: EdgeInsets.symmetric(
+          horizontal: rSize * 0.01, vertical: rSize * 0.005),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+              child: Text(
+            "item.title ?? ''",
+            style: FlutterFlowTheme.of(context).displaySmall.override(
+                  color: FlutterFlowTheme.of(context).customColor4,
+                  fontSize: rSize * 0.016,
+                  letterSpacing: 0,
+                  fontWeight: FontWeight.w500,
+                ),
+          )),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                FFLocalizations.of(context).getText(
+                  '83o1ghax' /* Net Value */,
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      color: FlutterFlowTheme.of(context).customColor4,
+                      fontSize: rSize * 0.014,
+                      letterSpacing: 0,
+                      fontWeight: FontWeight.w500,
+                    ),
+              ),
+              SizedBox(
+                height: rSize * 0.005,
+              ),
+              AppWidgets.buildRichText(context, 'USD 2.222.222.00')
+            ],
+          ),
+          SizedBox(
+            width: rSize * 0.015,
+          ),
+          AppWidgets.doubleBack(context)
+        ],
+      ),
+    );
   }
 }

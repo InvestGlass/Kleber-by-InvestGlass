@@ -117,7 +117,7 @@ class _UploadDocumentState extends State<UploadDocument> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              GestureDetector(
+              AppWidgets.click(
                 onTap: () {
                   if (!isButtonDisabled()) {
                     _notifier.uploadDoc(context);
@@ -189,8 +189,8 @@ class _UploadDocumentState extends State<UploadDocument> {
     );
   }
 
-  GestureDetector closeButton(void Function()? onCloseTap) {
-    return GestureDetector(
+  Widget closeButton(void Function()? onCloseTap) {
+    return AppWidgets.click(
       onTap: onCloseTap,
       child: Container(
         height: rSize * 0.05,
@@ -205,7 +205,7 @@ class _UploadDocumentState extends State<UploadDocument> {
   }
 
   Widget selectButton(void Function()? onTap) {
-    return GestureDetector(
+    return AppWidgets.click(
         onTap: onTap,
         child: AppWidgets.btn(
             context,
@@ -214,7 +214,7 @@ class _UploadDocumentState extends State<UploadDocument> {
             ),
             textColor: Colors.white,
             horizontalPadding: rSize * 0.020));
-    /*return GestureDetector(
+    /*return AppWidgets.click(
 
         child: Container(
           alignment: Alignment.center,

@@ -139,7 +139,6 @@ class CommonFunctions {
         // }
         await newFile.writeAsBytes(bytes);
         debugPrint('downloaded file path share+: ${newFile.path}');
-        Navigator.pop(context);
         final box = context.findRenderObject() as RenderBox?;
         await Share.shareXFiles(
           [XFile(newFile.path)],

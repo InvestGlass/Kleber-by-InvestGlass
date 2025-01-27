@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 class DocumentModel {
   List<Document>? folders;
@@ -48,6 +49,7 @@ class Document {
   bool? isRead;
   bool? freezed;
   String? documentType;
+  Uint8List? bytes;
   dynamic approverId;
   DateTime? approvedAt;
   int? disapproverId;
@@ -61,6 +63,7 @@ class Document {
     this.companyId,
     this.createdAt,
     this.updatedAt,
+    this.bytes,
     this.ancestry,
     this.clientId,
     this.shareOnClientPortal,
