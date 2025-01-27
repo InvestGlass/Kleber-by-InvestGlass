@@ -78,6 +78,7 @@ dependencies:
   group_grid_view:
   skeletonizer:
   country_icons:
+  flutter_slidable:
 
 dev_dependencies:
   flutter_test:

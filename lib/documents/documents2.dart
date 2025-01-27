@@ -1353,24 +1353,10 @@ class _Documents2State extends State<Documents2> {
               vertical: rSize * 0.01, horizontal: rSize * 0.015),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  width: 2,
-                ),
-                FaIcon(
-                  FontAwesomeIcons.file,
-                  color: FlutterFlowTheme.of(context).customColor4,
-                  size: rSize * 0.030 * 2.5,
-                ),
-                Icon(
-                  Icons.lock,
-                  size: rSize * 0.025,
-                  color: FlutterFlowTheme.of(context).customColor4,
-                )
-              ],
+            Container(
+              color: FlutterFlowTheme.of(context).customColor4,
+              width: double.infinity,
+              height: rSize * 0.1,
             ),
             SizedBox(
               height: rSize * 0.005,
@@ -1432,18 +1418,21 @@ class _Documents2State extends State<Documents2> {
               children: [
                 gridContainer(),
                 gridContainer(),
+                SizedBox(width: rSize * 0.015),
               ],
             ),
             Row(
               children: [
                 gridContainer(),
                 gridContainer(),
+                SizedBox(width: rSize * 0.015),
               ],
             ),
             Row(
               children: [
                 gridContainer(),
                 gridContainer(),
+                SizedBox(width: rSize * 0.015),
               ],
             ),
           ],

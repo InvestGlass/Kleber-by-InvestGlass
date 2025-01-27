@@ -86,10 +86,10 @@ class AppWidgets {
             Text(
               getStatus(model.status, context),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                color: FlutterFlowTheme.of(context).customColor4,
-                fontSize: rSize * 0.016,
-                letterSpacing: 0.0,
-                fontWeight: FontWeight.normal,
+                    color: FlutterFlowTheme.of(context).customColor4,
+                    fontSize: rSize * 0.016,
+                    letterSpacing: 0.0,
+                    fontWeight: FontWeight.normal,
                   ),
             ),
             SizedBox(
@@ -210,24 +210,41 @@ class AppWidgets {
             ),
             richText
           } else ...{
-            Expanded(
-              child: Text(
-                value,
-                textAlign: TextAlign.end,
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      color: FlutterFlowTheme.of(context).customColor4,
-                      fontSize: rSize * 0.016,
-                      fontWeight: FontWeight.normal,
+            if (icon != null) ...{
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    icon,
+                    SizedBox(
+                      width: rSize * 0.01,
                     ),
-              ),
-            )
+                    Text(
+                      value,
+                      textAlign: TextAlign.end,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            color: FlutterFlowTheme.of(context).customColor4,
+                            fontSize: rSize * 0.016,
+                            fontWeight: FontWeight.normal,
+                          ),
+                    )
+                  ],
+                ),
+              )
+            } else ...{
+              Expanded(
+                child: Text(
+                  value,
+                  textAlign: TextAlign.end,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        color: FlutterFlowTheme.of(context).customColor4,
+                        fontSize: rSize * 0.016,
+                        fontWeight: FontWeight.normal,
+                      ),
+                ),
+              )
+            }
           },
-          if (icon != null) ...{
-            const SizedBox(
-              width: 10,
-            ),
-            icon
-          }
         } else ...{
           Text(
             value,
@@ -266,12 +283,13 @@ class AppWidgets {
       ],
     );
   }
-  
+
   static Widget click(
-      {void Function()? onTap, required Widget child, void Function(TapDownDetails)? onTapDown
-        , void Function(TapUpDetails)? onTapUp,
-        void Function()? onTapCancel
-      }) {
+      {void Function()? onTap,
+      required Widget child,
+      void Function(TapDownDetails)? onTapDown,
+      void Function(TapUpDetails)? onTapUp,
+      void Function()? onTapCancel}) {
     return GestureDetector(
       onTap: () {
         if (onTap != null) {
@@ -279,9 +297,9 @@ class AppWidgets {
           onTap();
         }
       },
-      onTapDown:onTapDown,
-      onTapUp:onTapUp,
-      onTapCancel:onTapCancel,
+      onTapDown: onTapDown,
+      onTapUp: onTapUp,
+      onTapCancel: onTapCancel,
       child: child,
     );
   }
@@ -521,7 +539,11 @@ class AppWidgets {
   }
 
   static PreferredSize appBar(BuildContext context, String title,
-      {Widget? leading, List<Widget>? actions, bool centerTitle = false,String subTitle = '',double elevation=0}) {
+      {Widget? leading,
+      List<Widget>? actions,
+      bool centerTitle = false,
+      String subTitle = '',
+      double elevation = 0}) {
     return PreferredSize(
       preferredSize: Size.fromHeight(rSize * 0.06),
       child: /*!isTablet
@@ -538,12 +560,20 @@ class AppWidgets {
             )
           : */
           appbar_(context, title.toUpperCase(),
-              leading: leading, actions: actions, centerTitle: centerTitle,subTitle_: subTitle,elevation: elevation),
+              leading: leading,
+              actions: actions,
+              centerTitle: centerTitle,
+              subTitle_: subTitle,
+              elevation: elevation),
     );
   }
 
   static AppBar appbar_(BuildContext context, String txt,
-      {Widget? leading, List<Widget>? actions, bool centerTitle = false,String subTitle_ = '',double elevation =0}) {
+      {Widget? leading,
+      List<Widget>? actions,
+      bool centerTitle = false,
+      String subTitle_ = '',
+      double elevation = 0}) {
     return AppBar(
       elevation: elevation,
       actions: actions,
@@ -559,9 +589,9 @@ class AppWidgets {
               subTitle_,
               textAlign: centerTitle ? TextAlign.center : null,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
-                color: FlutterFlowTheme.of(context).customColor4,
-                fontSize: rSize * 0.014,
-              ),
+                    color: FlutterFlowTheme.of(context).customColor4,
+                    fontSize: rSize * 0.014,
+                  ),
             )
           }
         ],
@@ -721,7 +751,7 @@ class AppWidgets {
   static void openDatePicker(
       BuildContext context, dynamic Function(Object?)? onSubmit,
       {DateRangePickerSelectionMode mode = DateRangePickerSelectionMode.range,
-        void Function()? onCancel}) {
+      void Function()? onCancel}) {
     showDialog(
       context: context,
       builder: (context) => Center(
@@ -738,16 +768,16 @@ class AppWidgets {
                 backgroundColor: Colors.transparent,
                 onSubmit: onSubmit,
                 rangeTextStyle: FlutterFlowTheme.of(context).bodyLarge.override(
-                  color: FlutterFlowTheme.of(context).info,
-                  fontSize: rSize * 0.016,
-                  fontWeight: FontWeight.normal,
-                ),
+                      color: FlutterFlowTheme.of(context).info,
+                      fontSize: rSize * 0.016,
+                      fontWeight: FontWeight.normal,
+                    ),
                 selectionTextStyle:
-                FlutterFlowTheme.of(context).bodyLarge.override(
-                  color: FlutterFlowTheme.of(context).info,
-                  fontSize: rSize * 0.016,
-                  fontWeight: FontWeight.normal,
-                ),
+                    FlutterFlowTheme.of(context).bodyLarge.override(
+                          color: FlutterFlowTheme.of(context).info,
+                          fontSize: rSize * 0.016,
+                          fontWeight: FontWeight.normal,
+                        ),
                 monthCellStyle: DateRangePickerMonthCellStyle(
                     textStyle: AppStyles.inputTextStyle(context)),
                 selectionShape: DateRangePickerSelectionShape.circle,
@@ -759,21 +789,21 @@ class AppWidgets {
                 selectionMode: mode,
                 headerStyle: DateRangePickerHeaderStyle(
                   backgroundColor:
-                  FlutterFlowTheme.of(context).secondaryBackground,
+                      FlutterFlowTheme.of(context).secondaryBackground,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                    fontSize: rSize * 0.016,
-                    color: FlutterFlowTheme.of(context).customColor4,
-                    fontWeight: FontWeight.w500,
-                  ),
+                        fontSize: rSize * 0.016,
+                        color: FlutterFlowTheme.of(context).customColor4,
+                        fontWeight: FontWeight.w500,
+                      ),
                 ),
                 monthViewSettings: const DateRangePickerMonthViewSettings(
                   firstDayOfWeek: 1,
                 ),
                 showActionButtons: true,
                 onCancel: () {
-                  if(onCancel==null) {
+                  if (onCancel == null) {
                     Navigator.pop(context);
-                  }else{
+                  } else {
                     onCancel();
                   }
                 },
@@ -796,44 +826,44 @@ class AppWidgets {
         data: ThemeData(
           timePickerTheme: TimePickerThemeData(
             hourMinuteTextStyle:
-            FlutterFlowTheme.of(context).bodyMedium.override(
-              color: FlutterFlowTheme.of(context).primaryText,
-              fontSize: rSize * 0.03,
-              letterSpacing: 2.0,
-              fontWeight: FontWeight.w300,
-            ),
+                FlutterFlowTheme.of(context).bodyMedium.override(
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      fontSize: rSize * 0.03,
+                      letterSpacing: 2.0,
+                      fontWeight: FontWeight.w300,
+                    ),
             timeSelectorSeparatorTextStyle: WidgetStateProperty.resolveWith(
-                    (states) => FlutterFlowTheme.of(context).bodyMedium.override(
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  fontSize: rSize * 0.03,
-                  letterSpacing: 2.0,
-                  fontWeight: FontWeight.w300,
-                )),
+                (states) => FlutterFlowTheme.of(context).bodyMedium.override(
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      fontSize: rSize * 0.03,
+                      letterSpacing: 2.0,
+                      fontWeight: FontWeight.w300,
+                    )),
             dialTextStyle: AppStyles.inputTextStyle(context),
             cancelButtonStyle: buttonStyle(context),
             confirmButtonStyle: buttonStyle(context),
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             dialBackgroundColor: FlutterFlowTheme.of(context).alternate,
             hourMinuteColor: WidgetStateColor.resolveWith((states) =>
-            states.contains(WidgetState.selected)
-                ? FlutterFlowTheme.of(context).alternate
-                : FlutterFlowTheme.of(context).primaryBackground),
+                states.contains(WidgetState.selected)
+                    ? FlutterFlowTheme.of(context).alternate
+                    : FlutterFlowTheme.of(context).primaryBackground),
             // Selected period color
             hourMinuteTextColor: WidgetStateColor.resolveWith((states) =>
-            states.contains(WidgetState.selected)
-                ? FlutterFlowTheme.of(context).primaryText
-                : FlutterFlowTheme.of(context).customColor4),
+                states.contains(WidgetState.selected)
+                    ? FlutterFlowTheme.of(context).primaryText
+                    : FlutterFlowTheme.of(context).customColor4),
             // Text color for AM/PM
             dialHandColor: FlutterFlowTheme.of(context).info,
             dayPeriodTextStyle: AppStyles.inputTextStyle(context),
             dayPeriodColor: FlutterFlowTheme.of(context).primaryBackground,
             helpTextStyle: AppStyles.labelStyle(context),
             dayPeriodBorderSide:
-            BorderSide(color: FlutterFlowTheme.of(context).customColor4),
+                BorderSide(color: FlutterFlowTheme.of(context).customColor4),
             dayPeriodTextColor: WidgetStateColor.resolveWith((states) =>
-            states.contains(WidgetState.selected)
-                ? FlutterFlowTheme.of(context).primaryText
-                : FlutterFlowTheme.of(context).customColor4),
+                states.contains(WidgetState.selected)
+                    ? FlutterFlowTheme.of(context).primaryText
+                    : FlutterFlowTheme.of(context).customColor4),
             dialTextColor: FlutterFlowTheme.of(context).customColor4,
             entryModeIconColor: FlutterFlowTheme.of(context).customColor4,
           ),
