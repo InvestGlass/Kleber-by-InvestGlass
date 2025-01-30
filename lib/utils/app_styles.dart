@@ -184,6 +184,22 @@ class AppStyles {
       Color? color}) {
     return AppWidgets.click(
         onTap: onTap,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset('assets/icon_bg.png',
+              height: rSize * 0.055,
+              width:  rSize * 0.055,
+            ),
+            Icon(
+              data,
+              size: size,
+              color: color ?? FlutterFlowTheme.of(context).primary,
+            ),
+          ],
+        ));
+    return AppWidgets.click(
+        onTap: onTap,
         child: Container(
           margin: margin ?? EdgeInsets.all(rSize * 0.010),
           padding: padding,

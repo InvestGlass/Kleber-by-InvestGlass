@@ -1344,7 +1344,7 @@ class _Documents2State extends State<Documents2> {
       child: Container(
         decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).secondaryBackground,
-            boxShadow: AppStyles.shadow(),
+            // boxShadow: AppStyles.shadow(),
             borderRadius: BorderRadius.circular(rSize * 0.01)),
         margin: EdgeInsetsDirectional.only(
             top: rSize * 0.015, start: rSize * 0.015),

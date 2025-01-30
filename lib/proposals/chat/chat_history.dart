@@ -144,52 +144,11 @@ class _ChatHistoryState extends State<ChatHistory> {
                               getdate(item) !=
                                   getdate(_notifier.chatHistoryPagingController
                                       .itemList![index + 1]))) ...{
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: 1.0,
-                                decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .customColor4,
-                                    boxShadow: AppStyles.shadow()),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsetsDirectional.all(rSize * 0.010),
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(rSize * 0.020),
-                                border: Border.all(
-                                  color:
-                                      FlutterFlowTheme.of(context).customColor4,
-                                  width: 1.5,
-                                ),
-                              ),
-                              child: Text(
-                                getdate(item),
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      color: FlutterFlowTheme.of(context)
-                                          .customColor4,
-                                      fontSize: rSize * 0.016,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                height: 1.0,
-                                decoration: BoxDecoration(
-                                  color:
-                                      FlutterFlowTheme.of(context).customColor4,
-                                ),
-                              ),
-                            ),
-                          ],
+                        Align(
+                          alignment: Alignment.center,
+                          child: AppWidgets.label(context, getdate(item)),
                         )
+
                       },
                       SizedBox(
                         height: rSize * 0.015,

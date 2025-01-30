@@ -390,6 +390,7 @@ var engMap={
   "ba57jiqz": "Upload",
   "13mzcnly": "Documents",
   "o5wm04m6": "MARKET",
+  "universe_list": "Universe List",
   "t2nv4kvj": "UPLOAD",
   "acyeoaaw": "HEALTH CHECK",
   "dxc8grzt": "Suitability",

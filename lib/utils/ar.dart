@@ -382,6 +382,7 @@ var arMap={
   "ba57jiqz": "تحميل",
   "13mzcnly": "المستندات",
   "o5wm04m6": "سوق",
+  "universe_list": "قائمة الكون",
   "t2nv4kvj": "تحميل",
   "acyeoaaw": "فحص الصحة",
   "dxc8grzt": "ملاءمة",

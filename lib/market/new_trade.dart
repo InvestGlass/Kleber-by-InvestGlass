@@ -43,7 +43,11 @@ class _AddTransactionState extends State<AddTransaction> {
             Provider.of<PortfolioController>(context, listen: false);
         marketController.getTransactionTypes(context);
         portfolioController.getPortfolioList(context, 0, notify: true);
-        portfolioController.selectedPortfolio = widget.selectedPortfolio;
+        if(widget.selectedPortfolio!=null) {
+          portfolioController.selectedPortfolio =
+              portfolioController.portfolioList.singleWhere((element) => element
+                  .id == widget.selectedPortfolio!.id,);
+        }
         portfolioController.notify();
         marketController.selectSecurity(widget.selectedSecurity);
       },

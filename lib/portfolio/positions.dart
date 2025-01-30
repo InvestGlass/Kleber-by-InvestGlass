@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:kleber_bank/portfolio/portfolio_controller.dart';
+import 'package:kleber_bank/portfolio/portfolio_model.dart';
 import 'package:kleber_bank/portfolio/position_model.dart';
 import 'package:kleber_bank/proposals/chat/chat_history.dart';
 import 'package:kleber_bank/utils/api_calls.dart';
@@ -13,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../main.dart';
+import '../market/market_list_model.dart';
 import '../market/new_trade.dart';
 import '../proposals/proposal_model.dart';
 import '../utils/app_styles.dart';
@@ -155,12 +157,12 @@ class _PositionsState extends State<Positions> {
                       endActionPane: ActionPane(
                         motion: const ScrollMotion(), children: [
                           slideOption(context,'Buy',FontAwesomeIcons.plus,Colors.green,(){
-                            CommonFunctions.navigate(context, AddTransaction(null,null));
+                            CommonFunctions.navigate(context, AddTransaction(MarketListModel(id: item.security!.noItem!.id,name: item.security!.noItem!.name,price: item.security!.noItem!.price,),PortfolioModel(id: item.portfolioId)));
                           }),
                           slideOption(context,'Sell',FontAwesomeIcons.minus,FlutterFlowTheme.of(context).error,(){
-                            CommonFunctions.navigate(context, AddTransaction(null,null));
+                            CommonFunctions.navigate(context, AddTransaction(MarketListModel(id: item.security!.noItem!.id,name: item.security!.noItem!.name,price: item.security!.noItem!.price,),PortfolioModel(id: item.portfolioId)));
                           }),
-                          slideOption(context,'Chat',FontAwesomeIcons.message,FlutterFlowTheme.of(context).alternate,(){
+                          slideOption(context,'Chat',FontAwesomeIcons.message,FlutterFlowTheme.of(context).primary,(){
                             CommonFunctions.navigate(context, ChatHistory(ProposalModel(
                                 advisor: Advisor(
                                     name: SharedPrefUtils.instance

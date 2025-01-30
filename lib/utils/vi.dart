@@ -383,6 +383,7 @@ var viMap={
   "ba57jiqz": "Tải lên",
   "13mzcnly": "Tài liệu",
   "o5wm04m6": "THỊ TRƯỜNG",
+  "universe_list": "UDanh sách vũ trụ",
   "t2nv4kvj": "TẢI LÊN",
   "acyeoaaw": "KHÁM SỨC KHỎE",
   "dxc8grzt": "Phù hợp",
