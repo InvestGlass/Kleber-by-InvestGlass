@@ -387,6 +387,7 @@ var viMap={
   "t2nv4kvj": "TẢI LÊN",
   "acyeoaaw": "KHÁM SỨC KHỎE",
   "dxc8grzt": "Phù hợp",
+  "strategy": "Chiến lược",
   "3vkimctv": "Thích hợp",
   "2gjb3gie": "Xác minh đăng nhập",
   "4odbxp9t": "Vui lòng nhập mã để tiếp tục",

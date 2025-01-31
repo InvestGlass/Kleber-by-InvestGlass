@@ -526,6 +526,15 @@ class AppWidgets {
   }
 
   static backArrow(BuildContext context, {void Function()? onTap}) {
+    return click(
+        onTap: () {
+          if (onTap != null) {
+            onTap();
+          } else {
+            Navigator.pop(context);
+          }
+        },
+        child:  Icon(Icons.arrow_back,color:FlutterFlowTheme.of(context).customColor4,size: rSize*0.025,));
     return AppStyles.iconBg(context,
         data: Icons.arrow_back,
         size: rSize * 0.025,

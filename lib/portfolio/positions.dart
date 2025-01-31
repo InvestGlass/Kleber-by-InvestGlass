@@ -447,19 +447,17 @@ class _PositionsState extends State<Positions> {
   }
 
   Widget skaleton() {
-    return Expanded(
-      child: Skeletonizer(
-        enabled: true,
-        child: Column(
-          children: [
-            container(),
-            container(),
-            container(),
-            container(),
-            container(),
-            container(),
-          ],
-        ),
+    return Skeletonizer(
+      enabled: true,
+      child: Column(
+        children: [
+          container(),
+          container(),
+          container(),
+          container(),
+          container(),
+          container(),
+        ],
       ),
     );
   }

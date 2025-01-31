@@ -333,6 +333,12 @@ class _PortfolioState extends State<Portfolio>
                                           })
                                         ],
                                       ),
+                                      if((item.portfolioValue ?? '').isNotEmpty)...{
+                                        AppWidgets.buildRichText(
+                                            context,
+                                            item.portfolioValue ?? '',fontSize: rSize*0.025)
+                                      }
+                                      ,
                                       SizedBox(
                                         height: rSize * 0.01,
                                       ),
@@ -483,6 +489,7 @@ class _PortfolioState extends State<Portfolio>
                                 CommonFunctions.navigate(
                                     context, Positions(item.id!));
                               }, padding: EdgeInsets.all(rSize * 0.015)),
+                              SizedBox(height: rSize*0.01,),
                               Text(
                                 FFLocalizations.of(context).getText(
                                   'position',
@@ -506,6 +513,7 @@ class _PortfolioState extends State<Portfolio>
                                       data: FontAwesomeIcons.dollarSign,
                                       size: rSize * 0.020,
                                       padding: EdgeInsets.all(rSize * 0.015)),
+                                  SizedBox(height: rSize*0.01,),
                                   Text(
                                       FFLocalizations.of(context).getText(
                                         'eg1yw963' /* Transactions */,
@@ -525,6 +533,7 @@ class _PortfolioState extends State<Portfolio>
                                   onTap: () => CommonFunctions.navigate(
                                       context, AddTransaction(null, item)),
                                   padding: EdgeInsets.all(rSize * 0.015)),
+                              SizedBox(height: rSize*0.01,),
                               Text(
                                   FFLocalizations.of(context).getText(
                                     'new_transaction',

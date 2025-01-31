@@ -8,6 +8,7 @@ import 'package:kleber_bank/securitySelection/security_selection_list_item.dart'
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/searchable_dropdown.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../main.dart';
 import '../market/market_list_model.dart';
@@ -167,7 +168,11 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                     // shrinkWrap: true,
                     builderDelegate: PagedChildBuilderDelegate<MarketListModel>(noItemsFoundIndicatorBuilder: (context) {
                       return const SizedBox();
-                    }, itemBuilder: (context, item, index) {
+                    },
+                        firstPageProgressIndicatorBuilder: (context) {
+                          return skeleton();
+                        },
+                        itemBuilder: (context, item, index) {
                       return MarketListItemWidget(
                         // key: Key('Keyery_${index}_of_${realLength}'),
                         data: item,
@@ -424,5 +429,26 @@ class _SecuritySelectionState extends State<SecuritySelection> {
         );
       },
     );
+  }
+
+  Widget skeleton() {
+    return Skeletonizer(
+      enabled: true,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            marketListItemWidget(),
+            marketListItemWidget(),
+            marketListItemWidget(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  MarketListItemWidget marketListItemWidget() {
+    return MarketListItemWidget(
+            data: MarketListModel(assetClassName: 'assetClass',name: 'iShares Edge MSCI USA Value Factor UCITS',currencyName: 'USD'),
+          );
   }
 }

@@ -329,7 +329,7 @@ class _ProfileState extends State<Profile> {
               Expanded(
                   child: Text(
                 title,
-                style: FlutterFlowTheme.of(context).labelMedium.override(
+                style: FlutterFlowTheme.of(context).labelLarge.override(
                       color: FlutterFlowTheme.of(context).customColor4,
                     ),
               )),

@@ -76,7 +76,7 @@ class ProposalController extends ChangeNotifier {
 
   /*----------------------------------------CHAT-----------------------------------------------------*/
 
-  final PagingController<int, ChatHistoryModel> chatHistoryPagingController = PagingController(firstPageKey: 1);
+   PagingController<int, ChatHistoryModel> chatHistoryPagingController = PagingController(firstPageKey: 1);
   TextEditingController msgController=TextEditingController();
   bool isAttachmentClicked=false,isAddClicked=false;
 

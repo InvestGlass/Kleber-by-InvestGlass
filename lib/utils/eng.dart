@@ -205,6 +205,7 @@ var engMap={
   "qwicoekk": "Security Name",
   "691qwpww": "Quantity",
   "xopvpm3o": "Price",
+  "strategy": "Strategy",
   "pgdm3cxj": "Amount",
   "yx8usjux": "Trade Date",
   "75vcm9jx": "Type",

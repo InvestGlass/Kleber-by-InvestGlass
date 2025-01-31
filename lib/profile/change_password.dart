@@ -65,9 +65,6 @@ class _ChangePasswordState extends State<ChangePassword> {
               },
               decoration: AppStyles.inputDecoration(
                 context,
-                hint: FFLocalizations.of(context).getText(
-                  '729kp7ui' /* Your current password */,
-                ),
                 focusColor: FlutterFlowTheme.of(context).alternate,
                 suffix: eyeIcon(context, _notifier.showCurrentPwd, () {
                   _notifier.changeCurrentPwdVisibilityStatus();
@@ -101,9 +98,6 @@ class _ChangePasswordState extends State<ChangePassword> {
               obscureText: !_notifier.showNewPwd,
               decoration: AppStyles.inputDecoration(
                 context,
-                hint: FFLocalizations.of(context).getText(
-                  '2l6qayo4' /* New password */,
-                ),
                 contentPadding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.018),
                 suffix: eyeIcon(context, _notifier.showNewPwd, () {
                   _notifier.changeNewPwdVisibilityStatus();
@@ -136,9 +130,7 @@ class _ChangePasswordState extends State<ChangePassword> {
               obscureText: !_notifier.showConfirmNewPwd,
               decoration: AppStyles.inputDecoration(context,
                   contentPadding: EdgeInsets.symmetric(horizontal: rSize * 0.015, vertical: rSize * 0.018),
-                  hint: FFLocalizations.of(context).getText(
-                    'lz5cj3qp' /* Confirm new password */,
-                  ),
+
                   focusColor: FlutterFlowTheme.of(context).alternate,
                   suffix: eyeIcon(context, _notifier.showConfirmNewPwd, () {
                     _notifier.changeConfirmNewPwdVisibilityStatus();
@@ -159,8 +151,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                     child: AppWidgets.btn(
                         context,
                         FFLocalizations.of(context).getText(
-                          'afxtmzhw' /* Change password */,
-                        ),
+                          'afxtmzhw' /* Change Password */,
+                        ).toUpperCase(),
                         textColor: Colors.white,
                         horizontalPadding: rSize * 0.025,
                         bgColor: FlutterFlowTheme.of(context).primary)),

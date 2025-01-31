@@ -9,6 +9,7 @@ import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
 import 'package:provider/provider.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../login/user_info_model.dart';
@@ -36,10 +37,9 @@ class _ChatHistoryState extends State<ChatHistory> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-      },
+      (timeStamp) {},
     );
-    user=SharedPrefUtils.instance.getUserData().user!;
+    user = SharedPrefUtils.instance.getUserData().user!;
     ProposalController notifier =
         Provider.of<ProposalController>(context, listen: false);
     notifier.chatHistoryPagingController.addPageRequestListener((pageKey) {
@@ -62,8 +62,16 @@ class _ChatHistoryState extends State<ChatHistory> {
   }
 
   @override
+  void dispose() {
+    _notifier.chatHistoryPagingController.itemList?.clear();
+    _notifier.chatHistoryPagingController = PagingController(firstPageKey: 1);
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    c=context;
+    c = context;
     _notifier = Provider.of<ProposalController>(context);
     return Scaffold(
       appBar: AppWidgets.appBar(context, widget.model.advisor?.name ?? '',
@@ -71,8 +79,7 @@ class _ChatHistoryState extends State<ChatHistory> {
           subTitle: "Relationship manager",
           actions: [
             AppWidgets.click(
-                onTap: () {
-                },
+                onTap: () {},
                 child: Icon(
                   FontAwesomeIcons.user,
                   size: rSize * 0.02,
@@ -92,7 +99,8 @@ class _ChatHistoryState extends State<ChatHistory> {
                 showLanguageDialog(context);
               },
               child: Container(
-                margin: EdgeInsets.only(top: rSize * 0.01, bottom: rSize * 0.01),
+                margin:
+                    EdgeInsets.only(top: rSize * 0.01, bottom: rSize * 0.01),
                 padding: EdgeInsets.all(rSize * 0.007),
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).alternate,
@@ -112,7 +120,6 @@ class _ChatHistoryState extends State<ChatHistory> {
                         'icons/flags/png100px/${getLanguageList()[_notifier.selectedCountryIndex]['code']}.png',
                         package: 'country_icons',
                         fit: BoxFit.cover,
-
                       ),
                     ),
                     Text(
@@ -129,95 +136,26 @@ class _ChatHistoryState extends State<ChatHistory> {
                 reverse: true,
                 padding: EdgeInsets.only(bottom: rSize * 0.01),
                 builderDelegate: PagedChildBuilderDelegate<ChatHistoryModel>(
-                  noItemsFoundIndicatorBuilder: (context) => SizedBox(),
+                    noItemsFoundIndicatorBuilder: (context) => SizedBox(),
+                    firstPageProgressIndicatorBuilder: (context) => skeleton(),
                     itemBuilder: (BuildContext context, ChatHistoryModel item,
                         int index) {
-                  bool isLast = (item ==
-                      _notifier.chatHistoryPagingController.itemList!.last);
-                  return Column(
-                    crossAxisAlignment: isMe(item)
-                        ? CrossAxisAlignment.end
-                        : CrossAxisAlignment.start,
-                    children: [
-                      if (isLast ||
-                          (!isLast &&
-                              getdate(item) !=
-                                  getdate(_notifier.chatHistoryPagingController
-                                      .itemList![index + 1]))) ...{
-                        Align(
-                          alignment: Alignment.center,
-                          child: AppWidgets.label(context, getdate(item)),
-                        )
-
-                      },
-                      SizedBox(
-                        height: rSize * 0.015,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (!isMe(item)) ...{
-                            SizedBox(width: rSize*0.005),
-                            photo(item),
-                          },
-                          if (!isMe(item)) ...{
-                            SizedBox(width: rSize*0.005),
-                          }else...{
-                            SizedBox(width: rSize*0.015),
-                          },
-
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: isMe(item)
-                                  ? CrossAxisAlignment.end
-                                  : CrossAxisAlignment.start,
-                              children: [
-                                Text(isMe(item) ? user!.client!.pseudonym! : widget.model.advisor?.name ?? '',
-                                    style: AppStyles.inputTextStyle(context)),
-                                Container(
-                                  padding: EdgeInsets.all(rSize * 0.005),
-                                  decoration: BoxDecoration(
-                                      color: isMe(item)
-                                          ? FlutterFlowTheme.of(context).alternate
-                                          : Color(0XFF1b88fb),
-                                      borderRadius:
-                                      BorderRadius.circular(rSize * 0.008)),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        item.comment!,
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                          color: isMe(item)
-                                              ? FlutterFlowTheme.of(context)
-                                              .customColor4
-                                              : FlutterFlowTheme.of(context).info,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: rSize * 0.016,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          if (!isMe(item)) ...{
-                            SizedBox(width: rSize*0.015),
-                          }else...{
-                            SizedBox(width: rSize*0.005),
-                          },
-                          if (isMe(item)) ...{
-                            photo(item),
-                          },
-                        ],
-                      )
-
-                    ],
-                  );
-                }),
+                      bool isLast = (item ==
+                          _notifier.chatHistoryPagingController.itemList!.last);
+                      return chatListItem(
+                          isLast,
+                          context,
+                          isMe(item),
+                          item.createdAt!,
+                          isLast ||
+                              (!isLast &&
+                                  getdate(item.createdAt!) !=
+                                      getdate(_notifier
+                                          .chatHistoryPagingController
+                                          .itemList![index + 1]
+                                          .createdAt!)),
+                          item.comment!);
+                    }),
                 separatorBuilder: (BuildContext context, int index) {
                   ChatHistoryModel item =
                       _notifier.chatHistoryPagingController.itemList![index];
@@ -241,24 +179,26 @@ class _ChatHistoryState extends State<ChatHistory> {
                       _notifier.takePhoto();
                     }),
                     divider(context),
-                    cell(context, FontAwesomeIcons.paperclip, 'Select photo', () {
+                    cell(context, FontAwesomeIcons.paperclip, 'Select photo',
+                        () {
                       _notifier.selectPhoto();
                     }),
                     divider(context),
-                    cell(context, FontAwesomeIcons.paperclip, 'Select file', () {
+                    cell(context, FontAwesomeIcons.paperclip, 'Select file',
+                        () {
                       _notifier.selectFile();
                     }),
                   } else if (_notifier.isAddClicked) ...{
                     cell(context, FontAwesomeIcons.reply, 'Reply', () {}),
                     divider(context),
                     cell(context, FontAwesomeIcons.pencil, 'Edit last message',
-                            () {}),
+                        () {}),
                     divider(context),
                     cell(context, FontAwesomeIcons.microphone,
                         'Tap & hold to send an audio message', () {}),
                     divider(context),
-                    cell(context, FontAwesomeIcons.noteSticky, 'New contact report',
-                            () {}),
+                    cell(context, FontAwesomeIcons.noteSticky,
+                        'New contact report', () {}),
                     divider(context),
                     cell(context, FontAwesomeIcons.tasks, 'New task', () {}),
                     divider(context),
@@ -274,14 +214,14 @@ class _ChatHistoryState extends State<ChatHistory> {
                       buildContainer(
                         context,
                         FontAwesomeIcons.plus,
-                            () {
+                        () {
                           _notifier.openPlusOptions();
                         },
                       ),
                       buildContainer(
                         context,
                         FontAwesomeIcons.paperclip,
-                            () {
+                        () {
                           _notifier.openAttachmentOptions();
                         },
                       ),
@@ -294,7 +234,8 @@ class _ChatHistoryState extends State<ChatHistory> {
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
                               boxShadow: AppStyles.shadow(),
-                              borderRadius: BorderRadius.circular(rSize * 0.025)),
+                              borderRadius:
+                                  BorderRadius.circular(rSize * 0.025)),
                           child: TextField(
                             controller: _notifier.msgController,
                             style: AppStyles.inputTextStyle(context),
@@ -328,7 +269,97 @@ class _ChatHistoryState extends State<ChatHistory> {
     );
   }
 
-  List<Map<String, String>> getLanguageList() => _notifier.filteredCountryNames.isNotEmpty?_notifier.filteredCountryNames:_notifier.countryNames;
+  Column chatListItem(bool isLast, BuildContext context, bool isMe,
+      DateTime dateTime, bool showGroupingDate, String message) {
+    return Column(
+      crossAxisAlignment:
+          isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      children: [
+        if (showGroupingDate) ...{
+          Align(
+            alignment: Alignment.center,
+            child: AppWidgets.label(context, getdate(dateTime)),
+          )
+        },
+        SizedBox(
+          height: rSize * 0.015,
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (!isMe) ...{
+              SizedBox(width: rSize * 0.005),
+              photo(
+                  isMe,
+                  isMe
+                      ? (user?.avatar ?? '')
+                      : (widget.model.advisor?.avatar ?? '')),
+            },
+            if (!isMe) ...{
+              SizedBox(width: rSize * 0.005),
+            } else ...{
+              SizedBox(width: rSize * 0.015),
+            },
+            Expanded(
+              child: Column(
+                crossAxisAlignment:
+                    isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                children: [
+                  Text(
+                      isMe
+                          ? user!.client!.pseudonym!
+                          : widget.model.advisor?.name ?? '',
+                      style: AppStyles.inputTextStyle(context)),
+                  Container(
+                    padding: EdgeInsets.all(rSize * 0.005),
+                    decoration: BoxDecoration(
+                        color: !isMe
+                            ? FlutterFlowTheme.of(context).alternate
+                            : Color(0XFF1b88fb),
+                        borderRadius: BorderRadius.circular(rSize * 0.008)),
+                    child: Column(
+                      children: [
+                        Text(
+                          message,
+                          textAlign: TextAlign.start,
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                color: !isMe
+                                    ? FlutterFlowTheme.of(context).customColor4
+                                    : FlutterFlowTheme.of(context).info,
+                                fontWeight: FontWeight.w500,
+                                fontSize: rSize * 0.016,
+                              ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            if (!isMe) ...{
+              SizedBox(width: rSize * 0.015),
+            } else ...{
+              SizedBox(width: rSize * 0.005),
+            },
+            if (isMe) ...{
+              photo(
+                  isMe,
+                  isMe
+                      ? (user?.avatar ?? '')
+                      : (widget.model.advisor?.avatar ?? '')),
+            },
+          ],
+        )
+      ],
+    );
+  }
+
+  List<Map<String, String>> getLanguageList() =>
+      _notifier.filteredCountryNames.isNotEmpty
+          ? _notifier.filteredCountryNames
+          : _notifier.countryNames;
 
   Container divider(BuildContext context) {
     return Container(
@@ -372,8 +403,7 @@ class _ChatHistoryState extends State<ChatHistory> {
             color: FlutterFlowTheme.of(context).customColor4,
             size: rSize * 0.015,
           ),
-          Expanded(
-              child: AppWidgets.label(context, '   $label')),
+          Expanded(child: AppWidgets.label(context, '   $label')),
           SizedBox(
             height: rSize * 0.035,
           )
@@ -385,26 +415,30 @@ class _ChatHistoryState extends State<ChatHistory> {
   bool isMe(ChatHistoryModel item) =>
       item.sender?.id == SharedPrefUtils.instance.getUserData().user?.id;
 
-  String getdate(ChatHistoryModel item) =>
-      DateFormat('dd MMM yyyy').format(item.createdAt!);
+  String getdate(DateTime createdAt) =>
+      DateFormat('dd MMM yyyy').format(createdAt);
 
-    Container photo(ChatHistoryModel item) {
-      return Container(
-        height: rSize * 0.04,
-        width: rSize * 0.04,
-        margin: EdgeInsets.only(
-            left: !isMe(item) ? rSize * 0.005 : 0,
-            right: !isMe(item) ? rSize * 0 : rSize * 0.005),
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColors.kHint, width: 0.5),
-          image: DecorationImage(
-            image: NetworkImage(isMe(item)?(user?.avatar??''):(widget.model.advisor?.avatar ?? '')),
-            fit: BoxFit.fitHeight,
-          ),
+  Container photo(bool isMe, String url) {
+    return Container(
+      height: rSize * 0.04,
+      width: rSize * 0.04,
+      margin: EdgeInsets.only(
+          left: !isMe ? rSize * 0.005 : 0,
+          right: !isMe ? rSize * 0 : rSize * 0.005),
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(
           shape: BoxShape.circle,
+          color: FlutterFlowTheme.of(context).alternate),
+      child: Image.network(
+        url,
+        errorBuilder: (context, error, stackTrace) => Icon(
+          FontAwesomeIcons.user,
+          color: FlutterFlowTheme.of(context).customColor4,
+          size: rSize * 0.02,
         ),
-      );
-    }
+      ),
+    );
+  }
 
   Future<void> showLanguageDialog(BuildContext context) async {
     _notifier.filteredCountryNames = [];
@@ -460,7 +494,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                         hint: 'Search...',
                         prefix: Padding(
                           padding:
-                          EdgeInsets.symmetric(horizontal: rSize * 0.015),
+                              EdgeInsets.symmetric(horizontal: rSize * 0.015),
                           child: Icon(
                             Icons.search,
                             size: rSize * 0.025,
@@ -481,11 +515,11 @@ class _ChatHistoryState extends State<ChatHistory> {
                     padding: EdgeInsets.only(top: rSize * 0.01),
                     separatorBuilder: (BuildContext context, int index) =>
                         Container(
-                          height: rSize * 0.01,
-                        ),
+                      height: rSize * 0.01,
+                    ),
                     itemBuilder: (context, index) {
                       return AppWidgets.click(
-                        onTap: () => _notifier.selectCountry(index,context),
+                        onTap: () => _notifier.selectCountry(index, context),
                         child: Row(
                           children: [
                             Container(
@@ -499,7 +533,6 @@ class _ChatHistoryState extends State<ChatHistory> {
                                 'icons/flags/png100px/${_notifier.filteredCountryNames[index]['code']}.png',
                                 package: 'country_icons',
                                 fit: BoxFit.cover,
-
                               ),
                             ),
                             AppWidgets.label(context,
@@ -516,6 +549,32 @@ class _ChatHistoryState extends State<ChatHistory> {
           ),
         );
       },
+    );
+  }
+
+  Widget skeleton() {
+    return Skeletonizer(
+      enabled: true,
+      child: Column(
+        children: [
+          chatListItem(false, context, true, DateTime.now(), true,
+              'asfe fgserg rd hgr thdt rhdrt htdr'),
+          chatListItem(false, context, false, DateTime.now(), false,
+              'asfe fgserg rd hgr thdt rhdrt htdr'),
+          chatListItem(
+              false, context, true, DateTime.now(), false, 'asfe fgserg rd '),
+          chatListItem(false, context, true, DateTime.now(), false, 'asfe '),
+          chatListItem(false, context, true, DateTime.now(), false,
+              'asfe fgserg rd hgr thdt rhdrt htdr'),
+          chatListItem(false, context, true, DateTime.now(), false,
+              'asfe fgserg rd hgr thdt rhdrt htdr'),
+          chatListItem(false, context, true, DateTime.now(), false, 'asfe fg'),
+          chatListItem(false, context, true, DateTime.now(), false,
+              'asfe fgserg rd hgr thdt '),
+          chatListItem(
+              true, context, true, DateTime.now(), false, 'asfe fgserg rd hgr'),
+        ],
+      ),
     );
   }
 }

@@ -187,9 +187,21 @@ class AppStyles {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Image.asset('assets/icon_bg.png',
-              height: rSize * 0.055,
-              width:  rSize * 0.055,
+            Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2), // Soft shadow color
+                    blurRadius: 8, // Blur effect
+                    spreadRadius: 2, // Spread of the shadow
+                    offset: Offset(0, 4), // Moves shadow downward
+                  ),
+                ],
+              ),
+              child: Image.asset('assets/icon_bg.png',
+                height: rSize * 0.055,
+                width:  rSize * 0.055,
+              ),
             ),
             Icon(
               data,

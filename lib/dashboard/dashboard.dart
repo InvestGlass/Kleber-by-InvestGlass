@@ -515,7 +515,9 @@ class _DashboardState extends State<Dashboard> {
                                 padding: EdgeInsets.all(rSize * 0.015),
                                 color:
                                     FlutterFlowTheme.of(context).customColor4),
-                            'Strategy',
+                            FFLocalizations.of(context).getText(
+                              'strategy',
+                            ),
                           ),
                           actionMenuItem(
                             context,
@@ -554,6 +556,7 @@ class _DashboardState extends State<Dashboard> {
       child: Column(
         children: [
           image,
+          SizedBox(height: rSize * 0.01,),
           Text(
             label,
             maxLines: 1,

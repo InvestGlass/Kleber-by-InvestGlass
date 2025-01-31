@@ -242,10 +242,11 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
     final overIntialVisible =
         filteredList.length > (initialVisibleMaximum.floor() + 1);
 
-    print('filtered list :: ${filteredList.length} $overIntialVisible');
-    /*if(filteredList.isEmpty){
+    // print('filtered list :: ${filteredList.length} ${filteredList[0].percentage} ${filteredList[0].label} ${filteredList[0].date} ${filteredList[0].amount} ${filteredList[0].usdValue}');
+    filteredList.removeWhere((element) => element.percentage==0,);
+    if(filteredList.isEmpty){
       return Center(child: Text('No data available.',style: AppStyles.inputTextStyle(context),));
-    }*/
+    }
     return Row(
       children: [
         Expanded(
@@ -262,6 +263,8 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
             primaryXAxis: CategoryAxis(
               edgeLabelPlacement: EdgeLabelPlacement.shift,
               tickPosition: TickPosition.inside,
+              minimum: getMinMax(filteredList,'min'),
+              maximum: getMinMax(filteredList,'max'),
               majorGridLines: const MajorGridLines(width: 0),
               axisLine: AxisLine(
                   color: FlutterFlowTheme.of(context).primaryText, width: 0.5),
@@ -545,13 +548,13 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                   enableTooltip: true,
                   name: 'Gold')
             ]),
-        Positioned(
+        /*Positioned(
           top: 0,
           left: 0,
           child: AppWidgets.buildRichText(
               context, widget.item?.portfolioValue ?? '',
               fontSize: rSize * 0.014),
-        )
+        )*/
       ],
     );
   }
@@ -601,6 +604,17 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
         .getText(
       'o00oeypg' /* Currency */,
     );
+  }
+
+  double? getMinMax(List<ChartModel> lst,String type) {
+    if(lst.length==1){
+      if(type=='min') {
+        return lst[0].percentage - 5;
+      }else{
+        return lst[0].percentage + 5;
+      }
+    }
+    return null;
   }
 }
 
