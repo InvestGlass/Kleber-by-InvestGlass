@@ -13,6 +13,43 @@ class HomeController extends ChangeNotifier{
   bool refresh=false;
   int swipeCount=0;
   bool isLoading=true;
+  var insights=[
+    {
+      'image':'https://www.arabbank.ch/wp-content/uploads/2024/12/Quarter1_Strategy2024-1024x683.png',
+      'date':'January 27, 2025',
+      'title':'Investment Strategy Q1/2025',
+      'desc':'Our Q1 Investment Strategy summary for 2025 reflects on key macro indicators and Geopolitical influences on Global Stock Markets, Fixed Income, FX and Commodities.',
+      'link':'https://www.arabbank.ch/news/insights/investment-strategy-q1-2025/'
+    },
+    {
+      'image':'https://www.arabbank.ch/wp-content/uploads/2024/12/Quarter4_Strategy2024-1024x683.png',
+      'date':'October 15, 2024',
+      'title':'Investment Strategy Q4/2024',
+      'desc':'Our Q4 Investment Strategy summary for 2024 reflects on key macro indicators and Geopolitical influences on Global Stock Markets, Fixed Income, FX and Commodities.',
+      'link':'https://www.arabbank.ch/news/insights/investment-strategy-q4-2024/'
+    },
+    {
+      'image':'https://www.arabbank.ch/wp-content/uploads/2024/12/Quarter3_Strategy2024-1024x683.png',
+      'date':'July 18, 2024',
+      'title':'Investment Strategy Q3/2024',
+      'desc':'Our Q3 Investment Strategy summary for 2024 reflects on key macro indicators and Geopolitical influences on Global Stock Markets, Fixed Income, FX and Commodities.',
+      'link':'https://www.arabbank.ch/news/strategy/investment-strategy-q3-2024/'
+    },
+    {
+      'image':'https://www.arabbank.ch/wp-content/uploads/2024/12/Quarter2_Strategy2024-1024x683.png',
+      'date':'April 9, 2024',
+      'title':'Investment Strategy Q2/2024',
+      'desc':'Our Q2 Investment Strategy summary for 2024 reflects on key Macro indicators and Geopolitical influences on Global Stock Markets, Fixed Income, and Commodities.',
+      'link':'https://www.arabbank.ch/news/insights/investment-strategy-q2-2024/'
+    },
+    {
+      'image':'https://www.arabbank.ch/wp-content/uploads/2024/12/Quarter1_Strategy2024-1024x683.png',
+      'date':'January 31, 2024',
+      'title':'Investment Strategy Q1/2024',
+      'desc':'Our Q1 Investment Strategy summary for 2024 reflects on key Macro indicators and Geopolitical influences on Global Stock Markets, Fixed Income, and Commodities.',
+      'link':'https://www.arabbank.ch/news/insights/q1-investment-strategy-2024/'
+    },
+  ];
   var swipeData=[
     {'image':
           'https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iZzEbn3d5iqk/v1/1200x799.jpg',

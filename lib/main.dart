@@ -187,7 +187,7 @@ class _MyAppState extends riverpod.ConsumerState<MyApp> {
           brightness: Brightness.light,
           scaffoldBackgroundColor: Colors.white,
           fontFamily: 'Roboto',
-          appBarTheme: AppBarTheme(color: Colors.white),
+          appBarTheme: const AppBarTheme(color: Colors.white),
           scrollbarTheme: ScrollbarThemeData(
             thumbVisibility: WidgetStateProperty.all(false),
             trackVisibility: WidgetStateProperty.all(false),

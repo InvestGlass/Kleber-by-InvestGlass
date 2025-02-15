@@ -19,6 +19,7 @@ class UniversalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var list=['ASML Holdings N.V.','Check Point Software Technologies','Hermes International SCA','Linde','Kone Oyj'];
     _marketNotifier = Provider.of<MarketController>(context);
     return Scaffold(
       appBar: AppWidgets.appBar(
@@ -87,11 +88,11 @@ class UniversalList extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: 3,
+              itemCount: list.length,
               itemBuilder: (context, index) {
                 return MarketListItemWidget(
                   // key: Key('Keyery_${index}_of_${realLength}'),
-                  data: MarketListModel(assetClassName: '',name: ''),
+                  data: MarketListModel(assetClassName: '',name: list[index]),
                 );
             },),
           ),

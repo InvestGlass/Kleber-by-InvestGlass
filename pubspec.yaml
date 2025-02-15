@@ -76,9 +76,9 @@ dependencies:
   freerasp: ^6.10.0
   flutter_riverpod:
   group_grid_view:
-  skeletonizer:
   country_icons:
   flutter_slidable:
+  skeletonizer: ^1.4.3
 
 dev_dependencies:
   flutter_test:

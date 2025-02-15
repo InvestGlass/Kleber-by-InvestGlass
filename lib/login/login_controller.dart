@@ -42,9 +42,9 @@ class LoginController extends ChangeNotifier {
         userNameController.clear();
         pwdController.clear();
         if (!(model.user?.tosAccepted ?? false)) {
-          CommonFunctions.navigate(context, TermsAndPrivacy());
+          CommonFunctions.navigate(context, const TermsAndPrivacy());
         }else if ((model.verification ?? '').isEmpty) {
-          CommonFunctions.navigate(context, Dashboard());
+          CommonFunctions.navigate(context, const Dashboard());
         } else if (model.verification == 'sms' || model.verification == 'email') {
           CommonFunctions.showLoader(context);
           await ApiCalls.sendOtp(context).then(
@@ -56,7 +56,7 @@ class LoginController extends ChangeNotifier {
             },
           );
         }else if (model.verification == 'authentification') {
-          CommonFunctions.navigate(context, OTPScreen(null));
+          CommonFunctions.navigate(context, const OTPScreen(null));
         }
       }
     }

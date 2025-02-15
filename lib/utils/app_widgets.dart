@@ -7,6 +7,7 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../main.dart';
 import '../portfolio/portfolio_model.dart';
 import 'app_colors.dart';
+import 'app_const.dart';
 import 'flutter_flow_theme.dart';
 import 'internationalization.dart';
 
@@ -435,6 +436,16 @@ class AppWidgets {
             tileMode: TileMode.clamp),
         boxShadow: AppStyles.shadow(),
         borderRadius: BorderRadius.circular(rSize * 0.008));
+  }
+
+  static appLogo(BuildContext context){
+    return Image.asset(
+      Theme.of(context).brightness == Brightness.dark
+          ? 'assets/white-investglass.png'
+          : AppConst.logo,
+      height: rSize * 0.06,
+      fit: BoxFit.contain,
+    );
   }
 
   static Expanded sheetElement(

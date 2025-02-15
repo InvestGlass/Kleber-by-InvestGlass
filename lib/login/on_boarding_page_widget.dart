@@ -1,4 +1,5 @@
 import 'package:kleber_bank/login/login.dart';
+import 'package:kleber_bank/utils/app_const.dart';
 import 'package:kleber_bank/utils/app_styles.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
@@ -90,26 +91,21 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                                       child: AppWidgets.click(
                                         onTap: () => CommonFunctions.navigate(context, const Login(), removeCurrentScreenFromStack: true),
                                         child: AppWidgets.btn(context, FFLocalizations.of(context).getText(
-                                          '3h41wkxj' /* Sign in */,
+                                          'find_more',
                                         ).toUpperCase()),
                                       ),
                                     ),
-                                    const Expanded(child: SizedBox(),),
+                                    const Expanded(child: SizedBox()),
                                   ],
                                 ),
                               ],
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(0.0, -1.0),
+                            alignment: const AlignmentDirectional(0.0, -0.9),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(rSize*0.008),
-                              child: Image.asset(
-                                Theme.of(context).brightness == Brightness.dark ? 'assets/white-investglass.png' : 'assets/logo.png',
-                                width: rSize*0.150,
-                                height: rSize*0.050,
-                                fit: BoxFit.contain,
-                              ),
+                              child: AppWidgets.appLogo(context),
                             ),
                           ),
                         ],

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,6 +19,7 @@ import 'package:kleber_bank/utils/app_styles.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
 import 'package:provider/provider.dart';
+import 'package:video_player/video_player.dart';
 
 import '../home/home.dart';
 import '../market/market.dart';
@@ -27,6 +29,7 @@ import '../profile/profile.dart';
 import '../proposals/proposal_model.dart';
 import '../proposals/proposals.dart';
 import '../stratagy/stratagy.dart';
+import '../stratagy/stratagy2.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_widgets.dart';
 import '../utils/flutter_flow_theme.dart';
@@ -46,12 +49,13 @@ class _DashboardState extends State<Dashboard> {
 
   late DashboardController _controller;
   StreamController<String> controller = StreamController.broadcast();
+  late VideoPlayerController _videoPlayerController;
 
   @override
   void initState() {
+    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse('https://www.arabbank.ch/wp-content/uploads/2024/04/ARAB_BANK_H.264.mp4'));
     if (AppConst.userModel != null) {
-      SharedPrefUtils.instance
-          .putString(USER_DATA, jsonEncode(AppConst.userModel!.toJson()));
+      SharedPrefUtils.instance.putString(USER_DATA, jsonEncode(AppConst.userModel!.toJson()));
     }
     pagingController = PageController(initialPage: 0);
     super.initState();
@@ -71,36 +75,28 @@ class _DashboardState extends State<Dashboard> {
       key: _scaffoldkey,
       appBar: AppWidgets.appBar(context, getTitle(),
           leading: Container(
-              padding: EdgeInsets.all(rSize * 0.008),
+              padding: EdgeInsets.only(top: rSize * 0.005, bottom: rSize * 0.005, left: rSize * 0.01),
               child: Image.asset(
-                'assets/app_launcher_icon.png',
+                AppConst.logo,
               )),
           actions: [
             AppWidgets.click(
-              onTap: () =>
-                  CommonFunctions.navigate(context,  NotificationList()),
+              onTap: () => CommonFunctions.navigate(context, NotificationList()),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(
-                        top: rSize * 0.005, right: rSize * 0.005),
-                    child: Icon(FontAwesomeIcons.bell,
-                        size: rSize * 0.02,
-                        color: FlutterFlowTheme.of(context).customColor4),
+                    padding: EdgeInsets.only(top: rSize * 0.005, right: rSize * 0.005),
+                    child: Icon(FontAwesomeIcons.bell, size: rSize * 0.02, color: FlutterFlowTheme.of(context).customColor4),
                   ),
                   Positioned(
                     top: rSize * 0.013,
                     right: 0,
                     child: Container(
                       padding: EdgeInsets.all(rSize * 0.005),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: FlutterFlowTheme.of(context).primary),
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: FlutterFlowTheme.of(context).primary),
                       child: Text('2',
-                          style: AppStyles.inputTextStyle(context).copyWith(
-                              color: FlutterFlowTheme.of(context).info,
-                              fontSize: rSize * 0.01)),
+                          style: AppStyles.inputTextStyle(context).copyWith(color: FlutterFlowTheme.of(context).info, fontSize: rSize * 0.01)),
                     ),
                   )
                 ],
@@ -113,19 +109,15 @@ class _DashboardState extends State<Dashboard> {
       bottomNavigationBar: Wrap(
         children: [
           Container(
-            margin:
-                EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+            margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
             child: Row(
               children: [
                 actionMenuItem(
                     context,
                     fit: FlexFit.tight,
-                    AppStyles.iconBg(context,
-                        data: FontAwesomeIcons.house, size: rSize * 0.020, onTap: () {
+                    AppStyles.iconBg(context, data: FontAwesomeIcons.house, size: rSize * 0.020, onTap: () {
                       changeTab(0);
-                    },
-                        padding: EdgeInsets.all(rSize * 0.015),
-                        color: getColor(0)),
+                    }, padding: EdgeInsets.all(rSize * 0.015), color: getColor(0)),
                     FFLocalizations.of(context).getText(
                       'fiha8uf5' /* Overview */,
                     ),
@@ -133,13 +125,9 @@ class _DashboardState extends State<Dashboard> {
                 actionMenuItem(
                     context,
                     fit: FlexFit.tight,
-                    AppStyles.iconBg(context,
-                        data: Icons.add_chart_outlined,
-                        size: rSize * 0.020, onTap: () {
+                    AppStyles.iconBg(context, data: Icons.add_chart_outlined, size: rSize * 0.020, onTap: () {
                       changeTab(1);
-                    },
-                        padding: EdgeInsets.all(rSize * 0.015),
-                        color: getColor(1)),
+                    }, padding: EdgeInsets.all(rSize * 0.015), color: getColor(1)),
                     FFLocalizations.of(context).getText(
                       'xn2nrgyp' /* Portfolio */,
                     ),
@@ -147,13 +135,9 @@ class _DashboardState extends State<Dashboard> {
                 actionMenuItem(
                   context,
                   fit: FlexFit.tight,
-                  AppStyles.iconBg(context,
-                      data: FontAwesomeIcons.grip, size: rSize * 0.020, onTap: () {
+                  AppStyles.iconBg(context, data: FontAwesomeIcons.grip, size: rSize * 0.020, onTap: () {
                     showOptions();
-                  },
-                      padding: EdgeInsets.all(rSize * 0.015),
-                      customIcon: null,
-                      color: FlutterFlowTheme.of(context).customColor4),
+                  }, padding: EdgeInsets.all(rSize * 0.015), customIcon: null, color: FlutterFlowTheme.of(context).customColor4),
                   FFLocalizations.of(context).getText(
                     'more',
                   ),
@@ -161,13 +145,10 @@ class _DashboardState extends State<Dashboard> {
                 actionMenuItem(
                     context,
                     fit: FlexFit.tight,
-                    AppStyles.iconBg(context,
-                        data: Icons.auto_graph, size: rSize * 0.020, onTap: () {
+                    AppStyles.iconBg(context, data: Icons.auto_graph, size: rSize * 0.020, onTap: () {
                       changeTab(3);
                       controller.add('');
-                    },
-                        padding: EdgeInsets.all(rSize * 0.015),
-                        color: getColor(3)),
+                    }, padding: EdgeInsets.all(rSize * 0.015), color: getColor(3)),
                     FFLocalizations.of(context).getText(
                       'nkifu7jq' /* Proposal */,
                     ),
@@ -175,13 +156,9 @@ class _DashboardState extends State<Dashboard> {
                 actionMenuItem(
                     context,
                     fit: FlexFit.tight,
-                    AppStyles.iconBg(context,
-                        data: FontAwesomeIcons.user,
-                        size: rSize * 0.020, onTap: () {
+                    AppStyles.iconBg(context, data: FontAwesomeIcons.user, size: rSize * 0.020, onTap: () {
                       changeTab(4);
-                    },
-                        padding: EdgeInsets.all(rSize * 0.015),
-                        color: getColor(4)),
+                    }, padding: EdgeInsets.all(rSize * 0.015), color: getColor(4)),
                     FFLocalizations.of(context).getText(
                       'w5wtcpj4' /* Profile */,
                     ),
@@ -243,25 +220,28 @@ class _DashboardState extends State<Dashboard> {
               label: FFLocalizations.of(context).getText('w5wtcpj4' */ /* Profile */ /*)),
         ],
       ),*/
-      body: PageView(
-        controller: pagingController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          const Home(),
-          const Portfolio(),
-          const Documents(),
-          Proposals(controller),
-          const Profile(),
-        ],
-        onPageChanged: (page) {},
+      body: Padding(
+        padding: EdgeInsets.only(bottom: rSize * 0.01),
+        child: PageView(
+          controller: pagingController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+             Home(_videoPlayerController),
+            const Portfolio(),
+            const Documents(),
+            Proposals(controller),
+            const Profile(),
+          ],
+          onPageChanged: (page) {},
+        ),
       ),
     );
   }
 
   void changeTab(int i) {
     _controller.changeIndex(i);
-    pagingController.animateToPage(i,
-        duration: const Duration(microseconds: 500), curve: Curves.bounceInOut);
+    _videoPlayerController.pause();
+    pagingController.animateToPage(i, duration: const Duration(microseconds: 500), curve: Curves.bounceInOut);
   }
 
   void showOptions() {
@@ -289,7 +269,7 @@ class _DashboardState extends State<Dashboard> {
                       padding: EdgeInsets.all(rSize * 0.015),
                       customIcon: null),
                   FFLocalizations.of(context).getText(
-                    'd33p2mgm' *//* Market *//*,
+                    'd33p2mgm' */ /* Market */ /*,
                   ),
                 ),
                 actionMenuItem(
@@ -341,7 +321,7 @@ class _DashboardState extends State<Dashboard> {
                       color:
                       FlutterFlowTheme.of(context).customColor4),
                   FFLocalizations.of(context).getText(
-                    '1vddbh59' *//* Document *//*,
+                    '1vddbh59' */ /* Document */ /*,
                   ),
                 ),
                 actionMenuItem(
@@ -357,7 +337,7 @@ class _DashboardState extends State<Dashboard> {
                       color:
                       FlutterFlowTheme.of(context).customColor4),
                   FFLocalizations.of(context).getText(
-                    '3hz1whes' *//* Upload *//*,
+                    '3hz1whes' */ /* Upload */ /*,
                   ),
                 ),
                 actionMenuItem(
@@ -396,16 +376,28 @@ class _DashboardState extends State<Dashboard> {
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     boxShadow: AppStyles.shadow(),
                     borderRadius: BorderRadius.circular(rSize * 0.01)),
-                margin: EdgeInsets.only(
-                    bottom: rSize * 0.11,
-                    left: rSize * 0.01,
-                    right: rSize * 0.01),
+                margin: EdgeInsets.only(bottom: rSize * 0.11, left: rSize * 0.01, right: rSize * 0.01),
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: rSize * 0.010),
                   child: Column(
                     children: [
                       SizedBox(
-                        height: rSize * 0.05,
+                        height: rSize * 0.02,
+                      ),
+                      AppWidgets.title(context,FFLocalizations.of(context).getText(
+                        'investment_philosophy',
+                      ) ),
+                      Padding(
+                        padding: EdgeInsets.only(left: rSize * 0.015,right: rSize * 0.015,top: rSize * 0.005,bottom: rSize * 0.02),
+                        child: Text(
+                          FFLocalizations.of(context).getText(
+                            'macroeconomic_climate',
+                          ),
+                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontSize: rSize * 0.016,
+                            color: FlutterFlowTheme.of(context).customColor4,
+                          ),textAlign: TextAlign.center,
+                        ),
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
@@ -414,66 +406,45 @@ class _DashboardState extends State<Dashboard> {
                           actionMenuItem(
                             context,
                             AppStyles.iconBg(context,
-                                data: FontAwesomeIcons.chartLine,
-                                color: FlutterFlowTheme.of(context).customColor4,
-                                size: rSize * 0.020, onTap: () {
+                                data: FontAwesomeIcons.chartLine, color: FlutterFlowTheme.of(context).customColor4, size: rSize * 0.020, onTap: () {
                               Navigator.pop(context);
                               CommonFunctions.navigate(context, const Market());
-                            },
-                                padding: EdgeInsets.all(rSize * 0.015),
-                                customIcon: null),
+                            }, padding: EdgeInsets.all(rSize * 0.015), customIcon: null),
                             FFLocalizations.of(context).getText(
                               'd33p2mgm' /* Market */,
                             ),
                           ),
                           actionMenuItem(
                             context,
-                            AppStyles.iconBg(context,
-                                data: Icons.currency_exchange,
-                                size: rSize * 0.020, onTap: () async {
+                            AppStyles.iconBg(context, data: Icons.currency_exchange, size: rSize * 0.020, onTap: () async {
                               // Navigator.pop(context);
-                              PortfolioController n =
-                                  Provider.of<PortfolioController>(context,
-                                      listen: false);
+                              PortfolioController n = Provider.of<PortfolioController>(context, listen: false);
                               CommonFunctions.showLoader(context);
                               await Future.wait([
                                 n.getPortfolioList(context, 0, notify: true),
-                                n.fetchDropDownData(
-                                    context, 'transaction_type'),
+                                n.fetchDropDownData(context, 'transaction_type'),
                                 n.fetchDropDownData(context, 'currency'),
-                                n.fetchDropDownData(
-                                    context, 'transaction_status'),
+                                n.fetchDropDownData(context, 'transaction_status'),
                               ]).then(
                                 (value) async {
                                   if (n.currencyList.isNotEmpty) {
-                                    await n.selectCurrency(
-                                        context, n.currencyList[0]);
+                                    await n.selectCurrency(context, n.currencyList[0]);
                                   }
                                   CommonFunctions.dismissLoader(context);
-                                  CommonFunctions.navigate(
-                                      context, const BankTransfer());
+                                  CommonFunctions.navigate(context, const BankTransfer());
                                 },
                               );
-                            },
-                                padding: EdgeInsets.all(rSize * 0.015),
-                                color:
-                                    FlutterFlowTheme.of(context).customColor4),
+                            }, padding: EdgeInsets.all(rSize * 0.015), color: FlutterFlowTheme.of(context).customColor4),
                             FFLocalizations.of(context).getText(
                               'bank_transfer',
                             ),
                           ),
                           actionMenuItem(
                             context,
-                            AppStyles.iconBg(context,
-                                data: Icons.file_copy,
-                                size: rSize * 0.020, onTap: () {
+                            AppStyles.iconBg(context, data: Icons.file_copy, size: rSize * 0.020, onTap: () {
                               Navigator.pop(context);
-                              CommonFunctions.navigate(
-                                  context, const Documents2());
-                            },
-                                padding: EdgeInsets.all(rSize * 0.015),
-                                color:
-                                    FlutterFlowTheme.of(context).customColor4),
+                              CommonFunctions.navigate(context, const Documents2());
+                            }, padding: EdgeInsets.all(rSize * 0.015), color: FlutterFlowTheme.of(context).customColor4),
                             FFLocalizations.of(context).getText(
                               '1vddbh59' /* Document */,
                             ),
@@ -489,46 +460,29 @@ class _DashboardState extends State<Dashboard> {
                         children: [
                           actionMenuItem(
                             context,
-                            AppStyles.iconBg(context,
-                                data: FontAwesomeIcons.upload,
-                                size: rSize * 0.020, onTap: () {
+                            AppStyles.iconBg(context, data: FontAwesomeIcons.upload, size: rSize * 0.020, onTap: () {
                               Navigator.pop(context);
-                              CommonFunctions.navigate(
-                                  context, const UploadDocument());
-                            },
-                                padding: EdgeInsets.all(rSize * 0.015),
-                                color:
-                                    FlutterFlowTheme.of(context).customColor4),
+                              CommonFunctions.navigate(context, const UploadDocument());
+                            }, padding: EdgeInsets.all(rSize * 0.015), color: FlutterFlowTheme.of(context).customColor4),
                             FFLocalizations.of(context).getText(
                               '3hz1whes' /* Upload */,
                             ),
                           ),
                           actionMenuItem(
                             context,
-                            AppStyles.iconBg(context,
-                                data: FontAwesomeIcons.scaleBalanced,
-                                size: rSize * 0.020, onTap: () {
+                            AppStyles.iconBg(context, data: FontAwesomeIcons.scaleBalanced, size: rSize * 0.020, onTap: () {
                               Navigator.pop(context);
-                              CommonFunctions.navigate(
-                                  context, const Strategy());
-                            },
-                                padding: EdgeInsets.all(rSize * 0.015),
-                                color:
-                                    FlutterFlowTheme.of(context).customColor4),
+                              CommonFunctions.navigate(context, const ChartsColumnScreen());
+                            }, padding: EdgeInsets.all(rSize * 0.015), color: FlutterFlowTheme.of(context).customColor4),
                             FFLocalizations.of(context).getText(
                               'strategy',
                             ),
                           ),
                           actionMenuItem(
                             context,
-                            AppStyles.iconBg(context,
-                                data: FontAwesomeIcons.gavel,
-                                size: rSize * 0.020, onTap: () {
+                            AppStyles.iconBg(context, data: FontAwesomeIcons.gavel, size: rSize * 0.020, onTap: () {
                               CommonFunctions.navigate(context, const UniversalList());
-                            },
-                                padding: EdgeInsets.all(rSize * 0.015),
-                                color:
-                                    FlutterFlowTheme.of(context).customColor4),
+                            }, padding: EdgeInsets.all(rSize * 0.015), color: FlutterFlowTheme.of(context).customColor4),
                             FFLocalizations.of(context).getText(
                               'universe_list',
                             ),
@@ -549,23 +503,26 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget actionMenuItem(BuildContext context, Widget image, String label,
-      {int i = -1, FlexFit fit = FlexFit.loose}) {
+  Widget actionMenuItem(BuildContext context, Widget image, String label, {int i = -1, FlexFit fit = FlexFit.loose}) {
     return Flexible(
       fit: fit,
       child: Column(
         children: [
           image,
-          SizedBox(height: rSize * 0.01,),
-          Text(
-            label,
-            maxLines: 1,
-            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                  color: i == _controller.selectedIndex
-                      ? FlutterFlowTheme.of(context).primary
-                      : FlutterFlowTheme.of(context).customColor4,
-                  fontSize: rSize * 0.016,
-                ),
+          SizedBox(
+            height: rSize * 0.01,
+          ),
+          Container(
+            width: rSize*0.1,
+            alignment: Alignment.center,
+            child: Text(
+              label,
+              maxLines: 1,
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    color: i == _controller.selectedIndex ? FlutterFlowTheme.of(context).primary : FlutterFlowTheme.of(context).customColor4,
+                    fontSize: rSize * 0.016,
+                  ),
+            ),
           )
         ],
       ),

@@ -92,6 +92,12 @@ class AppStyles {
     );
   }*/
 
+  static linkStyle(BuildContext context){
+    return TextStyle(
+      color: FlutterFlowTheme.of(context).primary,
+      fontWeight: FontWeight.w600,
+    );
+  }
   static TextStyle labelStyle(BuildContext context){
     return FlutterFlowTheme.of(context).bodyMedium.override(
       fontSize: rSize * 0.016,

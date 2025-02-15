@@ -11,4 +11,7 @@ class AppConst{
   static NumberFormat formatter = NumberFormat('#,##,###.##');
 
   static List<String> languageCodes=['en','ar','vi'];
+
+  // static const logo='assets/logo.png';
+  static const logo='assets/arab_bank_logo.png';
 }

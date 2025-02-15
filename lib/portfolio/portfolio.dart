@@ -161,7 +161,7 @@ class _PortfolioState extends State<Portfolio>
                                 turns: _notifier.selectedIndex == index
                                     ? 0.75
                                     : 0.5,
-                                duration: Duration(milliseconds: 300),
+                                duration: const Duration(milliseconds: 300),
                                 child: AppWidgets.doubleBack(context))
                           ],
                         ),
@@ -180,7 +180,7 @@ class _PortfolioState extends State<Portfolio>
                           if (snapshot.connectionState ==
                                   ConnectionState.done &&
                               snapshot.data == null) {
-                            return SizedBox();
+                            return const SizedBox();
                           } else {
                             if (snapshot.connectionState ==
                                     ConnectionState.done &&
@@ -195,7 +195,7 @@ class _PortfolioState extends State<Portfolio>
                             enabled: isLoading,
                             child: ListView(
                               shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               padding: EdgeInsets.zero,
                               children: [
                                 Container(
@@ -572,9 +572,9 @@ class _PortfolioState extends State<Portfolio>
                       boxShadow: AppStyles.shadow(),
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(rSize * 0.012),
-                        bottomRight: Radius.circular(0.0),
+                        bottomRight: const Radius.circular(0.0),
                         topLeft: Radius.circular(rSize * 0.012),
-                        topRight: Radius.circular(0.0),
+                        topRight: const Radius.circular(0.0),
                       ),
                     ),
                     child: Padding(
@@ -600,7 +600,7 @@ class _PortfolioState extends State<Portfolio>
                                     ),
                                     child: Icon(
                                       Icons.warning_amber_rounded,
-                                      color: Color(0xFFF5A142),
+                                      color: const Color(0xFFF5A142),
                                       size: rSize * 0.050,
                                     ),
                                   ),
@@ -611,7 +611,7 @@ class _PortfolioState extends State<Portfolio>
                                       width: rSize * 0.040,
                                       height: rSize * 0.030,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFF5A142),
+                                        color: const Color(0xFFF5A142),
                                         boxShadow: AppStyles.shadow(),
                                       ),
                                       alignment:
@@ -668,9 +668,9 @@ class _PortfolioState extends State<Portfolio>
                       color: FlutterFlowTheme.of(context).primaryBackground,
                       boxShadow: AppStyles.shadow(),
                       borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(0.0),
+                        bottomLeft: const Radius.circular(0.0),
                         bottomRight: Radius.circular(rSize * 0.012),
-                        topLeft: Radius.circular(0.0),
+                        topLeft: const Radius.circular(0.0),
                         topRight: Radius.circular(rSize * 0.012),
                       ),
                     ),
@@ -699,7 +699,7 @@ class _PortfolioState extends State<Portfolio>
                                       ),
                                       child: Icon(
                                         Icons.error_outline_rounded,
-                                        color: Color(0xFFF54242),
+                                        color: const Color(0xFFF54242),
                                         size: rSize * 0.050,
                                       ),
                                     ),
@@ -710,7 +710,7 @@ class _PortfolioState extends State<Portfolio>
                                         width: rSize * 0.040,
                                         height: rSize * 0.030,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFFF54242),
+                                          color: const Color(0xFFF54242),
                                           boxShadow: AppStyles.shadow(),
                                         ),
                                         alignment:

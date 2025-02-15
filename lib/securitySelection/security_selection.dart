@@ -102,26 +102,6 @@ class _SecuritySelectionState extends State<SecuritySelection> {
             children: [
               Row(
                 children: [
-                  AppWidgets.click(
-                    onTap: () => openFilterDialog(context),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).secondaryBackground,
-                          boxShadow: AppStyles.shadow(),
-                          borderRadius: BorderRadius.circular(rSize*0.01)
-                      ),
-                      height: rSize * 0.05,
-                      width: rSize * 0.05,
-                      child: Icon(
-                        Icons.filter_alt_outlined,
-                        size: rSize * 0.025,
-                        color: FlutterFlowTheme.of(context).customColor4,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: rSize * 0.010,
-                  ),
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
@@ -149,6 +129,26 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                             _notifier.refresh();
                           });
                         },
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: rSize * 0.010,
+                  ),
+                  AppWidgets.click(
+                    onTap: () => openFilterDialog(context),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: AppStyles.shadow(),
+                          borderRadius: BorderRadius.circular(rSize*0.01)
+                      ),
+                      height: rSize * 0.05,
+                      width: rSize * 0.05,
+                      child: Icon(
+                        Icons.filter_alt_outlined,
+                        size: rSize * 0.025,
+                        color: FlutterFlowTheme.of(context).customColor4,
                       ),
                     ),
                   ),
@@ -253,7 +253,7 @@ class _SecuritySelectionState extends State<SecuritySelection> {
                         children: [
                           ListView(
                             shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             padding: EdgeInsets.only(
                                 left: rSize * 0.02, right: rSize * 0.02, top: rSize * 0.03, bottom: MediaQuery.of(context).viewInsets.bottom + rSize * 0.03),
                             children: [

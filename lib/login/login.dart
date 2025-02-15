@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kleber_bank/documents/document_model.dart';
 import 'package:kleber_bank/login/signup.dart';
 import 'package:kleber_bank/proposals/view_document.dart';
+import 'package:kleber_bank/utils/app_const.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/end_points.dart';
 import 'package:provider/provider.dart';
@@ -48,22 +49,15 @@ class _LoginState extends State<Login> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 10 + MediaQuery.of(context).padding.top,
+              height: rSize*0.02 + MediaQuery.of(context).padding.top,
             ),
             Center(
-              child: Image.asset(
-                Theme.of(context).brightness == Brightness.dark
-                    ? 'assets/white-investglass.png'
-                    : 'assets/logo.png',
-                width: rSize * 0.17,
-                height: rSize * 0.05,
-                fit: BoxFit.contain,
-              ),
+              child: AppWidgets.appLogo(context),
             ),
             const Expanded(child: SizedBox()),
             Text(
               FFLocalizations.of(context).getText(
-                'gs8awxej' /* Sign into */,
+                'success_journey',
               ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     color: FlutterFlowTheme.of(context).secondaryText,
@@ -71,12 +65,12 @@ class _LoginState extends State<Login> {
                     fontWeight: FontWeight.w500,
                   ),
             ),
-            Row(
+            /*Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   '${FFLocalizations.of(context).getText(
-                    'zlksaikw' /* your */,
+                    'zlksaikw' *//* your *//*,
                   )} ',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         color: FlutterFlowTheme.of(context).secondaryText,
@@ -91,7 +85,7 @@ class _LoginState extends State<Login> {
                   children: [
                     Text(
                       FFLocalizations.of(context).getText(
-                        'e9zrlew0' /* account */,
+                        'e9zrlew0' *//* account *//*,
                       ),
                       style: TextStyle(
                         color: FlutterFlowTheme.of(context).primary,
@@ -108,7 +102,7 @@ class _LoginState extends State<Login> {
                   ],
                 )
               ],
-            ),
+            ),*/
             SizedBox(
               height: rSize * 0.01,
             ),
@@ -269,10 +263,7 @@ class _LoginState extends State<Login> {
                               ),
                               TextSpan(
                                 text: ' Signup',
-                                style: TextStyle(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                style: AppStyles.labelStyle(context).copyWith(color: FlutterFlowTheme.of(context).primary),
                               ),
                             ],
                             style: FlutterFlowTheme.of(context)

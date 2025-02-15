@@ -105,6 +105,7 @@ class ApiCalls {
         'Authorization': 'Bearer ${SharedPrefUtils.instance.getString(TOKEN)}'
       });
       var json = jsonDecode(response.body);
+      print('user info $json');
       UserInfotModel model = UserInfotModel.fromJson(json);
       AppConst.userModel = model;
       return model;
