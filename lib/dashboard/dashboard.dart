@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kleber_bank/documents/documents.dart';
 import 'package:kleber_bank/documents/documents2.dart';
@@ -11,9 +9,7 @@ import 'package:kleber_bank/documents/upload_document.dart';
 import 'package:kleber_bank/main.dart';
 import 'package:kleber_bank/portfolio/bank_transfer.dart';
 import 'package:kleber_bank/portfolio/portfolio.dart';
-import 'package:kleber_bank/proposals/chat/chat_history.dart';
 import 'package:kleber_bank/universal_list.dart';
-import 'package:kleber_bank/utils/app_const.dart';
 import 'package:kleber_bank/utils/app_const.dart';
 import 'package:kleber_bank/utils/app_styles.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
@@ -23,14 +19,12 @@ import 'package:video_player/video_player.dart';
 
 import '../home/home.dart';
 import '../market/market.dart';
+import '../myAccounts/my_accounts_screen.dart';
 import '../notifications/notification_list.dart';
 import '../portfolio/portfolio_controller.dart';
 import '../profile/profile.dart';
-import '../proposals/proposal_model.dart';
 import '../proposals/proposals.dart';
-import '../stratagy/stratagy.dart';
 import '../stratagy/stratagy2.dart';
-import '../utils/app_colors.dart';
 import '../utils/app_widgets.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
@@ -473,7 +467,7 @@ class _DashboardState extends State<Dashboard> {
                             AppStyles.iconBg(context, data: FontAwesomeIcons.scaleBalanced, size: rSize * 0.020, onTap: () {
                               Navigator.pop(context);
                               CommonFunctions.navigate(context, const ChartsColumnScreen());
-                            }, padding: EdgeInsets.all(rSize * 0.015), color: FlutterFlowTheme.of(context).customColor4),
+                            }, padding: EdgeInsets.only(right:rSize * 0.015), color: FlutterFlowTheme.of(context).customColor4),
                             FFLocalizations.of(context).getText(
                               'strategy',
                             ),
@@ -485,6 +479,44 @@ class _DashboardState extends State<Dashboard> {
                             }, padding: EdgeInsets.all(rSize * 0.015), color: FlutterFlowTheme.of(context).customColor4),
                             FFLocalizations.of(context).getText(
                               'universe_list',
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: rSize * 0.05,
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          actionMenuItem(
+                            context,
+                            AppStyles.iconBg(context, data: FontAwesomeIcons.message, size: rSize * 0.020, onTap: () {
+                              Navigator.pop(context);
+                              CommonFunctions.navigate(context, const UploadDocument());
+                            }, padding: EdgeInsets.all(rSize * 0.015), color: FlutterFlowTheme.of(context).customColor4),
+                            FFLocalizations.of(context).getText(
+                              'sendMessage',
+                            ),
+                          ),
+                          actionMenuItem(
+                            context,
+                            AppStyles.iconBg(context, data: FontAwesomeIcons.user, size: rSize * 0.020, onTap: () {
+                              Navigator.pop(context);
+                              CommonFunctions.navigate(context, const MyAccountsScreen());
+                            }, padding: EdgeInsets.all(rSize * 0.015), color: FlutterFlowTheme.of(context).customColor4),
+                            FFLocalizations.of(context).getText(
+                              'myAccounts',
+                            ),
+                          ),
+                          actionMenuItem(
+                            context,
+                            AppStyles.iconBg(context, data: FontAwesomeIcons.signOut, size: rSize * 0.020, onTap: () {
+                              CommonFunctions.navigate(context, const UniversalList());
+                            }, padding: EdgeInsets.all(rSize * 0.015), color: FlutterFlowTheme.of(context).customColor4),
+                            FFLocalizations.of(context).getText(
+                              'logout',
                             ),
                           ),
                         ],
@@ -513,7 +545,7 @@ class _DashboardState extends State<Dashboard> {
             height: rSize * 0.01,
           ),
           Container(
-            width: rSize*0.1,
+            width: rSize*0.11,
             alignment: Alignment.center,
             child: Text(
               label,

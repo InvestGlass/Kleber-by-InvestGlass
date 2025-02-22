@@ -81,7 +81,7 @@ class ProposalController extends ChangeNotifier {
   bool isAttachmentClicked=false,isAddClicked=false;
 
   List<Map<String, String>> filteredCountryNames=[];
-  int selectedCountryIndex=0;
+  int selectedCountryIndex=163;
 
   List<Map<String, String>> countryNames = [
     {"name": "Afghanistan", "code": "af"},

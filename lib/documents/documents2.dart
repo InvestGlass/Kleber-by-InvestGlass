@@ -770,17 +770,17 @@ class _Documents2State extends State<Documents2> {
                                   AppWidgets.openDatePicker(
                                     context,
                                     (value) {
-                                      if (value is PickerDateRange &&
-                                          value.startDate != null &&
-                                          value.endDate != null) {
+                                      if (value is DateTimeRange &&
+                                          value.start != null &&
+                                          value.end != null) {
                                         final String startDate =
                                             CommonFunctions.getYYYYMMDD(
-                                                value.startDate!);
+                                                value.start!);
                                         final String endDate =
                                             CommonFunctions.getYYYYMMDD(
-                                                value.endDate!);
+                                                value.end!);
                                         range = '$startDate  TO  $endDate';
-                                        Navigator.pop(context);
+                                        // Navigator.pop(context);
                                         setState(() {});
                                       }
                                     },

@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,6 @@ import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:swipe_cards/draggable_card.dart';
 import 'package:swipe_cards/swipe_cards.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 import '../utils/flutter_flow_swipeable_stack.dart';
@@ -196,6 +194,17 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
             ),
           ),
           Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize * 0.015, 0.0, 0),
+              child: AppWidgets.title(
+                  context,
+                  FFLocalizations.of(context).getText(
+                    'success_journey',
+                  ))),
+          VideoPlayerScreen(videoPlayerController: widget.videoPlayerController),
+          SizedBox(
+            height: rSize * 0.01,
+          ),
+          Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize * 0.010, 0.0, rSize * 0.010),
               child: AppWidgets.title(
                   context,
@@ -237,17 +246,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                 ), () {
               nevigate(context, "$formUrl/324c7a2e-ab90-4e32-a872-0f36ff5a73d8", 'mortgage');
             }),
-            SizedBox(
-              height: rSize * 0.01,
-            ),
-            Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, rSize * 0.010, 0.0, rSize * 0.010),
-                child: AppWidgets.title(
-                    context,
-                    FFLocalizations.of(context).getText(
-                      'success_journey',
-                    ))),
-             VideoPlayerScreen(videoPlayerController: widget.videoPlayerController),
+
             Visibility(
               visible: false,
               child: Image.asset('assets/home_placeholder.png'),
@@ -684,6 +683,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       allowFullScreen: true,
       allowMuting: true,
     );
+    _chewieController?.setVolume(0);
 
   }
 

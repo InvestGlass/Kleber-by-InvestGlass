@@ -200,7 +200,7 @@ class AppStyles {
                     color: Colors.black.withOpacity(0.2), // Soft shadow color
                     blurRadius: 8, // Blur effect
                     spreadRadius: 2, // Spread of the shadow
-                    offset: Offset(0, 4), // Moves shadow downward
+                    offset: const Offset(0, 4), // Moves shadow downward
                   ),
                 ],
               ),
@@ -209,10 +209,16 @@ class AppStyles {
                 width:  rSize * 0.055,
               ),
             ),
-            Icon(
-              data,
-              size: size,
-              color: color ?? FlutterFlowTheme.of(context).primary,
+            Positioned(
+              right: 0,
+              left: 0,
+              top: 0,
+              bottom: 0,
+              child: Icon(
+                data,
+                size: size,
+                color: color ?? FlutterFlowTheme.of(context).primary,
+              ),
             ),
           ],
         ));

@@ -9,8 +9,6 @@ import 'package:kleber_bank/portfolio/portfolio_controller.dart';
 import 'package:kleber_bank/portfolio/portfolio_model.dart';
 import 'package:kleber_bank/portfolio/positions.dart';
 import 'package:kleber_bank/portfolio/transactions.dart';
-import 'package:kleber_bank/portfolio/x_portfolio_item_line_chart2.dart';
-import 'package:kleber_bank/utils/api_calls.dart';
 import 'package:kleber_bank/utils/app_styles.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:kleber_bank/utils/common_functions.dart';
@@ -20,8 +18,6 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../market/new_trade.dart';
 import '../utils/flutter_flow_theme.dart';
 import '../utils/internationalization.dart';
-import 'bar_chart.dart';
-import 'x_portfoli_item_bar_chart.dart';
 import 'x_portfolio_item_line_chart.dart';
 
 class Portfolio extends StatefulWidget {

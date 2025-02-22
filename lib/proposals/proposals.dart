@@ -15,7 +15,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../main.dart';
 import '../utils/api_calls.dart';
-import '../utils/app_colors.dart';
 import '../utils/app_styles.dart';
 import '../utils/app_widgets.dart';
 import '../utils/flutter_flow_theme.dart';
