@@ -8,6 +8,7 @@ import 'package:kleber_bank/utils/shared_pref_utils.dart';
 import '../main.dart';
 import '../utils/app_styles.dart';
 import '../utils/flutter_flow_theme.dart';
+import '../utils/internationalization.dart';
 
 class MyAccountsScreen extends StatefulWidget {
   const MyAccountsScreen({super.key});
@@ -26,7 +27,9 @@ class _MyAccountsScreenState extends State<MyAccountsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppWidgets.appBar(context, "ALL MY ACCOUNTS", leading: AppWidgets.backArrow(context)),
+      appBar: AppWidgets.appBar(context, FFLocalizations.of(context).getText(
+        'allMyaccounts',
+      ), leading: AppWidgets.backArrow(context)),
       body: ListView(
         shrinkWrap: true,
         children: [
@@ -49,8 +52,12 @@ class _MyAccountsScreenState extends State<MyAccountsScreen> {
                 borderRadius: BorderRadius.circular(rSize * 0.01)),
             child: Row(
               children: [
-                buildColumn(context, 'Income', FlutterFlowTheme.of(context).success, FontAwesomeIcons.arrowUp),
-                buildColumn(context, 'Outcome', FlutterFlowTheme.of(context).error, FontAwesomeIcons.arrowDown),
+                buildColumn(context, FFLocalizations.of(context).getText(
+                  'income',
+                ), FlutterFlowTheme.of(context).success, FontAwesomeIcons.arrowUp),
+                buildColumn(context, FFLocalizations.of(context).getText(
+                  'expense',
+                ), FlutterFlowTheme.of(context).error, FontAwesomeIcons.arrowDown),
               ],
             ),
           ),
@@ -106,7 +113,7 @@ class _MyAccountsScreenState extends State<MyAccountsScreen> {
               Text(
                 '  CHF 9,302.00',
                 style: FlutterFlowTheme.of(context).headlineSmall.override(
-                      fontSize: rSize * 0.02,
+                      fontSize: rSize * 0.016,
                       color: color,
                       letterSpacing: 0.0,
                     ),
@@ -159,7 +166,7 @@ class _MyAccountsScreenState extends State<MyAccountsScreen> {
               Text(
                 'CHF 9,302.00  ',
                 style: FlutterFlowTheme.of(context).headlineSmall.override(
-                  fontSize: rSize * 0.02,
+                  fontSize: rSize * 0.016,
                   color: color,
                   letterSpacing: 0.0,
                 ),
