@@ -9,6 +9,7 @@ import 'package:kleber_bank/documents/upload_document.dart';
 import 'package:kleber_bank/main.dart';
 import 'package:kleber_bank/portfolio/bank_transfer.dart';
 import 'package:kleber_bank/portfolio/portfolio.dart';
+import 'package:kleber_bank/proposals/chat/chat_history.dart';
 import 'package:kleber_bank/universal_list.dart';
 import 'package:kleber_bank/utils/app_const.dart';
 import 'package:kleber_bank/utils/app_styles.dart';
@@ -23,6 +24,7 @@ import '../myAccounts/my_accounts_screen.dart';
 import '../notifications/notification_list.dart';
 import '../portfolio/portfolio_controller.dart';
 import '../profile/profile.dart';
+import '../proposals/proposal_model.dart';
 import '../proposals/proposals.dart';
 import '../stratagy/stratagy2.dart';
 import '../utils/app_widgets.dart';
@@ -494,7 +496,15 @@ class _DashboardState extends State<Dashboard> {
                             context,
                             AppStyles.iconBg(context, data: FontAwesomeIcons.message, size: rSize * 0.020, onTap: () {
                               Navigator.pop(context);
-                              CommonFunctions.navigate(context, const UploadDocument());
+                              CommonFunctions.navigate(context,  ChatHistory((ProposalModel(
+                              advisor: Advisor(
+                              name: SharedPrefUtils.instance
+                                  .getUserData()
+                                  .user!
+                                  .advisor!
+                                  .name
+                                  .toString(),
+                              phoneOffice: '+41763358815')))));
                             }, padding: EdgeInsets.all(rSize * 0.015), color: FlutterFlowTheme.of(context).customColor4),
                             FFLocalizations.of(context).getText(
                               'sendMessage',
@@ -513,7 +523,7 @@ class _DashboardState extends State<Dashboard> {
                           actionMenuItem(
                             context,
                             AppStyles.iconBg(context, data: FontAwesomeIcons.signOut, size: rSize * 0.020, onTap: () {
-                              CommonFunctions.navigate(context, const UniversalList());
+                              AppWidgets.openConfirmationDialog(context);
                             }, padding: EdgeInsets.all(rSize * 0.015), color: FlutterFlowTheme.of(context).customColor4),
                             FFLocalizations.of(context).getText(
                               'logout',
