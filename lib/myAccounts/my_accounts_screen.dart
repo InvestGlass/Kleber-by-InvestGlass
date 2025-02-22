@@ -18,7 +18,7 @@ class MyAccountsScreen extends StatefulWidget {
 }
 
 class _MyAccountsScreenState extends State<MyAccountsScreen> {
-  String cardNumber = '4242 4242 4242 4242';
+  String cardNumber = '8888 4242 4242 8888';
   String expiryDate = '12/25';
   String cardHolderName = 'John Doe';
   String cvvCode = '12345';
@@ -147,7 +147,7 @@ class _MyAccountsScreenState extends State<MyAccountsScreen> {
                           letterSpacing: 0,
                           fontWeight: FontWeight.w500,
                         )),
-                Text('june 10, 2015',
+                Text('june 10, 2024',
                     style: FlutterFlowTheme.of(context)
                         .bodyMedium
                         .override(
