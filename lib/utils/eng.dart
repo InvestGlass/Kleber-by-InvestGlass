@@ -1,3 +1,5 @@
+import '../main.dart';
+
 var engMap={
 "3h41wkxj": "Sign in",
 "c7folydq": "Home",
@@ -333,7 +335,7 @@ var engMap={
   "rvrrcr87": "Proposal name",
   "select_file": 'Select File',
   "investment_philosophy": 'Our Investment Philosophy',
-  "macroeconomic_climate": 'In a macroeconomic climate which is regularly volatile,\nour success is built on four investment pillars.',
+  "macroeconomic_climate": 'In a macroeconomic climate which is regularly volatile,${isTablet?'\n':' '}our success is built on four investment pillars.',
   'capture_image': 'Capture Image',
   'discover_key': 'Discover Key Investment Insights',
   "3lusoo7q": "",
