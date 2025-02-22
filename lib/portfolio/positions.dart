@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:intl/intl.dart';
 import 'package:kleber_bank/portfolio/portfolio_controller.dart';
 import 'package:kleber_bank/portfolio/portfolio_model.dart';
 import 'package:kleber_bank/portfolio/position_model.dart';
@@ -216,7 +215,7 @@ class _PositionsState extends State<Positions> {
                                                       index
                                                   ? 0.75
                                                   : 0.5,
-                                          duration: Duration(milliseconds: 300),
+                                          duration: const Duration(milliseconds: 300),
                                           child: AppWidgets.doubleBack(context)),
                                     ],
                                   ),
@@ -247,7 +246,7 @@ class _PositionsState extends State<Positions> {
                                       index) ...{
                                     ListView(
                                       shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
+                                      physics: const NeverScrollableScrollPhysics(),
                                       padding: EdgeInsets.zero,
                                       children: [
                                         SizedBox(
@@ -417,7 +416,6 @@ class _PositionsState extends State<Positions> {
   }
 
   String? buildRoi(PositionModel item) {
-    print('roi value ${item.roi!}');
     if (item.roi != '-') {
       return getSeparatorFormat(double.parse(item.roi!));
     }
@@ -451,7 +449,7 @@ class _PositionsState extends State<Positions> {
       enabled: true,
       child: Column(
         children: [
-          container(),
+          container(is1st: true),
           container(),
           container(),
           container(),
@@ -462,10 +460,10 @@ class _PositionsState extends State<Positions> {
     );
   }
 
-  Container container() {
+  Container container({bool is1st=false}) {
     return Container(
       padding: EdgeInsets.all(rSize*0.015),
-      margin: EdgeInsets.only(bottom: rSize*0.015,left: rSize*0.015,right: rSize*0.015,),
+      margin: EdgeInsets.only(bottom: rSize*0.015,left: rSize*0.015,right: rSize*0.015,top: is1st?3:0),
             decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
                 boxShadow: AppStyles.shadow(),
@@ -498,7 +496,7 @@ class _PositionsState extends State<Positions> {
                     FFLocalizations.of(context).getText(
                       'tea2m5lq' /* Allocation */,
                     ),
-                    '102%',
+                    '02.00%',
                     middleValue:"3333,126 USD",),
                 SizedBox(
                   height: rSize * 0.005,
@@ -508,7 +506,7 @@ class _PositionsState extends State<Positions> {
                     FFLocalizations.of(context).getText(
                       'tea2m5lq' /* Allocation */,
                     ),
-                    '2.00%',
+                    '02.00%',
                     middleValue:
                     "3333,126 USD"),
                 AppWidgets.portfolioListElement(
@@ -516,8 +514,8 @@ class _PositionsState extends State<Positions> {
                     '${FFLocalizations.of(context).getText(
                       'e0dy1vxx' /* ROI */,
                     )} (USD)',
-                    '15.00',
-                    icon: getIcon(-1))
+                    '02.00%',
+                    icon: getIcon(0))
               ],
             ),
           );

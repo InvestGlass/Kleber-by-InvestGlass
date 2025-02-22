@@ -192,7 +192,7 @@ class CommonFunctions {
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) => screen,
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            var begin = Offset(1.0, 0.0);
+            var begin = const Offset(1.0, 0.0);
             var end = Offset.zero;
             var curve = Curves.ease;
 
@@ -230,7 +230,7 @@ class CommonFunctions {
             ChangeNotifierProvider(create: (_) => HomeController()),
             ChangeNotifierProvider(create: (_) => SecuritySelectionController()),
           ],
-          child: OnBoardingPageWidget(),
+          child: const OnBoardingPageWidget(),
         ),
       ),
       (Route<dynamic> route) => false, // Clear backstack
@@ -263,32 +263,4 @@ class CommonFunctions {
     return formatter.format(value);
   }
 
-  static String dateTimeFormat(String format, DateTime? dateTime, {String? locale}) {
-    if (dateTime == null) {
-      return '';
-    }
-    if (format == 'relative') {
-      _setTimeagoLocales();
-      return timeago.format(dateTime, locale: locale, allowFromNow: true);
-    }
-    return DateFormat(format, locale).format(dateTime);
-  }
-
-  static void _setTimeagoLocales() {
-    timeago.setLocaleMessages('en', timeago.EnMessages());
-    timeago.setLocaleMessages('en_short', timeago.EnShortMessages());
-    timeago.setLocaleMessages('ar', timeago.ArMessages());
-    timeago.setLocaleMessages('ar_short', timeago.ArShortMessages());
-    timeago.setLocaleMessages('vi', timeago.ViMessages());
-    timeago.setLocaleMessages('vi_short', timeago.ViShortMessages());
-  }
-
-  static DateTime convertUTCStringToDateTime(
-    String utcString,
-    bool isUTC,
-  ) {
-    final dateTime = DateTime.fromMillisecondsSinceEpoch(DateTime.parse(utcString).millisecondsSinceEpoch, isUtc: isUTC);
-
-    return dateTime;
-  }
 }

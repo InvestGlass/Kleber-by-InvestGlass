@@ -153,7 +153,7 @@ class _ProfileState extends State<Profile> {
           ),
           AppWidgets.click(
             onTap: () async {
-              openConfirmationDialog();
+              AppWidgets.openConfirmationDialog(context);
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -339,92 +339,6 @@ class _ProfileState extends State<Profile> {
           ),
         ),
       ),
-    );
-  }
-
-  void openConfirmationDialog() {
-    showDialog(
-      useRootNavigator: true,
-      context: context,
-      builder: (context) {
-        return Center(
-          child: Wrap(
-            children: [
-              Material(
-                color: Colors.transparent,
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      borderRadius: BorderRadius.circular(rSize * 0.010)),
-                  margin: EdgeInsets.symmetric(horizontal: rSize * 0.04),
-                  child: StatefulBuilder(
-                    builder: (context, setState) {
-                      return Wrap(
-                        children: [
-                          ListView(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            padding: EdgeInsets.only(
-                                left: rSize * 0.02,
-                                right: rSize * 0.02,
-                                top: rSize * 0.03,
-                                bottom:
-                                    MediaQuery.of(context).viewInsets.bottom +
-                                        rSize * 0.03),
-                            children: [
-                              Text(
-                                  FFLocalizations.of(context).getText(
-                                    'want_to_logout',
-                                  ),style: AppStyles.inputTextStyle(context).copyWith(fontSize: rSize*0.02),),
-                              SizedBox(
-                                height: rSize * 0.03,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: InkWell(
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: AppWidgets.btn(
-                                            context,
-                                            FFLocalizations.of(context).getText(
-                                              's1jcpzx6' /* cancel */,
-                                            ),
-                                            borderOnly: true)),
-                                  ),
-                                  SizedBox(
-                                    width: rSize * 0.02,
-                                  ),
-                                  Expanded(
-                                    child: InkWell(
-                                        onTap: () {
-                                          CommonFunctions.cleanAndLogout(context);
-                                        },
-                                        child: AppWidgets.btn(
-                                            context,
-                                            textColor: Colors.white,
-                                            FFLocalizations.of(context).getText(
-                                              'c0xbwwci' /* logout */,
-                                            ),
-                                            bgColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primary)),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }

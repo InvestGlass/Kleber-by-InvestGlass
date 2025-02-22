@@ -6,18 +6,14 @@ import 'package:kleber_bank/proposals/chat/chat_history_model.dart';
 import 'package:kleber_bank/proposals/proposal_model.dart';
 import 'package:kleber_bank/utils/app_styles.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
-import 'package:kleber_bank/utils/common_functions.dart';
 import 'package:kleber_bank/utils/shared_pref_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../login/user_info_model.dart';
 import '../../main.dart';
 import '../../utils/api_calls.dart';
-import '../../utils/app_colors.dart';
 import '../../utils/flutter_flow_theme.dart';
-import '../../utils/internationalization.dart';
 import '../proposal_controller.dart';
 
 class ChatHistory extends StatefulWidget {

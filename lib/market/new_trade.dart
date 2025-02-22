@@ -380,7 +380,7 @@ class _AddTransactionState extends State<AddTransaction> {
       _marketNotifier.selectedDate =
           DateFormat('yyyy-mm-dd').parse(p0.toString());
       if (_marketNotifier.selectedDate != null) {
-        Navigator.pop(context);
+        // Navigator.pop(context);
         _marketNotifier.selectedTime = await AppWidgets.showTimePicker_(
             context: context,
             initialTime: _marketNotifier.selectedTime ?? TimeOfDay.now());

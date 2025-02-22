@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kleber_bank/utils/app_styles.dart';
@@ -6,14 +5,13 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../main.dart';
 import '../portfolio/portfolio_model.dart';
-import 'app_colors.dart';
 import 'app_const.dart';
+import 'common_functions.dart';
 import 'flutter_flow_theme.dart';
 import 'internationalization.dart';
 
 class AppWidgets {
-  static void showSignDialog(BuildContext context,
-      {required Function onReject, required Function onAccept}) {
+  static void showSignDialog(BuildContext context, {required Function onReject, required Function onAccept}) {
     AppWidgets.showAlert(
         context,
         FFLocalizations.of(context).getText(
@@ -28,28 +26,15 @@ class AppWidgets {
       onReject();
     }, () {
       onAccept();
-    },
-        btn1BgColor: FlutterFlowTheme.of(context).customColor3,
-        btn2BgColor: FlutterFlowTheme.of(context).customColor2);
+    }, btn1BgColor: FlutterFlowTheme.of(context).customColor3, btn2BgColor: FlutterFlowTheme.of(context).customColor2);
   }
 
   static Container healthAlertElement(
-      BuildContext context,
-      String title,
-      Color bgColor,
-      IconData iconData,
-      String label,
-      Appropriateness model,
-      TextStyle textStyle) {
+      BuildContext context, String title, Color bgColor, IconData iconData, String label, Appropriateness model, TextStyle textStyle) {
     return Container(
-      decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(rSize * 0.010),
-          boxShadow: AppStyles.shadow()),
-      padding: EdgeInsets.symmetric(
-          horizontal: rSize * 0.02, vertical: rSize * 0.015),
-      margin: EdgeInsets.only(
-          left: rSize * 0.015, right: rSize * 0.015, top: rSize * 0.015),
+      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(rSize * 0.010), boxShadow: AppStyles.shadow()),
+      padding: EdgeInsets.symmetric(horizontal: rSize * 0.02, vertical: rSize * 0.015),
+      margin: EdgeInsets.only(left: rSize * 0.015, right: rSize * 0.015, top: rSize * 0.015),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -104,11 +89,8 @@ class AppWidgets {
                       children: [
                         Text(
                           '${index + 1}.',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                color:
-                                    FlutterFlowTheme.of(context).customColor4,
+                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                color: FlutterFlowTheme.of(context).customColor4,
                                 fontSize: rSize * 0.016,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.normal,
@@ -120,11 +102,8 @@ class AppWidgets {
                         Expanded(
                           child: Text(
                             model.listDetails![index],
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  color:
-                                      FlutterFlowTheme.of(context).customColor4,
+                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                  color: FlutterFlowTheme.of(context).customColor4,
                                   fontSize: rSize * 0.016,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
@@ -175,9 +154,7 @@ class AppWidgets {
     );
   }
 
-  static Widget portfolioListElement(
-      BuildContext context, String label, String value,
-      {String middleValue = '', Widget? icon, Widget? richText}) {
+  static Widget portfolioListElement(BuildContext context, String label, String value, {String middleValue = '', Widget? icon, Widget? richText}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -261,8 +238,7 @@ class AppWidgets {
     );
   }
 
-  static bool isAmount(String middleValue) =>
-      middleValue.contains(' ') && middleValue.contains('.');
+  static bool isAmount(String middleValue) => middleValue.contains(' ') && middleValue.contains('.');
 
   static emptyView(String msg, BuildContext context) {
     return Column(
@@ -319,17 +295,14 @@ class AppWidgets {
       alignment: Alignment.center,
       margin: margin,
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-      decoration:
-          gradiantDecoration(context, borderOnly: borderOnly, color: bgColor),
+      decoration: gradiantDecoration(context, borderOnly: borderOnly, color: bgColor),
       child: widget ??
           Text(
             label,
             style: borderOnly
                 ? FlutterFlowTheme.of(context).titleSmall.override(
                       fontSize: rSize * 0.014,
-                      color: borderOnly
-                          ? FlutterFlowTheme.of(context).customColor4
-                          : FlutterFlowTheme.of(context).primary,
+                      color: borderOnly ? FlutterFlowTheme.of(context).customColor4 : FlutterFlowTheme.of(context).primary,
                     )
                 : FlutterFlowTheme.of(context).titleSmall.override(
                       color: textColor ?? Colors.white,
@@ -339,21 +312,14 @@ class AppWidgets {
     );
   }
 
-  static Widget btnWithoutGradiant(
-      BuildContext context, String label, Color bgColor,
-      {double? width,
-      double horizontalPadding = 0,
-      EdgeInsetsGeometry? margin,
-      Color? textColor}) {
+  static Widget btnWithoutGradiant(BuildContext context, String label, Color bgColor,
+      {double? width, double horizontalPadding = 0, EdgeInsetsGeometry? margin, Color? textColor}) {
     return Container(
       width: width,
       height: btnHeight,
       alignment: Alignment.center,
       margin: margin,
-      decoration: BoxDecoration(
-          color: bgColor,
-          border: Border.all(color: bgColor, width: 1),
-          borderRadius: BorderRadius.circular(rSize * 0.010)),
+      decoration: BoxDecoration(color: bgColor, border: Border.all(color: bgColor, width: 1), borderRadius: BorderRadius.circular(rSize * 0.010)),
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: Text(
         label,
@@ -389,12 +355,10 @@ class AppWidgets {
     );
   }
 
-  static Widget btnWithIcon(
-      BuildContext context, String label, Color bgColor, Widget icon) {
+  static Widget btnWithIcon(BuildContext context, String label, Color bgColor, Widget icon) {
     return Container(
       alignment: Alignment.center,
-      decoration: BoxDecoration(
-          color: bgColor, borderRadius: BorderRadius.circular(rSize * 0.010)),
+      decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(rSize * 0.010)),
       height: btnHeight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -412,14 +376,11 @@ class AppWidgets {
     );
   }
 
-  static BoxDecoration gradiantDecoration(BuildContext context,
-      {bool borderOnly = false, Color? color}) {
+  static BoxDecoration gradiantDecoration(BuildContext context, {bool borderOnly = false, Color? color}) {
     if (borderOnly) {
       return BoxDecoration(
           color: Colors.transparent,
-          border: Border.all(
-              color: color ?? FlutterFlowTheme.of(context).customColor4,
-              width: 1),
+          border: Border.all(color: color ?? FlutterFlowTheme.of(context).customColor4, width: 1),
           borderRadius: BorderRadius.circular(rSize * 0.010));
     }
     return BoxDecoration(
@@ -438,18 +399,15 @@ class AppWidgets {
         borderRadius: BorderRadius.circular(rSize * 0.008));
   }
 
-  static appLogo(BuildContext context){
+  static appLogo(BuildContext context) {
     return Image.asset(
-      Theme.of(context).brightness == Brightness.dark
-          ? 'assets/white-investglass.png'
-          : AppConst.logo,
+      Theme.of(context).brightness == Brightness.dark ? 'assets/white-investglass.png' : AppConst.logo,
       height: rSize * 0.06,
       fit: BoxFit.contain,
     );
   }
 
-  static Expanded sheetElement(
-      String img, String label, void Function()? onTap, BuildContext context) {
+  static Expanded sheetElement(String img, String label, void Function()? onTap, BuildContext context) {
     return Expanded(
       child: AppWidgets.click(
         onTap: onTap,
@@ -459,11 +417,8 @@ class AppWidgets {
             Container(
                 padding: EdgeInsets.all(rSize * 0.01),
                 decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(rSize * 0.020)),
-                    border: Border.all(
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        width: 1)),
+                    borderRadius: BorderRadius.all(Radius.circular(rSize * 0.020)),
+                    border: Border.all(color: FlutterFlowTheme.of(context).primaryText, width: 1)),
                 child: Image.asset(
                   'assets/$img',
                   height: rSize * 0.025,
@@ -488,9 +443,7 @@ class AppWidgets {
     );
   }
 
-  static void openMediaSelectionBottomSheet(BuildContext context,
-      {required void Function()? onFileClick,
-      required void Function()? onCameraClick}) {
+  static void openMediaSelectionBottomSheet(BuildContext context, {required void Function()? onFileClick, required void Function()? onCameraClick}) {
     showModalBottomSheet(
       useRootNavigator: true,
       backgroundColor: Colors.transparent,
@@ -500,9 +453,7 @@ class AppWidgets {
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(rSize * 0.020),
-                  topRight: Radius.circular(rSize * 0.020))),
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(rSize * 0.020), topRight: Radius.circular(rSize * 0.020))),
           height: rSize * 0.15,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -545,11 +496,12 @@ class AppWidgets {
             Navigator.pop(context);
           }
         },
-        child:  Icon(Icons.arrow_back,color:FlutterFlowTheme.of(context).customColor4,size: rSize*0.025,));
-    return AppStyles.iconBg(context,
-        data: Icons.arrow_back,
-        size: rSize * 0.025,
-        color: FlutterFlowTheme.of(context).primary, onTap: () {
+        child: Icon(
+          Icons.arrow_back,
+          color: FlutterFlowTheme.of(context).customColor4,
+          size: rSize * 0.025,
+        ));
+    return AppStyles.iconBg(context, data: Icons.arrow_back, size: rSize * 0.025, color: FlutterFlowTheme.of(context).primary, onTap: () {
       if (onTap != null) {
         onTap();
       } else {
@@ -558,12 +510,94 @@ class AppWidgets {
     }, boxShadow: AppStyles.shadow());
   }
 
+  static void openConfirmationDialog(BuildContext context) {
+    showDialog(
+      useRootNavigator: true,
+      context: context,
+      builder: (context) {
+        return Center(
+          child: Wrap(
+            children: [
+              Material(
+                color: Colors.transparent,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      borderRadius: BorderRadius.circular(rSize * 0.010)),
+                  margin: EdgeInsets.symmetric(horizontal: rSize * 0.04),
+                  child: StatefulBuilder(
+                    builder: (context, setState) {
+                      return Wrap(
+                        children: [
+                          ListView(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            padding: EdgeInsets.only(
+                                left: rSize * 0.02,
+                                right: rSize * 0.02,
+                                top: rSize * 0.03,
+                                bottom:
+                                MediaQuery.of(context).viewInsets.bottom +
+                                    rSize * 0.03),
+                            children: [
+                              Text(
+                                FFLocalizations.of(context).getText(
+                                  'want_to_logout',
+                                ),style: AppStyles.inputTextStyle(context).copyWith(fontSize: rSize*0.02),),
+                              SizedBox(
+                                height: rSize * 0.03,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: InkWell(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: AppWidgets.btn(
+                                            context,
+                                            FFLocalizations.of(context).getText(
+                                              's1jcpzx6' /* cancel */,
+                                            ),
+                                            borderOnly: true)),
+                                  ),
+                                  SizedBox(
+                                    width: rSize * 0.02,
+                                  ),
+                                  Expanded(
+                                    child: InkWell(
+                                        onTap: () {
+                                          CommonFunctions.cleanAndLogout(context);
+                                        },
+                                        child: AppWidgets.btn(
+                                            context,
+                                            textColor: Colors.white,
+                                            FFLocalizations.of(context).getText(
+                                              'c0xbwwci' /* logout */,
+                                            ),
+                                            bgColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primary)),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   static PreferredSize appBar(BuildContext context, String title,
-      {Widget? leading,
-      List<Widget>? actions,
-      bool centerTitle = false,
-      String subTitle = '',
-      double elevation = 0}) {
+      {Widget? leading, List<Widget>? actions, bool centerTitle = false, String subTitle = '', double elevation = 0}) {
     return PreferredSize(
       preferredSize: Size.fromHeight(rSize * 0.06),
       child: /*!isTablet
@@ -580,20 +614,12 @@ class AppWidgets {
             )
           : */
           appbar_(context, title.toUpperCase(),
-              leading: leading,
-              actions: actions,
-              centerTitle: centerTitle,
-              subTitle_: subTitle,
-              elevation: elevation),
+              leading: leading, actions: actions, centerTitle: centerTitle, subTitle_: subTitle, elevation: elevation),
     );
   }
 
   static AppBar appbar_(BuildContext context, String txt,
-      {Widget? leading,
-      List<Widget>? actions,
-      bool centerTitle = false,
-      String subTitle_ = '',
-      double elevation = 0}) {
+      {Widget? leading, List<Widget>? actions, bool centerTitle = false, String subTitle_ = '', double elevation = 0}) {
     return AppBar(
       elevation: elevation,
       actions: actions,
@@ -620,8 +646,7 @@ class AppWidgets {
     );
   }
 
-  static RichText buildRichText(BuildContext context, String value,
-      {double? fontSize}) {
+  static RichText buildRichText(BuildContext context, String value, {double? fontSize}) {
     double size = fontSize ?? rSize * 0.016;
     return RichText(
       text: TextSpan(
@@ -697,8 +722,7 @@ class AppWidgets {
     );
   }
 
-  static showAlert(BuildContext context, String msg, String label1,
-      String label2, void Function()? onTap1, void Function()? onTap2,
+  static showAlert(BuildContext context, String msg, String label1, String label2, void Function()? onTap1, void Function()? onTap2,
       {Color? btn1BgColor, Color? btn2BgColor}) {
     showDialog(
       context: context,
@@ -722,8 +746,7 @@ class AppWidgets {
                           Text(
                             msg,
                             textAlign: TextAlign.center,
-                            style: AppStyles.inputTextStyle(context)
-                                .copyWith(fontSize: rSize * 0.02),
+                            style: AppStyles.inputTextStyle(context).copyWith(fontSize: rSize * 0.02),
                           ),
                           SizedBox(
                             height: rSize * 0.02,
@@ -768,19 +791,60 @@ class AppWidgets {
     );
   }
 
-  static void openDatePicker(
-      BuildContext context, dynamic Function(Object?)? onSubmit,
-      {DateRangePickerSelectionMode mode = DateRangePickerSelectionMode.range,
-      void Function()? onCancel}) {
+  static Future<void> openDatePicker(BuildContext context, dynamic Function(Object?)? onSubmit,
+      {DateRangePickerSelectionMode mode = DateRangePickerSelectionMode.range, void Function()? onCancel}) async {
+    if (mode == DateRangePickerSelectionMode.range) {
+       await showDialog<DateTimeRange>(
+          context: context,
+          builder: (BuildContext context) {
+            return Dialog(
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                  textTheme: Theme.of(context).textTheme.apply(
+                        fontFamily: 'Roboto', // Set your app's font here
+                      ),
+                  appBarTheme: AppBarTheme(color: FlutterFlowTheme.of(context).primary),
+                ),
+                child: DateRangePickerDialog(
+                  firstDate: DateTime(1950),
+                  lastDate: DateTime(2100),
+                  currentDate: DateTime.now(),
+                ),
+              ),
+            );
+          }).then((value) {
+            onSubmit!(value);
+          },);
+    } else {
+       await showDialog<DateTime>(
+          context: context,barrierDismissible: false,
+          builder: (BuildContext context) {
+            return Theme(
+              data: Theme.of(context).copyWith(
+                textTheme: Theme.of(context).textTheme.apply(
+                  fontFamily: 'Roboto', // Set your app's font here
+                ),
+                appBarTheme: AppBarTheme(color: FlutterFlowTheme.of(context).primary),
+              ),
+              child: DatePickerDialog(
+                firstDate: DateTime(1950),
+                lastDate: DateTime(2100),
+                currentDate: DateTime.now(),
+              ),
+            );
+          }).then((value) {
+            onSubmit!(value);
+          },);
+
+    }
+    return;
     showDialog(
       context: context,
       builder: (context) => Center(
         child: Wrap(
           children: [
             Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(rSize * 0.015),
-                  color: FlutterFlowTheme.of(context).secondaryBackground),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(rSize * 0.015), color: FlutterFlowTheme.of(context).secondaryBackground),
               padding: EdgeInsets.all(rSize * 0.010),
               margin: EdgeInsets.all(rSize * 0.015),
               child: SfDateRangePicker(
@@ -792,14 +856,12 @@ class AppWidgets {
                       fontSize: rSize * 0.016,
                       fontWeight: FontWeight.normal,
                     ),
-                selectionTextStyle:
-                    FlutterFlowTheme.of(context).bodyLarge.override(
-                          color: FlutterFlowTheme.of(context).info,
-                          fontSize: rSize * 0.016,
-                          fontWeight: FontWeight.normal,
-                        ),
-                monthCellStyle: DateRangePickerMonthCellStyle(
-                    textStyle: AppStyles.inputTextStyle(context)),
+                selectionTextStyle: FlutterFlowTheme.of(context).bodyLarge.override(
+                      color: FlutterFlowTheme.of(context).info,
+                      fontSize: rSize * 0.016,
+                      fontWeight: FontWeight.normal,
+                    ),
+                monthCellStyle: DateRangePickerMonthCellStyle(textStyle: AppStyles.inputTextStyle(context)),
                 selectionShape: DateRangePickerSelectionShape.circle,
                 startRangeSelectionColor: FlutterFlowTheme.of(context).primary,
                 endRangeSelectionColor: FlutterFlowTheme.of(context).primary,
@@ -808,8 +870,7 @@ class AppWidgets {
                 cancelText: 'CANCEL',
                 selectionMode: mode,
                 headerStyle: DateRangePickerHeaderStyle(
-                  backgroundColor:
-                      FlutterFlowTheme.of(context).secondaryBackground,
+                  backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontSize: rSize * 0.016,
                         color: FlutterFlowTheme.of(context).customColor4,
@@ -835,8 +896,7 @@ class AppWidgets {
     );
   }
 
-  static Future<TimeOfDay?> showTimePicker_(
-      {required BuildContext context, required TimeOfDay initialTime}) {
+  static Future<TimeOfDay?> showTimePicker_({required BuildContext context, required TimeOfDay initialTime}) {
     return showTimePicker(
       context: context,
       initialTime: initialTime,
@@ -845,45 +905,36 @@ class AppWidgets {
       builder: (context, child) => Theme(
         data: ThemeData(
           timePickerTheme: TimePickerThemeData(
-            hourMinuteTextStyle:
-                FlutterFlowTheme.of(context).bodyMedium.override(
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: rSize * 0.03,
-                      letterSpacing: 2.0,
-                      fontWeight: FontWeight.w300,
-                    ),
-            timeSelectorSeparatorTextStyle: WidgetStateProperty.resolveWith(
-                (states) => FlutterFlowTheme.of(context).bodyMedium.override(
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      fontSize: rSize * 0.03,
-                      letterSpacing: 2.0,
-                      fontWeight: FontWeight.w300,
-                    )),
+            hourMinuteTextStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontSize: rSize * 0.03,
+                  letterSpacing: 2.0,
+                  fontWeight: FontWeight.w300,
+                ),
+            timeSelectorSeparatorTextStyle: WidgetStateProperty.resolveWith((states) => FlutterFlowTheme.of(context).bodyMedium.override(
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontSize: rSize * 0.03,
+                  letterSpacing: 2.0,
+                  fontWeight: FontWeight.w300,
+                )),
             dialTextStyle: AppStyles.inputTextStyle(context),
             cancelButtonStyle: buttonStyle(context),
             confirmButtonStyle: buttonStyle(context),
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             dialBackgroundColor: FlutterFlowTheme.of(context).alternate,
             hourMinuteColor: WidgetStateColor.resolveWith((states) =>
-                states.contains(WidgetState.selected)
-                    ? FlutterFlowTheme.of(context).alternate
-                    : FlutterFlowTheme.of(context).primaryBackground),
+                states.contains(WidgetState.selected) ? FlutterFlowTheme.of(context).alternate : FlutterFlowTheme.of(context).primaryBackground),
             // Selected period color
             hourMinuteTextColor: WidgetStateColor.resolveWith((states) =>
-                states.contains(WidgetState.selected)
-                    ? FlutterFlowTheme.of(context).primaryText
-                    : FlutterFlowTheme.of(context).customColor4),
+                states.contains(WidgetState.selected) ? FlutterFlowTheme.of(context).primaryText : FlutterFlowTheme.of(context).customColor4),
             // Text color for AM/PM
             dialHandColor: FlutterFlowTheme.of(context).info,
             dayPeriodTextStyle: AppStyles.inputTextStyle(context),
             dayPeriodColor: FlutterFlowTheme.of(context).primaryBackground,
             helpTextStyle: AppStyles.labelStyle(context),
-            dayPeriodBorderSide:
-                BorderSide(color: FlutterFlowTheme.of(context).customColor4),
+            dayPeriodBorderSide: BorderSide(color: FlutterFlowTheme.of(context).customColor4),
             dayPeriodTextColor: WidgetStateColor.resolveWith((states) =>
-                states.contains(WidgetState.selected)
-                    ? FlutterFlowTheme.of(context).primaryText
-                    : FlutterFlowTheme.of(context).customColor4),
+                states.contains(WidgetState.selected) ? FlutterFlowTheme.of(context).primaryText : FlutterFlowTheme.of(context).customColor4),
             dialTextColor: FlutterFlowTheme.of(context).customColor4,
             entryModeIconColor: FlutterFlowTheme.of(context).customColor4,
           ),
@@ -911,11 +962,9 @@ class AppWidgets {
     if (status == '-') {
       return '-';
     } else if (status == 'true') {
-      return FFLocalizations.of(context)
-          .getText('zz2ivcgu' /* No issues have been detected */);
+      return FFLocalizations.of(context).getText('zz2ivcgu' /* No issues have been detected */);
     } else if (status == 'false') {
-      return FFLocalizations.of(context)
-          .getText('bwcpcgd0' /* The following investment are no.. */);
+      return FFLocalizations.of(context).getText('bwcpcgd0' /* The following investment are no.. */);
     }
     return '';
   }

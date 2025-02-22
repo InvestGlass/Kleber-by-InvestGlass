@@ -761,13 +761,13 @@ class _DocumentsState extends State<Documents> {
                                   AppWidgets.openDatePicker(
                                     context,
                                     (value) {
-                                      if (value is PickerDateRange) {
+                                      if (value is DateTimeRange) {
                                         final String startDate =
                                             CommonFunctions.getYYYYMMDD(
-                                                value.startDate!);
+                                                value.start!);
                                         final String endDate =
                                             CommonFunctions.getYYYYMMDD(
-                                                value.endDate!);
+                                                value.end!);
                                         range = '$startDate  TO  $endDate';
                                         Navigator.pop(context);
                                         setState(() {});
