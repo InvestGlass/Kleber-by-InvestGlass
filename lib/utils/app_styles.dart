@@ -194,20 +194,24 @@ class AppStyles {
           alignment: Alignment.center,
           children: [
             Container(
+              height: rSize * 0.055,
+              width:  rSize * 0.055,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(rSize*0.01),
+                color: FlutterFlowTheme.of(context).info,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.2), // Soft shadow color
-                    blurRadius: 8, // Blur effect
+                    color: Colors.black.withOpacity(0.1), // Soft shadow color
+                    blurRadius: 10, // Blur effect
                     spreadRadius: 2, // Spread of the shadow
                     offset: const Offset(0, 4), // Moves shadow downward
                   ),
                 ],
               ),
-              child: Image.asset('assets/icon_bg.png',
-                height: rSize * 0.055,
-                width:  rSize * 0.055,
-              ),
+              // child: Image.asset('assets/icon_bg.png',
+              //   height: rSize * 0.055,
+              //   width:  rSize * 0.055,
+              // ),
             ),
             Positioned(
               right: 0,

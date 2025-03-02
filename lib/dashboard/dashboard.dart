@@ -555,7 +555,7 @@ class _DashboardState extends State<Dashboard> {
             height: rSize * 0.01,
           ),
           Container(
-            width: rSize*0.11,
+            width: rSize*0.12,
             alignment: Alignment.center,
             child: Text(
               label,
