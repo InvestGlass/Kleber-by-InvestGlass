@@ -50,11 +50,11 @@ class PortfolioModel {
 
   factory PortfolioModel.fromJson(Map<String, dynamic> json) {
     List<SChart> currencyChart = [];
-    Map map = json["currencies_chart"]??{};
-    double total=0;
+    Map map = json["currencies_chart"] ?? {};
+    double total = 0;
     map.forEach(
-          (key, value) {
-            total+=value[1];
+      (key, value) {
+        total += value[1];
         print('chart data ${map.length}');
       },
     );
@@ -64,7 +64,8 @@ class PortfolioModel {
             assetClass: key.split(' - ')[0],
             amount3: '${key.split(' - ')[0]} ${value[1]}',
             amount2: 'USD ${value[2]}',
-            amount1: '${key.split(' - ')[0]} ${((100*value[1])/total).toStringAsFixed(2)}',
+            amount1:
+                '${key.split(' - ')[0]} ${((100 * value[1]) / total).toStringAsFixed(2)}',
             isUSDAmountAvailable: value[0]));
         print('chart data ${map.length}');
       },
@@ -89,6 +90,15 @@ class PortfolioModel {
           ? []
           : List<PerformanceChart>.from(json["performance_chart"]
               .map((x) => PerformanceChart.fromJson(x))),
+          // : List<PerformanceChart>.from([
+          //     {
+          //       "date": "2025-02-28",
+          //       "amount": 100,
+          //       "twr_percentage": 97983.07
+          //     },
+          //     {"date": "2025-03-07", "amount": 98070.07, "twr_percentage": 0.0},
+          //     {"date": "2025-03-14", "amount": 98010.07, "twr_percentage": 0}
+          //   ].map((x) => PerformanceChart.fromJson(x))),
       assetClassChart: json["asset_class_chart"] == null
           ? []
           : List<SChart>.from(
@@ -493,7 +503,7 @@ class PerformanceChart {
   factory PerformanceChart.fromJson(Map<String, dynamic> json) =>
       PerformanceChart(
         date: DateTime.parse(json["date"]),
-        amount: "USD " + json["amount"].toString(),
+        amount: "USD ${json["amount"]}",
         twrPercentage: json["twr_percentage"].toDouble(),
       );
 

@@ -285,7 +285,7 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
                 color: FlutterFlowTheme.of(context).primaryText,
                 width: 0.5,
               ),
-              interval: getYAxisInterval(),
+              // interval: getYAxisInterval(),
               majorGridLines: MajorGridLines(
                 color: Colors.grey.withOpacity(0.5),
                 // Color of horizontal grid lines
@@ -609,12 +609,16 @@ class _XPortfolioItemLineChartState extends State<XPortfolioItemLineChart> {
   double? getMinMax(List<ChartModel> lst,String type) {
     if(lst.length==1){
       if(type=='min') {
-        return lst[0].percentage - 5;
+        return 0;
       }else{
         return lst[0].percentage + 5;
       }
     }
-    return null;
+    // if(type=='min') {
+    //   return 0;
+    // }else{
+    //   return 1000000;
+    // }
   }
 }
 

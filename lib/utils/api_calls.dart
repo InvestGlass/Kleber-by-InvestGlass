@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:kleber_bank/documents/accounts_model.dart';
 import 'package:kleber_bank/login/user_info_model.dart';
 import 'package:kleber_bank/main_controller.dart';
@@ -263,12 +264,13 @@ class ApiCalls {
   static Future<PortfolioModel?> getPortfolioData(
       BuildContext context, int id) async {
     try {
-      return PortfolioModel.fromJson(await jsonResponse(
+      var model=PortfolioModel.fromJson(await jsonResponse(
           context,
           Uri.parse(
             '${EndPoints.portfolios}/$id',
           ),
           'get'));
+      return model;
     } on Error catch (e) {
       print('${e.toString()} ${e.stackTrace}');
     }

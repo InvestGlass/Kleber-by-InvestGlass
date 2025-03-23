@@ -402,7 +402,8 @@ class AppWidgets {
   static appLogo(BuildContext context) {
     return Image.asset(
       Theme.of(context).brightness == Brightness.dark ? 'assets/white-investglass.png' : AppConst.logo,
-      height: rSize * 0.06,
+      // height: rSize * 0.06, // for AB
+      height: rSize * 0.04,
       fit: BoxFit.contain,
     );
   }

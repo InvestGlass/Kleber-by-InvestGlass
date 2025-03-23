@@ -12,6 +12,7 @@ class AppConst{
 
   static List<String> languageCodes=['en','ar','vi'];
 
-  // static const logo='assets/logo.png';
-  static const logo='assets/arab_bank_logo.png';
+  static const logo='assets/logo.png';
+  static const brandLogo='assets/app_launcher_icon.png';
+  // static const logo='assets/arab_bank_logo.png';
 }

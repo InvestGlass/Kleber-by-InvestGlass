@@ -73,7 +73,7 @@ class _DashboardState extends State<Dashboard> {
           leading: Container(
               padding: EdgeInsets.only(top: rSize * 0.005, bottom: rSize * 0.005, left: rSize * 0.01),
               child: Image.asset(
-                AppConst.logo,
+                AppConst.brandLogo,
               )),
           actions: [
             AppWidgets.click(
