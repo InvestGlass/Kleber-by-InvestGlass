@@ -132,8 +132,8 @@ class _ChatHistoryState extends State<ChatHistory> {
                 reverse: true,
                 padding: EdgeInsets.only(bottom: rSize * 0.01),
                 builderDelegate: PagedChildBuilderDelegate<ChatHistoryModel>(
-                    noItemsFoundIndicatorBuilder: (context) => SizedBox(),
-                    firstPageProgressIndicatorBuilder: (context) => skeleton(),
+                    noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
+                    // firstPageProgressIndicatorBuilder: (context) => const CircularProgressIndicator(),
                     itemBuilder: (BuildContext context, ChatHistoryModel item,
                         int index) {
                       bool isLast = (item ==
@@ -207,19 +207,25 @@ class _ChatHistoryState extends State<ChatHistory> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      buildContainer(
-                        context,
-                        FontAwesomeIcons.plus,
-                        () {
-                          _notifier.openPlusOptions();
-                        },
+                      Visibility(
+                        visible: false,
+                        child: buildContainer(
+                          context,
+                          FontAwesomeIcons.plus,
+                          () {
+                            _notifier.openPlusOptions();
+                          },
+                        ),
                       ),
-                      buildContainer(
-                        context,
-                        FontAwesomeIcons.paperclip,
-                        () {
-                          _notifier.openAttachmentOptions();
-                        },
+                      Visibility(
+                        visible: false,
+                        child: buildContainer(
+                          context,
+                          FontAwesomeIcons.paperclip,
+                          () {
+                            _notifier.openAttachmentOptions();
+                          },
+                        ),
                       ),
                       Expanded(
                         child: Container(
@@ -236,7 +242,7 @@ class _ChatHistoryState extends State<ChatHistory> {
                             controller: _notifier.msgController,
                             style: AppStyles.inputTextStyle(context),
                             decoration: AppStyles.inputDecoration(context,
-                                hint: 'Write something...',
+                                hint: 'Write a reply...',
                                 contentPadding: EdgeInsets.symmetric(
                                     vertical: rSize * 0.01,
                                     horizontal: rSize * 0.020),
@@ -274,79 +280,82 @@ class _ChatHistoryState extends State<ChatHistory> {
         if (showGroupingDate) ...{
           Align(
             alignment: Alignment.center,
-            child: AppWidgets.label(context, getdate(dateTime)),
+            child: Padding(
+              padding: EdgeInsets.only(top:rSize * 0.015 ),
+              child: AppWidgets.label(context, getdate(dateTime)),),
           )
         },
-        SizedBox(
-          height: rSize * 0.015,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (!isMe) ...{
-              SizedBox(width: rSize * 0.005),
-              photo(
-                  isMe,
-                  isMe
-                      ? (user?.avatar ?? '')
-                      : (widget.model.advisor?.avatar ?? '')),
-            },
-            if (!isMe) ...{
-              SizedBox(width: rSize * 0.005),
-            } else ...{
-              SizedBox(width: rSize * 0.015),
-            },
-            Expanded(
-              child: Column(
-                crossAxisAlignment:
-                    isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                children: [
-                  Text(
-                      isMe
-                          ? user!.client!.pseudonym!
-                          : widget.model.advisor?.name ?? '',
-                      style: AppStyles.inputTextStyle(context)),
-                  Container(
-                    padding: EdgeInsets.all(rSize * 0.005),
-                    decoration: BoxDecoration(
-                        color: !isMe
-                            ? FlutterFlowTheme.of(context).alternate
-                            : Color(0XFF1b88fb),
-                        borderRadius: BorderRadius.circular(rSize * 0.008)),
-                    child: Column(
-                      children: [
-                        Text(
-                          message,
-                          textAlign: TextAlign.start,
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                color: !isMe
-                                    ? FlutterFlowTheme.of(context).customColor4
-                                    : FlutterFlowTheme.of(context).info,
-                                fontWeight: FontWeight.w500,
-                                fontSize: rSize * 0.016,
-                              ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+        Padding(
+          padding: isMe?EdgeInsets.zero:EdgeInsets.only(top:rSize * 0.015 ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (!isMe) ...{
+                SizedBox(width: rSize * 0.005),
+                photo(
+                    isMe,
+                    isMe
+                        ? (user?.avatar ?? '')
+                        : (widget.model.advisor?.avatar ?? '')),
+              },
+              if (!isMe) ...{
+                SizedBox(width: rSize * 0.005),
+              } else ...{
+                SizedBox(width: rSize * 0.015),
+              },
+              Expanded(
+                child: Column(
+                  crossAxisAlignment:
+                      isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                        isMe
+                            ? user!.client!.pseudonym!
+                            : widget.model.advisor?.name ?? '',
+                        style: AppStyles.inputTextStyle(context)),
+                    Container(
+                      padding: EdgeInsets.all(rSize * 0.01),
+                      margin: EdgeInsets.only(top: rSize*0.005),
+                      decoration: BoxDecoration(
+                          color: !isMe
+                              ? FlutterFlowTheme.of(context).alternate.withOpacity(0.3)
+                              : const Color(0XFF1b88fb),
+                          borderRadius: BorderRadius.circular(rSize * 0.008)),
+                      child: Column(
+                        children: [
+                          Text(
+                            message,
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  color: !isMe
+                                      ? FlutterFlowTheme.of(context).customColor4
+                                      : FlutterFlowTheme.of(context).info,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: rSize * 0.016,
+                                ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            if (!isMe) ...{
-              SizedBox(width: rSize * 0.015),
-            } else ...{
-              SizedBox(width: rSize * 0.005),
-            },
-            if (isMe) ...{
-              photo(
-                  isMe,
-                  isMe
-                      ? (user?.avatar ?? '')
-                      : (widget.model.advisor?.avatar ?? '')),
-            },
-          ],
+              if (!isMe) ...{
+                SizedBox(width: rSize * 0.015),
+              } else ...{
+                SizedBox(width: rSize * 0.005),
+              },
+              if (isMe) ...{
+                photo(
+                    isMe,
+                    isMe
+                        ? (user?.avatar ?? '')
+                        : (widget.model.advisor?.avatar ?? '')),
+              },
+            ],
+          ),
         )
       ],
     );

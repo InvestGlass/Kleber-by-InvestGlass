@@ -1,22 +1,20 @@
 import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:intl/intl.dart';
 import 'package:kleber_bank/documents/document_model.dart';
 import 'package:kleber_bank/documents/documents_controller.dart';
 import 'package:kleber_bank/documents/upload_document.dart';
-import 'package:kleber_bank/utils/api_calls.dart';
 import 'package:kleber_bank/utils/app_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+
 import '../main.dart';
 import '../proposals/view_document.dart';
-import '../utils/app_colors.dart';
 import '../utils/app_styles.dart';
 import '../utils/common_functions.dart';
 import '../utils/end_points.dart';
@@ -198,8 +196,7 @@ class _Documents2State extends State<Documents2> {
                   CommonFunctions.navigate(
                       context,
                       ViewDocument(
-                        showSignButton: item.requestProposalApproval != null &&
-                            item.requestProposalApproval!,
+                        showSignButton: showsignbtn(item),
                         item: item,
                         index: index,
                       ));
@@ -384,9 +381,7 @@ class _Documents2State extends State<Documents2> {
                     CommonFunctions.navigate(
                         context,
                         ViewDocument(
-                          showSignButton:
-                              item.requestProposalApproval != null &&
-                                  item.requestProposalApproval!,
+                          showSignButton:showsignbtn(item),
                           item: item,
                           index: index,
                         ));
@@ -436,7 +431,6 @@ class _Documents2State extends State<Documents2> {
                             height: rSize * 0.005,
                           ),
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 (item.documentType != null
@@ -445,6 +439,7 @@ class _Documents2State extends State<Documents2> {
                                     item.folderName!,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
+                                textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -1070,8 +1065,7 @@ class _Documents2State extends State<Documents2> {
           CommonFunctions.navigate(
               context,
               ViewDocument(
-                showSignButton: item.requestProposalApproval != null &&
-                    item.requestProposalApproval!,
+                showSignButton: showsignbtn(item),
                 item: item,
                 index: index,
               ));
@@ -1089,9 +1083,8 @@ class _Documents2State extends State<Documents2> {
               ), () {
             downloadDoc(item);
           }),
-        if (index == 4 &&
-            item.requestProposalApproval! &&
-            item.documentStatus == null)
+        if (
+            (showsignbtn(item)))
           popupMenuItem(
               3,
               FFLocalizations.of(context).getText(
@@ -1124,6 +1117,8 @@ class _Documents2State extends State<Documents2> {
       ),
     );
   }
+
+  bool showsignbtn(Document item) => item.eSignatureHistory!=null && item.eSignatureHistory=='Pending';
 
   void updateStatus(
       Document item, BuildContext context, String status, int index) {

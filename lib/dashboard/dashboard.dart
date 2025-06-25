@@ -498,12 +498,7 @@ class _DashboardState extends State<Dashboard> {
                               Navigator.pop(context);
                               CommonFunctions.navigate(context,  ChatHistory((ProposalModel(
                               advisor: Advisor(
-                              name: SharedPrefUtils.instance
-                                  .getUserData()
-                                  .user!
-                                  .advisor!
-                                  .name
-                                  .toString(),
+                              name: SharedPrefUtils.instance.getUserData()?.user?.advisor?.name?.toString()??'',
                               phoneOffice: '+41763358815')))));
                             }, padding: EdgeInsets.all(rSize * 0.015), color: FlutterFlowTheme.of(context).customColor4),
                             FFLocalizations.of(context).getText(

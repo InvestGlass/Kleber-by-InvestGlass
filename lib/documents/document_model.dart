@@ -40,6 +40,7 @@ class Document {
   int? clientId;
   bool? shareOnClientPortal;
   bool? requestProposalApproval;
+  String? eSignatureHistory;
   int? creatorId;
   int? lastModifierId;
   bool? notifyByEmail;
@@ -80,6 +81,7 @@ class Document {
     this.approvedAt,
     this.disapproverId,
     this.requestProposalApproval,
+    this.eSignatureHistory,
     this.disapprovedAt,
   });
 
@@ -100,6 +102,7 @@ class Document {
     freezed: json["freezed"]??false,
     shareOnClientPortal: json["share_on_client_portal"],
     requestProposalApproval: json["request_proposal_approval"]??true,
+    eSignatureHistory: json["esignature_history"],
     creatorId: json["creator_id"],
     lastModifierId: json["last_modifier_id"],
     notifyByEmail: json["notify_by_email"],
@@ -132,6 +135,7 @@ class Document {
     "document_status": documentStatus,
     "url": url,
     "request_proposal_approval": requestProposalApproval,
+    "esignature_history": eSignatureHistory,
     "is_read": isRead,
     "document_type": documentType,
     "approver_id": approverId,
