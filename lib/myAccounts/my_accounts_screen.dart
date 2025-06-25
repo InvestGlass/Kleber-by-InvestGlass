@@ -40,7 +40,7 @@ class _MyAccountsScreenState extends State<MyAccountsScreen> {
             cvvCode: cvvCode,
             showBackView: isCvvFocused,
             cardBgColor: Colors.blueAccent,
-            bankName: 'Arab Bank',
+            bankName: 'InvestGlass',
             onCreditCardWidgetChange: (creditCardBrand) {},
           ),
           Container(
