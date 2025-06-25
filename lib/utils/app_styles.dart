@@ -208,10 +208,7 @@ class AppStyles {
                   ),
                 ],
               ),
-              // child: Image.asset('assets/icon_bg.png',
-              //   height: rSize * 0.055,
-              //   width:  rSize * 0.055,
-              // ),
+
             ),
             Positioned(
               right: 0,
