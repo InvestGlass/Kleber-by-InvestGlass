@@ -43,11 +43,9 @@ Integrated Investment Management: Keep tabs on your diverse portfolio, covering 
 
 🤓 Guided Onboarding: Advanced onboarding to effortlessly guide new users.
 
-Kleber App and InvestGlass empower everyone—from seasoned financial bloggers like Mr. Rip to individuals new to personal finance—with a powerful yet simple tool to manage financial health effectively.
+## Contributing
 
-
- Contributing
-If you want to help with this project you are more than welcome! Sossoldi is completely free and open source, the best place to start is from the issue tab and look for something that seems interesting to you. If you are unsure on where to start feel free to reach out to us on Discord, we will be more than happy to help you find what's best for you!
+If you want to help with this project you are more than welcome! InvestGlass is completely free and open source, the best place to start is from the issue tab and look for something that seems interesting to you. If you are unsure on where to start feel free to reach out to us on Discord, we will be more than happy to help you find what's best for you!
 
 ## Also, you can refer to internal docs:
 
