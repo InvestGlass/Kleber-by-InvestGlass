@@ -4,13 +4,32 @@ Kleber is a free and open source wealth management / personal finance / Net Wort
 
 ## Getting Started
 
-Kleber App and InvestGlass: Simplifying Personal Finance and Investment Management
+Kleber App and InvestGlass: the best tool to build you own Private Bank, Multi Family Office, Private Equity Portal, Retail Bank or Broker Portal!
 
 InvestGlass is a Swiss-based, all-in-one CRM and automation platform designed to streamline operations for financial institutions, wealth managers, and other regulated industries. Founded in 2014 and headquartered in Geneva, it emphasizes data sovereignty by hosting all data exclusively in Switzerland, ensuring compliance with stringent Swiss data protection laws.
 
-## What Problem Are We Solving & Why?
+InvestGlass has released an open-source Flutter application, known as the Kleber App, to empower financial institutions—such as private banks, retail banks, and brokers—to develop secure, customizable, and efficient digital banking solutions. This initiative is driven by several strategic objectives: 
 
-Managing your finances efficiently often means juggling complex spreadsheets, manually updating bank balances, tracking investments, and trying to make sense of scattered financial data. Financial proferssional, wealth managers, and financial enthusiastsrely heavily on cumbersome spreadsheets to track net worth and financial health. However, this approach is error-prone, time-consuming, and inaccessible for users less proficient with spreadsheet tools like Excel or Google Sheets.
+## 1. Accelerating Digital Transformation in Finance
+The Kleber App serves as a white-labeled mobile solution that integrates seamlessly with InvestGlass’s CRM and onboarding systems. It facilitates client onboarding, e-signatures, document management, and secure communication within a fully branded mobile interface. By offering this as an open-source project, InvestGlass enables financial institutions to rapidly deploy and tailor digital experiences to their specific needs, thereby accelerating their digital transformation efforts. 
+help.investglass.com
+
+## 2. Leveraging Flutter for Cross-Platform Efficiency
+Flutter, developed by Google, is a cross-platform framework that allows for the development of applications on iOS, Android, and web platforms from a single codebase. This approach reduces development time and costs while ensuring a consistent user experience across devices. InvestGlass's choice of Flutter aligns with industry trends, as many financial institutions adopt Flutter to unify their app development efforts and deliver omnichannel excellence. 
+pragma.co
+
+## 3. Promoting Customization and Innovation
+By open-sourcing the Kleber App, InvestGlass invites developers and financial institutions to customize and enhance the application to meet their unique requirements. This openness fosters innovation, allowing institutions to build upon a solid foundation and adapt the app to evolving market demands and regulatory environments. The app's modular architecture and use of widely adopted Flutter plugins facilitate this customization process. 
+
+## 4. Enhancing Client Engagement and Operational Efficiency
+The Kleber App is designed to improve client engagement through features like secure messaging, personalized dashboards, and streamlined onboarding processes. For instance, Crédit Agricole Next Bank utilized InvestGlass's platform to revolutionize its lead management and CRM systems, resulting in enhanced customer experiences and operational efficiencies. 
+investglass.com
+ 
+## 5. Aligning with Open Banking and Compliance Standards
+InvestGlass's open-source approach aligns with the principles of open banking, promoting interoperability and flexibility. The Kleber App supports integration with various APIs and complies with security and data protection standards, ensuring that financial institutions can meet regulatory requirements while offering innovative services.
+
+InvestGlass's release of the open-source Kleber App reflects a commitment to facilitating digital innovation in the financial sector. By providing a customizable, cross-platform solution, InvestGlass empowers private banks, retail banks, and brokers to enhance their digital offerings, improve client experiences, and achieve greater operational efficiency.
+
 
 ## Our Solution:
 
@@ -18,14 +37,11 @@ Kleber App and InvestGlass offer an intuitive, user-friendly platform designed t
 
 ## Why Choose Kleber App and InvestGlass?
 
-Effortless Net Worth Tracking: Easily monitor your net worth without complex formulas or manual updates.
-Comprehensive Expense Tracking: Clearly understand your spending patterns by categorizing and analyzing expenses, including recurring payments.
+Effortless Net Worth Tracking: Easily monitor your net worth without complex formulas or manual updates. 
 Integrated Investment Management: Keep tabs on your diverse portfolio, covering stocks, bonds, cryptocurrencies, and private equity.
 
 
 ## Planned Key Features:
-
-💸 Expense Management: Track single and recurring expenses seamlessly.
 
 🏦 Bank Account Integration: Sync and monitor multiple bank accounts effortlessly.
 
@@ -45,27 +61,9 @@ Integrated Investment Management: Keep tabs on your diverse portfolio, covering 
 
 ## Contributing
 
-If you want to help with this project you are more than welcome! InvestGlass is completely free and open source, the best place to start is from the issue tab and look for something that seems interesting to you. If you are unsure on where to start feel free to reach out to us on Discord, we will be more than happy to help you find what's best for you!
+If you want to help with this project you are more than welcome! Kleber App - is completely free and open source, the best place to start is from the issue tab and look for something that seems interesting to you. If you are unsure on where to start feel free to reach out to us on our website www.investglass.com, we will be more than happy to help you find what's best for you!
 
 ## Also, you can refer to internal docs:
 
-Setup Guide
-PR Guide
-
-## Useful links to get started
-Github Repo
-Discord
-Design file
-UX Research
-
-## Information architecture
-
-Interface study
-New to Flutter? Here are some good (and free!) resources:
-FreeCodeCampCourses
-Flutter Documentation
-Flutter for beginners
-Flutter course in french
-Flutter course in german
-Flutter course in arabic
-Flutter course in italian
+[Setup Guide]([url](https://help.investglass.com/docs/1-introduction-to-kleber-app))
+[PR Guide]([url](https://help.investglass.com/docs/1-introduction-to-kleber-app))
