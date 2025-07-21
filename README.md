@@ -1,3 +1,5 @@
+![Screenshot of InvestGlass Kleber APP](https://www.investglass.com/wp-content/uploads/2025/07/Small-InvestGlass-Kleber-Opensource.png)
+
 # Kleber, A Flutter App By InvestGlass
 
 Kleber is a free and open source wealth management / personal finance / Net Worth tracking app, made with Flutter.
@@ -65,5 +67,4 @@ If you want to help with this project you are more than welcome! Kleber App - is
 
 ## Also, you can refer to internal docs:
 
-[Setup Guide]([url](https://help.investglass.com/docs/1-introduction-to-kleber-app))
-[PR Guide]([url](https://help.investglass.com/docs/1-introduction-to-kleber-app))
+[Setup Guide](https://help.investglass.com/docs/1-introduction-to-kleber-app)
